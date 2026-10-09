@@ -1,0 +1,15 @@
+# Backlog inicial
+- [x] Visão geral e GDD preliminar
+- [x] Definir perspectiva mista
+- [x] Especificar sete telas mobile-first
+- [x] Propor cores e três ambientes
+- [x] Criar primeiro diagrama no FigJam
+- [x] Publicar prévia básica no Vercel
+- [ ] Integrar GitHub ao Vercel
+- [ ] Montar mapa modular 2.5D interativo
+- [ ] Criar componentes visuais do mapa e salas
+- [ ] Padronizar JSON de casos e personagens
+- [ ] Implementar estado e salvamento local
+- [ ] Instrumentar testes de navegação e acessibilidade
+- [ ] Revisão técnico-científica NR-1
+- [ ] Testes com liderança, RH/SST e trabalhadores
