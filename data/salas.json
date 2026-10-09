@@ -1,0 +1,39 @@
+{
+  "version": "0.5",
+  "rooms": [
+    {
+      "id": "central",
+      "label": "Central de Riscos",
+      "render": "svg-inline",
+      "objects": [
+        {
+          "id": "indicadores",
+          "type": "display",
+          "interactive": true
+        },
+        {
+          "id": "analista",
+          "type": "desk",
+          "interactive": true
+        },
+        {
+          "id": "registro",
+          "type": "desk",
+          "interactive": true
+        }
+      ]
+    },
+    {
+      "id": "escuta",
+      "label": "Escuta e Investigação"
+    },
+    {
+      "id": "plano",
+      "label": "Planejamento de Ações"
+    },
+    {
+      "id": "operacao",
+      "label": "Operação Logística"
+    }
+  ]
+}
