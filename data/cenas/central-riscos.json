@@ -1,0 +1,50 @@
+{
+  "version": "0.7",
+  "scene": "central",
+  "coordinateSystem": "normalized-percent-prototype",
+  "layers": [
+    {
+      "id": "floor",
+      "z": 0,
+      "interactive": false
+    },
+    {
+      "id": "walls",
+      "z": 1,
+      "interactive": false
+    },
+    {
+      "id": "furniture",
+      "z": 2,
+      "interactive": false
+    },
+    {
+      "id": "characters",
+      "z": 3,
+      "interactive": false
+    },
+    {
+      "id": "hotspots",
+      "z": 4,
+      "interactive": true
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "indicadores",
+      "x": 67,
+      "y": 22
+    },
+    {
+      "id": "analista",
+      "x": 25,
+      "y": 54
+    },
+    {
+      "id": "registro",
+      "x": 72,
+      "y": 70
+    }
+  ],
+  "notes": "Visual placeholder: geometry in CSS. Coordinates relative to scene, not world-space."
+}
