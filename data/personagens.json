@@ -1,0 +1,43 @@
+{
+  "version": "0.8",
+  "visualStyle": "stylized modular 3D, isometric 2.5D",
+  "characters": [
+    {
+      "id": "psicologo",
+      "role": "psychologist",
+      "scope": [
+        "psychological care",
+        "support",
+        "education"
+      ],
+      "confidentiality": "clinical-private"
+    },
+    {
+      "id": "psiquiatra",
+      "role": "psychiatrist",
+      "scope": [
+        "medical evaluation",
+        "clinical treatment",
+        "care coordination"
+      ],
+      "confidentiality": "clinical-private"
+    },
+    {
+      "id": "operador",
+      "role": "worker"
+    },
+    {
+      "id": "supervisora",
+      "role": "leader"
+    },
+    {
+      "id": "rh",
+      "role": "people"
+    },
+    {
+      "id": "sst",
+      "role": "occupational-safety"
+    }
+  ],
+  "mechanic": "Support pathway is separate from organizational risk management. No clinical player diagnoses."
+}
