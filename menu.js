@@ -14,7 +14,7 @@ const GLB_URLS = {
 };
 const NAV_LABELS = {inicio:'Início',casos:'Casos',equipe:'Equipe',biblioteca:'Biblioteca',configuracoes:'Configurações',sobre:'Sobre'};
 const PATHS = {
- play:'/game.html',
+ play:'/caso017.html',
  lab:'/viewer3d.html',
  github:'https://github.com/andreheck/PilhaGameNR1',
  drive:'https://drive.google.com/drive/folders/1B-mPPAQ1aPbBmAi-e8H21aFxKETnVX19'
@@ -63,9 +63,11 @@ function sound(){
 }
 function navLink(v,label,extra=''){return '<a href="'+(v==='inicio'?'/':'/?view='+v)+'" data-view="'+v+'"'+(extra?' class="'+extra+'"':'')+'>'+label+'</a>'}
 function progressStats(){
-  const p=getProgress(),found=Array.isArray(p?.evidence)?Math.min(4,p.evidence.length):0;
-  const decision=(p?.decision!==undefined&&p.decision!==null);
-  return {p,found,decision,percent:Math.round(found/4*100),started:!!p};
+  let p=null;try{p=JSON.parse(getStore('pilha-case017-v1')||'null')}catch(e){}
+  const started=!!p;
+  const found=Array.isArray(p?.evidence)?Math.min(4,p.evidence.length):0;
+  const stage=Number.isFinite(Number(p?.step))?Math.max(0,Math.min(4,Number(p.step))):0;
+  return {p,found,stage,decision:stage===4,percent:Math.round(found*25),started};
 }
 function withIcon(name,title,text,cta,href,color=''){
  return '<article class="feature-card" style="--card-accent:'+({orange:'#f49d4d',blue:'#7bacc2',green:'#84b6a3'}[color]||'#84b6a3')+'">'+
@@ -74,38 +76,76 @@ function withIcon(name,title,text,cta,href,color=''){
  '<a class="text-link" href="'+href+'">Acessar '+icon('arrow')+'</a></div></article>';
 }
 function home(){
-  const p=progressStats();const name=escapeHtml(prefs.nickname.trim()||'Jogador');
-  const scene=document.getElementById('scene-template')?.innerHTML||'';
-  const continueBtn=p.started?'<a href="'+PATHS.play+'" class="btn btn-outline">'+icon('arrow')+' Continuar jornada</a>':
-  '<a href="/?view=casos" data-view="casos" class="btn btn-outline">'+icon('compass')+' Explorar casos</a>';
-  return '<div class="page">'+
-  '<section class="hero"><div class="hero-copy"><span class="eyebrow">ALPHA v0.9 · CAPÍTULO 01 JOGÁVEL</span>'+
-  '<h1>Um ambiente.<br>Muitas perspectivas.<br><em>Suas decisões.</em></h1>'+
-  '<p>Explore organizações, converse com personagens, investigue fatores psicossociais do trabalho e experimente medidas preventivas em uma simulação educativa.</p>'+
-  '<div class="hero-actions"><button class="btn btn-primary" data-action="new-game">'+icon('play')+' Iniciar Caso 017</button>'+continueBtn+'</div>'+
-  '<div class="hero-meta"><span><i class="dot"></i> Experiência web e mobile</span><span>3 perspectivas · 1 caso disponível</span></div></div>'+
-  '<div class="hero-art">'+scene+'<span class="art-caption">Cenário conceitual · arte em desenvolvimento</span></div></section>'+
-  '<section class="section-heading"><div><h2>Bem-vindo, '+name+'.</h2><p>Escolha por onde continuar a experiência.</p></div>'+navLink('sobre','Conheça o projeto '+icon('arrow'),'text-link')+'</section>'+
-  '<div class="feature-grid">'+
-  withIcon('briefcase','Missões e casos','Investigue situações reais de trabalho em cenários fictícios. O Caso 017 já pode ser jogado.','<span class="status-label">1 caso ativo</span>','/?view=casos','orange')+
-  withIcon('users','Equipe e personagens','Conheça os papéis de RH/SST, lideranças, trabalhadores e profissionais de apoio.','<span class="status-label">3 modelos 3D</span>','/?view=equipe','green')+
-  withIcon('monitor','Laboratório 3D','Gire os personagens, teste animações e acompanhe a evolução dos primeiros modelos.','<span class="status-label">Disponível</span>','/viewer3d.html','blue')+'</div>'+
-  '<div class="highlight-panel"><article class="case-panel"><span class="eyebrow dark">CASO EM DESTAQUE</span><h3>017 · A sobrecarga invisível</h3>'+
-  '<p>Uma equipe logística cresce em volume de trabalho enquanto suas condições e recursos deixam de acompanhar as exigências.</p>'+
-  '<div class="case-tags"><span class="warn">Carga e jornada</span><span>Conflitos</span><span>Escuta e participação</span></div>'+
-  '<div class="action-row" style="justify-content:space-between"><div><strong>'+p.found+' de 4 evidências</strong><div class="mini-progress" style="width:175px;--percent:'+p.percent+'%"><i></i></div>'+
-  '<span style="font-size:12px;color:var(--muted)">'+(p.decision?'Intervenção registrada':p.started?'Investigação em andamento':'Progresso ainda não iniciado')+'</span></div>'+
-  '<a class="btn btn-quiet small" href="'+PATHS.play+'">'+(p.started?'Continuar caso':'Conhecer o caso')+' '+icon('arrow')+'</a></div></article>'+
-  '<article class="dev-panel"><span class="eyebrow dark">EM CONSTRUÇÃO</span><h3 style="margin:8px 0;font-size:19px">Evolução do jogo</h3>'+
-  '<div class="dev-stages"><div class="dev-item"><span>Investigação e decisões</span><span>FUNCIONAL</span></div><div class="dev-item"><span>Laboratório de personagens</span><span>DISPONÍVEL</span></div><div class="dev-item"><span>Cenários isométricos definitivos</span><span class="pending">EM PRODUÇÃO</span></div><div class="dev-item"><span>Economia e progressão</span><span class="pending">PLANEJADO</span></div></div>'+
-  '<div class="divider"></div>'+navLink('biblioteca','Explorar biblioteca educativa '+icon('arrow'),'text-link')+'</article></div></div>';
+  const p=progressStats();
+  const currentStage=Number.isFinite(p.stage)?p.stage:0;
+  const name=escapeHtml(prefs.nickname.trim()||'Jogador');
+  const r=[
+    ['Carga de trabalho',78,'#e86550'],['Jornada e descanso',75,'#ec8050'],
+    ['Conflitos',67,'#e76c50'],['Apoio da liderança',55,'#f1a237'],
+    ['Autonomia',48,'#eeaa39'],['Reconhecimento',39,'#eeba48']
+  ];
+  const people=[
+    ['operadora','Operadora','Operação'],['psicologa','Psicóloga','Acolhimento'],
+    ['psiquiatra','Psiquiatra','Apoio médico'],['colaborador','Colaborador','Vivências']
+  ];
+  const stages=[
+    ['01','Investigar','Reunir evidências e ouvir a equipe'],
+    ['02','Analisar','Compreender o trabalho real'],
+    ['03','Plano de ação','Definir medidas preventivas'],
+    ['04','Acompanhar','Verificar implantação e efeitos'],
+    ['05','Evoluir','Encerrar e aprender']
+  ];
+  const rail=[
+    ['inicio','house','Visão geral'],['casos','briefcase','Casos'],
+    ['equipe','users','Equipe'],['biblioteca','book','Recursos'],
+    ['configuracoes','settings','Configurações']
+  ];
+  const stageText=['Investigação','Análise','Plano de ação','Acompanhamento','Encerramento'];
+  return '<div class="v10-hub">'+
+    '<nav class="v10-rail" aria-label="Central de gestão"><div class="v10-rail-title">MENU DO JOGO</div>'+
+      rail.map(([id,ic,label])=>'<a '+(id==='inicio'?'class="active" aria-current="page"':'')+' href="'+(id==='inicio'?'/':'/?view='+id)+'" data-view="'+id+'">'+icon(ic)+label+'</a>').join('')+
+      '<a href="/viewer3d.html">'+icon('monitor')+'Laboratório 3D</a>'+
+      '<div class="v10-rail-caption">PilhA+ Game · Alpha 1.0<br>Simulação educativa sobre riscos psicossociais no trabalho</div>'+
+    '</nav>'+
+    '<div class="v10-content">'+
+      '<header class="v10-heading"><div><div class="v10-kicker">SIMULAÇÃO ORGANIZACIONAL · ALPHA 1.0</div><h1>Central de gestão <span>PilhA+</span></h1><p>Bem-vindo, '+name+'. Explore, investigue e faça escolhas com base em evidências.</p></div>'+
+      '<a class="v10-top-action" href="/caso017.html">'+icon('play')+(p.started?'Retomar Caso 017':'Começar Caso 017')+'</a></header>'+
+      '<div class="v10-stage-row">'+
+        '<section class="v10-stage" aria-label="Galpão logístico do Caso 017">'+
+          '<img src="/assets/v10/galpao-dashboard.webp" alt="Cenário ilustrado em perspectiva isométrica de galpão, com áreas de armazenagem, movimentação de cargas e expedição" decoding="async" fetchpriority="high">'+
+          '<div class="v10-stage-top"><div><span class="eyebrow">AMBIENTE EM DESTAQUE</span><h2>Galpão Logístico</h2></div><span class="v10-scene-pill">CASO 017 · RISCO ALTO</span></div>'+
+          '<div class="v10-places"><a class="v10-pin storage" href="/caso017.html" title="Investigar armazenagem"><i></i>Armazenagem</a>'+
+            '<a class="v10-pin operation" href="/caso017.html" title="Investigar operação"><i></i>Operação</a>'+
+            '<a class="v10-pin dock" href="/caso017.html" title="Investigar expedição"><i></i>Expedição</a></div>'+
+          '<div class="v10-stage-bottom"><div><strong>Onde surgem os fatores de risco?</strong><span>Conheça o ambiente, converse com a equipe e avalie a organização da jornada.</span></div><a class="v10-stage-button" href="/caso017.html">Explorar caso →</a></div>'+
+        '</section>'+
+        '<aside class="v10-side">'+
+          '<section class="v10-risk"><h2>Mapa de riscos · exemplo</h2><div class="v10-risk-list">'+
+            r.map(([label,score,color])=>'<div class="v10-risk-row"><b>'+label+'</b><span class="v10-bar" aria-label="'+score+' de 100"><i style="width:'+score+'%;--bar:'+color+'"></i></span><span class="num">'+score+'</span></div>').join('')+
+            '</div><p class="v10-risk-note">Escalas ilustrativas (0–100), não diagnósticas. Não representam medições realizadas.</p></section>'+
+          '<section class="v10-team-mini"><h3>Personagens <a href="/?view=equipe" data-view="equipe">Conheça a equipe →</a></h3><div class="v10-face-row">'+
+            people.map(([id,label,role])=>'<a href="/?view=equipe" data-view="equipe" title="'+label+' — '+role+'"><img src="/assets/v10/'+id+'-portrait.webp" alt="" loading="lazy"><span>'+label+'</span></a>').join('')+'</div></section>'+
+        '</aside></div>'+
+        '<div class="v10-loop" aria-label="Etapas da experiência">'+
+          stages.map(([number,title,detail])=>'<a href="/caso017.html" title="'+title+' — '+detail+'"><i>'+number+'</i><div><b>'+title+'</b><span>'+detail+'</span></div></a>').join('')+
+        '</div>'+
+        '<div class="v10-bottom">'+
+          '<section class="v10-case"><div class="v10-case-head"><h3>Caso 017 · Sobrecarga no galpão</h3><em>RISCO ALTO</em></div><p>O crescimento operacional foi acompanhado por horas extras, conflitos entre turnos e dificuldade para realizar pausas. Sua missão é investigar antes de decidir.</p>'+
+            '<div class="v10-case-status"><span>Setor: logística</span><span>28 trabalhadores (fictício)</span><span>'+ (p.started?'Etapa: '+(stageText[currentStage]||'Investigação'):'Caso não iniciado')+'</span></div>'+
+            '<div class="v10-case-actions"><a href="/caso017.html">'+(p.started?'Continuar jornada':'Iniciar investigação')+' →</a><a class="secondary" href="/caso017.html">Exploração 2.5D experimental</a></div>'+
+          '</section>'+
+          '<section class="v10-insights"><h3>Como o caso se desenvolve? <span class="v10-newflag">Jornada completa</span></h3>'+
+            '<div class="v10-evidence-items"><span><b>01</b> Escute trabalhadores e liderança</span><span><b>02</b> Analise metas e jornada</span><span><b>03</b> Planeje medidas organizacionais</span><span><b>04</b> Defina acompanhamento e conclua</span></div>'+
+            '<p>Você pode continuar depois: a jornada é salva neste navegador. O resultado educativo não equivale à comprovação de eficácia real.</p></section>'+
+        '</div>'+
+    '</div></div>';
 }
 function intro(kicker,title,text){return '<div class="page-intro"><span class="eyebrow dark">'+kicker+'</span><h1>'+title+'</h1><p>'+text+'</p></div>'}
 function cases(){
  const p=progressStats();
  return '<div class="page"><section class="page-panel">'+intro('CAPÍTULOS E MISSÕES','Casos para investigar','Cada caso apresenta um contexto organizacional, diferentes perspectivas, evidências e decisões. Nesta etapa, apenas o primeiro capítulo está jogável.')+
  '<div class="collection-grid">'+
- '<article class="item-card"><span class="tag">Caso 017 · Jogável</span><h2>A sobrecarga invisível</h2><p>Metas, horas extras e tensões na operação logística. Ouça a equipe, reúna evidências e escolha uma intervenção.</p><div class="case-tags"><span>4 fontes</span><span>3 intervenções</span></div><div class="foot"><span class="status-label">'+(p.started?(p.decision?'Decisão registrada':p.found+'/4 evidências'):'Novo')+'</span><a class="btn btn-primary small" href="/game.html">'+icon('play')+' '+(p.started?'Continuar':'Jogar')+'</a></div></article>'+
+ '<article class="item-card"><span class="tag">Caso 017 · Jogável</span><h2>A sobrecarga invisível</h2><p>Metas, horas extras e tensões na operação logística. Ouça a equipe, reúna evidências e escolha uma intervenção.</p><div class="case-tags"><span>4 fontes</span><span>3 intervenções</span></div><div class="foot"><span class="status-label">'+(p.started?(p.decision?'Decisão registrada':p.found+'/4 evidências'):'Novo')+'</span><a class="btn btn-primary small" href="/caso017.html">'+icon('play')+' '+(p.started?'Continuar':'Jogar')+'</a></div></article>'+
  '<article class="item-card"><span class="tag">Caso 018 · Em planejamento</span><h2>O silêncio da equipe</h2><p>Um ambiente onde críticas e dúvidas deixaram de circular. Uma futura missão sobre segurança psicológica, participação e comunicação.</p><div class="foot"><span class="status-label planned">Em desenvolvimento</span><button class="btn small" disabled>Em breve</button></div></article>'+
  '<article class="item-card"><span class="tag">Caso 019 · Em planejamento</span><h2>Metas a qualquer custo</h2><p>Cobrança excessiva, ambiguidade de papéis e falta de recursos. Uma futura missão sobre organização do trabalho.</p><div class="foot"><span class="status-label planned">Em desenvolvimento</span><button class="btn small" disabled>Em breve</button></div></article></div>'+
  '<div class="notice">Os indicadores e personagens são fictícios. As missões ensinam a reconhecer fatores relacionados ao trabalho, não a diagnosticar pessoas nem certificar conformidade com a NR-1.</div></section></div>';
@@ -118,21 +158,24 @@ function avatar(color,skin,hair){
  '<circle cx="41" cy="36" r="2.6" fill="#1c2939"/><circle cx="59" cy="36" r="2.6" fill="#1c2939"/><path d="M45 47q6 5 12 0" fill="none" stroke="#663c34" stroke-width="2" stroke-linecap="round"/></svg></div>';
 }
 function team(){
-const curls='M22 31Q14 22 22 13Q19 2 32 4Q36-5 48 4Q60-3 66 7Q78 6 77 20Q83 31 76 37L71 25Q60 12 46 15Q27 10 22 31Z';
-const short='M22 29Q23 8 45 4Q72 0 78 26Q65 11 53 13Q35 9 22 29Z';
-const cast=[
-{id:'operadora',name:'Operadora logística',role:'Trabalhadora da operação',desc:'Relatos sobre jornada, pausas e atividade real.',color:'#f29b48',skin:'#985f49',hair:curls,ready:true},
-{id:'psicologa',name:'Psicóloga',role:'Apoio psicológico',desc:'Acolhimento, avaliação e cuidado psicológico, com privacidade.',color:'#d9a13e',skin:'#a96c52',hair:curls,ready:true},
-{id:'psiquiatra',name:'Psiquiatra',role:'Especialidade médica',desc:'Avaliação e tratamento médico especializado quando indicados.',color:'#d7ab56',skin:'#9b664b',hair:short,ready:true},
-{id:'supervisora',name:'Supervisora',role:'Liderança operacional',desc:'Organização das escalas, metas e recursos da equipe.',color:'#5f819e',skin:'#b47653',hair:short,ready:false},
-{id:'sst',name:'Profissional SST',role:'Prevenção e segurança',desc:'Investigação e acompanhamento dos fatores ligados ao trabalho.',color:'#72a599',skin:'#8a5e48',hair:curls,ready:false},
-{id:'rh',name:'Analista RH',role:'Gestão de pessoas',desc:'Escuta organizacional, suporte aos gestores e participação.',color:'#8f9fbe',skin:'#b18a60',hair:short,ready:false},
-{id:'colab',name:'Colaborador personalizável',role:'Avatar do jogador',desc:'Modelo neutro para representar diferentes trajetórias e funções.',color:'#4a586a',skin:'#99674f',hair:curls,ready:false},
-{id:'gestor',name:'Gestor de área',role:'Tomada de decisões',desc:'Alocação de recursos, prioridades e medidas preventivas.',color:'#56758b',skin:'#a16c50',hair:short,ready:false},
-{id:'facilitador',name:'Facilitador de escuta',role:'Apoio organizacional',desc:'Acolhimento inicial, informação e encaminhamento adequado.',color:'#8ca894',skin:'#9c704d',hair:curls,ready:false}
-];
-return '<div class="page"><section class="page-panel">'+intro('PESSOAS E PERSPECTIVAS','Conheça a equipe','Diferentes personagens ajudam a compreender o trabalho por várias perspectivas. Os três primeiros já têm modelos 3D no laboratório.')+
-'<div class="collection-grid">'+cast.map(o=>'<article class="item-card">'+avatar(o.color,o.skin,o.hair)+'<span class="tag">'+escapeHtml(o.role)+'</span><h2>'+escapeHtml(o.name)+'</h2><p>'+escapeHtml(o.desc)+'</p><div class="foot"><span class="status-label '+(o.ready?'':'planned')+'">'+(o.ready?'3D disponível':'Arte em produção')+'</span>'+(o.ready?'<a class="btn small" href="/viewer3d.html?personagem='+o.id+'">Testar '+icon('arrow')+'</a>':'<span class="small" style="color:var(--muted)">Modelo futuro</span>')+'</div></article>').join('')+'</div><div class="notice">Os avatares acima são ícones ilustrativos da interface, não capturas dos modelos finais do Meshy. Os GLBs originais continuam privados no Drive.</div></section></div>';
+  const cast=[
+    {id:'operadora',n:'Operadora logística',type:'Operação e segurança',desc:'Vivencia as condições do galpão: jornada, pausas, exigências de produtividade e segurança. Sua perspectiva é essencial para compreender o trabalho real.',model:'operadora',idx:'01'},
+    {id:'psicologa',n:'Psicóloga',type:'Atenção psicossocial',desc:'Contribui com acolhimento, escuta qualificada e apoio psicológico. Atua de forma complementar às medidas organizacionais, respeitando sigilo e autonomia.',model:'psicologa',idx:'02'},
+    {id:'psiquiatra',n:'Psiquiatra',type:'Cuidado médico especializado',desc:'Realiza avaliação médica e tratamentos quando indicados. Sua atuação clínica é complementar e não substitui a prevenção dos riscos no trabalho.',model:'psiquiatra',idx:'03'},
+    {id:'colaborador',n:'Colaborador personalizável',type:'Vivências do trabalhador',desc:'Avatar-base do jogador. Representa diferentes experiências, funções e trajetórias diante das condições e relações de trabalho.',model:null,idx:'04'}
+  ];
+  return '<div class="v10-team-page">'+
+    '<header class="v10-team-hero"><div><span class="eyebrow">PERSONAGENS · PILHA+ GAME</span><h1>Conheça a equipe</h1><p>Quatro personagens compõem nossa primeira família visual. Cada papel permite observar o mesmo ambiente sob uma perspectiva diferente e compreender as respostas complementares à prevenção e ao cuidado.</p></div><a href="/caso017.html">Explorar Caso 017 →</a></header>'+
+    '<div class="v10-roster">'+cast.map(o=>
+      '<article class="v10-person-card"><div class="v10-person-art"><span class="v10-index">'+o.idx+'</span><img src="/assets/v10/'+o.id+'-portrait.webp" alt="Ilustração 3D de '+o.n+'" loading="'+(o.idx==='01'?'eager':'lazy')+'"></div>'+
+      '<div class="v10-person-content"><span class="type">'+o.type+'</span><h2>'+o.n+'</h2><p>'+o.desc+'</p><div class="footer-row">'+
+      (o.model?'<a href="/viewer3d.html?personagem='+o.model+'">Testar animações 3D →</a>':'<a href="/caso017.html">Conhecer o caso →</a>')+
+      '<span>'+(o.model?'Modelo animado disponível':'Modelo 3D em preparação')+'</span></div></div></article>'
+    ).join('')+'</div>'+
+    '<div class="v10-team-follow"><article><h3>Elenco em expansão</h3><p>Nas próximas etapas incorporaremos outras perspectivas ao ambiente simulado: supervisão da operação, RH, SST, gestores e facilitadores de escuta. Os papéis serão desenvolvidos conforme os casos e as mecânicas do jogo.</p></article>'+
+    '<article><h3>Direção de arte</h3><p>Modelagem estilizada, proporções compactas, uniforme ou traje reconhecível e leitura clara em câmera isométrica.</p><ul><li>Retratos aprovados para a interface</li><li>Três modelos animados no laboratório</li><li>Personagens e narrativas fictícios</li></ul></article></div>'+
+    '<div class="notice">Os retratos são artes conceituais derivadas de referências do projeto. Os modelos GLB permanecem armazenados separadamente e não são enviados automaticamente ao navegador. O jogo não expõe informações clínicas individuais a gestores.</div>'+
+  '</div>';
 }
 function library(){
 return '<div class="page"><section class="page-panel">'+intro('APRENDIZAGEM E CONTEXTO','Biblioteca de conhecimento','Conteúdos breves para apoiar as escolhas do jogador. A biblioteca é educativa e não substitui orientação técnica, profissional ou clínica.')+
@@ -193,8 +236,8 @@ function message(s){
  const node=document.getElementById('notification');if(node)node.textContent=s;
 }
 function startNew(){
- if(getProgress()&&!window.confirm('Iniciar um novo jogo? O progresso atual do Caso 017 será substituído.'))return;
- removeStore(STORAGE_PROGRESS);window.location.assign(PATHS.play);
+ if((getProgress()||getStore('pilha-case017-v1'))&&!window.confirm('Iniciar um novo jogo? O progresso atual do Caso 017 será substituído.'))return;
+ removeStore(STORAGE_PROGRESS);removeStore('pilha-case017-v1');window.location.assign(PATHS.play);
 }
 document.addEventListener('click',event=>{
  const link=event.target.closest('a[data-view]');
@@ -205,9 +248,9 @@ document.addEventListener('click',event=>{
  if(!action)return;
  if(action.dataset.action==='new-game'){event.preventDefault();startNew();}
  if(action.dataset.action==='reset-progress'){
-   event.preventDefault();if(!getProgress())return;
+   event.preventDefault();if(!getStore('pilha-case017-v1')&&!getProgress())return;
    if(!window.confirm('Apagar as evidências e decisões do Caso 017 neste navegador?'))return;
-   removeStore(STORAGE_PROGRESS);sound();render();message('Progresso do Caso 017 reiniciado.');
+   removeStore(STORAGE_PROGRESS);removeStore('pilha-case017-v1');sound();render();message('Progresso do Caso 017 reiniciado.');
  }
 });
 document.addEventListener('change',event=>{
