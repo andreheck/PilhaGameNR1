@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PilhA+ | Laboratorio 3D — Operadora Logistica</title>
+<meta name="description" content="Laboratorio de personagens 3D do PilhA+ Game: camera isometrica, rigging e animacoes.">
+<style>
+:root{--navy:#14283c;--ink:#1d3547;--muted:#6b7b86;--orange:#f39b3e;--sage:#7d9f92;--line:#dce5e4;--panel:#fff;--bg:#f1f4f1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+a{color:inherit}.hidden{display:none!important}.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:17px 22px;background:var(--navy);color:white}
+.brand{font-weight:850;letter-spacing:-.6px;font-size:24px}.brand b{color:var(--orange)}.brand small{display:block;font-weight:400;color:#c3d0d7;font-size:12px;letter-spacing:0}
+.back{background:#284458;color:white;text-decoration:none;padding:9px 14px;border-radius:11px;font-size:13px}
+main{max-width:1350px;margin:auto;padding:18px;display:grid;grid-template-columns:minmax(0,1fr) 342px;align-items:start;gap:16px}
+.panel{border:1px solid var(--line);background:var(--panel);border-radius:18px;overflow:hidden;box-shadow:0 5px 24px #263f4c0a}
+.viewer-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:15px 18px}
+h1{font-size:21px;line-height:1.2;margin:0}h2{font-size:16px;margin:0 0 11px}p{margin:6px 0 13px}.muted{color:var(--muted);font-size:13px}.badge{display:inline-flex;align-items:center;padding:5px 9px;border-radius:99px;font-size:11px;font-weight:700;background:#fce6cf;color:#9a570f}
+#stage{position:relative;aspect-ratio:1.28;background:radial-gradient(ellipse at 55% 35%,#f7f9f4 3%,#cddfd8 67%,#b5cfc5 100%);overflow:hidden;touch-action:none;min-height:330px}
+#stage canvas{display:block;width:100%;height:100%}.screen-center{position:absolute;inset:0;display:grid;place-items:center;padding:22px;text-align:center;pointer-events:none}
+.empty-card{max-width:420px;display:grid;gap:10px;justify-items:center;padding:24px;background:#fffffff0;border:1px dashed #aac2b7;border-radius:17px;pointer-events:auto;box-shadow:0 5px 20px #1c47370f}
+.empty-icon{width:59px;height:59px;display:grid;place-items:center;border-radius:16px;background:#e6f2ec;font-size:27px}.empty-card strong{font-size:17px}.empty-card .muted{margin:0}
+.btn{border-radius:11px;border:1px solid #c5d4d0;padding:10px 14px;color:var(--ink);background:#fff;font-weight:650;transition:background .15s}
+.btn:hover:not(:disabled){background:#f3f8f6}.btn.primary{background:var(--orange);color:#243744;border-color:var(--orange)}.btn.primary:hover:not(:disabled){background:#f9ae58}.btn:disabled{opacity:.45;cursor:not-allowed}.btn[aria-pressed="true"]{background:#264c59;color:white;border-color:#264c59}
+.viewer-footer{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;align-items:center;flex-wrap:wrap}.viewbuttons,.rowbuttons{display:flex;gap:7px;flex-wrap:wrap}.viewbuttons .btn{padding:8px 10px;font-size:12px}.tip{font-size:12px;color:#627d7a}
+.sidebar{display:grid;gap:14px}.section{padding:17px;border-bottom:1px solid var(--line)}.section:last-child{border:0}.group{display:grid;gap:9px}
+.animations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.animations button{min-height:48px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 0}
+.metric{background:#f1f6f3;border-radius:11px;padding:11px}.metric strong{display:block;font-size:17px}.metric span{display:block;font-size:11px;color:#63777d}
+#status{font-size:12px;background:#eef4ef;border-radius:9px;padding:10px;min-height:44px;color:#3a5a53}
+.file-input{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.link{color:#366858;text-decoration:underline;text-underline-offset:2px}
+.item-row{display:flex;justify-content:space-between;align-items:center;gap:11px}.slider{width:100%;accent-color:#e38c31}.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{font-size:11px;padding:5px 7px;border-radius:7px;background:#ecf2ef;color:#456357}
+.notebox{background:#fff8ee;border:1px solid #efddc1;border-radius:12px;padding:12px;font-size:12px}.footer-note{color:#677783;font-size:12px;line-height:1.5;padding:0 20px 24px;max-width:1350px;margin:auto}
+@media(max-width:900px){main{grid-template-columns:1fr}.sidebar{grid-template-columns:1fr 1fr}.panel.settings{grid-column:span 2}}
+@media(max-width:610px){main{padding:10px;gap:10px}.bar{padding:11px 13px}.brand{font-size:20px}.sidebar{grid-template-columns:1fr}.panel.settings{grid-column:auto}#stage{min-height:350px;aspect-ratio:1.04}.viewer-head{padding:12px}.viewer-footer{padding:9px}.viewbuttons .btn{flex:1}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
+</head>
+<body>
+<header class="bar"><div class="brand">PilhA<b>+</b> <small>Laboratorio de personagens 3D · Operadora logistica v02</small></div><a class="back" href="/">← Voltar ao jogo</a></header>
+<main>
+<section class="panel"><div class="viewer-head"><div><h1>Estudio 3D da operadora</h1><div class="muted">Gire, aproxime e teste as animacoes originais do Meshy.</div></div><span class="badge" id="badge">Aguardando GLB</span></div>
+<div id="stage" role="group" aria-label="Visualizador tridimensional do personagem, com orbita por toque ou mouse">
+  <div class="screen-center" id="empty"><div class="empty-card"><div class="empty-icon" aria-hidden="true">◈</div><strong>Carregue a operadora v02</strong><p class="muted">Selecione o GLB que voce salvou no Drive. O arquivo sera processado e guardado somente neste navegador, sem envio ao site.</p><button class="btn primary" id="loadInitial">Selecionar modelo 3D (.glb)</button><a class="link muted" href="https://drive.google.com/file/d/1VZuPdXNRuFvFjI2NerJAv9PJiod6uAnA/view" target="_blank" rel="noopener noreferrer">Abrir original no Google Drive</a></div></div>
+</div>
+<div class="viewer-footer"><div class="viewbuttons" role="group" aria-label="Posicoes de camera"><button class="btn" data-camera="iso" aria-pressed="true">Isometrica</button><button class="btn" data-camera="front" aria-pressed="false">Frente</button><button class="btn" data-camera="side" aria-pressed="false">Lado</button><button class="btn" data-camera="back" aria-pressed="false">Costas</button></div><span class="tip">Arraste para girar · Role/pince para zoom</span></div>
+</section>
+<aside class="sidebar"><div class="panel settings"><div class="section"><h2>Arquivo do personagem</h2><input class="file-input" id="modelFile" type="file" accept=".glb,model/gltf-binary,application/octet-stream" aria-label="Selecionar arquivo GLB"><div class="rowbuttons"><button class="btn primary" id="changeFile">Escolher GLB</button><button class="btn" id="clearCache">Limpar copia local</button></div><p class="muted" id="fileName">Fonte: <a class="link" target="_blank" rel="noopener noreferrer" href="https://drive.google.com/file/d/1VZuPdXNRuFvFjI2NerJAv9PJiod6uAnA/view">Google Drive privado</a></p><div id="status" role="status">Aguardando modelo.</div></div>
+<div class="section"><h2>Animacoes</h2><div class="animations" role="group" aria-label="Selecionar animacao"><button class="btn" data-action="idle" aria-pressed="true" disabled>Parado</button><button class="btn" data-action="walk" disabled>Caminhar</button><button class="btn" data-action="run" disabled>Correr</button><button class="btn" data-action="discuss" disabled>Conversar</button></div><label class="item-row muted" for="speed">Velocidade <span id="speedValue">1,0×</span></label><input class="slider" id="speed" type="range" min="0.25" max="2" step="0.25" value="1" disabled><div class="chips" id="clips"></div></div>
+<div class="section"><h2>Inspecao tecnica</h2><div class="meta"><div class="metric"><strong id="triangles">—</strong><span>Triangulos</span></div><div class="metric"><strong id="bones">—</strong><span>Juntas do rig</span></div><div class="metric"><strong id="anims">—</strong><span>Clipes disponiveis</span></div><div class="metric"><strong id="fileSize">—</strong><span>Tamanho do GLB</span></div></div></div>
+<div class="section"><h2>Ambiente de teste</h2><div class="rowbuttons"><button class="btn" id="toggleGrid" aria-pressed="true">Grade</button><button class="btn" id="toggleSkeleton" aria-pressed="false" disabled>Esqueleto</button><button class="btn" id="resetCamera" disabled>Centralizar</button></div></div></div>
+<div class="panel section"><h2>Producao PilhA+</h2><div class="notebox">Este visualizador serve para revisar a qualidade do modelo, rotacoes e movimentos. A versao atual usa Three.js para inspecao; o jogo principal continua baseado em Phaser/Canvas 2.5D.</div><p class="muted">Original v02: <a class="link" target="_blank" rel="noopener noreferrer" href="https://drive.google.com/file/d/1VZuPdXNRuFvFjI2NerJAv9PJiod6uAnA/view">Drive</a> · <a class="link" target="_blank" rel="noopener noreferrer" href="https://github.com/andreheck/PilhaGameNR1">GitHub</a></p></div>
+</aside></main><div class="footer-note">O GLB e armazenado no IndexedDB somente neste dispositivo/navegador. O visualizador nao o envia ao GitHub nem a Vercel. Limpar os dados do site remove o cache. Dependencias da interface (Three.js) sao carregadas do CDN jsDelivr.</div>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+const el = id => document.getElementById(id);
+const stage = el('stage');
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.25;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.domElement.setAttribute('aria-hidden', 'true');
+stage.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.OrthographicCamera(-3.5,3.5,2.7,-2.7,0.05,100);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = .08;
+controls.minZoom = .45; controls.maxZoom = 5;
+controls.maxPolarAngle = Math.PI * .8;
+const hemi = new THREE.HemisphereLight(0xe6f8ff, 0x6b715f, 2.3); scene.add(hemi);
+const light = new THREE.DirectionalLight(0xfff5e5, 3.4); light.position.set(-3.5,7,5); light.castShadow=true;
+light.shadow.mapSize.set(1024,1024); light.shadow.camera.left=-5;light.shadow.camera.right=5;light.shadow.camera.top=5;light.shadow.camera.bottom=-5;light.shadow.bias=-0.0002;scene.add(light);
+const rim = new THREE.DirectionalLight(0x9eced7, 1.5);rim.position.set(4,4,-4);scene.add(rim);
+const floor = new THREE.Mesh(new THREE.CircleGeometry(2.7,80), new THREE.MeshStandardMaterial({color:0xe5ebe3,roughness:1}));
+floor.rotation.x=-Math.PI/2;floor.position.y=-.013;floor.receiveShadow=true;scene.add(floor);
+const grid = new THREE.GridHelper(5.25,18,0x9cbaad,0xbdd0c7);grid.position.y=.002;grid.material.transparent=true;grid.material.opacity=.42;scene.add(grid);
+let model=null,mixer=null,currentAction=null,actions={},skeleton=null, frame=0, modelHeight=2.3,viewHeight=3.5,dbPromise=null;
+const clock=new THREE.Clock();
+const loader=new GLTFLoader();
+const DB='pilha-plus-personagem-v02';
+function feedback(s, bad=false) { el('status').textContent=s;el('status').style.color=bad?'#9f432f':'#3a5a53'; }
+function refreshSize(){const rect=stage.getBoundingClientRect(); if(rect.width<1||rect.height<1)return; const aspect=rect.width/rect.height;camera.left=-viewHeight*aspect/2;camera.right=viewHeight*aspect/2;camera.top=viewHeight/2;camera.bottom=-viewHeight/2;camera.updateProjectionMatrix();renderer.setSize(rect.width,rect.height,false);}
+function setCam(name){const center=new THREE.Vector3(0,modelHeight*.48,0),d=Math.max(modelHeight*1.9,3.5);const positions={iso:[1,.83,1],front:[0,.38,1],side:[1,.38,0],back:[0,.38,-1]};let v=positions[name]||positions.iso;camera.position.set(center.x+v[0]*d,center.y+v[1]*d,center.z+v[2]*d);controls.target.copy(center);camera.lookAt(center);controls.update();document.querySelectorAll('[data-camera]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.camera===name)));}
+function emptyScene(){if(model){scene.remove(model);model.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){const materials=Array.isArray(o.material)?o.material:[o.material];for(const m of materials)m.dispose();}});model=null;} if(skeleton){scene.remove(skeleton);skeleton.geometry.dispose();skeleton.material.dispose();skeleton=null;}mixer=null;currentAction=null;actions={};}
+function countTriangles(root){let triangles=0;root.traverse(obj=>{const g=obj.geometry;if(!g)return;const count=g.index?g.index.count:g.attributes.position?.count??0;triangles+=Math.floor(count/3);});return triangles;}
+function listBones(root){const bones=new Set();root.traverse(o=>{if(o.isSkinnedMesh&&o.skeleton){for(const b of o.skeleton.bones)bones.add(b)}});return bones.size;}
+function mapClips(clips){const lookup={};for(const clip of clips){const n=clip.name.toLowerCase();if(/run|corr/.test(n))lookup.run??=clip;else if(/walk|caminh/.test(n))lookup.walk??=clip;else if(/discuss|talk|convers|speak/.test(n))lookup.discuss??=clip;else if(/idle|rest|parad/.test(n))lookup.idle??=clip;}return lookup;}
+function action(name){if(!model)return; if(name==='idle'&&!actions.idle){mixer?.stopAllAction();currentAction=null; el('badge').textContent='Pose de repouso';}else {const clip=actions[name]; if(!clip)return; const next=mixer.clipAction(clip);if(currentAction&&currentAction!==next){next.reset();next.play();next.crossFadeFrom(currentAction,.2,true)}else{next.reset().play()}currentAction=next;el('badge').textContent={walk:'Caminhando',run:'Correndo',discuss:'Conversando',idle:'Parado'}[name];}
+ if(mixer)mixer.timeScale=Number(el('speed').value);document.querySelectorAll('[data-action]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.action===name)));
+}
+function applyModel(gltf,byteSize){emptyScene();model=gltf.scene;const box=new THREE.Box3().setFromObject(model);if(box.isEmpty())throw new Error('A malha GLB nao contem geometria visivel.');const sz=box.getSize(new THREE.Vector3()),cent=box.getCenter(new THREE.Vector3());model.position.x-=cent.x;model.position.y-=box.min.y;model.position.z-=cent.z;modelHeight=sz.y;viewHeight=Math.max(2.9,sz.y*1.7,sz.x*2.35,sz.z*2.35);model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(model);
+ const clips=gltf.animations||[];mixer=new THREE.AnimationMixer(model);actions=mapClips(clips);el('triangles').textContent=countTriangles(model).toLocaleString('pt-BR');el('bones').textContent=listBones(model).toLocaleString('pt-BR');el('anims').textContent=String(clips.length);el('fileSize').textContent=(byteSize/1024/1024).toFixed(1).replace('.',',')+' MB';
+ el('clips').replaceChildren(...clips.map(c=>{const t=document.createElement('span');t.className='chip';t.textContent=c.name;return t}));
+ document.querySelectorAll('[data-action]').forEach(b=>{b.disabled=b.dataset.action!=='idle'&&!actions[b.dataset.action];});el('speed').disabled=false;el('resetCamera').disabled=false;
+ skeleton=new THREE.SkeletonHelper(model);skeleton.visible=false;scene.add(skeleton);el('toggleSkeleton').disabled=listBones(model)===0;el('empty').classList.add('hidden');
+ setCam('iso');refreshSize();action('idle');feedback('GLB carregado. Escolha uma animacao ou altere a camera.');
+}
+function parseBuffer(data,bytes,label){feedback('Lendo malha, texturas e animacoes...');loader.parse(data,'',gltf=>{try{applyModel(gltf,bytes);el('fileName').textContent=label+' · salvo apenas neste navegador.';}catch(e){feedback('Falha na configuracao: '+e.message,true);}},e=>feedback('Nao foi possivel ler GLB: '+e.message,true));}
+function openDb(){if(dbPromise)return dbPromise; dbPromise=new Promise((res,rej)=>{if(!('indexedDB' in window)){rej(new Error('Armazenamento nao suportado'));return;}const request=indexedDB.open(DB,1);request.onupgradeneeded=()=>request.result.createObjectStore('files');request.onsuccess=()=>res(request.result);request.onerror=()=>rej(request.error);});return dbPromise;}
+async function cacheBuffer(buffer,name){const db=await openDb();return new Promise((res,rej)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').put({buffer,name},'current');tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);});}
+async function readCache(){const db=await openDb();return new Promise((res,rej)=>{const tx=db.transaction('files','readonly');const req=tx.objectStore('files').get('current');req.onsuccess=()=>res(req.result);req.onerror=()=>rej(req.error);});}
+async function removeCache(){const db=await openDb();return new Promise((res,rej)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').delete('current');tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);});}
+async function ingest(file){if(!file)return;if(file.size>150*1024*1024){feedback('Arquivo muito grande (>150 MB).',true);return;}if(!/\.glb$/i.test(file.name)){feedback('Escolha um arquivo de formato .glb.',true);return;}const buffer=await file.arrayBuffer();const view=new DataView(buffer);if(buffer.byteLength<12||view.getUint32(0,false)!==0x676c5446){feedback('Arquivo invalido: assinatura GLB ausente.',true);return;}parseBuffer(buffer,buffer.byteLength,file.name);try{await cacheBuffer(buffer,file.name);feedback('GLB carregado e armazenado apenas neste navegador.');}catch(e){feedback('GLB carregado, mas o cache local falhou: '+e.message,true);}}
+const input=el('modelFile');el('loadInitial').onclick=()=>input.click();el('changeFile').onclick=()=>input.click();input.onchange=()=>ingest(input.files?.[0]).catch(e=>feedback('Falha ao abrir: '+e.message,true));
+stage.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='copy'});stage.addEventListener('drop',e=>{e.preventDefault();ingest(e.dataTransfer.files?.[0]).catch(err=>feedback(err.message,true))});
+document.querySelectorAll('[data-camera]').forEach(b=>b.onclick=()=>setCam(b.dataset.camera));document.querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>action(b.dataset.action));el('speed').oninput=()=>{const v=Number(el('speed').value);el('speedValue').textContent=v.toFixed(2).replace(/0$/,'').replace('.',',')+'×';if(mixer)mixer.timeScale=v};
+el('toggleGrid').onclick=()=>{grid.visible=!grid.visible;el('toggleGrid').setAttribute('aria-pressed',String(grid.visible))};el('toggleSkeleton').onclick=()=>{if(skeleton){skeleton.visible=!skeleton.visible;el('toggleSkeleton').setAttribute('aria-pressed',String(skeleton.visible))}};el('resetCamera').onclick=()=>setCam('iso');
+el('clearCache').onclick=async()=>{if(!window.confirm('Apagar a copia local do GLB e reiniciar o visualizador?'))return;try{await removeCache();emptyScene();window.location.reload()}catch(e){feedback('Nao foi possivel limpar: '+e.message,true)}};
+new ResizeObserver(refreshSize).observe(stage);refreshSize();setCam('iso');
+function animate(){requestAnimationFrame(animate);const delta=Math.min(clock.getDelta(),.06);if(mixer)mixer.update(delta);controls.update();renderer.render(scene,camera);}animate();
+try{const cached=await readCache();if(cached?.buffer){parseBuffer(cached.buffer,cached.buffer.byteLength,cached.name+' (cache local)')}else{feedback('Selecione seu GLB. Ele sera lembrado neste navegador.')}}catch(e){feedback('Selecione um GLB; cache local indisponivel: '+e.message)}
+</script>
+</body></html>
