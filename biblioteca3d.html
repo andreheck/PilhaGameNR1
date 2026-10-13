@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#142e43">
+  <title>Biblioteca 3D | Missão 01 · PilhA+ Game</title>
+  <meta name="description" content="Ambiente tridimensional experimental de aprendizagem sobre saúde mental, fatores psicossociais e segurança psicológica.">
+  <link rel="stylesheet" href="/biblioteca3d.css">
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
+  <script type="module" src="/biblioteca3d.js"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Pular para o conteúdo</a>
+  <header class="topbar"><a href="/" class="brand"><span class="brand-icon">+</span>PilhA<span class="brand-plus">+</span></a><div class="topbar-right"><span class="eyebrow light">MISSÃO 01 · EXPERIÊNCIA EXPERIMENTAL</span><a class="back" href="/missao01.html">Voltar à missão 2D <span aria-hidden="true">↗</span></a></div></header>
+  <main id="main">
+    <div class="introline"><div><span class="eyebrow">BIBLIOTECA DE APRENDIZAGEM</span><h1>Conhecimento que vira decisão.</h1><p>Explore o ambiente, converse com o mentor e conclua as três estações para somar pontos à Missão 01.</p></div><div class="alpha">PRÉVIA 3D · ALPHA 1.3</div></div>
+    <div class="layout">
+      <div class="viewport-wrap"><section id="viewport" class="viewport" aria-label="Cena 3D isométrica da biblioteca, com três estações e mentor">
+        <div id="fallback" class="fallback"><img src="/assets/v12/biblioteca-isometrica.svg" alt="Ilustração alternativa da biblioteca"/><p>Preparando a biblioteca em 3D… Os cartões ao lado continuam disponíveis mesmo sem WebGL.</p></div>
+        <div class="status" id="status" role="status" aria-live="polite">Preparando o ambiente 3D…</div>
+        <div class="touch-move" aria-label="Controles para caminhar"><button type="button" data-dir="up" class="up" aria-label="Andar para a frente">↑</button><button type="button" data-dir="left" class="left" aria-label="Andar para a esquerda">←</button><button type="button" data-dir="down" class="down" aria-label="Andar para trás">↓</button><button type="button" data-dir="right" class="right" aria-label="Andar para a direita">→</button></div>
+        <button type="button" id="interact" class="interact">Conversar / Explorar (E)</button>
+      </section>
+      <div class="scene-legend"><span><b>Movimente-se:</b> WASD ou setas · <b>Interaja:</b> E ou clique nos pontos 01–03</span><span>Modelo GLB local · sem dados pessoais</span></div>
+      <div class="learning-banner"><div><strong>Progresso da biblioteca</strong><span id="score-line">0/3 leituras · 0/60 pontos</span></div><div class="track"><span id="track-fill" style="width:0"></span></div><a class="cta" href="/missao01.html">Continuar na Missão 01 →</a></div>
+      </div>
+      <aside class="aside" aria-label="Estações e mentor">
+        <section class="mentor-card"><div class="mentor-label">SEU FACILITADOR</div><div class="mentor-content"><div class="portrait">GM</div><div><h2>Gestor-mentor</h2><p>Converse sobre a jornada e descubra por onde começar.</p></div></div><button class="outline" id="talk-mentor">Conversar com o mentor →</button></section>
+        <section class="panel"><div class="panel-head"><h2>Estações de conhecimento</h2><span id="read-counter">0/3</span></div><p>Selecione uma estação no cenário ou abra a leitura diretamente.</p><div id="station-list" class="station-list"><div class="loading">Carregando conceitos…</div></div></section>
+        <section class="help"><strong>Como a pontuação funciona</strong><p>São 20 pontos por estação concluída (60 no total). O quiz e a conclusão continuam na Missão 01 e mantêm o mínimo de 2 respostas corretas.</p><a href="/?view=biblioteca">Consultar glossário →</a></section>
+      </aside>
+    </div>
+  </main>
+  <div class="dialog-backdrop" id="dialog-backdrop" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title"><button id="dialog-close" class="close" type="button" aria-label="Fechar">×</button><span class="eyebrow" id="dialog-kicker">ESTAÇÃO DE APRENDIZAGEM</span><h2 id="dialog-title"></h2><p class="lead" id="dialog-definition"></p><h3 id="dialog-expanded-title">Entenda melhor</h3><p id="dialog-expanded"></p><h3 id="dialog-example-title">Na prática</h3><p id="dialog-example"></p><div class="takeaway"><strong id="dialog-takeaway-title">Para levar ao jogo</strong><p id="dialog-takeaway"></p></div><div class="actions"><button type="button" class="outline" id="dialog-back">Voltar à biblioteca</button><button type="button" class="cta" id="dialog-complete">Concluir leitura (+20)</button></div></section></div>
+  <footer class="footer">Simulação educativa · o modelo 3D desta versão é um protótipo geométrico local, não um resultado do Meshy. A pontuação não é uma avaliação clínica nem certificação da NR-1.</footer>
+  <noscript><p class="noscript">O 3D exige JavaScript. <a href="/missao01.html">Acesse a versão 2D, acessível por teclado e toque.</a></p></noscript>
+</body>
+</html>

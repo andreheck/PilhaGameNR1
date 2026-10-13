@@ -1,40 +1,24 @@
-# PilhA+ Game — Alpha v1.2
+# PilhA+ Game — Alpha 1.3 | Biblioteca 3D Experimental
 
-Protótipo educativo mobile-first de gestão e psicoeducação sobre **fatores de risco psicossociais relacionados ao trabalho**. O conteúdo da NR-1 é fundamentado em publicações do Ministério do Trabalho e Emprego (2025–2026). Esta experiência não realiza diagnósticos nem comprova conformidade legal.
+Esta atualização **não substitui** a Alpha 1.2 e mantém a experiência 2D como principal para estudo. Foram incluídos: [Biblioteca 3D experimental](./biblioteca3d.html), protótipos reais GLB (mentor e ambiente), interação nas três estações, gravação do progresso compartilhado com a Missão 01 e navegação ao quiz anterior.
 
-## Agora disponível
+Os modelos 3D aqui foram criados **localmente a partir de primitivas geométricas**, sem geração Meshy e sem custo em créditos. Têm qualidade de protótipo e não representam os assets 3D definitivos do PilhA+.
 
-- **[Missão 01 — Conhecendo a NR-1 no Brasil](https://pilha-plus-game-preview.vercel.app/missao01.html)** — biblioteca interativa, três conceitos, três perguntas, pontuação (0–100) e desbloqueio de aprendizagem.
-- **[Visão geral](https://pilha-plus-game-preview.vercel.app/)** — mapa panorâmico isométrico e progresso.
-- **[Casos](https://pilha-plus-game-preview.vercel.app/?view=casos)** — Missão 01, Caso 017 jogável e quatro casos em desenvolvimento.
-- **[Caso 017 — Galpão Logístico](https://pilha-plus-game-preview.vercel.app/caso017.html)** — investigação, análise, plano de ação, acompanhamento e score fictício ≥75.
-- **[Cena 3D experimental](https://pilha-plus-game-preview.vercel.app/scene3d.html)** — movimentação com GLB de personagens e importação local de **galpão GLB**.
-- **[Laboratório de modelos 3D](https://pilha-plus-game-preview.vercel.app/viewer3d.html)** — testar os GLBs de personagens.
+### Como usar
 
-## Educação + pontuação
+1. Abra `/missao01.html`, clique em `Entrar na biblioteca` e escolha `Explorar esta biblioteca em 3D`.
+2. Use **WASD/setas** para andar, **E** ou clique nos ícones 01–03 para explorar. No celular use o direcional e os cartões.
+3. Registre as três leituras (+20 cada) e escolha `Continuar na Missão 01` para fazer o quiz.
+4. Se o dispositivo não suportar a cena, conclua a missão pela versão 2D.
 
-**Missão 01:** ler três conceitos (3×20=60), responder três questões (3×10=30) e concluir o percurso (+10). Acesso didático ao Caso 017: **≥70 pontos e ≥2 respostas corretas**. Novos jogadores passam por essa introdução. Jogadores com progresso anterior no caso continuam normalmente (chaves de estado não apagadas). Pode repetir o quiz sem perder o aprendizado já realizado.
+### Regras preservadas
 
-**Caso 017:** nota mínima pedagógica 75/100 para cumprir requisito dos casos seguintes, que permanecem indisponíveis enquanto não forem desenvolvidos.
+`pilha-missao01-v1`, 60 pontos por leitura, 30 pontos por respostas, 10 por conclusão; 70/100 e 2/3 acertos para liberar o Caso 017. O caso continua com meta 75/100. Progresso existente não é apagado.
 
-## Conteúdo e modelagem
+### Arquivos
 
-- `content/mission01.json` — textos, diálogos, perguntas, gabarito, regras e fontes;
-- `assets/v12/biblioteca-isometrica.svg` — ambiente vetorial modular provisório;
-- `prompts/MESHY-MISSAO-01-ASSETS.md` — personagem gestor-mentor, cena biblioteca e 10 props;
-- `docs/SESSAO-21-MISSAO-01.md` — wireflow, arquitetura e cronograma de sessões diárias de 1h;
-- `missao01.html`, `mission01.css`, `mission01.js` — implementação do prólogo;
-- `intro-gate.js` — proteção de onboarding para jogadores novos;
-- `scene3d.html` — teste com GLB do galpão **importado no navegador**, escala normalizada e cache local.
+`biblioteca3d.html`, `biblioteca3d.js`, `biblioteca3d.css`, `assets/v13/*.glb`, `assets/v13/*.png`, `docs/SESSAO-22-BIBLIOTECA-3D.md`, `tests/library3d-logic.test.mjs`, `tests/test_glbs.py`.
 
-O cenário definitivo do Meshy ainda precisa de **exportação/conversão de FBX para GLB otimizado** e calibração de colisões, pivôs e posições dos personagens. Importação local é experimental; não publica nem envia o arquivo original a servidores.
+### Pendente
 
-## QA
-
-`node tests/mission01.test.mjs` e `node tests/static-flow.mjs` validam pontuação, retomada do caso, proteção pedagógica, regressão, assets e conteúdo. Verificação visual com browser automatizado ainda pendente.
-
-## Fontes oficiais
-
-- [MTE — NR-1 atualizada](https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/nr-1)
-- [MTE — Manual GRO/PGR 2026](https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/manuais-e-publicacoes/2026/manual_gro_pgr_da_nr_1.pdf)
-- [MTE — Guia de fatores psicossociais 2025](https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/guia-nr-01-revisado.pdf)
+Geração do modelo final via Meshy (CLI não disponível nesta execução), rigging e animações, biblioteca definitiva, conversão do galpão FBX e QA visual no navegador. Nenhuma alegação de liberação mobile/performance oficial nesta versão.
