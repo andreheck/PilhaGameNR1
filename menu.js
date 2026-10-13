@@ -114,9 +114,6 @@ function home(){
         '<section class="v10-stage" aria-label="Galpão logístico do Caso 017">'+
           '<img src="/assets/v10/galpao-dashboard.webp" alt="Cenário ilustrado em perspectiva isométrica de galpão, com áreas de armazenagem, movimentação de cargas e expedição" decoding="async" fetchpriority="high">'+
           '<div class="v10-stage-top"><div><span class="eyebrow">AMBIENTE EM DESTAQUE</span><h2>Galpão Logístico</h2></div><span class="v10-scene-pill">CASO 017 · RISCO ALTO</span></div>'+
-          '<div class="v10-places"><a class="v10-pin storage" href="/caso017.html" title="Investigar armazenagem"><i></i>Armazenagem</a>'+
-            '<a class="v10-pin operation" href="/caso017.html" title="Investigar operação"><i></i>Operação</a>'+
-            '<a class="v10-pin dock" href="/caso017.html" title="Investigar expedição"><i></i>Expedição</a></div>'+
           '<div class="v10-stage-bottom"><div><strong>Onde surgem os fatores de risco?</strong><span>Conheça o ambiente, converse com a equipe e avalie a organização da jornada.</span></div><a class="v10-stage-button" href="/caso017.html">Explorar caso →</a></div>'+
         '</section>'+
         '<aside class="v10-side">'+
