@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10283b">
+<meta name="description" content="PilhA+ Game: explore ambientes, investigue riscos psicossociais relacionados ao trabalho e aprenda com suas decisões.">
+<title>PilhA+ Game — Menu principal</title>
+<link rel="stylesheet" href="/menu.css">
+<link rel="stylesheet" href="/v10.css">
+<script src="/menu.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main-content">Pular para o conteúdo</a>
+<header class="masthead">
+  <a class="brand" href="/" data-view="inicio" aria-label="PilhA+ Game — início">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m16 3 12 7v12l-12 7-12-7V10L16 3Z"/><path d="m4 10 12 7 12-7m-12 7v12"/><path d="M16 8v8m-4-4h8" stroke-width="2.8"/>
+      </svg>
+    </span>
+    <span class="brand-lockup"><span class="brand-name">PilhA<b>+</b></span><span class="brand-sub">GAME · GESTÃO & CUIDADO</span></span>
+  </a>
+  <nav class="primary-nav" aria-label="Menu principal">
+    <a href="/" data-view="inicio">Início</a>
+    <a href="/?view=casos" data-view="casos">Missões</a>
+    <a href="/?view=equipe" data-view="equipe">Equipe</a>
+    <a href="/?view=biblioteca" data-view="biblioteca">Biblioteca</a>
+    <a href="/viewer3d.html">Laboratório 3D</a>
+    <a href="/?view=sobre" data-view="sobre">Sobre</a>
+  </nav>
+  <div class="header-actions">
+    <span class="build-badge">ALPHA 0.9</span>
+    <a href="/?view=configuracoes" data-view="configuracoes" class="profile-action" aria-label="Configurações do jogador" title="Configurações">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/>
+      </svg>
+    </a>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+  <div class="page"><p>Preparando o menu do PilhA+...</p></div>
+</main>
+<div id="notification" role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"></div>
+
+<footer class="footer">
+  <div><strong>PilhA+ Game</strong> · Prévia experimental v0.9 · NR-1 e atenção psicossocial</div>
+  <div>Simulação fictícia para aprendizagem. Não substitui avaliação profissional, clínica ou legal.</div>
+</footer>
+<nav class="bottom-nav" aria-label="Navegação rápida no celular">
+  <a href="/" data-view="inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10H3V10Z"/><path d="M9 20v-7h6v7"/></svg><span>Início</span></a>
+  <a href="/caso017.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m8 4 12 8-12 8V4Z"/></svg><span>Jogar</span></a>
+  <a href="/?view=casos" data-view="casos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3h12v18H6zM9 8h6M9 12h6M9 16h4"/></svg><span>Casos</span></a>
+  <a href="/?view=equipe" data-view="equipe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 4a3 3 0 0 1 0 6M21 21v-3a5 5 0 0 0-3-4.5"/></svg><span>Equipe</span></a>
+  <a href="/?view=configuracoes" data-view="configuracoes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M19 5l-2 2M7 17l-2 2"/></svg><span>Ajustes</span></a>
+</nav>
+<noscript><p style="padding:20px">Este protótipo usa JavaScript para o menu. <a href="/game.html">Abrir Capítulo 01</a> ou <a href="/viewer3d.html">abrir Laboratório 3D</a>.</p></noscript>
+
+<template id="scene-template">
+<svg viewBox="0 0 730 510" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração isométrica estilizada de um escritório com trabalhadores, mesas e áreas de gestão" focusable="false">
+<defs>
+  <linearGradient id="outerfloor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dde8d0"/><stop offset=".6" stop-color="#b9cdb6"/><stop offset="1" stop-color="#87b4ab"/></linearGradient>
+  <linearGradient id="wallface" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#fcf5e6"/><stop offset="1" stop-color="#c6c8b9"/></linearGradient>
+  <linearGradient id="backwall" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5eeea"/><stop offset="1" stop-color="#b7c9c9"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="11"/></filter>
+</defs>
+<ellipse cx="381" cy="391" rx="305" ry="83" fill="#021728" opacity=".25" filter="url(#glow)"/>
+<g stroke="#264452" stroke-width="3" stroke-linejoin="round">
+  <polygon points="378,61 691,222 370,398 55,234" fill="url(#outerfloor)"/>
+  <polygon points="55,234 370,398 370,427 55,266" fill="#718c8a"/>
+  <polygon points="370,398 691,222 691,252 370,427" fill="#496f73"/>
+  <polygon points="55,234 378,61 378,34 55,205" fill="url(#wallface)"/>
+  <polygon points="378,61 691,222 691,192 378,34" fill="url(#backwall)"/>
+</g>
+<!-- zoning strips -->
+<g opacity=".78" stroke="#adbac0" stroke-width="2">
+  <polygon points="371,113 615,235 443,325 194,203" fill="#deeadf"/>
+  <polygon points="192,204 441,326 365,366 112,235" fill="#f2debb"/>
+  <polygon points="371,113 617,236 691,197 378,39" fill="#c7dce0" opacity=".1"/>
+</g>
+<!-- floor small grid -->
+<g stroke="#ffffff53" stroke-width="2">
+  <path d="M160 243 476 81M214 269 528 108M268 297 579 135M321 323 633 162M373 350 673 189"/>
+  <path d="M161 180 468 342M214 153 524 312M267 126 576 282M320 98 629 252"/>
+</g>
+<!-- wall display -->
+<g stroke="#203c4e" stroke-linejoin="round">
+  <polygon points="347,89 421,50 545,110 470,149" fill="#254e63" stroke-width="7"/>
+  <polygon points="360,89 421,59 532,112 472,140" fill="#183c52" stroke-width="1"/>
+</g>
+<path d="M381 94 409 79 442 99 463 85 495 105 510 99" fill="none" stroke="#ffb35e" stroke-width="7" stroke-linecap="round"/>
+<path d="M393 110 422 96 446 109 470 106 493 121" fill="none" stroke="#8bc7ad" stroke-width="4" stroke-linecap="round"/>
+<!-- desks left -->
+<g stroke-linejoin="round">
+  <path d="M157 251 253 202 329 241 233 290Z" fill="#a36f4c" stroke="#755b44" stroke-width="4"/>
+  <path d="M157 251 233 290 233 308 157 270Z" fill="#78563c"/>
+  <path d="M233 290 329 241 329 259 233 308Z" fill="#8b6447"/>
+  <path d="M210 224 246 206 283 226 246 245Z" fill="#4d6270" stroke="#2b4b57" stroke-width="2"/>
+  <path d="M217 225 246 210 276 227 246 240Z" fill="#8cbcd0"/>
+  <path d="M245 240 245 253" stroke="#334e5b" stroke-width="6"/>
+  <path d="M257 284 294 266 307 273 270 292Z" fill="#f9d4a8" stroke="#816954" stroke-width="2"/>
+</g>
+<!-- desks right -->
+<g stroke-linejoin="round">
+ <path d="M432 239 525 191 604 234 510 285Z" fill="#b17d57" stroke="#755b44" stroke-width="4"/>
+ <path d="M432 239 510 285 510 305 432 261Z" fill="#775a43"/>
+ <path d="M510 285 604 234 604 256 510 305Z" fill="#936c4e"/>
+ <path d="M476 218 512 199 551 221 517 238Z" fill="#4d6576" stroke="#2c4c5b" stroke-width="3"/>
+ <path d="M484 219 512 204 544 220 516 233Z" fill="#addbd8"/>
+ <path d="M516 236 516 247" stroke="#2c4c5b" stroke-width="6"/>
+ <path d="M548 259 566 250 587 261 568 272Z" fill="#f2debb" stroke="#816954" stroke-width="2"/>
+</g>
+<!-- board stand -->
+<g stroke="#284c58" stroke-width="3">
+ <polygon points="382 231 414 212 451 230 417 248Z" fill="#537784"/>
+ <polygon points="390 231 414 218 444 231 419 243Z" fill="#9fdbc6"/>
+ <path d="M419 246v46" stroke-width="6"/>
+</g>
+<!-- plant pots -->
+<g>
+  <path d="M107 240 139 226 164 240 133 257Z" fill="#d3a173"/>
+  <path d="M112 240 132 256v22l-20-19Z" fill="#976e52"/><path d="M132 256 164 240v18l-32 20Z" fill="#bd895f"/>
+  <path d="M136 245v-52" stroke="#54745a" stroke-width="9" stroke-linecap="round"/>
+  <ellipse cx="136" cy="191" rx="35" ry="23" fill="#4a927a"/>
+  <ellipse cx="112" cy="204" rx="23" ry="19" fill="#6caa86"/>
+  <ellipse cx="157" cy="207" rx="19" ry="18" fill="#3c7f6d"/>
+</g>
+<g>
+  <path d="M593 295 623 282 645 294 616 308Z" fill="#cf9467"/><path d="M593 295v21l23 15v-23Z" fill="#a77857"/>
+  <path d="M616 308 645 294v22l-29 15Z" fill="#c5936b"/>
+  <path d="M618 293v-45" stroke="#50775b" stroke-width="8" stroke-linecap="round"/>
+  <ellipse cx="619" cy="248" rx="29" ry="24" fill="#4a9574"/><ellipse cx="606" cy="257" rx="24" ry="19" fill="#70ad86"/>
+</g>
+<!-- stylized workers -->
+<g transform="translate(283 237)">
+ <ellipse cx="0" cy="61" rx="27" ry="10" fill="#25465533"/>
+ <rect x="-21" y="7" width="42" height="52" rx="13" fill="#f59c51"/>
+ <rect x="-14" y="53" width="12" height="19" rx="5" fill="#1f3a4c"/><rect x="3" y="53" width="12" height="19" rx="5" fill="#1f3a4c"/>
+ <rect x="-28" y="10" width="9" height="35" rx="5" fill="#af7355"/><rect x="20" y="10" width="9" height="35" rx="5" fill="#af7355"/>
+ <ellipse cy="-6" rx="24" ry="25" fill="#b47e60"/><path d="M-24-8q-6-25 16-30 26-12 33 15 2 7-1 16Q2-31-24-8Z" fill="#382b2a"/>
+ <circle cx="-9" cy="-5" r="2" fill="#233747"/><circle cx="10" cy="-5" r="2" fill="#233747"/>
+</g>
+<g transform="translate(507 230)">
+ <ellipse cx="0" cy="70" rx="27" ry="10" fill="#25465533"/>
+ <rect x="-20" y="7" width="40" height="53" rx="13" fill="#71a494"/>
+ <rect x="-14" y="55" width="12" height="20" rx="5" fill="#334b5a"/><rect x="3" y="55" width="12" height="20" rx="5" fill="#334b5a"/>
+ <rect x="-27" y="9" width="8" height="34" rx="5" fill="#8d5943"/><rect x="19" y="9" width="8" height="34" rx="5" fill="#8d5943"/>
+ <ellipse cy="-6" rx="23" ry="24" fill="#955e47"/>
+ <path d="M-24-13q-4-25 21-27 28 1 27 27L17-23 0-29-17-19Z" fill="#282630"/>
+ <circle cx="-7" cy="-6" r="2" fill="#233747"/><circle cx="9" cy="-6" r="2" fill="#233747"/>
+</g>
+<g transform="translate(399 306)">
+  <ellipse cy="48" rx="25" ry="10" fill="#25465544"/>
+  <rect x="-17" y="4" width="34" height="38" rx="10" fill="#eea443"/>
+  <rect x="-13" y="38" width="11" height="17" rx="5" fill="#314a5d"/><rect x="2" y="38" width="11" height="17" rx="5" fill="#314a5d"/>
+  <ellipse cy="-10" rx="22" ry="21" fill="#b8774f"/><path d="M-21-12q-1-27 24-24 21 0 20 24Q0-28-21-12Z" fill="#28232a"/>
+</g>
+<!-- illustrated waypoints -->
+<g font-family="system-ui, sans-serif" font-size="12" font-weight="700">
+  <rect x="177" y="352" width="150" height="31" rx="15" fill="#13384bcf" stroke="#8dd2aa44"/>
+  <circle cx="194" cy="367" r="5" fill="#ffc16f"/><text x="207" y="372" fill="#eaf9f1">OPERAÇÃO</text>
+  <rect x="491" y="350" width="147" height="31" rx="15" fill="#13384bcf" stroke="#8dd2aa44"/>
+  <circle cx="508" cy="365" r="5" fill="#8cd6c0"/><text x="521" y="370" fill="#eaf9f1">INVESTIGAÇÃO</text>
+</g>
+</svg>
+</template>
+</body>
+</html>
