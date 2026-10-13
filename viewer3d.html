@@ -87,7 +87,8 @@ operadora:{name:'Operadora logística v02',file:'char_op.log_m_02_v01.glb',drive
 psicologa:{name:'Psicóloga v01',file:'char_psicologa_f_01_v01.glb',drive:'https://drive.google.com/file/d/1X8jMu433NYg07qub-3u60QLLsKZ4lZkS/view'},
 psiquiatra:{name:'Psiquiatra v01',file:'char_psiquiatra_m_01_v01.glb',drive:'https://drive.google.com/file/d/1mY4aXahMZNLv1jkVfrwD2LxaauGHjlpI/view'}
 };
-let selectedCharacter='operadora';
+const requestedCharacter=new URLSearchParams(window.location.search).get('personagem');
+let selectedCharacter=Object.prototype.hasOwnProperty.call(CHARACTERS,requestedCharacter)?requestedCharacter:'operadora';
 function updateSource(){const o=CHARACTERS[selectedCharacter];el('sourceLink').replaceChildren();const a=document.createElement('a');a.href=o.drive;a.target='_blank';a.rel='noopener noreferrer';a.className='link';a.textContent='Baixar '+o.file+' no Drive privado';el('sourceLink').append(a);}
 
 function feedback(s, bad=false) { el('status').textContent=s;el('status').style.color=bad?'#9f432f':'#3a5a53'; }
@@ -114,6 +115,7 @@ async function readCache(){const db=await openDb();return new Promise((res,rej)=
 async function removeCache(){const db=await openDb();return new Promise((res,rej)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').delete(selectedCharacter);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);});}
 async function ingest(file){if(!file)return;if(file.size>150*1024*1024){feedback('Arquivo muito grande (>150 MB).',true);return;}if(!/\.glb$/i.test(file.name)){feedback('Escolha um arquivo de formato .glb.',true);return;}const buffer=await file.arrayBuffer();const view=new DataView(buffer);if(buffer.byteLength<12||view.getUint32(0,false)!==0x676c5446){feedback('Arquivo invalido: assinatura GLB ausente.',true);return;}parseBuffer(buffer,buffer.byteLength,file.name);try{await cacheBuffer(buffer,file.name);feedback('GLB carregado e armazenado apenas neste navegador.');}catch(e){feedback('GLB carregado, mas o cache local falhou: '+e.message,true);}}
 const input=el('modelFile');
+el('characterSelect').value=selectedCharacter;
 el('characterSelect').onchange=async e=>{selectedCharacter=e.target.value;input.value='';emptyScene();el('empty').classList.remove('hidden');updateSource();try{const cached=await readCache();if(cached?.buffer){parseBuffer(cached.buffer,cached.buffer.byteLength,cached.name+' (cache local)')}else{feedback('Selecione o arquivo GLB de '+CHARACTERS[selectedCharacter].name+'; ele sera salvo somente neste navegador.')}}catch(err){feedback('Selecione o GLB: '+err.message,true)}};
 updateSource();el('loadInitial').onclick=()=>input.click();el('changeFile').onclick=()=>input.click();input.onchange=()=>ingest(input.files?.[0]).catch(e=>feedback('Falha ao abrir: '+e.message,true));
 stage.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='copy'});stage.addEventListener('drop',e=>{e.preventDefault();ingest(e.dataTransfer.files?.[0]).catch(err=>feedback(err.message,true))});
