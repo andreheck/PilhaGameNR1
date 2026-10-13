@@ -1,19 +1,40 @@
 # PilhA+ Game — Riscos Psicossociais no Trabalho
 
-Jogo educacional de gestão de riscos psicossociais relacionados ao trabalho, com três perspectivas: liderança, RH/SST e trabalhadores. Abordagem mobile-first, cenários isométricos 2.5D e decisões com consequências fictícias.
+Jogo educativo de simulação e gestão de riscos psicossociais relacionados ao trabalho, com três perspectivas: **liderança**, **RH/SST** e **trabalhadores**. Mobile-first, exploração de ambientes isométricos e decisões com feedback educacional fictício.
 
-**[Jogar protótipo online](https://pilha-plus-game-preview-andrehecks-projects.vercel.app)** · **[FigJam — fluxo do jogo](https://www.figma.com/board/i2BUcF0vH9CRcdXtvPa0k9)**
+## Experimente a versão Alpha v0.9
+
+- **[Tela inicial e navegação](https://pilha-plus-game-preview.vercel.app/)**
+- **[Capítulo 01 — Caso 017](https://pilha-plus-game-preview.vercel.app/game.html)**
+- **[Laboratório de personagens 3D](https://pilha-plus-game-preview.vercel.app/viewer3d.html)**
+
+O novo menu contém Missões, Equipe, Biblioteca, Configurações e Sobre. Os Casos 018/019 aparecem como planejamento, não como missões jogáveis.
+
+## Arquivos do produto
+
+| Arquivo | Papel |
+|---|---|
+| `index.html` | Tela de entrada do jogo |
+| `menu.css`, `menu.js` | Layout responsivo, navegação e preferências |
+| `game.html` | Capítulo 01 com investigação e decisões |
+| `viewer3d.html` | Laboratório 3D para importar modelos GLB privados |
+| `src/world.js` | Mapa, NPCs, obstáculos e rotas |
+| `tests/menu.test.js` | Verificações estáticas das rotas |
+| `docs/SESSAO-17-MENU-INICIAL-UX.md` | Wireframes, mapa de navegação, estados e critérios |
 
 ## Documentação
+
+- [Sessão 17 — Menu, UX e wireframes](docs/SESSAO-17-MENU-INICIAL-UX.md)
 - [GDD](docs/GDD.md) e [simulação](docs/SIMULACAO.md)
-- [NR-1, ética e limites](docs/NR1-ETICA.md)
+- [NR-1 e limites éticos](docs/NR1-ETICA.md)
 - [Arquitetura](docs/ARQUITETURA.md) e [direção visual](docs/SESSAO-03.md)
-- [Sessão 02](docs/SESSAO-02.md) e [diagramas](diagrams/README.md)
 - [Cronograma](planning/CRONOGRAMA.md) e [backlog](planning/BACKLOG.md)
-- [Orientações ao Codex](AGENTS.md)
-- [Protótipo web](index.html)
+- [Orientações para Codex](AGENTS.md)
+- [Biblioteca Drive](https://drive.google.com/drive/folders/1B-mPPAQ1aPbBmAi-e8H21aFxKETnVX19) (acesso restrito)
+- [FigJam — fluxo do jogo](https://www.figma.com/board/i2BUcF0vH9CRcdXtvPa0k9)
 
-## Roadmap
-Conceituação 40h; protótipos 60h acumuladas; loop técnico 100h; vertical slice 120h; MVP educativo 180h, estimados a 1h por dia útil.
+## Estado atual
 
-> Dados e efeitos são simulados, não diagnósticos, nem avaliação oficial de conformidade à NR-1. Licença e lançamento comercial pendentes.
+A tela inicial e o Capítulo 01 são protótipos navegáveis. A arte isométrica e os avatares do menu são ilustrações provisórias. Os modelos GLB originais permanecem privados no Google Drive e são carregados localmente no navegador pelo laboratório 3D.
+
+> Conteúdo fictício e educativo. Não emite diagnóstico, não comprova conformidade legal com a NR-1 e não substitui avaliação profissional especializada. Licença de lançamento comercial pendente.
