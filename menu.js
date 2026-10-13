@@ -186,7 +186,7 @@ function render(){
 function navigate(v,push=true){
  if(!ALLOWED.includes(v))v='inicio';
  if(push)history.pushState({view:v},'',v==='inicio'?'/':'/?view='+encodeURIComponent(v));
- sound();render();window.scrollTo({top:0,behavior:prefs.reduceMotion?'auto':'instant'});
+ sound();render();window.scrollTo({top:0,behavior:'auto'});
  main.focus({preventScroll:true});
 }
 function message(s){
