@@ -1,45 +1,46 @@
-# PilhA+ Game — Riscos Psicossociais no Trabalho
+# PilhA+ Game — Alpha v1.1
 
-Jogo educativo de simulação e gestão de riscos psicossociais relacionados ao trabalho, com três perspectivas: **liderança**, **RH/SST** e **trabalhadores**. Mobile-first, exploração de ambientes isométricos e decisões com feedback educacional fictício.
+Protótipo educativo de simulação e gestão de fatores de risco psicossociais relacionados ao trabalho, com foco em participação, prevenção coletiva e decisões organizacionais. Público de perspectivas mistas: trabalhadores, liderança, RH/SST e profissionais de apoio.
 
-## Experimente a versão Alpha v1.0
+## Acessos da versão atual
 
-- **[Central de gestão — galpão logístico](https://pilha-plus-game-preview.vercel.app/)**
-- **[Conheça a equipe — 4 personagens](https://pilha-plus-game-preview.vercel.app/?view=equipe)**
-- **[Caso 017 — jornada completa](https://pilha-plus-game-preview.vercel.app/caso017.html)**
-- **[Exploração experimental 2.5D](https://pilha-plus-game-preview.vercel.app/game.html)**
-- **[Laboratório de personagens 3D](https://pilha-plus-game-preview.vercel.app/viewer3d.html)**
+- **[Tela inicial — mapa geral da organização](https://pilha-plus-game-preview.vercel.app/)**
+- **[Casos — cinco cenários, um disponível](https://pilha-plus-game-preview.vercel.app/?view=casos)**
+- **[Conheça a equipe — quatro retratos](https://pilha-plus-game-preview.vercel.app/?view=equipe)**
+- **[Caso 017 — simulação completa e pontuação](https://pilha-plus-game-preview.vercel.app/caso017.html)**
+- **[Cena 3D experimental — caminhar e interagir](https://pilha-plus-game-preview.vercel.app/scene3d.html)**
+- **[Laboratório 3D — importar modelos animados](https://pilha-plus-game-preview.vercel.app/viewer3d.html)**
 
-A central de gestão exibe um galpão estático, um mapa de riscos ilustrativo e os quatro personagens aprovados. O menu mantém Missões, Equipe, Biblioteca, Configurações e Sobre. Os Casos 018/019 aparecem como planejamento, não como missões jogáveis.
+## Evolução pedagógica
 
-## Arquivos do produto
+O Caso 017 contém investigação com orçamento de evidências, análise causal, plano de ação dentro de 12 unidades, monitoramento e pontuação final de saúde do ambiente de 0 a 100. A meta para cumprir o pré-requisito de avanço é **75 pontos**, com possibilidade de revisão. Há critérios de proteção da privacidade e enfrentamento dos fatores organizacionais. **Os Casos 018–021 continuam em desenvolvimento**, independentemente do resultado obtido.
 
-| Arquivo | Papel |
+O score é fictício e educativo, não é indicador clínico nem prova de conformidade com NR-1.
+
+## Arquivos principais
+
+| Arquivo | Responsabilidade |
 |---|---|
-| `index.html` | Central de gestão e entrada do jogo |
-| `menu.css`, `menu.js`, `v10.css` | Layout responsivo, central de gestão, equipe e preferências |
-| `assets/v10/` | Retratos WebP e galpão ilustrado otimizados |
-| `caso017.html` | Jornada principal completa com cinco etapas |
-| `game.html` | Capítulo 01 com investigação e decisões |
-| `viewer3d.html` | Laboratório 3D para importar modelos GLB privados |
-| `src/world.js` | Mapa, NPCs, obstáculos e rotas |
-| `tests/menu.test.js` | Verificações estáticas das rotas |
-| `docs/SESSAO-17-MENU-INICIAL-UX.md` | Wireframes, mapa de navegação, estados e critérios |
+| `index.html`, `app.css`, `app.js` | Visão geral, casos, equipe, biblioteca, configurações |
+| `caso017.html`, `case.css`, `case.js` | Jornada completa com escolha, pontuação e salvamento local |
+| `scene3d.html` | Primeira integração 3D (personagem animado em cenário provisório) |
+| `viewer3d.html` | Importação local e laboratório de animações GLB |
+| `game.html`, `src/world.js` | Protótipo exploratório 2.5D legado |
+| `caso017-v1.html` | Caso 017 legado com progresso anterior preservado |
+| `assets/v11/` | Panorama geral, recortes de cenários e quatro personagens em WebP |
+| `tests/static-flow.mjs` | Testes de cálculo, progressão, bloqueio e assets |
+| `docs/SESSAO-20-ALPHA-11.md` | Decisões e descrição da versão |
+| `design-qa.md` | Limites da QA visual e verificações realizadas |
 
-## Documentação
+## Recursos externos
 
-- [Sessão 19 — Central de gestão e equipe](docs/SESSAO-19-CENTRAL-DE-GESTAO.md)
-- [Sessão 17 — Menu, UX e wireframes](docs/SESSAO-17-MENU-INICIAL-UX.md)
-- [GDD](docs/GDD.md) e [simulação](docs/SIMULACAO.md)
-- [NR-1 e limites éticos](docs/NR1-ETICA.md)
-- [Arquitetura](docs/ARQUITETURA.md) e [direção visual](docs/SESSAO-03.md)
-- [Cronograma](planning/CRONOGRAMA.md) e [backlog](planning/BACKLOG.md)
-- [Orientações para Codex](AGENTS.md)
-- [Biblioteca Drive](https://drive.google.com/drive/folders/1B-mPPAQ1aPbBmAi-e8H21aFxKETnVX19) (acesso restrito)
-- [FigJam — fluxo do jogo](https://www.figma.com/board/i2BUcF0vH9CRcdXtvPa0k9)
+- [Biblioteca no Google Drive](https://drive.google.com/drive/folders/1B-mPPAQ1aPbBmAi-e8H21aFxKETnVX19)
+- [Registro dos modelos 3D](docs/PRODUCAO-DRIVE-INDEX.md)
+- [Direção e arquitetura](docs/ARQUITETURA.md)
+- [Histórico de sessões](docs/SESSAO-17-MENU-INICIAL-UX.md)
 
-## Estado atual
+### Estado de validação
 
-A central de gestão é uma interface ilustrada e o Caso 017 possui um fluxo educativo completo de cinco etapas, ainda experimental. A arte isométrica e os avatares do menu são ilustrações provisórias. Os modelos GLB originais permanecem privados no Google Drive e são carregados localmente no navegador pelo laboratório 3D.
+As verificações estáticas locais passaram, e a publicação na Vercel foi concluída. A verificação visual automatizada está pendente porque o navegador do ambiente bloqueou a captura (`ERR_BLOCKED_BY_ADMINISTRATOR`). O movimento 3D com GLB depende de os modelos já terem sido importados ao mesmo navegador pelo laboratório.
 
-> Conteúdo fictício e educativo. Não emite diagnóstico, não comprova conformidade legal com a NR-1 e não substitui avaliação profissional especializada. Licença de lançamento comercial pendente.
+**Nota:** Jogo educativo, fictício. Não realiza diagnóstico médico ou psicológico, não revela prontuários e não substitui medidas e análises técnicas de gestão de riscos ocupacionais.
