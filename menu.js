@@ -132,7 +132,7 @@ function home(){
         '<div class="v10-bottom">'+
           '<section class="v10-case"><div class="v10-case-head"><h3>Caso 017 · Sobrecarga no galpão</h3><em>RISCO ALTO</em></div><p>O crescimento operacional foi acompanhado por horas extras, conflitos entre turnos e dificuldade para realizar pausas. Sua missão é investigar antes de decidir.</p>'+
             '<div class="v10-case-status"><span>Setor: logística</span><span>28 trabalhadores (fictício)</span><span>'+ (p.started?'Etapa: '+(stageText[currentStage]||'Investigação'):'Caso não iniciado')+'</span></div>'+
-            '<div class="v10-case-actions"><a href="/caso017.html">'+(p.started?'Continuar jornada':'Iniciar investigação')+' →</a><a class="secondary" href="/caso017.html">Exploração 2.5D experimental</a></div>'+
+            '<div class="v10-case-actions"><a href="/caso017.html">'+(p.started?'Continuar jornada':'Iniciar investigação')+' →</a><a class="secondary" href="/game.html">Exploração 2.5D experimental</a></div>'+
           '</section>'+
           '<section class="v10-insights"><h3>Como o caso se desenvolve? <span class="v10-newflag">Jornada completa</span></h3>'+
             '<div class="v10-evidence-items"><span><b>01</b> Escute trabalhadores e liderança</span><span><b>02</b> Analise metas e jornada</span><span><b>03</b> Planeje medidas organizacionais</span><span><b>04</b> Defina acompanhamento e conclua</span></div>'+
