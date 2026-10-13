@@ -1,6 +1,6 @@
 # PilhA+ Game — Alpha 1.3 | Biblioteca 3D Experimental
 
-Esta atualização **não substitui** a Alpha 1.2 e mantém a experiência 2D como principal para estudo. Foram incluídos: [Biblioteca 3D experimental](./biblioteca3d.html), protótipos reais GLB (mentor e ambiente), interação nas três estações, gravação do progresso compartilhado com a Missão 01 e navegação ao quiz anterior.
+A Alpha 1.3 integra a biblioteca 3D experimental ao endereço principal da Vercel e preserva a experiência 2D como alternativa para o estudo. Foram incluídos: [Biblioteca 3D experimental](./biblioteca3d.html), protótipos reais GLB (mentor e ambiente), interação nas três estações, gravação do progresso compartilhado com a Missão 01 e navegação ao quiz anterior.
 
 Os modelos 3D aqui foram criados **localmente a partir de primitivas geométricas**, sem geração Meshy e sem custo em créditos. Têm qualidade de protótipo e não representam os assets 3D definitivos do PilhA+.
 
@@ -22,3 +22,10 @@ Os modelos 3D aqui foram criados **localmente a partir de primitivas geométrica
 ### Pendente
 
 Geração do modelo final via Meshy (CLI não disponível nesta execução), rigging e animações, biblioteca definitiva, conversão do galpão FBX e QA visual no navegador. Nenhuma alegação de liberação mobile/performance oficial nesta versão.
+
+### Publicação e acesso
+
+- Entrada principal: `https://pilha-plus-game-preview.vercel.app/`
+- Missão 01: `/missao01.html`
+- Biblioteca 3D: `/biblioteca3d.html`
+- Fallback: em falha do carregamento de módulos 3D, as estações em texto continuam acessíveis, inclusive em dispositivos sem WebGL.

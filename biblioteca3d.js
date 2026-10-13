@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 
+window.__pilha3DReady=true;
 const SAVE_KEY='pilha-missao01-v1';
 const STATIONS=[
   {id:'saude-mental',name:'Saúde mental',x:-2.43,z:1.28,number:'01'},
@@ -220,6 +221,7 @@ function init3D(){
  }catch(err){tell('WebGL não está disponível. Os cartões de aprendizagem continuam funcionando: '+err.message)}
 }
 async function boot(){
+ if(window.__pilha3DFallbackActive)return;
  try{
   const resp=await fetch('/content/mission01.json',{cache:'no-store'});
   if(!resp.ok)throw Error(`HTTP ${resp.status}`);

@@ -1,0 +1,31 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+const root=path.resolve(import.meta.dirname,'..');
+const read=f=>fs.readFileSync(path.join(root,f),'utf8');
+const app=read('app.js'), css=read('app.css'),mission=read('mission01.js');
+const room=read('biblioteca3d.html'),scene=read('biblioteca3d.js'),fallback=read('biblioteca3d-fallback.js');
+assert.match(app,/ALPHA 1\.3/);
+assert.doesNotMatch(app,/ALPHA 1\.2/);
+assert.match(app,/href="\/biblioteca3d\.html"/);
+assert.match(app,/assets\/v13\/biblioteca-3d-preview\.png/);
+assert.match(mission,/Entrar na biblioteca 3D/);
+assert.match(mission,/Continuar no modo de leitura 2D/);
+assert.match(mission,/data-command="beginQuiz"/);
+assert.match(room,/script src="\/biblioteca3d-fallback\.js" defer/);
+assert.match(scene,/window\.__pilha3DReady=true/);
+assert.match(scene,/window\.__pilha3DFallbackActive/);
+assert.match(fallback,/window\.__pilha3DFallbackActive=true/);
+assert.match(fallback,/const KEY='pilha-missao01-v1'/);
+assert.match(fallback,/if\(!s\.explored\.includes\(current\)\)s\.explored\.push\(current\)/);
+assert.match(fallback,/if\(s\.phase==='intro'\)s\.phase='explore'/);
+const ids=['dialog-kicker','dialog-title','dialog-definition','dialog-expanded','dialog-example','dialog-takeaway','dialog-complete','dialog-close','dialog-back','dialog-backdrop','station-list','talk-mentor','score-line','read-counter','track-fill'];
+for (const id of ids)assert.ok(room.includes(`id="${id}"`),`missing fallback ${id}`);
+for (const model of ['biblioteca-modular-prototipo.glb','gestor-mentor-prototipo.glb']) {
+ const bin=fs.readFileSync(path.join(root,'assets/v13',model));
+ assert.equal(bin.toString('ascii',0,4),'glTF');
+ assert.ok(bin.length>1000 && bin.length<1024*1024);
+}
+assert.match(css,/\.mission-intro-strip/);
+assert.match(read('intro-gate.js'),/pilha-missao01-v1/);
+console.log('Alpha 1.3 release: navigation, version, 3D/2D, fallback and binary references PASS');
