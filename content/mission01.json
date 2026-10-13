@@ -1,0 +1,122 @@
+{
+  "id": "missao-01",
+  "version": 1,
+  "title": "Conhecendo a NR-1 no Brasil",
+  "subtitle": "Fundamentos para a gestão dos riscos psicossociais relacionados ao trabalho",
+  "location": "Biblioteca de aprendizagem PilhA+",
+  "mentor": {
+    "name": "Gestor-mentor",
+    "role": "Facilitador de aprendizagem",
+    "intro": "Bem-vindo ao PilhA+. Antes de assumir a gestão de um ambiente de trabalho, precisamos compreender três conceitos e como eles se relacionam com a prevenção.",
+    "direction": "Explore os três pontos de leitura. Depois, responda às perguntas e descubra o que acontece quando conceitos viram decisões.",
+    "finish": "Você concluiu a introdução. No galpão, investigar as condições de trabalho e ouvir diferentes perspectivas será mais importante do que julgar as pessoas."
+  },
+  "rules": {
+    "explorePointsPerStation": 20,
+    "quizPointsPerCorrect": 10,
+    "completionPoints": 10,
+    "maximumScore": 100,
+    "passScore": 70,
+    "minimumCorrect": 2,
+    "conceptsRequired": 3,
+    "quizQuestions": 3
+  },
+  "stations": [
+    {
+      "id": "saude-mental",
+      "number": "01",
+      "label": "Saúde mental",
+      "symbol": "♡",
+      "subtitle": "Bem-estar e contexto",
+      "definition": "Relaciona-se ao bem-estar emocional, psicológico e social das pessoas e pode ser influenciada por diferentes aspectos da vida e do trabalho.",
+      "expanded": "A saúde mental envolve a forma como as pessoas lidam com emoções, relações e desafios. No trabalho, as condições organizacionais podem influenciar a experiência das pessoas, mas saúde mental não é sinônimo de diagnóstico clínico nem se limita à vida profissional.",
+      "workExample": "Uma equipe pode contar com pessoas diferentes e ainda assim enfrentar desgaste quando falta pessoal, há metas contraditórias e as pausas deixam de acontecer.",
+      "keyInsight": "Observe o contexto sem transformar cada trabalhador em um problema individual."
+    },
+    {
+      "id": "fatores-psicossociais",
+      "number": "02",
+      "label": "Fatores de risco psicossociais",
+      "symbol": "⚑",
+      "subtitle": "Condições e organização do trabalho",
+      "definition": "São situações relacionadas à organização e às condições de trabalho que podem afetar a saúde e o bem-estar, como sobrecarga, pressão excessiva, conflitos, falta de apoio, assédio ou pouca clareza sobre responsabilidades.",
+      "expanded": "No gerenciamento de riscos ocupacionais, o foco está nos fatores relacionados ao trabalho: demanda, recursos, relações, papéis, jornada, práticas de gestão e condições de realização das tarefas. Eles exigem identificação, avaliação e medidas de prevenção apropriadas ao contexto.",
+      "workExample": "Em um galpão, a quantidade de pedidos cresce, o quadro não é ajustado e os turnos ficam sem pausas regulares. A investigação deve olhar para a organização das tarefas, não apenas pedir mais resiliência.",
+      "keyInsight": "O objetivo é identificar fatores do trabalho e transformá-los por medidas preventivas."
+    },
+    {
+      "id": "seguranca-psicologica",
+      "number": "03",
+      "label": "Segurança psicológica",
+      "symbol": "◈",
+      "subtitle": "Voz, escuta e confiança",
+      "definition": "É a percepção de que existe espaço para falar, fazer perguntas, pedir ajuda, apresentar preocupações e discordar sem medo de constrangimentos ou consequências negativas.",
+      "expanded": "Quando as pessoas sentem segurança para conversar, é mais provável que compartilhem dúvidas, dificuldades e sinais de problemas. Isso não elimina conflitos ou riscos por si só: a liderança precisa responder aos relatos, proteger a participação e agir sobre as condições organizacionais.",
+      "workExample": "Uma operadora aponta que faltam pessoas para manter pausas regulares. A liderança ouve, não retalia e revisa a distribuição de tarefas com a equipe.",
+      "keyInsight": "Escuta sem retaliação precisa resultar em respostas organizacionais concretas."
+    }
+  ],
+  "legalContext": {
+    "headline": "O que a NR-1 estabelece neste contexto?",
+    "text": "A NR-1 trata das disposições gerais e do Gerenciamento de Riscos Ocupacionais (GRO). A redação revisada do capítulo 1.5, vigente desde 26 de maio de 2026, incluiu expressamente os fatores de risco psicossociais relacionados ao trabalho. A gestão de riscos considera identificação, avaliação e prevenção, articuladas às condições reais do trabalho.",
+    "caveat": "Esta missão apresenta conceitos para fins educativos. Não substitui a norma vigente, a avaliação técnica dos riscos, o Programa de Gerenciamento de Riscos (PGR) ou atendimento clínico.",
+    "sources": [
+      {
+        "title": "MTE — NR-1 (texto e publicações oficiais)",
+        "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/nr-1"
+      },
+      {
+        "title": "MTE — Manual de interpretação e aplicação do capítulo 1.5 (2026)",
+        "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/manuais-e-publicacoes/2026/manual_gro_pgr_da_nr_1.pdf"
+      },
+      {
+        "title": "MTE — Guia de fatores de risco psicossociais relacionados ao trabalho (2025)",
+        "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/guia-nr-01-revisado.pdf"
+      }
+    ]
+  },
+  "quiz": [
+    {
+      "id": "q1",
+      "station": "saude-mental",
+      "question": "Uma equipe relata cansaço recorrente. Qual é o primeiro olhar mais consistente com uma abordagem preventiva?",
+      "options": [
+        {"id":"a","text":"Classificar quais trabalhadores têm menos resistência emocional."},
+        {"id":"b","text":"Investigar metas, recursos, pausas e a organização do trabalho, ouvindo a equipe."},
+        {"id":"c","text":"Determinar que cada trabalhador resolva a situação individualmente."},
+        {"id":"d","text":"Ignorar o relato enquanto a produção estiver dentro da meta."}
+      ],
+      "correct": "b",
+      "feedbackCorrect": "Correto. É necessário observar as condições de trabalho sem atribuir o problema automaticamente a características individuais.",
+      "feedbackIncorrect": "Considere os aspectos organizacionais: metas, recursos, jornadas e pausas influenciam as condições de realização do trabalho."
+    },
+    {
+      "id": "q2",
+      "station": "fatores-psicossociais",
+      "question": "Qual conjunto exemplifica fatores de risco psicossociais relacionados ao trabalho?",
+      "options": [
+        {"id":"a","text":"Cor da parede, marca do uniforme e nome do setor."},
+        {"id":"b","text":"Somente a personalidade de cada colaborador."},
+        {"id":"c","text":"Sobrecarga, assédio, pouca clareza de papéis e falta de apoio."},
+        {"id":"d","text":"Somente eventos da vida pessoal, independentemente do trabalho."}
+      ],
+      "correct": "c",
+      "feedbackCorrect": "Correto. Esses são exemplos de fatores associados à organização, às condições e às relações de trabalho.",
+      "feedbackIncorrect": "A NR-1 focaliza os fatores de risco psicossociais relacionados ao trabalho, e não a análise da personalidade ou da vida privada."
+    },
+    {
+      "id": "q3",
+      "station": "seguranca-psicologica",
+      "question": "Uma trabalhadora questiona uma escala que impede pausas. Qual resposta favorece segurança psicológica e prevenção?",
+      "options": [
+        {"id":"a","text":"Exigir que ela retire a crítica para não prejudicar a imagem da gestão."},
+        {"id":"b","text":"Divulgar o nome dela para que todos saibam quem reclamou."},
+        {"id":"c","text":"Agradecer e não fazer nada para evitar mudanças de rotina."},
+        {"id":"d","text":"Ouvir sem retaliação, investigar o problema e construir mudanças com participação."}
+      ],
+      "correct": "d",
+      "feedbackCorrect": "Correto. Segurança psicológica se expressa na abertura para falar e na responsabilidade de escutar e agir.",
+      "feedbackIncorrect": "Abrir espaço para relatos significa evitar retaliação e dar respostas concretas, não expor ou silenciar pessoas."
+    }
+  ]
+}

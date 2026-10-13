@@ -1,29 +1,32 @@
-# Design QA — Alpha 1.1
+# Design QA — PilhA+ Alpha v1.2
 
-**final result: blocked**
+**Resultado:** testes estáticos aprovados; inspeção visual automatizada pendente.
 
-## Referências
-- Design principal: `/mnt/data/Escritório Isométrico com Operações Integradas.png`, 1536 × 1024 px, usado integralmente na visão geral.
-- Referências aprovadas: imagens de galpão e quatro personagens, já mantidas na biblioteca visual do PilhA+.
+## Escopo
 
-## Implementação
-- `index.html`: abertura responsiva com panorama geral, navegação, progresso e cinco etapas.
-- `/?view=casos`: Galpão logístico e mapa de riscos; quatro cartões de futuros casos.
-- `/?view=equipe`: quatro retratos aprovados, descrições e links de 3D.
-- `caso017.html`: jornada educativa com pontuação e possibilidade de revisão.
+- Biblioteca SVG e hotspots de Missão 01; estado local persistido e quiz.
+- Integração da Missão 01 à central e aos Casos.
+- Glossário com definições do projeto e fontes oficiais MTE.
+- Continuidade de pontuação e estado do Caso 017.
+- Importação voluntária de galpão GLB em ambiente 3D experimental.
 
-## Evidências que foram possíveis
-- Otimização das imagens verificada com Pillow.
-- `node --check` passou para `app.js` e `case.js`.
-- `tests/static-flow.mjs` passou: resultado bem-sucedido 100 pontos, malsucedido 23 pontos, pontuação limitada em violações de privacidade, cinco casos com quatro indisponíveis, equipe e ativos válidos.
+## Testes executados
 
-## Bloqueio
-- Chromium e Playwright retornaram `net::ERR_BLOCKED_BY_ADMINISTRATOR`, inclusive para domínio simulado com interceptação de rede.
-- Não foi possível capturar uma screenshot renderizada da implementação e comparar com a referência no mesmo viewport.
-- **Sem captura real, não é possível atribuir `passed` ao design QA.**
+- `node --check` em scripts novos e script de integração `scene3d.module.mjs`.
+- `node tests/mission01.test.mjs`: simulações 100/100 sucesso, 70/100 e 80/100 sem compreensão insuficiente, 90/100 aprovação; proteção de acesso e progresso legado.
+- `node tests/static-flow.mjs`: regressão do Caso 017 (100/100 bem-sucedido; 23/100 malsucedido), restrições de privacidade, casos futuros indisponíveis, arquivos WebP válidos.
+- SVG da biblioteca renderizado em PNG com CairoSVG para verificação aproximada do ambiente isométrico.
 
-## Itens pendentes para inspeção humana/browser
-- Desktop 1440 × 900 e mobile 390 × 844: tipografia, espaçamento, cores, enquadramento da imagem e qualidade dos personagens.
-- Overflow horizontal, estados de foco, botões e seleção de casos.
-- Percurso completo da pontuação e comportamento do laboratório 3D em dispositivos reais.
+## Restrições
 
+- Chromium headless não concluiu a captura da versão servida localmente; QA visual real de componentes JS no navegador ainda pendente.
+- A biblioteca é um diorama **vetorial estático** com elementos interativos HTML, não a malha 3D final.
+- A cena 3D permite abrir GLB enviado pelo navegador, mas o FBX original do galpão não foi convertido nesta sessão. Materiais, posições de NPCs e colisões demandam validação com o GLB real.
+- A pontuação é apenas pedagógica (não métrica real de saúde, nem assessment normativo).
+
+## Próximos critérios
+
+1. Captura da missão em 1440×900 e 390×844; confirmar legibilidade do quiz e hotspots.
+2. Importação em navegador real do galpão exportado e verificação de escala/visibilidade.
+3. Ajuste de colisões e posicionamentos dos personagens na cena real.
+4. Prática com usuário para confirmar compreensão das questões e clareza das respostas.

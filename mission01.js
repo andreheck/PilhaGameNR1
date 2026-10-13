@@ -1,0 +1,79 @@
+/* PilhA+ Game — Missão 01 / Biblioteca NR-1, Alpha 1.2 */
+(()=>{
+'use strict';
+const KEY='pilha-missao01-v1';
+const CASE_KEY='pilha-case017-v2';
+const root=document.getElementById('mission-content');
+const initial=()=>({version:1,phase:'intro',explored:[],answers:{},questionIndex:0,feedback:false,completed:false,passed:false,score:0,correct:0,attempts:0,certified:false,bestScore:0,bestCorrect:0});
+const escapeHTML=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const byId=id=>document.getElementById(id);
+function read(key){try{return JSON.parse(localStorage.getItem(key)||'null')}catch{return null}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));return true}catch{message='Não foi possível salvar neste navegador.';return false}}
+function safeState(){const raw=read(KEY);if(!raw || raw.version!==1)return initial();const stage=['intro','explore','quiz','result'].includes(raw.phase)?raw.phase:'intro';return {...initial(),...raw,phase:stage,questionIndex:Math.max(0,Math.min(2,Number(raw.questionIndex)||0)),explored:Array.isArray(raw.explored)?raw.explored:[],answers:raw.answers&&typeof raw.answers==='object'?raw.answers:{}}}
+let config=null,state=safeState(),opened=null,message='';
+const score=()=>{
+ const correct=config.quiz.filter(q=>state.answers[q.id]===q.correct).length;
+ const explored=config.stations.filter(s=>state.explored.includes(s.id)).length;
+ const rules=config.rules;
+ const total=explored*rules.explorePointsPerStation+correct*rules.quizPointsPerCorrect+(state.completed?rules.completionPoints:0);
+ const passed=state.completed&&total>=rules.passScore&&correct>=rules.minimumCorrect&&explored===rules.conceptsRequired;
+ return {correct,explored,total,passed};
+};
+const viewRules=()=>`<div class="points"><div><b>+20</b><span>por estação</span></div><div><b>+10</b><span>por resposta correta</span></div><div><b>+10</b><span>pela conclusão</span></div></div>`;
+const mentorPortrait=()=>`<svg viewBox="0 0 160 202" role="img" aria-label="Gestor-mentor do jogo, ilustração provisória"><ellipse cx="82" cy="191" rx="65" ry="10" fill="#082636" opacity=".28"/><path d="M38 133 Q78 100 119 134 L126 193 H35Z" fill="#dbac56" stroke="#925e31" stroke-width="3"/><path d="M55 134 79 157 99 134" fill="#fff6e3"/><rect x="72" y="116" width="18" height="24" rx="6" fill="#a2684b"/><ellipse cx="81" cy="81" rx="41" ry="47" fill="#b67c57"/><path d="M40 90Q20 36 51 27Q83 0 112 30Q128 51 120 82L116 62Q105 50 94 53Q59 36 47 67Z" fill="#28313b"/><rect x="48" y="79" width="26" height="17" rx="7" fill="none" stroke="#26394b" stroke-width="5"/><rect x="86" y="79" width="26" height="17" rx="7" fill="none" stroke="#26394b" stroke-width="5"/><path d="M74 84h12" stroke="#26394b" stroke-width="4"/><path d="M72 108q12 10 23 0" stroke="#563d31" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M36 143 18 183M123 143l18 40" stroke="#b67c57" stroke-width="17" stroke-linecap="round"/><path d="M80 157v35" stroke="#86614b" stroke-width="4"/><path d="M35 185h90" stroke="#c59042" stroke-width="4"/></svg>`;
+function shell(title,body){
+ const progress=score();
+ const phaseLabels=['Recepção','Exploração','Quiz','Conclusão'];
+ const which=['intro','explore','quiz','result'].indexOf(state.phase);
+ root.innerHTML=`<div class="layout"><section class="mission-frame"><div class="eyebrow">PRÓLOGO · GESTÃO E PSICOEDUCAÇÃO</div><div class="heading-line"><div><h1>${escapeHTML(title)}</h1><p>Conhecendo a NR-1 no Brasil · Biblioteca PilhA+</p></div><span class="chapter-badge">CAPÍTULO ZERO</span></div><nav class="stepper" aria-label="Progresso da missão">${phaseLabels.map((label,i)=>`<span class="stage ${i===which?'current':i<which?'done':''}" ${i===which?'aria-current="step"':''}><b>${i+1}</b>${label}</span>`).join('')}</nav>${body}</section><aside class="sidebar"><div class="mentor-card"><div class="mentor-image">${mentorPortrait()}</div><span class="eyebrow">FACILITADOR DE APRENDIZAGEM</span><h2>Gestor-mentor</h2><p id="mentor-text">${escapeHTML(state.phase==='intro'?config.mentor.intro:state.phase==='explore'?config.mentor.direction:state.phase==='quiz'?'Leia cada situação e escolha a resposta que melhor orienta uma decisão preventiva.':'Você concluiu o percurso introdutório. Confira o resultado e avance quando estiver preparado.')}</p><span class="mentor-note">Personagem conceitual, ainda não modelado em 3D.</span></div><div class="meter-card"><div class="meter-top"><strong>Progresso do estudo</strong><span>${progress.explored}/3 conceitos</span></div><div class="progress-track"><span style="width:${progress.explored/3*100}%"></span></div><div class="small-rule">Meta da Missão 01: <strong>70/100 e 2 respostas corretas</strong>.</div>${viewRules()}</div><div class="side-links"><a href="/?view=biblioteca">Glossário geral →</a><a href="${escapeHTML(config.legalContext.sources[0].url)}" target="_blank" rel="noopener noreferrer">Texto oficial da NR-1 ↗</a></div></aside></div><div class="live" role="status" aria-live="polite">${escapeHTML(message)}</div>`;
+}
+function intro(){shell('Sua jornada começa pelo conhecimento',`<div class="intro-grid"><div class="lib-scene"><img src="/assets/v12/biblioteca-isometrica.svg" alt="Biblioteca isométrica com estantes, mesa de leitura, monitor e personagem gestor-mentor"><span class="scene-tag">BIBLIOTECA DE APRENDIZAGEM</span></div><div class="intro-copy"><div class="eyebrow">MISSÃO 01</div><h2>Antes de liderar, compreender.</h2><p>Como futuro gestor no PilhA+, você precisará observar ambientes de trabalho, conversar com diferentes pessoas e escolher medidas responsáveis.</p><p>Comece por três fundamentos: saúde mental, fatores de risco psicossociais e segurança psicológica.</p><div class="mission-reward">Explore 3 estações, responda 3 desafios e desbloqueie o galpão.</div><button class="primary" data-command="start">Entrar na biblioteca →</button></div></div><div class="context-band"><strong>NR-1 no Brasil</strong><p>${escapeHTML(config.legalContext.text)}</p></div>`)}
+function stationCard(s){const done=state.explored.includes(s.id);return `<button type="button" class="station-card" data-station="${s.id}" aria-label="Abrir estação ${escapeHTML(s.label)}"><span class="station-symbol">${escapeHTML(s.symbol)}</span><span class="station-meta"><small>ESTAÇÃO ${s.number}${done?' · CONCLUÍDA':''}</small><strong>${escapeHTML(s.label)}</strong><em>${escapeHTML(s.subtitle)}</em></span><span class="station-status">${done?'✓':'+'}</span></button>`}
+function explore(){const progress=score();shell('Explore a biblioteca',`<div class="exploration"><div class="scene-container"><img src="/assets/v12/biblioteca-isometrica.svg" alt="Visão isométrica da biblioteca com três estações de aprendizagem"><button class="hotspot h1" data-station="saude-mental" type="button" aria-label="Abrir estação 01 Saúde mental">01</button><button class="hotspot h2" data-station="fatores-psicossociais" type="button" aria-label="Abrir estação 02 Fatores de risco psicossociais">02</button><button class="hotspot h3" data-station="seguranca-psicologica" type="button" aria-label="Abrir estação 03 Segurança psicológica">03</button><div class="scene-note">Toque nos pontos numerados ou escolha um card.</div></div><div class="study-list"><span class="eyebrow">TRÊS ESTAÇÕES DE CONHECIMENTO</span><h2>Leia, reflita, registre.</h2>${config.stations.map(stationCard).join('')}<p class="microcopy">Cada estação concluída vale 20 pontos de exploração.</p><button type="button" class="primary" data-command="beginQuiz" ${progress.explored<3?'disabled':''}>${progress.explored<3?'Estude todas as estações':'Iniciar desafio de conhecimento →'}</button></div></div><div class="context-band compact"><strong>${escapeHTML(config.legalContext.headline)}</strong><p>${escapeHTML(config.legalContext.text)}</p><details><summary>Consultar fontes oficiais e limites deste material</summary><p>${escapeHTML(config.legalContext.caveat)}</p>${config.legalContext.sources.map(src=>`<p><a href="${escapeHTML(src.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(src.title)} ↗</a></p>`).join('')}</details></div>${opened?stationDialog():''}`)}
+function stationDialog(){const s=config.stations.find(x=>x.id===opened);if(!s)return '';return `<div class="dialog-backdrop" data-overlay="true"><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="concept-title"><div class="dialog-top"><span class="eyebrow">ESTAÇÃO ${s.number}</span><button type="button" class="dialog-close" data-command="close" aria-label="Fechar explicação">×</button></div><h2 id="concept-title">${escapeHTML(s.label)}</h2><p class="definition">${escapeHTML(s.definition)}</p><h3>Entenda melhor</h3><p>${escapeHTML(s.expanded)}</p><h3>Na prática</h3><p>${escapeHTML(s.workExample)}</p><div class="takeaway"><strong>Para levar ao jogo</strong><p>${escapeHTML(s.keyInsight)}</p></div><div class="dialog-actions"><button type="button" class="secondary" data-command="close">Voltar ao mapa</button><button type="button" class="primary" data-command="markStation" data-id="${s.id}">${state.explored.includes(s.id)?'Revisão concluída':'Concluir leitura (+20)'}</button></div></section></div>`}
+function quiz(){const q=config.quiz[state.questionIndex]||config.quiz[0];const chosen=state.answers[q.id];const valid=!!chosen;const sent=!!state.feedback;const correct=chosen===q.correct;const number=state.questionIndex+1;
+ shell('Desafio de conhecimento',`<div class="quiz-area"><div class="quiz-header"><div><span class="eyebrow">APLICAR O CONCEITO</span><h2>Questão ${number} de 3</h2><p>Os problemas do trabalho raramente têm soluções apenas individuais. Escolha a resposta mais responsável.</p></div><span class="quiz-indicator">${String(number).padStart(2,'0')} / 03</span></div><div class="quiz-question">${escapeHTML(q.question)}</div><div class="quiz-options">${q.options.map((o,i)=>`<button type="button" data-option="${o.id}" ${sent?'disabled':''} class="quiz-option ${chosen===o.id?'selected':''} ${sent&&o.id===q.correct?'correct':''} ${sent&&o.id===chosen&&!correct?'wrong':''}" aria-pressed="${chosen===o.id?'true':'false'}"><span>${'ABCD'[i]}</span><b>${escapeHTML(o.text)}</b></button>`).join('')}</div>${sent?`<div class="feedback ${correct?'correct':'wrong'}" role="status"><strong>${correct?'Resposta adequada · +10 pontos':'Uma oportunidade de aprendizagem'}</strong><p>${escapeHTML(correct?q.feedbackCorrect:q.feedbackIncorrect)}</p></div>`:''}<div class="dialog-actions quiz-actions"><span class="small-rule">${number===3?'Esta é a última questão.':'Leia o feedback antes de continuar.'}</span>${!sent?`<button type="button" class="primary" data-command="confirmAnswer" ${valid?'':'disabled'}>Confirmar resposta</button>`:`<button type="button" class="primary" data-command="nextQuestion">${number===3?'Ver resultado':'Próxima pergunta →'}</button>`}</div></div>`);
+}
+function results(){const {total,correct,explored,passed}=score();const tried=state.attempts||1;const eligible=passed;
+ shell(eligible?'Missão 01 concluída!':'Revise e tente novamente',`<div class="result-area"><div class="result-overview"><div class="result-score ${eligible?'pass':'retry'}"><span class="score-numeric">${total}<small>/100</small></span><span>${eligible?'META ATINGIDA':'REVISÃO NECESSÁRIA'}</span></div><div><span class="eyebrow">CONCLUSÃO DO PRÓLOGO</span><h2>${eligible?'Você está pronto para investigar.':'A biblioteca continua aberta para você.'}</h2><p>${eligible?escapeHTML(config.mentor.finish):'Para avançar, reúna pelo menos 70 pontos e acerte duas das três questões. Você pode revisitar os conceitos e repetir o quiz sem perder o estudo anterior.'}</p><div class="result-metrics"><span><b>${explored}/3</b> leituras</span><span><b>${correct}/3</b> respostas</span><span><b>${tried}</b> tentativa${tried===1?'':'s'}</span></div></div></div><div class="breakdown"><h3>Como a pontuação foi formada</h3><div><span>Exploração dos conceitos</span><strong>${explored*20}/60</strong></div><div><span>Respostas corretas</span><strong>${correct*10}/30</strong></div><div><span>Conclusão da missão</span><strong>10/10</strong></div><div><span><b>Total</b></span><strong>${total}/100</strong></div></div><div class="dialog-actions">${eligible?`<a class="primary link-button" href="/caso017.html">Iniciar Caso 017 — Galpão logístico →</a>`:`<button type="button" class="primary" data-command="retryQuiz">Refazer desafios →</button>`}<button type="button" class="secondary" data-command="review">Revisitar a biblioteca</button><a href="/?view=casos" class="secondary link-button">Voltar aos casos</a></div><p class="small-rule">Pontuação de aprendizagem: não é medição de saúde mental nem avaliação oficial de conformidade com a NR-1.</p></div>`)
+}
+function render(){message='';if(!config)return;switch(state.phase){case 'intro':intro();break;case 'explore':explore();break;case 'quiz':quiz();break;case 'result':results();break;default:intro();}}
+function progress(target){state.phase=target;persist();render();window.scrollTo?.({top:0,behavior:'auto'});}
+function complete(){state.completed=true;state.attempts=(state.attempts||0)+1;const result=score();state.correct=result.correct;state.score=result.total;state.passed=result.passed;if(result.passed){state.certified=true;state.bestScore=Math.max(state.bestScore||0,result.total);state.bestCorrect=Math.max(state.bestCorrect||0,result.correct)}state.feedback=false;progress('result')}
+function command(kind,el){
+ if(kind==='start'){progress('explore');return}
+ if(kind==='close'){opened=null;render();return}
+ if(kind==='markStation'){
+   const id=el.dataset.id;if(!config.stations.some(x=>x.id===id))return;
+   if(!state.explored.includes(id))state.explored.push(id);
+   opened=null;persist();render();return;
+ }
+ if(kind==='beginQuiz'){
+   if(score().explored<3)return;
+   state.questionIndex=0;state.feedback=false;state.answers={};state.completed=false;progress('quiz');return;
+ }
+ if(kind==='confirmAnswer'){
+   const q=config.quiz[state.questionIndex];if(!state.answers[q.id])return;
+   state.feedback=true;persist();render();return;
+ }
+ if(kind==='nextQuestion'){
+   if(!state.feedback)return;
+   if(state.questionIndex<config.quiz.length-1){state.questionIndex++;state.feedback=false;persist();render();}
+   else complete();return;
+ }
+ if(kind==='retryQuiz'){
+   state.questionIndex=0;state.answers={};state.feedback=false;state.completed=false;state.passed=false;progress('quiz');return;
+ }
+ if(kind==='review'){opened=null;progress('explore');return}
+}
+document.addEventListener('click',e=>{
+ const station=e.target.closest('[data-station]');if(station){opened=station.dataset.station;render();return}
+ const opt=e.target.closest('[data-option]');if(opt&&state.phase==='quiz'&&!state.feedback){const q=config.quiz[state.questionIndex];if(q?.options.some(x=>x.id===opt.dataset.option)){state.answers[q.id]=opt.dataset.option;persist();render()}return}
+ const ctrl=e.target.closest('[data-command]');if(ctrl)command(ctrl.dataset.command,ctrl);
+ if(e.target.dataset.overlay){opened=null;render()}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&opened){opened=null;render()}});
+window.addEventListener('storage',e=>{if(e.key===KEY){state=safeState();render()}});
+async function boot(){try{const r=await fetch('/content/mission01.json',{cache:'no-cache'});if(!r.ok)throw new Error(`HTTP ${r.status}`);config=await r.json();if(!Array.isArray(config.stations)||config.stations.length!==3||!Array.isArray(config.quiz)||config.quiz.length!==3)throw new Error('Estrutura de missão incompleta.');render();}catch(err){root.innerHTML=`<section class="load-failed"><h1>A biblioteca não carregou</h1><p>Não foi possível abrir o conteúdo educacional nesta tentativa.</p><p>${escapeHTML(err.message)}</p><button onclick="location.reload()" class="primary">Tentar novamente</button></section>`}}
+boot();
+})();

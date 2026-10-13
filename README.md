@@ -1,46 +1,40 @@
-# PilhA+ Game — Alpha v1.1
+# PilhA+ Game — Alpha v1.2
 
-Protótipo educativo de simulação e gestão de fatores de risco psicossociais relacionados ao trabalho, com foco em participação, prevenção coletiva e decisões organizacionais. Público de perspectivas mistas: trabalhadores, liderança, RH/SST e profissionais de apoio.
+Protótipo educativo mobile-first de gestão e psicoeducação sobre **fatores de risco psicossociais relacionados ao trabalho**. O conteúdo da NR-1 é fundamentado em publicações do Ministério do Trabalho e Emprego (2025–2026). Esta experiência não realiza diagnósticos nem comprova conformidade legal.
 
-## Acessos da versão atual
+## Agora disponível
 
-- **[Tela inicial — mapa geral da organização](https://pilha-plus-game-preview.vercel.app/)**
-- **[Casos — cinco cenários, um disponível](https://pilha-plus-game-preview.vercel.app/?view=casos)**
-- **[Conheça a equipe — quatro retratos](https://pilha-plus-game-preview.vercel.app/?view=equipe)**
-- **[Caso 017 — simulação completa e pontuação](https://pilha-plus-game-preview.vercel.app/caso017.html)**
-- **[Cena 3D experimental — caminhar e interagir](https://pilha-plus-game-preview.vercel.app/scene3d.html)**
-- **[Laboratório 3D — importar modelos animados](https://pilha-plus-game-preview.vercel.app/viewer3d.html)**
+- **[Missão 01 — Conhecendo a NR-1 no Brasil](https://pilha-plus-game-preview.vercel.app/missao01.html)** — biblioteca interativa, três conceitos, três perguntas, pontuação (0–100) e desbloqueio de aprendizagem.
+- **[Visão geral](https://pilha-plus-game-preview.vercel.app/)** — mapa panorâmico isométrico e progresso.
+- **[Casos](https://pilha-plus-game-preview.vercel.app/?view=casos)** — Missão 01, Caso 017 jogável e quatro casos em desenvolvimento.
+- **[Caso 017 — Galpão Logístico](https://pilha-plus-game-preview.vercel.app/caso017.html)** — investigação, análise, plano de ação, acompanhamento e score fictício ≥75.
+- **[Cena 3D experimental](https://pilha-plus-game-preview.vercel.app/scene3d.html)** — movimentação com GLB de personagens e importação local de **galpão GLB**.
+- **[Laboratório de modelos 3D](https://pilha-plus-game-preview.vercel.app/viewer3d.html)** — testar os GLBs de personagens.
 
-## Evolução pedagógica
+## Educação + pontuação
 
-O Caso 017 contém investigação com orçamento de evidências, análise causal, plano de ação dentro de 12 unidades, monitoramento e pontuação final de saúde do ambiente de 0 a 100. A meta para cumprir o pré-requisito de avanço é **75 pontos**, com possibilidade de revisão. Há critérios de proteção da privacidade e enfrentamento dos fatores organizacionais. **Os Casos 018–021 continuam em desenvolvimento**, independentemente do resultado obtido.
+**Missão 01:** ler três conceitos (3×20=60), responder três questões (3×10=30) e concluir o percurso (+10). Acesso didático ao Caso 017: **≥70 pontos e ≥2 respostas corretas**. Novos jogadores passam por essa introdução. Jogadores com progresso anterior no caso continuam normalmente (chaves de estado não apagadas). Pode repetir o quiz sem perder o aprendizado já realizado.
 
-O score é fictício e educativo, não é indicador clínico nem prova de conformidade com NR-1.
+**Caso 017:** nota mínima pedagógica 75/100 para cumprir requisito dos casos seguintes, que permanecem indisponíveis enquanto não forem desenvolvidos.
 
-## Arquivos principais
+## Conteúdo e modelagem
 
-| Arquivo | Responsabilidade |
-|---|---|
-| `index.html`, `app.css`, `app.js` | Visão geral, casos, equipe, biblioteca, configurações |
-| `caso017.html`, `case.css`, `case.js` | Jornada completa com escolha, pontuação e salvamento local |
-| `scene3d.html` | Primeira integração 3D (personagem animado em cenário provisório) |
-| `viewer3d.html` | Importação local e laboratório de animações GLB |
-| `game.html`, `src/world.js` | Protótipo exploratório 2.5D legado |
-| `caso017-v1.html` | Caso 017 legado com progresso anterior preservado |
-| `assets/v11/` | Panorama geral, recortes de cenários e quatro personagens em WebP |
-| `tests/static-flow.mjs` | Testes de cálculo, progressão, bloqueio e assets |
-| `docs/SESSAO-20-ALPHA-11.md` | Decisões e descrição da versão |
-| `design-qa.md` | Limites da QA visual e verificações realizadas |
+- `content/mission01.json` — textos, diálogos, perguntas, gabarito, regras e fontes;
+- `assets/v12/biblioteca-isometrica.svg` — ambiente vetorial modular provisório;
+- `prompts/MESHY-MISSAO-01-ASSETS.md` — personagem gestor-mentor, cena biblioteca e 10 props;
+- `docs/SESSAO-21-MISSAO-01.md` — wireflow, arquitetura e cronograma de sessões diárias de 1h;
+- `missao01.html`, `mission01.css`, `mission01.js` — implementação do prólogo;
+- `intro-gate.js` — proteção de onboarding para jogadores novos;
+- `scene3d.html` — teste com GLB do galpão **importado no navegador**, escala normalizada e cache local.
 
-## Recursos externos
+O cenário definitivo do Meshy ainda precisa de **exportação/conversão de FBX para GLB otimizado** e calibração de colisões, pivôs e posições dos personagens. Importação local é experimental; não publica nem envia o arquivo original a servidores.
 
-- [Biblioteca no Google Drive](https://drive.google.com/drive/folders/1B-mPPAQ1aPbBmAi-e8H21aFxKETnVX19)
-- [Registro dos modelos 3D](docs/PRODUCAO-DRIVE-INDEX.md)
-- [Direção e arquitetura](docs/ARQUITETURA.md)
-- [Histórico de sessões](docs/SESSAO-17-MENU-INICIAL-UX.md)
+## QA
 
-### Estado de validação
+`node tests/mission01.test.mjs` e `node tests/static-flow.mjs` validam pontuação, retomada do caso, proteção pedagógica, regressão, assets e conteúdo. Verificação visual com browser automatizado ainda pendente.
 
-As verificações estáticas locais passaram, e a publicação na Vercel foi concluída. A verificação visual automatizada está pendente porque o navegador do ambiente bloqueou a captura (`ERR_BLOCKED_BY_ADMINISTRATOR`). O movimento 3D com GLB depende de os modelos já terem sido importados ao mesmo navegador pelo laboratório.
+## Fontes oficiais
 
-**Nota:** Jogo educativo, fictício. Não realiza diagnóstico médico ou psicológico, não revela prontuários e não substitui medidas e análises técnicas de gestão de riscos ocupacionais.
+- [MTE — NR-1 atualizada](https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/nr-1)
+- [MTE — Manual GRO/PGR 2026](https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/manuais-e-publicacoes/2026/manual_gro_pgr_da_nr_1.pdf)
+- [MTE — Guia de fatores psicossociais 2025](https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/guia-nr-01-revisado.pdf)

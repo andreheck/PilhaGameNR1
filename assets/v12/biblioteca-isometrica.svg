@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc">
+<title id="title">Biblioteca modular de aprendizagem PilhA+</title><desc id="desc">Biblioteca isométrica acolhedora com estantes, livros, mesa central, monitor, plantas e três áreas de leitura.</desc>
+<defs>
+<linearGradient id="floor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6e8c7"/><stop offset=".8" stop-color="#b7c9b7"/></linearGradient>
+<linearGradient id="panel" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#f3f3de"/><stop offset="1" stop-color="#b4ccc2"/></linearGradient>
+<linearGradient id="wood" x1="0" y1="0" x2=".6" y2="1"><stop stop-color="#cc986b"/><stop offset="1" stop-color="#815c4b"/></linearGradient>
+<filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0d2937" flood-opacity=".25"/></filter>
+</defs>
+<ellipse cx="505" cy="513" rx="435" ry="85" fill="#102d3e" opacity=".14"/>
+<g stroke="#31545b" stroke-width="4" stroke-linejoin="round" filter="url(#shadow)">
+<polygon points="500,52 935,273 505,528 61,293" fill="url(#floor)"/>
+<polygon points="61,293 505,528 505,556 61,323" fill="#829c9a"/>
+<polygon points="505,528 935,273 935,302 505,556" fill="#526e73"/>
+<polygon points="61,293 500,52 500,13 61,259" fill="#eee7d5"/>
+<polygon points="500,52 935,273 935,232 500,13" fill="url(#panel)"/>
+</g>
+<!-- flooring accents -->
+<g stroke="#ffffff" opacity=".45" stroke-width="2"><path d="M164 333 595 94M242 375 680 139M333 423 773 184M412 463 851 229"/><path d="M146 249 580 481M236 199 675 428M326 151 766 376M413 103 851 327"/></g>
+<!-- central rug -->
+<path d="M395 311 554 231 699 305 532 400Z" fill="#62887c" opacity=".77"/>
+<path d="M431 311 554 248 669 306 530 381Z" fill="#e9d5ae" stroke="#88a797" stroke-width="5"/>
+<!-- large left bookshelves -->
+<g stroke="#694e44" stroke-width="3" stroke-linejoin="round">
+<polygon points="116,256 295,160 348,189 172,286" fill="#b27c53"/>
+<polygon points="116,256 172,286 172,374 116,347" fill="#6c5548"/>
+<polygon points="172,286 348,189 348,270 172,374" fill="#8b674c"/>
+</g>
+<path d="M139 277 324 179" stroke="#e0b17d" stroke-width="8"/>
+<path d="M139 309 324 212" stroke="#e0b17d" stroke-width="8"/>
+<path d="M139 339 324 243" stroke="#e0b17d" stroke-width="8"/>
+<polygon points="154,267.0 163,262.0 163,281.0 154,286.0" fill="#e89b5d" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="166,266.48 175,261.48 175,280.48 166,285.48" fill="#516e77" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="178,265.96 187,260.96 187,279.96 178,284.96" fill="#f3d27e" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="190,265.44 199,260.44 199,279.44 190,284.44" fill="#65886b" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="202,264.92 211,259.92 211,278.92 202,283.92" fill="#b87863" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="214,264.4 223,259.4 223,278.4 214,283.4" fill="#375b6e" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="226,263.88 235,258.88 235,277.88 226,282.88" fill="#d7ad79" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="238,263.36 247,258.36 247,277.36 238,282.36" fill="#e89b5d" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="250,262.84 259,257.84 259,276.84 250,281.84" fill="#516e77" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="262,262.32 271,257.32 271,276.32 262,281.32" fill="#f3d27e" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="274,261.8 283,256.8 283,275.8 274,280.8" fill="#65886b" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="286,261.28 295,256.28 295,275.28 286,280.28" fill="#b87863" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="298,260.76 307,255.76 307,274.76 298,279.76" fill="#375b6e" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="154,233.5 163,228.5 163,247.5 154,252.5" fill="#f3d27e" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="166,232.98000000000002 175,227.98000000000002 175,246.98000000000002 166,251.98000000000002" fill="#65886b" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="178,232.45999999999998 187,227.45999999999998 187,246.45999999999998 178,251.45999999999998" fill="#b87863" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="190,231.94 199,226.94 199,245.94 190,250.94" fill="#375b6e" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="202,231.42000000000002 211,226.42000000000002 211,245.42000000000002 202,250.42000000000002" fill="#d7ad79" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="214,230.89999999999998 223,225.89999999999998 223,244.89999999999998 214,249.89999999999998" fill="#e89b5d" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="226,230.38 235,225.38 235,244.38 226,249.38" fill="#516e77" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="238,229.86 247,224.86 247,243.86 238,248.86" fill="#f3d27e" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="250,229.33999999999997 259,224.33999999999997 259,243.33999999999997 250,248.33999999999997" fill="#65886b" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="262,228.82 271,223.82 271,242.82 262,247.82" fill="#b87863" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="274,228.3 283,223.3 283,242.3 274,247.3" fill="#375b6e" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="286,227.77999999999997 295,222.77999999999997 295,241.77999999999997 286,246.77999999999997" fill="#d7ad79" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="298,227.26 307,222.26 307,241.26 298,246.26" fill="#e89b5d" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="154,200.0 163,195.0 163,214.0 154,219.0" fill="#b87863" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="166,199.48000000000002 175,194.48000000000002 175,213.48000000000002 166,218.48000000000002" fill="#375b6e" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="178,198.95999999999998 187,193.95999999999998 187,212.95999999999998 178,217.95999999999998" fill="#d7ad79" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="190,198.44 199,193.44 199,212.44 190,217.44" fill="#e89b5d" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="202,197.92000000000002 211,192.92000000000002 211,211.92000000000002 202,216.92000000000002" fill="#516e77" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="214,197.39999999999998 223,192.39999999999998 223,211.39999999999998 214,216.39999999999998" fill="#f3d27e" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="226,196.88 235,191.88 235,210.88 226,215.88" fill="#65886b" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="238,196.36 247,191.36 247,210.36 238,215.36" fill="#b87863" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="250,195.83999999999997 259,190.83999999999997 259,209.83999999999997 250,214.83999999999997" fill="#375b6e" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="262,195.32 271,190.32 271,209.32 262,214.32" fill="#d7ad79" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="274,194.8 283,189.8 283,208.8 274,213.8" fill="#e89b5d" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="286,194.27999999999997 295,189.27999999999997 295,208.27999999999997 286,213.27999999999997" fill="#516e77" stroke="#6d5d4b" stroke-width="1.2"/><polygon points="298,193.76 307,188.76 307,207.76 298,212.76" fill="#f3d27e" stroke="#6d5d4b" stroke-width="1.2"/>
+<!-- top board with theme -->
+<polygon points="509,96 653,168 653,240 509,171" fill="#153d49" stroke="#426778" stroke-width="6"/>
+<polygon points="522,114 640,172 640,223 522,165" fill="#275e5e"/>
+<g fill="#ffcb81"><path d="M552 150q18-8 26 8q8-21 27-5q11 16-26 36-38-26-27-39Z"/><circle cx="588" cy="194" r="4"/></g>
+<!-- standing informational screen -->
+<polygon points="722,182 815,135 899,176 806,229" fill="#243d4b" stroke="#b0c5c5" stroke-width="5"/>
+<polygon points="742,182 816,145 880,177 807,217" fill="#edf4e6"/>
+<path d="m775 181 18 11 18-21 12 12 17-8" stroke="#f0a451" stroke-width="7" fill="none"/>
+<path d="M808 228v66" stroke="#395768" stroke-width="8"/>
+<ellipse cx="809" cy="299" rx="28" ry="10" fill="#355b61" opacity=".8"/>
+<!-- book table -->
+<polygon points="411,299 524,242 632,298 517,359" fill="url(#wood)" stroke="#6d584c" stroke-width="5"/>
+<polygon points="411,299 517,359 517,375 411,316" fill="#805c49"/>
+<polygon points="517,359 632,298 632,313 517,375" fill="#ab7652"/>
+<path d="M441 314v56m159-53v54" stroke="#735949" stroke-width="8"/>
+<!-- reading book -->
+<polygon points="475,291 520,269 549,286 509,308" fill="#f2e0bc" stroke="#a58060" stroke-width="3"/>
+<polygon points="509,308 551,286 578,301 532,328" fill="#fff2d8" stroke="#a58060" stroke-width="3"/>
+<path d="M509 308 532 328" stroke="#a58060" stroke-width="2"/>
+<!-- tablet and notebook -->
+<polygon points="559,268 585,255 604,265 578,278" fill="#2d576b" stroke="#344e5c" stroke-width="2"/>
+<!-- cushions -->
+<g stroke="#496e67" stroke-width="3">
+<polygon points="373,369 418,349 462,369 416,394" fill="#8cae99"/>
+<polygon points="374,369 416,394 416,410 374,384" fill="#4b7976"/>
+<polygon points="416,394 462,369 462,386 416,410" fill="#6c9a91"/>
+<polygon points="608,360 645,340 682,360 648,381" fill="#daa476"/>
+<polygon points="608,360 648,381 648,399 608,378" fill="#986952"/>
+</g>
+<!-- side reading desk -->
+<polygon points="655,400 727,366 781,395 708,432" fill="#ceac7d" stroke="#775a4f" stroke-width="4"/>
+<path d="M670 410v49m97-54v45" stroke="#795e4f" stroke-width="7"/>
+<polygon points="699,393 733,377 754,390 719,408" fill="#253e53"/>
+<polygon points="701,390 729,378 748,390 719,403" fill="#9bc1b6"/>
+<!-- plants -->
+<g><path d="M165 406 196 392 220 407 193 422Z" fill="#d2a370"/><path d="M165 406v32l28 15v-31Z" fill="#957051"/><path d="M193 422 220 407v32l-27 14Z" fill="#bd8a63"/><path d="M194 409v-85" stroke="#517658" stroke-width="9"/><ellipse cx="195" cy="325" rx="30" ry="24" fill="#4d8b73"/><ellipse cx="180" cy="335" rx="25" ry="18" fill="#79a47b"/><ellipse cx="209" cy="340" rx="24" ry="19" fill="#467d6c"/></g>
+<g transform="translate(640 -128)"><path d="M165 406 196 392 220 407 193 422Z" fill="#d2a370"/><path d="M165 406v32l28 15v-31Z" fill="#957051"/><path d="M193 422 220 407v32l-27 14Z" fill="#bd8a63"/><path d="M194 409v-80" stroke="#517658" stroke-width="8"/><ellipse cx="195" cy="329" rx="26" ry="28" fill="#4d8b73"/><ellipse cx="180" cy="345" rx="20" ry="15" fill="#79a47b"/><ellipse cx="210" cy="345" rx="19" ry="19" fill="#467d6c"/></g>
+<!-- mentor standing in welcoming corner -->
+<ellipse cx="341" cy="460" rx="30" ry="13" fill="#253f4c" opacity=".25"/>
+<path d="M326 420h30l4 34-12 6-5-21-7 20-12-6Z" fill="#344b5c"/>
+<path d="M313 364q29-18 54 0l-1 65h-54Z" fill="#d29a40" stroke="#926b3d" stroke-width="3"/>
+<path d="M332 363h18v24h-18Z" fill="#fff4df"/>
+<ellipse cx="340" cy="343" rx="23" ry="24" fill="#a96b4c"/>
+<path d="M317 345q0-37 30-29 20 0 17 27l-8-18-28 1Z" fill="#292b31"/>
+<path d="M322 373l-15 33m62-32 17 32" stroke="#a86f4c" stroke-width="11" stroke-linecap="round"/>
+<rect x="330" y="339" width="10" height="8" rx="3" fill="none" stroke="#263949" stroke-width="2"/><rect x="343" y="339" width="10" height="8" rx="3" fill="none" stroke="#263949" stroke-width="2"/>
+<!-- floor notation circles -->
+<g fill="#fff5da" stroke="#ab926d" stroke-width="3"><circle cx="283" cy="353" r="16"/><circle cx="668" cy="243" r="16"/><circle cx="750" cy="381" r="16"/></g>
+<g font-family="Arial,sans-serif" font-size="17" font-weight="800" text-anchor="middle" fill="#436c64"><text x="283" y="359">1</text><text x="668" y="249">2</text><text x="750" y="387">3</text></g>
+</svg>
