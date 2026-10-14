@@ -43,7 +43,7 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  const actors=[];const loader=new GLTFLoader();
  function fallbackActor(def){const g=new THREE.Group();g.position.set(def.x,0,def.z);const body=new THREE.Mesh(new THREE.CapsuleGeometry(.17,.53,4,12),solid(def.color));body.position.y=.75;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.2,12,10),solid(0xbe886a));head.position.y=1.33;g.add(head);scene.add(g);return g}
  for(const a of actorDefs){const fallback=fallbackActor(a);const actor={...a,root:fallback,placeholder:fallback,mixer:null,clips:null,state:'idle',time:0,goalX:a.x,goalZ:a.z,homeX:a.x,homeZ:a.z};actors.push(actor);
-  loader.load(`/actors/${a.file}.glb`,gl=>{
+  loader.load(`/assets/actors/${a.file}.glb`,gl=>{
    const model=gl.scene;const bounds=new THREE.Box3().setFromObject(model);const size=bounds.getSize(new THREE.Vector3());let scale=1.58/Math.max(.01,size.y);scale=Math.min(100,scale);model.scale.setScalar(scale);model.updateMatrixWorld(true);
    const after=new THREE.Box3().setFromObject(model);model.position.set(a.x,-after.min.y,a.z);
    model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false}});
@@ -58,9 +58,24 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  const regionHits=ray.intersectObjects(clicks);if(regionHits.length){onCase(regionHits[0].object.userData.caseId)}
  });
  function resize(){const w=container.clientWidth,h=container.clientHeight; if(w<4||h<4)return;renderer.setSize(w,h,false);const aspect=w/h;const base=dist/1.9;camera.left=-base*aspect;camera.right=base*aspect;camera.top=base;camera.bottom=-base;camera.updateProjectionMatrix()};new ResizeObserver(resize).observe(container);resize();
+  // Keyboard moves the camera within the office hub; ignored while typing.
+  const held=new Set();
+  const panKeys={w:'up',arrowup:'up',s:'down',arrowdown:'down',a:'left',arrowleft:'left',d:'right',arrowright:'right'};
+  const isEditable=el=>el&&(/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)||el.isContentEditable);
+  const handleDown=e=>{if(isEditable(e.target)||e.altKey||e.ctrlKey||e.metaKey)return;const key=panKeys[e.key.toLowerCase()];if(key){held.add(key);e.preventDefault()}};
+  const handleUp=e=>{const key=panKeys[e.key.toLowerCase()];if(key)held.delete(key)};
+  const resetHeld=()=>held.clear();
+  window.addEventListener('keydown',handleDown);window.addEventListener('keyup',handleUp);window.addEventListener('blur',resetHeld);
  let last=performance.now(),on=true,choice='';const preferReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  function frame(t){if(!on)return;requestAnimationFrame(frame);const dt=Math.min(.05,(t-last)/1000);last=t;
- target.lerp(desired,preferReduced?1:1-Math.exp(-dt*3.6));camera.position.set(target.x+12,target.y+13,target.z+13);camera.lookAt(target);
+  if(held.size){
+    const px=Number(held.has('right'))-Number(held.has('left'));
+    const pz=Number(held.has('down'))-Number(held.has('up'));
+    const magnitude=Math.hypot(px,pz)||1;
+    desired.x=THREE.MathUtils.clamp(desired.x+px/magnitude*dt*3.4,-4,4);
+    desired.z=THREE.MathUtils.clamp(desired.z+pz/magnitude*dt*3.4,-3.5,3.5);
+  }
+  target.lerp(desired,preferReduced?1:1-Math.exp(-dt*3.6));camera.position.set(target.x+12,target.y+13,target.z+13);camera.lookAt(target);
  for(const actor of actors){actor.mixer?.update(dt);if(actor.root){actor.time+=dt;actor.root.position.x=THREE.MathUtils.damp(actor.root.position.x,actor.goalX,2.8,dt);actor.root.position.z=THREE.MathUtils.damp(actor.root.position.z,actor.goalZ,2.8,dt);if(!actor.mixer){actor.root.position.y=Math.sin(actor.time*2)*.025;}if(actor.state==='walk'&&Math.hypot(actor.root.position.x-actor.goalX,actor.root.position.z-actor.goalZ)<.09){actor.state='idle';animate(actor.key,'idle')}}
  }
  renderer.render(scene,camera)}requestAnimationFrame(frame);
@@ -70,5 +85,5 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  const pattern=mode==='walk'?/walk/i:mode==='run'?/run/i:mode==='idle'?/idle|baselayer|clip0/i:/discuss|answer|sit|baselayer|clip0/i;
  const next=a.clips.find(c=>pattern.test(c.name))||a.clips[0];const current=a.mixer._actions?.find(x=>x.isRunning());const n=a.mixer.clipAction(next);if(current!==n){n.reset().play();if(current)n.crossFadeFrom(current,.34,true)}a.state=mode;return true;
  }
- return {focus,reset:()=>focus(null),animate,dispose:()=>{on=false;renderer.dispose();renderer.domElement.remove()},actorCount:()=>actors.length};
+ return {focus,reset:()=>focus(null),animate,dispose:()=>{on=false;window.removeEventListener('keydown',handleDown);window.removeEventListener('keyup',handleUp);window.removeEventListener('blur',resetHeld);renderer.dispose();renderer.domElement.remove()},actorCount:()=>actors.length};
 }

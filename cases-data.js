@@ -42,6 +42,6 @@ export const CASES=[
 ];
 export const REQUIRED_SCORE=75;
 export const KEY=(id)=>`pilha-case-${id}-alpha14`;
-export function completedCase(id,store){if(id==='017'){const newer=store(KEY(id));const legacy=store('pilha-case017-v2');const a=newer?.completed&&newer.score>=REQUIRED_SCORE;const b=legacy?.completed&&Number(legacy.score)>=REQUIRED_SCORE;return Boolean(a||b)}const x=store(KEY(id));return Boolean(x?.completed&&x.score>=REQUIRED_SCORE)}
+export function completedCase(id,store){const current=store(KEY(id));const best=Math.max(Number(current?.bestScore)||0,current?.completed?(Number(current.score)||0):0);if(id==='017'){const legacy=store('pilha-case017-v2');return best>=REQUIRED_SCORE||Boolean(legacy?.completed&&Number(legacy.score)>=REQUIRED_SCORE)}return best>=REQUIRED_SCORE}
 export function isUnlocked(index,store){if(index===0)return true;return completedCase(CASES[index-1].id,store)}
 export function outcome(caseId,choices){const definition=CASES.find(c=>c.id===caseId);if(!definition)return null;let score=0;const feedback=[];for(let i=0;i<definition.steps.length;i++){const c=definition.steps[i];const index=choices[i];if(Number.isInteger(index)&&c.options[index]){score+=c.options[index][1];feedback.push(c.options[index][2])}}return {score,passed:score>=REQUIRED_SCORE,feedback};}

@@ -1,4 +1,18 @@
-# PilhA+ Game — Alpha 1.3 | Biblioteca 3D Experimental
+# PilhA+ Game — Alpha 1.4
+
+Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.app/)**. O novo hub ocupa uma tela, inclui cinco casos educativos sequenciais, câmera isométrica com transições suaves, três personagens GLB animados e painéis contextuais. A meta pedagógica de cada caso é **75/100**, com pontuação máxima de 100. Os Casos 018 a 021 estão jogáveis em alpha, sujeitos a revisão pedagógica.
+
+- **Missão 01 / Fundamentos da NR-1:** [Biblioteca e quiz](https://pilha-plus-game-preview.vercel.app/missao01.html).
+- **Caso 017 anterior aprofundado:** [Fluxo de investigação](https://pilha-plus-game-preview.vercel.app/caso017.html).
+- **Biblioteca 3D experimental:** [Acessar](https://pilha-plus-game-preview.vercel.app/biblioteca3d.html).
+- **Especificação e limitações:** [Alpha 1.4](docs/ALPHA-14.md).
+- **Testes:** `node tests/alpha14.test.mjs`.
+
+> Os modelos 3D são otimizados de originais fornecidos para o projeto. O escritório é uma construção procedural provisória; não se deve confundir pontuações fictícias com medição real da saúde, diagnóstico ou conformidade legal. O progresso fica salvo neste navegador.
+
+---
+
+## Histórico de versões
 
 A Alpha 1.3 integra a biblioteca 3D experimental ao endereço principal da Vercel e preserva a experiência 2D como alternativa para o estudo. Foram incluídos: [Biblioteca 3D experimental](./biblioteca3d.html), protótipos reais GLB (mentor e ambiente), interação nas três estações, gravação do progresso compartilhado com a Missão 01 e navegação ao quiz anterior.
 

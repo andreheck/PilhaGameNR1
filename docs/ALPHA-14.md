@@ -39,3 +39,10 @@ O escritório 3D atualmente é uma **reconstrução modular procedural** (mesas,
 - Missão 01: `localStorage['pilha-missao01-v1']` (preservado).
 
 Este jogo é uma simulação educativa; pontuações não demonstram conformidade com a NR-1 nem avaliam a saúde clínica de pessoas reais.
+
+## Ajustes de finalização
+
+- Caminho de carregamento 3D corrigido para `/assets/actors/*.glb`, correspondendo aos arquivos realmente publicados.
+- Panorâmica via WASD ou setas implementada com limites de câmera.
+- Repetir um caso não apaga a melhor pontuação já conquistada nem bloqueia um próximo caso anteriormente liberado.
+- A rolagem da página permanece desativada. Caso a janela seja pequena, somente o painel contextual poderá ter rolagem interna, evitando cortes de texto e botões.
