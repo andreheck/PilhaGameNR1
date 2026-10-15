@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import path from 'node:path';
+import { CASE017_INITIAL, simulateCase017 } from '../simulation/case017.js';
+import { deriveCase017SceneState } from '../simulation/case017-scene.js';
 const root=path.resolve(import.meta.dirname,'..');
 const src=name=>fs.readFileSync(path.join(root,name),'utf8');
 function runtime(initial={}){
@@ -19,11 +21,11 @@ function runtime(initial={}){
   context.globalThis=context;vm.createContext(context);
   return {context,main,local};
 }
-const code=src('case.js');
+const code=src('case.js').replace("import { CASE017_INITIAL, simulateCase017 } from './simulation/case017.js';\n",'').replace("import { deriveCase017SceneState } from './simulation/case017-scene.js';\n",'');
 const end='put();render();\n})();';
 assert.ok(code.includes(end));
 const harness=code.replace(end,'globalThis.__caseTest={setState(x){s={...INIT(),...x}},scoreBreakdown,load,get(){return s},reset:INIT,actions,evidence,monitoring,hypothesis,disclosure,checkpoints,render};\nput();render();\n})();');
-const test=runtime();vm.runInContext(harness,test.context,{filename:'case.js',timeout:2000});
+const test=runtime();Object.assign(test.context,{CASE017_INITIAL,simulateCase017,deriveCase017SceneState});vm.runInContext(harness,test.context,{filename:'case.js',timeout:2000});
 const c=test.context.__caseTest;
 assert.ok(test.main.innerHTML.includes('GALPÃO · CASO 017'));
 assert.ok(test.main.innerHTML.includes('actor-dot'));
