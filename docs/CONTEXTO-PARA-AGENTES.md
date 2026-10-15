@@ -50,8 +50,8 @@ A simulação logística continua sendo uma página independente (`logistica-sim
 4. Identificar como o mapa 3D, as missões e a navegação principal estão organizados antes de planejar a integração.
 
 ### P1 — Integrar sem quebrar o jogo existente
-1. Criar um ponto de entrada claro para a simulação a partir da navegação principal/mapa 3D, respeitando a arquitetura real do repositório.
-2. Definir como a missão de logística começa, como o usuário entra/sai dela e como retorna ao jogo.
+1. **Concluído nesta branch:** criar entradas para a simulação na navegação principal desktop e móvel, mantendo também o atalho no rodapé do mapa. Validar no preview antes de considerar a etapa aceita.
+2. **Parcialmente concluído:** o usuário entra por link e retorna pelo link da própria página. Validar o fluxo ponta a ponta; a missão ainda não é uma cena integrada ao mapa 3D.
 3. Preservar as missões e os fluxos existentes; não substituir a experiência principal por uma página isolada.
 4. Garantir comportamento responsivo, acessibilidade básica, navegação por teclado quando aplicável e estados vazios/erro claros.
 5. Testar o caminho completo no preview Vercel, não apenas a abertura direta do HTML.
@@ -93,5 +93,7 @@ A integração pode ser considerada pronta para revisão quando:
 - README/backlog e PR descrevem fielmente o que foi entregue e o que ainda falta.
 
 ## 8. Instrução para o próximo agente
+
+Para um prompt pronto para copiar para Manus ou Codex, consulte [PROMPT-PARA-AGENTE-MANUS-CODEX.md](PROMPT-PARA-AGENTE-MANUS-CODEX.md).
 
 Comece inspecionando o repositório, o PR #1, o README, o backlog, o mapa 3D e a navegação. Faça primeiro um diagnóstico curto do estado atual e proponha um plano de implementação compatível com a arquitetura encontrada. Depois implemente em branch própria ou na branch de funcionalidade acordada, com alterações pequenas, testes e documentação. Não assuma que recomendações listadas aqui já foram implementadas.
