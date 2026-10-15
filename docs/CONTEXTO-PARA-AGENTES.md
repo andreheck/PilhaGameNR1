@@ -37,9 +37,9 @@ A implementação descrita no PR inclui:
 
 Os valores, efeitos de intervenção, perfis e relações causais devem ser tratados como **dados e regras fictícios para prototipação**, salvo se houver documentação explícita e validação posterior. Não apresentar resultados como diagnóstico de pessoas ou como mensuração científica validada.
 
-## 4. Limitação arquitetural já conhecida
+## 4. Estado da navegação (atualizado em 15/10/2026)
 
-A página `logistica-simulacao.html` é uma experiência separada. No estado registrado na criação do PR, ela **ainda não está integrada à navegação principal nem ao mapa 3D do jogo**. Não dizer que essa integração já existe sem verificar o código e testar a experiência.
+A simulação logística continua sendo uma página independente (`logistica-simulacao.html`), mas a branch deste PR passou a incluir entradas explícitas na navegação principal desktop e na navegação móvel, além do atalho já existente na faixa inferior do mapa. A navegação leva diretamente à simulação e a própria página oferece retorno ao jogo principal. Isso é integração por link/entrada de navegação, **não** incorporação do cenário logístico dentro da cena 3D; não afirmar que personagens ou ambiente logístico já estão renderizados no mapa 3D principal. A implementação deve ser confirmada no preview da branch.
 
 ## 5. Recomendações de continuidade — ordem sugerida
 
