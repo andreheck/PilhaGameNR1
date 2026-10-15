@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#102b42">
+  <meta name="description" content="Protótipo educativo de gestão de fatores psicossociais em ambiente logístico.">
+  <title>PilhA+ Game · Simulação logística</title>
+  <link rel="stylesheet" href="/logistica-simulacao.css">
+  <script type="module" src="/logistica-simulacao.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Voltar ao PilhA+ Game"><span class="brand-mark">+</span><span>PilhA<b>+</b><small>SIMULAÇÃO DE AMBIENTES</small></span></a>
+    <div class="top-actions"><span class="alpha-tag">PROTÓTIPO ALPHA</span><a class="back-link" href="/">Voltar ao jogo principal</a></div>
+  </header>
+  <main id="conteudo" class="layout">
+    <section class="intro">
+      <div><p class="eyebrow">AMBIENTE 01 · LOGÍSTICA</p><h1>Melhore as condições de trabalho.</h1><p class="intro-copy">Investigue sinais, escolha intervenções e acompanhe os efeitos simulados no ambiente e na equipe.</p></div>
+      <div class="budget-card"><span>ORÇAMENTO DISPONÍVEL</span><strong id="budget">R$ 8.000</strong><small>Créditos fictícios do jogo</small></div>
+    </section>
+    <div class="disclaimer" role="note"><strong>Simulação educativa.</strong> Os personagens, scores e efeitos são sintéticos; não representam pessoas reais, diagnóstico ou avaliação de conformidade com a NR-1. Alertas críticos permanecem visíveis independentemente da média.</div>
+    <section class="overview-grid" aria-label="Resumo do ambiente">
+      <article class="metric-card"><span>Score médio simulado</span><strong id="team-score">—</strong><small id="team-mood">Estado da equipe</small></article>
+      <article class="metric-card"><span>Funcionários no cenário</span><strong id="team-count">4</strong><small>Personagens fictícios</small></article>
+      <article class="metric-card"><span>Alertas a investigar</span><strong id="alert-count">—</strong><small>Não são ocultados pela média</small></article>
+      <article class="metric-card"><span>Melhorias aplicadas</span><strong id="upgrade-count">0</strong><small>Histórico desta sessão</small></article>
+    </section>
+    <section class="main-grid">
+      <div class="left-column">
+        <section class="section-card">
+          <div class="section-heading"><div><p class="eyebrow">MAPA DO AMBIENTE</p><h2>Galpão logístico</h2></div><span class="legend"><i></i> Sinal para investigar</span></div>
+          <div class="warehouse" aria-label="Representação esquemática do galpão e funcionários">
+            <div class="zone zone-a"><span>RECEBIMENTO</span><div class="crate-row"><i></i><i></i><i></i></div></div>
+            <div class="zone zone-b"><span>SEPARAÇÃO</span><div class="conveyor"><i></i><i></i><i></i><i></i></div></div>
+            <div class="zone zone-c"><span>EXPEDIÇÃO</span><div class="crate-row"><i></i><i></i></div></div>
+            <div class="aisle"></div>
+            <div id="map-workers" class="map-workers"></div>
+            <div class="map-caption">Selecione um personagem para abrir sua ficha</div>
+          </div>
+          <div id="employee-list" class="employee-list" aria-label="Selecionar funcionário"></div>
+        </section>
+        <section class="section-card">
+          <div class="section-heading"><div><p class="eyebrow">MELHORIAS</p><h2>Catálogo de intervenções</h2></div><span class="small-muted">Custo por aplicação</span></div>
+          <p class="section-description">Escolha uma ação coerente com o fator investigado. Os efeitos são parâmetros demonstrativos, não previsões de eficácia no mundo real.</p>
+          <div id="intervention-list" class="intervention-list"></div>
+        </section>
+      </div>
+      <aside class="right-column">
+        <section class="section-card employee-panel" id="employee-panel" aria-live="polite">
+          <div class="section-heading"><div><p class="eyebrow">FICHA INDIVIDUAL</p><h2>Funcionário</h2></div></div>
+          <div id="employee-detail"></div>
+        </section>
+        <section class="section-card">
+          <div class="section-heading"><div><p class="eyebrow">REGISTRO</p><h2>Histórico de decisões</h2></div><button id="reset-game" class="text-button" type="button">Reiniciar</button></div>
+          <ol id="history" class="history"><li class="empty-history">Nenhuma intervenção aplicada nesta sessão.</li></ol>
+        </section>
+      </aside>
+    </section>
+    <footer class="page-footer"><span>PilhA+ Game · Aprendizagem por simulação</span><span>Protótipo funcional · dados fictícios · não é ferramenta clínica</span></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
