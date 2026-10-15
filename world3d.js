@@ -43,6 +43,12 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  const actorDefs=[{name:'Operadora',key:'operadora',path:'actors/operadora.glb',x:-3.3,z:2.3,caseId:'017',color:0xf2a24b},{name:'Psicóloga',key:'psicologa',path:'actors/psicologa.glb',x:2.0,z:2.1,caseId:'020',color:0x6ea27a},{name:'Psiquiatra',key:'psiquiatra',path:'actors/psiquiatra.glb',x:3.4,z:2.4,caseId:'020',color:0xb98b61},{name:'Gestor-mentor',key:'gestor',path:'v13/gestor-mentor-prototipo.glb',x:.7,z:-2.55,caseId:'019',color:0x547c95},{name:'Colaborador',key:'colaborador',path:null,x:-.1,z:1.0,caseId:'017',color:0xc77c61}];
  const actors=[];const loader=new GLTFLoader();const actorHighlights=[];let focusedActor=null;
  const effects=new THREE.Group();effects.name='case017-persistent-effects';scene.add(effects);
+ const libraryFurniture=new THREE.Group();libraryFurniture.name='integrated-nr1-library';scene.add(libraryFurniture);
+ const libraryFloor=new THREE.Mesh(new THREE.CylinderGeometry(1.05,1.05,.035,32),new THREE.MeshStandardMaterial({color:0xc9ded7,roughness:.9}));libraryFloor.rotation.x=0;libraryFloor.position.set(.25,.02,-2.28);libraryFurniture.add(libraryFloor);
+ for(const x of [.82,1.28]){box(.32,1.5,.28,x,.75,-3.08,mat.dark,libraryFurniture);for(let y of [.35,.62,.89,1.16])box(.24,.035,.3,x,y,-2.92,mat.wood,libraryFurniture);}
+ const libraryDesk=box(1.0,.12,.5,.15,.62,-1.45,mat.wood,libraryFurniture);for(const x of [-.22,.52])box(.07,.55,.07,x,.31,-1.45,mat.dark,libraryFurniture);box(.5,.34,.06,.15,.9,-1.62,mat.screen,libraryFurniture);
+ const guideBoard=box(1.2,.95,.08,-.68,1.0,-2.28,mat.wall,libraryFurniture);const guideColors=[0xf3a24a,0x6ea27a,0x92a98e,0xb98b61,0x7394a7];guideColors.forEach((color,i)=>box(.16,.22,.04,-1.1+i*.2,1.0,-2.34,solid(color),libraryFurniture));
+ const libraryLamp=new THREE.Mesh(new THREE.SphereGeometry(.13,16,10),new THREE.MeshStandardMaterial({color:0xffc66c,emissive:0x8c4b16,emissiveIntensity:1.4}));libraryLamp.position.set(.15,1.14,-1.5);libraryFurniture.add(libraryLamp);
  const effectMat=(color,opacity=1,emissive=0x000000)=>new THREE.MeshStandardMaterial({color,roughness:.65,metalness:.05,transparent:opacity<1,opacity,emissive,emissiveIntensity:emissive?1.2:0});
  const pauseZone=new THREE.Group();pauseZone.name='pause-zone-protected';pauseZone.visible=false;effects.add(pauseZone);
  const pauseFloor=new THREE.Mesh(new THREE.CylinderGeometry(.82,.82,.035,32),effectMat(0x55b58b,.72,0x1d523d));pauseFloor.position.set(-2.15,.04,2.58);pauseZone.add(pauseFloor);
