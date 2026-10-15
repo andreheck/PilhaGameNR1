@@ -1,5 +1,6 @@
 /* PilhA+ Game — Caso 017 | versão 2: escolhas, recursos, pontuação e pré-requisitos */
 import { CASE017_INITIAL, simulateCase017 } from './simulation/case017.js';
+import { deriveCase017SceneState } from './simulation/case017-scene.js';
 
 (()=>{
 'use strict';
@@ -53,7 +54,7 @@ const checkpoints=[
  {id:'120',title:'Aguardar quatro meses sem revisões',desc:'Adia o ajuste de riscos prioritários.',points:-3}
 ];
 const STEPS=['Investigar','Analisar','Planejar','Acompanhar','Resultado'];
-const INIT=()=>({version:2,step:0,evidence:[],spoken:[],hypothesis:null,disclosure:null,actions:[],monitoring:[],checkpoint:null,completed:false,score:null,simulation:null});
+const INIT=()=>({version:2,step:0,evidence:[],spoken:[],hypothesis:null,disclosure:null,actions:[],monitoring:[],checkpoint:null,completed:false,score:null,simulation:null,sceneState:null});
 function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x?.version===2&&Number.isFinite(Number(x.step)))return {...INIT(),...x,step:Math.min(4,Math.max(0,Number(x.step)))};}catch{}return INIT()}
 let s=load();let openedActor=null;let notice='';
 function put(){try{localStorage.setItem(KEY,JSON.stringify(s))}catch{notice='Seu navegador não permitiu salvar o progresso. Evite fechar esta aba.'}}
@@ -102,8 +103,8 @@ function setOption(id){notice='';if(s.step===0){const e=evidence.find(x=>x.id===
  if(s.step===2){const a=actions.find(x=>x.id===id);if(!a)return;s.actions=s.actions.includes(id)?s.actions.filter(x=>x!==id):[...s.actions,id];if(sum(s.actions,actions)>BUDGET){s.actions=s.actions.filter(x=>x!==id);notice='O orçamento de 12 unidades foi ultrapassado. Reavalie prioridades.';}}
  if(s.step===3){if(id.startsWith('time:'))s.checkpoint=id.slice(5);else if(monitoring.some(x=>x.id===id))s.monitoring=s.monitoring.includes(id)?s.monitoring.filter(x=>x!==id):[...s.monitoring,id]}
  put();render();}
-function next(){notice='';const requirements=[s.evidence.length>=3,s.hypothesis&&s.disclosure,s.actions.length>=2,s.monitoring.length>=2&&s.checkpoint,false];if(!requirements[s.step]){notice='Verifique os requisitos desta etapa antes de continuar.';render();return}if(s.step===3){s.simulation=simulateCase017({actions:s.actions,evidence:s.evidence,hypothesis:s.hypothesis,monitoring:s.monitoring,days:30});s.step=4;s.completed=true;s.score=scoreBreakdown().score;}else s.step++;put();render();scrollTo({top:0,behavior:'smooth'});}
-function previous(){if(s.step>0){s.step--;s.completed=false;s.score=null;s.simulation=null;put();render();scrollTo({top:0,behavior:'smooth'})}}
+function next(){notice='';const requirements=[s.evidence.length>=3,s.hypothesis&&s.disclosure,s.actions.length>=2,s.monitoring.length>=2&&s.checkpoint,false];if(!requirements[s.step]){notice='Verifique os requisitos desta etapa antes de continuar.';render();return}if(s.step===3){s.simulation=simulateCase017({actions:s.actions,evidence:s.evidence,hypothesis:s.hypothesis,monitoring:s.monitoring,days:30});s.step=4;s.completed=true;s.score=scoreBreakdown().score;s.sceneState=deriveCase017SceneState(s.simulation,s.score,Date.now());}else s.step++;put();render();scrollTo({top:0,behavior:'smooth'});}
+function previous(){if(s.step>0){s.step--;s.completed=false;s.score=null;s.simulation=null;s.sceneState=null;put();render();scrollTo({top:0,behavior:'smooth'})}}
 function openPerson(id){if(!actors[id])return;openedActor=id;if(!s.spoken.includes(id)){s.spoken.push(id);put();}render();document.querySelector('.dialog')?.focus();}
 ROOT.addEventListener('click',e=>{let el=e.target.closest('button');if(!el){if(e.target.matches('.dialog-backdrop')){openedActor=null;render();}return}
  if(el.dataset.actor){openPerson(el.dataset.actor);return}
@@ -112,7 +113,7 @@ ROOT.addEventListener('click',e=>{let el=e.target.closest('button');if(!el){if(e
  if(el.dataset.option){setOption(el.dataset.option);return}
  if(el.hasAttribute('data-next')){next();return}
  if(el.hasAttribute('data-prev')){previous();return}
- if(el.hasAttribute('data-revise')){s.step=2;s.completed=false;s.score=null;s.simulation=null;put();render();return}
+ if(el.hasAttribute('data-revise')){s.step=2;s.completed=false;s.score=null;s.simulation=null;s.sceneState=null;put();render();return}
  if(el.hasAttribute('data-restart')){if(!confirm('Reiniciar o Caso 017? Sua pontuação será substituída.'))return;s=INIT();openedActor=null;put();render();return}
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&openedActor){openedActor=null;render()}});

@@ -20,9 +20,10 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  const mat={wall:solid(0xe5ebec),wood:solid(0xbe915f),dark:solid(0x3b5461),desk:solid(0xd5b08a),plant:solid(0x589171),floor:solid(0xd8dfe1),line:solid(0xeeb65c),screen:solid(0x27536a)};
  const box=(w,h,d,x,y,z,m,parent=scene)=>{const a=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);a.position.set(x,y,z);a.castShadow=h>.2;a.receiveShadow=true;parent.add(a);return a};
  box(11,.18,9,0,-.16,0,mat.floor);
+ const regionFx=[];const regionMats={};const baseRegionColors={};let activeRegion='017';let currentSceneState=null;
  for(const r of regions){
- const g=new THREE.Group();g.position.set(r.x,0,r.z);scene.add(g);
- box(r.w,.06,r.d,0,-.03,0,solid(r.color),g);
+ const g=new THREE.Group();g.position.set(r.x,0,r.z);g.userData.caseId=r.mark;scene.add(g);
+ const floorMat=solid(r.color);regionMats[r.mark]=floorMat;baseRegionColors[r.mark]=r.color;box(r.w,.06,r.d,0,-.03,0,floorMat,g);
  box(r.w,.77,.12,0,.38,-r.d/2,mat.wall,g);
  box(.1,.72,r.d,-r.w/2,.36,0,mat.wall,g);
  const positions=r.mark==='017'?[-.6,-.1,.6]:[-.55,.0,.7];
@@ -40,7 +41,7 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  const hit=box(r.w,.02,r.d,r.x,.02,r.z,new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0,depthWrite:false}));hit.userData.caseId=r.mark;hit.material.side=THREE.DoubleSide;
  }
  const actorDefs=[{name:'Operadora',key:'operadora',path:'actors/operadora.glb',x:-3.3,z:2.3,caseId:'017',color:0xf2a24b},{name:'Psicóloga',key:'psicologa',path:'actors/psicologa.glb',x:2.0,z:2.1,caseId:'020',color:0x6ea27a},{name:'Psiquiatra',key:'psiquiatra',path:'actors/psiquiatra.glb',x:3.4,z:2.4,caseId:'020',color:0xb98b61},{name:'Gestor-mentor',key:'gestor',path:'v13/gestor-mentor-prototipo.glb',x:.7,z:-2.55,caseId:'019',color:0x547c95},{name:'Colaborador',key:'colaborador',path:null,x:-.1,z:1.0,caseId:'017',color:0xc77c61}];
- const actors=[];const loader=new GLTFLoader();const regionFx=[];let activeRegion='017';
+ const actors=[];const loader=new GLTFLoader();
  function fallbackActor(def){const g=new THREE.Group();g.position.set(def.x,0,def.z);const body=new THREE.Mesh(new THREE.CapsuleGeometry(.17,.53,4,12),solid(def.color));body.position.y=.75;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.2,12,10),solid(0xbe886a));head.position.y=1.33;g.add(head);scene.add(g);return g}
  for(const a of actorDefs){const fallback=fallbackActor(a);const actor={...a,root:fallback,placeholder:fallback,mixer:null,clips:null,state:'idle',time:0,goalX:a.x,goalZ:a.z,homeX:a.x,homeZ:a.z};actors.push(actor);
   if(!a.path){continue;}
@@ -82,10 +83,12 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  }
  renderer.render(scene,camera)}requestAnimationFrame(frame);
  function focus(id){const c=CASES.find(x=>x.id===id);activeRegion=c?.id||'017';if(!c){desired.set(0,.1,0);dist=13;resize();return}desired.set(c.at[0],0,c.at[1]);dist=7.7;resize();const act=actors.find(a=>a.caseId===id);const i=CASES.findIndex(x=>x.id===id);const cActors=c.actors;for(const [n,a] of actors.entries()){if(cActors.includes(a.key)){const index=cActors.indexOf(a.key);a.goalX=c.at[0]+(index?0.48:-0.36);a.goalZ=c.at[1]+(index?.5:-.36);animate(a.key,'walk')}else{a.goalX=a.homeX;a.goalZ=a.homeZ;}}}
+ function clearSceneState(){currentSceneState=null;for(const [id,material] of Object.entries(regionMats))material.color.setHex(baseRegionColors[id]);onStatus('Ambiente padrão restaurado');}
+ function applySceneState(state){if(!state||state.caseId!=='017'){clearSceneState();return false;}currentSceneState=state;const flags=new Set(state.visualFlags||[]);const operations=state.metrics?.workload??78;const operationsColor=flags.has('workload-improved')?0x4f9678:operations>=70?0xb86b59:0x607f92;regionMats['017']?.color.setHex(operationsColor);if(flags.has('confidentiality-warning')){regionMats['020']?.color.setHex(0xb87967);}else if(regionMats['020']){regionMats['020'].color.setHex(baseRegionColors['020']);}const labels=[];if(flags.has('capacity-rebalanced'))labels.push('capacidade revisada');if(flags.has('breaks-protected'))labels.push('pausas protegidas');if(flags.has('leadership-prepared'))labels.push('liderança preparada');if(flags.has('confidentiality-warning'))labels.push('alerta de confidencialidade');onStatus(labels.length?`Caso 017 atualizado: ${labels.join(' · ')}`:'Caso 017 carregado sem mudanças visuais');return true;}
  function animate(actorId,mode='talk'){
  const a=actors.find(x=>x.key===actorId);if(!a?.mixer||!a.clips)return false;
  const pattern=mode==='walk'?/walk/i:mode==='run'?/run/i:mode==='idle'?/idle|baselayer|clip0/i:/discuss|answer|sit|baselayer|clip0/i;
  const next=a.clips.find(c=>pattern.test(c.name))||a.clips[0];const current=a.mixer._actions?.find(x=>x.isRunning());const n=a.mixer.clipAction(next);if(current!==n){n.reset().play();if(current)n.crossFadeFrom(current,.34,true)}a.state=mode;return true;
  }
- return {focus,reset:()=>focus(null),animate,dispose:()=>{on=false;window.removeEventListener('keydown',handleDown);window.removeEventListener('keyup',handleUp);window.removeEventListener('blur',resetHeld);renderer.dispose();renderer.domElement.remove()},actorCount:()=>actors.length};
+ return {focus,reset:()=>focus(null),animate,applySceneState,clearSceneState,dispose:()=>{on=false;window.removeEventListener('keydown',handleDown);window.removeEventListener('keyup',handleUp);window.removeEventListener('blur',resetHeld);renderer.dispose();renderer.domElement.remove()},actorCount:()=>actors.length};
 }

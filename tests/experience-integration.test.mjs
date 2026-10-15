@@ -16,10 +16,14 @@ test('a central encaminha o Caso 017 para a jornada completa', () => {
 
 test('o Caso 017 usa o motor simulado no dashboard', () => {
   assert.match(caseSource, /import \{ CASE017_INITIAL, simulateCase017 \}/);
+  assert.match(caseSource, /deriveCase017SceneState/);
+  assert.match(caseSource, /s\.sceneState=deriveCase017SceneState/);
   assert.match(caseSource, /s\.simulation=simulateCase017\(/);
   assert.match(caseSource, /s\.simulation\.final\.metrics/);
   assert.match(caseSource, /alt=""><b>/);
   assert.match(css, /\.metric-delta\.positive/);
+  assert.match(play, /world\.applySceneState\(persistedCase\.sceneState\)/);
+  assert.match(play, /world\.clearSceneState\(\)/);
 });
 
 test('uma decisão estrutural produz consequências educativas em 30 dias', () => {
