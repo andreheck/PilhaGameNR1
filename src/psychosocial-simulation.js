@@ -160,7 +160,7 @@ export function applyIntervention(state, interventionId, options = {}) {
     (employee.criticalAlerts ?? []).length > 0
   );
   const note = !intervention.organizationalMeasure
-    ? "Ação complementar: investigue e trate também os fatores organizacionais pertinentes."
+    ? "Ação complementar: não substitui a investigação e o tratamento dos fatores organizacionais pertinentes."
     : "Acompanhe os resultados com trabalhadores e revise as medidas quando necessário.";
 
   return {
