@@ -6,11 +6,17 @@ Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.
 - **Caso 017 anterior aprofundado:** [Fluxo de investigação](https://pilha-plus-game-preview.vercel.app/caso017.html).
 - **Biblioteca 3D experimental:** [Acessar](https://pilha-plus-game-preview.vercel.app/biblioteca3d.html).
 - **Especificação e limitações:** [Alpha 1.4](docs/ALPHA-14.md).
-- **Testes:** `node tests/alpha14.test.mjs`.
+- **Nova proposta de gameplay e ambientes psicossociais:** [Especificação de simulação](docs/GAMEPLAY-SIMULACAO-PSICOSSOCIAL.md).
+- **Motor inicial de simulação:** `src/psychosocial-simulation.js`.
+- **Testes:** `npm test`.
 
 > Os modelos 3D são otimizados de originais fornecidos para o projeto. O escritório é uma construção procedural provisória; não se deve confundir pontuações fictícias com medição real da saúde, diagnóstico ou conformidade legal. O progresso fica salvo neste navegador.
 
----
+## Nova proposta — simulação de ambientes e funcionários
+
+A branch `feat/psychosocial-environment-simulation` inclui um motor inicial isolado da interface, um catálogo inicial de intervenções, cálculo de score ilustrativo, emojis de estado, alertas críticos independentes da média, orçamento e histórico de decisões. A especificação detalha o caminho para ambientes predefinidos que podem ser aprimorados com mudanças em ergonomia, iluminação, software, EPIs, metas, jornada, equipe, liderança e participação.
+
+Este módulo é uma base lógica testável; ainda não está integrado visualmente ao mapa/jogo existente. Pontuações e efeitos são sintéticos, não validados e não podem ser apresentados como diagnóstico, avaliação psicossocial real ou evidência de cumprimento da NR-1/GRO/PGR.
 
 ## Histórico de versões
 
