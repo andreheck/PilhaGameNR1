@@ -36,6 +36,9 @@ test('o Caso 017 usa o motor simulado no dashboard', () => {
   assert.match(world, /libraryFurniture/);
   assert.match(play, /data-act=\"start-017\"/);
   assert.match(play, /stage-library/);
+  assert.match(play, /chatScripts/);
+  assert.match(play, /data-chat-choice/);
+  assert.match(play, /chat-bubble/);
 });
 
 test('uma decisão estrutural produz consequências educativas em 30 dias', () => {
