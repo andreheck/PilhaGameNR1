@@ -86,3 +86,7 @@ A experiência pode ser considerada pronta para uma demonstração Alpha coerent
 4. o fluxo mobile mantém leitura, foco, retorno e ações essenciais;
 5. os casos 018–021 aparecem como em desenvolvimento até receberem profundidade equivalente;
 6. o QA visual real confirmar a composição isométrica, os retratos, os controles 3D e os estados de resultado.
+
+## Vertical slice do ambiente padrão
+
+A próxima evolução adota um único escritório modular como laboratório de aprendizagem. O hub agora trata o ambiente como uma cena viva: o setor selecionado recebe um pulso visual, os personagens próximos caminham para a área ativa e a interface mostra um evento contextual com estado de atualização. A composição usa cinco presenças 3D: Operadora, Psicóloga, Psiquiatra, Gestor-mentor e Colaborador. Três usam GLBs animados publicados; o Gestor-mentor usa o protótipo GLB da biblioteca e o Colaborador permanece como avatar procedural 3D até que seu modelo final seja entregue. Essa escolha evita multiplicar ambientes prematuramente e permite validar o loop de investigação, decisão e consequência antes de replicá-lo em outros setores.

@@ -39,11 +39,12 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  box(.23,.37,.23,r.w*.37,.19,-r.d*.35,mat.plant,g);
  const hit=box(r.w,.02,r.d,r.x,.02,r.z,new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0,depthWrite:false}));hit.userData.caseId=r.mark;hit.material.side=THREE.DoubleSide;
  }
- const actorDefs=[{name:'Operadora',key:'operadora',file:'operadora',x:-3.3,z:2.3,caseId:'017',color:0xf2a24b},{name:'Psicóloga',key:'psicologa',file:'psicologa',x:2.0,z:2.1,caseId:'020',color:0x6ea27a},{name:'Psiquiatra',key:'psiquiatra',file:'psiquiatra',x:3.4,z:2.4,caseId:'020',color:0xb98b61}];
- const actors=[];const loader=new GLTFLoader();
+ const actorDefs=[{name:'Operadora',key:'operadora',path:'actors/operadora.glb',x:-3.3,z:2.3,caseId:'017',color:0xf2a24b},{name:'Psicóloga',key:'psicologa',path:'actors/psicologa.glb',x:2.0,z:2.1,caseId:'020',color:0x6ea27a},{name:'Psiquiatra',key:'psiquiatra',path:'actors/psiquiatra.glb',x:3.4,z:2.4,caseId:'020',color:0xb98b61},{name:'Gestor-mentor',key:'gestor',path:'v13/gestor-mentor-prototipo.glb',x:.7,z:-2.55,caseId:'019',color:0x547c95},{name:'Colaborador',key:'colaborador',path:null,x:-.1,z:1.0,caseId:'017',color:0xc77c61}];
+ const actors=[];const loader=new GLTFLoader();const regionFx=[];let activeRegion='017';
  function fallbackActor(def){const g=new THREE.Group();g.position.set(def.x,0,def.z);const body=new THREE.Mesh(new THREE.CapsuleGeometry(.17,.53,4,12),solid(def.color));body.position.y=.75;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.2,12,10),solid(0xbe886a));head.position.y=1.33;g.add(head);scene.add(g);return g}
  for(const a of actorDefs){const fallback=fallbackActor(a);const actor={...a,root:fallback,placeholder:fallback,mixer:null,clips:null,state:'idle',time:0,goalX:a.x,goalZ:a.z,homeX:a.x,homeZ:a.z};actors.push(actor);
-  loader.load(`/assets/actors/${a.file}.glb`,gl=>{
+  if(!a.path){continue;}
+  loader.load(`/assets/${a.path}`,gl=>{
    const model=gl.scene;const bounds=new THREE.Box3().setFromObject(model);const size=bounds.getSize(new THREE.Vector3());let scale=1.58/Math.max(.01,size.y);scale=Math.min(100,scale);model.scale.setScalar(scale);model.updateMatrixWorld(true);
    const after=new THREE.Box3().setFromObject(model);model.position.set(a.x,-after.min.y,a.z);
    model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false}});
@@ -68,6 +69,7 @@ export async function setupWorld(container,onCase,onActor,onStatus){
   window.addEventListener('keydown',handleDown);window.addEventListener('keyup',handleUp);window.addEventListener('blur',resetHeld);
  let last=performance.now(),on=true,choice='';const preferReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  function frame(t){if(!on)return;requestAnimationFrame(frame);const dt=Math.min(.05,(t-last)/1000);last=t;
+  for(const fx of regionFx){const on=fx.id===activeRegion;fx.mesh.visible=on; if(on){const pulse=.98+Math.sin(t*.004)*.09;fx.mesh.scale.setScalar(pulse);fx.mesh.material.opacity=.18+Math.sin(t*.004)*.06}}
   if(held.size){
     const px=Number(held.has('right'))-Number(held.has('left'));
     const pz=Number(held.has('down'))-Number(held.has('up'));
@@ -79,7 +81,7 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  for(const actor of actors){actor.mixer?.update(dt);if(actor.root){actor.time+=dt;actor.root.position.x=THREE.MathUtils.damp(actor.root.position.x,actor.goalX,2.8,dt);actor.root.position.z=THREE.MathUtils.damp(actor.root.position.z,actor.goalZ,2.8,dt);if(!actor.mixer){actor.root.position.y=Math.sin(actor.time*2)*.025;}if(actor.state==='walk'&&Math.hypot(actor.root.position.x-actor.goalX,actor.root.position.z-actor.goalZ)<.09){actor.state='idle';animate(actor.key,'idle')}}
  }
  renderer.render(scene,camera)}requestAnimationFrame(frame);
- function focus(id){const c=CASES.find(x=>x.id===id);if(!c){desired.set(0,.1,0);dist=13;resize();return}desired.set(c.at[0],0,c.at[1]);dist=7.7;resize();const act=actors.find(a=>a.caseId===id);const i=CASES.findIndex(x=>x.id===id);const cActors=c.actors;for(const [n,a] of actors.entries()){if(cActors.includes(a.key)){const index=cActors.indexOf(a.key);a.goalX=c.at[0]+(index?0.48:-0.36);a.goalZ=c.at[1]+(index?.5:-.36);animate(a.key,'walk')}else{a.goalX=a.homeX;a.goalZ=a.homeZ;}}}
+ function focus(id){const c=CASES.find(x=>x.id===id);activeRegion=c?.id||'017';if(!c){desired.set(0,.1,0);dist=13;resize();return}desired.set(c.at[0],0,c.at[1]);dist=7.7;resize();const act=actors.find(a=>a.caseId===id);const i=CASES.findIndex(x=>x.id===id);const cActors=c.actors;for(const [n,a] of actors.entries()){if(cActors.includes(a.key)){const index=cActors.indexOf(a.key);a.goalX=c.at[0]+(index?0.48:-0.36);a.goalZ=c.at[1]+(index?.5:-.36);animate(a.key,'walk')}else{a.goalX=a.homeX;a.goalZ=a.homeZ;}}}
  function animate(actorId,mode='talk'){
  const a=actors.find(x=>x.key===actorId);if(!a?.mixer||!a.clips)return false;
  const pattern=mode==='walk'?/walk/i:mode==='run'?/run/i:mode==='idle'?/idle|baselayer|clip0/i:/discuss|answer|sit|baselayer|clip0/i;
