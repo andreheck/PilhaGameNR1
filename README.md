@@ -1,51 +1,49 @@
 # PilhA+ Game — Alpha 1.4
 
-Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.app/)**. O novo hub ocupa uma tela, inclui cinco casos educativos sequenciais, câmera isométrica com transições suaves, três personagens GLB animados e painéis contextuais. A meta pedagógica de cada caso é **75/100**, com pontuação máxima de 100. Os Casos 018 a 021 estão jogáveis em alpha, sujeitos a revisão pedagógica.
+Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.app/)**. O hub reúne casos educativos, câmera isométrica, personagens e painéis contextuais. A meta pedagógica dos casos é 75/100, com pontuação máxima de 100.
 
 - **Missão 01 / Fundamentos da NR-1:** [Biblioteca e quiz](https://pilha-plus-game-preview.vercel.app/missao01.html).
-- **Caso 017 anterior aprofundado:** [Fluxo de investigação](https://pilha-plus-game-preview.vercel.app/caso017.html).
+- **Caso 017:** [Fluxo de investigação](https://pilha-plus-game-preview.vercel.app/caso017.html).
 - **Biblioteca 3D experimental:** [Acessar](https://pilha-plus-game-preview.vercel.app/biblioteca3d.html).
-- **Especificação e limitações:** [Alpha 1.4](docs/ALPHA-14.md).
-- **Nova proposta de gameplay e ambientes psicossociais:** [Especificação de simulação](docs/GAMEPLAY-SIMULACAO-PSICOSSOCIAL.md).
-- **Motor inicial de simulação:** `src/psychosocial-simulation.js`.
+- **Novo protótipo de gestão de ambiente logístico:** abrir `/logistica-simulacao.html` na prévia da branch ou consultar [a tela no GitHub](logistica-simulacao.html).
+- **Especificação do gameplay psicossocial:** [Documento](docs/GAMEPLAY-SIMULACAO-PSICOSSOCIAL.md).
+- **Motor de simulação:** `src/psychosocial-simulation.js`.
 - **Testes:** `npm test`.
 
-> Os modelos 3D são otimizados de originais fornecidos para o projeto. O escritório é uma construção procedural provisória; não se deve confundir pontuações fictícias com medição real da saúde, diagnóstico ou conformidade legal. O progresso fica salvo neste navegador.
+> Os scores e efeitos da simulação são fictícios. Não constituem avaliação real de saúde, diagnóstico psicológico, instrumento validado ou evidência de conformidade com NR-1/GRO/PGR. O progresso da simulação logística é salvo localmente neste navegador.
 
-## Nova proposta — simulação de ambientes e funcionários
+## Protótipo logístico
 
-A branch `feat/psychosocial-environment-simulation` inclui um motor inicial isolado da interface, um catálogo inicial de intervenções, cálculo de score ilustrativo, emojis de estado, alertas críticos independentes da média, orçamento e histórico de decisões. A especificação detalha o caminho para ambientes predefinidos que podem ser aprimorados com mudanças em ergonomia, iluminação, software, EPIs, metas, jornada, equipe, liderança e participação.
+A branch `feat/psychosocial-environment-simulation` agora contém uma tela piloto separada, acessível em `/logistica-simulacao.html`. Ela demonstra quatro personagens sintéticos, emojis de humor, seis domínios individuais, alertas separados do score médio, catálogo de intervenções, orçamento fictício, aplicação por equipe ou personagem e histórico local.
 
-Este módulo é uma base lógica testável; ainda não está integrado visualmente ao mapa/jogo existente. Pontuações e efeitos são sintéticos, não validados e não podem ser apresentados como diagnóstico, avaliação psicossocial real ou evidência de cumprimento da NR-1/GRO/PGR.
+A implementação visual é independente da tela principal por enquanto: **não está integrada ao mapa 3D nem à navegação principal**, e ainda precisa de validação automatizada e QA no navegador antes de ser considerada pronta para merge ou publicação. O motor e os efeitos são parâmetros de jogo para aprendizagem, não estimativas de eficácia real.
 
 ## Histórico de versões
 
-A Alpha 1.3 integra a biblioteca 3D experimental ao endereço principal da Vercel e preserva a experiência 2D como alternativa para o estudo. Foram incluídos: [Biblioteca 3D experimental](./biblioteca3d.html), protótipos reais GLB (mentor e ambiente), interação nas três estações, gravação do progresso compartilhado com a Missão 01 e navegação ao quiz anterior.
+A Alpha 1.3 integra a biblioteca 3D experimental e preserva a experiência 2D como alternativa. Os modelos 3D atuais são protótipos locais e não representam os assets definitivos do PilhA+.
 
-Os modelos 3D aqui foram criados **localmente a partir de primitivas geométricas**, sem geração Meshy e sem custo em créditos. Têm qualidade de protótipo e não representam os assets 3D definitivos do PilhA+.
+### Como usar a biblioteca 3D
 
-### Como usar
-
-1. Abra `/missao01.html`, clique em `Entrar na biblioteca` e escolha `Explorar esta biblioteca em 3D`.
-2. Use **WASD/setas** para andar, **E** ou clique nos ícones 01–03 para explorar. No celular use o direcional e os cartões.
-3. Registre as três leituras (+20 cada) e escolha `Continuar na Missão 01` para fazer o quiz.
+1. Abra `/missao01.html`, entre na biblioteca e escolha a experiência 3D.
+2. Use WASD/setas para mover a câmera, ou os controles disponíveis no celular.
+3. Registre as leituras e continue para o quiz.
 4. Se o dispositivo não suportar a cena, conclua a missão pela versão 2D.
 
 ### Regras preservadas
 
-`pilha-missao01-v1`, 60 pontos por leitura, 30 pontos por respostas, 10 por conclusão; 70/100 e 2/3 acertos para liberar o Caso 017. O caso continua com meta 75/100. Progresso existente não é apagado.
+O progresso legado da Missão 01 e do Caso 017 deve continuar preservado. O protótipo logístico utiliza uma chave local independente para que a simulação não altere o progresso das missões existentes.
 
-### Arquivos
+### Próximos passos
 
-`biblioteca3d.html`, `biblioteca3d.js`, `biblioteca3d.css`, `assets/v13/*.glb`, `assets/v13/*.png`, `docs/SESSAO-22-BIBLIOTECA-3D.md`, `tests/library3d-logic.test.mjs`, `tests/test_glbs.py`.
-
-### Pendente
-
-Geração do modelo final via Meshy (CLI não disponível nesta execução), rigging e animações, biblioteca definitiva, conversão do galpão FBX e QA visual no navegador. Nenhuma alegação de liberação mobile/performance oficial nesta versão.
+- Integrar a tela piloto à navegação e ao mapa atual, após QA.
+- Comparar o estado anterior e posterior de cada intervenção.
+- Acrescentar pré-requisitos, tempo de efeito e consequências contextuais.
+- Executar `npm test` e revisar acessibilidade em mobile/desktop.
+- Revisão técnico-científica e testes com trabalhadores, liderança e RH/SST antes de qualquer uso profissional.
 
 ### Publicação e acesso
 
 - Entrada principal: `https://pilha-plus-game-preview.vercel.app/`
 - Missão 01: `/missao01.html`
 - Biblioteca 3D: `/biblioteca3d.html`
-- Fallback: em falha do carregamento de módulos 3D, as estações em texto continuam acessíveis, inclusive em dispositivos sem WebGL.
+- Protótipo logístico (na branch): `/logistica-simulacao.html`
