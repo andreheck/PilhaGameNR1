@@ -29,6 +29,9 @@ test('o Caso 017 usa o motor simulado no dashboard', () => {
   assert.match(world, /capacity-rebalanced/);
   assert.match(world, /confidentiality-warning/);
   assert.match(world, /setEffectsVisible\(state\)/);
+  assert.match(world, /actorHighlights/);
+  assert.match(world, /focusedActor/);
+  assert.match(world, /Math\.atan2\(dx,dz\)/);
 });
 
 test('uma decisão estrutural produz consequências educativas em 30 dias', () => {
