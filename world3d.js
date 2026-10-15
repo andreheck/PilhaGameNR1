@@ -42,6 +42,20 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  }
  const actorDefs=[{name:'Operadora',key:'operadora',path:'actors/operadora.glb',x:-3.3,z:2.3,caseId:'017',color:0xf2a24b},{name:'Psicóloga',key:'psicologa',path:'actors/psicologa.glb',x:2.0,z:2.1,caseId:'020',color:0x6ea27a},{name:'Psiquiatra',key:'psiquiatra',path:'actors/psiquiatra.glb',x:3.4,z:2.4,caseId:'020',color:0xb98b61},{name:'Gestor-mentor',key:'gestor',path:'v13/gestor-mentor-prototipo.glb',x:.7,z:-2.55,caseId:'019',color:0x547c95},{name:'Colaborador',key:'colaborador',path:null,x:-.1,z:1.0,caseId:'017',color:0xc77c61}];
  const actors=[];const loader=new GLTFLoader();
+ const effects=new THREE.Group();effects.name='case017-persistent-effects';scene.add(effects);
+ const effectMat=(color,opacity=1,emissive=0x000000)=>new THREE.MeshStandardMaterial({color,roughness:.65,metalness:.05,transparent:opacity<1,opacity,emissive,emissiveIntensity:emissive?1.2:0});
+ const pauseZone=new THREE.Group();pauseZone.name='pause-zone-protected';pauseZone.visible=false;effects.add(pauseZone);
+ const pauseFloor=new THREE.Mesh(new THREE.CylinderGeometry(.82,.82,.035,32),effectMat(0x55b58b,.72,0x1d523d));pauseFloor.position.set(-2.15,.04,2.58);pauseZone.add(pauseFloor);
+ const pauseTable=box(.82,.11,.48,-2.15,.72,2.58,effectMat(0xd1a36f),pauseZone);for(const x of [-2.48,-1.82])box(.08,.55,.08,x,.38,2.58,effectMat(0x405c62),pauseZone);
+ for(const x of [-2.55,-1.75])box(.42,.16,.26,x,.26,2.58,effectMat(0x76a9a0),pauseZone);
+ const pauseBeacon=new THREE.Mesh(new THREE.TorusGeometry(.56,.035,8,32),effectMat(0x8fe1b9,.85,0x2d906a));pauseBeacon.rotation.x=-Math.PI/2;pauseBeacon.position.set(-2.15,.09,2.58);pauseZone.add(pauseBeacon);
+ const capacityZone=new THREE.Group();capacityZone.name='capacity-rebalanced';capacityZone.visible=false;effects.add(capacityZone);
+ const capacityPlate=new THREE.Mesh(new THREE.BoxGeometry(1.05,.045,.62),effectMat(0x4d9c82,.86,0x245c4c));capacityPlate.position.set(-3.62,.06,1.18);capacityZone.add(capacityPlate);
+ for(const x of [-3.95,-3.62,-3.29]){const crate=box(.22,.28,.32,x,.2,1.18,effectMat(0xe0ad62),capacityZone);crate.userData.persistent=true;}
+ const warningZone=new THREE.Group();warningZone.name='confidentiality-warning';warningZone.visible=false;effects.add(warningZone);
+ const warningBase=new THREE.Mesh(new THREE.CylinderGeometry(.3,.36,.08,24),effectMat(0xd66d63,.9,0x702e2e));warningBase.position.set(2.6,.05,1.6);warningZone.add(warningBase);
+ const warningBeacon=new THREE.Mesh(new THREE.CylinderGeometry(.11,.16,.62,16),effectMat(0xed7666,.82,0x9d3f35));warningBeacon.position.set(2.6,.38,1.6);warningZone.add(warningBeacon);
+ function setEffectsVisible(state){const flags=new Set(state?.visualFlags||[]);pauseZone.visible=flags.has('breaks-protected');capacityZone.visible=flags.has('capacity-rebalanced');warningZone.visible=flags.has('confidentiality-warning');}
  function fallbackActor(def){const g=new THREE.Group();g.position.set(def.x,0,def.z);const body=new THREE.Mesh(new THREE.CapsuleGeometry(.17,.53,4,12),solid(def.color));body.position.y=.75;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.2,12,10),solid(0xbe886a));head.position.y=1.33;g.add(head);scene.add(g);return g}
  for(const a of actorDefs){const fallback=fallbackActor(a);const actor={...a,root:fallback,placeholder:fallback,mixer:null,clips:null,state:'idle',time:0,goalX:a.x,goalZ:a.z,homeX:a.x,homeZ:a.z};actors.push(actor);
   if(!a.path){continue;}
@@ -71,6 +85,8 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  let last=performance.now(),on=true,choice='';const preferReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  function frame(t){if(!on)return;requestAnimationFrame(frame);const dt=Math.min(.05,(t-last)/1000);last=t;
   for(const fx of regionFx){const on=fx.id===activeRegion;fx.mesh.visible=on; if(on){const pulse=.98+Math.sin(t*.004)*.09;fx.mesh.scale.setScalar(pulse);fx.mesh.material.opacity=.18+Math.sin(t*.004)*.06}}
+  if(pauseZone.visible){const pulse=.98+Math.sin(t*.003)*.06;pauseBeacon.scale.setScalar(pulse)}
+  if(warningZone.visible){warningBeacon.scale.y=.92+Math.sin(t*.006)*.16;warningBeacon.material.emissiveIntensity=1.0+Math.sin(t*.006)*.45}
   if(held.size){
     const px=Number(held.has('right'))-Number(held.has('left'));
     const pz=Number(held.has('down'))-Number(held.has('up'));
@@ -83,8 +99,8 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  }
  renderer.render(scene,camera)}requestAnimationFrame(frame);
  function focus(id){const c=CASES.find(x=>x.id===id);activeRegion=c?.id||'017';if(!c){desired.set(0,.1,0);dist=13;resize();return}desired.set(c.at[0],0,c.at[1]);dist=7.7;resize();const act=actors.find(a=>a.caseId===id);const i=CASES.findIndex(x=>x.id===id);const cActors=c.actors;for(const [n,a] of actors.entries()){if(cActors.includes(a.key)){const index=cActors.indexOf(a.key);a.goalX=c.at[0]+(index?0.48:-0.36);a.goalZ=c.at[1]+(index?.5:-.36);animate(a.key,'walk')}else{a.goalX=a.homeX;a.goalZ=a.homeZ;}}}
- function clearSceneState(){currentSceneState=null;for(const [id,material] of Object.entries(regionMats))material.color.setHex(baseRegionColors[id]);onStatus('Ambiente padrão restaurado');}
- function applySceneState(state){if(!state||state.caseId!=='017'){clearSceneState();return false;}currentSceneState=state;const flags=new Set(state.visualFlags||[]);const operations=state.metrics?.workload??78;const operationsColor=flags.has('workload-improved')?0x4f9678:operations>=70?0xb86b59:0x607f92;regionMats['017']?.color.setHex(operationsColor);if(flags.has('confidentiality-warning')){regionMats['020']?.color.setHex(0xb87967);}else if(regionMats['020']){regionMats['020'].color.setHex(baseRegionColors['020']);}const labels=[];if(flags.has('capacity-rebalanced'))labels.push('capacidade revisada');if(flags.has('breaks-protected'))labels.push('pausas protegidas');if(flags.has('leadership-prepared'))labels.push('liderança preparada');if(flags.has('confidentiality-warning'))labels.push('alerta de confidencialidade');onStatus(labels.length?`Caso 017 atualizado: ${labels.join(' · ')}`:'Caso 017 carregado sem mudanças visuais');return true;}
+ function clearSceneState(){currentSceneState=null;setEffectsVisible(null);for(const [id,material] of Object.entries(regionMats))material.color.setHex(baseRegionColors[id]);onStatus('Ambiente padrão restaurado');}
+ function applySceneState(state){if(!state||state.caseId!=='017'){clearSceneState();return false;}currentSceneState=state;const flags=new Set(state.visualFlags||[]);setEffectsVisible(state);const operations=state.metrics?.workload??78;const operationsColor=flags.has('workload-improved')?0x4f9678:operations>=70?0xb86b59:0x607f92;regionMats['017']?.color.setHex(operationsColor);if(flags.has('confidentiality-warning')){regionMats['020']?.color.setHex(0xb87967);}else if(regionMats['020']){regionMats['020'].color.setHex(baseRegionColors['020']);}const labels=[];if(flags.has('capacity-rebalanced'))labels.push('capacidade revisada');if(flags.has('breaks-protected'))labels.push('pausas protegidas');if(flags.has('leadership-prepared'))labels.push('liderança preparada');if(flags.has('confidentiality-warning'))labels.push('alerta de confidencialidade');onStatus(labels.length?`Caso 017 atualizado: ${labels.join(' · ')}`:'Caso 017 carregado sem mudanças visuais');return true;}
  function animate(actorId,mode='talk'){
  const a=actors.find(x=>x.key===actorId);if(!a?.mixer||!a.clips)return false;
  const pattern=mode==='walk'?/walk/i:mode==='run'?/run/i:mode==='idle'?/idle|baselayer|clip0/i:/discuss|answer|sit|baselayer|clip0/i;

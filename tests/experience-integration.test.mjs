@@ -24,6 +24,11 @@ test('o Caso 017 usa o motor simulado no dashboard', () => {
   assert.match(css, /\.metric-delta\.positive/);
   assert.match(play, /world\.applySceneState\(persistedCase\.sceneState\)/);
   assert.match(play, /world\.clearSceneState\(\)/);
+  const world = read('world3d.js');
+  assert.match(world, /pause-zone-protected/);
+  assert.match(world, /capacity-rebalanced/);
+  assert.match(world, /confidentiality-warning/);
+  assert.match(world, /setEffectsVisible\(state\)/);
 });
 
 test('uma decisão estrutural produz consequências educativas em 30 dias', () => {
