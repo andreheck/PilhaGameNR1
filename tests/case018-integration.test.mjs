@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import test from 'node:test';
+import {CASE018_INITIAL,simulateCase018} from '../simulation/case018.js';
+const read=f=>fs.readFileSync(new URL(`../${f}`,import.meta.url),'utf8');
+const play=read('play.js'), page=read('caso018.html'), source=read('case018.js'), world=read('world3d.js');
+test('Caso 018 é encaminhado para uma página dedicada',()=>{assert.match(play,/selected==='018'\)\{location\.assign\('\/caso018\.html'\)/);assert.match(page,/case018\.js/);assert.match(source,/scene018/)});
+test('Caso 018 usa o mesmo mundo 3D com novas presenças de liderança',()=>{assert.match(source,/setupWorld/);assert.match(source,/world\.focus\('018'\)/);assert.match(world,/name:'Gestor-mentor'.*caseId:'018'/);assert.match(world,/name:'Colaborador'.*caseId:'018'/);assert.match(read('cases-data.js'),/actors:\['gestor','colaborador','psicologa','operadora'\]/)});
+test('simulação segura melhora segurança psicológica em 30 dias',()=>{const r=simulateCase018({choices:{investigation:'protected',reading:'environment',action:'participation',followup:'practice'}});assert.equal(r.days,30);assert.equal(r.violations.length,0);assert.ok(r.metrics.psychologicalSafety>CASE018_INITIAL.psychologicalSafety);assert.ok(r.passed);});
+test('exposição pública mantém uma consequência educativa negativa',()=>{const r=simulateCase018({choices:{investigation:'public',reading:'individual',action:'exposure',followup:'ranking'}});assert.ok(r.violations.includes('exposure'));assert.equal(r.passed,false);});
