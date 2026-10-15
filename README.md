@@ -7,6 +7,7 @@ Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.
 - **Biblioteca 3D experimental:** [Acessar](https://pilha-plus-game-preview.vercel.app/biblioteca3d.html).
 - **Novo protótipo de gestão de ambiente logístico:** abrir `/logistica-simulacao.html` na prévia da branch ou consultar [a tela no GitHub](logistica-simulacao.html).
 - **Especificação do gameplay psicossocial:** [Documento](docs/GAMEPLAY-SIMULACAO-PSICOSSOCIAL.md).
+- **Contexto para continuidade:** [Handoff técnico](docs/CONTEXTO-PARA-AGENTES.md) · [Prompt pronto para Manus/Codex](docs/PROMPT-PARA-AGENTE-MANUS-CODEX.md).
 - **Motor de simulação:** `src/psychosocial-simulation.js`.
 - **Testes:** `npm test`.
 
@@ -35,7 +36,8 @@ O progresso legado da Missão 01 e do Caso 017 deve continuar preservado. O prot
 
 ### Próximos passos
 
-- Integrar a tela piloto à navegação e ao mapa atual, após QA.
+- Validar a nova entrada da simulação na navegação desktop e móvel no preview.
+- Planejar a integração do cenário logístico dentro do mapa 3D (a entrada por link já está implementada nesta branch).
 - Comparar o estado anterior e posterior de cada intervenção.
 - Acrescentar pré-requisitos, tempo de efeito e consequências contextuais.
 - Executar `npm test` e revisar acessibilidade em mobile/desktop.
