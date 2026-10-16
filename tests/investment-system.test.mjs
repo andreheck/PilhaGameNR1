@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {INITIAL_BUDGET,BUDGET_KEY,UPGRADES,initialInvestmentState,applyUpgrade,forecastUpgrades,readInvestmentState,persistInvestmentState} from '../simulation/investment.js';
+import {INITIAL_BUDGET,BUDGET_KEY,DOMAINS,UPGRADES,initialInvestmentState,applyUpgrade,forecastUpgrades,readInvestmentState,persistInvestmentState} from '../simulation/investment.js';
 import fs from 'node:fs';
 const read=p=>fs.readFileSync(new URL('../'+p,import.meta.url),'utf8');
 test('cada nova sessão começa com 10000 créditos e persiste no localStorage',()=>{
@@ -17,17 +17,17 @@ test('compra reduz saldo, guarda histórico e agenda previsão em 30 dias',()=>{
 });
 test('não permite saldo negativo nem comprar a mesma melhoria duas vezes',()=>{
  let s=initialInvestmentState();s.budget=500;
- assert.equal(applyUpgrade(s,'dimensionamento').error,'insufficient-budget');
- s=applyUpgrade(initialInvestmentState(),'escuta');
- assert.equal(applyUpgrade(s,'escuta').error,'already-installed');
+ assert.equal(applyUpgrade(s,'espaco-seguro').error,'insufficient-budget');
+ s=applyUpgrade(initialInvestmentState(),'escuta-segura');
+ assert.equal(applyUpgrade(s,'escuta-segura').error,'already-installed');
  assert.ok(s.budget>=0);
 });
 test('previsões diferenciam instalada, disponível e sem orçamento',()=>{
  let s=initialInvestmentState();s.budget=1000;s=applyUpgrade(s,'escuta');
  const f=forecastUpgrades(s);
- assert.equal(f.find(x=>x.id==='escuta').forecastStatus,'scheduled');
+ assert.equal(f.find(x=>x.id==='escuta-segura').forecastStatus,'scheduled');
  assert.equal(f.find(x=>x.id==='pausas').forecastStatus,'available');
- assert.equal(f.find(x=>x.id==='dimensionamento').forecastStatus,'needs-budget');
+ assert.equal(f.find(x=>x.id==='espaco-seguro').forecastStatus,'needs-budget');
 });
 test('hub contém aviso flutuante, tela de investimentos e feedback visual',()=>{
  const html=read('index.html'),play=read('play.js'),css=read('play.css'),world=read('world3d.js');
@@ -37,3 +37,12 @@ test('hub contém aviso flutuante, tela de investimentos e feedback visual',()=>
  assert.match(world,/function applyInvestmentUpgrade/);assert.match(world,/Melhoria instalada/);
 });
 console.log('Investment budget, forecasts, persistence and floating alerts: PASS');
+
+test('catálogo cobre fatores psicossociais e riscos físicos do trabalho',()=>{
+ const ids=new Set(DOMAINS.map(d=>d.id));
+ for(const id of ['seguranca-psicologica','assedio-respeito','psicoeducacao','ergonomia','ambiente-fisico','espaco-confinamento','carga-ritmo','autonomia-papel','lideranca-justica','relacoes-conflitos','mudanca-inseguranca','apoio-recuperacao']) assert.ok(ids.has(id),id);
+ assert.ok(UPGRADES.some(u=>u.domain==='assedio-respeito'));
+ assert.ok(UPGRADES.some(u=>u.domain==='ambiente-fisico'));
+ assert.ok(UPGRADES.some(u=>u.domain==='espaco-confinamento'));
+ const play=read('play.js');assert.match(play,/INVESTIMENTOS POR FATOR PSICOSSOCIAL/);assert.match(play,/Segurança vem antes da compra/);
+});
