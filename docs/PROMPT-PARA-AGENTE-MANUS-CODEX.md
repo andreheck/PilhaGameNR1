@@ -44,3 +44,30 @@ Depois da validação, inspecione `world3d.js`, `play.js`, `index.html` e os ass
 - Não há regressões observadas nos fluxos existentes.
 - Documentação corresponde ao estado real.
 - Produção permanece intocada sem autorização.
+
+## Nova entrega em andamento — ambiente vivo (15/10/2026)
+
+Foi criada a branch `feat/living-office-simulation` a partir da branch de simulação psicossocial. Ela adiciona o módulo independente `src/office-actor-brain.js` com estados sintéticos de personagem (`idle`, `working`, `exploring`, `talking`, `resting`, `worried`), duração determinística por seed, transições por risco e helpers de waypoints/colisão. A suíte `tests/office-actor-brain.test.mjs` foi adicionada ao `npm test`.
+
+**Atenção: o módulo ainda não foi ligado ao loop visual do `world3d.js`.** Não declarar que animações, colisões reais no cenário, sons, demissão ou consequências de 30 dias estão implementados. Esta branch é a base testável para continuar a integração.
+
+## Ordem de trabalho agora
+
+1. Rode `npm test` nesta branch e corrija qualquer falha.
+2. Inspecione os GLBs existentes e os nomes de animações reais. Não invente animações nem use avatar procedural como substituto visual quando não houver modelo compatível; registre o modelo ausente e mantenha a representação existente.
+3. Integre a máquina de estados ao `world3d.js` gradualmente, usando apenas clipes existentes nos GLBs. Estados sem clipe compatível devem manter o clipe seguro existente e sinalizar o estado por HUD/ícone, sem trocar por avatar inventado.
+4. Construa rotas/waypoints apenas em corredores transitáveis. Teste colisões com paredes e móveis, retorno ao setor de origem e rotinas distintas por personagem.
+5. Defina medidas de proteção como eventos de jogo com efeitos imediato, persistido e horizonte sintético de 30 dias; acrescente animação de melhoria, som com opção de silenciar, atualização visual do setor e toast curto.
+6. Trate adoecimento e demissão com cuidado pedagógico: a demissão não deve ser uma punição automática ou consequência inevitável de um emoji. Modele uma sequência explicável de sinais, apoio não realizado, oportunidades de intervenção e decisão organizacional; mostre também cenários positivo, neutro e negativo. Dados apenas fictícios.
+7. Persistência versionada no `localStorage`, com migração defensiva, botão de reiniciar a simulação e testes para cenários positivo/neutro/negativo e horizonte de 30 dias.
+8. Rode os testes, abra o preview mais recente no navegador em desktop e celular, verifique GLBs, câmera, cliques, diálogos, sons, rotinas, responsividade e console. Corrija erros críticos e repita os testes. Não declare teste de navegador sem realmente executá-lo.
+
+## Critérios de aceite adicionais
+
+- Os seis estados estão conectados à lógica do jogo e respeitam durações/transições.
+- Personagens não atravessam paredes/móveis nem ficam presos/flutuando durante os trajetos testados.
+- As rotinas retornam ao setor de origem e variam por personagem.
+- Cada medida de proteção tem ação, estado alterado, feedback visual/sonoro, consequência sintética em 30 dias e persistência.
+- Existe uma sequência de consequências por adoecimento que não estigmatiza nem presume causalidade clínica individual.
+- Resultados de cenário positivo, neutro e negativo são reproduzíveis em testes.
+- Sem erros críticos de console no navegador validado.
