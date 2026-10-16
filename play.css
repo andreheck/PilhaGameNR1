@@ -7,3 +7,14 @@
 .emotion-badge{display:grid;place-items:center;flex:none;width:31px;height:31px;border-radius:50%;background:#fff1d9;border:2px solid #f0aa57;font-size:18px;box-shadow:0 3px 8px #193b5025}.chat-bubble p:first-letter{font-size:15px}
 
 .management-box{margin-top:14px;padding:12px;border:1px solid #d8e2e4;border-radius:14px;background:#f4f8f7}.management-box.danger{border-color:#e2aaa4;background:#fff5f3}.management-box>strong{display:block;font:800 12px 'Barlow Condensed',sans-serif;color:#294b5e;letter-spacing:.04em}.management-box p{font-size:11px;line-height:1.45;color:#647985;margin:5px 0 9px}.management-actions{display:grid;gap:7px}.management-choice{display:grid;grid-template-columns:25px 1fr;grid-template-rows:auto auto;align-items:center;text-align:left;border:1px solid #d6e2e3;border-radius:10px;background:#fff;padding:8px;color:#294b5e;cursor:pointer}.management-choice span{grid-row:1/3;font-size:20px}.management-choice b{font-size:11px}.management-choice small{font-size:9px;color:#778b94}.management-choice:hover{border-color:#5f9e88;transform:translateY(-1px)}.management-choice.danger{border-color:#e0aaa4}.management-result{display:block;margin-top:8px;color:#6f5960;font-weight:700}
+
+/* Alpha 1.4 QA — personagens contextuais e fallback sem WebGL */
+.case-cast{display:flex;gap:6px;flex-shrink:0;align-items:center;flex-wrap:wrap}
+.case-actor{display:flex;align-items:center;gap:5px;border:1px solid #d6e5e6;background:#edf5f3;color:#284b58;border-radius:9px;padding:3px 7px 3px 3px;font-size:10px;font-weight:800;max-width:100%;cursor:pointer}
+.case-actor img{height:27px;width:27px;border-radius:6px;object-fit:cover;background:#1b3649}
+.case-actor:hover{background:#fff3df;border-color:#eca051}
+#fallback-map{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#deebef}
+.scene.show-static #fallback-map{display:block}
+.scene.show-static canvas{display:none}
+.scene.show-static .scene-tags,.scene.show-static .actor-tags{display:block;z-index:4}
+@media (max-height:720px){.case-cast{gap:4px}.case-actor{font-size:9px}.case-actor img{height:23px;width:23px}}
