@@ -29,14 +29,16 @@ export const UPGRADES = Object.freeze([
  {id:"comunicacao-mudancas",domain:"mudanca-inseguranca",name:"Comunicação e participação nas mudanças",category:"gestao",cost:850,icon:"🔄",description:"Explicar o que muda, quando, por quê e como as pessoas podem contribuir.",effects:{trust:5,wellbeing:3},forecast:"Menos incerteza evitável e mais participação na implementação",days:30,priority:"média"},
  {id:"apoio-retorno",domain:"apoio-recuperacao",name:"Plano de apoio e retorno ao trabalho",category:"pessoas",cost:1300,icon:"🌱",description:"Combinar acompanhamento confidencial, ajustes de trabalho e retorno gradual quando indicado.",effects:{wellbeing:7,trust:5,turnoverRisk:-3},forecast:"Melhor coordenação do apoio e das adaptações necessárias",days:30,priority:"alta"}
 ]);
-export function initialInvestmentState(){return {version:2,budget:INITIAL_BUDGET,spent:0,upgrades:[],day:0,history:[],updated:null};}
+export const INITIAL_INDICATORS=Object.freeze({workload:50,wellbeing:50,trust:50,turnoverRisk:20});
+const withEffects=(indicators,effects)=>{const next={...INITIAL_INDICATORS,...(indicators||{})};for(const [key,delta] of Object.entries(effects||{})){if(key in next)next[key]=Math.max(0,Math.min(100,next[key]+delta));}return next;};
+export function initialInvestmentState(){return {version:2,budget:INITIAL_BUDGET,spent:0,upgrades:[],day:0,history:[],indicators:{...INITIAL_INDICATORS},resolvedForecasts:[],dayEvents:[],updated:null};}
 export function applyUpgrade(state,id,now=0){
  const upgrade=UPGRADES.find(x=>x.id===id);
  if(!upgrade)throw new Error("Melhoria desconhecida");
  if(state.upgrades.includes(id))return {...state,error:"already-installed"};
  if(state.budget<upgrade.cost)return {...state,error:"insufficient-budget"};
  const entry={id,domain:upgrade.domain,day:state.day||0,cost:upgrade.cost,appliedAt:now,forecastDay:(state.day||0)+upgrade.days,forecast:upgrade.forecast,effects:{...upgrade.effects}};
- return {...state,budget:state.budget-upgrade.cost,spent:state.spent+upgrade.cost,upgrades:[...state.upgrades,id],history:[...(state.history||[]),entry],updated:now,error:null};
+ return {...state,budget:state.budget-upgrade.cost,spent:state.spent+upgrade.cost,upgrades:[...state.upgrades,id],history:[...(state.history||[]),entry],indicators:withEffects(state.indicators,upgrade.effects),updated:now,error:null};
 }
 export function advanceInvestmentDay(state,days=1,now=0){
  const amount=Math.max(1,Math.floor(Number(days)||1)),day=(state.day||0)+amount;
@@ -47,7 +49,7 @@ export function advanceInvestmentDay(state,days=1,now=0){
 }
 export function forecastUpgrades(state){return UPGRADES.map(u=>({...u,owned:state.upgrades.includes(u.id),affordable:state.budget>=u.cost,forecastDay:(state.day||0)+u.days,forecastStatus:state.upgrades.includes(u.id)?"scheduled":state.budget>=u.cost?"available":"needs-budget"}));}
 export function readInvestmentState(storage){
- try{const saved=JSON.parse(storage.getItem(BUDGET_KEY)||"null");if([1,2].includes(saved?.version)&&Number.isFinite(saved.budget)&&Array.isArray(saved.upgrades))return {...initialInvestmentState(),...saved,version:2,history:Array.isArray(saved.history)?saved.history:[],resolvedForecasts:Array.isArray(saved.resolvedForecasts)?saved.resolvedForecasts:[],dayEvents:Array.isArray(saved.dayEvents)?saved.dayEvents:[]};}catch{}
+ try{const saved=JSON.parse(storage.getItem(BUDGET_KEY)||"null");if([1,2].includes(saved?.version)&&Number.isFinite(saved.budget)&&Array.isArray(saved.upgrades))return {...initialInvestmentState(),...saved,version:2,history:Array.isArray(saved.history)?saved.history:[],indicators:{...INITIAL_INDICATORS,...(saved.indicators||{})},resolvedForecasts:Array.isArray(saved.resolvedForecasts)?saved.resolvedForecasts:[],dayEvents:Array.isArray(saved.dayEvents)?saved.dayEvents:[]};}catch{}
  const initial=initialInvestmentState();try{storage.setItem(BUDGET_KEY,JSON.stringify(initial));}catch{}return initial;
 }
 export function persistInvestmentState(storage,state){try{storage.setItem(BUDGET_KEY,JSON.stringify({...state,version:2}));return true;}catch{return false;}}
