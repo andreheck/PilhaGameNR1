@@ -6,6 +6,10 @@ PR: https://github.com/andreheck/PilhaGameNR1/pull/13
 Não fazer merge nem deploy de produção sem autorização expressa do responsável pelo projeto.
 
 ## O que foi implementado nesta etapa
+- Apresentação narrativa de cinco telas no início do jogo: missão, venda fictícia da empresa e requisitos ESG/conselho, pessoas e riscos psicossociais, orçamento de 10.000 créditos, e horizonte de 30 dias.
+- Navegação por botões, pontos de progresso, avançar/voltar, pular, fechar e teclas de seta/Escape. A nova versão é identificada por `storyVersion: 2` para reaparecer a usuários que já viram a apresentação anterior.
+- Identidade visual usa o logotipo e símbolo do repositório `andreheck/pilha-plus-pwa-preview` por URLs raw do GitHub; CTAs amarelos, ilustrações estilizadas em CSS e layout responsivo.
+- Limitação visual conhecida: ainda não foram extraídos/reutilizados retratos individuais oficiais dos personagens do jogo nos quadros narrativos; os painéis atuais usam composições gráficas provisórias e emojis. Próxima etapa deve identificar assets de personagens compatíveis e usá-los sem gerar avatares procedurais como substitutos.
 - Tela de entrada/apresentação em `index.html`: marca PilhA+, proposta educativa, três passos (observar, decidir, acompanhar), orçamento de 10.000 créditos e nota de limites.
 - Estilo responsivo e acessível da apresentação em `play.css`, com respeito a `prefers-reduced-motion`; apresentação exibida uma vez por navegador e estado salvo em `pilha-welcome-alert-v1`.
 - Catálogo com 12 domínios psicossociais e itens compráveis, preços, prioridade, descrição e efeitos educativos.
