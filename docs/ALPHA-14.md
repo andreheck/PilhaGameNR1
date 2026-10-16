@@ -2,17 +2,17 @@
 
 ## Visão geral
 
-Esta versão substitui a tela inicial por uma interface desktop que cabe em `100dvh`, com barra lateral, visualização tridimensional do escritório modular e painel contextual. Em mobile, a navegação usa cinco botões inferiores e o painel de decisões é recolhível; o usuário pode alternar entre contexto 3D e mapa ilustrativo 2D. A experiência preserva as páginas legadas `/missao01.html`, `/caso017.html`, `/biblioteca3d.html`, `/scene3d.html` e `/viewer3d.html`.
+Esta versão substitui a tela inicial por uma interface desktop que cabe em `100dvh`, com barra lateral, visualização tridimensional do escritório modular e painel contextual. Em mobile, a navegação usa cinco botões inferiores e o painel de decisões é recolhível; o usuário pode alternar entre contexto 3D e mapa ilustrativo 2D. A experiência preserva as páginas legadas `/missao01.html`, `/caso01.html`, `/biblioteca3d.html`, `/scene3d.html` e `/viewer3d.html`.
 
 ## Casos jogáveis (alpha)
 
-- 017 — Galpão logístico: sobrecarga, jornada, turnos e conflitos;
-- 018 — Liderança e reuniões: segurança psicológica e silêncio;
-- 019 — Gestão de pessoas: autonomia, papéis e demandas contraditórias;
-- 020 — Saúde e bem-estar: sigilo, escuta e prevenção;
-- 021 — Tecnologia e TI: hiperconexão, plantões e descanso.
+- 01 — Galpão logístico: sobrecarga, jornada, turnos e conflitos;
+- 02 — Liderança e reuniões: segurança psicológica e silêncio;
+- 03 — Gestão de pessoas: autonomia, papéis e demandas contraditórias;
+- 04 — Saúde e bem-estar: sigilo, escuta e prevenção;
+- 05 — Tecnologia e TI: hiperconexão, plantões e descanso.
 
-Cada caso possui quatro escolhas situacionais (investigação, interpretação, intervenção e acompanhamento), com três alternativas por etapa e uma pontuação de 0 a 100. A meta é 75, desbloqueando o próximo cenário. O cálculo considera somente uma escolha por etapa; as consequências educacionais aparecem no relatório final. Conclusões antigas do Caso 017 em `pilha-case017-v2` com >=75 continuam reconhecidas.
+Cada caso possui quatro escolhas situacionais (investigação, interpretação, intervenção e acompanhamento), com três alternativas por etapa e uma pontuação de 0 a 100. A meta é 75, desbloqueando o próximo cenário. O cálculo considera somente uma escolha por etapa; as consequências educacionais aparecem no relatório final. Conclusões antigas do Caso 01 em `pilha-case01-v2` com >=75 continuam reconhecidas.
 
 ## Personagens
 
@@ -26,7 +26,7 @@ A câmera move-se suavemente entre setores; os personagens associados caminham p
 
 ## Limitações e transparência
 
-O escritório 3D atualmente é uma **reconstrução modular procedural** (mesas, paredes, racks e servidores), não a importação de um modelo completo de escritório do Meshy. Os retratos WebP e a imagem panorâmica existente continuam como alternativa 2D. O modelo real do galpão do Meshy em FBX/ZIP ainda aguarda transformação para GLB otimizado, ajustes de escala e colisões. As decisões dos Casos 018–021 são protótipos pedagógicos jogáveis, ainda sem revisão externa especializada. Para telas pequenas ou fontes ampliadas, não é possível garantir leitura de todos os detalhes simultaneamente sem expandir um painel; usamos abas e painéis recolhíveis para evitar rolagem da página inteira.
+O escritório 3D atualmente é uma **reconstrução modular procedural** (mesas, paredes, racks e servidores), não a importação de um modelo completo de escritório do Meshy. Os retratos WebP e a imagem panorâmica existente continuam como alternativa 2D. O modelo real do galpão do Meshy em FBX/ZIP ainda aguarda transformação para GLB otimizado, ajustes de escala e colisões. As decisões dos Casos 02–05 são protótipos pedagógicos jogáveis, ainda sem revisão externa especializada. Para telas pequenas ou fontes ampliadas, não é possível garantir leitura de todos os detalhes simultaneamente sem expandir um painel; usamos abas e painéis recolhíveis para evitar rolagem da página inteira.
 
 ## Testes
 
@@ -34,7 +34,7 @@ O escritório 3D atualmente é uma **reconstrução modular procedural** (mesas,
 
 ## Progresso
 
-- Caso 017 anterior: `localStorage['pilha-case017-v2']` (preservado).
+- Caso 01 anterior: `localStorage['pilha-case01-v2']` (preservado).
 - Casos desta versão: `localStorage['pilha-case-0XX-alpha14']`, com respostas, passo, estado e pontuação.
 - Missão 01: `localStorage['pilha-missao01-v1']` (preservado).
 

@@ -59,7 +59,7 @@ assert.equal(t.api.get().phase,'result');
 assert.equal(t.api.getScore().total,100);
 assert.equal(t.api.getScore().passed,true);
 assert.equal(t.api.get().correct,3);
-assert.match(t.app.innerHTML,/Iniciar Caso 017/);
+assert.match(t.app.innerHTML,/Iniciar Caso 01/);
 const zero=initMission();await new Promise(resolve=>setImmediate(resolve));
 zero.api.set({...zero.api.get(),explored:cfg.stations.map(x=>x.id),completed:true,answers:Object.fromEntries(cfg.quiz.map(q=>[q.id,q.options.find(o=>o.id!==q.correct).id]))});
 assert.equal(zero.api.getScore().total,70);
@@ -75,16 +75,16 @@ assert.equal(two.api.getScore().passed,true);
 // Independent navigation guard regression
 const gate=file('intro-gate.js');
 function gateRedirect(seed){const store=mockStore(seed),location={url:'',replace(url){this.url=url}};vm.runInNewContext(gate,{localStorage:store,window:{location}}, {timeout:1000});return location.url}
-assert.equal(gateRedirect({}),'/missao01.html?return=caso017');
+assert.equal(gateRedirect({}),'/missao01.html?return=caso01');
 assert.equal(gateRedirect({'pilha-missao01-v1':JSON.stringify({version:1,completed:true,passed:true,score:90,correct:2})}), '');
-assert.equal(gateRedirect({'pilha-case017-v2':JSON.stringify({version:2,step:2})}), '');
-assert.equal(gateRedirect({'pilha-case017-v1':JSON.stringify({step:3})}), '');
+assert.equal(gateRedirect({'pilha-case01-v2':JSON.stringify({version:2,step:2})}), '');
+assert.equal(gateRedirect({'pilha-case01-v1':JSON.stringify({step:3})}), '');
 // Content includes original approved definitions, remains single-source
 for(const term of ['Saúde mental','Fatores de risco psicossociais','Segurança psicológica'])assert.ok(file('app.js').includes(term));
 const app=file('app.js');
 assert.ok(app.includes('prelude-card'));
 assert.ok(app.includes('/missao01.html'));
-assert.ok(file('caso017.html').includes('/intro-gate.js'));
+assert.ok(file('caso01.html').includes('/intro-gate.js'));
 assert.ok(file('scene3d.html').includes('warehouse-glb'));
 assert.ok(file('scene3d.html').includes('pilha-plus-ambientes-v01'));
 assert.match(file('mission01.css'),/prefers-reduced-motion/);

@@ -16,7 +16,7 @@
 - Laboratórios antigos permanecem como histórico.
 
 ## Restrições e cuidados
-**Ainda não é jogo 3D nem animação definitiva.** Os avatares são figuras Canvas, sem sprites animados. Não há autenticação, banco de dados, chat com IA, campanha multicapítulos nem modelo clínico. O Caso 017 é uma simulação com números fictícios. A decisão do jogador não calcula risco clínico, eficácia terapêutica ou recuperação individual.
+**Ainda não é jogo 3D nem animação definitiva.** Os avatares são figuras Canvas, sem sprites animados. Não há autenticação, banco de dados, chat com IA, campanha multicapítulos nem modelo clínico. O Caso 01 é uma simulação com números fictícios. A decisão do jogador não calcula risco clínico, eficácia terapêutica ou recuperação individual.
 
 Psicologia e psiquiatria são funções complementares dentro do jogo. A equipe gerencial não acessa prontuários ou diagnósticos. Intervenções organizacionais são distintas de cuidados individuais.
 
@@ -38,5 +38,5 @@ Psicologia e psiquiatria são funções complementares dentro do jogo. A equipe 
 ## Próximos incrementos sugeridos
 - Extrair elementos de interface em módulos reutilizáveis.
 - Testes automatizados de rotas e lógica.
-- Estruturar Caso 017 em JSON separado.
+- Estruturar Caso 01 em JSON separado.
 - Criar capítulo 02 e progressão de missões após validar o primeiro.

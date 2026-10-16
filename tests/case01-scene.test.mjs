@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { CASE017_INITIAL, simulateCase017 } from '../simulation/case017.js';
+import { CASE01_INITIAL, simulateCase01 } from '../simulation/case01.js';
 import {
-  CASE017_SCENE_VERSION,
-  deriveCase017SceneState,
-  deserializeCase017SceneState,
-  serializeCase017SceneState
-} from '../simulation/case017-scene.js';
+  CASE01_SCENE_VERSION,
+  deriveCase01SceneState,
+  deserializeCase01SceneState,
+  serializeCase01SceneState
+} from '../simulation/case01-scene.js';
 
 const goodInput = {
   actions: ['capacity', 'breaks', 'leaders'],
@@ -17,19 +17,19 @@ const goodInput = {
 };
 
 test('deriva estado visual persistente para uma intervenção estrutural', () => {
-  const simulation = simulateCase017(goodInput);
-  const state = deriveCase017SceneState(simulation, 84, 1792080000000);
+  const simulation = simulateCase01(goodInput);
+  const state = deriveCase01SceneState(simulation, 84, 1792080000000);
 
-  assert.equal(state.version, CASE017_SCENE_VERSION);
-  assert.equal(state.caseId, '017');
+  assert.equal(state.version, CASE01_SCENE_VERSION);
+  assert.equal(state.caseId, '01');
   assert.equal(state.environment, 'standard-office');
   assert.equal(state.sector, 'operations');
   assert.equal(state.phase, 'after-simulation');
   assert.equal(state.days, 30);
   assert.equal(state.score, 84);
   assert.equal(state.generatedAt, 1792080000000);
-  assert.ok(state.metrics.workload < CASE017_INITIAL.workload);
-  assert.ok(state.metrics.rest < CASE017_INITIAL.rest);
+  assert.ok(state.metrics.workload < CASE01_INITIAL.workload);
+  assert.ok(state.metrics.rest < CASE01_INITIAL.rest);
   assert.ok(state.visualFlags.includes('capacity-rebalanced'));
   assert.ok(state.visualFlags.includes('breaks-protected'));
   assert.ok(state.visualFlags.includes('leadership-prepared'));
@@ -37,8 +37,8 @@ test('deriva estado visual persistente para uma intervenção estrutural', () =>
 });
 
 test('serializa e restaura o estado sem perder decisões ou consequências', () => {
-  const state = deriveCase017SceneState(simulateCase017(goodInput), 84, 1792080000000);
-  const restored = deserializeCase017SceneState(serializeCase017SceneState(state));
+  const state = deriveCase01SceneState(simulateCase01(goodInput), 84, 1792080000000);
+  const restored = deserializeCase01SceneState(serializeCase01SceneState(state));
 
   assert.deepEqual(restored, state);
   assert.notEqual(restored, state);
@@ -48,14 +48,14 @@ test('serializa e restaura o estado sem perder decisões ou consequências', () 
 });
 
 test('serializa alertas visuais quando há exposição de privacidade', () => {
-  const simulation = simulateCase017({
+  const simulation = simulateCase01({
     actions: ['surveillance'],
     evidence: ['schedule', 'reports', 'observation'],
     hypothesis: 'organization',
     monitoring: ['healthfiles'],
     days: 30
   });
-  const state = deriveCase017SceneState(simulation, 40);
+  const state = deriveCase01SceneState(simulation, 40);
 
   assert.ok(state.violations.includes('surveillance'));
   assert.ok(state.violations.includes('healthfiles'));
@@ -64,11 +64,11 @@ test('serializa alertas visuais quando há exposição de privacidade', () => {
 });
 
 test('rejeita payloads inválidos e limita o tamanho do horizonte', () => {
-  const state = deriveCase017SceneState(simulateCase017({ ...goodInput, days: 900 }), 140);
+  const state = deriveCase01SceneState(simulateCase01({ ...goodInput, days: 900 }), 140);
   assert.equal(state.days, 365);
   assert.equal(state.score, 100);
-  assert.equal(deserializeCase017SceneState('{not-json'), null);
-  assert.equal(deserializeCase017SceneState(JSON.stringify({ version: 2, caseId: '017' })), null);
-  assert.equal(deserializeCase017SceneState('x'.repeat(100_001)), null);
-  assert.throws(() => serializeCase017SceneState({ version: 1, caseId: '999' }), TypeError);
+  assert.equal(deserializeCase01SceneState('{not-json'), null);
+  assert.equal(deserializeCase01SceneState(JSON.stringify({ version: 2, caseId: '01' })), null);
+  assert.equal(deserializeCase01SceneState('x'.repeat(100_001)), null);
+  assert.throws(() => serializeCase01SceneState({ version: 1, caseId: '999' }), TypeError);
 });

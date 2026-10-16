@@ -1,9 +1,9 @@
 # PilhA+ Game — Alpha 1.4
 
-Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.app/)**. O novo hub ocupa uma tela, inclui cinco casos educativos sequenciais, câmera isométrica com transições suaves, três personagens GLB animados e painéis contextuais. A meta pedagógica de cada caso é **75/100**, com pontuação máxima de 100. Os Casos 018 a 021 estão jogáveis em alpha, sujeitos a revisão pedagógica.
+Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.app/)**. O novo hub ocupa uma tela, inclui cinco casos educativos sequenciais, câmera isométrica com transições suaves, três personagens GLB animados e painéis contextuais. A meta pedagógica de cada caso é **75/100**, com pontuação máxima de 100. Os Casos 02 a 05 estão jogáveis em alpha, sujeitos a revisão pedagógica.
 
 - **Missão 01 / Fundamentos da NR-1:** [Biblioteca e quiz](https://pilha-plus-game-preview.vercel.app/missao01.html).
-- **Caso 017 anterior aprofundado:** [Fluxo de investigação](https://pilha-plus-game-preview.vercel.app/caso017.html).
+- **Caso 01 anterior aprofundado:** [Fluxo de investigação](https://pilha-plus-game-preview.vercel.app/caso01.html).
 - **Biblioteca 3D experimental:** [Acessar](https://pilha-plus-game-preview.vercel.app/biblioteca3d.html).
 - **Especificação e limitações:** [Alpha 1.4](docs/ALPHA-14.md).
 - **Testes:** `node tests/alpha14.test.mjs`.
@@ -27,7 +27,7 @@ Os modelos 3D aqui foram criados **localmente a partir de primitivas geométrica
 
 ### Regras preservadas
 
-`pilha-missao01-v1`, 60 pontos por leitura, 30 pontos por respostas, 10 por conclusão; 70/100 e 2/3 acertos para liberar o Caso 017. O caso continua com meta 75/100. Progresso existente não é apagado.
+`pilha-missao01-v1`, 60 pontos por leitura, 30 pontos por respostas, 10 por conclusão; 70/100 e 2/3 acertos para liberar o Caso 01. O caso continua com meta 75/100. Progresso existente não é apagado.
 
 ### Arquivos
 

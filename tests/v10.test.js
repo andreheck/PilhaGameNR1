@@ -30,10 +30,10 @@ test("assets publicados sao WebP validos",()=>{
   assert.ok(buf.length>5000);
  }
 });
-test("Caso 017 completo e a exploracao 2.5D possuem caminhos separados",()=>{
+test("Caso 01 completo e a exploracao 2.5D possuem caminhos separados",()=>{
  const js=txt("menu.js");
- assert.match(js,/play:'\/caso017\.html'/);
+ assert.match(js,/play:'\/caso01\.html'/);
  assert.match(js,/href="\/game\.html"/);
- assert.match(txt("caso017.html"),/pilha-case017-v1/);
+ assert.match(txt("caso01.html"),/pilha-case01-v1/);
  assert.match(txt("game.html"),/pilha-v08/);
 });

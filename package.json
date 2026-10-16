@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/alpha14.test.mjs && node tests/experience-integration.test.mjs && node tests/case017-scene.test.mjs && node tests/case018-integration.test.mjs && node tests/company-state.test.mjs && node tests/management-mechanics.test.mjs && node tests/static-flow.mjs"
+    "test": "node tests/alpha14.test.mjs && node tests/experience-integration.test.mjs && node tests/case01-scene.test.mjs && node tests/case02-integration.test.mjs && node tests/company-state.test.mjs && node tests/management-mechanics.test.mjs && node tests/static-flow.mjs"
   }
 }

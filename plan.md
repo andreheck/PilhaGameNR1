@@ -7,11 +7,11 @@ Transformar o escritório modular existente em um hub de jogo vivo para validar 
 ## Decisões de implementação
 
 - Reutilizar a central Alpha 1.4, o `world3d.js` e a paleta já aprovada.
-- Manter o Caso 017 como jornada completa e fonte de consequências simuladas.
+- Manter o Caso 01 como jornada completa e fonte de consequências simuladas.
 - Exibir cinco presenças 3D: Operadora, Psicóloga, Psiquiatra, Gestor-mentor e Colaborador.
 - Usar GLBs publicados onde já existem; manter avatar procedural 3D para o Colaborador até receber modelo final.
 - Indicar o setor ativo com pulso visual, mover personagens associados com crossfade de animação e exibir ocorrência contextual na cena.
-- Não multiplicar cenários ainda: os casos 018–021 permanecem como conteúdo progressivo sobre o mesmo ambiente.
+- Não multiplicar cenários ainda: os casos 02–05 permanecem como conteúdo progressivo sobre o mesmo ambiente.
 
 ## Estrutura
 
@@ -19,7 +19,7 @@ Transformar o escritório modular existente em um hub de jogo vivo para validar 
 - `play.js`: estado de navegação, seleção de setor/personagem e eventos de feedback.
 - `world3d.js`: ambiente procedural, regiões, cinco presenças, câmera e animações.
 - `play.css`: overlay de ocorrência e animações de feedback.
-- `case.js` e `simulation/case017.js`: caso completo e consequências de 30 dias.
+- `case01.js` e `simulation/case01.js`: caso completo e consequências de 30 dias.
 - `manus-routes.json`: catálogo de rotas publicadas.
 
 ## Publicação

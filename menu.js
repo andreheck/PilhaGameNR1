@@ -14,7 +14,7 @@ const GLB_URLS = {
 };
 const NAV_LABELS = {inicio:'Início',casos:'Casos',equipe:'Equipe',biblioteca:'Biblioteca',configuracoes:'Configurações',sobre:'Sobre'};
 const PATHS = {
- play:'/caso017.html',
+ play:'/caso01.html',
  lab:'/viewer3d.html',
  github:'https://github.com/andreheck/PilhaGameNR1',
  drive:'https://drive.google.com/drive/folders/1B-mPPAQ1aPbBmAi-e8H21aFxKETnVX19'
@@ -63,7 +63,7 @@ function sound(){
 }
 function navLink(v,label,extra=''){return '<a href="'+(v==='inicio'?'/':'/?view='+v)+'" data-view="'+v+'"'+(extra?' class="'+extra+'"':'')+'>'+label+'</a>'}
 function progressStats(){
-  let p=null;try{p=JSON.parse(getStore('pilha-case017-v1')||'null')}catch(e){}
+  let p=null;try{p=JSON.parse(getStore('pilha-case01-v1')||'null')}catch(e){}
   const started=!!p;
   const found=Array.isArray(p?.evidence)?Math.min(4,p.evidence.length):0;
   const stage=Number.isFinite(Number(p?.step))?Math.max(0,Math.min(4,Number(p.step))):0;
@@ -109,12 +109,12 @@ function home(){
     '</nav>'+
     '<div class="v10-content">'+
       '<header class="v10-heading"><div><div class="v10-kicker">SIMULAÇÃO ORGANIZACIONAL · ALPHA 1.0</div><h1>Central de gestão <span>PilhA+</span></h1><p>Bem-vindo, '+name+'. Explore, investigue e faça escolhas com base em evidências.</p></div>'+
-      '<a class="v10-top-action" href="/caso017.html">'+icon('play')+(p.started?'Retomar Caso 017':'Começar Caso 017')+'</a></header>'+
+      '<a class="v10-top-action" href="/caso01.html">'+icon('play')+(p.started?'Retomar Caso 01':'Começar Caso 01')+'</a></header>'+
       '<div class="v10-stage-row">'+
-        '<section class="v10-stage" aria-label="Galpão logístico do Caso 017">'+
+        '<section class="v10-stage" aria-label="Galpão logístico do Caso 01">'+
           '<img src="/assets/v10/galpao-dashboard.webp" alt="Cenário ilustrado em perspectiva isométrica de galpão, com áreas de armazenagem, movimentação de cargas e expedição" decoding="async" fetchpriority="high">'+
-          '<div class="v10-stage-top"><div><span class="eyebrow">AMBIENTE EM DESTAQUE</span><h2>Galpão Logístico</h2></div><span class="v10-scene-pill">CASO 017 · RISCO ALTO</span></div>'+
-          '<div class="v10-stage-bottom"><div><strong>Onde surgem os fatores de risco?</strong><span>Conheça o ambiente, converse com a equipe e avalie a organização da jornada.</span></div><a class="v10-stage-button" href="/caso017.html">Explorar caso →</a></div>'+
+          '<div class="v10-stage-top"><div><span class="eyebrow">AMBIENTE EM DESTAQUE</span><h2>Galpão Logístico</h2></div><span class="v10-scene-pill">CASO 01 · RISCO ALTO</span></div>'+
+          '<div class="v10-stage-bottom"><div><strong>Onde surgem os fatores de risco?</strong><span>Conheça o ambiente, converse com a equipe e avalie a organização da jornada.</span></div><a class="v10-stage-button" href="/caso01.html">Explorar caso →</a></div>'+
         '</section>'+
         '<aside class="v10-side">'+
           '<section class="v10-risk"><h2>Mapa de riscos · exemplo</h2><div class="v10-risk-list">'+
@@ -124,12 +124,12 @@ function home(){
             people.map(([id,label,role])=>'<a href="/?view=equipe" data-view="equipe" title="'+label+' — '+role+'"><img src="/assets/v10/'+id+'-portrait.webp" alt="" loading="lazy"><span>'+label+'</span></a>').join('')+'</div></section>'+
         '</aside></div>'+
         '<div class="v10-loop" aria-label="Etapas da experiência">'+
-          stages.map(([number,title,detail])=>'<a href="/caso017.html" title="'+title+' — '+detail+'"><i>'+number+'</i><div><b>'+title+'</b><span>'+detail+'</span></div></a>').join('')+
+          stages.map(([number,title,detail])=>'<a href="/caso01.html" title="'+title+' — '+detail+'"><i>'+number+'</i><div><b>'+title+'</b><span>'+detail+'</span></div></a>').join('')+
         '</div>'+
         '<div class="v10-bottom">'+
-          '<section class="v10-case"><div class="v10-case-head"><h3>Caso 017 · Sobrecarga no galpão</h3><em>RISCO ALTO</em></div><p>O crescimento operacional foi acompanhado por horas extras, conflitos entre turnos e dificuldade para realizar pausas. Sua missão é investigar antes de decidir.</p>'+
+          '<section class="v10-case"><div class="v10-case-head"><h3>Caso 01 · Sobrecarga no galpão</h3><em>RISCO ALTO</em></div><p>O crescimento operacional foi acompanhado por horas extras, conflitos entre turnos e dificuldade para realizar pausas. Sua missão é investigar antes de decidir.</p>'+
             '<div class="v10-case-status"><span>Setor: logística</span><span>28 trabalhadores (fictício)</span><span>'+ (p.started?'Etapa: '+(stageText[currentStage]||'Investigação'):'Caso não iniciado')+'</span></div>'+
-            '<div class="v10-case-actions"><a href="/caso017.html">'+(p.started?'Continuar jornada':'Iniciar investigação')+' →</a><a class="secondary" href="/game.html">Exploração 2.5D experimental</a></div>'+
+            '<div class="v10-case-actions"><a href="/caso01.html">'+(p.started?'Continuar jornada':'Iniciar investigação')+' →</a><a class="secondary" href="/game.html">Exploração 2.5D experimental</a></div>'+
           '</section>'+
           '<section class="v10-insights"><h3>Como o caso se desenvolve? <span class="v10-newflag">Jornada completa</span></h3>'+
             '<div class="v10-evidence-items"><span><b>01</b> Escute trabalhadores e liderança</span><span><b>02</b> Analise metas e jornada</span><span><b>03</b> Planeje medidas organizacionais</span><span><b>04</b> Defina acompanhamento e conclua</span></div>'+
@@ -142,9 +142,9 @@ function cases(){
  const p=progressStats();
  return '<div class="page"><section class="page-panel">'+intro('CAPÍTULOS E MISSÕES','Casos para investigar','Cada caso apresenta um contexto organizacional, diferentes perspectivas, evidências e decisões. Nesta etapa, apenas o primeiro capítulo está jogável.')+
  '<div class="collection-grid">'+
- '<article class="item-card"><span class="tag">Caso 017 · Jogável</span><h2>A sobrecarga invisível</h2><p>Metas, horas extras e tensões na operação logística. Ouça a equipe, reúna evidências e escolha uma intervenção.</p><div class="case-tags"><span>4 fontes</span><span>3 intervenções</span></div><div class="foot"><span class="status-label">'+(p.started?(p.decision?'Decisão registrada':p.found+'/4 evidências'):'Novo')+'</span><a class="btn btn-primary small" href="/caso017.html">'+icon('play')+' '+(p.started?'Continuar':'Jogar')+'</a></div></article>'+
- '<article class="item-card"><span class="tag">Caso 018 · Em planejamento</span><h2>O silêncio da equipe</h2><p>Um ambiente onde críticas e dúvidas deixaram de circular. Uma futura missão sobre segurança psicológica, participação e comunicação.</p><div class="foot"><span class="status-label planned">Em desenvolvimento</span><button class="btn small" disabled>Em breve</button></div></article>'+
- '<article class="item-card"><span class="tag">Caso 019 · Em planejamento</span><h2>Metas a qualquer custo</h2><p>Cobrança excessiva, ambiguidade de papéis e falta de recursos. Uma futura missão sobre organização do trabalho.</p><div class="foot"><span class="status-label planned">Em desenvolvimento</span><button class="btn small" disabled>Em breve</button></div></article></div>'+
+ '<article class="item-card"><span class="tag">Caso 01 · Jogável</span><h2>A sobrecarga invisível</h2><p>Metas, horas extras e tensões na operação logística. Ouça a equipe, reúna evidências e escolha uma intervenção.</p><div class="case-tags"><span>4 fontes</span><span>3 intervenções</span></div><div class="foot"><span class="status-label">'+(p.started?(p.decision?'Decisão registrada':p.found+'/4 evidências'):'Novo')+'</span><a class="btn btn-primary small" href="/caso01.html">'+icon('play')+' '+(p.started?'Continuar':'Jogar')+'</a></div></article>'+
+ '<article class="item-card"><span class="tag">Caso 02 · Em planejamento</span><h2>O silêncio da equipe</h2><p>Um ambiente onde críticas e dúvidas deixaram de circular. Uma futura missão sobre segurança psicológica, participação e comunicação.</p><div class="foot"><span class="status-label planned">Em desenvolvimento</span><button class="btn small" disabled>Em breve</button></div></article>'+
+ '<article class="item-card"><span class="tag">Caso 03 · Em planejamento</span><h2>Metas a qualquer custo</h2><p>Cobrança excessiva, ambiguidade de papéis e falta de recursos. Uma futura missão sobre organização do trabalho.</p><div class="foot"><span class="status-label planned">Em desenvolvimento</span><button class="btn small" disabled>Em breve</button></div></article></div>'+
  '<div class="notice">Os indicadores e personagens são fictícios. As missões ensinam a reconhecer fatores relacionados ao trabalho, não a diagnosticar pessoas nem certificar conformidade com a NR-1.</div></section></div>';
 }
 function avatar(color,skin,hair){
@@ -162,11 +162,11 @@ function team(){
     {id:'colaborador',n:'Colaborador personalizável',type:'Vivências do trabalhador',desc:'Avatar-base do jogador. Representa diferentes experiências, funções e trajetórias diante das condições e relações de trabalho.',model:null,idx:'04'}
   ];
   return '<div class="v10-team-page">'+
-    '<header class="v10-team-hero"><div><span class="eyebrow">PERSONAGENS · PILHA+ GAME</span><h1>Conheça a equipe</h1><p>Quatro personagens compõem nossa primeira família visual. Cada papel permite observar o mesmo ambiente sob uma perspectiva diferente e compreender as respostas complementares à prevenção e ao cuidado.</p></div><a href="/caso017.html">Explorar Caso 017 →</a></header>'+
+    '<header class="v10-team-hero"><div><span class="eyebrow">PERSONAGENS · PILHA+ GAME</span><h1>Conheça a equipe</h1><p>Quatro personagens compõem nossa primeira família visual. Cada papel permite observar o mesmo ambiente sob uma perspectiva diferente e compreender as respostas complementares à prevenção e ao cuidado.</p></div><a href="/caso01.html">Explorar Caso 01 →</a></header>'+
     '<div class="v10-roster">'+cast.map(o=>
       '<article class="v10-person-card"><div class="v10-person-art"><span class="v10-index">'+o.idx+'</span><img src="/assets/v10/'+o.id+'-portrait.webp" alt="Ilustração 3D de '+o.n+'" loading="'+(o.idx==='01'?'eager':'lazy')+'"></div>'+
       '<div class="v10-person-content"><span class="type">'+o.type+'</span><h2>'+o.n+'</h2><p>'+o.desc+'</p><div class="footer-row">'+
-      (o.model?'<a href="/viewer3d.html?personagem='+o.model+'">Testar animações 3D →</a>':'<a href="/caso017.html">Conhecer o caso →</a>')+
+      (o.model?'<a href="/viewer3d.html?personagem='+o.model+'">Testar animações 3D →</a>':'<a href="/caso01.html">Conhecer o caso →</a>')+
       '<span>'+(o.model?'Modelo animado disponível':'Modelo 3D em preparação')+'</span></div></div></article>'
     ).join('')+'</div>'+
     '<div class="v10-team-follow"><article><h3>Elenco em expansão</h3><p>Nas próximas etapas incorporaremos outras perspectivas ao ambiente simulado: supervisão da operação, RH, SST, gestores e facilitadores de escuta. Os papéis serão desenvolvidos conforme os casos e as mecânicas do jogo.</p></article>'+
@@ -192,7 +192,7 @@ function settings(){
 return '<div class="page"><section class="page-panel">'+intro('PREFERÊNCIAS LOCAIS','Configurações','Personalize a interface deste protótipo. As preferências são salvas somente no navegador atual.')+
 '<div class="settings-grid"><section class="settings-card"><h2>Seu perfil</h2><p>Escolha como o painel inicial deve chamar o jogador.</p>'+
 '<form id="nickname-form"><label class="setting-label" for="nickname">Nome no jogo</label><input id="nickname" class="text-field" maxlength="24" placeholder="Ex.: Explorador" autocomplete="nickname" value="'+escapeHtml(prefs.nickname)+'"><button class="btn btn-primary" type="submit">Salvar nome</button></form>'+
-'<div class="divider"></div><h2>Progresso do Caso 017</h2><p>'+progressStats().found+' de 4 evidências registradas. Limpar o progresso reinicia a investigação e as decisões no Capítulo 01.</p><button class="btn" type="button" data-action="reset-progress"'+(progressStats().started?'':' disabled')+'>Reiniciar progresso</button></section>'+
+'<div class="divider"></div><h2>Progresso do Caso 01</h2><p>'+progressStats().found+' de 4 evidências registradas. Limpar o progresso reinicia a investigação e as decisões no Capítulo 01.</p><button class="btn" type="button" data-action="reset-progress"'+(progressStats().started?'':' disabled')+'>Reiniciar progresso</button></section>'+
 '<section class="settings-card"><h2>Aparência e acessibilidade</h2><p>Configurações aplicadas neste menu. O capítulo jogável mantém sua interface própria.</p>'+
 toggle('contrast','Contraste ampliado','Aumenta a distinção entre textos, fundos e bordas.')+
 toggle('largeText','Texto maior','Amplia o tamanho-base de texto da interface.')+
@@ -233,8 +233,8 @@ function message(s){
  const node=document.getElementById('notification');if(node)node.textContent=s;
 }
 function startNew(){
- if((getProgress()||getStore('pilha-case017-v1'))&&!window.confirm('Iniciar um novo jogo? O progresso atual do Caso 017 será substituído.'))return;
- removeStore(STORAGE_PROGRESS);removeStore('pilha-case017-v1');window.location.assign(PATHS.play);
+ if((getProgress()||getStore('pilha-case01-v1'))&&!window.confirm('Iniciar um novo jogo? O progresso atual do Caso 01 será substituído.'))return;
+ removeStore(STORAGE_PROGRESS);removeStore('pilha-case01-v1');window.location.assign(PATHS.play);
 }
 document.addEventListener('click',event=>{
  const link=event.target.closest('a[data-view]');
@@ -245,9 +245,9 @@ document.addEventListener('click',event=>{
  if(!action)return;
  if(action.dataset.action==='new-game'){event.preventDefault();startNew();}
  if(action.dataset.action==='reset-progress'){
-   event.preventDefault();if(!getStore('pilha-case017-v1')&&!getProgress())return;
-   if(!window.confirm('Apagar as evidências e decisões do Caso 017 neste navegador?'))return;
-   removeStore(STORAGE_PROGRESS);removeStore('pilha-case017-v1');sound();render();message('Progresso do Caso 017 reiniciado.');
+   event.preventDefault();if(!getStore('pilha-case01-v1')&&!getProgress())return;
+   if(!window.confirm('Apagar as evidências e decisões do Caso 01 neste navegador?'))return;
+   removeStore(STORAGE_PROGRESS);removeStore('pilha-case01-v1');sound();render();message('Progresso do Caso 01 reiniciado.');
  }
 });
 document.addEventListener('change',event=>{
