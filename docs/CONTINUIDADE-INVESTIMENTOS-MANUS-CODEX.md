@@ -49,3 +49,13 @@ Não fazer merge nem deploy de produção sem autorização expressa do respons�
 - Commits desta etapa: `298c4b688d72ea63c3b6fdde8f716bf5ef2ebbfc` (prólogo integrado em `play.js`); `ff2c2281b943dfecae3d7e45956268af5acd0ded` (ajustes de `play.css`).
 - Não declarar resolvida a experiência mobile sem teste real em Safari iOS e Android. Verificar canvas GLB/câmera/touch, alvos clicáveis, scroll da página e do painel, todos os seis destinos da navegação, modal da história aberta manualmente, orientação retrato/paisagem, viewport 320–430 px e console sem erros.
 - A apresentação completa continua disponível como leitura opcional; os quadros ainda são text-first, aguardando seleção de assets de personagens existentes.
+
+
+## Prioridade operacional seguinte — mobile-first QA
+1. Confirmar que o CSS de mobile não mantém o painel fixo por cima do canvas. Painel deve ficar no fluxo vertical; cenário deve permanecer visível e com altura previsível.
+2. Navegação inferior em linha única, com rolagem horizontal quando necessário e alvos táteis confortáveis; verificar seis destinos (Visão geral, Casos, Equipe, Investimentos, Biblioteca, Progresso).
+3. Testar iPhone Safari e Android Chrome em 320, 375, 390 e 430 CSS px, retrato e paisagem. Validar toque nos setores/personagens, zoom/pan da câmera, rolagem do documento, abrir/fechar prólogo e navegação entre abas.
+4. Executar `npm test` localmente ou em CI; registrar resultado real e corrigir regressões. Não declarar teste de navegador executado sem evidência.
+5. Conferir acessibilidade: contraste, foco visível, labels, reduced motion e safe area iOS.
+6. Depois do mobile, revisar interação de investimento: orçamento 10.000 por navegador, cards/preços/potencial estimado, compra persistente, toast e feedback de setor.
+7. Nenhum merge nem publicação em produção sem autorização explícita.
