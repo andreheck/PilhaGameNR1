@@ -123,3 +123,26 @@
  .mobile-nav button{font-size:9px}
  .prologue-resources b{font-size:16px}
 }
+
+/* Final mobile priority pass: one-row navigation, predictable touch targets, no panel/canvas overlap */
+@media(max-width:690px){
+ .mobile-nav{display:flex!important;flex-wrap:nowrap!important;justify-content:flex-start;align-items:stretch;gap:0;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;height:calc(58px + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
+ .mobile-nav::-webkit-scrollbar{display:none}
+ .mobile-nav button{flex:0 0 auto;min-width:82px;max-width:none;padding:6px 11px;white-space:nowrap;font-size:11px;line-height:1.1;touch-action:manipulation}
+ .mobile-nav button.active{border-top:3px solid #ffd05c}
+ .game{padding-bottom:calc(58px + env(safe-area-inset-bottom,0px))}
+ .workspace{min-height:0;overflow-x:hidden}
+ .main{min-height:0;align-content:start}
+ .stage{min-height:0}
+ .scene{height:clamp(270px,43dvh,420px);min-height:270px;max-height:420px;touch-action:pan-y}
+ .panel{position:relative!important;inset:auto!important;width:100%;max-height:none;min-height:0;margin:0;overflow:visible;box-shadow:none;transition:none}
+ .panel.collapsed{position:relative!important;inset:auto!important;max-height:48px;overflow:hidden}
+ .panel-body{max-height:none;overflow:visible}
+ .panel-header{touch-action:manipulation}
+ .btn,button,.nav-item{touch-action:manipulation}
+ .scene-tags .point,.actor-tags .point{min-height:32px;display:flex;align-items:center}
+}
+@media(max-width:390px){
+ .mobile-nav button{min-width:78px;padding-inline:9px;font-size:10px}
+ .scene{height:clamp(250px,40dvh,340px);min-height:250px}
+}
