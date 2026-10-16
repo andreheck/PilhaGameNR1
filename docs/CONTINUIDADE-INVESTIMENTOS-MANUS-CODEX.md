@@ -6,6 +6,8 @@ PR: https://github.com/andreheck/PilhaGameNR1/pull/13
 Não fazer merge nem deploy de produção sem autorização expressa do responsável pelo projeto.
 
 ## O que foi implementado nesta etapa
+- Tela de entrada/apresentação em `index.html`: marca PilhA+, proposta educativa, três passos (observar, decidir, acompanhar), orçamento de 10.000 créditos e nota de limites.
+- Estilo responsivo e acessível da apresentação em `play.css`, com respeito a `prefers-reduced-motion`; apresentação exibida uma vez por navegador e estado salvo em `pilha-welcome-alert-v1`.
 - Catálogo com 12 domínios psicossociais e itens compráveis, preços, prioridade, descrição e efeitos educativos.
 - Orçamento inicial de 10.000 créditos fictícios, saldo gasto, bloqueio de compra duplicada/sem saldo e persistência em localStorage.
 - A tela de investimentos mostra indicadores sintéticos de carga, bem-estar, confiança e risco de saída.
