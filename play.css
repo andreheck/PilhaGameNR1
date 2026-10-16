@@ -13,3 +13,34 @@
 .risk-domain{margin-top:15px;padding:12px;border:1px solid #dbe6e9;border-radius:15px;background:#f7fafb}.risk-domain-head{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:10px;align-items:start;margin-bottom:10px}.risk-domain-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:#e3eef0;font-size:20px}.risk-domain-head small,.investment-level{font-size:8px;font-weight:900;letter-spacing:.1em;color:#67828e}.risk-domain-head h3{font:800 20px 'Barlow Condensed';margin:2px 0 3px;color:#1b3d50}.risk-domain-head p{font-size:10px;line-height:1.5;color:#6c818a;margin:0}.risk-domain-count{font-size:10px;font-weight:900;color:#317f68;background:#e0f3e9;padding:5px 7px;border-radius:7px}.risk-level-legend{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.risk-level-legend span{display:grid;gap:2px;flex:1;min-width:125px;padding:9px;border:1px solid #dce6e9;border-radius:9px;background:#f7fafb;font-size:9px;color:#6b8089}.risk-level-legend b{color:#244a5c;font-size:10px}.risk-safety-note{margin:10px 0;padding:11px 12px;border:1px solid #edc58c;border-radius:10px;background:#fff5e6;color:#795026;font-size:10px;line-height:1.55}.investment-level{margin-bottom:5px;color:#397d6b}.risk-domain .investment-list{gap:7px}.risk-domain .investment-card{background:#fff}.risk-domain .investment-card.owned{background:#f0faf5}
 
 .investment-indicators{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}.indicator-mini{display:grid;grid-template-columns:1fr auto;gap:5px;align-items:center;padding:9px;border:1px solid #dce7e9;border-radius:10px;background:#f7fafb;font-size:10px;color:#617985}.indicator-mini b{color:#1e4658}.indicator-mini i{grid-column:1/-1;display:block;height:5px;border-radius:8px;background:#dbe5e8;overflow:hidden}.indicator-mini em{display:block;height:100%;background:#4baf8b;border-radius:8px;transition:width .35s ease}.forecast-events{margin-top:10px;padding:10px;border-radius:10px;background:#edf7f1;color:#275b49;font-size:10px;line-height:1.5}.forecast-events p{margin:6px 0 0}.investment-balance .btn{margin-top:12px}@media(max-width:480px){.investment-indicators{grid-template-columns:1fr 1fr}.risk-domain-head{grid-template-columns:32px minmax(0,1fr) auto}.risk-domain-head h3{font-size:17px}}
+
+/* PilhA+ onboarding: branded, accessible, responsive welcome experience */
+.intro-screen[hidden]{display:none}
+.intro-screen{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;overflow:auto}
+.intro-backdrop{position:absolute;inset:0;background:radial-gradient(ellipse at 18% 12%,#2f697c99,transparent 40%),radial-gradient(ellipse at 90% 85%,#e6a35a40,transparent 36%),#0b2034d9;backdrop-filter:blur(10px)}
+.intro-card{position:relative;width:min(760px,100%);max-height:min(92dvh,900px);overflow:auto;padding:clamp(22px,4vw,38px);border:1px solid #ffffff4d;border-radius:26px;background:linear-gradient(145deg,#f8fbfc 0%,#eaf2f5 65%,#f6f1e8 100%);color:#19384c;box-shadow:0 30px 100px #06152280;animation:introRise .48s cubic-bezier(.2,.75,.25,1) both}
+@keyframes introRise{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
+.intro-card .floating-alert-close{background:#dce8ed;color:#21465b;right:18px;top:18px}
+.intro-brand{display:flex;align-items:center;gap:10px;font-size:25px;font-weight:900;letter-spacing:-1px}
+.intro-brand b{color:#e99543}.intro-brand .logo-mark{width:42px;height:42px;font-size:30px;box-shadow:0 5px 0 #c67b32}
+.intro-brand small{display:block;font-size:8px;letter-spacing:.15em;color:#718a96}
+.intro-hero{padding:clamp(24px,4vw,42px) 0 22px;max-width:620px}
+.intro-hero .floating-alert-kicker{display:inline-block;padding:7px 10px;border-radius:7px;background:#e4f0e9;color:#28755e}
+.intro-hero h2{font:800 clamp(37px,7vw,62px)/.99 'Barlow Condensed',sans-serif;letter-spacing:-.035em;margin:17px 0 14px;color:#17364b}
+.intro-hero h2 em{font-style:normal;color:#d98637}
+.intro-hero>p{max-width:560px;font-size:clamp(13px,1.7vw,16px);line-height:1.7;color:#536f7d;margin:0}
+.intro-credit{display:flex;align-items:center;gap:13px;margin-top:23px;padding:14px 16px;border-radius:15px;background:#17394f;color:#f5fafb;box-shadow:0 7px 0 #cbdce1}
+.intro-credit-icon{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:13px;background:#f1a34c;color:#18364b;font-size:26px;font-weight:900}
+.intro-credit span:last-child{display:grid;gap:2px}.intro-credit small{font-size:9px;color:#c1d6de;letter-spacing:.06em}.intro-credit strong{font:800 25px 'Barlow Condensed';color:#ffd08e}
+.intro-pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.intro-pillars article{padding:15px;border:1px solid #d6e3e7;border-radius:14px;background:#ffffffb8}
+.intro-pillars article>span{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#e0efe8;color:#28775f;font-size:10px;font-weight:900}
+.intro-pillars b{display:block;margin-top:11px;font-size:14px;color:#1e4357}
+.intro-pillars p{font-size:11px;line-height:1.55;color:#718590;margin:5px 0 0}
+.intro-note{font-size:10px;line-height:1.55;color:#7a8c94;margin:17px 0}
+.intro-actions{display:flex;gap:9px;flex-wrap:wrap}.intro-actions .btn{min-height:46px;padding:12px 18px;border-radius:11px;font-weight:850}
+.intro-actions .btn.primary{background:linear-gradient(180deg,#f6b25e,#e58c3d);border:1px solid #d98234;color:#17364b;box-shadow:0 4px 0 #bd6f2d}
+.intro-actions .btn.primary:hover{filter:brightness(1.04);transform:translateY(-1px)}
+.intro-actions .intro-secondary{background:transparent;border:1px solid #cbdce1;color:#31576a}
+@media(max-width:560px){.intro-screen{padding:10px;align-items:center}.intro-card{padding:22px 18px;border-radius:20px;max-height:calc(100dvh - 20px)}.intro-brand{font-size:22px}.intro-hero{padding:24px 0 18px}.intro-hero h2{font-size:clamp(36px,10vw,49px)}.intro-credit{padding:11px}.intro-pillars{gap:7px}.intro-pillars article{padding:10px}.intro-pillars b{font-size:12px}.intro-pillars p{font-size:10px}.intro-actions{display:grid;grid-template-columns:1fr}.intro-actions .btn{width:100%}}
+@media(prefers-reduced-motion:reduce){.intro-card{animation:none}.intro-actions .btn.primary{transition:none}}
