@@ -41,3 +41,11 @@ Não fazer merge nem deploy de produção sem autorização expressa do respons�
 - Não representar sofrimento emocional como causa automática de demissão. Resultados dependem das decisões e condições simuladas, e intervenções protetivas devem ser caminhos válidos.
 - Não declarar testes, QA de navegador ou deploy como concluídos sem evidência.
 - Não fazer merge ou publicar em produção sem autorização explícita.
+
+
+## Atualização de usabilidade mobile e prólogo integrado (2026-10-16)
+- O prólogo de gestão do conhecimento agora aparece dentro da tela inicial do jogo, com resumo da narrativa de venda/ESG, ciclo Observar → Conhecer → Decidir → Acompanhar, recursos iniciais de 10.000 créditos e horizonte simulado de 30 dias. O leitor pode abrir a sequência completa dos cinco reels por um botão, em vez de receber uma tela/modal automaticamente em cada visita.
+- Ajustes de CSS para mobile: layout sem overflow horizontal, cena 3D com altura limitada e responsiva, rótulos de setores com quebra de linha, barra de eventos legível, painel integrado ao fluxo da página (sem sobreposição sobre 60% do canvas), navegação inferior de seis áreas e safe-area para iOS.
+- Commits desta etapa: `298c4b688d72ea63c3b6fdde8f716bf5ef2ebbfc` (prólogo integrado em `play.js`); `ff2c2281b943dfecae3d7e45956268af5acd0ded` (ajustes de `play.css`).
+- Não declarar resolvida a experiência mobile sem teste real em Safari iOS e Android. Verificar canvas GLB/câmera/touch, alvos clicáveis, scroll da página e do painel, todos os seis destinos da navegação, modal da história aberta manualmente, orientação retrato/paisagem, viewport 320–430 px e console sem erros.
+- A apresentação completa continua disponível como leitura opcional; os quadros ainda são text-first, aguardando seleção de assets de personagens existentes.
