@@ -2,18 +2,22 @@
 
 ## Entregue nesta etapa
 
-- [x] Central com evento contextual e estado `AMBIENTE VIVO`.
-- [x] Pulso visual no setor ativo da cena procedural.
-- [x] Cinco presenças 3D no hub: três GLBs animados, um GLB de mentor e um avatar procedural.
-- [x] Movimento dos personagens associados ao setor selecionado.
-- [x] Feedback de foco para personagem e setor.
-- [x] Testes Alpha, integração do Caso 017 e fluxo estático aprovados.
+- [x] Central 3D com evento contextual e estado `AMBIENTE VIVO`.
+- [x] Quatro personagens 3D reais no hub, sem avatar procedural para o Colaborador.
+- [x] Máquina de estados para `parado`, `trabalhando`, `explorando`, `conversando`, `pausando` e `preocupado`.
+- [x] Rotinas autônomas de trabalho, pausa, exploração e retorno ao setor de origem.
+- [x] Waypoints de circulação e rotas seguras para os casos 017 e 018.
+- [x] Mecânica de gestão com resposta positiva, neutra e negativa após sinal de adoecimento.
+- [x] Demissão após adoecimento marcada como consequência negativa e estado `não atendido`.
+- [x] Persistência da decisão por 30 dias no `localStorage`.
+- [x] Emojis de emoção, notificações, objetos 3D de feedback e sons de melhoria/alerta.
+- [x] Testes automatizados da simulação de proteção, adiamento e demissão.
+- [x] QA no navegador publicado: câmera, GLBs, rotinas, conversa, emoção e console sem erros.
 
 ## Próxima entrega
 
-- [ ] Revisar o GLB definitivo do galpão, escala e colisões.
-- [ ] Criar o modelo GLB final do Colaborador.
-- [ ] Conectar ações do Caso 017 a eventos visuais persistentes no hub.
-- [ ] Fazer QA visual em 1440×900 e 390×844.
+- [ ] Substituir waypoints por um grafo de navegação com colisão geométrica para objetos móveis.
+- [ ] Adicionar agenda temporal por turno, com filas, prioridades e conflitos de rota.
+- [ ] Criar um GLB definitivo para o Colaborador antes de recolocá-lo na cena 3D.
 - [ ] Evoluir os Casos 018–021 sobre o mesmo ambiente antes de duplicar a cena.
-- [ ] Corrigir o vínculo Vercel/GitHub e publicar a branch de produção.
+- [ ] Fazer QA visual em 1440×900 e 390×844 após a próxima expansão de mecânicas.
