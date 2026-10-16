@@ -4,6 +4,7 @@ import test from 'node:test';
 import { CASE017_INITIAL, simulateCase017 } from '../simulation/case017.js';
 
 const read = file => fs.readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
+const projectRoot = new URL('../', import.meta.url);
 const play = read('play.js');
 const caseSource = read('case.js');
 const casePage = read('caso017.html');
@@ -57,3 +58,10 @@ test('uma decisão estrutural produz consequências educativas em 30 dias', () =
   assert.equal(result.violations.length, 0);
   assert.ok(result.feedback.length >= 1);
 });
+
+assert.ok(fs.existsSync(new URL('assets/kenney-furniture/License.txt', projectRoot)));
+assert.ok(fs.existsSync(new URL('assets/kenney-furniture/desk.glb', projectRoot)));
+assert.ok(read('index.html').includes('3D INTERATIVO'));
+assert.ok(!read('index.html').includes('static-image'));
+assert.ok(read('world3d.js').includes('kenney-cc0-office-furniture'));
+console.log('Hub 3D ampliado, mobiliário CC0 e remoção da visão estática pass');

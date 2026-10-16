@@ -2,24 +2,26 @@ import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {CASES} from './cases-data.js';
 const regions=[
- {name:'Operações',x:-3.1,z:1.7,color:0x607f92,mark:'017',w:3.5,d:3.7},
- {name:'Liderança',x:-2.9,z:-2.0,color:0x879e9b,mark:'018',w:3.5,d:3.1},
- {name:'Recursos Humanos',x:.3,z:-2.3,color:0x92a98e,mark:'019',w:2.9,d:2.9},
- {name:'Bem-estar',x:2.6,z:1.6,color:0x89a698,mark:'020',w:3.1,d:3.6},
- {name:'Tecnologia',x:3.2,z:-2.0,color:0x7394a7,mark:'021',w:2.5,d:3.0}
+ {name:'Operações',x:-4.7,z:2.7,color:0x607f92,mark:'017',w:4.3,d:4.1},
+ {name:'Liderança',x:-4.8,z:-3.0,color:0x879e9b,mark:'018',w:4.1,d:3.3},
+ {name:'Recursos Humanos',x:-.1,z:-3.2,color:0x92a98e,mark:'019',w:3.5,d:3.1},
+ {name:'Bem-estar',x:3.2,z:2.7,color:0x89a698,mark:'020',w:3.7,d:4.1},
+ {name:'Tecnologia',x:3.8,z:-3.0,color:0x7394a7,mark:'021',w:3.0,d:3.3}
 ];
 export async function setupWorld(container,onCase,onActor,onStatus){
  const scene=new THREE.Scene();scene.background=new THREE.Color(0xe0eaf0);
- const camera=new THREE.OrthographicCamera(-9,9,6,-6,.1,80);
- let target=new THREE.Vector3(0,0,0),desired=new THREE.Vector3(0,0,0),dist=13.0;
- camera.position.set(12,14,14);camera.lookAt(target);
+ const camera=new THREE.OrthographicCamera(-13,13,9,-9,.1,100);
+ let target=new THREE.Vector3(0,0,0),desired=new THREE.Vector3(0,0,0),dist=18.0;
+ camera.position.set(16,18,16);camera.lookAt(target);
  const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'default'});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.1;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
  container.prepend(renderer.domElement);
  const light=new THREE.HemisphereLight(0xffffff,0xa9b9b0,2.3);scene.add(light);const sun=new THREE.DirectionalLight(0xffe4c5,2.4);sun.position.set(-5,14,8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-12;sun.shadow.camera.right=12;sun.shadow.camera.top=12;sun.shadow.camera.bottom=-12;scene.add(sun);
  const solid=(color)=>new THREE.MeshStandardMaterial({color,roughness:.8,metalness:.01});
  const mat={wall:solid(0xe5ebec),wood:solid(0xbe915f),dark:solid(0x3b5461),desk:solid(0xd5b08a),plant:solid(0x589171),floor:solid(0xd8dfe1),line:solid(0xeeb65c),screen:solid(0x27536a)};
  const box=(w,h,d,x,y,z,m,parent=scene)=>{const a=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);a.position.set(x,y,z);a.castShadow=h>.2;a.receiveShadow=true;parent.add(a);return a};
- box(11,.18,9,0,-.16,0,mat.floor);
+ box(17,.18,13,0,-.16,0,mat.floor);
+ const corridorMat=solid(0xc3d1d2);box(1.25,.025,11.5,0,-.04,0,corridorMat);box(15.5,.025,1.15,0,-.035,0,corridorMat);
+ const lobbyRing=new THREE.Mesh(new THREE.RingGeometry(1.05,1.35,32),new THREE.MeshStandardMaterial({color:0xf0b45c,roughness:.9}));lobbyRing.rotation.x=-Math.PI/2;lobbyRing.position.set(0,.02,0);scene.add(lobbyRing);
  const regionFx=[];const regionMats={};const baseRegionColors={};let activeRegion='017';let currentSceneState=null;
  const makeEmoji=(emoji)=>{const c=document.createElement('canvas');c.width=128;c.height=128;const x=c.getContext('2d');x.beginPath();x.fillStyle='#102d43';x.arc(64,64,57,0,Math.PI*2);x.fill();x.font='68px Apple Color Emoji,Segoe UI Emoji,Noto Color Emoji,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(emoji,64,68);const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthTest:false}));sprite.scale.set(.42,.42,1);return sprite;};
  const makeSign=(text,color)=>{const c=document.createElement('canvas');c.width=420;c.height=96;const x=c.getContext('2d');x.fillStyle='#102d43';x.roundRect(4,4,412,88,16);x.fill();x.fillStyle='#f7b45c';x.font='800 30px Arial';x.textAlign='center';x.textBaseline='middle';x.fillText(text,210,49);const tex=new THREE.CanvasTexture(c);const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false}));sprite.scale.set(1.45,.33,1);return sprite;};
@@ -51,6 +53,11 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  const notifications=new THREE.Group();notifications.name='scene-improvement-notifications';scene.add(notifications);
  const case018Objects=new THREE.Group();case018Objects.name='case018-built-objects';case018Objects.visible=false;scene.add(case018Objects);
  const libraryFurniture=new THREE.Group();libraryFurniture.name='integrated-nr1-library';scene.add(libraryFurniture);
+ const officeProps=new THREE.Group();officeProps.name='kenney-cc0-office-furniture';scene.add(officeProps);
+ function loadProp(name,x,z,scale=1,rotation=0){loader.load(`/assets/kenney-furniture/${name}.glb`,gl=>{const model=gl.scene;model.scale.setScalar(scale);model.position.set(x,0,z);model.rotation.y=rotation;model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true}});officeProps.add(model)},undefined,()=>{});}
+ loadProp('desk',-1.25,.15,1.15,Math.PI/2);loadProp('chairDesk',-1.25,.88,.9,Math.PI);loadProp('desk',1.2,.15,1.15,Math.PI/2);loadProp('chairDesk',1.2,.88,.9,Math.PI);
+ loadProp('bookcaseOpen',-7.0,-3.95,1.55,Math.PI/2);loadProp('bookcaseOpen',-5.7,-3.95,1.55,Math.PI/2);
+ loadProp('loungeSofa',1.1,-.2,1.15,Math.PI);loadProp('tableRound',0,.25,.9,0);loadProp('lampSquareFloor',2.0,-.55,1.2,0);loadProp('pottedPlant',6.0,5.0,1.4,0);loadProp('pottedPlant',-7.0,5.0,1.4,0);loadProp('trashcan',6.7,-3.9,1.2,0);loadProp('computerScreen',-4.7,2.35,.8,0);loadProp('laptop',-3.7,2.35,.7,0);
  const libraryFloor=new THREE.Mesh(new THREE.CylinderGeometry(1.05,1.05,.035,32),new THREE.MeshStandardMaterial({color:0xc9ded7,roughness:.9}));libraryFloor.rotation.x=0;libraryFloor.position.set(.25,.02,-2.28);libraryFurniture.add(libraryFloor);
  for(const x of [.82,1.28]){box(.32,1.5,.28,x,.75,-3.08,mat.dark,libraryFurniture);for(let y of [.35,.62,.89,1.16])box(.24,.035,.3,x,y,-2.92,mat.wood,libraryFurniture);}
  const libraryDesk=box(1.0,.12,.5,.15,.62,-1.45,mat.wood,libraryFurniture);for(const x of [-.22,.52])box(.07,.55,.07,x,.31,-1.45,mat.dark,libraryFurniture);box(.5,.34,.06,.15,.9,-1.62,mat.screen,libraryFurniture);
@@ -107,14 +114,14 @@ export async function setupWorld(container,onCase,onActor,onStatus){
     const px=Number(held.has('right'))-Number(held.has('left'));
     const pz=Number(held.has('down'))-Number(held.has('up'));
     const magnitude=Math.hypot(px,pz)||1;
-    desired.x=THREE.MathUtils.clamp(desired.x+px/magnitude*dt*3.4,-4,4);
-    desired.z=THREE.MathUtils.clamp(desired.z+pz/magnitude*dt*3.4,-3.5,3.5);
+    desired.x=THREE.MathUtils.clamp(desired.x+px/magnitude*dt*3.4,-7.2,7.2);
+    desired.z=THREE.MathUtils.clamp(desired.z+pz/magnitude*dt*3.4,-5.5,5.5);
   }
   target.lerp(desired,preferReduced?1:1-Math.exp(-dt*3.6));camera.position.set(target.x+12,target.y+13,target.z+13);camera.lookAt(target);
  for(const actor of actors){actor.mixer?.update(dt);if(actor.root){actor.time+=dt;const dx=actor.goalX-actor.root.position.x,dz=actor.goalZ-actor.root.position.z;const distance=Math.hypot(dx,dz);actor.root.position.x=THREE.MathUtils.damp(actor.root.position.x,actor.goalX,2.8,dt);actor.root.position.z=THREE.MathUtils.damp(actor.root.position.z,actor.goalZ,2.8,dt);if(actor.state==='walk'&&distance>.08)actor.root.rotation.y=THREE.MathUtils.damp(actor.root.rotation.y,Math.atan2(dx,dz),8,dt);if(!actor.mixer){actor.root.position.y=Math.sin(actor.time*2)*.025;}if(actor.shadow){actor.shadow.position.x=actor.root.position.x;actor.shadow.position.z=actor.root.position.z;actor.shadow.scale.setScalar(actor.state==='walk'?.92:1)}if(actor.emotionSprite){actor.emotionSprite.position.x=actor.root.position.x;actor.emotionSprite.position.z=actor.root.position.z;actor.emotionSprite.position.y=actor.root.position.y+2.12}if(actor.highlight){actor.highlight.position.x=actor.root.position.x;actor.highlight.position.z=actor.root.position.z;const active=focusedActor===actor.key||actor.state==='walk';actor.highlight.visible=active;actor.highlight.scale.setScalar(active?1+Math.sin(actor.time*5)*.08:1)}if(actor.state==='walk'&&distance<.09){if(actor.route.length&&actor.routeIndex<actor.route.length-1){actor.routeIndex++;actor.goalX=actor.route[actor.routeIndex][0];actor.goalZ=actor.route[actor.routeIndex][1];}else{actor.state='idle';animate(actor.key,'idle')}}}
  }
  renderer.render(scene,camera)}requestAnimationFrame(frame);
- function focus(id){focusedActor=null;const c=CASES.find(x=>x.id===id);activeRegion=c?.id||'017';if(!c){desired.set(0,.1,0);dist=13;resize();return}desired.set(c.at[0],0,c.at[1]);dist=7.7;resize();const cActors=c.actors;for(const a of actors){if(cActors.includes(a.key)){const index=cActors.indexOf(a.key);const tx=c.at[0]+(index?0.48:-0.36),tz=c.at[1]+(index?.5:-.36);const corridorZ=c.at[1]+(c.at[1]>0?-.35:.35);a.route=[[a.root.position.x,a.root.position.z],[a.root.position.x,corridorZ],[tx,corridorZ],[tx,tz]];a.routeIndex=1;a.goalX=a.route[1][0];a.goalZ=a.route[1][1];animate(a.key,'walk')}else{a.route=[];a.goalX=a.homeX;a.goalZ=a.homeZ;}}}
+ function focus(id){focusedActor=null;const c=CASES.find(x=>x.id===id);activeRegion=c?.id||'017';if(!c){desired.set(0,.1,0);dist=18;resize();return}desired.set(c.at[0],0,c.at[1]);dist=7.7;resize();const cActors=c.actors;for(const a of actors){if(cActors.includes(a.key)){const index=cActors.indexOf(a.key);const tx=c.at[0]+(index?0.48:-0.36),tz=c.at[1]+(index?.5:-.36);const corridorZ=c.at[1]+(c.at[1]>0?-.35:.35);a.route=[[a.root.position.x,a.root.position.z],[a.root.position.x,corridorZ],[tx,corridorZ],[tx,tz]];a.routeIndex=1;a.goalX=a.route[1][0];a.goalZ=a.route[1][1];animate(a.key,'walk')}else{a.route=[];a.goalX=a.homeX;a.goalZ=a.homeZ;}}}
  function clearSceneState(){currentSceneState=null;setEffectsVisible(null);for(const [id,material] of Object.entries(regionMats))material.color.setHex(baseRegionColors[id]);onStatus('Ambiente padrão restaurado');}
  function applySceneState(state){if(!state||!['017','018'].includes(state.caseId)){clearSceneState();return false;}currentSceneState=state;const flags=new Set(state.visualFlags||[]);setEffectsVisible(state);const operations=state.metrics?.workload??78;const operationsColor=flags.has('workload-improved')?0x4f9678:operations>=70?0xb86b59:0x607f92;regionMats['017']?.color.setHex(operationsColor);if(flags.has('confidentiality-warning')){regionMats['020']?.color.setHex(0xb87967);}else if(regionMats['020']){regionMats['020'].color.setHex(baseRegionColors['020']);}if(state.caseId==='018'&&flags.has('meeting-safe'))regionMats['018']?.color.setHex(0x5d9c7d);const labels=[];if(flags.has('capacity-rebalanced'))labels.push('capacidade revisada');if(flags.has('breaks-protected'))labels.push('pausas protegidas');if(flags.has('leadership-prepared'))labels.push('liderança preparada');if(flags.has('confidentiality-warning'))labels.push('alerta de confidencialidade');if(flags.has('meeting-safe'))labels.push('círculo de escuta criado');if(flags.has('leadership-board'))labels.push('quadro de acordos criado');if(flags.has('feedback-loop'))labels.push('retorno coletivo ativado');onStatus(labels.length?`Melhoria aplicada: ${labels.join(' · ')}`:'Ambiente carregado');return true;}
  function setEmotion(actor,emoji){if(!actor?.emotionSprite||actor.emotion===emoji)return;const sprite=makeEmoji(emoji);sprite.position.copy(actor.emotionSprite.position);scene.remove(actor.emotionSprite);scene.add(sprite);actor.emotionSprite=sprite;actor.emotion=emoji;}
