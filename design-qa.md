@@ -7,14 +7,14 @@
 - Biblioteca SVG e hotspots de Missão 01; estado local persistido e quiz.
 - Integração da Missão 01 à central e aos Casos.
 - Glossário com definições do projeto e fontes oficiais MTE.
-- Continuidade de pontuação e estado do Caso 017.
+- Continuidade de pontuação e estado do Caso 01.
 - Importação voluntária de galpão GLB em ambiente 3D experimental.
 
 ## Testes executados
 
 - `node --check` em scripts novos e script de integração `scene3d.module.mjs`.
 - `node tests/mission01.test.mjs`: simulações 100/100 sucesso, 70/100 e 80/100 sem compreensão insuficiente, 90/100 aprovação; proteção de acesso e progresso legado.
-- `node tests/static-flow.mjs`: regressão do Caso 017 (100/100 bem-sucedido; 23/100 malsucedido), restrições de privacidade, casos futuros indisponíveis, arquivos WebP válidos.
+- `node tests/static-flow.mjs`: regressão do Caso 01 (100/100 bem-sucedido; 23/100 malsucedido), restrições de privacidade, casos futuros indisponíveis, arquivos WebP válidos.
 - SVG da biblioteca renderizado em PNG com CairoSVG para verificação aproximada do ambiente isométrico.
 
 ## Restrições

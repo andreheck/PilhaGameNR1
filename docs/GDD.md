@@ -10,7 +10,7 @@ Detectar → Investigar → Identificar → Priorizar → Intervir → Acompanha
 2. Escuta e investigação (consulta de evidências e perspectivas);
 3. Planejamento de ações (custos, medidas e acompanhamento).
 ## Casos e desafios
-Caso 017: sobrecarga na operação logística, horas extras, conflitos, ausências, rotatividade. O jogador pode escolher palestra, reorganização de metas/jornada/carga ou aplicativo de meditação; conteúdo ensina limites de medidas individuais.
+Caso 01: sobrecarga na operação logística, horas extras, conflitos, ausências, rotatividade. O jogador pode escolher palestra, reorganização de metas/jornada/carga ou aplicativo de meditação; conteúdo ensina limites de medidas individuais.
 ## Variáveis
 Carga, autonomia, conflitos, clareza de papéis, apoio, reconhecimento, jornada/descanso, exposição a situações críticas e recursos. Nada é uma escala epidemiológica validada.
 ## Progressão

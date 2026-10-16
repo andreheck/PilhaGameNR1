@@ -41,22 +41,22 @@ export function getCompanyCaseModifier(state, caseId) {
   const company = createCompanyState(state);
   const {trust, workload, wellbeing, turnoverRisk} = company.metrics;
   const modifiers = {
-    '018': {
+    '02': {
       silence: round(-trust * .4 + turnoverRisk * .3),
       psychologicalSafety: round(trust * .6 - turnoverRisk * .2),
       leadershipTrust: round(trust * .5 - turnoverRisk * .15)
     },
-    '019': {
+    '03': {
       clarity: round(trust * .3 - workload * .5),
       autonomy: round(trust * .4 - workload * .4),
       conflict: round(turnoverRisk * .3 + workload * .25)
     },
-    '020': {
+    '04': {
       privacyTrust: round(trust * .6),
       wellbeing: round(wellbeing * .6),
       confidentialityRisk: round(-trust * .5 + turnoverRisk * .2)
     },
-    '021': {
+    '05': {
       recovery: round(-workload * .6 + wellbeing * .3),
       onCallPressure: round(workload * .6 + turnoverRisk * .4)
     }

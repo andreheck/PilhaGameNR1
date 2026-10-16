@@ -31,14 +31,14 @@ O protótipo inicial abria diretamente no mapa de investigação. O usuário pre
 │ │ Um ambiente.      [diorama/ilustração isométrica do escritório]        │ │
 │ │ Muitas perspectivas.                                                   │ │
 │ │ Suas decisões.                                                         │ │
-│ │ [Iniciar Caso 017] [Continuar / Explorar casos]                         │ │
+│ │ [Iniciar Caso 01] [Continuar / Explorar casos]                         │ │
 │ └─────────────────────────────────────────────────────────────────────────┘ │
 │ Bem-vindo, Jogador.                                                        │
 │ ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐                 │
 │ │ Missões e casos │ │ Equipe          │ │ Laboratório 3D  │                 │
 │ └─────────────────┘ └─────────────────┘ └─────────────────┘                 │
 │ ┌───────────────────────────────────┐ ┌─────────────────────────────────┐ │
-│ │ Caso 017 — progresso/evidências    │ │ Estágio de desenvolvimento      │ │
+│ │ Caso 01 — progresso/evidências    │ │ Estágio de desenvolvimento      │ │
 │ └───────────────────────────────────┘ └─────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ Protótipo educacional / ressalva ética                                      │
@@ -65,7 +65,7 @@ O protótipo inicial abria diretamente no mapa de investigação. O usuário pre
 │ │ Laboratório 3D         │ │
 │ └───────────────────────┘ │
 │ ┌───────────────────────┐ │
-│ │ Caso 017 / Progresso   │ │
+│ │ Caso 01 / Progresso   │ │
 │ └───────────────────────┘ │
 │ ┌───────────────────────┐ │
 │ │ Evolução do projeto    │ │
@@ -87,10 +87,10 @@ flowchart TD
     A --> G["Biblioteca"]
     A --> H["Configurações"]
     A --> I["Sobre"]
-    B --> J["/game.html — Caso 017"]
+    B --> J["/game.html — Caso 01"]
     C --> J
     D --> J
-    D --> K["Casos 018/019 em planejamento"]
+    D --> K["Casos 02/03 em planejamento"]
     E --> F
     F --> L["Modelos GLB privados importados localmente"]
     G --> M["Conceitos e referências do projeto"]
@@ -103,19 +103,19 @@ flowchart TD
 |---|---|---|
 | Menu | \`/\` | Funcional |
 | Capítulo 01 | \`/game.html\` | Jogável (protótipo Alpha) |
-| Casos | \`/?view=casos\` | Caso 017, outros indisponíveis |
+| Casos | \`/?view=casos\` | Caso 01, outros indisponíveis |
 | Equipe | \`/?view=equipe\` | Cards e atalhos do laboratório |
 | Biblioteca | \`/?view=biblioteca\` | Conceitos curtos em acordéons |
 | Configurações | \`/?view=configuracoes\` | Preferências e reinício |
 | Sobre | \`/?view=sobre\` | Proposta e status |
 | Lab 3D | \`/viewer3d.html\` | GLB selecionado pelo usuário no navegador |
 
-As páginas do menu usam \`history.pushState\` com \`popstate\` e links navegáveis. O progresso do Caso 017 continua em \`localStorage['pilha-v08']\`; nenhuma migração ou perda de dados é exigida. As preferências usam \`localStorage['pilha-menu-preferences-v1']\`.
+As páginas do menu usam \`history.pushState\` com \`popstate\` e links navegáveis. O progresso do Caso 01 continua em \`localStorage['pilha-v08']\`; nenhuma migração ou perda de dados é exigida. As preferências usam \`localStorage['pilha-menu-preferences-v1']\`.
 
 ## Interações implementadas
-- **Iniciar Caso 017**: confirma reinício quando já houver progresso e abre \`/game.html\`.
+- **Iniciar Caso 01**: confirma reinício quando já houver progresso e abre \`/game.html\`.
 - **Continuar**: aparece quando existe progresso no navegador; abre \`/game.html\`.
-- **Missões**: lista o Caso 017 e mantém Casos 018/019 identificados como planejamento, com ações desativadas.
+- **Missões**: lista o Caso 01 e mantém Casos 02/03 identificados como planejamento, com ações desativadas.
 - **Equipe**: apresenta três modelos 3D (operadora, psicóloga, psiquiatra) com atalhos para \`/viewer3d.html?personagem=...\`.
 - **Biblioteca**: conceitos educativos em acordéons, sem exigir autenticação.
 - **Configurações**: nome local, contraste, fontes maiores, redução de movimento, som de feedback do menu e reinício do progresso.

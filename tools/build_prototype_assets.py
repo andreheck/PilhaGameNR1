@@ -57,7 +57,7 @@ def mentor():
   tube(s,f'arm_{k}',(sign*.25,1.26,0),(sign*.36,.87,.07),.090,'navy',12)
   sphere(s,f'hand_{k}',(sign*.37,.81,.08),(.083,.10,.072),'skinlight',1)
  cylinder(s,'neck',(0,1.28,0),.095,.16,'skin')
- sphere(s,'head',(0,1.45,.018),(.243,.271,.216),'skinlight',2)
+ sphere(s,'head',(0,1.45,.02),(.243,.271,.216),'skinlight',2)
  sphere(s,'ear_l',(-.238,1.45,.012),(.054,.081,.047),'skin',1)
  sphere(s,'ear_r',(.238,1.45,.012),(.054,.081,.047),'skin',1)
  # natural close curls over hairline
@@ -76,8 +76,8 @@ def mentor():
  tube(s,'glasses_bridge',(-.048,1.51,.224),(.048,1.51,.224),.012,'charcoal')
  sphere(s,'nose',(0,1.427,.23),(.037,.045,.041),'skin',1)
  for i in range(6):
-  u=-.060+i*.020;v=-.028+(.060-(abs(u)))**2*3
-  if i: tube(s,f'smile_{i}',(u-.020,1.390+(-.028+(.060-abs(u-.020)))**2*3,.230),(u,1.390+v,.230),.008,'darkwood')
+  u=-.060+i*.04;v=-.028+(.060-(abs(u)))**2*3
+  if i: tube(s,f'smile_{i}',(u-.04,1.390+(-.028+(.060-abs(u-.04)))**2*3,.230),(u,1.390+v,.230),.008,'darkwood')
  p=OUT/'gestor-mentor-prototipo.glb';p.write_bytes(s.export(file_type='glb'))
  return s,p
 

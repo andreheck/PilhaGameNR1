@@ -4,7 +4,7 @@
 - Ambiente original isométrico desenhado em SVG escalável.
 - Painel de indicadores, duas mesas de análise, duas figuras representativas e objetos decorativos.
 - Três pontos interativos com descrições educativas.
-- Acesso pelo mapa, retorno e abertura do Caso 017.
+- Acesso pelo mapa, retorno e abertura do Caso 01.
 - Layout responsivo com botões para telas de toque e acesso por teclado.
 
 ## Limites

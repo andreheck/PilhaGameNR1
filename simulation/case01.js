@@ -1,5 +1,5 @@
 /**
- * PilhA+ Game — Simulação do Caso 017
+ * PilhA+ Game — Simulação do Caso 01
  *
  * Motor determinístico e educativo para modelar fatores organizacionais.
  *
@@ -7,17 +7,17 @@
  * previsões clínicas nem evidência de conformidade com a NR-1.
  */
 
-export const CASE017_VERSION = 1;
-export const CASE017_DAYS = 30;
+export const CASE01_VERSION = 1;
+export const CASE01_DAYS = 30;
 
 /**
- * Indicadores de risco/proteção no início do Caso 017.
+ * Indicadores de risco/proteção no início do Caso 01.
  *
  * Para workload, conflicts, harassment e rest, valores maiores representam
  * maior exposição. Para autonomy, recognition e leadershipSupport, valores
  * maiores representam proteção.
  */
-export const CASE017_INITIAL = Object.freeze({
+export const CASE01_INITIAL = Object.freeze({
   workload: 78,
   autonomy: 48,
   conflicts: 67,
@@ -28,7 +28,7 @@ export const CASE017_INITIAL = Object.freeze({
 });
 
 /** Indicadores operacionais agregados usados apenas para feedback pedagógico. */
-export const CASE017_OPERATIONAL_INITIAL = Object.freeze({
+export const CASE01_OPERATIONAL_INITIAL = Object.freeze({
   absenteeism: 18,
   overtime: 34,
   productivity: 0,
@@ -145,14 +145,14 @@ function buildFeedback({ actions, monitoring, hypothesis, metrics, deltas, viola
   if (deltas.workload < 0 && deltas.rest < 0) {
     messages.push('O resultado indica melhoria conjunta na carga e na jornada, que deve ser validada com a equipe ao longo do tempo.');
   }
-  if (metrics.productivity > CASE017_OPERATIONAL_INITIAL.productivity && metrics.overtime > CASE017_OPERATIONAL_INITIAL.overtime) {
+  if (metrics.productivity > CASE01_OPERATIONAL_INITIAL.productivity && metrics.overtime > CASE01_OPERATIONAL_INITIAL.overtime) {
     messages.push('Houve ganho operacional acompanhado de mais horas extras; o resultado não é sustentável sem revisar a jornada.');
   }
   return [...new Set(messages)];
 }
 
 /**
- * Simula o efeito educativo de uma decisão no Caso 017.
+ * Simula o efeito educativo de uma decisão no Caso 01.
  *
  * @param {object} input
  * @param {string[]} input.actions IDs das ações escolhidas na etapa 03.
@@ -162,12 +162,12 @@ function buildFeedback({ actions, monitoring, hypothesis, metrics, deltas, viola
  * @param {number} [input.days=30] horizonte simulado; limitado a 1–365 dias.
  * @returns {object} snapshot inicial, final, deltas, indicadores operacionais e feedback.
  */
-export function simulateCase017({
+export function simulateCase01({
   actions = [],
   evidence = [],
   hypothesis = null,
   monitoring = [],
-  days = CASE017_DAYS
+  days = CASE01_DAYS
 } = {}) {
   const selectedActions = normalizeList(actions);
   const selectedMonitoring = normalizeList(monitoring);
@@ -176,10 +176,10 @@ export function simulateCase017({
   const violations = [];
   const safeActions = selectedActions.filter(id => ACTIONS[id]);
   const safeMonitoring = selectedMonitoring.filter(id => MONITORING_BONUS[id]);
-  const horizon = clamp(Number.isFinite(Number(days)) ? Number(days) : CASE017_DAYS, 1, 365);
+  const horizon = clamp(Number.isFinite(Number(days)) ? Number(days) : CASE01_DAYS, 1, 365);
 
-  const metricDelta = Object.fromEntries(Object.keys(CASE017_INITIAL).map(key => [key, 0]));
-  const operationalDelta = Object.fromEntries(Object.keys(CASE017_OPERATIONAL_INITIAL).map(key => [key, 0]));
+  const metricDelta = Object.fromEntries(Object.keys(CASE01_INITIAL).map(key => [key, 0]));
+  const operationalDelta = Object.fromEntries(Object.keys(CASE01_OPERATIONAL_INITIAL).map(key => [key, 0]));
 
   for (const id of safeActions) {
     addEffects(metricDelta, ACTIONS[id].effects);
@@ -206,24 +206,24 @@ export function simulateCase017({
   for (const key of Object.keys(metricDelta)) metricDelta[key] *= quality;
   for (const key of Object.keys(operationalDelta)) operationalDelta[key] *= quality;
 
-  const metrics = Object.fromEntries(Object.entries(CASE017_INITIAL).map(([key, initial]) => [key, clamp(initial + metricDelta[key])]));
-  const operational = Object.fromEntries(Object.entries(CASE017_OPERATIONAL_INITIAL).map(([key, initial]) => {
+  const metrics = Object.fromEntries(Object.entries(CASE01_INITIAL).map(([key, initial]) => [key, clamp(initial + metricDelta[key])]));
+  const operational = Object.fromEntries(Object.entries(CASE01_OPERATIONAL_INITIAL).map(([key, initial]) => {
     const min = key === 'productivity' || key === 'teamClimate' ? -100 : 0;
     return [key, clamp(initial + operationalDelta[key], min, 100)];
   }));
-  const deltas = Object.fromEntries(Object.keys(CASE017_INITIAL).map(key => [key, metrics[key] - CASE017_INITIAL[key]]));
-  const operationalDeltas = Object.fromEntries(Object.keys(CASE017_OPERATIONAL_INITIAL).map(key => [key, operational[key] - CASE017_OPERATIONAL_INITIAL[key]]));
+  const deltas = Object.fromEntries(Object.keys(CASE01_INITIAL).map(key => [key, metrics[key] - CASE01_INITIAL[key]]));
+  const operationalDeltas = Object.fromEntries(Object.keys(CASE01_OPERATIONAL_INITIAL).map(key => [key, operational[key] - CASE01_OPERATIONAL_INITIAL[key]]));
 
   return {
-    version: CASE017_VERSION,
+    version: CASE01_VERSION,
     days: horizon,
-    initial: { metrics: { ...CASE017_INITIAL }, operational: { ...CASE017_OPERATIONAL_INITIAL } },
+    initial: { metrics: { ...CASE01_INITIAL }, operational: { ...CASE01_OPERATIONAL_INITIAL } },
     final: { metrics, operational },
     metrics,
     operational,
     deltas,
     operationalDeltas,
-    changedMetrics: changedKeys(CASE017_INITIAL, metrics),
+    changedMetrics: changedKeys(CASE01_INITIAL, metrics),
     quality,
     selectedActions: safeActions,
     selectedMonitoring: safeMonitoring,

@@ -4,7 +4,7 @@ Data: 13/10/2026.
 
 ## Objetivo
 
-Adicionar uma entrada pedagógica jogável ao PilhA+ Game antes do Caso 017, com um mentor, uma biblioteca interativa, glossário e três verificações de compreensão. Público misto (trabalhadores, gestores, RH/SST, profissionais de apoio). O jogo é mobile-first e jogável também no navegador desktop.
+Adicionar uma entrada pedagógica jogável ao PilhA+ Game antes do Caso 01, com um mentor, uma biblioteca interativa, glossário e três verificações de compreensão. Público misto (trabalhadores, gestores, RH/SST, profissionais de apoio). O jogo é mobile-first e jogável também no navegador desktop.
 
 ## Conteúdo e consistência normativa
 
@@ -29,15 +29,15 @@ flowchart TD
     D -- Sim --> E[Quiz com 3 perguntas]
     E --> F[Resultado e feedback]
     F --> G{70 pontos e 2 acertos?}
-    G -- Sim --> H[Pré-requisito Caso 017 cumprido]
+    G -- Sim --> H[Pré-requisito Caso 01 cumprido]
     G -- Não --> I[Revisão e nova tentativa]
     I --> E
-    H --> J[Caso 017 - Galpão]
+    H --> J[Caso 01 - Galpão]
 ```
 
 **Regras de pontuação aprovadas:** 20 pontos por estação concluída (60), 10 por resposta correta (30) e 10 por conclusão (10), total 100. Pré-requisito: **nota >=70 e pelo menos 2/3 acertos**, além da leitura dos três conceitos. Esse segundo critério impede que alguém avance acertando 0/3 apenas por ter clicado nos cartões. Sem penalização por tentativas.
 
-Um usuário com progresso pré-existente no Caso 017 continua seu jogo sem ser redirecionado para o tutorial. Progresso legado preservado. Novos jogadores encontram Missão 01 na navegação e antes do Galpão.
+Um usuário com progresso pré-existente no Caso 01 continua seu jogo sem ser redirecionado para o tutorial. Progresso legado preservado. Novos jogadores encontram Missão 01 na navegação e antes do Galpão.
 
 ## Arte, sala e personagens
 
@@ -53,8 +53,8 @@ Um usuário com progresso pré-existente no Caso 017 continua seu jogo sem ser r
 | `missao01.html`, `mission01.css`, `mission01.js` | Interface interativa de biblioteca, estado, quiz e pontuação |
 | `content/mission01.json` | Conceitos, exemplos, perguntas, respostas e fontes |
 | `assets/v12/biblioteca-isometrica.svg` | Cenário isométrico provisório (arte vetorial) |
-| `intro-gate.js` | Pré-requisito de novos jogadores para o Caso 017 |
-| `app.js`, `app.css`, `caso017.html`, `case.js` | Links, glossário, menu, continuidade e proteção de progresso |
+| `intro-gate.js` | Pré-requisito de novos jogadores para o Caso 01 |
+| `app.js`, `app.css`, `caso01.html`, `case01.js` | Links, glossário, menu, continuidade e proteção de progresso |
 | `scene3d.html` | Importador GLB local de galpão, preservando interface anterior |
 | `prompts/MESHY-MISSAO-01-ASSETS.md` | Prompts e lista detalhada de assets Meshy |
 | `tests/mission01.test.mjs` | Testes de progressão e regressão |
@@ -71,7 +71,7 @@ Um usuário com progresso pré-existente no Caso 017 continua seu jogo sem ser r
 | 27 | Posicionar transformações/hotspots e colisões | Estações 3D navegáveis |
 | 28 | Converter e otimizar o galpão existente | GLB leve testado |
 | 29 | Substituir geometria de teste, testar interação | Galpão com assets oficiais |
-| 30 | QA cruzado de Missão 01 → Caso 017 | Fluxo de ponta a ponta |
+| 30 | QA cruzado de Missão 01 → Caso 01 | Fluxo de ponta a ponta |
 
 ## Critérios de aceite
 
@@ -79,7 +79,7 @@ Um usuário com progresso pré-existente no Caso 017 continua seu jogo sem ser r
 2. Quiz com 3 perguntas, feedback e reentrada em falhas.
 3. Score e condição de avanço persistidos em `localStorage['pilha-missao01-v1']`.
 4. Novo jogador sem pré-requisito inicia a missão; caso aberto diretamente redireciona para Missão 01.
-5. Progresso pré-existente do Caso 017 não é apagado nem bloqueado.
+5. Progresso pré-existente do Caso 01 não é apagado nem bloqueado.
 6. Biblioteca (glossário geral) atualizada com os conceitos e fontes oficiais.
 7. Opção para importar galpão 3D do Meshy de forma **local**, sem upload, mantendo o fallback.
 8. Testes de lógica e de UI automatizados; revisão visual humana ainda necessária para considerar QA concluída.

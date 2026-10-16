@@ -14,7 +14,7 @@ A Central de Riscos recebeu um protótipo de cenário 2.5D em camadas separávei
 - Interface adaptativa para celular e desktop.
 - Botões identificados e acionáveis pelo teclado.
 - As camadas podem ser ocultadas independentemente.
-- O fluxo completo do Caso 017 segue acessível.
+- O fluxo completo do Caso 01 segue acessível.
 - Estado educacional salvo localmente.
 
 ## Restrições

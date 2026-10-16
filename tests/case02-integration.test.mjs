@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import test from 'node:test';
+import {CASE02_INITIAL,simulateCase02} from '../simulation/case02.js';
+import {applyCompanyDecision,createCompanyState} from '../simulation/company-state.js';
+const read=f=>fs.readFileSync(new URL(`../${f}`,import.meta.url),'utf8');
+const play=read('play.js'), page=read('caso02.html'), source=read('case02.js'), world=read('world3d.js');
+test('Caso 02 é encaminhado para uma página dedicada',()=>{assert.match(play,/selected==='02'\)\{location\.assign\('\/caso02\.html'\)/);assert.match(page,/case02\.js/);assert.match(source,/scene02/)});
+test('Caso 02 usa o mesmo mundo 3D com novas presenças de liderança',()=>{assert.match(source,/setupWorld/);assert.match(source,/world\.focus\('02'\)/);assert.match(world,/name:'Gestor-mentor'.*caseId:'02'/);assert.doesNotMatch(world,/name:'Colaborador'.*path:null/);assert.match(world,/scene-improvement-notifications/);assert.match(world,/case02-built-objects/);assert.match(world,/routeIndex/);assert.match(read('cases-data.js'),/actors:\['gestor','colaborador','psicologa','operadora'\]/);assert.match(source,/meeting-safe/);assert.match(source,/applySceneState/)});
+test('simulação segura melhora segurança psicológica em 30 dias',()=>{const r=simulateCase02({choices:{investigation:'protected',reading:'environment',action:'participation',followup:'practice'}});assert.equal(r.days,30);assert.equal(r.violations.length,0);assert.ok(r.metrics.psychologicalSafety>CASE02_INITIAL.psychologicalSafety);assert.ok(r.passed);});
+test('exposição pública mantém uma consequência educativa negativa',()=>{const r=simulateCase02({choices:{investigation:'public',reading:'individual',action:'exposure',followup:'ranking'}});assert.ok(r.violations.includes('exposure'));assert.equal(r.passed,false);});
+test('painel recalcula silêncio em tempo real a partir do estado global',()=>{
+ const protect=applyCompanyDecision(createCompanyState(),{choice:'protect',outcome:'positive',status:'attended',emoji:'🤝',days:30,metrics:{trust:12,workload:-10,wellbeing:16,turnoverRisk:-14}});
+ const dismiss=applyCompanyDecision(createCompanyState(),{choice:'dismiss',outcome:'negative',status:'unattended',emoji:'😔',days:30,metrics:{trust:-22,workload:12,wellbeing:-20,turnoverRisk:28}});
+ const neutral=simulateCase02({choices:{}});
+ assert.equal(neutral.metrics.silence,72);
+ assert.equal(simulateCase02({choices:{},companyState:protect}).metrics.silence,63);
+ assert.equal(simulateCase02({choices:{},companyState:dismiss}).metrics.silence,89);
+ assert.equal(simulateCase02({choices:{investigation:'protected'},companyState:protect}).metrics.silence,45);
+ assert.match(source,/simulation\(\)\.metrics\.silence/);
+ assert.doesNotMatch(source,/state\.completed\?35:72/);
+});

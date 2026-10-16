@@ -6,7 +6,7 @@ Transformar o protótipo da Sessão 03 em uma experiência navegável no navegad
 ## Entregas concluídas
 - Mapa modular com Central de Riscos, Escuta e Investigação, Planejamento e Operação Logística.
 - Personagens conceituais associados a funções de trabalho.
-- Acesso pelo mapa aos ambientes e ao Caso 017.
+- Acesso pelo mapa aos ambientes e ao Caso 01.
 - Consulta individual de quatro fontes de investigação.
 - Escolha de três intervenções, retorno educacional e recomeço.
 - Estado local no navegador com localStorage (sem dados pessoais).

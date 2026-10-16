@@ -6,7 +6,7 @@ Data: 13/10/2026
 - Tela inicial `/` redesenhada para se aproximar do mockup de central de gestão: navegação lateral, visual do galpão logístico em destaque, quadro de fatores de risco, quatro retratos e fluxo de cinco etapas.
 - Página `/?view=equipe` atualizada com os quatro personagens aprovados: operadora logística, psicóloga, psiquiatra e colaborador personalizável.
 - Cards com nome, papel, descrição e links funcionais para visualização 3D quando o arquivo correspondente existe.
-- Redirecionamento da jornada principal para `/caso017.html`, o fluxo completo (investigar, analisar, planejar, acompanhar, encerrar).
+- Redirecionamento da jornada principal para `/caso01.html`, o fluxo completo (investigar, analisar, planejar, acompanhar, encerrar).
 - Laboratório exploratório anterior continua disponível em `/game.html`; personagens animados seguem em `/viewer3d.html`.
 - Imagens WebP otimizadas e versionadas dentro de `assets/v10/`: 4 personagens, galpão principal e diorama modular.
 - Cópias das imagens leves guardadas no Drive na biblioteca visual do projeto.
@@ -22,7 +22,7 @@ Data: 13/10/2026
 ```text
 /  (central de gestão)
    |-- /?view=equipe (4 personagens)
-   |-- /caso017.html (jornada principal end-to-end)
+   |-- /caso01.html (jornada principal end-to-end)
    |-- /game.html (exploração 2.5D experimental)
    |-- /viewer3d.html (laboratório de animação e modelos 3D privados)
    |-- /?view=biblioteca (conteúdos educativos)
@@ -30,7 +30,7 @@ Data: 13/10/2026
 
 ## Conformidade técnica
 - Menu existente e demais rotas preservados; `v10.css` estende `menu.css` sem substituí-lo.
-- Progresso da jornada completa: `localStorage['pilha-case017-v1']`; o antigo protótipo usa chave distinta `pilha-v08`, preservada.
+- Progresso da jornada completa: `localStorage['pilha-case01-v1']`; o antigo protótipo usa chave distinta `pilha-v08`, preservada.
 - Ícones gerados pelo sistema interno atual do menu, sem dependências externas novas.
 - Imagens hospedadas como arquivos do próprio deploy; acesso via caminhos relativos, inclusive no celular.
 - Valores dos fatores de risco: pontuações fictícias para demonstração visual; não diagnósticas, não derivados de assessment aplicado.
@@ -45,5 +45,5 @@ Data: 13/10/2026
 ## Referências
 - [Protótipo Vercel](https://pilha-plus-game-preview.vercel.app/)
 - [Equipe](https://pilha-plus-game-preview.vercel.app/?view=equipe)
-- [Caso completo](https://pilha-plus-game-preview.vercel.app/caso017.html)
+- [Caso completo](https://pilha-plus-game-preview.vercel.app/caso01.html)
 - [Biblioteca no Drive](https://drive.google.com/drive/folders/1B-mPPAQ1aPbBmAi-e8H21aFxKETnVX19)
