@@ -38,9 +38,16 @@ export function applyUpgrade(state,id,now=0){
  const entry={id,domain:upgrade.domain,day:state.day||0,cost:upgrade.cost,appliedAt:now,forecastDay:(state.day||0)+upgrade.days,forecast:upgrade.forecast,effects:{...upgrade.effects}};
  return {...state,budget:state.budget-upgrade.cost,spent:state.spent+upgrade.cost,upgrades:[...state.upgrades,id],history:[...(state.history||[]),entry],updated:now,error:null};
 }
+export function advanceInvestmentDay(state,days=1,now=0){
+ const amount=Math.max(1,Math.floor(Number(days)||1)),day=(state.day||0)+amount;
+ const resolved=new Set((state.resolvedForecasts||[]));
+ const due=(state.history||[]).filter(entry=>entry.forecastDay<=day&&!resolved.has(entry.id));
+ for(const entry of due)resolved.add(entry.id);
+ return {...state,day,resolvedForecasts:[...resolved],lastAdvanceAt:now,dayEvents:due.map(entry=>({id:entry.id,day:entry.forecastDay,name:UPGRADES.find(u=>u.id===entry.id)?.name||entry.id,forecast:entry.forecast,effects:{...entry.effects}}))};
+}
 export function forecastUpgrades(state){return UPGRADES.map(u=>({...u,owned:state.upgrades.includes(u.id),affordable:state.budget>=u.cost,forecastDay:(state.day||0)+u.days,forecastStatus:state.upgrades.includes(u.id)?"scheduled":state.budget>=u.cost?"available":"needs-budget"}));}
 export function readInvestmentState(storage){
- try{const saved=JSON.parse(storage.getItem(BUDGET_KEY)||"null");if([1,2].includes(saved?.version)&&Number.isFinite(saved.budget)&&Array.isArray(saved.upgrades))return {...initialInvestmentState(),...saved,version:2,history:Array.isArray(saved.history)?saved.history:[]};}catch{}
+ try{const saved=JSON.parse(storage.getItem(BUDGET_KEY)||"null");if([1,2].includes(saved?.version)&&Number.isFinite(saved.budget)&&Array.isArray(saved.upgrades))return {...initialInvestmentState(),...saved,version:2,history:Array.isArray(saved.history)?saved.history:[],resolvedForecasts:Array.isArray(saved.resolvedForecasts)?saved.resolvedForecasts:[],dayEvents:Array.isArray(saved.dayEvents)?saved.dayEvents:[]};}catch{}
  const initial=initialInvestmentState();try{storage.setItem(BUDGET_KEY,JSON.stringify(initial));}catch{}return initial;
 }
 export function persistInvestmentState(storage,state){try{storage.setItem(BUDGET_KEY,JSON.stringify({...state,version:2}));return true;}catch{return false;}}
