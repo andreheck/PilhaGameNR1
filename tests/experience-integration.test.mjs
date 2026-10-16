@@ -32,6 +32,8 @@ test('o Caso 017 usa o motor simulado no dashboard', () => {
   assert.match(world, /setEffectsVisible\(state\)/);
   assert.match(world, /actorHighlights/);
   assert.match(world, /focusedActor/);
+  assert.match(world, /beginRoutine/);
+  assert.match(world, /rotina de exploração ativa/);
   assert.match(world, /Math\.atan2\(dx,dz\)/);
   assert.match(world, /integrated-nr1-library/);
   assert.match(world, /libraryFurniture/);
