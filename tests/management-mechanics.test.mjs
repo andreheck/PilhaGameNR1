@@ -46,6 +46,8 @@ test('hub conecta as três escolhas ao feedback persistente da cena', () => {
   assert.match(world, /estado não atendido/);
   assert.match(world, /setActorState/);
   assert.match(world, /safeRoutes/);
+  assert.match(world, /collisionRects/);
+  assert.match(world, /safeStep/);
   assert.match(css, /management-choice/);
 });
 
