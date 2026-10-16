@@ -40,7 +40,8 @@ c.setState({...good,hypothesis:'handoff'});assert.ok(c.scoreBreakdown().score<=7
 console.log('Caso 017: success',won.score,'failure',lost.score,'ethical guardrails pass');
 const appCode=src('app.js').replace('render();\n})();','globalThis.__appTest={render,home,cases,team,view,prefs,state};\nrender();\n})();');
 const ui=runtime();vm.runInContext(appCode,ui.context,{filename:'app.js',timeout:2000});
-assert.ok(ui.main.innerHTML.includes('world-overview.webp'));
+assert.ok(!ui.main.innerHTML.includes('world-overview.webp'));
+assert.ok(ui.main.innerHTML.includes('3D INTERATIVO'));
 assert.ok(ui.main.innerHTML.includes('Meta: 75/100'));
 ui.context.location.search='?view=casos';ui.context.__appTest.render();
 assert.equal((ui.main.innerHTML.match(/class="future-card"/g)||[]).length,4);
@@ -53,8 +54,8 @@ ui.local.set('pilha-case017-v2',JSON.stringify({...good,score:won.score}));
 ui.context.location.search='?view=casos';ui.context.__appTest.render();
 assert.ok(ui.main.innerHTML.includes('Meta atingida'));
 console.log('App: home, 5 cases (1 playable, 4 disabled), 4 portraits, score persistence pass');
-for(const f of ['world-overview.webp','scene-leadership.webp','scene-people.webp','scene-wellbeing.webp','scene-technology.webp','galpao-dashboard.webp','galpao-diorama.webp','operadora-portrait.webp','psicologa-portrait.webp','psiquiatra-portrait.webp','colaborador-portrait.webp']){
+for(const f of ['scene-leadership.webp','scene-people.webp','scene-wellbeing.webp','scene-technology.webp','galpao-dashboard.webp','galpao-diorama.webp','operadora-portrait.webp','psicologa-portrait.webp','psiquiatra-portrait.webp','colaborador-portrait.webp']){
   const raw=fs.readFileSync(path.join(root,'assets','v11',f));
   assert.equal(raw.toString('ascii',0,4),'RIFF');assert.equal(raw.toString('ascii',8,12),'WEBP');
 }
-console.log('Assets: 11 WebP files valid');
+console.log('Assets: 10 WebP files valid; static overview removed');
