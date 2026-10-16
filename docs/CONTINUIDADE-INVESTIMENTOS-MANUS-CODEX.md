@@ -25,11 +25,11 @@ Não fazer merge nem deploy de produção sem autorização expressa do respons�
 ## Próximas tarefas do agente
 1. Fazer checkout da branch e ler os arquivos acima antes de editar.
 2. Executar `npm test`; corrigir todos os erros e registrar a saída real dos testes.
-3. Abrir a demo/preview da branch e testar a tela de investimentos no navegador desktop e mobile: orçamento inicial, compra, saldo insuficiente, compra duplicada, reload/localStorage, avanço de 30 dias, indicadores e eventos.
-4. Verificar console, event handlers e layout; confirmar que o estado visual do mundo 3D permanece consistente após reload.
-5. Rever o modelo de tempo: hoje há um botão que simula diretamente o horizonte de 30 dias. Evoluir depois para avanço diário/por turno e consequências intermediárias, sem quebrar dados salvos existentes.
-6. Conectar as consequências a rotinas e personagens 3D apenas após inspecionar `world3d.js` e a arquitetura existente; reutilizar modelos existentes, não criar avatares procedurais para compensar assets ausentes.
-7. Atualizar este documento e o PR com testes e problemas reais encontrados.
+4. Abrir a demo/preview da branch e testar a tela de investimentos no navegador desktop e mobile: orçamento inicial, compra, saldo insuficiente, compra duplicada, reload/localStorage, avanço de 30 dias, indicadores e eventos.
+5. Verificar console, event handlers e layout; confirmar que o estado visual do mundo 3D permanece consistente após reload.
+6. Rever o modelo de tempo: hoje há um botão que simula diretamente o horizonte de 30 dias. Evoluir depois para avanço diário/por turno e consequências intermediárias, sem quebrar dados salvos existentes.
+7. Conectar as consequências a rotinas e personagens 3D apenas após inspecionar `world3d.js` e a arquitetura existente; reutilizar modelos existentes, não criar avatares procedurais para compensar assets ausentes.
+8. Atualizar este documento e o PR com testes e problemas reais encontrados.
 
 ## Regras de produto e segurança
 - Créditos e indicadores são fictícios e educativos; não são avaliação psicossocial validada, diagnóstico, promessa de efeito ou evidência de conformidade com NR-1.
