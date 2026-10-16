@@ -146,3 +146,18 @@
  .mobile-nav button{min-width:78px;padding-inline:9px;font-size:10px}
  .scene{height:clamp(250px,40dvh,340px);min-height:250px}
 }
+
+/* Live psychosocial investment feedback in the shared 3D office */
+#scene{--live-wellbeing:50;--live-workload:50}
+#scene.has-investments:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse at 50% 48%,rgba(77,190,131,calc(var(--live-wellbeing)*.0012)),transparent 62%);mix-blend-mode:multiply;transition:background 700ms ease}
+#scene.environment-tension:after{background:radial-gradient(ellipse at 50% 48%,rgba(232,153,75,.16),transparent 68%)}
+#scene.environment-protected:after{background:radial-gradient(ellipse at 50% 48%,rgba(77,190,131,.18),transparent 68%)}
+#scene-status.status-protected{background:#216a52;color:#f3fff8}
+#scene-status.status-alert{background:#87462f;color:#fff6ed}
+#scene.has-investments .scene-live-dot{background:#58c68a;box-shadow:0 0 0 4px #58c68a30}
+#scene.has-investments .actor-tag{transition:filter .5s,transform .5s}
+#scene.environment-protected .actor-tag{filter:saturate(1.12)}
+#scene.environment-tension .actor-tag{filter:saturate(.72)}
+.investment-buy:not(:disabled){box-shadow:0 0 0 0 #f4c15c80;animation:investment-ready 2.2s ease-in-out infinite}
+@keyframes investment-ready{0%,100%{box-shadow:0 0 0 0 #f4c15c00}50%{box-shadow:0 0 0 4px #f4c15c55}}
+@media(prefers-reduced-motion:reduce){#scene.has-investments:after,.investment-buy:not(:disabled),#scene.has-investments .actor-tag{animation:none!important;transition:none!important}}
