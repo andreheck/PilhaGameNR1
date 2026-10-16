@@ -20,3 +20,16 @@ console.log('Alpha 1.4: 5 casos, 100 pts, bloqueio sequencial, progresso legado,
 
 // Preserve earned progression while replaying an already completed case.
 store=new Map([[KEY('017'),{completed:false,bestScore:88,choice:{0:1}}]]);assert.equal(completedCase('017',read),true);assert.equal(isUnlocked(1,read),true);
+
+const html=fs.readFileSync('index.html','utf8');
+assert.match(html,/id="welcome-alert"/);
+assert.match(html,/O trabalho muda/);
+assert.match(html,/10\.000 créditos/);
+assert.match(html,/id="welcome-dismiss"/);
+assert.match(html,/id="welcome-invest"/);
+assert.match(html,/pilha-welcome-alert-v1/);
+assert.match(css,/\.intro-screen/);
+assert.match(css,/\.intro-pillars/);
+assert.match(css,/@media\(max-width:560px\)/);
+assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
+console.log('PilhA+ onboarding: conteúdo, orçamento, ações e regras responsivas PASS');
