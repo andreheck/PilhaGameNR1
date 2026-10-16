@@ -122,6 +122,25 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  function buildManagement(decision){managementGroup.clear();managementBuild.length=0;const positive=decision.key==='protect',negative=decision.key==='dismiss';const color=positive?0x65b894:negative?0xd66d63:0xf0b45c;const x=positive?-2.15:negative?-3.65:-.2,z=positive?2.58:negative?1.18:-.2;const base=new THREE.Mesh(new THREE.BoxGeometry(1.15,.08,.72),effectMat(color,.92,positive?0x1e6546:negative?0x702e2e:0x8c5e1c));base.position.set(x,.06,z);managementGroup.add(base);managementBuild.push({mesh:base,targetY:.06});const marker=new THREE.Mesh(new THREE.TorusGeometry(.48,.055,8,28),new THREE.MeshBasicMaterial({color,transparent:true,opacity:.95}));marker.rotation.x=-Math.PI/2;marker.position.set(x,.13,z);managementGroup.add(marker);managementBuild.push({mesh:marker,targetY:.13});if(positive){for(const px of [x-.34,x,x+.34]){const cube=box(.22,.55,.22,px,.28,z,solid(0xd7a769),managementGroup);cube.scale.y=.01;managementBuild.push({mesh:cube,targetY:.28});}}else{const beacon=new THREE.Mesh(new THREE.CylinderGeometry(.13,.18,.7,16),effectMat(color,.9,negative?0x9d3f35:0x8c5e1c));beacon.position.set(x,.38,z);managementGroup.add(beacon);managementBuild.push({mesh:beacon,targetY:.38});}}
  function applyManagementDecision(decision){managementDecision=decision;managementGroup.visible=true;managementStarted=performance.now();buildManagement(decision);const actor=actors.find(a=>a.key==='operadora');if(actor){setEmotion(actor,decision.emoji);setActorState(actor,decision.state);if(decision.key==='dismiss')actor.nextRoutineAt=Infinity;else actor.nextRoutineAt=performance.now()+1800;}regionMats['017']?.color.setHex(decision.key==='protect'?0x4f9678:decision.key==='dismiss'?0xb86b59:0xd39b62);onStatus(`${decision.emoji} ${decision.key==='dismiss'?'estado não atendido · risco persistente':decision.key==='protect'?'medida de proteção construída · 30 dias':'monitoramento sem intervenção · 30 dias'}`);}
 
+ function applyInvestmentUpgrade(upgrade){
+  const targetRegion=upgrade.category==='ambiente'?'021':upgrade.category==='rotina'?'020':upgrade.category==='gestao'?'017':'018';
+  const palette={ambiente:0x5d9f91,rotina:0x7cae91,gestao:0x5b987d,pessoas:0x6d9ba8};
+  const color=palette[upgrade.category]||0x6d9ba8;
+  regionMats[targetRegion]?.color.setHex(color);
+  const region=regions.find(r=>r.mark===targetRegion);
+  if(region){
+    const ring=new THREE.Mesh(new THREE.RingGeometry(.42,.62,32),new THREE.MeshBasicMaterial({color:0xf6b65e,transparent:true,opacity:.95,side:THREE.DoubleSide,depthWrite:false}));
+    ring.rotation.x=-Math.PI/2;ring.position.set(region.x,.075,region.z);scene.add(ring);
+    const start=performance.now();
+    const animateRing=now=>{if(!on){scene.remove(ring);ring.geometry.dispose();ring.material.dispose();return;}const p=Math.min(1,(now-start)/950);ring.scale.setScalar(1+p*3);ring.material.opacity=.95*(1-p);if(p<1)requestAnimationFrame(animateRing);else{scene.remove(ring);ring.geometry.dispose();ring.material.dispose();}};
+    requestAnimationFrame(animateRing);
+  }
+  const actor=actors.find(a=>a.key==='operadora');
+  if(actor&&upgrade.category==='rotina'){setEmotion(actor,'☕');setActorState(actor,'pausing');actor.nextRoutineAt=performance.now()+2500;}
+  if(actor&&upgrade.category==='pessoas'){setEmotion(actor,'🤝');setActorState(actor,'talking');actor.nextRoutineAt=performance.now()+3000;}
+  onStatus(`Melhoria instalada: ${upgrade.name} · previsão educativa para 30 dias`);
+ }
+ function resetInvestmentUpgrades(){for(const [id,material] of Object.entries(regionMats))material.color.setHex(baseRegionColors[id]);for(const actor of actors){if(actor.key==='operadora'){setEmotion(actor,actor.emotionBase||'😮‍💨');actor.nextRoutineAt=performance.now()+1000;}}onStatus('Melhorias reiniciadas · escritório padrão');}
  function beginRoutine(actor,now){const points=routines[actor.key];if(!points?.length||!actor.mixer)return;actor.route=points;actor.routeIndex=0;const point=points[actor.routineIndex%points.length];actor.routineIndex=(actor.routineIndex+1)%points.length;actor.goalX=point[0];actor.goalZ=point[1];setActorState(actor,'exploring',now);actor.nextRoutineAt=now+7000+Math.random()*5000;onStatus(`${actor.name} · rotina de exploração ativa`);}
  let last=performance.now(),on=true,choice='';const preferReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  function frame(t){if(!on)return;requestAnimationFrame(frame);const dt=Math.min(.05,(t-last)/1000);last=t;
@@ -148,5 +167,5 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  const pattern=mode==='walk'?/walk/i:mode==='run'?/run/i:mode==='idle'?/idle|baselayer|clip0/i:/discuss|answer|sit|baselayer|clip0/i;
  const next=a.clips.find(c=>pattern.test(c.name))||a.clips[0];const current=a.mixer._actions?.find(x=>x.isRunning());const n=a.mixer.clipAction(next);if(current!==n){n.reset().play();if(current)n.crossFadeFrom(current,.34,true)}a.state=({walk:'exploring',talk:'talking',discuss:'talking',work:'working',pause:'pausing',concerned:'concerned',idle:'idle'})[mode]||mode;return true;
  }
- return {focus,reset:()=>focus(null),animate,focusActor:(id)=>animate(id,'talk'),applySceneState,clearSceneState,applyManagementDecision,setActorState,dispose:()=>{on=false;window.removeEventListener('keydown',handleDown);window.removeEventListener('keyup',handleUp);window.removeEventListener('blur',resetHeld);renderer.dispose();renderer.domElement.remove()},actorCount:()=>actors.length};
+ return {focus,reset:()=>focus(null),animate,focusActor:(id)=>animate(id,'talk'),applySceneState,clearSceneState,applyManagementDecision,applyInvestmentUpgrade,resetInvestmentUpgrades,setActorState,dispose:()=>{on=false;window.removeEventListener('keydown',handleDown);window.removeEventListener('keyup',handleUp);window.removeEventListener('blur',resetHeld);renderer.dispose();renderer.domElement.remove()},actorCount:()=>actors.length};
 }
