@@ -105,3 +105,73 @@ Testes automatizados: 12 arquétipos-base; três faixas por pessoa; valores nulo
 - Reações visuais e de humor no mesmo escritório 3D.
 - Persistência e testes automatizados passando.
 - Agente seguinte revisa arquitetura e testa antes de merge ou publicação.
+
+## 13. Proposta de trabalho negociável
+Além de selecionar faixa baixa/média/alta, o jogador poderá montar uma proposta com componentes ajustáveis e apresentá-la ao candidato. O sistema mostra a estimativa de aceite e a posição de cada componente em relação às preferências e aos limites do perfil.
+
+### Componentes negociáveis
+- Salário mensal, ajustável dentro dos limites do jogo e comparado visualmente às faixas baixa, média e alta.
+- Benefícios configuráveis: apoio/transporte, alimentação, saúde e bem-estar, flexibilidade quando compatível com a função, descanso adicional quando permitido pelo cenário, formação, bônus, previdência ou apoio familiar.
+- Jornada, turnos, previsibilidade de escala, flexibilidade e pausas, respeitando as exigências da função.
+- Integração, capacitação, acompanhamento da liderança e progressão.
+- Condições de trabalho: ergonomia, acessibilidade, segurança, ferramentas, clareza de papel e canais contra assédio.
+
+Cada componente terá custo para a empresa, valor percebido pelo candidato e condições de elegibilidade. São parâmetros de jogo, não aconselhamento jurídico ou representação automática de direitos trabalhistas reais.
+
+### Faixas e limites de negociação
+Para cada candidato, configurar limites e identificar se a proposta está abaixo, dentro ou acima das faixas baixa/média/alta. Mostrar salário oferecido vs. mínimo aceitável/referência/faixa alta; valor estimado dos benefícios e pacote total (sem tratar benefício não monetário como dinheiro); custo mensal/anual para a empresa; competitividade e chance estimada de aceite; ajustes possíveis e custo incremental; alerta de oferta inviável ou abaixo do limite configurado.
+
+Não garantir aceite apenas pelo salário. Considerar preferências, função, benefícios, deslocamento, cultura, segurança psicológica, condições físicas, liderança e alternativas fictícias. A probabilidade é uma regra de jogo configurável, com incerteza, não uma previsão real de comportamento humano.
+
+### Indicadores impactados
+Cada pacote influencia, em graus configuráveis e incertos:
+- **Permanência/retenção:** chance simulada de continuar e risco de saída.
+- **Adoecimento/risco psicossocial:** indicador preventivo agregado, nunca diagnóstico individual. Remuneração e benefícios não neutralizam assédio, sobrecarga ou perigo.
+- **Acidentes:** risco simulado influenciado principalmente por segurança, treinamento, fadiga, jornada, equipamentos e ambiente, não atribuído simplesmente à personalidade.
+- **Afastamentos:** indicador agregado estimado relacionado a carga, saúde e segurança, condições e suporte; não inferir doença individual nem penalizar quem se afasta.
+- **Felicidade/bem-estar:** satisfação, humor e equilíbrio trabalho-vida no jogo.
+- **Motivação/engajamento:** motivadores atendidos, autonomia, reconhecimento, aprendizagem, justiça e sentido do trabalho.
+
+Separar indicadores em painel e registrar a cadeia simulada: oferta → percepção/aceitação → condições e motivadores → estado imediato → projeção de 30 dias → resultado observado no jogo. Exibir incerteza e evitar causalidade determinística.
+
+### Tela e fluxo
+1. Selecionar candidato e consultar currículo.
+2. Ajustar salário e benefícios em controles visuais.
+3. Ver em tempo real faixa salarial, custo total e custo incremental.
+4. Consultar aceite estimado e razões principais, inclusive fatores não salariais.
+5. Comparar propostas alternativas antes do envio.
+6. Enviar oferta; candidato responde com aceite, contraproposta ou recusa conforme regras fictícias.
+7. Persistir proposta, resposta, custo e indicadores-base.
+8. Exibir feedback visual/sonoro breve e atualizar o HUD sem interromper a navegação.
+
+### Modelo de dados adicional
+```json
+{
+  "offerId": "offer-001",
+  "candidateId": "candidate-ops-01",
+  "monthlySalary": null,
+  "salaryBandPosition": "medium",
+  "benefits": [
+    {"id": "transport_support", "monthlyEmployerCost": null, "perceivedValue": 0.7},
+    {"id": "training_budget", "monthlyEmployerCost": null, "perceivedValue": 0.8}
+  ],
+  "workConditions": {"schedulePredictability": 0.7, "flexibility": 0.4, "ergonomics": 0.7, "managerSupport": 0.6},
+  "estimatedAcceptance": null,
+  "response": "pending",
+  "estimatedOutcomes30d": {"retention": null, "psychosocialRisk": null, "incidentRisk": null, "absenceRisk": null, "wellbeing": null, "motivation": null},
+  "kind": "fictional_simulation"
+}
+```
+Valores nulos são calculados por regras configuradas ou permanecem indisponíveis; nunca viram zero silenciosamente.
+
+### Testes e critérios de aceite
+- Ajustar e comparar propostas sem enviá-las automaticamente.
+- Mostrar salário abaixo/dentro/acima das faixas do candidato.
+- Separar custo empresarial e valor percebido dos benefícios, sem confundi-los com salário.
+- Aceite, contraproposta e recusa respeitam preferências e limites configurados e têm explicação legível.
+- Alterações atualizam prévia sem persistir até confirmação.
+- Confirmar registra componentes e resposta em persistência.
+- Os seis indicadores recebem efeitos explicáveis, testáveis e com incerteza explícita.
+- Salário/benefícios não mascaram riscos graves de assédio, sobrecarga ou segurança.
+- Testar ofertas baixas, médias, altas, abaixo do limite, benefícios alternativos, contraproposta, recusa, reload e projeção de 30 dias.
+- Métricas são simulações educativas, não diagnósticos nem estatísticas empíricas.
