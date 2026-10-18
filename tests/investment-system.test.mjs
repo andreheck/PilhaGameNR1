@@ -23,7 +23,7 @@ test('não permite saldo negativo nem comprar a mesma melhoria duas vezes',()=>{
  assert.ok(s.budget>=0);
 });
 test('previsões diferenciam instalada, disponível e sem orçamento',()=>{
- let s=initialInvestmentState();s.budget=1000;s=applyUpgrade(s,'escuta-segura');
+ let s=initialInvestmentState();s.budget=2200;s=applyUpgrade(s,'escuta-segura');
  const f=forecastUpgrades(s);
  assert.equal(f.find(x=>x.id==='escuta-segura').forecastStatus,'scheduled');
  assert.equal(f.find(x=>x.id==='pausas').forecastStatus,'available');
