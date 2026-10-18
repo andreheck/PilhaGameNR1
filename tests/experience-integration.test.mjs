@@ -11,7 +11,7 @@ const casePage = read('caso01.html');
 const css = read('case01.css');
 
 test('a central encaminha o Caso 01 para a jornada completa', () => {
-  assert.match(play, /selected==='01'\)\{location\.assign\('\/caso01\.html'\)/);
+  assert.doesNotMatch(play, /location\.assign\('\/caso01\.html'\)/); assert.match(play, /tab='playing'/);
   assert.match(casePage, /<script type="module" src="\/case01\.js"><\/script>/);
 });
 
