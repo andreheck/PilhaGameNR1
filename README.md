@@ -1,3 +1,15 @@
+# PilhA+ Game — desenvolvimento atual
+
+**Fonte canônica:** [Visão de Produto (18/10/2026)](docs/PRODUTO-CANONICO-2026-10-18.md). A versão Alpha 1.4 da main continua publicada; esta branch contém candidata de integração de investimentos, prólogo opcional, navegação por colisão, fallback 2D e estado global, pendente de testes.
+
+**Áreas:** Casos 01–05, Equipe, Investimentos, Biblioteca e Progresso. O novo mapa costeiro e os sistemas de currículos, mobilidade e contratação são especificações atuais ainda não implementadas como gameplay.
+
+**Testes:** `npm test` e QA manual em mobile/desktop. Não fazer merge ou deploy de produção sem revisão.
+
+---
+
+## Histórico da Alpha 1.4
+
 # PilhA+ Game — Alpha 1.4
 
 Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.app/)**. O novo hub ocupa uma tela, inclui cinco casos educativos sequenciais, câmera isométrica com transições suaves, três personagens GLB animados e painéis contextuais. A meta pedagógica de cada caso é **75/100**, com pontuação máxima de 100. Os Casos 02 a 05 estão jogáveis em alpha, sujeitos a revisão pedagógica.
