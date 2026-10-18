@@ -33,5 +33,8 @@ C. Branch de interface com PR e antes/depois quando autorizado.
 D. Lista de arquivos alterados, testes e pontos que exigem Manus/PO.
 E. Não mesclar nem publicar produção sem autorização expressa.
 
+## Integração de QA independente
+O ChatGPT Grátis — André guia testes exploratórios realizados pelo André. Receber relatórios de usabilidade com URL/SHA, dispositivo e evidências; corrigir problemas de UI em branch própria com aval da coordenação. Não atribuir ao novo agente mudanças de CSS/JS nem declarar capturas que ele não produziu. Guia em `docs/agents/CHATGPT-GRATIS-ANDRE-QA.md`.
+
 ## Pedido inicial sugerido
 "Avalie a interface atual da main e a proposta PR 13, sem editar o motor. Entregue primeiro diagnóstico mobile/desktop, arquitetura de informação unificada e prioridades P0; depois proponha alterações em branch própria, preservando casos, progresso e cena 3D."

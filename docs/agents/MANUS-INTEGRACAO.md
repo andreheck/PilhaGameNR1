@@ -45,5 +45,8 @@ Manus é dono de simulation/*, world3d.js, testes, build/CI e contratos com play
 - Notas sobre performance/GLB/colisão e acessibilidade.
 - PR revisável, changelog, riscos remanescentes, sem publicação não autorizada.
 
+## Integração de QA independente
+O ChatGPT Grátis — André conduz com o André sessões manuais de teste. Receber bugs reproduzíveis P0/P1, registrar correção, novo SHA e cenário de reteste. Não delegar alterações de `simulation/*`, `world3d.js` ou CI ao novo agente. As evidências manuais complementam, não substituem, testes Node. Guia em `docs/agents/CHATGPT-GRATIS-ANDRE-QA.md`.
+
 ## Pedido inicial sugerido
 "Audite a main e PRs #10–#13 do PilhaGameNR1; proponha estratégia sem merge automático, reproduza os testes e prepare um plano de integração verificável. Priorize o fluxo vertical 3D/fallback, investimentos sintéticos e QA; reporte bloqueios e não publique em produção."

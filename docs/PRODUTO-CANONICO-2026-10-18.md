@@ -29,6 +29,8 @@ Branch `integration/pilha-current-vision`, criada da `main` em `a33e0a65071e`. O
 
 **Kimi:** auditar NR-1, NR-17 e fundamentos de medidas preventivas; diferenciar hipóteses de jogo de informação normativa/empírica, especialmente para o sistema socioespacial e de emprego.
 
+**ChatGPT Grátis — André (novo agente, disponibilidade diária):** QA exploratório independente com execução humana do André; teste de navegação, casos, investimentos, 3D/2D, linguagem e acessibilidade. Registra bugs reproduzíveis com URL/SHA, navegador e evidência; encaminha implementação ao Manus, ajustes visuais ao Claude e dúvidas de fundamento ao Kimi. Não tem autonomia para editar GitHub/produção. Guia: `docs/agents/CHATGPT-GRATIS-ANDRE-QA.md`.
+
 **Coordenação:** decidir prioridades e validar antes de merge na main ou deploy de produção. PR #13 e PRs históricas #10–#12 continuam sem merge automático.
 
 ## Referências
@@ -36,4 +38,5 @@ Branch `integration/pilha-current-vision`, criada da `main` em `a33e0a65071e`. O
 - `docs/SISTEMA-COLABORADORES-CURRICULOS-SALARIOS-MOTIVADORES.md`
 - `docs/DOMINIOS-DE-INVESTIMENTO-PSICOSSOCIAL.md`
 - `docs/PLANO-DIRETOR-2026-10-17.md`
+- `docs/agents/CHATGPT-GRATIS-ANDRE-QA.md` e `docs/qa/CHECKLIST-DIARIO-ANDRE.md`
 - `docs/agents/{CLAUDE-INTERFACE,MANUS-INTEGRACAO,KIMI-PESQUISA}.md`

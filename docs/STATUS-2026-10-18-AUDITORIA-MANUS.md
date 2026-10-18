@@ -27,6 +27,7 @@ A auditoria reproduziu resultados de PRs #10–#13 e recomendou não mesclá-las
 - **Manus — nova missão:** abrir e testar a PR #20 e a sua preview no HEAD atual; documentar resultado real em QA, correções bloqueantes e PR de ajustes pequena. Não repetir como pendente a auditoria da `main` já entregue. Sem merge ou deploy de produção.
 - **Claude:** refino e validação da jornada visual; começar wireframes da cidade/mobilidade e UX de currículos/propostas negociáveis conforme `docs/PRODUTO-CANONICO-2026-10-18.md`. Não substituir simulação por mock.
 - **Kimi:** verificar fundamentos normativos e impactos éticos dos casos/investimentos e modelagem socioespacial/contratação.
+- **ChatGPT Grátis — André:** nova frente diária de QA exploratório assistido pelo André. Testar prévia da PR #20 sem acesso presumido ao repositório privado; produzir relatório com dispositivo, SHA, passos, esperado/observado, evidência e classificação P0/P1/P2. Limites e rodízio em `docs/agents/CHATGPT-GRATIS-ANDRE-QA.md` e `docs/qa/CHECKLIST-DIARIO-ANDRE.md`. Nenhuma sessão real foi atestada pela inclusão do agente.
 - **Coordenação/PO:** conferir evidências dos agentes, autorizar mudanças de escopo e decidir sobre integração/produção.
 
 ## Arquivos canônicos
