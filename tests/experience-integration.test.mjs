@@ -37,7 +37,7 @@ test('o Caso 01 usa o motor simulado no dashboard', () => {
   assert.match(world, /Math\.atan2\(dx,dz\)/);
   assert.match(world, /integrated-nr1-library/);
   assert.match(world, /libraryFurniture/);
-  assert.match(play, /data-act=\"start-01\"/);
+  assert.match(play, /data-act=\"start\"/);
   assert.match(play, /stage-library/);
   assert.match(play, /chatScripts/);
   assert.match(play, /data-chat-choice/);
