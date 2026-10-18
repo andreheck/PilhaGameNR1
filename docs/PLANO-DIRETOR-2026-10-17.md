@@ -32,7 +32,7 @@ P2: mapa costeiro, transporte/serviços, currículos, salários, contratação e
 | S2 | 02–06/11 | Investimentos e missão no shell 3D único, fallback e estado persistente | Manus + Claude | Compra/reload/dia 30 demonstráveis sem perda de progresso |
 | S3 | 09–13/11 | Navegação segura, GLBs, melhorias e feedback ambiental | Manus | Rotas sem atravessar móveis; performance e erros documentados |
 | S4 | 16–20/11 | Caso 02 aprofundado e motor comum de investigação/decisão | Manus + Claude | Cenário 02 com começo, decisão, consequência e retorno |
-| S5 | 23–27/11 | Revisão técnico-pedagógica da NR-1 e conteúdo dos cinco casos | Perplexity + especialistas + PO | Matriz de afirmações, fontes, ajustes e pontos não validados |
+| S5 | 23–27/11 | Revisão técnico-pedagógica da NR-1 e conteúdo dos cinco casos | Kimi + especialistas + PO | Matriz de afirmações, fontes, ajustes e pontos não validados |
 | S6 | 30/11–04/12 | QA em mobile/desktop, privacidade, regressão e acessibilidade | Manus + Claude | Testes automatizados aprovados e testes reais documentados |
 | S7 | 07–11/12 | Congelamento e demonstração de Alpha 1.5 candidata | PO + equipe | Checklist final, changelog, roteiro demonstrável e pendências da beta |
 
@@ -41,7 +41,7 @@ Datas são metas de referência, não compromissos. Se blockers de S0 não forem
 ## 6. Entregas por agente
 - Claude (UI/UX): docs/agents/CLAUDE-INTERFACE.md
 - Manus (integração, código, testes, Vercel): docs/agents/MANUS-INTEGRACAO.md
-- Perplexity (norma, evidências e pedagogia): docs/agents/PERPLEXITY-PESQUISA.md
+- Kimi (norma, evidências e pedagogia): docs/agents/KIMI-PESQUISA.md
 - PO: valida design, identidade visual, pedagógico, escopo, orçamento Meshy, autorização de merge/deploy e registro de decisões.
 
 ## 7. Regras para evitar conflitos
