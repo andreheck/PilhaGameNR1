@@ -11,7 +11,7 @@ const casePage = read('caso01.html');
 const css = read('case01.css');
 
 test('a central encaminha o Caso 01 para a jornada completa', () => {
-  assert.match(play, /selected==='01'\)\{location\.assign\('\/caso01\.html'\)/);
+  assert.doesNotMatch(play, /location\.assign\('\/caso01\.html'\)/); assert.match(play, /tab='playing'/);
   assert.match(casePage, /<script type="module" src="\/case01\.js"><\/script>/);
 });
 
@@ -37,7 +37,7 @@ test('o Caso 01 usa o motor simulado no dashboard', () => {
   assert.match(world, /Math\.atan2\(dx,dz\)/);
   assert.match(world, /integrated-nr1-library/);
   assert.match(world, /libraryFurniture/);
-  assert.match(play, /data-act=\"start-01\"/);
+  assert.match(play, /data-act=\"start\"/);
   assert.match(play, /stage-library/);
   assert.match(play, /chatScripts/);
   assert.match(play, /data-chat-choice/);
