@@ -1,0 +1,54 @@
+name: Integrar ciclo do acionista
+on:
+  push:
+    branches: [feature/shareholder-timeline-kimi]
+    paths: [.github/workflows/import-shareholder-timeline.yml]
+permissions:
+  contents: write
+jobs:
+  integrate:
+    if: github.repository == 'andreheck/PilhaGameNR1'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verificar base e pacote
+        run: |
+          test "$(git rev-parse HEAD^)" = 'c3cf39a6b4c03dc5b8267fea8edd403879846b17'
+          curl --fail --location --retry 2 --max-time 90 'https://sb-77kqmalwmc3d.vercel.run/shareholder-timeline-74b201dc.zip' -o /tmp/timeline.zip
+          echo 'b92d291f90b7bb7e5283836704d2b63ed8d03655546d013594bfa6fa55cb2825  /tmp/timeline.zip' | sha256sum --check
+          python3 - <<'PY'
+          from pathlib import PurePosixPath,Path
+          from zipfile import ZipFile
+          import hashlib
+          allowed={'AGENTS.md','README.md','assets/pilha-app-logo.png','cases-data.js','docs/FONTES-E-MAPEAMENTO.md','docs/MOTOR-ESTATISTICO-TEMPORAL.md','docs/PRODUTO-CANONICO-2026-10-18.md','docs/herois/README.md','docs/herois/cientista-de-dados.md','docs/herois/engenheiro-de-seguranca.md','docs/qa/evidence/timeline/guards.json','docs/qa/evidence/timeline/panel-1440.png','docs/qa/evidence/timeline/panel-390.png','docs/qa/evidence/timeline/qa-1440.json','docs/qa/evidence/timeline/qa-390.json','docs/qa/evidence/timeline/splash-1440.png','docs/qa/evidence/timeline/splash-390.png','docs/releases/ACIONISTA-CICLO-KIMI-2026-10-19.md','docs/reviews/KIMI-2026-10-19-ORIGINAL.md','docs/reviews/TRIAGEM-KIMI-2026-10-19.md','hero-concepts.js','hero-roster.js','hero-team-ui.js','index.html','mission-control.css','mission-control.js','opening.js','package.json','pilha-intro.css','pilha-intro.js','play.js','simulation/case-ethics.js','simulation/case02.js','simulation/mission-timeline.js','tests/hero-team.test.mjs','tests/investment-system.test.mjs','tests/mission-timeline.test.mjs'}
+          with ZipFile('/tmp/timeline.zip') as z:
+              assert set(z.namelist())==allowed
+              for item in z.infolist():
+                  p=PurePosixPath(item.filename)
+                  assert not p.is_absolute() and '..' not in p.parts and item.file_size<3000000
+              z.extractall('.')
+          assert hashlib.sha256(Path('docs/reviews/KIMI-2026-10-19-ORIGINAL.md').read_bytes()).hexdigest()=='8d6c74aaede09e18b7e53cd9c51c307a0179ae8c6fc097949fd78c51f59b4b42'
+          PY
+      - name: Validar sintaxe e regressao
+        run: |
+          node --check play.js
+          node --check mission-control.js
+          node --check pilha-intro.js
+          node --check simulation/mission-timeline.js
+          npm test
+          git diff --check
+      - name: Versionar somente branch de trabalho
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add AGENTS.md README.md assets/pilha-app-logo.png cases-data.js docs/FONTES-E-MAPEAMENTO.md docs/MOTOR-ESTATISTICO-TEMPORAL.md docs/PRODUTO-CANONICO-2026-10-18.md docs/herois/README.md docs/herois/cientista-de-dados.md docs/herois/engenheiro-de-seguranca.md docs/qa/evidence/timeline docs/releases/ACIONISTA-CICLO-KIMI-2026-10-19.md docs/reviews/KIMI-2026-10-19-ORIGINAL.md docs/reviews/TRIAGEM-KIMI-2026-10-19.md hero-concepts.js hero-roster.js hero-team-ui.js index.html mission-control.css mission-control.js opening.js package.json pilha-intro.css pilha-intro.js play.js simulation/case-ethics.js simulation/case02.js simulation/mission-timeline.js tests/hero-team.test.mjs tests/investment-system.test.mjs tests/mission-timeline.test.mjs
+          git diff --cached --quiet && exit 0
+          git commit -m 'feat: shareholder mission clock, visible specialists, smooth opening and Kimi safeguards'
+          git push origin HEAD:feature/shareholder-timeline-kimi
