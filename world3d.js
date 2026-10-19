@@ -77,7 +77,7 @@ export async function setupWorld(container,onCase,onActor,onStatus){
   const held=new Set();
   const panKeys={w:'up',arrowup:'up',s:'down',arrowdown:'down',a:'left',arrowleft:'left',d:'right',arrowright:'right'};
   const isEditable=el=>document.querySelector('.pi-root')||document.querySelector('#welcome-alert:not([hidden])')||(el&&(/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)||el.isContentEditable));
-  const handleDown=e=>{if(isEditable(e.target)||e.altKey||e.ctrlKey||e.metaKey)return;const key=panKeys[e.key.toLowerCase()];if(key){held.add(key);e.preventDefault()}};
+  const handleDown=e=>{if(document.querySelector('dialog[open]')||isEditable(e.target)||e.altKey||e.ctrlKey||e.metaKey)return;const key=panKeys[e.key.toLowerCase()];if(key){held.add(key);e.preventDefault()}};
   const handleUp=e=>{const key=panKeys[e.key.toLowerCase()];if(key)held.delete(key)};
   const resetHeld=()=>held.clear();
   window.addEventListener('keydown',handleDown);window.addEventListener('keyup',handleUp);window.addEventListener('blur',resetHeld);
@@ -119,9 +119,9 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  function setEmotion(actor,emoji){if(!actor?.emotionSprite||actor.emotion===emoji)return;const sprite=makeEmoji(emoji);sprite.position.copy(actor.emotionSprite.position);scene.remove(actor.emotionSprite);scene.add(sprite);actor.emotionSprite=sprite;actor.emotion=emoji;}
  function animate(actorId,mode='talk'){
  focusedActor=mode==='talk'||mode==='run'||mode==='discuss'?actorId:focusedActor;
- if(mode!=='talk'&&mode!=='discuss')focusedActor=null;const a=actors.find(x=>x.key===actorId);if(!a?.mixer||!a.clips)return false;setEmotion(a,mode==='talk'||mode==='discuss'?'💬':mode==='walk'?'🚶':a.emotionBase);
+ if(mode!=='talk'&&mode!=='discuss')focusedActor=null;const a=actors.find(x=>x.key===actorId);if(!a?.mixer||!a.clips?.length)return false;setEmotion(a,mode==='talk'||mode==='discuss'?'💬':mode==='walk'?'🚶':a.emotionBase);
  const pattern=mode==='walk'?/walk/i:mode==='run'?/run/i:mode==='idle'?/idle|baselayer|clip0/i:/talk|discuss|answer|idle|baselayer|clip0/i;
- const next=a.clips.find(c=>pattern.test(c.name))||a.clips.find(c=>/idle|talk|discuss/i.test(c.name))||a.clips.find(c=>!/fall|angry|jump/i.test(c.name));const current=a.mixer._actions?.find(x=>x.isRunning());const n=a.mixer.clipAction(next);if(current!==n){n.reset().play();if(current)n.crossFadeFrom(current,.34,true)}a.state=({walk:'exploring',talk:'talking',discuss:'talking',work:'working',pause:'pausing',concerned:'concerned',idle:'idle'})[mode]||mode;return true;
+ const next=a.clips.find(c=>pattern.test(c.name))||a.clips.find(c=>/idle|talk|discuss/i.test(c.name))||a.clips.find(c=>!/fall|angry|jump/i.test(c.name));if(!next)return false;const current=a.mixer._actions?.find(x=>x.isRunning());const n=a.mixer.clipAction(next);if(current!==n){n.reset().play();if(current)n.crossFadeFrom(current,.34,true)}a.state=({walk:'exploring',talk:'talking',discuss:'talking',work:'working',pause:'pausing',concerned:'concerned',idle:'idle'})[mode]||mode;return true;
  }
  return {project,inspectUpgrades:hall.inspect,inspectActors:()=>actors.map(a=>({key:a.key,loaded:!!a.loaded,failed:!!a.failed,animations:a.clips?.map(c=>c.name)||[],x:a.root.position.x,z:a.root.position.z})),focusUpgrade:id=>{hall.highlight(id)},zoom:delta=>{zoomFactor=THREE.MathUtils.clamp(zoomFactor+delta,.55,1.45);resize()},focus,reset:()=>focus(null),animate,focusActor:(id)=>animate(id,'talk'),applySceneState,clearSceneState,applyManagementDecision,applyInvestmentUpgrade,resetInvestmentUpgrades,setActorState,dispose:()=>{on=false;window.removeEventListener('keydown',handleDown);window.removeEventListener('keyup',handleUp);window.removeEventListener('blur',resetHeld);observer.disconnect();layer.remove();renderer.dispose();renderer.domElement.remove()},actorCount:()=>actors.length};
 }

@@ -55,3 +55,10 @@ Geração do modelo final via Meshy (CLI não disponível nesta execução), rig
 - Missão 01: `/missao01.html`
 - Biblioteca 3D: `/biblioteca3d.html`
 - Fallback: em falha do carregamento de módulos 3D, as estações em texto continuam acessíveis, inclusive em dispositivos sem WebGL.
+
+
+## Integracao das contribuicoes - 19/10/2026
+
+- [Registro de integracao e QA](docs/releases/INTEGRACAO-COLABORADORES-2026-10-19.md): guarda de animacao do Manus e selecao experimental de dupla, sem bonus automaticos.
+- [Herois da beta](docs/herois/README.md) e [Diretor](docs/herois/diretor.md): documentos preservados da PR #22.
+- [Roadmap de produto](docs/ROADMAP-PRODUTO.md) e [propostas de trabalho](simuladores/propostas-de-trabalho/README.md): especificacoes preservadas da main, nao funcionalidades novas desta entrega.
