@@ -1,3 +1,7 @@
+## Atualização: acionista, dupla visível e ciclo de 30 dias
+
+Referência atual: [motor temporal e hipóteses](docs/MOTOR-ESTATISTICO-TEMPORAL.md), [entrega e testes](docs/releases/ACIONISTA-CICLO-KIMI-2026-10-19.md) e [triagem da revisão Kimi](docs/reviews/TRIAGEM-KIMI-2026-10-19.md). A revisão original permanece arquivada sem alterações.
+
 # PilhA+ Game — desenvolvimento atual
 
 **Fonte canônica:** [Visão de Produto (18/10/2026)](docs/PRODUTO-CANONICO-2026-10-18.md). A versão Alpha 1.4 da main continua publicada; esta branch contém candidata de integração de investimentos, prólogo opcional, navegação por colisão, fallback 2D e estado global, pendente de testes.

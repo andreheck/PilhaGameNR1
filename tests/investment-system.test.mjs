@@ -44,7 +44,7 @@ test('catálogo cobre fatores psicossociais e riscos físicos do trabalho',()=>{
  assert.ok(UPGRADES.some(u=>u.domain==='assedio-respeito'));
  assert.ok(UPGRADES.some(u=>u.domain==='ambiente-fisico'));
  assert.ok(UPGRADES.some(u=>u.domain==='espaco-confinamento'));
- const play=read('play.js');assert.match(play,/INVESTIMENTOS POR FATOR PSICOSSOCIAL/);assert.match(play,/Segurança vem antes da compra/);
+ const play=read('play.js');assert.match(play,/INVENTÁRIO DE PREVENÇÃO E SST/);assert.match(play,/Segurança vem antes da compra/);
 });
 
 test('efeitos nos indicadores só amadurecem ao avançar o horizonte de 30 dias',()=>{
