@@ -80,7 +80,7 @@ A rotina chamava `mixer.clipAction(undefined)` quando `gl.animations` era vazio.
 
 ## Limitações e pendências
 
-Este QA foi feito em navegador Chromium headless com emulação CDP. Não houve teste em Android Chrome físico, Safari iOS físico, leitor de tela, toque real, orientação paisagem em dispositivo real ou medição de FPS/uso de memória em hardware móvel. O CI precisa ser conferido no novo SHA depois do push da branch de correção.
+Este QA foi feito em navegador Chromium headless com emulação CDP. Não houve teste em Android Chrome físico, Safari iOS físico, leitor de tela, toque real, orientação paisagem em dispositivo real ou medição de FPS/uso de memória em hardware móvel. O CI da branch de correção passou no SHA `73c671231c349238c963d4937359b5a98a2c3583`.
 
 O Caso 02 ainda está compacto em comparação com o aprofundamento pedagógico do Caso 01. A tela de investimentos usa cenários sintéticos e educativos; não é avaliação de risco real, diagnóstico, comprovação de conformidade ou previsão causal validada. A revisão técnico-pedagógica da NR-1 continua dependente de Kimi, especialistas e PO.
 
@@ -96,6 +96,6 @@ O `favicon.ico` ausente gera um erro de rede não funcional no console. Recomend
 ## Evidência de código
 
 - PR canônica: [#20](https://github.com/andreheck/PilhaGameNR1/pull/20)
-- CI do SHA canônico: [workflow 39090653890](https://github.com/andreheck/PilhaGameNR1/actions/runs/39090653890)
+- CI da branch de correção: [workflow 39179153636](https://github.com/andreheck/PilhaGameNR1/actions/runs/39179153636)
 - Preview local usada neste relatório: `http://127.0.0.1:4173/`
 - Branch de correção: `fix/pr20-mobile-glb-qa`
