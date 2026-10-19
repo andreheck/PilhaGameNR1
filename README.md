@@ -7,6 +7,7 @@ Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.
 - **Biblioteca 3D experimental:** [Acessar](https://pilha-plus-game-preview.vercel.app/biblioteca3d.html).
 - **Especificação e limitações:** [Alpha 1.4](docs/ALPHA-14.md).
 - **Testes:** `node tests/alpha14.test.mjs`.
+- **Roadmap de produto:** [Módulos, simulador de propostas e vídeo motion graphics](docs/ROADMAP-PRODUTO.md).
 
 > Os modelos 3D são otimizados de originais fornecidos para o projeto. O escritório é uma construção procedural provisória; não se deve confundir pontuações fictícias com medição real da saúde, diagnóstico ou conformidade legal. O progresso fica salvo neste navegador.
 
