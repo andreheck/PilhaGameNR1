@@ -1,0 +1,63 @@
+name: Integrar contribuicoes e dupla de herois
+on:
+  push:
+    branches: [feature/collab-hero-duos]
+    paths: [.github/workflows/import-collab-duos.yml]
+permissions:
+  contents: write
+jobs:
+  integrate:
+    if: github.repository == 'andreheck/PilhaGameNR1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/collab-hero-duos
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Recuperar patch testado
+        run: |
+          curl --fail --location --retry 2 --max-time 60 'https://sb-77kqmalwmc3d.vercel.run/collab-duos-3fa2dc6f953045f0b9fb.zip' -o /tmp/collab-duos.zip
+          echo '26dfd712e8f1b3d478566ed94884baace67ef94b369610c9a39285fe9eaea05f  /tmp/collab-duos.zip' | sha256sum --check
+          python3 - <<'PY'
+          from pathlib import PurePosixPath
+          from zipfile import ZipFile
+          allowed={'index.html','play.js','world3d.js','package.json','hero-roster.js','simulation/hero-team.js','hero-team-ui.js','hero-team.css','favicon.svg','tests/hero-team.test.mjs','docs/releases/INTEGRACAO-COLABORADORES-2026-10-19.md','docs/qa/evidence/hero-duos/duo-1440.png','docs/qa/evidence/hero-duos/duo-1440.json','docs/qa/evidence/hero-duos/duo-390.png','docs/qa/evidence/hero-duos/duo-390.json'}
+          with ZipFile('/tmp/collab-duos.zip') as z:
+              assert set(z.namelist()) == allowed, 'Unexpected package paths'
+              for item in z.infolist():
+                  p=PurePosixPath(item.filename)
+                  assert not p.is_absolute() and '..' not in p.parts and item.file_size < 2000000
+              z.extractall('.')
+          PY
+      - name: Preservar documentos dos colaboradores sem mesclar codigo obsoleto
+        run: |
+          git fetch --no-tags origin 85e92820ff11cbaf568af502be38cf3ee6c1d919 a0cb244f4950ffbbbd5ad466402c9d702419adb0
+          mkdir -p docs/herois simuladores/propostas-de-trabalho
+          git show 85e92820ff11cbaf568af502be38cf3ee6c1d919:docs/herois/README.md > docs/herois/README.md
+          git show 85e92820ff11cbaf568af502be38cf3ee6c1d919:docs/herois/diretor.md > docs/herois/diretor.md
+          git show a0cb244f4950ffbbbd5ad466402c9d702419adb0:docs/ROADMAP-PRODUTO.md > docs/ROADMAP-PRODUTO.md
+          git show a0cb244f4950ffbbbd5ad466402c9d702419adb0:simuladores/propostas-de-trabalho/README.md > simuladores/propostas-de-trabalho/README.md
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('README.md')
+          note='\n\n## Integracao das contribuicoes - 19/10/2026\n\n- [Registro de integracao e QA](docs/releases/INTEGRACAO-COLABORADORES-2026-10-19.md): guarda de animacao do Manus e selecao experimental de dupla, sem bonus automaticos.\n- [Herois da beta](docs/herois/README.md) e [Diretor](docs/herois/diretor.md): documentos preservados da PR #22.\n- [Roadmap de produto](docs/ROADMAP-PRODUTO.md) e [propostas de trabalho](simuladores/propostas-de-trabalho/README.md): especificacoes preservadas da main, nao funcionalidades novas desta entrega.\n'
+          p.write_text(p.read_text()+note)
+          PY
+      - name: Testes e sintaxe
+        run: |
+          node --check play.js
+          node --check world3d.js
+          node --check hero-team-ui.js
+          npm test
+          git diff --check
+      - name: Registrar somente nesta branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html play.js world3d.js package.json hero-roster.js simulation/hero-team.js hero-team-ui.js hero-team.css favicon.svg tests/hero-team.test.mjs docs/releases/INTEGRACAO-COLABORADORES-2026-10-19.md docs/qa/evidence/hero-duos docs/herois docs/ROADMAP-PRODUTO.md simuladores/propostas-de-trabalho/README.md README.md
+          git diff --cached --quiet && exit 0
+          git commit -m 'feat: integrate reviewed hero roster and Manus animation guards without legacy regressions'
+          git push origin HEAD:feature/collab-hero-duos
