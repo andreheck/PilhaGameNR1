@@ -1,0 +1,57 @@
+name: Recuperar ciclo e progressao de herois
+on:
+  push:
+    branches: [feature/hero-progression-recovery]
+    paths: [.github/workflows/import-progression-recovery.yml]
+permissions:
+  contents: write
+concurrency:
+  group: progression-recovery-import
+  cancel-in-progress: true
+jobs:
+  integrate:
+    if: github.repository == 'andreheck/PilhaGameNR1'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/hero-progression-recovery
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verificar base e importar pacote testado
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git show -s --format=%P HEAD)" = 'e955638f396f49d2b1ff83e74c530303768abbb8'
+          curl --fail --location --retry 2 --max-time 60 'https://sb-77kqmalwmc3d.vercel.run/progression-20261019-6ca4f8302c9a.zip' -o /tmp/progression.zip
+          echo 'af3c7bd0d2c3a355434e867a69918107fa87e76b7586a0222a8b13595003378b  /tmp/progression.zip' | sha256sum --check
+          python3 - <<'PY'
+          from pathlib import PurePosixPath
+          from zipfile import ZipFile
+          allowed={'AGENTS.md','README.md','docs/MOTOR-ESTATISTICO-TEMPORAL.md','hero-team-ui.js','index.html','mission-control.js','package.json','play.js','simulation/mission-timeline.js','world3d.js','docs/INTEGRACAO-ELETRONS-PILHA-APP.md','docs/PROGRESSAO-HEROIS-2026-10-19.md','docs/qa/evidence/progression/qa-1440.json','docs/qa/evidence/progression/qa-390.json','docs/qa/evidence/progression/training-390.png','docs/releases/RECUPERACAO-PROGRESSAO-2026-10-19.md','hero-progression-ui.js','hero-progression.css','hero-rewards.js','simulation/hero-progression.js','tests/hero-progression.test.mjs'}
+          with ZipFile('/tmp/progression.zip') as z:
+              assert set(z.namelist())==allowed, 'Unexpected package contents'
+              for item in z.infolist():
+                  path=PurePosixPath(item.filename)
+                  assert not path.is_absolute() and '..' not in path.parts and item.file_size<2000000
+              z.extractall('.')
+          PY
+      - name: Validar sintaxe e regressao
+        run: |
+          node --check play.js
+          node --check world3d.js
+          node --check hero-progression-ui.js
+          node --check hero-rewards.js
+          node --check simulation/hero-progression.js
+          node --check simulation/mission-timeline.js
+          npm test
+          git diff --check
+      - name: Registrar somente na branch de recuperacao
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add AGENTS.md README.md docs/MOTOR-ESTATISTICO-TEMPORAL.md hero-team-ui.js index.html mission-control.js package.json play.js simulation/mission-timeline.js world3d.js docs/INTEGRACAO-ELETRONS-PILHA-APP.md docs/PROGRESSAO-HEROIS-2026-10-19.md docs/qa/evidence/progression docs/releases/RECUPERACAO-PROGRESSAO-2026-10-19.md hero-progression-ui.js hero-progression.css hero-rewards.js simulation/hero-progression.js tests/hero-progression.test.mjs
+          git diff --cached --quiet && exit 0
+          git commit -m 'feat: hero training with shared credits, earned XP and documented future electrons'
+          git push origin HEAD:feature/hero-progression-recovery
