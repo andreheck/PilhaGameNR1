@@ -43,3 +43,18 @@ Geração do modelo final via Meshy (CLI não disponível nesta execução), rig
 - Missão 01: `/missao01.html`
 - Biblioteca 3D: `/biblioteca3d.html`
 - Fallback: em falha do carregamento de módulos 3D, as estações em texto continuam acessíveis, inclusive em dispositivos sem WebGL.
+
+
+---
+
+## Módulo de produto: Simulador de Propostas de Trabalho
+
+O **Simulador de Propostas de Trabalho** pertence ao PilhA+ Game e será desenvolvido neste repositório como um módulo independente. O PilhA+ Game permanece separado do repositório principal do PilhA+ App.
+
+A experiência prevista permitirá configurar uma proposta, ajustar remuneração, benefícios e condições de trabalho, comparar cenários e posicionar a oferta em faixas de referência **baixa, média e alta** quando houver benchmarks válidos. A especificação também prevê explorar indicadores de atratividade/aceitação, permanência, risco de adoecimento, acidentes, afastamentos, felicidade/bem-estar e motivação.
+
+Esses impactos são hipóteses de simulação e **não devem ser apresentados como causalidade comprovada nem como previsão individual**. Fontes, metodologia, horizonte temporal, incerteza e validação precisam estar documentados antes de exibir estimativas numéricas. O módulo não deve classificar ou recomendar rejeição de candidatos com base em inferências psicológicas ou clínicas.
+
+- **Especificação do módulo:** [simuladores/propostas-de-trabalho/README.md](simuladores/propostas-de-trabalho/README.md)
+- **Status:** especificação/backlog; não declarar como funcionalidade pronta antes da implementação e dos testes.
+- **Limite de integração:** não pertence ao `pilha-plus-app`; evolui dentro do repositório próprio do Game.
