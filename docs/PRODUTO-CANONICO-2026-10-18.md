@@ -1,3 +1,5 @@
+> Atualização de 19/10/2026: o jogador é o acionista; a dupla permanece visível; o ciclo usa 7 dias simulados por hora e 30 dias por missão. Regras e hipóteses em [motor temporal](MOTOR-ESTATISTICO-TEMPORAL.md). Poderes não documentados continuam pendentes. A seção abaixo descreve a base histórica preservada.
+
 # PilhA+ — Visão Canônica Atual (18/10/2026)
 ## Fonte de verdade
 A evolução de produto mais recente precede conceitos antigos: o PilhA+ é uma simulação de gestão viva, socioespacial e educativa, na qual o jogador observa o trabalho, escuta pessoas, investiga, intervém, investe e acompanha consequências. Decisões do GDD e das sessões Alpha 1.0–1.3 são histórico, não instruções para recriar comportamentos substituídos.

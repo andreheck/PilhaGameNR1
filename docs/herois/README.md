@@ -19,13 +19,13 @@ Os heróis representam competências complementares para melhorar ambientes de t
 | ID | Nome na interface | Arquétipo / especialização | Raridade conceitual |
 |---|---|---|---|
 | PILHA-H01 | Diretor | Coordenação / Operações | Épico |
-| PILHA-H02 | Psicóloga | Saúde psicossocial / comportamento humano | A definir |
-| PILHA-H03 | Dados & IA | Ciência de dados / inteligência aplicada | A definir |
-| PILHA-H04 | Eng. de Segurança | Segurança do trabalho / prevenção de riscos | A definir |
+| PILHA-H02 | Psicóloga | Saúde psicossocial / comportamento humano | Épico |
+| PILHA-H03 | Cientista de Dados | Ciência de dados / inteligência híbrida | Épico |
+| PILHA-H04 | Engenheiro de Segurança | Higiene Ocupacional / prevenção de riscos | Épico |
 | PILHA-H05 | P&D Tech | Pesquisa, desenvolvimento e tecnologia | A definir |
 | PILHA-H06 | RS & TD | Recursos, talentos e desenvolvimento | A definir |
 
-Os nomes e especializações dos cinco heróis seguintes são a estrutura inicial acordada; suas fichas individuais devem ser validadas antes de serem consideradas definitivas.
+As fichas individuais são documentadas após validação conceitual. Nesta branch, estão documentados o Diretor, o Cientista de Dados e o Engenheiro de Segurança. A ficha da Psicóloga ainda precisa ser registrada. A raridade dos personagens aprovados poderá ser revista em testes de balanceamento, sem restringir sua seleção durante a beta.
 
 ## Sistema de progressão
 
@@ -42,3 +42,5 @@ Raridade e acesso são conceitos separados. Na beta, todos os heróis são selec
 ## Fichas individuais
 
 - [Herói 01 — Diretor](diretor.md)
+- [Herói 03 — Cientista de Dados](cientista-de-dados.md)
+- [Herói 04 — Engenheiro de Segurança](engenheiro-de-seguranca.md)
