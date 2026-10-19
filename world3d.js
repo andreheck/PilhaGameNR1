@@ -163,7 +163,7 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  function setEmotion(actor,emoji){if(!actor?.emotionSprite||actor.emotion===emoji)return;const sprite=makeEmoji(emoji);sprite.position.copy(actor.emotionSprite.position);scene.remove(actor.emotionSprite);scene.add(sprite);actor.emotionSprite=sprite;actor.emotion=emoji;}
  function animate(actorId,mode='talk'){
  focusedActor=mode==='talk'||mode==='run'||mode==='discuss'?actorId:focusedActor;
- if(mode!=='talk'&&mode!=='discuss')focusedActor=null;const a=actors.find(x=>x.key===actorId);if(!a?.mixer||!a.clips)return false;setEmotion(a,mode==='talk'||mode==='discuss'?'💬':mode==='walk'?'🚶':a.emotionBase);
+ if(mode!=='talk'&&mode!=='discuss')focusedActor=null;const a=actors.find(x=>x.key===actorId);if(!a?.mixer||!a.clips?.length)return false;setEmotion(a,mode==='talk'||mode==='discuss'?'💬':mode==='walk'?'🚶':a.emotionBase);
  const pattern=mode==='walk'?/walk/i:mode==='run'?/run/i:mode==='idle'?/idle|baselayer|clip0/i:/discuss|answer|sit|baselayer|clip0/i;
  const next=a.clips.find(c=>pattern.test(c.name))||a.clips[0];const current=a.mixer._actions?.find(x=>x.isRunning());const n=a.mixer.clipAction(next);if(current!==n){n.reset().play();if(current)n.crossFadeFrom(current,.34,true)}a.state=({walk:'exploring',talk:'talking',discuss:'talking',work:'working',pause:'pausing',concerned:'concerned',idle:'idle'})[mode]||mode;return true;
  }
