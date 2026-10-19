@@ -5,10 +5,13 @@ on:
     paths: [.github/workflows/import-collab-duos.yml]
 permissions:
   contents: write
+concurrency:
+  group: pilha-collab-import
+  cancel-in-progress: true
 jobs:
   integrate:
     if: github.repository == 'andreheck/PilhaGameNR1'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
@@ -43,8 +46,10 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           p=Path('README.md')
-          note='\n\n## Integracao das contribuicoes - 19/10/2026\n\n- [Registro de integracao e QA](docs/releases/INTEGRACAO-COLABORADORES-2026-10-19.md): guarda de animacao do Manus e selecao experimental de dupla, sem bonus automaticos.\n- [Herois da beta](docs/herois/README.md) e [Diretor](docs/herois/diretor.md): documentos preservados da PR #22.\n- [Roadmap de produto](docs/ROADMAP-PRODUTO.md) e [propostas de trabalho](simuladores/propostas-de-trabalho/README.md): especificacoes preservadas da main, nao funcionalidades novas desta entrega.\n'
-          p.write_text(p.read_text()+note)
+          marker='## Integracao das contribuicoes - 19/10/2026'
+          note='\n\n'+marker+'\n\n- [Registro de integracao e QA](docs/releases/INTEGRACAO-COLABORADORES-2026-10-19.md): guarda de animacao do Manus e selecao experimental de dupla, sem bonus automaticos.\n- [Herois da beta](docs/herois/README.md) e [Diretor](docs/herois/diretor.md): documentos preservados da PR #22.\n- [Roadmap de produto](docs/ROADMAP-PRODUTO.md) e [propostas de trabalho](simuladores/propostas-de-trabalho/README.md): especificacoes preservadas da main, nao funcionalidades novas desta entrega.\n'
+          s=p.read_text()
+          if marker not in s:p.write_text(s+note)
           PY
       - name: Testes e sintaxe
         run: |
