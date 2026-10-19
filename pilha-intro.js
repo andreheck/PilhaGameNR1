@@ -98,7 +98,7 @@
       '<i class="pi-orbit__orb pi-orbit__orb--b" style="--c:' + colors[1] + '"></i></div>' +
       '<div class="pi-orbit__sat pi-orbit__sat--inner" aria-hidden="true">' +
       '<i class="pi-orbit__orb" style="--c:' + colors[2] + '"></i></div>' +
-      '<div class="pi-logo">' + logoSvg(prefix) + "</div>"
+      '<div class="pi-logo"><img src="/assets/pilha-app-logo.png" alt="Símbolo PilhA+" width="124" height="124"></div>'
     );
   }
 
@@ -117,7 +117,7 @@
     var cur = 0; // ambiente atual
     var timers = [];
     var iso = null, ro = null;
-    var shown = false;
+    var shown = false, leaving = false, countdownRaf = 0, splashElapsed = 0, splashLast = 0;
 
     var root = document.createElement("div");
     root.className = "pi-root";
@@ -166,7 +166,7 @@
       '<div class="pi-panel">' +
       '<span class="pi-role">' + esc(o.role) + "</span>" +
       '<h2 class="pi-title">O trabalho dá sinais.<br><em>Suas decisões importam.</em></h2>' +
-      '<p class="pi-lead">Veja as pessoas circulando. Toque nos sinais de cada setor para entender o que está drenando a energia e ajudar a recuperar o lugar.</p>' +
+      '<p class="pi-lead">Como acionista, observe os sinais, escolha especialistas e direcione o orçamento. Acompanhe a implementação durante 30 dias simulados.</p>' +
       '<div class="pi-meter" aria-live="polite"><span class="pi-meter__txt"></span><div class="pi-meter__bar"><i></i></div></div>' +
       '<p class="pi-hint" aria-live="polite"></p>' +
       '<button type="button" class="pi-cta">' + esc(o.ctaLabel) +
@@ -244,8 +244,8 @@
     }
 
     function showInvite() {
-      if (shown) return;
-      shown = true;
+      if (shown || leaving) return;
+      shown = true; global.cancelAnimationFrame(countdownRaf);
       splash.classList.add("is-out");
       later(function () {
         splash.hidden = true;
@@ -284,16 +284,20 @@
     }
 
     function start() {
-      timers.forEach(clearTimeout);
+      if(leaving)return;leaving=true;
+      timers.forEach(clearTimeout);global.cancelAnimationFrame(countdownRaf);
+      if(iso)iso.stop();
       root.classList.add("is-leaving");
-      var payload = { signalsInvestigated: totalLit() };
-      document.dispatchEvent(new CustomEvent("pilha:intro-start", { detail: payload }));
-      if (typeof o.onStart === "function") o.onStart(payload);
-      later(destroy, reduce ? 0 : 650);
+      var payload={signalsInvestigated:totalLit()};
+      // Do not load GLBs while the entry scene is still being composited.
+      later(function(){destroy();global.requestAnimationFrame(function(){global.requestAnimationFrame(function(){
+        document.dispatchEvent(new CustomEvent("pilha:intro-start",{detail:payload}));
+        if(typeof o.onStart==="function")o.onStart(payload);
+      });});},reduce?0:650);
     }
 
     function destroy() {
-      timers.forEach(clearTimeout);
+      timers.forEach(clearTimeout);global.cancelAnimationFrame(countdownRaf);
       if (iso) iso.stop();
       if (ro) ro.disconnect();
       global.removeEventListener("resize", onResize);
@@ -303,7 +307,7 @@
     }
 
     function onResize() { if (!invite.hidden) { iso.resize(); placeNodes(); } }
-    function onVis() { if (document.hidden) iso.stop(); else if (!invite.hidden) iso.start(); }
+    function onVis() { splashLast=0;root.classList.toggle("pi-paused",document.hidden);if(document.hidden)iso.stop();else if(!invite.hidden&&!leaving)iso.start(); }
 
     iso = global.PilhaIso.create(canvas, signals.map(function (s) { return s.color; }));
     iso.setStatic(!!reduce);
@@ -326,7 +330,18 @@
     });
 
     if (o.skipSplash) showInvite();
-    else later(showInvite, reduce ? 800 : o.splashMs);
+    else {
+      // Count painted foreground time; suspension cannot skip the opening.
+      function splashFrame(ts){
+        if(shown||leaving)return;
+        var delta=splashLast?ts-splashLast:0;splashLast=ts;
+        if(!document.hidden&&delta>=0&&delta<1000)splashElapsed+=Math.min(delta,250);
+        root.style.setProperty('--pi-load-progress',Math.min(1,splashElapsed/(reduce?800:o.splashMs)));
+        if(splashElapsed>=(reduce?800:o.splashMs)){showInvite();return;}
+        countdownRaf=global.requestAnimationFrame(splashFrame);
+      }
+      countdownRaf=global.requestAnimationFrame(splashFrame);
+    }
 
     return { destroy: destroy, root: root };
   }

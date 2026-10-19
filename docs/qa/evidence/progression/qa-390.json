@@ -1,0 +1,19 @@
+{
+  "base": "http://127.0.0.1:4175",
+  "width": 390,
+  "height": 844,
+  "kind": "Chromium headless, emulated viewport; no physical device or 4h manual session",
+  "errors": [],
+  "checks": [
+    "opening orbit moves before GLB loading",
+    "saved duo visible in persistent shareholder strip",
+    "six training cards; cancel no debit; confirm one level for 500 credits",
+    "safe confirmed situation grants 25 XP to each assigned hero",
+    "replaying same situation grants no duplicate XP",
+    "full plan gains situation XP but cannot gain final-case bonus before 30-day cycle",
+    "levels, XP and paused timer persist without offline advance",
+    "structural upgrade shares budget: 10000 -> 9500 -> 7700 without losing growth"
+  ],
+  "elapsedMs": 55140.59999999998,
+  "passed": true
+}

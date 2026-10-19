@@ -484,3 +484,14 @@
   .pi-stage, .pi-root { transition-duration: 0.01ms; }
   .pi-stage.is-in { animation: none; }
 }
+
+/* App reference: entry-orbit 20s / outer 18s / inner 14s. Transform-only compositor layers. */
+.pi-orbit__ring{animation:pi-spin 20s linear infinite;animation-delay:-3s;will-change:transform;backface-visibility:hidden;border-color:#ffd24b80}
+.pi-orbit__sat{animation:pi-spin 18s linear infinite reverse;animation-delay:-5s;will-change:transform;backface-visibility:hidden}
+.pi-orbit__sat--inner{animation-duration:14s;animation-delay:-7s;animation-direction:reverse}
+.pi-logo{animation:pi-logo-scale 4s ease-in-out infinite;filter:drop-shadow(0 0 18px #ffd20066);will-change:transform}
+.pi-logo img{display:block;width:100%;height:auto;object-fit:contain}
+@keyframes pi-logo-scale{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+.pi-root.pi-paused *{animation-play-state:paused!important}
+.pi-loading i{animation:none;transform:scaleX(var(--pi-load-progress,0))}
+@media(prefers-reduced-motion:reduce){.pi-orbit__ring,.pi-orbit__sat,.pi-logo{animation:none!important;will-change:auto}}

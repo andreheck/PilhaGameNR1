@@ -8,8 +8,8 @@ const pair={principal:'PILHA-H01',support:'PILHA-H04'};
 function fixture(){const map=new Map([['pilha-investment-v1','untouched-budget'],['pilha-case01-v2','untouched-progress']]);return {map,getItem:k=>map.get(k)||null,setItem:(k,v)=>map.set(k,v)};}
 test('seis heróis da PR22, todos disponíveis, sem bônus numéricos inventados',()=>{
  assert.equal(HERO_ROSTER.length,6);assert.equal(new Set(HERO_ROSTER.map(h=>h.id)).size,6);assert.ok(HERO_ROSTER.every(h=>h.availableInBeta));
- assert.deepEqual(HERO_ROSTER.map(h=>h.name),['Diretor','Psicóloga','Dados & IA','Eng. de Segurança','P&D Tech','RS & TD']);
- assert.equal(HERO_ROSTER[0].rarity,'Épico');assert.ok(HERO_ROSTER.slice(1).every(h=>h.rarity==='A definir'));
+ assert.deepEqual(HERO_ROSTER.map(h=>h.name),['Diretor','Psicóloga','Cientista de Dados','Engenheiro de Segurança','P&D Tech','RS & TD']);
+ assert.equal(HERO_ROSTER[0].rarity,'Épico');assert.ok(HERO_ROSTER.filter(h=>['PILHA-H01','PILHA-H03','PILHA-H04'].includes(h.id)).every(h=>h.rarity==='Épico'));assert.ok(HERO_ROSTER.filter(h=>['PILHA-H02','PILHA-H05','PILHA-H06'].includes(h.id)).every(h=>h.rarity==='A definir'));
  assert.ok(HERO_ROSTER.every(h=>!('bonus' in h)&&!('score' in h)));
 });
 test('dupla exige duas identidades diferentes e um Caso 01–05',()=>{

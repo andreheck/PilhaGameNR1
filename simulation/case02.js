@@ -14,5 +14,5 @@ export function simulateCase02(input={}){
  Object.keys(metrics).forEach(k=>metrics[k]=clamp(metrics[k]));
  const violations=[];if(choices.investigation==='public'||choices.action==='exposure')violations.push('exposure');
  const score=clamp(45+(metrics.psychologicalSafety-CASE02_INITIAL.psychologicalSafety)*.8+(metrics.learning-CASE02_INITIAL.learning)*.45+(metrics.leadershipTrust-CASE02_INITIAL.leadershipTrust)*.35-(violations.length?25:0));
- return {caseId:'02',days:30,metrics,score,passed:score>=75,violations,companyModifier:context,feedback:safe?['A investigação protegeu a participação e tratou o silêncio como sinal do ambiente.','A liderança foi responsabilizada por práticas de reunião e aprendizagem sem culpa.']:['Reveja a estratégia: segurança psicológica não se produz por exposição, cobrança ou palestra isolada.']};
+ return {caseId:'02',days:30,metrics,score,passed:score>=75&&!violations.length,violations,companyModifier:context,feedback:safe?['A investigação protegeu a participação e tratou o silêncio como sinal do ambiente.','A liderança foi responsabilizada por práticas de reunião e aprendizagem sem culpa.']:['Reveja a estratégia: segurança psicológica não se produz por exposição, cobrança ou palestra isolada.']};
 }
