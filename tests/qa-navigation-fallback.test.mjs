@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 const read=path=>fs.readFileSync(new URL('../'+path,import.meta.url),'utf8');
-const play=read('play.js'),html=read('index.html'),css=read('play.css');
+const play=read('play.js'),html=read('index.html'),css=read('play.css'),world=read('world3d.js');
 assert.doesNotMatch(play,/function history\(/);
 assert.match(play,/function progressView\(/);
 assert.match(play,/window\.history\.replaceState\(/);
@@ -14,5 +14,7 @@ assert.match(play,/classList\.add\('show-static'\)/);
 assert.match(html,/id="fallback-map"/);
 assert.match(css,/#fallback-map/);
 assert.match(css,/\.scene\.show-static canvas\{display:none\}/);
+assert.match(css,/\.actor-point\{position:absolute;/);
+assert.match(world,/if\(!a\?\.mixer\|\|!a\.clips\?\.length\)return false/);
 assert.equal(read('cases-data.js').includes("id:'01'"),true);
 console.log('QA navegação, score, elenco e fallback 2D: PASS');
