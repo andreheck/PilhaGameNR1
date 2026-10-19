@@ -16,7 +16,7 @@ for(const path of ['index.html','play.css','play.js','world3d.js','cases-data.js
 for(const actor of ['operadora','psicologa','psiquiatra']){const b=fs.readFileSync(`assets/actors/${actor}.glb`);assert.equal(b.toString('ascii',0,4),'glTF');assert.ok(b.byteLength<3_000_000)}
 const css=fs.readFileSync('play.css','utf8');assert.match(css,/height:100dvh/);assert.match(css,/overflow:hidden/);assert.match(css,/prefers-reduced-motion/);
 const playSource=fs.readFileSync('play.js','utf8');assert.match(playSource,/viewOptions=\['casos','equipe','investimentos','biblioteca','progresso'\]/);assert.doesNotMatch(playSource,/names=\{inicio:/);
-const world=fs.readFileSync('world3d.js','utf8');assert.match(world,/AnimationMixer/);assert.match(world,/crossFadeFrom/);assert.match(world,/goalX/);assert.match(world,/regionFx/);assert.match(world,/gestor-mentor-prototipo/);assert.match(world,/\/assets\/\$\{a\.path\}/);assert.doesNotMatch(world,/loader\.load\(`\/actors\//);
+const world=fs.readFileSync('world3d.js','utf8');assert.match(world,/AnimationMixer/);assert.match(world,/crossFadeFrom/);assert.match(world,/goalX/);assert.match(world,/regionFx/);assert.match(world,/mentor-pilha/);assert.match(world,/\/assets\/\$\{a\.path\}/);assert.doesNotMatch(world,/loader\.load\(`\/actors\//);
 console.log('Alpha 1.4: 5 casos, 100 pts, bloqueio sequencial, progresso legado, GLBs, animacoes, CSS PASS');
 
 // Preserve earned progression while replaying an already completed case.
