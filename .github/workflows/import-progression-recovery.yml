@@ -23,7 +23,8 @@ jobs:
       - name: Verificar base e importar pacote testado
         run: |
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
-          test "$(git show -s --format=%P HEAD)" = 'e955638f396f49d2b1ff83e74c530303768abbb8'
+          git fetch --depth 1 origin e955638f396f49d2b1ff83e74c530303768abbb8
+          git diff --quiet e955638f396f49d2b1ff83e74c530303768abbb8 HEAD -- . ':(exclude).github/workflows/import-progression-recovery.yml'
           curl --fail --location --retry 2 --max-time 60 'https://sb-77kqmalwmc3d.vercel.run/progression-20261019-6ca4f8302c9a.zip' -o /tmp/progression.zip
           echo 'af3c7bd0d2c3a355434e867a69918107fa87e76b7586a0222a8b13595003378b  /tmp/progression.zip' | sha256sum --check
           python3 - <<'PY'
