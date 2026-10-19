@@ -102,3 +102,12 @@ Claude: hierarquia visual, nomes de estados e futura arte própria dos seis her�
 
 ## Atualização recebida durante esta implementação
 PR22, `a7660cb78e768b95266280ea709992791df33c67`: preservadas as fichas de Cientista de Dados e Engenheiro de Segurança, com nomes, especializações e habilidades conceituais. O painel não mostra esses dois como sem ficha. O catálogo de execução continua somente com a passiva/ativa piloto do Diretor; os outros poderes são apresentados com estado Programação temporal pendente. A revisão do Kimi precede todas essas mudanças.
+
+## Atualização — progressão `heroes-1`, 19/10/2026
+O jogador pode destinar créditos fictícios à formação ou conquistar XP por situações/casos, conforme `PROGRESSAO-HEROIS-2026-10-19.md`. Orçamento/nível são gravados conjuntamente no envelope local. O nível do herói não é o nível do poder.
+
+Nova contribuição de habilidade já executável: `share = clamp(base_gap * envelope_temporal * peso_papel * (1+0,02*(nivel_snapshot-1)), 0, 0,35)`. Nível limitado a 1–30 e capturado na ativação; nível omitido nos registros anteriores equivale a 1. O produto de retornos decrescentes permanece. Preparação, duração, decaimento, cooldown e relógio NÃO são reduzidos por compra. Esse fator é hipótese de balanceamento, não estatística observada.
+
+Cientista de Dados e Engenheiro de Segurança mantêm poderes conceituais documentados, sem ativação quantitativa inventada. A passiva captura nível no começo da missão; o comando ativo captura o nível no novo acionamento. Efeitos já programados não são alterados retroativamente.
+
+Integração futura de score diário do App foi registrada em `INTEGRACAO-ELETRONS-PILHA-APP.md` e NÃO participa do motor atual. Não criar moedas nem aceitar payload de saúde antes dos contratos/controles descritos.

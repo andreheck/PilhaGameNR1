@@ -99,7 +99,7 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  function resetInvestmentUpgrades(){hall.reset();onStatus('Melhorias reiniciadas; recursos na condição inicial.');}
  function beginRoutine(actor,now){const points=routines[actor.key];if(!points?.length||!actor.mixer)return;actor.route=points;actor.routeIndex=0;const point=points[actor.routineIndex%points.length];actor.routineIndex=(actor.routineIndex+1)%points.length;actor.goalX=point[0];actor.goalZ=point[1];setActorState(actor,'exploring',now);actor.nextRoutineAt=now+7000+Math.random()*5000;onStatus(`${actor.name} · rotina de exploração ativa`);}
  let last=performance.now(),on=true,choice='',lastRender=0;const preferReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
- function frame(t){if(!on)return;requestAnimationFrame(frame);if(t-lastRender<(innerWidth<760?40:28))return;lastRender=t;const dt=Math.min(.05,(t-last)/1000);last=t;
+ function frame(t){if(!on)return;requestAnimationFrame(frame);if(document.hidden||document.querySelector('dialog[open]')){last=t;lastRender=t;return;}if(t-lastRender<(innerWidth<760?40:28))return;lastRender=t;const dt=Math.min(.05,(t-last)/1000);last=t;
   for(const fx of regionFx){const on=fx.id===activeRegion;fx.mesh.visible=on; if(on){const pulse=.98+Math.sin(t*.004)*.09;fx.mesh.scale.setScalar(pulse);fx.mesh.material.opacity=.18+Math.sin(t*.004)*.06}}
   if(pauseZone.visible){const pulse=.98+Math.sin(t*.003)*.06;pauseBeacon.scale.setScalar(pulse)}
   if(warningZone.visible){warningBeacon.scale.y=.92+Math.sin(t*.006)*.16;warningBeacon.material.emissiveIntensity=1.0+Math.sin(t*.006)*.45}if(speakingBeacon.visible){speakingBeacon.scale.setScalar(1+Math.sin(t*.005)*.08)}

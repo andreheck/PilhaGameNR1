@@ -1,3 +1,4 @@
+import {levelEffectMultiplier} from './hero-progression.js';
 /** Deterministic, synthetic gameplay clock. No clinical/statistical prediction. */
 import {getHero, HERO_ROSTER} from '../hero-roster.js';
 import {UPGRADES} from './investment.js';
@@ -19,10 +20,10 @@ export const realMsForDays=days=>Math.ceil(Math.max(0,days)*REAL_MS_PER_WEEK/DAY
 const validPair=p=>p&&getHero(p.principal)&&getHero(p.support)&&p.principal!==p.support;
 const ramp=(age,delay,days)=>{const t=clamp((age-delay)/days,0,1);return t*t*(3-2*t);};
 export function emptyTimeline(){return {version:1,activeCaseId:null,campaigns:{}};}
-export function createCampaign(caseId,pair,inventory=[],now=0){
+export function createCampaign(caseId,pair,inventory=[],now=0,levels={}){
  if(!CASE_IDS.includes(caseId)||!validPair(pair))throw new Error('invalid-campaign-team');
- const actions=ABILITIES.filter(a=>a.kind==='passive'&&[pair.principal,pair.support].includes(a.heroId)).map((a,i)=>({id:'passive-'+i,abilityId:a.id,atDay:0,powerLevel:1,permanent:false}));
- return {model:MODEL_VERSION,caseId,status:'paused',elapsedMs:0,team:{principal:pair.principal,support:pair.support},startedAt:now,updatedAt:now,actions,inventory:[...new Set(inventory)].filter(id=>UPGRADES.some(u=>u.id===id)).map(id=>({id,atDay:0,inherited:true})),checkpoints:[],baseline:{...BASE_AXES}};
+ const actions=ABILITIES.filter(a=>a.kind==='passive'&&[pair.principal,pair.support].includes(a.heroId)).map((a,i)=>({id:'passive-'+i,abilityId:a.id,atDay:0,powerLevel:1,heroLevel:Math.max(1,Math.min(30,Math.floor(levels[a.heroId]||1))),permanent:false}));
+ return {model:MODEL_VERSION,caseId,status:'paused',elapsedMs:0,team:{principal:pair.principal,support:pair.support},heroLevels:Object.fromEntries([pair.principal,pair.support].map(id=>[id,Math.max(1,Math.min(30,Math.floor(levels[id]||1)))])),startedAt:now,updatedAt:now,actions,inventory:[...new Set(inventory)].filter(id=>UPGRADES.some(u=>u.id===id)).map(id=>({id,atDay:0,inherited:true})),checkpoints:[],baseline:{...BASE_AXES}};
 }
 /** Pure elapsed-time update; callers supply only active foreground time. */
 export function advanceCampaign(campaign,activeDeltaMs){
@@ -42,7 +43,7 @@ export function registerPurchase(campaign,id){
  next.inventory.push({id,atDay:simulationDay(next.elapsedMs),inherited:false});
  return {ok:true,campaign:next};
 }
-export function activateAbility(campaign,abilityId){
+export function activateAbility(campaign,abilityId,levels={}){
  const ability=getAbility(abilityId),day=simulationDay(campaign.elapsedMs);
  if(!ability||ability.kind!=='active')return {ok:false,error:'unknown-ability'};
  if(![campaign.team.principal,campaign.team.support].includes(ability.heroId))return {ok:false,error:'hero-not-assigned'};
@@ -50,7 +51,7 @@ export function activateAbility(campaign,abilityId){
  const last=[...campaign.actions].reverse().find(a=>a.abilityId===abilityId);
  if(last&&day<abilityState(last,day).readyDay)return {ok:false,error:'cooldown'};
  const next=copy(campaign);
- next.actions.push({id:abilityId+'-'+next.actions.length,abilityId,atDay:day,powerLevel:1,permanent:false});
+ next.actions.push({id:abilityId+'-'+next.actions.length,abilityId,atDay:day,powerLevel:1,heroLevel:Math.max(1,Math.min(30,Math.floor(levels[ability.heroId]||campaign.heroLevels?.[ability.heroId]||1))),permanent:false});
  return {ok:true,campaign:next};
 }
 /** Invented model coefficients are versioned and disclosed, never empirical values. */
@@ -70,7 +71,7 @@ export function evaluateCampaign(campaign,day=simulationDay(campaign.elapsedMs))
  for(const action of campaign.actions){
   const ability=getAbility(action.abilityId);if(!ability)continue;
   const state=abilityState(action,day),role=campaign.team.principal===ability.heroId?1:.6;
-  for(const [axis,b] of Object.entries(ability.gapReduction||{}))if(shares[axis])shares[axis].push(clamp(b*state.weight*role,0,.35));
+  for(const [axis,b] of Object.entries(ability.gapReduction||{}))if(shares[axis])shares[axis].push(clamp(b*state.weight*role*levelEffectMultiplier(action.heroLevel||1),0,.35));
   contributors.push({kind:'ability',id:action.id,abilityId:ability.id,name:ability.name,heroId:ability.heroId,roleWeight:role,...state});
  }
  const axes={};
@@ -80,10 +81,10 @@ export function evaluateCampaign(campaign,day=simulationDay(campaign.elapsedMs))
 export function sanitizeTimeline(value){
  const result=emptyTimeline();if(!value||value.version!==1||!value.campaigns)return result;
  for(const id of CASE_IDS){const c=value.campaigns[id];if(!c||c.model!==MODEL_VERSION||!validPair(c.team))continue;
-  const clean=createCampaign(id,c.team,[],Number.isFinite(c.startedAt)?c.startedAt:0);
+  const clean=createCampaign(id,c.team,[],Number.isFinite(c.startedAt)?c.startedAt:0,c.heroLevels||{});
   clean.elapsedMs=clamp(c.elapsedMs,0,CYCLE_MS);clean.status=clean.elapsedMs>=CYCLE_MS?'complete':c.status==='running'?'running':'paused';
   clean.updatedAt=Number.isFinite(c.updatedAt)?c.updatedAt:0;
-  clean.actions=Array.isArray(c.actions)?c.actions.slice(0,100).filter(a=>getAbility(a.abilityId)&&[c.team.principal,c.team.support].includes(getAbility(a.abilityId).heroId)&&Number.isFinite(a.atDay)&&a.atDay>=0&&a.atDay<=simulationDay(clean.elapsedMs)).map((a,i)=>({id:'action-'+i,abilityId:a.abilityId,atDay:a.atDay,powerLevel:1,permanent:false})):clean.actions;
+  clean.actions=Array.isArray(c.actions)?c.actions.slice(0,100).filter(a=>getAbility(a.abilityId)&&[c.team.principal,c.team.support].includes(getAbility(a.abilityId).heroId)&&Number.isFinite(a.atDay)&&a.atDay>=0&&a.atDay<=simulationDay(clean.elapsedMs)).map((a,i)=>({id:'action-'+i,abilityId:a.abilityId,atDay:a.atDay,powerLevel:1,heroLevel:Math.max(1,Math.min(30,Math.floor(Number(a.heroLevel)||1))),permanent:false})):clean.actions;
   const seen=new Set();clean.inventory=Array.isArray(c.inventory)?c.inventory.filter(r=>UPGRADES.some(u=>u.id===r.id)&&!seen.has(r.id)&&seen.add(r.id)&&Number.isFinite(r.atDay)&&r.atDay>=0&&r.atDay<=simulationDay(clean.elapsedMs)).map(r=>({id:r.id,atDay:r.atDay,inherited:!!r.inherited})):[];
   clean.checkpoints=CHECKPOINT_DAYS.filter(d=>simulationDay(clean.elapsedMs)>=d);result.campaigns[id]=clean;
  }

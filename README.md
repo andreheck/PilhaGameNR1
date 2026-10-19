@@ -1,3 +1,5 @@
+> **Entrega atual — recuperação e progressão (19/10/2026):** leia [registro](docs/releases/RECUPERACAO-PROGRESSAO-2026-10-19.md), [níveis/XP](docs/PROGRESSAO-HEROIS-2026-10-19.md) e [elétrons futuros](docs/INTEGRACAO-ELETRONS-PILHA-APP.md). Jogador acionista; formação usa créditos fictícios. Não presumir conexão real com o App.
+
 ## Atualização: acionista, dupla visível e ciclo de 30 dias
 
 Referência atual: [motor temporal e hipóteses](docs/MOTOR-ESTATISTICO-TEMPORAL.md), [entrega e testes](docs/releases/ACIONISTA-CICLO-KIMI-2026-10-19.md) e [triagem da revisão Kimi](docs/reviews/TRIAGEM-KIMI-2026-10-19.md). A revisão original permanece arquivada sem alterações.
