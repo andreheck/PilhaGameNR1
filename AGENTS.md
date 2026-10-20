@@ -1,3 +1,14 @@
+# Governança vigente — PM / PO / Codex
+
+Leia primeiro [`docs/GOVERNANCA-PM-PO-CODEX.md`](docs/GOVERNANCA-PM-PO-CODEX.md).
+
+- **André / Heck é o PM:** supervisiona, define a alocação e os papéis das IAs e decide escopo, prazos e autorização de publicação.
+- **ChatGPT da conversa de gestão é o PO:** mantém visão de produto, backlog, requisitos, critérios de aceite e pareceres sobre entregas. Não inicia implementação ou deploy nesta frente sem novo pedido explícito.
+- **Codex assume o desenvolvimento principal:** implementa as entregas aprovadas, mantém testes e devolve PR/SHA, evidências, limitações e decisões pendentes.
+- **Claude, Manus, Kimi e ChatGPT Grátis — André** continuam como frentes de apoio, acionadas e designadas pelo PM. Descrições de responsabilidade abaixo servem como histórico/referência quando conflitarem com esta governança.
+- Não existe sincronização automática entre conversas ou contas. Ler o estado atual do GitHub antes de agir, preservar contribuições concorrentes e não assumir que a `main` contém todas as versões implantadas.
+- Aceite funcional do PO não equivale a autorização de merge/publicação do PM. Esta mudança de governança não autoriza alterações técnicas, migrações destrutivas ou custos reais.
+
 > **Precedência 19/10/2026:** preservar salão único, abertura do App, faixa permanente da dupla/níveis/relógio e motor temporal; ler `docs/releases/RECUPERACAO-PROGRESSAO-2026-10-19.md`. Nível de herói não é nível da habilidade; não criar poder permanente ao comprar nível 21. XP idempotente e formação usam uma transação local do orçamento. Elétrons estão SOMENTE documentados, sem dados de saúde, serviços ou carteira ativa.
 
 # Prioridade de produto — 19/10/2026: acionista e ciclo temporal
