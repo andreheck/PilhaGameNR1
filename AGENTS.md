@@ -1,6 +1,8 @@
 # Governança vigente — PM / PO / Codex
 
-Leia primeiro [`docs/GOVERNANCA-PM-PO-CODEX.md`](docs/GOVERNANCA-PM-PO-CODEX.md).
+**Ponto de entrada da continuidade:** [`docs/HANDOFF-CODEX-2026-10-20.md`](docs/HANDOFF-CODEX-2026-10-20.md). A preparação da transição está concluída: base consultada, diferenças entre branch/main/deployment, backlog PG-001–PG-008 e critérios do primeiro pacote estão registrados. Comece por **PG-001**, sem presumir autorização de merge ou publicação.
+
+Leia também [`docs/GOVERNANCA-PM-PO-CODEX.md`](docs/GOVERNANCA-PM-PO-CODEX.md).
 
 - **André / Heck é o PM:** supervisiona, define a alocação e os papéis das IAs e decide escopo, prazos e autorização de publicação.
 - **ChatGPT da conversa de gestão é o PO:** mantém visão de produto, backlog, requisitos, critérios de aceite e pareceres sobre entregas. Não inicia implementação ou deploy nesta frente sem novo pedido explícito.
@@ -9,11 +11,13 @@ Leia primeiro [`docs/GOVERNANCA-PM-PO-CODEX.md`](docs/GOVERNANCA-PM-PO-CODEX.md)
 - Não existe sincronização automática entre conversas ou contas. Ler o estado atual do GitHub antes de agir, preservar contribuições concorrentes e não assumir que a `main` contém todas as versões implantadas.
 - Aceite funcional do PO não equivale a autorização de merge/publicação do PM. Esta mudança de governança não autoriza alterações técnicas, migrações destrutivas ou custos reais.
 
+> **Atualização documental 20/10/2026:** a PR #22 avançou para `76e02efe65e43f53bf9b9af0f3766cf410d1a2e9` e passou a incluir a ficha `docs/herois/pd-tech.md` (P&D Tech, Arquiteto da Transformação, Lendário). Seus poderes estão documentados, mas não foram executados no runtime de referência desta passagem. Leia a ficha atual antes de tratar esse herói como não documentado; não importe o motor antigo da PR #22 nem invente temporização ou balanceamento. Referências completas no handoff.
+
 > **Precedência 19/10/2026:** preservar salão único, abertura do App, faixa permanente da dupla/níveis/relógio e motor temporal; ler `docs/releases/RECUPERACAO-PROGRESSAO-2026-10-19.md`. Nível de herói não é nível da habilidade; não criar poder permanente ao comprar nível 21. XP idempotente e formação usam uma transação local do orçamento. Elétrons estão SOMENTE documentados, sem dados de saúde, serviços ou carteira ativa.
 
 # Prioridade de produto — 19/10/2026: acionista e ciclo temporal
 
-O usuário é o acionista, não um especialista. Leia `docs/MOTOR-ESTATISTICO-TEMPORAL.md` e `docs/reviews/TRIAGEM-KIMI-2026-10-19.md`. Preserve salão único, dupla visível, inventário, taxa7dias/hora, ciclo30dias e limitações de protótipo. Não retome avanço instantâneo30dias. A revisão Kimi refere-se a uma base anterior e não valida este motor novo. Preservar as fichas consolidadas de Diretor, Cientista de Dados e Engenheiro de Segurança; não inventar poderes da Psicóloga, P&D Tech ou RS & TD enquanto suas fichas estiverem pendentes.
+O usuário é o acionista, não um especialista. Leia `docs/MOTOR-ESTATISTICO-TEMPORAL.md` e `docs/reviews/TRIAGEM-KIMI-2026-10-19.md`. Preserve salão único, dupla visível, inventário, taxa7dias/hora, ciclo30dias e limitações de protótipo. Não retome avanço instantâneo30dias. A revisão Kimi refere-se a uma base anterior e não valida este motor novo. Preservar as fichas consolidadas de Diretor, Cientista de Dados e Engenheiro de Segurança; reconhecer também a nova ficha P&D Tech na referência de 20/10/2026 acima. Não inventar poderes da Psicóloga ou RS & TD enquanto suas fichas estiverem pendentes, nem confundir aprovação conceitual de uma ficha com execução temporal validada.
 
 # Prioridade vigente de produto — 18/10/2026
 
