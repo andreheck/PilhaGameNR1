@@ -1,0 +1,15 @@
+✔ seis heróis da PR22, todos disponíveis, sem bônus numéricos inventados (4.6542ms)
+✔ dupla exige duas identidades diferentes e um Caso 01–05 (0.4931ms)
+✔ salva/restaura uma dupla por caso, sem tocar orçamento ou progresso (1.0635ms)
+✔ seleção inválida não destrói uma dupla anterior (0.3733ms)
+✔ estado ausente, corrompido, excessivo, legado e registros inválidos são seguros (0.7127ms)
+✔ armazenamento bloqueado não declara sucesso falso (0.5961ms)
+✔ proteção Manus cobre lista vazia e ausência de clipe compatível (8.5024ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 32.4567

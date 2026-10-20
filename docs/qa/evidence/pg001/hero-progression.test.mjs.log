@@ -1,0 +1,15 @@
+✔ level curve is bounded and both XP sources are explicit (2.0025ms)
+✔ insufficient funds, stale quote, unknown identity and cap do not mutate (0.2785ms)
+✔ one write atomically commits training + budget, failure gives neither (0.67ms)
+✔ replayed training uses expected level; separate purchases share newest budget (3.2565ms)
+✔ safe confirmed situation rewards frozen assigned duo only; no XP for harmful option (1.1074ms)
+✔ case XP requires 30 days + new approved safe plan; elapsed time alone never awards (2.9178ms)
+✔ hero level snapshots affect only model strength, never delay, duration or permanence (1.9172ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20.2159

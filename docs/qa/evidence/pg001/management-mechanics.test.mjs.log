@@ -1,0 +1,13 @@
+Mecânica de proteção, adiamento e demissão após adoecimento: PASS
+✔ a medida de proteção registra 30 dias e melhora o cenário (1.2325ms)
+✔ adiar é o cenário neutro com risco residual (0.2957ms)
+✔ demitir após adoecimento marca o estado não atendido (0.1974ms)
+✔ hub conecta as três escolhas ao feedback persistente da cena (0.4617ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12.7666
