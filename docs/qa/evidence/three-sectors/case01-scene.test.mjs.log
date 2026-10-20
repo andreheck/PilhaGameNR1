@@ -1,0 +1,12 @@
+✔ deriva estado visual persistente para uma intervenção estrutural (4.0859ms)
+✔ serializa e restaura o estado sem perder decisões ou consequências (4.9626ms)
+✔ serializa alertas visuais quando há exposição de privacidade (0.4356ms)
+✔ rejeita payloads inválidos e limita o tamanho do horizonte (4.4553ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22.6081

@@ -1,5 +1,7 @@
 # Governança vigente — PM / PO / Codex
 
+> **Decisão posterior do PM — 20/10/2026:** André autorizou o desenvolvimento com os três setores do pacote Claude como nova base visual (Escritório, Produção e Atendimento). A navegação do mapa pode incluir Visão geral para enquadrar esses setores; isso não restaura a antiga área de dashboard. Esta decisão substitui a exigência visual anterior de salão único. Preservar os cinco casos, dupla, orçamento/XP compartilhados, ciclo de 30 dias e dados existentes. Integração em `codex/ux-tres-setores`; relatório em `docs/releases/TRES-SETORES-2026-10-20.md`. Não inferir autorização de merge ou publicação.
+
 **Ponto de entrada da continuidade:** [`docs/HANDOFF-CODEX-2026-10-20.md`](docs/HANDOFF-CODEX-2026-10-20.md). A preparação da transição está concluída: base consultada, diferenças entre branch/main/deployment, backlog PG-001–PG-008 e critérios do primeiro pacote estão registrados. Comece por **PG-001**, sem presumir autorização de merge ou publicação.
 
 Leia também [`docs/GOVERNANCA-PM-PO-CODEX.md`](docs/GOVERNANCA-PM-PO-CODEX.md).

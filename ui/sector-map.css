@@ -1,0 +1,81 @@
+/* Host integration for Claude's supplied three-sector visual system. */
+html:has(body.sector-ui){font-size:16px;color-scheme:dark;scrollbar-width:thin;background:#08172c}
+.sector-ui{background:#08172c;color:#f4f6fb;margin:0}
+.sector-ui .game,.sector-ui .workspace,.sector-ui .main,.sector-ui .stage{display:block;position:static;width:100%;height:auto;min-height:0;max-height:none;margin:0;padding:0;border:0;border-radius:0;background:transparent;overflow:visible}
+.sector-ui .rail,.sector-ui .top,.sector-ui .foot,.sector-ui .mobile-nav,.sector-ui .stage-top,.sector-ui #scene,.sector-ui .stage-bottom,.sector-ui #actor-tags{display:none!important}
+.sector-ui .stage{height:100dvh;display:flex;flex-direction:column}
+.sector-ui .mission-strip{background:#0d2044;color:#f4f6fb;border-color:#29436c;padding:10px 16px;flex:none;z-index:2}
+.sector-ui .mission-strip strong,.sector-ui .mission-time b{color:#f4f6fb}
+.sector-ui .mission-time span,.sector-ui .mission-role-key{color:#bccbe2}
+.sector-ui .mission-team small{color:#ffd24b}
+.sector-ui .mission-buttons{display:flex;flex-wrap:wrap}
+.sector-ui .mission-buttons button{background:#142e59;color:#f4f6fb;border-color:#426291;min-height:44px;font-size:12px}
+.sector-ui .mission-buttons button:first-child{background:#ffd24b;color:#1e2540}
+.sector-ui .mission-strip>p{color:#ffd683}
+.sector-map{flex:1;min-height:0;display:flex;flex-direction:column;position:relative}
+.sector-map .pm-root{position:relative;inset:auto;z-index:1;flex:1;min-height:0;animation:none}
+.sector-map .pm-stage{height:100%;min-height:0}
+.sector-actions{display:flex;gap:6px;padding:6px 16px;background:#0d2044;flex:none;overflow:auto}
+.sector-actions button{background:transparent;border:1px solid #426291;border-radius:99px;color:#e1eaff;min-height:44px;padding:6px 18px;font:600 13px system-ui;white-space:nowrap;cursor:pointer}
+.sector-actions button:hover{border-color:#ffd24b;color:#ffd24b}
+.sector-ui button:focus-visible,.sector-ui a:focus-visible{outline:3px solid #8facff;outline-offset:2px}
+.sector-ui .pm-btn{min-height:44px}
+.sector-ui .pm-ph__dot{background:#ffd24b}
+.sector-ui .sector-note{font:12px/1.5 system-ui;color:#bacbe5;margin:10px 0}
+.sector-cases{display:grid;gap:8px}
+.sector-cases .pm-btn{white-space:normal;height:auto;text-align:left;padding:10px 14px}
+.sector-ui .pm-card.is-owned{border-left-color:#4ade80}
+.sector-ui .pm-panel{min-height:0}
+.sector-ui .pm-ph{max-height:none;overflow:visible}
+.sector-ui .pm-scroll{min-height:0}
+.sector-ui .pm-balance__txt b{font-variant-numeric:tabular-nums}
+.sector-ui .pm-tabs{scrollbar-width:thin}
+.sector-tools{padding:0;border:1px solid #426291;border-radius:18px;background:#10244a;color:#edf4ff;width:min(620px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto}
+.sector-tools::backdrop{background:#031024bb}
+.sector-tools-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:#10244a;color:#e7efff;position:sticky;top:0;z-index:2}
+.sector-tools-head button{background:#ffd24b;color:#182440;border:0;border-radius:9px;padding:8px 12px;min-height:44px;cursor:pointer}
+.sector-tools #panel{position:static!important;display:flex!important;flex-direction:column;transform:none!important;visibility:visible!important;opacity:1!important;width:auto!important;min-width:0!important;max-width:none!important;height:auto!important;max-height:none!important;overflow:visible!important;border:0;border-radius:0;background:#f5f8fb;color:#18354b}
+.sector-tools #panel .panel-body{max-height:none;overflow:visible}
+.sector-ui .toast{z-index:10005}
+.sector-ui .skip:focus{z-index:10010}
+.sector-ui .sector-tools #panel,.sector-ui .hero-dialog,.sector-ui .mission-dialog,.sector-ui .progression-dialog{background:#0e2347;color:#f0f4ff;border-color:#36598b}
+.sector-ui .sector-tools :is(.panel-body,.panel-bottom,.hero-launcher,.knowledge-prologue,.case-row,.actor-dialogue,.risk-domain,.investment-card,.option),.sector-ui :is(.hero-header,.hero-footer,.hero-card,.hero-slot,.hero-scope-note,.progression-header,.progression-card,.progression-future,.mission-axis-grid>div,.mission-checkpoints>span,.mission-specialist,.ability){background:#142d57;color:#edf3ff;border-color:#36598b}
+.sector-ui .sector-tools :is(.panel-header,.sector-tools-head){background:#0c1c38;color:#f0f4ff}
+.sector-ui .sector-tools :is(h2,h3,strong,b),.sector-ui :is(.hero-header h2,.hero-slot strong,.mission-axis-grid b){color:#edf3ff}
+.sector-ui .sector-tools :is(.note,.details,.hero-launcher small,.hero-eyebrow,.case-row small,.actor-dialogue p),.sector-ui :is(.hero-header p,.hero-specialization,.hero-card-text>small,.hero-slot small,.hero-notice,.progression-header p,.progression-card p,.progression-card small,.progression-notice,.progression-footnote,.progression-future p,.mission-axis-grid span,.mission-disclaimer){color:#bdcee8}
+.sector-ui :is(.hero-card.is-selected,.hero-slot.is-active){background:#234677;border-color:#ffd24b}
+.sector-ui :is(.hero-open,.hero-secondary,.hero-close,.progression-close,.mission-checkpoints .done){background:#163760;color:#edf3ff;border-color:#6384b7}
+.sector-ui :is(.hero-icon,.progression-monogram){background:#254c80;color:#ffdc65}
+.sector-ui .sector-tools .btn.primary,.sector-ui :is(.hero-save,.progression-primary){background:#ffd24b;color:#152440;border-color:#ffd24b}
+.sector-ui .sector-tools .option{font-size:14px;min-height:44px}
+.sector-ui .sector-tools .option.picked{background:#26466b;border-color:#ffd24b}
+.sector-ui .sector-tools .panel-header{cursor:default}
+.sector-ui :is(.hero-close,.progression-close){width:44px;height:44px}
+.sector-ui .sector-tools .panel-header p{display:block}
+@media(max-width:899px){
+ .sector-ui .mission-strip{grid-template-columns:1fr auto;gap:5px;padding:8px 12px}
+ .sector-ui .mission-team strong{font-size:11px}
+ .sector-ui .mission-time{min-width:110px}
+ .sector-ui .mission-time b{font-size:16px}
+ .sector-ui .mission-buttons{grid-column:1/-1;display:flex;gap:5px}
+ .sector-ui .mission-buttons button{flex:1;font-size:10px;padding:5px}
+ .sector-actions{padding:4px 10px;gap:4px}
+ .sector-actions button{font-size:11px;padding:5px 10px}
+ .sector-map .pm-root.has-panel{grid-template-rows:minmax(130px,1fr) minmax(0,52%)}
+ .sector-ui .pm-root.has-panel .pm-panel{display:block;overflow-y:auto;overscroll-behavior:contain}
+ .sector-ui .pm-ph{max-height:none;overflow:visible}
+ .sector-ui .pm-scroll{overflow:visible}
+ .sector-ui .pm-kpis{gap:4px}
+ .sector-ui .pm-ring{width:62px;height:62px}
+ .sector-ui .pm-ph p{font-size:11px}
+ .sector-ui .pm-tabs .pm-tab{font-size:12px;min-height:44px;padding:6px 14px}
+ .sector-ui .pm-tabs{scrollbar-width:none}
+ .sector-ui .pm-tabs::-webkit-scrollbar{display:none}
+ .sector-ui .pm-hud{padding:6px 10px}
+ .sector-ui .pm-hud .pm-goal{display:none}
+ .sector-ui .pm-root.has-panel .pm-tabs{gap:4px}
+}
+@media(max-height:600px){
+ .sector-ui .stage{height:auto;min-height:100dvh}
+ .sector-map{min-height:600px}
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "file": "tests/alpha14.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/experience-integration.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/case01-scene.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/case02-integration.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/company-state.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/management-mechanics.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/static-flow.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/qa-navigation-fallback.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/navigation-collision.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/investment-system.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/open-hall.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/hero-team.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/mission-timeline.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/hero-progression.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "file": "tests/sector-map.test.mjs",
+    "exitCode": 0
+  }
+]
