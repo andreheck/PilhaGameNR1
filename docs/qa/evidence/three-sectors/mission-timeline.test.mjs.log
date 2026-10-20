@@ -1,0 +1,20 @@
+✔ one real hour is exactly seven simulated days; 30 days exceed 4h (1.82ms)
+✔ pause does not advance; no negative/NaN delta; bounded month (1.1357ms)
+✔ clock and evaluation are invariant to tick partition, no frame-dependent stacking (46.3727ms)
+✔ Director ability has delay, ramp, finite action, decay and cooldown (0.4652ms)
+✔ only assigned approved active skill can be invoked, no invented other-hero powers (0.3175ms)
+✔ permanence requires explicit exception or eligible power level strictly over 20 (0.284ms)
+✔ resources ramp gradually, synergy is bounded, active effect can expire (0.641ms)
+✔ a late purchase matures relative to its purchase day; persistent inventory is idempotent (0.3327ms)
+✔ validated state tolerates invalid JSON and does not write real dates into elapsed time (0.7911ms)
+✔ Kimi P1: every flagged option blocks approval even with 3 perfect choices (0.9036ms)
+✔ perfect plans still score100 and require time for new timed missions; legacy achievements preserved (0.4246ms)
+✔ no instant advance button, immutable old financial catalog, visible shareholder strip (1.6677ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 63.5538

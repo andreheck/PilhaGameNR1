@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/alpha14.test.mjs && node tests/experience-integration.test.mjs && node tests/case01-scene.test.mjs && node tests/case02-integration.test.mjs && node tests/company-state.test.mjs && node tests/management-mechanics.test.mjs && node tests/static-flow.mjs && node tests/qa-navigation-fallback.test.mjs && node tests/navigation-collision.test.mjs && node tests/investment-system.test.mjs && node tests/open-hall.test.mjs && node tests/hero-team.test.mjs && node tests/mission-timeline.test.mjs && node tests/hero-progression.test.mjs"
+    "test": "node tests/alpha14.test.mjs && node tests/experience-integration.test.mjs && node tests/case01-scene.test.mjs && node tests/case02-integration.test.mjs && node tests/company-state.test.mjs && node tests/management-mechanics.test.mjs && node tests/static-flow.mjs && node tests/qa-navigation-fallback.test.mjs && node tests/navigation-collision.test.mjs && node tests/investment-system.test.mjs && node tests/open-hall.test.mjs && node tests/hero-team.test.mjs && node tests/mission-timeline.test.mjs && node tests/hero-progression.test.mjs && node tests/sector-map.test.mjs"
   }
 }
