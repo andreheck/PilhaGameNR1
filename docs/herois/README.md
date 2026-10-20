@@ -27,6 +27,12 @@ Os heróis representam competências complementares para melhorar ambientes de t
 
 As seis fichas individuais estão documentadas nesta branch. A raridade dos personagens poderá ser revista em testes de balanceamento, sem restringir sua seleção durante a beta.
 
+## Status de validação conceitual
+
+Em **20/10/2026**, o responsável pelo projeto confirmou o conjunto completo dos seis heróis como validado para fins de conceito e documentação. As fichas atuais passam a ser a referência aprovada para identidade, função, atributos, poderes, progressão e especializações.
+
+Essa validação conceitual não substitui testes de implementação e balanceamento: valores numéricos, frequência de ativação, custos, bônus e sinergias continuam sujeitos a avaliação durante os testes de jogo. Todos os heróis permanecem selecionáveis desde o início da beta, independentemente da raridade.
+
 ## Sistema de progressão
 
 A progressão prevista combina:
