@@ -23,9 +23,9 @@ Os heróis representam competências complementares para melhorar ambientes de t
 | PILHA-H03 | Cientista de Dados | Ciência de dados / inteligência híbrida | Épico |
 | PILHA-H04 | Engenheiro de Segurança | Higiene Ocupacional / prevenção de riscos | Épico |
 | PILHA-H05 | P&D Tech | Inovação híbrida / transformação organizacional | Lendário |
-| PILHA-H06 | RS & TD | Recursos, talentos e desenvolvimento | A definir |
+| PILHA-H06 | RS & TD | Recrutamento, talentos e desenvolvimento | Épico |
 
-As fichas individuais são documentadas após validação conceitual. Nesta branch, estão documentados o Diretor, a Psicóloga, o Cientista de Dados, o Engenheiro de Segurança e P&D Tech. A ficha de RS & TD ainda está pendente de definição e validação. A raridade dos personagens aprovados poderá ser revista em testes de balanceamento, sem restringir sua seleção durante a beta.
+As seis fichas individuais estão documentadas nesta branch. A raridade dos personagens poderá ser revista em testes de balanceamento, sem restringir sua seleção durante a beta.
 
 ## Sistema de progressão
 
@@ -46,4 +46,4 @@ Raridade e acesso são conceitos separados. Na beta, todos os heróis são selec
 - [Herói 03 — Cientista de Dados](cientista-de-dados.md)
 - [Herói 04 — Engenheiro de Segurança](engenheiro-de-seguranca.md)
 - [Herói 05 — P&D Tech](pd-tech.md)
-- Herói 06 — RS & TD (ficha em desenvolvimento)
+- [Herói 06 — RS & TD](rs-td.md)
