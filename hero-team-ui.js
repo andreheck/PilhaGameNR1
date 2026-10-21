@@ -63,3 +63,11 @@ function openHeroTeam(caseId,source){
 }
 
 document.addEventListener('pilha:campaign-change',()=>renderHeroTeamLauncher(context.host,context.view,context.caseId));
+export function chooseInitialPair(source){
+ const frozen=readTimeline(storage()).campaigns['01']?.team;
+ if(frozen)return Promise.resolve(frozen);
+ return new Promise(resolve=>{
+  openHeroTeam('01',source);
+  dialog.addEventListener('close',()=>resolve(getHeroTeam(storage(),'01')||null),{once:true});
+ });
+}

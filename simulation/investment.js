@@ -1,3 +1,4 @@
+import {eventInflation} from './adverse-events.js';
 /** Psychosocial investment catalog with educational 30-day scenarios. */
 export const INITIAL_BUDGET = 10000;
 export const BUDGET_KEY = "pilha-investment-v1";
@@ -32,13 +33,15 @@ export const UPGRADES = Object.freeze([
 export const INITIAL_INDICATORS=Object.freeze({workload:50,wellbeing:50,trust:50,turnoverRisk:20});
 const withEffects=(indicators,effects)=>{const next={...INITIAL_INDICATORS,...(indicators||{})};for(const [key,delta] of Object.entries(effects||{})){if(key in next)next[key]=Math.max(0,Math.min(100,next[key]+delta));}return next;};
 export function initialInvestmentState(){return {version:2,budget:INITIAL_BUDGET,spent:0,upgrades:[],day:0,history:[],indicators:{...INITIAL_INDICATORS},resolvedForecasts:[],dayEvents:[],updated:null};}
+export function upgradePrice(state,upgrade){return Math.round(upgrade.cost*(1+eventInflation(state)/100));}
 export function applyUpgrade(state,id,now=0){
  const upgrade=UPGRADES.find(x=>x.id===id);
  if(!upgrade)throw new Error("Melhoria desconhecida");
  if(state.upgrades.includes(id))return {...state,error:"already-installed"};
- if(state.budget<upgrade.cost)return {...state,error:"insufficient-budget"};
- const entry={id,domain:upgrade.domain,day:state.day||0,cost:upgrade.cost,appliedAt:now,forecastDay:(state.day||0)+upgrade.days,forecast:upgrade.forecast,effects:{...upgrade.effects}};
- return {...state,budget:state.budget-upgrade.cost,spent:state.spent+upgrade.cost,upgrades:[...state.upgrades,id],history:[...(state.history||[]),entry],indicators:{...INITIAL_INDICATORS,...(state.indicators||{})},updated:now,error:null};
+ const cost=upgradePrice(state,upgrade);
+ if(state.budget<cost)return {...state,error:"insufficient-budget"};
+ const entry={id,domain:upgrade.domain,day:state.day||0,cost,appliedAt:now,forecastDay:(state.day||0)+upgrade.days,forecast:upgrade.forecast,effects:{...upgrade.effects}};
+ return {...state,budget:state.budget-cost,spent:state.spent+cost,upgrades:[...state.upgrades,id],history:[...(state.history||[]),entry],indicators:{...INITIAL_INDICATORS,...(state.indicators||{})},updated:now,error:null};
 }
 export function advanceInvestmentDay(state,days=1,now=0){
  const amount=Math.max(1,Math.floor(Number(days)||1)),day=(state.day||0)+amount;
@@ -48,7 +51,7 @@ export function advanceInvestmentDay(state,days=1,now=0){
  const indicators=due.reduce((current,entry)=>withEffects(current,entry.effects),{...INITIAL_INDICATORS,...(state.indicators||{})});
  return {...state,day,resolvedForecasts:[...resolved],indicators,lastAdvanceAt:now,dayEvents:due.map(entry=>({id:entry.id,day:entry.forecastDay,name:UPGRADES.find(u=>u.id===entry.id)?.name||entry.id,forecast:entry.forecast,effects:{...entry.effects}}))};
 }
-export function forecastUpgrades(state){return UPGRADES.map(u=>({...u,owned:state.upgrades.includes(u.id),affordable:state.budget>=u.cost,forecastDay:(state.day||0)+u.days,forecastStatus:state.upgrades.includes(u.id)?"scheduled":state.budget>=u.cost?"available":"needs-budget"}));}
+export function forecastUpgrades(state){return UPGRADES.map(u=>({...u,cost:upgradePrice(state,u)})).map(u=>({...u,owned:state.upgrades.includes(u.id),affordable:state.budget>=u.cost,forecastDay:(state.day||0)+u.days,forecastStatus:state.upgrades.includes(u.id)?"scheduled":state.budget>=u.cost?"available":"needs-budget"}));}
 export function readInvestmentState(storage){
  try{const saved=JSON.parse(storage.getItem(BUDGET_KEY)||"null");if([1,2].includes(saved?.version)&&Number.isFinite(saved.budget)&&Array.isArray(saved.upgrades))return {...initialInvestmentState(),...saved,version:2,history:Array.isArray(saved.history)?saved.history:[],indicators:{...INITIAL_INDICATORS,...(saved.indicators||{})},resolvedForecasts:Array.isArray(saved.resolvedForecasts)?saved.resolvedForecasts:[],dayEvents:Array.isArray(saved.dayEvents)?saved.dayEvents:[]};}catch{}
  const initial=initialInvestmentState();try{storage.setItem(BUDGET_KEY,JSON.stringify(initial));}catch{}return initial;

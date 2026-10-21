@@ -2,7 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "git": {
     "deploymentEnabled": {
-      "codex/ux-tres-setores": false
+      "codex/ux-tres-setores": false,
+      "codex/jornada-npcs-empresa": false
     }
   }
 }

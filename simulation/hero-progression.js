@@ -1,3 +1,4 @@
+import {eventState} from './adverse-events.js';
 /** Fictional local-game economy v1. No payment, health data, or electron minting. */
 import {HERO_ROSTER,getHero} from '../hero-roster.js';
 import {BUDGET_KEY,initialInvestmentState} from './investment.js';
@@ -23,6 +24,7 @@ export function readEconomy(storage){
   const raw=storage.getItem(BUDGET_KEY);if(raw&&raw.length>250000)return {ok:false,error:'invalid-economy'};
   const value=raw?JSON.parse(raw):initialInvestmentState();
   if(!value||![1,2].includes(value.version)||!nat(value.budget)||!nat(value.spent)||!Array.isArray(value.upgrades)||!validProgression(value.heroProgression))return {ok:false,error:'invalid-economy'};
+  eventState(value);
   return {ok:true,state:{...value,heroProgression:value.heroProgression||emptyProgression()}};
  }catch{return {ok:false,error:'invalid-economy'};}
 }
@@ -74,4 +76,4 @@ export function transactEconomy(storage,reducer){
 }
 export function publishProgression(result){if(result.ok&&!result.noWrite&&globalThis.document)document.dispatchEvent(new CustomEvent('pilha:progression-changed',{detail:{heroId:result.heroId||null,count:result.count||0}}));}
 
-export function resetStructuralInvestments(state){return {...initialInvestmentState(),budget:state.budget+state.spent,heroProgression:state.heroProgression||emptyProgression()};}
+export function resetStructuralInvestments(state){return {...initialInvestmentState(),budget:state.budget+state.spent,heroProgression:state.heroProgression||emptyProgression(),...(state.adverseEvents?{adverseEvents:state.adverseEvents}:{})};}
