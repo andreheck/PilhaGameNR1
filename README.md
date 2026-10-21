@@ -8,7 +8,8 @@ Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.
 - **Novo protótipo de gestão de ambiente logístico:** abrir `/logistica-simulacao.html` na prévia da branch ou consultar [a tela no GitHub](logistica-simulacao.html).
 - **Especificação do gameplay psicossocial:** [Documento](docs/GAMEPLAY-SIMULACAO-PSICOSSOCIAL.md).
 - **Catálogo de eventos adversos:** [19 eventos em cinco categorias, incluindo epidemia recorrente](docs/CATALOGO-EVENTOS-ADVERSOS.md).
-- **Backlog de implementação:** [Issue #29 — motor de eventos adversos e epidemia recorrente](https://github.com/andreheck/PilhaGameNR1/issues/29).
+- **Economia e produtividade sustentável:** [Especificação financeira](docs/ECONOMIA-PRODUTIVIDADE-FINANCAS.md).
+- **Backlog de implementação:** [Issue #29 — motor de eventos adversos e epidemia recorrente](https://github.com/andreheck/PilhaGameNR1/issues/29) · [Issue #30 — economia, entrega, caixa e contas mensais](https://github.com/andreheck/PilhaGameNR1/issues/30).
 - **Contexto para continuidade:** [Handoff técnico](docs/CONTEXTO-PARA-AGENTES.md) · [Prompt pronto para Manus/Codex](docs/PROMPT-PARA-AGENTE-MANUS-CODEX.md).
 - **Motor de simulação:** `src/psychosocial-simulation.js`.
 - **Testes:** `npm test`.
@@ -43,6 +44,7 @@ O progresso legado da Missão 01 e do Caso 017 deve continuar preservado. O prot
 - Comparar o estado anterior e posterior de cada intervenção.
 - Acrescentar pré-requisitos, tempo de efeito e consequências contextuais.
 - **Backlog P1:** implementar o motor de eventos adversos configuráveis e a progressão da epidemia em 25% / 40% / 60% por ocorrência, conforme [Issue #29](https://github.com/andreheck/PilhaGameNR1/issues/29).
+- **Backlog P1:** implementar entrega monetária simulada por funcionário/setor, metas de entrega, caixa e fechamento mensal, reutilizando a mecânica de contratação existente, conforme [Issue #30](https://github.com/andreheck/PilhaGameNR1/issues/30).
 - Executar `npm test` e revisar acessibilidade em mobile/desktop.
 - Revisão técnico-científica e testes com trabalhadores, liderança e RH/SST antes de qualquer uso profissional.
 
