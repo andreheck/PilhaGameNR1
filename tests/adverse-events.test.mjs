@@ -38,7 +38,7 @@ test('canonical protection maps to owned resources, negatives recover over weeks
 });
 test('inflation quotes match actual purchases in both shops, decay by active week, and never change training costs',()=>{
  let s=beginEvent(initialInvestmentState(),'infl','escritorio',FIRST_EVENT_MS).state;
- s=chooseEvent(s,1,2).state;const quote=forecastUpgrades(s).find(u=>u.id==='ergonomia');assert.equal(quote.cost,1944);
+ s=chooseEvent(s,1,2).state;assert.equal(eventState(s).current.after.inflation,8);const quote=forecastUpgrades(s).find(u=>u.id==='ergonomia');assert.equal(quote.cost,1944);
  const bought=applyUpgrade(s,'ergonomia');assert.equal(s.budget-bought.budget,quote.cost);assert.equal(bought.history.at(-1).cost,quote.cost);
  s=eventClock(s,FIRST_EVENT_MS+3600000).state;assert.equal(eventInflation(s),7);
  assert.equal(buyHeroLevel(s,'PILHA-H01',1).cost,500);assert.ok(UPGRADES.every(u=>u.cost>0));

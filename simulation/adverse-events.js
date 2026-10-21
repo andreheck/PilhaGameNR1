@@ -62,7 +62,8 @@ export function chooseEvent(state,serial,index){
  if(!c||c.serial!==serial||c.stage!=='decide'||!op)return {ok:false,error:'stale-event'};
  if(state.budget<op.cost)return {ok:false,error:'insufficient-budget'};
  const next=copy(state);next.budget-=op.cost;applyEffects(next,e,op.e,c.sid);
- c.stage='result';c.pick=index;c.after={budget:next.budget,inflation:eventInflation({...next,adverseEvents:e})};
+ const inflation=eventInflation({...next,adverseEvents:e});
+ c.stage='result';c.pick=index;c.after={budget:next.budget,inflation};
  next.adverseEvents=e;return {ok:true,state:next};
 }
 export function finishEvent(state,serial){
