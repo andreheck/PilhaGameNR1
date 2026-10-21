@@ -19,6 +19,8 @@ A intenção é desenvolver a experiência gradualmente, sem perder o jogo exist
 - Preview base do projeto: [pilha-plus-game-preview.vercel.app](https://pilha-plus-game-preview.vercel.app/)
 - **Novo backlog P1:** [Issue #29 — implementar motor de eventos adversos e epidemia recorrente](https://github.com/andreheck/PilhaGameNR1/issues/29).
 - **Especificação aprovada para orientar a implementação:** [Catálogo de eventos adversos](CATALOGO-EVENTOS-ADVERSOS.md).
+- **Novo backlog P1:** [Issue #30 — economia, entrega, caixa e contas mensais](https://github.com/andreheck/PilhaGameNR1/issues/30).
+- **Especificação financeira:** [Economia, produtividade e sustentabilidade financeira](ECONOMIA-PRODUTIVIDADE-FINANCAS.md).
 
 **Importante:** URLs de preview de branch podem mudar quando novos deploys são criados. Se a URL acima deixar de funcionar, verifique o deployment mais recente da branch no Vercel; não presuma que um deploy antigo representa o código mais novo.
 
@@ -66,6 +68,16 @@ A simulação logística continua sendo uma página independente (`logistica-sim
 5. Testar arredondamento e equipes pequenas, duração/recuperação, mitigação, persistência e ausência de contagem dupla.
 6. Depois migrar os demais eventos para o mesmo motor, conectando sinergias de heróis apenas quando pertinentes.
 7. Executar testes automatizados e validação manual desktop/mobile. Percentuais epidemiológicos são parâmetros fictícios de gameplay, não previsões reais.
+
+### P1 — Economia da empresa e sustentabilidade financeira (novo backlog)
+1. Consultar [Issue #30](https://github.com/andreheck/PilhaGameNR1/issues/30) e [ECONOMIA-PRODUTIVIDADE-FINANCAS.md](ECONOMIA-PRODUTIVIDADE-FINANCAS.md).
+2. Inspecionar os dados já existentes de contratação, proposta salarial, aceite, nível de cargo e setor; reutilizar esses parâmetros, sem criar regras conflitantes.
+3. Definir relógio de simulação e fechamento mensal, separando caixa, entrega, receita, custos e lucro/prejuízo.
+4. Implementar a referência fictícia de R$ 10 por funcionário/dia em condições sustentáveis no setor de referência, com bases por setor e fatores de cargo/condições/capacidade configuráveis.
+5. Integrar custos recorrentes, contratação, custos iniciais e datas de início; não cobrar salário mensal integral em cada ciclo diário.
+6. Mostrar metas de entrega, realizado, backlog, caixa e obrigações futuras.
+7. Conectar eventos adversos à economia sem duplicar efeitos; manter salvaguardas de saúde e segurança.
+8. Testar passagem de dia/mês, receita atrasada, caixa insuficiente, contratação no meio do período, ausência, saída e persistência.
 
 ### P2 — Tornar as decisões e consequências compreensíveis
 1. Apresentar contexto de missão, objetivo e restrições antes das decisões.
