@@ -3,6 +3,8 @@
 **Status:** especificação de gameplay para prototipagem e inclusão no backlog de implementação.  
 **Escopo:** 19 eventos distribuídos em cinco categorias. Todos os efeitos numéricos são parâmetros fictícios de balanceamento, não previsões reais nem estimativas científicas.
 
+**Integração financeira:** os eventos podem afetar capacidade, entrega, receita, custos e caixa. Aplicar cada impacto uma única vez e registrar sua origem no histórico. Ver também [Economia, produtividade e sustentabilidade financeira](ECONOMIA-PRODUTIVIDADE-FINANCAS.md).
+
 ## Princípio de design
 
 Os eventos introduzem incerteza e desafios mesmo quando a organização investe em melhorias e conta com heróis bem desenvolvidos. Heróis e intervenções melhoram preparação, detecção e resposta; não anulam automaticamente problemas. A simulação não deve culpar trabalhadores por riscos organizacionais, recompensar produtividade à custa da saúde ou tratar treinamento individual como substituto de mudanças estruturais.
