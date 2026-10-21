@@ -72,6 +72,12 @@ O motor fica separado da interface. A UI pode ser HTML/CSS/JS hoje e migrar para
 7. Interface funciona em mobile, teclado e desktop; emoji tem rótulo textual acessível.
 8. Testes automatizados cobrem cálculo, limites, orçamento, efeitos e salvaguardas.
 
+## Economia, entrega e obrigações recorrentes
+
+A simulação deve incorporar caixa inicial, receita/entrega por setor, custos fixos e variáveis, investimentos e fechamento mensal. Parâmetro inicial de prototipagem: R$ 10 de entrega por funcionário/dia em condições simuladas saudáveis no setor de referência; setores e níveis de cargo podem ter bases/multiplicadores configuráveis. Como exemplo de balanceamento, condições instáveis podem reduzir o valor para R$ 8,50/dia, condição de adoecimento moderada para R$ 7/dia e condição grave para R$ 5/dia ou menos; afastamento temporário não gera entrega direta naquele período. São valores fictícios, não medidas reais de produtividade nem diagnóstico.
+
+O jogo deve distinguir entrega produzida, receita reconhecida/recebida, resultado acumulado e caixa. O jogador precisa cumprir metas de entrega e pagar obrigações mensais, incluindo contratação e salários, sem tratar contratação como gratuita ou cobrar salário mensal integral a cada ciclo diário. Reutilizar os parâmetros já existentes de proposta/aceite, cargo e setor. Saúde, segurança e dignidade não podem ser sacrificadas para maximizar receita. Especificação: [Economia, produtividade e sustentabilidade financeira](ECONOMIA-PRODUTIVIDADE-FINANCAS.md).
+
 ## Próxima etapa de produto
 
 Começar com um ambiente-piloto de logística, cinco personagens sintéticos e seis a nove intervenções. Validar compreensão e equilíbrio com representantes de liderança, RH/SST e trabalhadores antes de multiplicar ambientes. A revisão técnico-científica e jurídica deve preceder qualquer uso como ferramenta profissional de avaliação.
