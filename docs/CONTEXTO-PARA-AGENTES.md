@@ -17,6 +17,8 @@ A intenção é desenvolver a experiência gradualmente, sem perder o jogo exist
 - Deploy de preview Vercel ficou com status **Ready** e o responsável pelo projeto confirmou que abriu a página corretamente.
 - Preview da simulação: [logistica-simulacao.html](https://pilha-plus-game-preview-git-feat-psy-48ab59-andrehecks-projects.vercel.app/logistica-simulacao.html)
 - Preview base do projeto: [pilha-plus-game-preview.vercel.app](https://pilha-plus-game-preview.vercel.app/)
+- **Novo backlog P1:** [Issue #29 — implementar motor de eventos adversos e epidemia recorrente](https://github.com/andreheck/PilhaGameNR1/issues/29).
+- **Especificação aprovada para orientar a implementação:** [Catálogo de eventos adversos](CATALOGO-EVENTOS-ADVERSOS.md).
 
 **Importante:** URLs de preview de branch podem mudar quando novos deploys são criados. Se a URL acima deixar de funcionar, verifique o deployment mais recente da branch no Vercel; não presuma que um deploy antigo representa o código mais novo.
 
@@ -55,6 +57,15 @@ A simulação logística continua sendo uma página independente (`logistica-sim
 3. Preservar as missões e os fluxos existentes; não substituir a experiência principal por uma página isolada.
 4. Garantir comportamento responsivo, acessibilidade básica, navegação por teclado quando aplicável e estados vazios/erro claros.
 5. Testar o caminho completo no preview Vercel, não apenas a abertura direta do HTML.
+
+### P1 — Motor de eventos adversos (novo backlog)
+1. Consultar [Issue #29](https://github.com/andreheck/PilhaGameNR1/issues/29) e o [catálogo de 19 eventos](CATALOGO-EVENTOS-ADVERSOS.md).
+2. Inspecionar o motor atual (`src/psychosocial-simulation.js`), a interface e os testes; adaptar o contrato de dados à arquitetura real antes de codificar.
+3. Implementar eventos configuráveis por gatilhos, probabilidade, gravidade, duração, prevenção, mitigação, efeitos, decisões e histórico.
+4. Implementar primeiro a epidemia como caso de recorrência: taxa-base simulada de 25% na primeira ocorrência, 40% na segunda e 60% na terceira e seguintes, por partida/campanha.
+5. Testar arredondamento e equipes pequenas, duração/recuperação, mitigação, persistência e ausência de contagem dupla.
+6. Depois migrar os demais eventos para o mesmo motor, conectando sinergias de heróis apenas quando pertinentes.
+7. Executar testes automatizados e validação manual desktop/mobile. Percentuais epidemiológicos são parâmetros fictícios de gameplay, não previsões reais.
 
 ### P2 — Tornar as decisões e consequências compreensíveis
 1. Apresentar contexto de missão, objetivo e restrições antes das decisões.
