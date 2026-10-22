@@ -23,6 +23,8 @@ Antes da alteração foram consultadas as branches/contribuições recentes. As 
 - Origem local vazia: jornada missão → como jogar → dupla; seleção principal avança ao apoio, salvar permanece desabilitado enquanto incompleta. Falha de `Storage.setItem` simulada temporariamente por instrumentação, aviso explícito confirmado, método restaurado e salvamento concluído; apresentação recebeu Cientista de Dados + Engenheiro de Segurança.
 - Economia, XP e recompensas não são alterados pela consulta das fichas. Circulação desktop herdada da base permanece ativa por padrão, com pausa visível independente de efeitos decorativos reduzidos.
 
+Na conferência pública, o foco dos cards podia rolar programaticamente o contêiner externo no desktop. O contêiner externo agora usa `overflow: clip`; somente a lista e a ficha rolam, mantendo cabeçalho e controles da dupla visíveis.
+
 ## Limitações e decisões pendentes
 
 A arte visual mantém os retratos aprovados enviados, enquanto os nomes seguem a ficha canônica: Diretor e Engenheiro de Segurança, por exemplo. As novas imagens não substituem GLBs dos NPCs. Habilidades conceituais, energia pessoal e pontos de estratégia exigem regras aprovadas antes de execução; a galeria não as inventa. Não houve nova sessão de quatro horas do ciclo nem teste em todos os navegadores físicos. Merge e aceite final do PO/PM continuam pendentes.
