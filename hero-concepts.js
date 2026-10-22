@@ -1,5 +1,11 @@
-/** Conceptual sheets from PR22 through 1737278; not runtime effect definitions. */
+/** Conceptual sheets from PR22 through b7a9113; not runtime effect definitions. */
 export const HERO_CONCEPTS=Object.freeze({
+ 'PILHA-H06':[
+  {name:'Mapeamento de Talentos',kind:'Passiva',effect:'Proposta: +10% na identificação de compatibilidade entre competências, função e necessidades da equipe, com dados relevantes e suficientes e consideração das condições reais da vaga.'},
+  {name:'Trilha de Desenvolvimento',kind:'Ativa',effect:'Proposta: +15% de efetividade de uma capacitação pertinente por um ciclo, com conteúdo adequado, tempo para aprender e condições inclusivas de aplicação.'},
+  {name:'Equipe que Aprende',kind:'Sinergia',effect:'Proposta: +10% de efetividade para intervenções compatíveis de desenvolvimento e melhoria do trabalho. Não substitui recursos nem mudanças estruturais.'},
+  {name:'Potencial Coletivo',kind:'Especial',effect:'Uma vez por missão, coordena desenvolvimento de até três competências ou grupos compatíveis. Proposta: +20% de efetividade em ações elegíveis, condicionada a planejamento, tempo, recursos e participação, sem bônus ilimitados.'}
+ ],
  'PILHA-H02':[
   {name:'Radar Psicossocial',kind:'Passiva',effect:'Detecta sinais simulados de sobrecarga, baixa autonomia, conflitos e perda de confiança. Proposta: +10% na identificação de riscos quando há dados contextuais suficientes. Identificar não resolve automaticamente.'},
   {name:'Escuta Estratégica',kind:'Ativa',effect:'Apoia comunicação ou conflito interpessoal pertinente. Proposta: reduzir em 15% o impacto simulado dos conflitos por um ciclo, condicionada à participação e à escuta efetivas.'},

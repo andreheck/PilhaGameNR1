@@ -1,6 +1,8 @@
-import {UPGRADES,applyUpgrade} from '../simulation/investment.js';
+import {eventVisuals,eventInflation} from '../simulation/adverse-events.js';
+import {UPGRADES,applyUpgrade,upgradePrice} from '../simulation/investment.js';
 import {transactEconomy,readEconomy} from '../simulation/hero-progression.js';
 import {BASE_AXES,evaluateCampaign} from '../simulation/mission-timeline.js';
+import {companyVisuals} from './company-visuals.js';
 
 // Visual grouping only: never changes unlocking, case data or stored ownership.
 export const SECTOR_CASES = Object.freeze({
@@ -11,7 +13,7 @@ export function mapSnapshot(storage,campaign,caseId){
   const investment=loaded.ok?loaded.state:{budget:0,upgrades:[]};
   const values=campaign?evaluateCampaign(campaign).axes:BASE_AXES;
   const axes=Object.fromEntries(Object.entries(values).map(([key,value])=>[key,Math.round(value*10)/10]));
-  return {balance:investment.budget,owned:investment.upgrades,caseId,axes,
+  return {balance:investment.budget,owned:investment.upgrades,visual:eventVisuals(investment,companyVisuals(investment.upgrades)),prices:Object.fromEntries(UPGRADES.map(u=>[u.id,upgradePrice(investment,u)])),inflation:eventInflation(investment),caseId,axes,
     sharedIndex:Object.values(axes).reduce((a,b)=>a+b,0)/4,
     status:campaign?.status||'not-started',storageAvailable:loaded.ok};
 }

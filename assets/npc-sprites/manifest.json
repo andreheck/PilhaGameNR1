@@ -1,0 +1,23 @@
+[
+  {
+    "key": "operadora",
+    "source": "operadora.glb",
+    "clip": "Walking",
+    "frames": 8,
+    "directions": 4
+  },
+  {
+    "key": "mentor",
+    "source": "mentor-pilha.glb",
+    "clip": "target_character|target_character|target_character|Walking",
+    "frames": 8,
+    "directions": 4
+  },
+  {
+    "key": "mentora",
+    "source": "mentora-biblioteca.glb",
+    "clip": "target_character|target_character|target_character|Walking",
+    "frames": 8,
+    "directions": 4
+  }
+]

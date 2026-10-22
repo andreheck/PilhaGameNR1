@@ -18,6 +18,11 @@ html:has(body.sector-ui){font-size:16px;color-scheme:dark;scrollbar-width:thin;b
 .sector-actions{display:flex;gap:6px;padding:6px 16px;background:#0d2044;flex:none;overflow:auto}
 .sector-actions button{background:transparent;border:1px solid #426291;border-radius:99px;color:#e1eaff;min-height:44px;padding:6px 18px;font:600 13px system-ui;white-space:nowrap;cursor:pointer}
 .sector-actions button:hover{border-color:#ffd24b;color:#ffd24b}
+.sector-toolbar{display:flex;align-items:center;gap:8px;flex:none;background:#0d2044;padding-right:12px;min-width:0}
+.sector-toolbar .sector-actions{flex:1;min-width:0}
+.sector-motion-toggle{flex:none;min-height:44px;padding:8px 16px;border:1px solid #ffd24b;border-radius:12px;background:#ffd24b;color:#172845;font:750 13px system-ui;white-space:nowrap;cursor:pointer}
+.sector-motion-toggle[aria-pressed="false"]{background:#142e59;color:#ffdc65}
+@media(max-width:650px){.sector-toolbar{flex-wrap:wrap;padding:0 10px 6px;gap:2px}.sector-toolbar .sector-actions{flex-basis:100%;padding:4px 0}.sector-motion-toggle{width:100%;min-height:44px}}
 .sector-ui button:focus-visible,.sector-ui a:focus-visible{outline:3px solid #8facff;outline-offset:2px}
 .sector-ui .pm-btn{min-height:44px}
 .sector-ui .pm-ph__dot{background:#ffd24b}

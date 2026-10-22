@@ -144,6 +144,7 @@
   function saveState(st) { try { global.localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { /* sem armazenamento */ } }
 
   function fval(st, sid, fid, lvMap) {
+    if(st.visual && st.visual[sid]) return st.visual[sid][fid];
     if (Number.isFinite(st.sharedIndex)) return st.sharedIndex;
     var v = SEC[sid].base[fid], lv = (lvMap || st.lv)[sid];
     CATALOG.forEach(function (c) { var l = lv[c.id]; for (var k = 0; k < l; k++) v += (c.f[fid] || 0) * EFF[k]; });
@@ -242,6 +243,7 @@
       return SECTORS.map(function (s) { return { key: s.id, name: s.nome, bx: L[s.id][0], by: L[s.id][1] }; });
     }
     function syncEngine(sid, immediate) {
+      if(o.model)iso.setInventory(st.owned||[]);
       FACTORS.forEach(function (f, z) { iso.setHealth(sid, z, fval(st, sid, f.id) / 100, immediate); });
     }
     function sickest() {
@@ -273,14 +275,14 @@
       balBox.classList.remove("is-bump"); void balBox.offsetWidth; balBox.classList.add("is-bump");
     }
     function updateHud() {
-      var c = Math.round(companyHealth(st));
+      var c = Math.round(o.model ? st.sharedIndex : companyHealth(st));
       goalV.textContent = c; goalBar.style.setProperty("--p", c + "%");
       tabs.forEach(function (t) {
         var i = +t.getAttribute("data-i");
         t.setAttribute("aria-pressed", String(i === sel));
         if (i >= 0) {
           var h = health(st, SECTORS[i].id);
-          t.querySelector("em").textContent = Math.round(h) + (o.model ? "/100" : "%");
+          t.querySelector("em").textContent = o.model ? (st.owned.length ? '· em melhoria' : '· observar') : Math.round(h) + '%';
           t.querySelector("i").style.setProperty("--c", hcolor(h));
         }
       });
@@ -633,6 +635,7 @@
     }
     var motion = global.matchMedia("(prefers-reduced-motion: reduce)");
     function onMotion() { reduce = motion.matches; iso.stop(); iso.setStatic(reduce); if (!reduce && !document.hidden) iso.start(); iso.render(); }
+    function setMotion(reduced){reduce=!!reduced;iso.stop();iso.setStatic(reduce);if(!reduce&&!document.hidden)iso.start();iso.render();root.dataset.motion=reduce?'reduced':'on';}
     motion.addEventListener("change", onMotion);
     function destroy() {
       motion.removeEventListener("change", onMotion);
@@ -642,7 +645,7 @@
       if (root.parentNode) root.parentNode.removeChild(root);
     }
     var api = {
-      refresh: refresh, destroy: destroy, root: root, select: select, deselect: deselect, buy: buy, reset: reset,
+      setMotion: setMotion, refresh: refresh, destroy: destroy, root: root, select: select, deselect: deselect, buy: buy, reset: reset,
       state: function () { return JSON.parse(JSON.stringify(st)); },
       health: function (sid) { return health(st, sid); },
       company: function () { return companyHealth(st); },

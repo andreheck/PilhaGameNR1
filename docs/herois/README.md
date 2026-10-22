@@ -23,9 +23,15 @@ Os heróis representam competências complementares para melhorar ambientes de t
 | PILHA-H03 | Cientista de Dados | Ciência de dados / inteligência híbrida | Épico |
 | PILHA-H04 | Engenheiro de Segurança | Higiene Ocupacional / prevenção de riscos | Épico |
 | PILHA-H05 | P&D Tech | Inovação híbrida / transformação organizacional | Lendário |
-| PILHA-H06 | RS & TD | Recursos, talentos e desenvolvimento | A definir |
+| PILHA-H06 | RS & TD | Recrutamento, talentos e desenvolvimento | Épico |
 
-As fichas individuais são documentadas após validação conceitual. Nesta branch, estão documentados o Diretor, a Psicóloga, o Cientista de Dados, o Engenheiro de Segurança e P&D Tech. A ficha de RS & TD ainda está pendente de definição e validação. A raridade dos personagens aprovados poderá ser revista em testes de balanceamento, sem restringir sua seleção durante a beta.
+As seis fichas individuais estão documentadas nesta branch. A raridade dos personagens poderá ser revista em testes de balanceamento, sem restringir sua seleção durante a beta.
+
+## Status de validação conceitual
+
+Em **20/10/2026**, o responsável pelo projeto confirmou o conjunto completo dos seis heróis como validado para fins de conceito e documentação. As fichas atuais passam a ser a referência aprovada para identidade, função, atributos, poderes, progressão e especializações.
+
+Essa validação conceitual não substitui testes de implementação e balanceamento: valores numéricos, frequência de ativação, custos, bônus e sinergias continuam sujeitos a avaliação durante os testes de jogo. Todos os heróis permanecem selecionáveis desde o início da beta, independentemente da raridade.
 
 ## Sistema de progressão
 
@@ -46,4 +52,4 @@ Raridade e acesso são conceitos separados. Na beta, todos os heróis são selec
 - [Herói 03 — Cientista de Dados](cientista-de-dados.md)
 - [Herói 04 — Engenheiro de Segurança](engenheiro-de-seguranca.md)
 - [Herói 05 — P&D Tech](pd-tech.md)
-- Herói 06 — RS & TD (ficha em desenvolvimento)
+- [Herói 06 — RS & TD](rs-td.md)

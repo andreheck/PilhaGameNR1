@@ -142,6 +142,7 @@
       var gi = Math.floor(rand() * 4), gj = Math.floor(rand() * 3);
       var p = look({ gi: gi, gj: gj, pi: -1, pj: -1, x: AX[gi], y: AY[gj], phase: rand() * 6, speed: 0.9 + rand() * 0.6, wait: rand() * 2, moving: true, z: 0 });
       pickNext(p, rand);
+      p.npc = n < 3 ? n : -1;
       people.push(p);
     }
     return { key: key, pal: PALETTES[key], items: items, people: people, zh: [0, 0, 0, 0, 0, 0], lit: [false, false, false, false, false, false], tgt: [0, 0, 0, 0, 0, 0], waves: [], rand: rand };
@@ -162,7 +163,7 @@
     var ctx = canvas.getContext("2d");
     var cw = 1, ch = 1, dpr = 1, s = 1, ox = 0, oy = 0;
     var envs = {}, order = ["escritorio", "producao", "atendimento"];
-    var env = null, time = 0, raf = 0, last = 0, isStatic = false, running = false, sharedIndexMode = false;
+    var env = null, time = 0, raf = 0, last = 0, isStatic = false, running = false, sharedIndexMode = false, inventory = new Set(), npcSheets = [];
     var colors = zoneColors || ["#ffd166", "#48cae4", "#52b788", "#f4a261", "#9b5de5", "#e63946"];
 
     var bx = 0, by = 0, worldCfg = null, cam = { cx: 0, cy: 0, k: 1 }, home = { cx: 0, cy: 0, k: 1 }, s0 = 1,
@@ -194,8 +195,24 @@
     }
 
     function getEnv(key) {
-      if (!envs[key]) envs[key] = buildEnv(key, order.indexOf(key));
+      if (!envs[key]) { envs[key] = buildEnv(key, order.indexOf(key)); applyInstallations(envs[key]); }
       return envs[key];
+    }
+    function applyInstallations(e){
+      e.items=e.items.filter(function(it){return !it.installed;});
+      var additions={
+        'escuta-segura':['table',8.4,4.8,1.5,.8,.5,'#39b9a4',5],
+        'protocolo-antassedio':['board',10.9,1.3,.6,.2,1,'#ffd24b',2],
+        'psicoeducacao':['shelf',8.4,5.8,1.3,.4,1.2,'#9574cc',5],
+        'clima-ventilacao':['plant',11.0,6.4,.5,.5,.45,'#abd9ee',5],
+        'pausas':['sofa',4.6,5.2,1.8,.65,.45,'#3bba98',4],
+        'papel-autonomia':['board',4.5,.6,1.4,.2,.85,'#54cad7',1],
+        'lideranca':['table',8.5,.8,1.4,.75,.55,'#e8c777',2],
+        'conflitos':['table',.7,5.0,1.4,.75,.55,'#6ac2a5',3],
+        'comunicacao-mudancas':['board',5,4.6,1.5,.2,1,'#6a99d8',4],
+        'apoio-retorno':['sofa',8.7,4.9,1.5,.65,.55,'#68c5a4',5]
+      };
+      inventory.forEach(function(id){var a=additions[id];if(a)e.items.push({t:a[0],x:a[1],y:a[2],w:a[3],d:a[4],h:a[5],c:a[6],z:a[7],installed:id});});
     }
 
     function resize() {
@@ -260,9 +277,17 @@
     function drawItem(it, e) {
       var hl = 0.22 + 0.78 * e.zh[it.z], t = time, x = it.x, y = it.y, w = it.w, d = it.d, h = it.h, c = it.c;
       var seed = it.x * 3 + it.y;
+      if(sharedIndexMode){
+        if(inventory.has('ergonomia')&&it.t==='desk'){w+=.22;h+=.12;c='#54b8b0';hl=Math.max(hl,.85);}
+        if(inventory.has('clima-ventilacao'))hl=Math.max(hl,.78);
+        if(inventory.has('apoio-retorno')&&it.t==='sofa'){c='#48b896';w+=.25;h+=.12;hl=.9;}
+        if(inventory.has('psicoeducacao')&&(it.t==='shelf'||it.t==='board')){c='#a286e9';hl=.95;}
+        if(inventory.has('espaco-seguro')&&it.t==='crate'){w*=.78;d*=.78;}
+      }
       if (it.t === "desk") {
         // cadeira
-        box(x + w * 0.35, y + d + 0.08, 0, 0.5, 0.5, 0.45, "#3b4f6b", hl);
+        box(x + w * 0.35, y + d + 0.08, 0, 0.5, 0.5, 0.45, inventory.has('ergonomia')?'#229b8e':"#3b4f6b", hl);
+        if(inventory.has('ergonomia'))box(x+w*.35,y+d+.48,.3,.5,.12,.5,'#229b8e',.95);
         box(x, y, 0, w, d, h, c, hl);
         // monitor
         var mx = x + w * 0.22, my = y + d * 0.2, mw = 0.62, md = 0.08, mh = 0.5;
@@ -333,6 +358,8 @@
       var lean = (1 - hz) * 0.12 * u;
       ell(fx, fy, 0.26 * u, 0.11 * u, "rgba(0,0,0,.28)");
       var hipY = fy - (sit ? 0.42 : 0.62) * u + bob;
+      var sprite = sharedIndexMode && !sit && p.npc >= 0 && npcSheets.length ? npcSheets[(p.npc+Math.max(0,order.indexOf(e.key)))%npcSheets.length] : null;
+      if(!sprite){
       if (!sit) {
         ctx.lineCap = "round"; ctx.lineWidth = 0.13 * u; ctx.strokeStyle = tone("#1e293b", hl, 1);
         var sw = walking ? Math.sin(p.phase) * 0.14 * u : 0;
@@ -345,9 +372,17 @@
       var hr = 0.165 * u, hx = fx + lean * 0.9, hy = hipY - th - hr * 0.75 + (1 - hz) * 0.07 * u;
       ctx.beginPath(); ctx.arc(hx, hy, hr, 0, Math.PI * 2); ctx.fillStyle = tone(p.skin, hl, 1); ctx.fill();
       ctx.beginPath(); ctx.arc(hx, hy - hr * 0.1, hr * 1.02, Math.PI, 0); ctx.fillStyle = tone(p.hair, hl, 1); ctx.fill();
+      }else{
+        var dx=p.tx-p.x,dy=p.ty-p.y;
+        if(p.moving)p.facing=Math.abs(dx)>Math.abs(dy)?(dx>0?0:2):(dy>0?1:3);
+        var frame=walking&&!isStatic?Math.floor(p.phase*1.4)%8:0;
+        var sh=2.15*u,sw=sh*128/192;
+        ctx.drawImage(sprite,frame*128,(p.facing||0)*192,128,192,fx-sw/2,fy-sh,sw,sh);
+        hr=.16*u;hy=fy-1.83*u;
+      }
       // balões de estado
       var cyc = (time * 0.35 + p.seed) % 5;
-      if (hz < 0.35 && cyc < 1.4) {
+      if (hz < 0.35 && (cyc < 1.4 || isStatic && !sit && p.seed < 4)) {
         var by = hy - hr * 2.1;
         ctx.beginPath(); ctx.arc(fx, by, 0.2 * u, 0, 7); ctx.fillStyle = "#e63946"; ctx.fill();
         ctx.fillStyle = "#fff"; ctx.font = "800 " + Math.max(8, Math.round(0.28 * u)) + "px Inter,system-ui,sans-serif";
@@ -513,7 +548,10 @@
         for (var b = a + 1; b < worldCfg.length; b++) {
           var A = worldCfg[a], B = worldCfg[b];
           var p1 = P(A.bx + W / 2, A.by + D / 2, -SLAB), p2 = P(B.bx + W / 2, B.by + D / 2, -SLAB);
-          ctx.strokeStyle = "rgba(255,210,75," + (0.12 + 0.4 * (avgH(A.env) + avgH(B.env)) / 2) + ")";
+          ctx.setLineDash([]);ctx.lineWidth=Math.max(14,32*s);ctx.strokeStyle='#263f51';
+          ctx.beginPath();ctx.moveTo(p1[0],p1[1]);ctx.lineTo(p2[0],p2[1]);ctx.stroke();
+          ctx.setLineDash([7*s,7*s]);ctx.lineWidth=Math.max(1.5,2*s);
+          ctx.strokeStyle = '#e6c867';
           ctx.beginPath(); ctx.moveTo(p1[0], p1[1]); ctx.lineTo(p2[0], p2[1]); ctx.stroke();
         }
       }
@@ -605,6 +643,8 @@
 
     return {
       setSharedIndexMode: function (value) { sharedIndexMode = !!value; render(); },
+      setInventory:function(ids){if(JSON.stringify(Array.from(inventory))===JSON.stringify(ids))return;inventory=new Set(ids);Object.keys(envs).forEach(function(k){applyInstallations(envs[k]);});if(!running)render();},
+      setNpcSheets:function(sheets){npcSheets=sheets;render();},
       resize: resize,
       setWorld: function (defs, names) {
         worldCfg = defs.map(function (d) { return { key: d.key, name: d.name, bx: d.bx, by: d.by, env: getEnv(d.key) }; });

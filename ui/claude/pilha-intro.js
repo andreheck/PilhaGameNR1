@@ -69,27 +69,6 @@
 
   var uid = 0;
 
-  function logoSvg(prefix) {
-    // Símbolo PilhA+ (branding/pilha-symbol-glow.svg), com ids únicos por instância.
-    return (
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 560" role="img" aria-label="Símbolo PilhA+">' +
-      "<defs>" +
-      '<linearGradient id="' + prefix + 'g" x1="120" y1="50" x2="370" y2="455" gradientUnits="userSpaceOnUse">' +
-      '<stop offset="0" stop-color="#fff9a8"/><stop offset=".18" stop-color="#fff200"/>' +
-      '<stop offset=".58" stop-color="#ffd200"/><stop offset="1" stop-color="#ff9f00"/></linearGradient>' +
-      '<linearGradient id="' + prefix + 'e" x1="120" y1="60" x2="410" y2="430" gradientUnits="userSpaceOnUse">' +
-      '<stop stop-color="#fff"/><stop offset=".34" stop-color="#fff56a"/>' +
-      '<stop offset=".68" stop-color="#ffb000"/><stop offset="1" stop-color="#ff7a00"/></linearGradient>' +
-      "</defs>" +
-      '<path fill="url(#' + prefix + 'g)" fill-rule="evenodd" stroke="#ffae00" stroke-width="7" stroke-linejoin="round" ' +
-      'd="M142 46h182c89 0 145 53 134 132-9 70-62 108-135 108h-52L155 500l33-198h-83L142 46Zm81 86-14 93h110c32 0 51-18 56-49 4-29-16-44-47-44H223Z"/>' +
-      '<path fill="none" stroke="url(#' + prefix + 'e)" stroke-linecap="round" stroke-linejoin="round" stroke-width="11" opacity=".92" ' +
-      'd="M151 60h169c69 0 112 34 119 87M119 286l35-226M164 459l34-170"/>' +
-      '<path fill="none" stroke="#fffbd0" stroke-linecap="round" stroke-width="4" opacity=".88" d="M160 72h158c50 0 84 19 100 51"/>' +
-      "</svg>"
-    );
-  }
-
   function orbitHtml(prefix, colors) {
     return (
       '<div class="pi-orbit__ring" aria-hidden="true"></div>' +
@@ -98,7 +77,7 @@
       '<i class="pi-orbit__orb pi-orbit__orb--b" style="--c:' + colors[1] + '"></i></div>' +
       '<div class="pi-orbit__sat pi-orbit__sat--inner" aria-hidden="true">' +
       '<i class="pi-orbit__orb" style="--c:' + colors[2] + '"></i></div>' +
-      '<div class="pi-logo">' + logoSvg(prefix) + "</div>"
+      '<div class="pi-logo"><img src="/assets/branding/pilha-logo-puro.png" width="1280" height="1280" alt="Símbolo PilhA+"></div>'
     );
   }
 
@@ -112,7 +91,11 @@
     var o = Object.assign({}, DEFAULTS, userOpts || {});
     var id = "pi" + ++uid + "-";
     var host = o.container || document.body;
-    var reduce = global.matchMedia && global.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var motion = global.matchMedia("(prefers-reduced-motion: reduce)");
+    var reduce = motion.matches, motionChoice;
+    try { motionChoice=global.localStorage.getItem('pilha-motion-v1'); } catch (_) {}
+    if(motionChoice==='on')reduce=false;
+    if(motionChoice==='off')reduce=true;
     var signals = o.signals, envs = o.environments, hints = o.hints;
     var cur = 0; // ambiente atual
     var timers = [];
@@ -156,7 +139,7 @@
       // ----- Etapa 2: convite -----
       '<section class="pi-stage pi-invite" hidden>' +
       '<header class="pi-top">' +
-      '<div class="pi-brand">PilhA<b>+</b> Game<small>GESTÃO &amp; CUIDADO</small></div>' +
+      '<div class="pi-brand-group"><div class="pi-orbit pi-brand-mark" aria-hidden="true">'+orbitHtml(id+'b',["#ffd166", "#48cae4", "#e63946"])+'</div><div class="pi-brand">PilhA<b>+</b> Game<small>GESTÃO &amp; CUIDADO</small></div></div>' +
       '<span class="pi-badge">ALPHA 1.5</span></header>' +
       '<div class="pi-scene">' +
       '<div class="pi-field" role="group" aria-label="Ambiente de trabalho adoecido, visto de cima">' +
@@ -173,7 +156,7 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>' +
       '<button type="button" class="pi-skip">Pular introdução</button>' +
       '<p class="pi-disclaimer">Simulação fictícia para aprendizagem. Não substitui avaliação profissional, clínica ou jurídica.</p>' +
-      "</div></section>";
+      '</div></section><button type="button" class="pi-motion"></button>';
 
     host.appendChild(root);
 
@@ -188,6 +171,16 @@
     var hint = root.querySelector(".pi-hint");
     var cta = root.querySelector(".pi-cta");
     var skip = root.querySelector(".pi-skip");
+    var motionButton=root.querySelector('.pi-motion');
+    function applyMotion(){
+      root.dataset.motion=reduce?'reduced':'on';
+      motionButton.textContent=reduce?'Ativar animações':'Pausar animações';
+      motionButton.setAttribute('aria-pressed',String(!reduce));
+      if(iso){iso.stop();iso.setStatic(motionChoice==='off');iso.render();if(!document.hidden&&!invite.hidden)iso.start();}
+    }
+    motionButton.addEventListener('click',function(){reduce=!reduce;motionChoice=reduce?'off':'on';try{global.localStorage.setItem('pilha-motion-v1',motionChoice);}catch(_){}applyMotion();});
+    function onSystemMotion(){if(motionChoice!=='on'&&motionChoice!=='off'){reduce=motion.matches;applyMotion();}}
+    motion.addEventListener('change',onSystemMotion);
 
     function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
 
@@ -298,6 +291,7 @@
       if (ro) ro.disconnect();
       global.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVis);
+      motion.removeEventListener('change',onSystemMotion);
       root.removeEventListener("click", onNode);
       if (root.parentNode) root.parentNode.removeChild(root);
     }
@@ -306,7 +300,8 @@
     function onVis() { if (document.hidden) iso.stop(); else if (!invite.hidden) iso.start(); }
 
     iso = global.PilhaIso.create(canvas, signals.map(function (s) { return s.color; }));
-    iso.setStatic(!!reduce);
+    iso.setStatic(motionChoice==='off');
+    applyMotion();
     iso.setEnv(envKey());
     selectEnv(0, false);
 

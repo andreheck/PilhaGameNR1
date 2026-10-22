@@ -113,6 +113,21 @@
   animation: pi-breathe 3.2s ease-in-out infinite;
 }
 .pi-logo svg { display: block; width: 100%; height: auto; }
+.pi-logo img{display:block;width:100%;height:auto;object-fit:contain}
+.pi-brand-group{display:flex;align-items:center;gap:20px}
+.pi-brand-mark{--pi-orbit-size:54px}
+.pi-brand-mark .pi-logo{width:88%}
+.pi-brand-mark .pi-orbit__orb{width:7px;height:7px;margin-left:-3.5px;top:-3.5px}
+.pi-brand-mark .pi-orbit__orb--b{top:auto;bottom:-3.5px}
+.pi-motion{position:fixed;right:16px;bottom:12px;z-index:2;min-height:44px;padding:10px 14px;border:1px solid #536c90;border-radius:12px;background:#10243bef;color:#eff6ff;font:600 12px system-ui;cursor:pointer}
+.pi-motion:focus-visible{outline:3px solid #ffd24b;outline-offset:3px}
+.pi-root[data-motion="reduced"] .pi-orbit__ring,.pi-root[data-motion="reduced"] .pi-orbit__sat,.pi-root[data-motion="reduced"] .pi-logo,.pi-root[data-motion="reduced"] .pi-node__body,.pi-root[data-motion="reduced"] .pi-node__orb{animation-play-state:paused!important}
+/* Explicit game opt-in must also override the legacy shell's global reduce rule. */
+.pi-root[data-motion="on"] .pi-orbit__ring{animation:pi-spin 20s linear infinite!important}
+.pi-root[data-motion="on"] .pi-orbit__sat{animation:pi-spin 18s linear infinite reverse!important}
+.pi-root[data-motion="on"] .pi-orbit__sat--inner{animation:pi-spin 14s linear infinite!important}
+.pi-root[data-motion="on"] .pi-logo{animation:pi-breathe 3.2s ease-in-out infinite!important}
+.pi-invite{padding-bottom:72px}
 
 @keyframes pi-spin { to { transform: rotate(360deg); } }
 @keyframes pi-breathe {
@@ -477,7 +492,7 @@
 
 /* ---------- Movimento reduzido ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .pi-orbit__ring, .pi-orbit__sat, .pi-logo, .pi-node__body, .pi-node__orb,
+  .pi-root:not([data-motion="on"]) .pi-orbit__ring, .pi-root:not([data-motion="on"]) .pi-orbit__sat, .pi-root:not([data-motion="on"]) .pi-logo, .pi-root:not([data-motion="on"]) .pi-node__body, .pi-root:not([data-motion="on"]) .pi-node__orb,
   .pi-cta.is-ready, .pi-wordmark, .pi-tagline, .pi-loading { animation: none !important; }
   .pi-iso { transition: none; }
   .pi-loading i { animation-duration: 0.01ms !important; }
