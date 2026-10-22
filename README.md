@@ -8,6 +8,7 @@ Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.
 - **Novo protótipo de gestão de ambiente logístico:** abrir `/logistica-simulacao.html` na prévia da branch ou consultar [a tela no GitHub](logistica-simulacao.html).
 - **Especificação do gameplay psicossocial:** [Documento](docs/GAMEPLAY-SIMULACAO-PSICOSSOCIAL.md).
 - **Catálogo de eventos adversos:** [19 eventos em cinco categorias, incluindo epidemia recorrente](docs/CATALOGO-EVENTOS-ADVERSOS.md).
+- **Ícones visuais dos eventos:** [Mapeamento de assets e instruções de integração para Codex](docs/REFERENCIA-ICONES-EVENTOS.md) — manter IDs e parâmetros existentes.
 - **Economia e produtividade sustentável:** [Especificação financeira](docs/ECONOMIA-PRODUTIVIDADE-FINANCAS.md).
 - **Backlog de implementação:** [Issue #29 — motor de eventos adversos e epidemia recorrente](https://github.com/andreheck/PilhaGameNR1/issues/29) · [Issue #30 — economia, entrega, caixa e contas mensais](https://github.com/andreheck/PilhaGameNR1/issues/30).
 - **Contexto para continuidade:** [Handoff técnico](docs/CONTEXTO-PARA-AGENTES.md) · [Prompt pronto para Manus/Codex](docs/PROMPT-PARA-AGENTE-MANUS-CODEX.md).
