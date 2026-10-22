@@ -103,8 +103,8 @@
   var CAT = {}; CATALOG.forEach(function (c, i) { c.i = i; CAT[c.id] = c; });
 
   var LAYOUTS = {
-    wide: { escritorio: [0, 0], producao: [14, -3], atendimento: [-2, 13] },
-    tall: { escritorio: [0, 0], producao: [14, 14], atendimento: [28, 28] }
+    wide: { escritorio: [0, 0], producao: [14, 0], atendimento: [0, 10] },
+    tall: { escritorio: [0, 0], producao: [10, 10], atendimento: [20, 20] }
   };
 
   /* ---------- utilidades ---------- */
@@ -256,9 +256,9 @@
       var w = view.clientWidth, h = view.clientHeight;
       if (!force && Math.abs(w - lastW) < 2 && Math.abs(h - lastH) < 2) return;
       lastW = w; lastH = h;
-      var tall = h > w * 1.05;
+      var tall = root.clientHeight > root.clientWidth * 1.05;
       if (tall !== curTall) { curTall = tall; iso.setWorld(layoutDefs(tall), FACTORS.map(function (f) { return f.nome; })); iso.resize(); refocus(0); return; }
-      iso.resize(); refocus(0);
+      iso.resize(); refocus(reduce ? 0 : .55);
     }
 
     /* --- HUD --- */
@@ -391,7 +391,7 @@
       root.classList.toggle("has-panel", sel >= 0);
       // força o layout novo antes de reenquadrar a câmera
       void view.offsetWidth; lastW = view.clientWidth; lastH = view.clientHeight;
-      var tall = lastH > lastW * 1.05;
+      var tall = root.clientHeight > root.clientWidth * 1.05;
       if (tall !== curTall) { curTall = tall; iso.setWorld(layoutDefs(tall), FACTORS.map(function (f) { return f.nome; })); }
       iso.resize();
     }
