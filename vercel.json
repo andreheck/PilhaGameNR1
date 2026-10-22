@@ -3,7 +3,8 @@
   "git": {
     "deploymentEnabled": {
       "codex/ux-tres-setores": false,
-      "codex/jornada-npcs-empresa": false
+      "codex/jornada-npcs-empresa": false,
+      "codex/galeria-herois-canonica": false
     }
   }
 }

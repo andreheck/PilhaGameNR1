@@ -1,73 +1,59 @@
-import {heroLevel} from './simulation/hero-progression.js';
 import {readTimeline} from './simulation/mission-timeline.js';
-import {HERO_ROSTER,getHero} from './hero-roster.js';
+import {getHero} from './hero-roster.js';
 import {getHeroTeam,saveHeroTeam,validateHeroPair} from './simulation/hero-team.js';
+import {buildHeroGalleryData,heroHistory} from './ui/hero-gallery-data.js';
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const storage=()=>{try{return window.localStorage;}catch{return null;}};
-let dialog=null,context={caseId:'01',view:'casos',host:null},editingCase='01',draft={},activeRole='principal',opener=null;
+let dialog=null,gallery=null,context={caseId:'01',view:'casos',host:null},editingCase='01',draft={},activeRole='principal',opener=null,readOnly=false,notice='';
 function summary(pair){return pair?getHero(pair.principal).name+' + '+getHero(pair.support).name:'Principal + apoio';}
-/** Called after the host panel renders; does not change the existing game state. */
 export function renderHeroTeamLauncher(host,view,caseId){
-  context={host,view,caseId};
-  if(!host||!['casos','equipe'].includes(view))return;
-  const body=host.querySelector('.panel-body');if(!body)return;
-  body.querySelector('.hero-launcher')?.remove();
-  const runningCampaign=readTimeline(storage()).campaigns[caseId];const pair=runningCampaign?.team||getHeroTeam(storage(),caseId);
-  const section=document.createElement('section');section.className='hero-launcher';
-  section.innerHTML=`<div><span class="hero-eyebrow">DUPLA DA MISSÃO · PRÉVIA BETA</span><strong>${escape(summary(pair))}</strong><small>Caso ${escape(caseId)} · ${pair?'dupla salva neste navegador':'escolha duas competências complementares'}</small></div><button type="button" class="hero-open" aria-haspopup="dialog">${runningCampaign?'Dupla em missão':pair?'Alterar dupla':'Formar dupla'} <span aria-hidden="true">↗</span></button>`;
-  section.querySelector('button').disabled=!!runningCampaign;section.querySelector('button').title=runningCampaign?'A dupla é preservada durante este ciclo. Consulte Habilidades e ciclo no mapa.':'';section.querySelector('button').addEventListener('click',e=>openHeroTeam(caseId,e.currentTarget));
-  body.prepend(section);
+ context={host,view,caseId};if(!host||!['casos','equipe'].includes(view))return;
+ const body=host.querySelector('.panel-body');if(!body)return;body.querySelector('.hero-launcher')?.remove();
+ const running=readTimeline(storage()).campaigns[caseId],pair=running?.team||getHeroTeam(storage(),caseId);
+ const section=document.createElement('section');section.className='hero-launcher';
+ section.innerHTML=`<div><span class="hero-eyebrow">DUPLA DA MISSÃO · GALERIA DOS HERÓIS</span><strong>${escape(summary(pair))}</strong><small>Caso ${escape(caseId)} · ${running?'dupla preservada no ciclo':pair?'dupla salva neste navegador':'escolha duas competências complementares'}</small></div><button type="button" class="hero-open" aria-haspopup="dialog">${running?'Consultar dupla':pair?'Ver galeria / alterar dupla':'Formar dupla'} ↗</button>`;
+ section.querySelector('button').addEventListener('click',e=>openHeroTeam(caseId,e.currentTarget));body.prepend(section);
+}
+function paintControls(focus){
+ const controls=gallery?.root.querySelector('.ph-team-bar');if(!controls)return;
+ const complete=!validateHeroPair(editingCase,draft);
+ controls.innerHTML=`<div class="ph-team-intro"><strong id="hero-team-title">${readOnly?'Dupla em missão':'Forme sua dupla'}</strong><span id="hero-team-intro">Caso ${editingCase} · ${readOnly?'Consulta das fichas; composição preservada durante o ciclo.':'Escolha um principal e um apoio diferentes. Salvar não aplica bônus nem gasta créditos.'}</span></div><div class="ph-team-slots">${['principal','support'].map(role=>`<button type="button" data-hero-role="${role}" aria-pressed="${activeRole===role}" ${readOnly?'disabled':''}><small>${role==='principal'?'01 · PRINCIPAL':'02 · APOIO'}</small><strong>${escape(getHero(draft[role])?.name||'Escolher herói')}</strong></button>`).join('')}</div><div class="ph-team-actions"><p class="hero-notice" role="status">${escape(notice||(readOnly?'A dupla fica preservada até o encerramento do ciclo.':complete?'Dupla completa. Confira e salve.':'Abra uma ficha e escolha o herói '+(activeRole==='support'?'de apoio.':'principal.')))}</p><button type="button" data-hero-swap ${readOnly||!draft.principal&&!draft.support?'disabled':''}>Trocar funções</button><button type="button" class="ph-team-save" data-hero-save ${readOnly||!complete?'disabled':''}>${readOnly?'Dupla preservada':'Salvar dupla →'}</button><button type="button" data-hero-close aria-label="Fechar seleção de heróis">${readOnly?'Voltar ao jogo':'Cancelar'}</button></div>`;
+ gallery.setSelection(draft[activeRole],{...draft},activeRole,readOnly);
+ if(focus)controls.querySelector(focus)?.focus({preventScroll:true});
+}
+function openHistory(hero){
+ const history=heroHistory(storage(),hero.id),h=document.createElement('dialog');h.className='hero-history';h.setAttribute('aria-label','Histórico de '+hero.nome);
+ h.innerHTML=`<header><h2>${escape(hero.nome)} · Histórico</h2><button type="button" aria-label="Fechar histórico">×</button></header>${history.available?`<p>XP conquistado: <b>${history.earnedXp}</b> · Formação: <b>${history.trainingXp} XP</b></p><ul>${history.entries.map(e=>`<li>Caso ${e.caseId} · ${escape(e.label)} · +${e.xp} XP${e.at>0?' · '+new Date(e.at).toLocaleDateString('pt-BR'):''}</li>`).join('')||'<li>Nenhuma recompensa de missão registrada para este herói.</li>'}</ul><p>A formação aparece pelo total de XP salvo. Não são inventadas datas ou conquistas.</p>`:'<p>Os dados locais não puderam ser validados. Seu progresso foi preservado.</p>'}`;
+ document.body.append(h);const source=document.activeElement;h.querySelector('button').onclick=()=>h.close();h.addEventListener('close',()=>{h.remove();if(source?.isConnected)source.focus();},{once:true});h.showModal();
 }
 function ensureDialog(){
-  if(dialog)return;
-  dialog=document.createElement('dialog');dialog.className='hero-dialog';dialog.id='hero-team-dialog';dialog.setAttribute('aria-labelledby','hero-team-title');dialog.setAttribute('aria-describedby','hero-team-intro');
-  dialog.addEventListener('click',event=>{
-    const btn=event.target.closest('button');if(!btn)return;
-    if(btn.hasAttribute('data-hero-close')){dialog.close();return;}
-    if(btn.dataset.heroRole){activeRole=btn.dataset.heroRole;paint(btn.dataset.heroRole);return;}
-    if(btn.dataset.heroId){
-      const id=btn.dataset.heroId,other=activeRole==='principal'?'support':'principal';
-      if(draft[other]===id){announce('Este herói já ocupa a outra posição. Escolha outro ou use Trocar funções.');return;}
-      draft[activeRole]=id;
-      if(activeRole==='principal'&&!draft.support)activeRole='support';
-      paint(id);return;
-    }
-    if(btn.hasAttribute('data-hero-swap')){[draft.principal,draft.support]=[draft.support,draft.principal];paint('swap');return;}
-    if(btn.hasAttribute('data-hero-save')){
-      if(readTimeline(storage()).campaigns[editingCase]){announce('Esta dupla já iniciou um ciclo e está preservada. Feche para acompanhar a missão.');return;}
-      const result=saveHeroTeam(storage(),editingCase,draft);
-      if(!result.ok){announce(result.error==='storage-unavailable'?'O navegador não permitiu salvar. Sua seleção continua aberta; nenhum progresso do jogo foi alterado.':'Escolha dois heróis diferentes antes de salvar.');return;}
-      document.dispatchEvent(new CustomEvent('pilha:hero-team-saved',{detail:{caseId:editingCase,team:{...result.team},bonusesApplied:false}}));
-      dialog.close();renderHeroTeamLauncher(context.host,context.view,context.caseId);
-      context.host?.querySelector('.hero-open')?.focus();
-    }
-  });
-  dialog.addEventListener('close',()=>{if(opener?.isConnected)opener.focus();});
-  document.body.appendChild(dialog);
-}
-function announce(message){const el=dialog.querySelector('.hero-notice');if(el)el.textContent=message;}
-function paint(focus){
-  const complete=!validateHeroPair(editingCase,draft),roleName=activeRole==='principal'?'principal':'de apoio';
-  dialog.innerHTML=`<header class="hero-header"><div><span class="hero-eyebrow">PILHA+ GAME · LABORATÓRIO DA BETA</span><h2 id="hero-team-title">Forme sua dupla.</h2><p id="hero-team-intro">Caso ${escape(editingCase)}. Um herói principal e um de apoio, com competências complementares.</p></div><button type="button" class="hero-close" data-hero-close aria-label="Fechar seleção de heróis">×</button></header>
-  <div class="hero-content"><div class="hero-roles" aria-label="Posição a preencher">${['principal','support'].map(role=>`<button type="button" class="hero-slot ${activeRole===role?'is-active':''} ${draft[role]?'is-filled':''}" data-hero-role="${role}" aria-pressed="${activeRole===role}"><span>${role==='principal'?'01 · PRINCIPAL':'02 · APOIO'}</span><strong>${escape(getHero(draft[role])?.name||'Escolher herói')}</strong><small>${role==='principal'?'Define a abordagem':'Complementa a equipe'}</small></button>`).join('')}</div>
-  <p class="hero-selection-label">Escolha o herói <strong>${roleName}</strong><span>6 disponíveis · sem bloqueio por raridade</span></p>
-  <div class="hero-grid">${HERO_ROSTER.map(hero=>{const role=draft.principal===hero.id?'Principal':draft.support===hero.id?'Apoio':null;return `<button type="button" class="hero-card ${role?'is-selected':''}" data-hero-id="${hero.id}" aria-pressed="${draft[activeRole]===hero.id}"><span class="hero-icon" aria-hidden="true">${hero.initials}</span><span class="hero-card-text"><span class="hero-card-top"><strong>${escape(hero.name)}</strong><span class="hero-level-inline">Nv. ${heroLevel(storage(),hero.id)}</span>${role?`<span class="hero-role-badge">${role}</span>`:''}</span><span class="hero-specialization">${escape(hero.specialization)}</span><small>${escape(hero.status)}${hero.rarity!=='A definir'?' · '+escape(hero.rarity):''}</small></span></button>`;}).join('')}</div>
-  <aside class="hero-scope-note"><strong>Seleção experimental, sem bônus automáticos.</strong> A dupla fica salva para testar a composição da equipe. Poderes, sinergias, números e novos modelos 3D ainda dependem de validação. Os modelos 3D existentes permanecem na biblioteca. A nota e o ciclo mantêm suas regras.</aside>
-  </div><footer class="hero-footer"><p class="hero-notice" role="status" aria-live="polite">${complete?'Dupla completa. Pronta para salvar.':'Selecione dois heróis diferentes.'}</p><div><button type="button" class="hero-secondary" data-hero-swap ${!draft.principal&&!draft.support?'disabled':''}>Trocar funções</button><button type="button" class="hero-save" data-hero-save ${complete?'':'disabled'}>Salvar dupla <span aria-hidden="true">→</span></button></div></footer>`;
-  const target=focus==='swap'?dialog.querySelector('[data-hero-swap]'):['principal','support'].includes(focus)?dialog.querySelector(`[data-hero-role="${focus}"]`):focus?dialog.querySelector(`[data-hero-id="${focus}"]`):null;
-  target?.focus();
+ if(dialog)return;dialog=document.createElement('dialog');dialog.className='hero-gallery-dialog';dialog.id='hero-team-dialog';dialog.setAttribute('aria-labelledby','hero-team-title');dialog.setAttribute('aria-describedby','hero-team-intro');document.body.append(dialog);
+ dialog.addEventListener('close',()=>{gallery?.destroy();gallery=null;if(opener?.isConnected)opener.focus();else context.host?.querySelector('.hero-open')?.focus();});
+ dialog.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.hasAttribute('data-hero-close')){dialog.close();return;}
+  if(b.dataset.heroRole){activeRole=b.dataset.heroRole;notice='';paintControls(`[data-hero-role="${activeRole}"]`);return;}
+  if(b.hasAttribute('data-hero-swap')){if(readOnly)return;[draft.principal,draft.support]=[draft.support,draft.principal];notice='Funções trocadas. Salve para confirmar.';paintControls('[data-hero-swap]');return;}
+  if(!b.hasAttribute('data-hero-save'))return;
+  if(readTimeline(storage()).campaigns[editingCase]){notice='Esta dupla já iniciou um ciclo e está preservada.';readOnly=true;paintControls();return;}
+  const result=saveHeroTeam(storage(),editingCase,draft);
+  if(!result.ok){notice=result.error==='storage-unavailable'?'O navegador não permitiu salvar. A seleção permanece aberta e nenhum progresso foi alterado.':'Escolha dois heróis diferentes.';paintControls();return;}
+  document.dispatchEvent(new CustomEvent('pilha:hero-team-saved',{detail:{caseId:editingCase,team:{...result.team},bonusesApplied:false}}));dialog.close();renderHeroTeamLauncher(context.host,context.view,context.caseId);
+ });
 }
 function openHeroTeam(caseId,source){
-  if(readTimeline(storage()).campaigns[caseId])return;
-  ensureDialog();editingCase=caseId;opener=source;const saved=getHeroTeam(storage(),caseId);draft=saved?{principal:saved.principal,support:saved.support}:{};activeRole='principal';paint();dialog.showModal();dialog.querySelector('[data-hero-role="principal"]').focus();
+ ensureDialog();editingCase=caseId;opener=source;const campaign=readTimeline(storage()).campaigns[caseId],saved=campaign?.team||getHeroTeam(storage(),caseId);draft=saved?{principal:saved.principal,support:saved.support}:{};activeRole='principal';readOnly=!!campaign;notice='';
+ gallery?.destroy();dialog.innerHTML='';
+ gallery=window.PilhaHerois.mount({container:dialog,data:buildHeroGalleryData(storage()),persist:false,selectedId:draft.principal,roles:{...draft},activeRole,readOnly,toolbarHtml:'<section class="ph-team-bar" aria-label="Escolha do principal e apoio"></section>',onClose:()=>dialog.close(),onHistory:openHistory,onSelect:hero=>{
+  if(readOnly||readTimeline(storage()).campaigns[editingCase]){notice='O ciclo já começou; a dupla está preservada.';readOnly=true;paintControls();return;}
+  const other=activeRole==='principal'?'support':'principal';if(draft[other]===hero.id){notice='Este herói já ocupa a outra posição. Escolha outro ou troque as funções.';paintControls();return;}
+  draft[activeRole]=hero.id;notice='';if(activeRole==='principal'&&!draft.support)activeRole='support';paintControls();gallery.closeProfile();
+  gallery.root.querySelector(!validateHeroPair(editingCase,draft)?'[data-hero-save]':`[data-hero-role="${activeRole}"]`)?.focus({preventScroll:true});
+ }});
+ paintControls();dialog.showModal();gallery.root.querySelector(readOnly?'.ph-back':'[data-hero-role="principal"]')?.focus();
 }
-
 document.addEventListener('pilha:campaign-change',()=>renderHeroTeamLauncher(context.host,context.view,context.caseId));
 export function chooseInitialPair(source){
- const frozen=readTimeline(storage()).campaigns['01']?.team;
- if(frozen)return Promise.resolve(frozen);
- return new Promise(resolve=>{
-  openHeroTeam('01',source);
-  dialog.addEventListener('close',()=>resolve(getHeroTeam(storage(),'01')||null),{once:true});
- });
+ const frozen=readTimeline(storage()).campaigns['01']?.team;if(frozen)return Promise.resolve(frozen);
+ return new Promise(resolve=>{openHeroTeam('01',source);dialog.addEventListener('close',()=>resolve(getHeroTeam(storage(),'01')||null),{once:true});});
 }
