@@ -32,3 +32,9 @@ Navegador: fluxo novo completo; cancelamento e herói duplicado; retorno preserv
 ## Limitações e pendências
 
 Não há novos poderes temporais dos heróis, backend ou economia financeira mensal. Os seis fatores dos eventos afetam o cenário ilustrativo e o caixa; não alteram retroativamente notas pedagógicas nem representam probabilidades de adoecimento. Não foi feita auditoria Lighthouse ou teste com leitor de tela dedicado. Persistência local continua sendo protótipo; fallback de transação sem Web Locks tem garantia apenas em uma aba. Novos visuais dos heróis, homologação pelo PM/PO e merge permanecem pendentes. Publicação e SHA final devem constar na PR e no relatório final.
+
+## Correção de movimento desktop — 22/10/2026
+
+Após o PM relatar que não localizava o controle, foi reproduzido `prefers-reduced-motion: reduce` no desktop. A preferência decorativa estava desligando também a circulação de gameplay. Agora os trabalhadores circulam por padrão no desktop e no mobile; efeitos decorativos continuam seguindo a preferência do sistema. Pausa explícita salva pelo jogador continua respeitada. O botão saiu da faixa horizontal rolável e permanece visível ao lado dela no desktop, e em linha própria no mobile. Também foram corrigidas a aplicação apenas em sessão quando o armazenamento falha e a sincronização de preferências entre abas.
+
+QA: navegador desktop com preferência reduzida ativa e chave de preferência ausente: posições dos trabalhadores da Produção mudaram entre amostras. Ao pausar, as posições permaneceram idênticas; ao retomar, a circulação voltou. Os 17 arquivos de testes passaram, com regressão nova separando circulação e efeitos decorativos. Mudança dirigida pelo pedido posterior do PM para funcionamento desktop; substitui o comportamento estático herdado do guia Claude para a circulação.

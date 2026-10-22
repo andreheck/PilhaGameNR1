@@ -176,7 +176,7 @@
       root.dataset.motion=reduce?'reduced':'on';
       motionButton.textContent=reduce?'Ativar animações':'Pausar animações';
       motionButton.setAttribute('aria-pressed',String(!reduce));
-      if(iso){iso.stop();iso.setStatic(reduce);iso.render();if(!document.hidden&&!invite.hidden)iso.start();}
+      if(iso){iso.stop();iso.setStatic(motionChoice==='off');iso.render();if(!document.hidden&&!invite.hidden)iso.start();}
     }
     motionButton.addEventListener('click',function(){reduce=!reduce;motionChoice=reduce?'off':'on';try{global.localStorage.setItem('pilha-motion-v1',motionChoice);}catch(_){}applyMotion();});
     function onSystemMotion(){if(motionChoice!=='on'&&motionChoice!=='off'){reduce=motion.matches;applyMotion();}}
@@ -300,7 +300,7 @@
     function onVis() { if (document.hidden) iso.stop(); else if (!invite.hidden) iso.start(); }
 
     iso = global.PilhaIso.create(canvas, signals.map(function (s) { return s.color; }));
-    iso.setStatic(!!reduce);
+    iso.setStatic(motionChoice==='off');
     applyMotion();
     iso.setEnv(envKey());
     selectEnv(0, false);

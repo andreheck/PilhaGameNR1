@@ -11,3 +11,9 @@ export function motionPreference(storage,systemReduced){
  let value;try{value=storage.getItem('pilha-motion-v1');}catch{}
  return value==='on'?false:value==='off'?true:systemReduced;
 }
+// Circulation is gameplay feedback. Default is identical on desktop and mobile;
+// reduced-motion still controls decorative effects through motionPreference.
+export function workerMotionPreference(storage){
+ let value;try{value=storage.getItem('pilha-motion-v1');}catch{}
+ return value==='off';
+}

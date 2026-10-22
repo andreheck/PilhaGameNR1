@@ -3,7 +3,7 @@ import {UPGRADES} from '../simulation/investment.js';
 import {AXIS_LABELS} from '../simulation/mission-timeline.js';
 import {CASES} from '../cases-data.js';
 import {SECTOR_CASES,mapSnapshot,purchaseMapUpgrade} from './sector-model.js';
-import {motionPreference} from './company-visuals.js';
+import {motionPreference,workerMotionPreference} from './company-visuals.js';
 
 const esc=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=n=>n.toLocaleString('pt-BR');
@@ -75,17 +75,19 @@ export function mountSectorMap({host,panel,campaign,caseId,onPurchase,openView,c
   actions.className='sector-actions';actions.setAttribute('aria-label','Ações do acionista');
   actions.innerHTML=[['casos','Missões'],['equipe','Equipe'],['investimentos','Inventário'],['biblioteca','Biblioteca'],['progresso','Progresso']].map(([key,label])=>`<button type="button" data-sector-view="${key}">${label}</button>`).join('');
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
-  const motionButton=document.createElement('button');motionButton.type='button';actions.append(motionButton);
-  function applyMotion(){const reduced=motionPreference(localStorage,motion.matches);map.setMotion(reduced);document.body.dataset.pilhaMotion=reduced?'reduced':'on';motionButton.textContent=reduced?'Movimento reduzido · ativar':'Pessoas em movimento · pausar';motionButton.setAttribute('aria-pressed',String(!reduced));motionButton.title='Preferência de animação somente deste jogo. O padrão acompanha o sistema.';}
-  motionButton.addEventListener('click',()=>{const next=map.root.dataset.motion==='reduced'?'on':'off';try{localStorage.setItem('pilha-motion-v1',next);}catch{message('Preferência aplicada apenas nesta sessão.');map.setMotion(next==='off');return;}applyMotion();});
+  const motionButton=document.createElement('button');motionButton.type='button';motionButton.className='sector-motion-toggle';
+  let sessionMotion=null;
+  function applyMotion(){const reduced=sessionMotion===null?workerMotionPreference(localStorage):sessionMotion;map.setMotion(reduced);document.body.dataset.pilhaMotion=motionPreference(localStorage,motion.matches)?'reduced':'on';motionButton.textContent=reduced?'▶ Movimentar equipe':'⏸ Equipe em movimento · Pausar';motionButton.setAttribute('aria-pressed',String(!reduced));motionButton.title='Ativa ou pausa a circulação dos trabalhadores. Sua escolha fica salva neste navegador.';}
+  motionButton.addEventListener('click',()=>{const next=map.root.dataset.motion==='reduced'?'on':'off';try{localStorage.setItem('pilha-motion-v1',next);sessionMotion=null;}catch{sessionMotion=next==='off';message('Preferência aplicada apenas nesta sessão.');}applyMotion();});
   motion.addEventListener('change',applyMotion);applyMotion();
   Promise.all(['operadora','mentor','mentora'].map(key=>new Promise(resolve=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>resolve(null);image.src='/assets/npc-sprites/'+key+'.png';}))).then(sheets=>{if(container.isConnected)map.iso.setNpcSheets(sheets.filter(Boolean));});
   actions.addEventListener('click',e=>{const b=e.target.closest('[data-sector-view]');if(b){openView(b.dataset.sectorView);}});
-  container.prepend(actions);
+  const toolbar=document.createElement('div');toolbar.className='sector-toolbar';toolbar.append(actions,motionButton);container.prepend(toolbar);
   const eventUI=mountAdverseEvents({actions,campaign,pause,resume,refresh:()=>map.refresh(),message});
   const refresh=()=>map.refresh();
+  const onStorage=e=>{if(e.key==='pilha-motion-v1'||e.key===null){sessionMotion=null;applyMotion();}refresh();};
   const interval=setInterval(refresh,1000);
-  window.addEventListener('storage',refresh);
+  window.addEventListener('storage',onStorage);
   document.addEventListener('pilha:progression-changed',refresh);
-  return {refresh,openTools,dispose(){eventUI.dispose();clearInterval(interval);motion.removeEventListener('change',applyMotion);window.removeEventListener('storage',refresh);document.removeEventListener('pilha:progression-changed',refresh);map.destroy();if(story)document.body.append(story);document.querySelector('#main').append(panel);tools.remove();container.remove();}};
+  return {refresh,openTools,dispose(){eventUI.dispose();clearInterval(interval);motion.removeEventListener('change',applyMotion);window.removeEventListener('storage',onStorage);document.removeEventListener('pilha:progression-changed',refresh);map.destroy();if(story)document.body.append(story);document.querySelector('#main').append(panel);tools.remove();container.remove();}};
 }

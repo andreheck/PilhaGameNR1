@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {initialPair} from '../ui/player-entry-state.js';
-import {companyVisuals,motionPreference} from '../ui/company-visuals.js';
+import {companyVisuals,motionPreference,workerMotionPreference} from '../ui/company-visuals.js';
 import {saveHeroTeam} from '../simulation/hero-team.js';
 import {createCampaign,TIMELINE_KEY} from '../simulation/mission-timeline.js';
 import {mapSnapshot,purchaseMapUpgrade} from '../ui/sector-model.js';
@@ -68,3 +68,5 @@ test('NPC atlases come from existing GLBs and contain complete four-direction wa
   assert.equal(png.readUInt32BE(16),128*item.frames);assert.equal(png.readUInt32BE(20),192*item.directions);
  }
 });
+
+test('worker circulation starts on desktop and mobile even when decorative motion is reduced',()=>{const st=storage();assert.equal(motionPreference(st,true),true);assert.equal(workerMotionPreference(st),false);st.setItem('pilha-motion-v1','off');assert.equal(workerMotionPreference(st),true);st.setItem('pilha-motion-v1','on');assert.equal(workerMotionPreference(st),false);assert.equal(workerMotionPreference({getItem(){throw Error('blocked');}}),false);});
