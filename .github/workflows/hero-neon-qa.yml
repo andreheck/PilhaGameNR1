@@ -1,15 +1,17 @@
 name: Verificar layout dos herois
 on:
-  push:
-    branches: [feat/hero-spotlight-codex]
   pull_request:
     paths:
       - 'ui/hero-neon.*'
+      - 'ui/player-onboarding.*'
       - 'assets/ui/hero-office.svg'
       - 'tools/qa-hero-neon.py'
       - '.github/workflows/hero-neon-qa.yml'
 permissions:
   contents: read
+concurrency:
+  group: hero-neon-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
 jobs:
   browser:
     runs-on: ubuntu-latest
@@ -30,6 +32,11 @@ jobs:
             python -m playwright install --with-deps chromium
           fi
       - run: python tools/qa-hero-neon.py
+      - name: Archive reviewed source without credentials
+        if: always()
+        run: |
+          mkdir -p artifacts/hero-neon
+          git archive --format=zip --output=artifacts/hero-neon/reviewed-source.zip HEAD
       - name: Save screenshots and result
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
