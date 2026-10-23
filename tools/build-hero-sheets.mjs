@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import {pathToFileURL} from 'node:url';
 const source='f9299430e3001cca961ce0d9a7bd2ac64c78d759';
 const files=['diretor','psicologa','cientista-de-dados','engenheiro-de-seguranca','pd-tech','rs-td'];
 const clean=s=>s.replace(/\*\*/g,'').replace(/^\s*-\s*/gm,'').replace(/\s+/g,' ').trim();
@@ -13,4 +14,5 @@ const sheets=files.map((name,i)=>{
  if(skills.length!==4||attributes.length!==6)throw Error('Incomplete canonical sheet: '+name);
  return {id:'PILHA-H0'+(i+1),file:name,source,archetype:meta('Arquétipo'),specialization:meta('Especialização inicial')||meta('Especialização'),purpose:clean(purpose),attributes,skills};
 });
-fs.writeFileSync(new URL('../ui/hero-sheets.js',import.meta.url),'// Generated from approved repository sheets. Run node tools/build-hero-sheets.mjs.\nexport const HERO_SHEETS='+JSON.stringify(sheets,null,1)+';\n');
+export function heroSheetSource(){return '// Generated from approved repository sheets. Run node tools/build-hero-sheets.mjs.\nexport const HERO_SHEETS='+JSON.stringify(sheets,null,1)+';\n';}
+if(process.argv[1] && pathToFileURL(process.argv[1]).href===import.meta.url)fs.writeFileSync(new URL('../ui/hero-sheets.js',import.meta.url),heroSheetSource());
