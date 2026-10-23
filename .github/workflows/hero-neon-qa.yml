@@ -1,0 +1,31 @@
+name: Verificar layout dos herois
+on:
+  push:
+    branches: [feat/hero-spotlight-codex]
+  pull_request:
+    paths:
+      - 'ui/hero-neon.*'
+      - 'assets/ui/hero-office.svg'
+      - 'tools/qa-hero-neon.py'
+      - '.github/workflows/hero-neon-qa.yml'
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - run: npm test
+      - run: python -m pip install playwright==1.57.0
+      - run: python -m playwright install --with-deps chromium
+      - run: python tools/qa-hero-neon.py
+      - name: Save screenshots and result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: hero-neon-qa
+          path: artifacts/hero-neon/
+          retention-days: 7

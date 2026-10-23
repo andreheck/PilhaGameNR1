@@ -1,3 +1,4 @@
+import './hero-neon.js';
 import {chooseInitialPair} from '../hero-team-ui.js';
 import {initialPair} from './player-entry-state.js';
 import {getHero,HERO_ROSTER} from '../hero-roster.js';
