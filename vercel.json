@@ -1,11 +1,6 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "git": {
-    "deploymentEnabled": {
-      "codex/ux-tres-setores": false,
-      "codex/jornada-npcs-empresa": false,
-      "codex/galeria-herois-canonica": false,
-      "codex/empresa-conectada-circulacao": false
-    }
-  }
+  "$schema":"https://openapi.vercel.sh/vercel.json",
+  "buildCommand":"npm run build",
+  "outputDirectory":"dist",
+  "git":{"deploymentEnabled":{"codex/ux-tres-setores":false,"codex/jornada-npcs-empresa":false,"codex/galeria-herois-canonica":false,"codex/empresa-conectada-circulacao":false,"feat/empresa-continua-restauracao":false}}
 }
