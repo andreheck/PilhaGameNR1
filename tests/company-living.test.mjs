@@ -28,3 +28,22 @@ test('pausing after a long suspension consumes all elapsed batches before freezi
  assert.equal(same.budget,r.state.budget);
  assert.deepEqual(same.events.current,r.state.events.current);
 });
+
+test('locate employee centers the person in both working and restoration sectors',()=>{
+ const {iso,tick}=engine();for(let i=1;i<=70;i++)tick(i*16);
+ const id='NPC-01';assert.equal(iso.focusEmployee('NPC-99',0),false);
+ assert.equal(iso.focusEmployee(id,0),true);
+ let p=iso.getEmployees().find(p=>p.id===id);
+ assert.ok(Math.abs(p.screen.x-600)<20,'working actor centered horizontally');
+ assert.ok(Math.abs(p.screen.y-350)<20,'working actor centered vertically');
+ assert.equal(iso.pickEmployee(p.screen.x,p.screen.y),id);
+ iso.setRestVisitors([{id,sid:'escritorio',space:'biblioteca'}]);
+ assert.equal(iso.focusEmployee(id,0),true);
+ p=iso.getEmployees().find(p=>p.id===id);
+ assert.equal(p.sector,'restauracao');
+ assert.ok(Math.abs(p.screen.x-600)<20,'resting actor centered horizontally');
+ assert.ok(Math.abs(p.screen.y-350)<20,'resting actor centered vertically');
+ iso.setManualPause(true);assert.equal(iso.focusEmployee(id,0),true);
+ p=iso.getEmployees().find(p=>p.id===id);
+ assert.ok(Math.abs(p.screen.x-600)<20,'pause keeps person in viewport');
+});
