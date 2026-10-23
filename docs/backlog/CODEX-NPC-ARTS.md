@@ -6,6 +6,8 @@ Substituir a representação procedural atual dos funcionários pelas **artes j�
 
 A fonte de identidade continua sendo `data/continuous/employees.js`. O contrato visual está em `data/continuous/npc-art-manifest.json`.
 
+**Atualização 23/10/2026:** os quatro NPCs roxos (João, Tiago, Fernanda e Raimunda) **já foram extraídos pelo Codex**. Não solicitar nem executar uma segunda extração. Localizar e reutilizar os PNGs resultantes no workspace/branch atual; caso não estejam commitados, integrá-los com os nomes do manifesto.
+
 ## Sequência obrigatória
 
 1. **Importar e normalizar as 16 artes**
@@ -15,10 +17,11 @@ A fonte de identidade continua sendo `data/continuous/employees.js`. O contrato 
    - sem fundo branco, sem textos de card, sem molduras;
    - preservar proporção do personagem e não “reinterpretar” a arte aprovada.
 
-2. **Roxos — extração dos cards**
-   - João, Tiago, Fernanda e Raimunda ainda devem ser extraídos dos cards aprovados;
-   - remover somente fundo/card/texto; **não redesenhar rosto, roupa ou pose**;
-   - validar bordas de cabelo, sapatos, mãos e tablet antes de salvar.
+2. **Roxos — extração concluída pelo Codex**
+   - **Não recortar novamente** João, Tiago, Fernanda nem Raimunda;
+   - localizar os quatro PNGs já extraídos na branch ou no workspace do Codex, conferir IDs e transparência;
+   - se necessário, apenas copiar/renomear esses mesmos arquivos para os destinos canônicos de `data/continuous/npc-art-manifest.json`;
+   - validar bordas, mãos, cabelos, sapatos e tablets sem reinterpretar os personagens.
 
 3. **Verdes**
    - reutilizar os quatro arquivos individuais já aprovados: Aline, Letícia, Mariana e Pedro;
