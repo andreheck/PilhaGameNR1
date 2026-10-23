@@ -18,3 +18,23 @@
 .scene.show-static canvas{display:none}
 .scene.show-static .scene-tags,.scene.show-static .actor-tags{display:block;z-index:4}
 @media (max-height:720px){.case-cast{gap:4px}.case-actor{font-size:9px}.case-actor img{height:23px;width:23px}}
+
+
+/* Hero selection zoom and persistent thumbnail strip, independent from 3D actors */
+.hero-selection{--hero-accent:#f8c43a;display:grid;gap:9px;margin:2px 0 17px}
+.hero-spotlight{border:1px solid color-mix(in srgb,var(--hero-accent) 54%,#233a58);border-radius:15px;background:radial-gradient(ellipse at 48% 35%,color-mix(in srgb,var(--hero-accent) 16%,#172b49),#08182c 78%);min-height:325px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:end;isolation:isolate;color:#fff;box-shadow:inset 0 0 24px #0005}
+.hero-spotlight-art{height:275px;position:absolute;inset:0 0 auto;display:flex;justify-content:center;align-items:end;animation:hero-idle-zoom 4.5s ease-in-out infinite;transform-origin:50% 80%}
+.hero-spotlight-art img{height:125%;width:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 4px 11px #0009)}
+.hero-spotlight-info{z-index:1;position:relative;padding:40px 14px 15px;background:linear-gradient(transparent,#08182cf2 45%,#08182c);text-shadow:0 2px 7px #000b}
+.hero-spotlight-info h3{font:800 27px/1 'Barlow Condensed',sans-serif;margin:4px 0}
+.hero-spotlight-info p{margin:0 0 6px;color:#d3e5ef}
+.hero-kicker{color:var(--hero-accent);font-size:10px;letter-spacing:.12em;font-weight:900}
+.hero-focus-hint{color:#b6cbda;font-size:10px}
+.hero-thumbnails{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+.hero-thumb{display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:2px;min-width:0;min-height:75px;border:1px solid #c4d7e5;border-radius:8px;padding:4px 2px;background:#edf3f8;color:#183c54}
+.hero-thumb img{display:block;max-height:43px;max-width:100%;object-fit:contain}
+.hero-thumb span{font-size:8px;line-height:1.12;font-weight:850;text-align:center;overflow-wrap:anywhere}
+.hero-thumb:hover,.hero-thumb:focus-visible{border-color:var(--thumb-accent);background:#fff}
+.hero-thumb.selected{border:2px solid var(--thumb-accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--thumb-accent) 25%,transparent);background:#fff}
+@keyframes hero-idle-zoom{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(3px) scale(1.009)}}
+@media (prefers-reduced-motion:reduce){.hero-spotlight-art{animation:none}}
