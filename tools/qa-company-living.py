@@ -53,6 +53,7 @@ def run(browser,w,h):
         people=page.evaluate('PilhaLiving.getEmployees()');canvas=page.locator('.pm-canvas').bounding_box()
         found=next((p for p in people if p['id']=='NPC-04'),None)
         check(bool(found),tag+': locate preserves selected worker')
+        check(abs(found['screen']['x']-canvas['width']/2)<canvas['width']*.28 and abs(found['screen']['y']-canvas['height']/2)<canvas['height']*.28,tag+': locate frames selected worker in map center')
         page.mouse.click(canvas['x']+found['screen']['x'],canvas['y']+found['screen']['y'])
         page.locator('.employees-dialog[open]').wait_for()
         check('Raimunda' in page.locator('.employee-profile-head').inner_text(),tag+': clicking walking NPC opens its own health profile')
