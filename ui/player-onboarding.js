@@ -20,7 +20,8 @@ export async function preparePlayerEntry(){
    root.innerHTML=`<div class="entry-card"><header><span>PilhA<b>+</b> Game</span><small>BOAS-VINDAS À EMPRESA</small></header><nav aria-label="Etapas da entrada">${['Sua missão','Como jogar','Sua dupla','Entrar'].map((label,i)=>`<span ${i===page?'aria-current="step"':''}>${i+1} · ${label}</span>`).join('')}</nav><article><small>${page===3?'PRONTO PARA COMEÇAR':p.kicker}</small><h1 tabindex="-1">${page===3?'Sua empresa espera por você.':p.title}</h1><p>${page===3?'Dupla escolhida. Na empresa, observe os setores e comece pela missão na Produção. Seu saldo, seus níveis e suas conquistas continuam salvos neste navegador.':p.text}</p>${page<3?`<ul>${p.points.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}
    ${page===2?`<div class="entry-roster">${HERO_ROSTER.map(h=>`<div><strong>${h.name}</strong><span>${h.specialization}</span></div>`).join('')}</div>`:''}
    ${page===3&&pair?`<div class="entry-pair"><span>PRINCIPAL<strong>${getHero(pair.principal).name}</strong></span><b>+</b><span>APOIO<strong>${getHero(pair.support).name}</strong></span></div>`:''}</article><footer>${page>0?'<button type="button" data-entry="back">Voltar</button>':''}<button type="button" class="entry-primary" data-entry="next">${page===3?'Entrar na empresa':page===2?'Escolher meus dois heróis':'Continuar →'}</button>${page===3?'<button type="button" data-entry="review">Rever a missão</button>':''}</footer><p class="entry-disclaimer">Simulação educativa com dados fictícios. Não faz diagnóstico nem substitui avaliação profissional. Você pode pausar a jornada e continuar depois.</p></div>`;
-   root.querySelector('h1').focus();
+   root.scrollTop=0;
+   root.querySelector('h1').focus({preventScroll:true});
   }
   root.addEventListener('click',async e=>{
    const action=e.target.closest('[data-entry]')?.dataset.entry;if(!action)return;
