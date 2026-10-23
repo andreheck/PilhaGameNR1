@@ -1,0 +1,174 @@
+{
+  "version": "1.0.0",
+  "purpose": "Contrato de integração das artes aprovadas dos 16 NPCs. Não altera gameplay até que os arquivos canônicos existam.",
+  "canonical_directory": "assets/npcs",
+  "rules": {
+    "map": "Usar arte/sprite do mesmo NPC para identidade visual do personagem circulante; se renderização do mapa exigir sprite simplificado, derivar do retrato canônico sem trocar identidade.",
+    "employee_list": "Miniatura 1:1 ou 4:5 derivada do arquivo canônico, object-fit contain, fundo transparente.",
+    "profile": "Arte canônica em corpo inteiro ou busto amplo; não usar avatar procedural quando houver arte aprovada.",
+    "fallback": "Enquanto um arquivo canônico estiver ausente, manter desenho procedural atual e registrar missing asset; nunca atribuir arte de outro NPC.",
+    "health": "A arte, MBTI, idade, gênero e aparência não entram no cálculo do score de saúde."
+  },
+  "npcs": [
+    {
+      "id": "NPC-01",
+      "name": "João",
+      "type": "INTJ",
+      "archetype": "Arquiteto",
+      "group": "analistas",
+      "canonical": "assets/npcs/npc-01-joao-arquiteto.png",
+      "source_status": "extract_from_approved_card",
+      "source_hint": "Card aprovado 'perfil_de_joão_o_arquiteto_estratégico.png' / imagem enviada na conversa em 23/10. Extrair apenas personagem e remover fundo branco."
+    },
+    {
+      "id": "NPC-02",
+      "name": "Tiago",
+      "type": "INTP",
+      "archetype": "Lógico",
+      "group": "analistas",
+      "canonical": "assets/npcs/npc-02-tiago-logico.png",
+      "source_status": "extract_from_approved_card",
+      "source_hint": "Card aprovado 'cartão_de_perfil_do_tiago_lógico.png' / imagem enviada na conversa em 23/10. Extrair apenas personagem e remover fundo branco."
+    },
+    {
+      "id": "NPC-03",
+      "name": "Fernanda",
+      "type": "ENTJ",
+      "archetype": "Comandante",
+      "group": "analistas",
+      "canonical": "assets/npcs/npc-03-fernanda-comandante.png",
+      "source_status": "extract_from_approved_card",
+      "source_hint": "Card aprovado 'perfil_de_fernanda_a_comandante.png' / imagem enviada na conversa em 23/10. Extrair apenas personagem e remover fundo branco."
+    },
+    {
+      "id": "NPC-04",
+      "name": "Raimunda",
+      "type": "ENTP",
+      "archetype": "Debatedora",
+      "group": "analistas",
+      "canonical": "assets/npcs/npc-04-raimunda-debatedora.png",
+      "source_status": "extract_from_approved_card",
+      "source_hint": "Card aprovado 'cartaz_de_perfil_da_raimunda_debatedora.png' / imagem enviada na conversa em 23/10. Extrair apenas personagem e remover fundo branco."
+    },
+    {
+      "id": "NPC-05",
+      "name": "Aline",
+      "type": "INFJ",
+      "archetype": "Advogada",
+      "group": "diplomatas",
+      "canonical": "assets/npcs/npc-05-aline-advogada.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/aline_advogada.png."
+    },
+    {
+      "id": "NPC-06",
+      "name": "Letícia",
+      "type": "INFP",
+      "archetype": "Mediadora",
+      "group": "diplomatas",
+      "canonical": "assets/npcs/npc-06-leticia-mediadora.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/leticia_mediadora.png."
+    },
+    {
+      "id": "NPC-07",
+      "name": "Mariana",
+      "type": "ENFJ",
+      "archetype": "Protagonista",
+      "group": "diplomatas",
+      "canonical": "assets/npcs/npc-07-mariana-protagonista.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/mariana_protagonista.png."
+    },
+    {
+      "id": "NPC-08",
+      "name": "Pedro",
+      "type": "ENFP",
+      "archetype": "Ativista",
+      "group": "diplomatas",
+      "canonical": "assets/npcs/npc-08-pedro-ativista.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/pedro_ativista.png."
+    },
+    {
+      "id": "NPC-09",
+      "name": "Carlos",
+      "type": "ISTJ",
+      "archetype": "Logístico",
+      "group": "sentinelas",
+      "canonical": "assets/npcs/npc-09-carlos-logistico.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte individual azul aprovada; referência local/conversa: carlos_profissional_de_logística_em_ação.png / perfil_de_carlos_sentinela_logístico.png."
+    },
+    {
+      "id": "NPC-10",
+      "name": "Ana",
+      "type": "ISFJ",
+      "archetype": "Defensora",
+      "group": "sentinelas",
+      "canonical": "assets/npcs/npc-10-ana-defensora.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte individual azul aprovada; referência local/conversa: ana_isfj_com_pasta_azul.png."
+    },
+    {
+      "id": "NPC-11",
+      "name": "José",
+      "type": "ESTJ",
+      "archetype": "Executivo",
+      "group": "sentinelas",
+      "canonical": "assets/npcs/npc-11-jose-executivo.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte individual azul aprovada; referência local/conversa: josé_o_executivo_confiante_*.png."
+    },
+    {
+      "id": "NPC-12",
+      "name": "Maria",
+      "type": "ESFJ",
+      "archetype": "Cônsul",
+      "group": "sentinelas",
+      "canonical": "assets/npcs/npc-12-maria-consul.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte individual azul aprovada; usar a mulher de blazer azul/caderno da série Sentinelas, não o card com texto."
+    },
+    {
+      "id": "NPC-13",
+      "name": "Alisson",
+      "type": "ISTP",
+      "archetype": "Virtuoso",
+      "group": "exploradores",
+      "canonical": "assets/npcs/npc-13-alisson-virtuoso.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte individual amarela aprovada: homem com colete amarelo utilitário, camiseta preta, calça cargo e relógio."
+    },
+    {
+      "id": "NPC-14",
+      "name": "Camila",
+      "type": "ISFP",
+      "archetype": "Aventureira",
+      "group": "exploradores",
+      "canonical": "assets/npcs/npc-14-camila-aventureira.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte individual amarela aprovada: mulher com cardigan amarelo, camisa clara, calça creme e tablet."
+    },
+    {
+      "id": "NPC-15",
+      "name": "Lucas",
+      "type": "ESTP",
+      "archetype": "Empreendedor",
+      "group": "exploradores",
+      "canonical": "assets/npcs/npc-15-lucas-empreendedor.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte individual amarela aprovada: homem com jaqueta amarela/preta, braços cruzados e tênis."
+    },
+    {
+      "id": "NPC-16",
+      "name": "Beatriz",
+      "type": "ESFP",
+      "archetype": "Artista",
+      "group": "exploradores",
+      "canonical": "assets/npcs/npc-16-beatriz-artista.png",
+      "source_status": "approved_transparent_art_available",
+      "source_hint": "Arte individual amarela aprovada: mulher negra/parda com cabelo cacheado volumoso, acessórios amarelos, tablet e gesto aberto."
+    }
+  ]
+}
