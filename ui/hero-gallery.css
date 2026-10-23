@@ -35,3 +35,50 @@
 @media(min-width:900px) { .hero-gallery-dialog .ph-root { display:flex;flex-direction:column;overflow:clip; }.hero-gallery-dialog .ph-top,.hero-gallery-dialog .ph-team-bar { width:100%;flex:none; }.hero-gallery-dialog .ph-team-bar { position:static;margin-bottom:10px; }.hero-gallery-dialog .ph-main { flex:1;min-height:0;width:100%;overflow:clip;align-items:stretch; }.hero-gallery-dialog .ph-roster { overflow-y:auto;padding:6px;scrollbar-width:thin; }.hero-gallery-dialog .ph-detail { position:static;max-height:none; }.hero-gallery-dialog .ph-foot { display:none; } }
 @media(min-width:1181px) { .hero-gallery-dialog .ph-main { grid-template-columns:minmax(0,1fr) 420px;gap:22px; }.hero-gallery-dialog .ph-grid { grid-template-columns:repeat(3,minmax(0,1fr));gap:16px; }.hero-gallery-dialog .ph-card__art { height:220px; } }
 @media(max-width:899px) { .ph-team-bar { padding:10px;margin-bottom:14px; }.ph-team-intro span { font-size:.72rem; }.ph-team-actions .hero-notice { flex-basis:100%;min-width:0; }.ph-team-slots strong { font-size:.86rem; }.ph-team-actions button { flex:1;padding:8px;font-size:.74rem; }.hero-gallery-dialog .ph-title { display:none; }.hero-gallery-dialog .ph-slogan { display:none; }.hero-gallery-dialog .ph-top { padding-top:12px; } }
+
+/* Hero spotlight: close-up selected hero with persistent references */
+@media(min-width:900px){
+ .hero-gallery-dialog .ph-main{grid-template-columns:minmax(172px,220px) minmax(0,1fr);gap:18px}
+ .hero-gallery-dialog .ph-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .hero-gallery-dialog .ph-roster{padding:5px;min-width:0}
+ .hero-gallery-dialog .ph-hint{font-size:.74rem}
+ .hero-gallery-dialog .ph-card{border-radius:12px}
+ .hero-gallery-dialog .ph-card__art{height:95px}
+ .hero-gallery-dialog .ph-card__ico{width:24px;height:24px;top:5px;left:5px}
+ .hero-gallery-dialog .ph-card__ico svg{width:14px;height:14px}
+ .hero-gallery-dialog .ph-card__lv{font-size:.62rem;top:6px;right:5px;padding:2px 4px}
+ .hero-gallery-dialog .ph-card__info{padding:3px 6px 7px;gap:3px;margin:0}
+ .hero-gallery-dialog .ph-card__row{gap:3px}
+ .hero-gallery-dialog .ph-card__ring,.hero-gallery-dialog .ph-card__desc,.hero-gallery-dialog .ph-card__spec{display:none}
+ .hero-gallery-dialog .ph-card__name{font-size:.73rem;line-height:1.2}
+ .hero-gallery-dialog .ph-card__role{font-size:.58rem;letter-spacing:0}
+ .hero-gallery-dialog .ph-card__mine{font-size:.57rem;left:4px;bottom:4px;padding:2px 4px}
+ .hero-gallery-dialog .ph-detail{width:100%}
+ .hero-gallery-dialog .ph-d__hero{grid-template-columns:minmax(0,1.18fr) minmax(175px,.82fr);min-height:410px}
+ .hero-gallery-dialog .ph-d__fig{min-height:390px}
+ .hero-gallery-dialog .ph-d__fig img{object-fit:cover;object-position:center 9%;transform:translateY(var(--cy,0)) scale(calc(var(--z,1)*1.38))}
+ .hero-gallery-dialog .ph-d__txt{justify-content:end;padding:0 10px 14px}
+ .hero-gallery-dialog .ph-d__txt h2{font-size:clamp(1.6rem,2.5vw,2.3rem)}
+ .hero-gallery-dialog .ph-mobile-thumbs{display:none}
+}
+@media(min-width:1100px){
+ .hero-gallery-dialog .ph-main{grid-template-columns:220px minmax(0,1fr)}
+}
+@media(max-width:899px){
+ .hero-gallery-dialog .ph-mobile-thumbs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;padding:5px 0;position:sticky;top:0;z-index:4;background:#0d2250}
+ .hero-gallery-dialog .ph-switch-thumb{border:2px solid #486184;background:#102449;border-radius:9px;min-width:0;height:66px;padding:3px;display:grid;place-items:center}
+ .hero-gallery-dialog .ph-switch-thumb img{max-height:56px;max-width:100%;object-fit:contain}
+ .hero-gallery-dialog .ph-switch-thumb.is-current{border-color:var(--hc);box-shadow:0 0 11px color-mix(in srgb,var(--hc) 55%,transparent)}
+ .hero-gallery-dialog .ph-d__hero{grid-template-columns:minmax(0,1fr);gap:10px}
+ .hero-gallery-dialog .ph-d__fig{min-height:clamp(270px,48dvh,455px)}
+ .hero-gallery-dialog .ph-d__fig img{object-position:50% 8%;transform:translateY(var(--cy,0)) scale(calc(var(--z,1)*1.36))}
+}
+
+/* QA refinement for the neon host: keep three rows inside ordinary laptop heights. */
+@media(min-width:900px){
+ .hero-gallery-dialog .ph-root.neon-gallery .ph-card{--card-height:clamp(125px,calc((100dvh - 365px)/3),198px)}
+ .hero-gallery-dialog .ph-root.neon-gallery .ph-d__fig img{width:120%}
+}
+@media(max-width:899px){
+ .hero-gallery-dialog .ph-root.neon-gallery .ph-d__fig img{width:110%}
+}
