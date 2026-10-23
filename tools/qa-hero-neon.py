@@ -24,10 +24,11 @@ def ready_entry(page):
     for _ in range(50):
         if page.locator('.player-entry').is_visible():
             break
-        for selector in ['#welcome-skip', '#welcome-close']:
+        for selector in ['.pi-cta', '.pi-skip', '#welcome-skip', '#welcome-close']:
             control = page.locator(selector)
             if control.is_visible():
                 control.click()
+                break
         page.wait_for_timeout(200)
     page.locator('.player-entry').wait_for(state='visible', timeout=15000)
 
