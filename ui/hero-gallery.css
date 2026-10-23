@@ -36,7 +36,6 @@
 @media(min-width:1181px) { .hero-gallery-dialog .ph-main { grid-template-columns:minmax(0,1fr) 420px;gap:22px; }.hero-gallery-dialog .ph-grid { grid-template-columns:repeat(3,minmax(0,1fr));gap:16px; }.hero-gallery-dialog .ph-card__art { height:220px; } }
 @media(max-width:899px) { .ph-team-bar { padding:10px;margin-bottom:14px; }.ph-team-intro span { font-size:.72rem; }.ph-team-actions .hero-notice { flex-basis:100%;min-width:0; }.ph-team-slots strong { font-size:.86rem; }.ph-team-actions button { flex:1;padding:8px;font-size:.74rem; }.hero-gallery-dialog .ph-title { display:none; }.hero-gallery-dialog .ph-slogan { display:none; }.hero-gallery-dialog .ph-top { padding-top:12px; } }
 
-
 /* Hero spotlight: close-up selected hero with persistent references */
 @media(min-width:900px){
  .hero-gallery-dialog .ph-main{grid-template-columns:minmax(172px,220px) minmax(0,1fr);gap:18px}
@@ -73,4 +72,13 @@
  .hero-gallery-dialog .ph-d__hero{grid-template-columns:minmax(0,1fr);gap:10px}
  .hero-gallery-dialog .ph-d__fig{min-height:clamp(270px,48dvh,455px)}
  .hero-gallery-dialog .ph-d__fig img{object-position:50% 8%;transform:translateY(var(--cy,0)) scale(calc(var(--z,1)*1.36))}
+}
+
+/* QA refinement for the neon host: keep three rows inside ordinary laptop heights. */
+@media(min-width:900px){
+ .hero-gallery-dialog .ph-root.neon-gallery .ph-card{--card-height:clamp(125px,calc((100dvh - 365px)/3),198px)}
+ .hero-gallery-dialog .ph-root.neon-gallery .ph-d__fig img{width:120%}
+}
+@media(max-width:899px){
+ .hero-gallery-dialog .ph-root.neon-gallery .ph-d__fig img{width:110%}
 }
