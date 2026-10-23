@@ -2,3 +2,5 @@ html,body,#continuous-app{margin:0;width:100%;height:100%;overflow:hidden;backgr
 @media(min-width:900px){.continuous-gallery-dialog .ph-main{grid-template-columns:minmax(250px,29%) minmax(0,1fr)!important}.continuous-gallery-dialog .ph-roster{overflow:auto!important}.continuous-gallery-dialog .ph-card__art{height:clamp(110px,16vh,170px)!important}.continuous-gallery-dialog .ph-card__name{font-size:13px!important}.continuous-gallery-dialog .ph-card__desc,.continuous-gallery-dialog .ph-card__spec{display:none!important}}
 @media(max-width:899px){.continuous-tools{gap:4px}.continuous-tools button{font-size:10px;min-height:34px;padding:5px 8px}.pm-hud{padding:8px}.pm-hud__mid{gap:6px}.pm-brand{display:none}.continuous-strip{font-size:10px;padding:3px 8px}.continuous-clock{white-space:nowrap}.direct-pick button{min-height:42px;font-size:13px}.continuous-gallery-dialog .ph-roster .ph-card__art{height:180px!important}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.continuous-modal{animation:none}}
+/* HUD, tabs, duo strip and canvas require four independent rows. */
+.pm-stage{grid-template-rows:auto auto auto minmax(0,1fr)}
