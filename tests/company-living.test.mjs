@@ -16,3 +16,15 @@ function engine(){let raf;const noop=()=>{},ctx=new Proxy({measureText:t=>({widt
 test('all16 actors walk automatically, can be picked and respect manual pause',()=>{const {iso,tick}=engine();const before=JSON.stringify(iso.getEmployees());for(let i=1;i<=120;i++)tick(i*16);assert.notEqual(JSON.stringify(iso.getEmployees()),before);const people=iso.getEmployees();assert.equal(people.length,16);assert.equal(new Set(people.map(p=>p.id)).size,16);assert.ok(people.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.screen.x)));const p=people[0];assert.equal(iso.pickEmployee(p.screen.x,p.screen.y),p.id);iso.setManualPause(true);const paused=JSON.stringify(iso.getEmployees());iso.start();tick(3000);assert.equal(JSON.stringify(iso.getEmployees()),paused);iso.setManualPause(false);tick(3100);tick(3300);assert.notEqual(JSON.stringify(iso.getEmployees()),paused);});
 test('restoring visitors keeps exactly16 rendered identities',()=>{const {iso}=engine();iso.setRestVisitors([{id:'NPC-01',sid:'escritorio',space:'biblioteca'}]);assert.equal(iso.getEmployees().length,16);assert.equal(iso.getEmployees().filter(p=>p.id==='NPC-01').length,1);assert.equal(iso.getEmployees().find(p=>p.id==='NPC-01').sector,'restauracao');iso.setEmployees(L.staffView(setup()));iso.setRestVisitors([]);assert.equal(iso.getEmployees().find(p=>p.id==='NPC-01').sector,'escritorio');});
 test('built entry includes opening, calendar, world and employee list with no animation toggle',()=>{const html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(html,/continuous\/intro.js/);const intro=fs.readFileSync(new URL('../dist/ui/continuous/intro.js',import.meta.url),'utf8');assert.doesNotMatch(intro,/class="pi-motion"|motionButton/);const ui=fs.readFileSync(new URL('../ui/continuous-game.js',import.meta.url),'utf8');assert.match(ui,/data-company="employees"/);assert.match(ui,/data-company="world"/);assert.doesNotMatch(ui,/'case\d|play\.js|document.hidden\|\|/);assert.match(ui,/await playOpening\(\);await explainGame/);});
+
+test('pausing after a long suspension consumes all elapsed batches before freezing',()=>{
+ const future=now+RULES.weekMs*500+220;
+ const r=L.setPaused(setup(),true,future);
+ assert.equal(r.ok,true);assert.equal(r.weeks,500);
+ assert.equal(r.state.week,501);assert.equal(r.state.activeMs,220);
+ assert.equal(r.state.lastWallMs,future);assert.equal(r.state.paused,true);
+ const same=L.tickAt(r.state,future+RULES.weekMs*10).state;
+ assert.equal(same.week,501);assert.equal(same.activeMs,220);
+ assert.equal(same.budget,r.state.budget);
+ assert.deepEqual(same.events.current,r.state.events.current);
+});

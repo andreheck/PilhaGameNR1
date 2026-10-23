@@ -16,7 +16,7 @@ test('galeria usa seis identidades canônicas e os seis retratos aprovados',()=>
  assert.equal(s.map.size,0,'consultar galeria não cria outro armazenamento');
 });
 test('fichas geradas reproduzem a documentação e identificam apenas habilidades existentes no motor',async()=>{
- const before=fs.readFileSync(new URL('../ui/hero-sheets.js',import.meta.url),'utf8');await import('../tools/build-hero-sheets.mjs');assert.equal(fs.readFileSync(new URL('../ui/hero-sheets.js',import.meta.url),'utf8'),before);
+ const before=fs.readFileSync(new URL('../ui/hero-sheets.js',import.meta.url),'utf8');const {heroSheetSource}=await import('../tools/build-hero-sheets.mjs');assert.equal(heroSheetSource().replace(/\r\n/g,'\n'),before.replace(/\r\n/g,'\n'));assert.equal(fs.readFileSync(new URL('../ui/hero-sheets.js',import.meta.url),'utf8'),before);
  const heroes=buildHeroGalleryData(store()).LIST;for(const h of heroes){const source=HERO_SHEETS.find(x=>x.id===h.id);assert.equal(h.skills.length,4);assert.equal(h.attributes.length,6);assert.equal(h.especializacao,source.specialization);assert.equal(h.habilidade,source.purpose);assert.ok(h.source.includes(source.source));}
  assert.deepEqual(heroes.flatMap(h=>h.skills.filter(a=>a.runtime).map(a=>[h.id,a.name])),[['PILHA-H01','Visão Sistêmica'],['PILHA-H01','Reorganização Estratégica']]);
  assert.equal(heroes[4].frase,'Arquiteto da Transformação');
