@@ -110,6 +110,8 @@
       return '<div class="ph-d" style="--hc:' + h.cor + '" tabindex="-1" aria-labelledby="ph-d-name">' +
         '<div class="ph-d__bar"><button type="button" class="ph-d__back" aria-label="Voltar para a lista de heróis">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><span>Perfil</span></div>' +
+        '<div class="ph-mobile-thumbs" role="group" aria-label="Miniaturas dos seis heróis">' +
+          list.map(function (other) { return '<button type="button" class="ph-switch-thumb' + (other.id === viewing ? ' is-current' : '') + '" data-hero-preview="' + esc(other.id) + '" aria-label="Ver ' + esc(other.nome) + '" aria-pressed="' + (other.id === viewing) + '" style="--hc:' + esc(other.cor) + '"><img src="' + src(other) + '" alt="" loading="lazy"></button>'; }).join('') + '</div>' +
         '<div class="ph-d__hero">' +
           '<div class="ph-d__fig"><span class="ph-d__glow"></span><img src="' + src(h) + '" alt="' + esc(h.alt || h.nome) + '" style="--z:' + (h.crop && h.crop.z || 1) + ';--cy:' + (h.crop && h.crop.y || 0) + '%"></div>' +
           '<div class="ph-d__txt">' +
@@ -187,7 +189,7 @@
       var changed = id !== viewing; viewing = id;
       if (changed) renderDetail(true); else if (!detail.firstChild) renderDetail(false);
       markCards();
-      if (mq.matches) { if (changed) renderDetail(false); openSheet(fromCard); }
+      if (mq.matches) { if (changed) renderDetail(false); if (!sheetOpen || fromCard) openSheet(fromCard); }
     }
     function choose(id) {
       if (!by[id] || o.readOnly) return;
@@ -200,6 +202,16 @@
 
     /* --- eventos --- */
     function onClick(e) {
+      var preview = e.target.closest("[data-hero-preview]");
+      if (preview) {
+        var nextId = preview.getAttribute("data-hero-preview");
+        if (!by[nextId]) return;
+        view(nextId, null);
+        if (mq.matches) detail.scrollTop = 0;
+        var nextButton = detail.querySelector('[data-hero-preview="' + nextId + '"]');
+        if (nextButton) nextButton.focus({ preventScroll: true });
+        return;
+      }
       var card = e.target.closest(".ph-card");
       if (card) return view(card.getAttribute("data-id"), card);
       if (e.target.closest(".ph-back")) return o.onClose && o.onClose();
