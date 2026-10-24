@@ -28,6 +28,17 @@ def run(browser,w,h):
         page.locator('[data-direct-pick="PILHA-H02|support"]').click()
         page.locator('[data-team-save]').click();page.locator('.pm-canvas').wait_for();page.wait_for_timeout(700)
         check(len(page.evaluate('PilhaLiving.getEmployees()'))==16,tag+': sixteen employees rendered')
+
+        # Actual approved furniture sprites and Poof atlas must be served as image bytes.
+        furniture=page.evaluate("""async () => {
+          const base='/assets/furniture/sprites/webp/';
+          const ids=['sofa-azul','poltrona-azul-a','poltrona-azul-b','mesa-centro-redonda','mesa-escritorio','mesa-reuniao','estante-livros','gaveteiro','bebedouro','planta-grande','planta-pequena','divisoria-vidro','tapete-almofadas','puff-azul','banco-lounge','arvore-frutifera','pilha-livros','quadro','caixa-material','armario-baixo'];
+          const images=await Promise.all(ids.map(async id => {const i=new Image();i.src=base+id+'.webp';try{await i.decode();return i.naturalWidth>0&&i.naturalHeight>0}catch{return false}}));
+          const poof=new Image();poof.src='/assets/furniture/effects/poof_atlas_4x3.png';try{await poof.decode()}catch{}
+          return {count:images.filter(Boolean).length,atlas:poof.naturalWidth===1024&&poof.naturalHeight===768};
+        }""")
+        check(furniture['count']==20,tag+': all twenty approved WebP furnishings decode')
+        check(furniture['atlas'],tag+': twelve-frame Poof atlas is present')
         check(len(set(p[0] for p in positions()))==16,tag+': every identity unique')
         a=positions();page.wait_for_timeout(1000);check(a!=positions(),tag+': walking automatically despite reduced decorative motion')
         check(page.locator('.pm-canvas').bounding_box()['height']>200,tag+': map has usable height')
