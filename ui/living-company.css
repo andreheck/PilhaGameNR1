@@ -156,3 +156,9 @@
  .living-topbar .living-time-date{white-space:normal;font-size:10px}
  .living-topbar .living-time small{white-space:normal;font-size:6px}
 }
+
+/* Let the index card shrink with its grid track instead of its label's min-content. */
+.living-topbar .pm-goal{grid-template-columns:minmax(0,1fr)}
+.living-topbar .pm-goal__top,.living-topbar .pm-goal__bar{min-width:0;width:100%}
+.living-topbar .pm-goal__top span{min-width:0;flex:1;white-space:normal;overflow-wrap:anywhere;overflow:visible;text-overflow:clip}
+.living-topbar .pm-goal__v{flex:none}

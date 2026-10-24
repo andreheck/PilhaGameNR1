@@ -40,6 +40,6 @@ Os resultados efetivos, erros e capturas de cada resolução ficam em `living-qa
 
 `docs/backlog/CODEX-NPC-ARTS.md`, `docs/backlog/RESTAURACAO-CODEX.md`, `docs/qa/CHECKLIST-DIARIO-ANDRE.md`, `docs/qa/PG-001-VALIDACAO.md`, `design-qa.md`, especificação da Fase1 e relatórios de gestão/receita. Itens de tela antiga/Casos não são aceite do modo contínuo atual. Regras mais recentes do PM prevalecem sobre restrições históricas de não alterar saúde/economia.
 
-O commit4b59caf passou nas cinco resoluções, incluindo o teste real de duas abas e teclado. O pedido posterior do PM acrescentou cabeçalho translúcido e agrupamento dos elementos; a rodada final repete a mesma matriz e verifica cabeçalho/calendário. Relatório: `docs/releases/CABECALHO-2026-10-24.md`.
+O card de índice do cabeçalho também foi corrigido: o CI mediu329px em um viewport de320px; a grade e o rótulo agora podem encolher/quebrar sem cortar conteúdo. O commit4b59caf passou nas cinco resoluções, incluindo o teste real de duas abas e teclado. O pedido posterior do PM acrescentou cabeçalho translúcido e agrupamento dos elementos; a rodada final repete a mesma matriz e verifica cabeçalho/calendário. Relatório: `docs/releases/CABECALHO-2026-10-24.md`.
 
 Sem merge ou publicação em produção. Aprovação final da PR continua com o PM.
