@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import * as M from '../simulation/company-continuous.js';import * as L from '../simulation/company-living.js';
+import {financePreview,financePeriods,financeWeek} from '../simulation/financial-goals.js';
+const start=()=>L.ensureLiving(M.fresh());
+test('all 16 initial workers produce 1000 weekly credits',()=>{let s=start();assert.equal(financePreview(s).revenue,1000);s.week=2;const a=financeWeek(s);assert.equal(a.revenue,1000);assert.equal(s.budget,11000);assert.equal(financeWeek(s),null);});
+test('absence causes 62.50 reduction and cover restores capacity',()=>{let s=start();s.staff['NPC-01'].employment='leave';assert.equal(financePreview(s).revenue,937.5);s.staffing.coverage.push({id:'CV-1',sector:'escritorio',startAt:1,endAt:5,fee:350,weekly:110});assert.equal(financePreview(s).revenue,1000);});
+test('resigned worker removes production; new worker can replace',()=>{let s=start();s.staff['NPC-01'].employment='resigned';assert.equal(financePreview(s).revenue,937.5);s.staffing.hires.push({id:'NOVO-01',sector:'escritorio',hiredAt:1,startAt:2,fee:900,salary:140});s.staff['NOVO-01']={health:72,previous:72,week:1,employment:'active'};assert.equal(financePreview(s).revenue,1000);});
+test('quarterly closure provides goal reached/not reached after 12 weeks',()=>{let s=start();for(let w=2;w<=13;w++){s.week=w;financeWeek(s,200);}let q=financePeriods(s).quarter;assert.equal(q.completed,true);assert.equal(q.profit,9600);assert.equal(q.achieved,true);assert.equal(q.weeksRecorded,12);s.finance.ledger.forEach(x=>{x.costs=980;x.profit=x.revenue-980;});q=financePeriods(s).quarter;assert.equal(q.achieved,false);});
+test('unfunded production only increases budget when simulated week changes',()=>{let s=start();let before=s.budget;L.advanceRunning(s);assert.equal(s.budget,before);let n=L.advanceRunning(s).state;assert.ok(n.budget>=before);});
