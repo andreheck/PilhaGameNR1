@@ -10,7 +10,7 @@ test('all 20 art IDs and 24 item mappings are unique and canonical',()=>{
 });
 test('the poof is visual only and triggers after canonical successful purchase',()=>{
  const code=fs.readFileSync(new URL('../ui/continuous-game.js',import.meta.url),'utf8');
- const i=code.indexOf('if(r.ok){tone(\'success\');emitFurniturePoof');
+ const i=code.indexOf('if(r.ok){tone(\'success\');map?.iso.revealFurniture');
  assert.ok(i>0);assert.match(code,/M\.purchase\(s,q\)/);
  assert.doesNotMatch(fs.readFileSync(new URL('../ui/furniture-effects.js',import.meta.url),'utf8'),/localStorage|purchase\(|budget\s*[-+]=/);
 });
