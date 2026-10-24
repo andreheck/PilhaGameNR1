@@ -29,7 +29,7 @@ export function financeWeek(s,weeklyCost=0){
 }
 export function financePeriods(s){
  const f=ensureFinance(s);
- const period=(weeks)=>{const n=Math.floor((s.week-1)/weeks),start=2+n*weeks,end=1+(n+1)*weeks;
+ const period=(weeks)=>{const n=Math.max(0,Math.floor((s.week-2)/weeks)),start=2+n*weeks,end=1+(n+1)*weeks;
   const completed=s.week>=end;
   const lines=f.ledger.filter(l=>l.week>=start&&l.week<=Math.min(s.week,end));
   const revenue=round(lines.reduce((n,l)=>n+l.revenue,0));
