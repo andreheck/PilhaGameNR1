@@ -2,7 +2,7 @@
   "version": "1.1.0",
   "source": "Pilha_Game_Kit_Mobiliario_Poof_v1.zip (arquivo original entregue no chat)",
   "catalogSource": "data/continuous/catalog.js",
-  "graphicsStatus": "external-raster-import-required",
+  "graphicsStatus": "ready",
   "spriteRoot": "/assets/furniture/sprites/webp/",
   "pngRoot": "/assets/furniture/sprites/png/",
   "programIconRoot": "/assets/furniture/icons/",
@@ -657,5 +657,6 @@
     "Ao comprar nível 2 e 3, alterar acabamento sem criar outro objeto de chão.",
     "Programa de benefício não cria mobiliário físico nem NPC automaticamente.",
     "As imagens aprovadas ainda precisam ser adicionadas à pasta assets/furniture/. A cena usa o mobiliário isométrico procedural existente como fallback."
-  ]
+  ],
+  "rasterImported": true
 }
