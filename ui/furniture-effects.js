@@ -1,12 +1,12 @@
 /** Visual-only reward animation, independent from purchases, health and time. */
-export function emitFurniturePoof(root,{name='Melhoria adquirida',level=1,zone=null}={}){
+export function emitFurniturePoof(root,{name='Melhoria adquirida',level=1,zone=null,anchor=null}={}){
   if(!root||typeof document==='undefined')return;
   const canvas=root.querySelector('canvas');
   const holder=canvas?.parentElement||root;
   const bounds=canvas?.getBoundingClientRect()||root.getBoundingClientRect();
   const parentBounds=holder.getBoundingClientRect();
-  const centerX=bounds.left-parentBounds.left+bounds.width*.5;
-  const centerY=bounds.top-parentBounds.top+bounds.height*.54;
+  const centerX=anchor&&Number.isFinite(anchor.x)?anchor.x+bounds.left-parentBounds.left:bounds.left-parentBounds.left+bounds.width*.5;
+  const centerY=anchor&&Number.isFinite(anchor.y)?anchor.y+bounds.top-parentBounds.top:bounds.top-parentBounds.top+bounds.height*.54;
   if(getComputedStyle(holder).position==='static')holder.style.position='relative';
   const puff=document.createElement('div');
   puff.className='furniture-poof';
