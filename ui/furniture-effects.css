@@ -14,3 +14,5 @@
 .furniture-poof__atlas{position:absolute;inset:0;width:100%;height:100%;background-image:url('/assets/furniture/effects/poof_atlas_4x3.png');background-repeat:no-repeat;background-size:400% 300%;animation:poofSpriteX .26s steps(1) 3,poofSpriteY .78s steps(1) 1;opacity:.9}
 @keyframes poofSpriteX{0%{background-position-x:0}25%{background-position-x:33.333%}50%{background-position-x:66.666%}75%,100%{background-position-x:100%}}
 @keyframes poofSpriteY{0%,33.32%{background-position-y:0}33.33%,66.65%{background-position-y:50%}66.66%,100%{background-position-y:100%}}
+
+.furniture-poof:has(.furniture-poof__atlas) .furniture-poof__cloud,.furniture-poof:has(.furniture-poof__atlas) .furniture-poof__spark{display:none}
