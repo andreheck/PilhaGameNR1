@@ -1,5 +1,7 @@
 # Governança vigente — PM / PO / Codex
 
+> **Receita semanal autorizada pelo PM — 23/10/2026:** R$ 500 fictícios por semana nova + R$ 250 por herói épico da dupla salva (raridade canônica). Dois épicos totalizam R$ 1.000; épico + lendário, R$ 750. Crédito no orçamento compartilhado, uma vez por semana; sem retroativo em saves antigos, sem pagamento por troca de dupla. Relatório: `docs/releases/RECEITA-SEMANAL-2026-10-23.md`. Manter pausa, persistência, gestão e câmera. Sem merge ou produção.
+
 > **Mecânicas de gestão autorizadas pelo PM — 23/10/2026:** implementar −5 saúde para todos do setor quando estresse do gestor >40%, +7 saúde para subordinados quando saúde do gestor >70%, e refinar visual do organograma. Política de integração: um fechamento por semana, snapshot após atualização ambiental e antes dos efeitos gerenciais; regras somadas, limites 0–100, estresse contextual do setor (não há estresse individual independente). Preservar economia, relógio, dados e câmera. Relatório: `docs/releases/GESTAO-SAUDE-2026-10-23.md`. Sem merge ou produção.
 
 > **Continuação autorizada pelo PM — 23/10/2026:** concluir autonomamente a narrativa de NPC-09–16 considerando os arquétipos e revisar/implementar a hierarquia. Catálogo v1.1, três gerências (Fernanda, José, Maria), cargos e organograma consultivo. Personalidade não determina cargo/saúde; manter idades ausentes e nenhum efeito contextual novo. Continuação na PR #41, sem merge ou produção. Relatório: `docs/releases/NPCS-PERFIS-HIERARQUIA-2026-10-23.md`.

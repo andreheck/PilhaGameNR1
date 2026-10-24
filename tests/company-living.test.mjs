@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
-import * as M from '../simulation/company-continuous.js';import * as L from '../simulation/company-living.js';import {EMPLOYEES} from '../data/continuous/employees.js';import {RULES,SECTORS} from '../data/continuous/catalog.js';
+import * as M from '../simulation/company-continuous.js';import * as L from '../simulation/company-living.js';import {EMPLOYEES} from '../data/continuous/employees.js';import {RULES,SECTORS,ITEMS} from '../data/continuous/catalog.js';
 const now=1000000,near=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`),setup=()=>L.tickAt(M.fresh(),now).state;
 test('16 canonical identities; ages missing from registry remain null',()=>{assert.equal(EMPLOYEES.length,16);assert.equal(new Set(EMPLOYEES.map(p=>p.id)).size,16);assert.equal(EMPLOYEES[3].name,'Raimunda');assert.ok(EMPLOYEES.slice(8).every(p=>p.age===null));});
 test('migration adds workforce without resetting money or purchases',()=>{const a=M.purchase(M.fresh(),M.quote(M.fresh(),'producao','jorn')).state,b=JSON.parse(JSON.stringify(a));L.ensureLiving(a);assert.equal(a.budget,8800);assert.deepEqual(a.receipts,b.receipts);assert.equal(Object.keys(a.staff).length,16);assert.equal(a.version,2);});
@@ -71,7 +71,7 @@ test('management applies clamps and snapshots before effects, independent of emp
 test('weekly management changes actual persisted health, environment average and keeps finances intact',()=>{
  const s=setup();s.staff['NPC-03'].health=90;const before=JSON.stringify(s),r=L.advanceRunning(s);assert.ok(r.ok);assert.equal(JSON.stringify(s),before);const n=r.state;
  for(const p of EMPLOYEES){const target=30+M.metrics(n,p.home).index*.65;const baseline=s.staff[p.id].health+(target-s.staff[p.id].health)*.2;const a=n.staff[p.id];near(a.health,Math.max(0,Math.min(100,baseline+a.leadership.penalty+a.leadership.bonus)));assert.equal(a.leadership.week,n.week);}
- assert.equal(n.budget,s.budget);assert.deepEqual(n.receipts,s.receipts);const summary=management.leadershipSummary(n)[0];near(summary.averageHealth,EMPLOYEES.filter(p=>p.home==='escritorio').reduce((sum,p)=>sum+n.staff[p.id].health,0)/6);M.validate(n);L.validateLiving(n);
+ assert.equal(n.budget,s.budget+500);assert.deepEqual(n.receipts,s.receipts);const summary=management.leadershipSummary(n)[0];near(summary.averageHealth,EMPLOYEES.filter(p=>p.home==='escritorio').reduce((sum,p)=>sum+n.staff[p.id].health,0)/6);M.validate(n);L.validateLiving(n);
  const restored=JSON.parse(JSON.stringify(n));assert.deepEqual(L.ensureLiving(restored),n);const readOnly=JSON.stringify(n);L.staffView(n);management.leadershipSummary(n);assert.equal(JSON.stringify(n),readOnly);
 });
 test('legacy saves get no retroactive management damage; pause and catch-up stay idempotent',()=>{
@@ -79,4 +79,28 @@ test('legacy saves get no retroactive management damage; pause and catch-up stay
  const paused=L.setPaused(s,true,now).state;assert.deepEqual(L.tickAt(paused,now+RULES.weekMs*5).state.staff,paused.staff);
  const a=setup(),time=now+RULES.weekMs*3;const one=L.tickAt(a,time).state;let chunks=a;for(let i=1;i<=3;i++)chunks=L.tickAt(chunks,now+RULES.weekMs*i).state;assert.deepEqual(one.staff,chunks.staff);assert.deepEqual(L.tickAt(one,time).state,one);
  const broken=JSON.parse(JSON.stringify(one));broken.staff['NPC-01'].leadership.bonus=100;assert.throws(()=>L.ensureLiving(broken),/invalid-leadership/);
+});
+
+
+const income=await import('../simulation/weekly-income.js');
+test('weekly budget counts only canonical epic heroes in the selected valid duo',()=>{
+ const s=setup();assert.equal(income.weeklyIncomeQuote(s).total,500);s.team={principal:'PILHA-H01',support:'PILHA-H02'};assert.deepEqual(income.weeklyIncomeQuote(s),{base:500,bonus:500,epics:['PILHA-H01','PILHA-H02'],total:1000});s.team.support='PILHA-H05';assert.equal(income.weeklyIncomeQuote(s).total,750);s.team={principal:'PILHA-H05',support:'PILHA-H06'};assert.equal(income.weeklyIncomeQuote(s).bonus,250);s.team={principal:'PILHA-H01',support:'PILHA-H01'};assert.equal(income.weeklyIncomeQuote(s).total,500);
+});
+test('new week deposits usable funds once, persists its composition and never pays on team changes',()=>{
+ let s=setup();s.team={principal:'PILHA-H01',support:'PILHA-H02'};const original=JSON.stringify(s);s=L.advanceRunning(s).state;assert.equal(s.budget,11000);assert.equal(s.weeklyIncome.lastPayment.amount,1000);assert.equal(s.weeklyIncome.lastPayment.bonus,500);const paid=JSON.stringify(s);income.grantWeeklyIncome(s);assert.equal(JSON.stringify(s),paid);s.team.support='PILHA-H05';income.grantWeeklyIncome(s);assert.equal(s.budget,11000);s=L.advanceRunning(s).state;assert.equal(s.budget,11750);assert.equal(s.weeklyIncome.total,1750);assert.equal(s.weeklyIncome.lastPayment.bonus,250);const restored=L.ensureLiving(JSON.parse(JSON.stringify(s)));assert.equal(restored.budget,s.budget);assert.deepEqual(restored.weeklyIncome,s.weeklyIncome);assert.equal(JSON.parse(original).budget,10000);
+});
+test('income respects pause, repeated clocks, missed-week reconciliation and legacy initialization',()=>{
+ let s=setup();s.team={principal:'PILHA-H01',support:'PILHA-H02'};const paused=L.setPaused(s,true,now).state;assert.equal(L.tickAt(paused,now+RULES.weekMs*3).state.budget,10000);const one=L.tickAt(s,now+RULES.weekMs*3).state;let parts=s;for(let i=1;i<=3;i++)parts=L.tickAt(parts,now+RULES.weekMs*i).state;assert.equal(one.budget,13000);assert.deepEqual(one.weeklyIncome,parts.weeklyIncome);assert.equal(L.tickAt(one,now+RULES.weekMs*3).state.budget,13000);
+ const legacy=M.fresh();legacy.week=40;L.ensureLiving(legacy);assert.equal(legacy.budget,10000);assert.equal(legacy.weeklyIncome.lastWeek,40);assert.equal(L.advanceRunning(legacy).state.budget,10500);
+});
+test('deposited income can be spent through existing purchase flow; malformed ledgers reject',()=>{
+ let s=setup();s.events.nextWeek=999;s.budget=0;s.team={principal:'PILHA-H01',support:'PILHA-H02'};s=L.advanceRunning(s).state;const candidates=ITEMS.filter(i=>!i.rest).map(i=>M.quote(s,'escritorio',i.id)).filter(q=>q.ok&&q.affordable);assert.ok(candidates.length);const q=candidates[0],r=M.purchase(s,q);assert.ok(r.ok);assert.equal(r.state.budget,1000-q.cost);assert.deepEqual(r.state.weeklyIncome,s.weeklyIncome);L.validateLiving(r.state);
+ for(const corrupt of [l=>l.total=-1,l=>l.lastWeek=999,l=>l.lastPayment.amount=9999]){const bad=JSON.parse(JSON.stringify(s));corrupt(bad.weeklyIncome);assert.throws(()=>L.ensureLiving(bad),/invalid-weekly-income/);}
+ s.budget=1e9-100;s=L.advanceRunning(s).state;assert.equal(s.budget,1e9);assert.equal(s.weeklyIncome.lastPayment.amount,100);M.validate(s);L.validateLiving(s);
+});
+
+test('weekly deposit is atomic on storage failure and serialized tabs consume one timestamp',async()=>{
+ const initial=setup();initial.team={principal:'PILHA-H01',support:'PILHA-H02'};let raw=JSON.stringify(initial),fail=true;const store={getItem:()=>raw,setItem:(k,v)=>{if(fail)throw Error('storage-unavailable');raw=v;}};
+ const failed=await M.transact(store,s=>L.tickAt(s,now+RULES.weekMs));assert.equal(failed.ok,false);assert.equal(raw,JSON.stringify(initial));fail=false;
+ const paid=await M.transact(store,s=>L.tickAt(s,now+RULES.weekMs));assert.ok(paid.ok);assert.equal(paid.state.budget,11000);const another=await M.transact(store,s=>L.tickAt(s,now+RULES.weekMs));assert.ok(another.ok);assert.equal(another.state.budget,11000);assert.equal(another.state.weeklyIncome.total,1000);
 });

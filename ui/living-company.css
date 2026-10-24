@@ -92,3 +92,5 @@
 @media(max-width:700px){.organization-heading{display:block}.organization-count{display:inline-block;margin-top:6px}.organization-board ul{grid-template-columns:repeat(2,minmax(0,1fr))}.organization-board li{padding:7px;gap:6px}.organization-board li img{width:26px;height:36px}.organization-departments{gap:22px}.organization-departments:before{left:50%;right:auto;height:100%;border-left:1px solid #5e809f;border-top:0}.organization-person>.employee-avatar--art{width:40px;height:54px}}
 
 .organization-departments header small{letter-spacing:0}
+
+.continuous-income{display:grid;gap:4px;min-width:0;max-width:340px;color:#ffe18a;font-size:11px}.continuous-income small{font-size:9px;color:#afc6dc;line-height:1.5}.continuous-strip{flex-wrap:wrap}@media(max-width:700px){.continuous-income{max-width:none;width:100%;padding:5px 0}.continuous-income b{font-size:11px}}
