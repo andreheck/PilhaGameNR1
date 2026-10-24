@@ -3,6 +3,7 @@ import {FACTORS,SECTORS,ITEMS,RULES} from '../data/continuous/catalog.js';
 import * as M from '../simulation/company-continuous.js';
 import * as L from '../simulation/company-living.js';
 import {staffAction,CANDIDATES,SECTOR_IDS,sectorStaffing} from '../simulation/staffing-management.js';
+import {managementSnapshot,compareStaffingDecision,comparisonChanged} from '../simulation/management-outlook.js';
 import {createEmployeePanel} from './employee-panel.js';
 import {createLivingWorld} from './living-world.js';
 import {playOpening,explainGame} from './living-entry.js';
@@ -43,7 +44,89 @@ function showEvent(preview=null){if(eventDialog?.open)return;let temp=preview;co
  function render(){const s=temp||state,c=s.events.current;if(!c){d.close();return;}const def=EVENT_CATALOG.BY[c.id],chosen=def.opts[c.pick],replace=t=>String(t||'').replaceAll('{s}',sec(c.sid).name);d.querySelector('h2').textContent=(temp?'PRÉVIA · ':'')+def.n;d.querySelector('.modal-content').innerHTML=`<p class="event-tag">${esc(sec(c.sid).name)} · ${c.stage==='decision'?'Decisão pendente':'Consequência registrada'}</p><p>${esc(replace(def.ctx))}</p><div class="event-budget">Saldo simulado: <b>${num(s.budget)}</b>${c.protection?' · Proteção existente considerada.':''}</div>${c.stage==='decision'?`<div class="event-list">${def.opts.map((op,i)=>`<button data-event-choice="${i}" ${s.budget<op.cost?'disabled':''}><strong>${esc(op.l)} · ${num(op.cost)} créditos</strong><span>${esc(replace(op.d))}</span></button>`).join('')}</div>`:`<p>${esc(replace(chosen.r))}</p><p>Variação do saldo: ${num(s.budget-c.before)} créditos.</p><button class="primary" data-event-finish>${temp?'Fechar prévia':'Voltar à empresa'}</button>`}<p class="continuous-note">${temp?'Esta prévia não grava alterações.':'O tempo continua. A decisão fica pendente; nenhuma resposta é escolhida automaticamente. Use Pausar jogo para interromper a simulação.'} Afastamentos e indicadores são ficcionais, sem diagnóstico individual.</p>`;}
  d.addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const c=(temp||state).events.current;if(b.hasAttribute('data-event-choice')){b.disabled=true;const act=s=>M.decideEvent(s,c.serial,Number(b.dataset.eventChoice));const r=temp?act(temp):await change(act);if(r.ok){if(temp)temp=r.state;render();}}else if(b.hasAttribute('data-event-finish')){if(temp)d.close();else{const r=await change(s=>M.finishEvent(s,c.serial));if(r.ok)d.close();}}});render();}
 async function advanceWeek(){const r=await change(s=>{const r=L.advanceRunning(s);if(r.ok)r.state.lastWallMs=Date.now();return r;});if(r.ok){tell('Semana '+state.week+': efeitos e rodízio atualizados. Compras não aceleram o tempo.','success');if(state.events.current)tell(EVENT_CATALOG.BY[state.events.current.id].n+' em '+sec(state.events.current.sid).name+'.','alert',{label:'Ver detalhes',fn:()=>showEvent()});}return r;}
-function openStaffing(){let d=null;const paint=()=>{const summary=L.staffingSummary(state),sectorLines=SECTOR_IDS.map(id=>{const o=summary.sectors[id];return `<article class="staffing-sector"><h3>${esc(sec(id).name)} · ${o.active}/${o.required} disponíveis</h3><p>Vagas sem cobertura: <b>${o.gap}</b> · Cobertura externa: ${o.temporary} · Apoio recebido: ${o.incoming} · Carga adicional: ${o.pressure} pts</p><button data-staff-cover="${id}" ${o.gap===0?'disabled':''}>Cobertura 4 semanas · 350 + 110/semana</button>${SECTOR_IDS.filter(v=>v!==id).map(from=>`<button data-staff-from="${from}" data-staff-to="${id}" ${o.gap===0?'disabled':''}>Apoio de ${esc(sec(from).name)} · 2 semanas</button>`).join('')}</article>`;}).join('');d.querySelector('.modal-content').innerHTML=`<p>Contratar gera taxa inicial e despesa semanal. Apoio interno não cria funcionários nem remove custos. As métricas são fictícias.</p><p><b>Vagas:</b> ${summary.gaps} · <b>Custo semanal:</b> ${num(summary.weekly)} créditos · <b>Compromissos pendentes:</b> ${num(summary.unpaid)}</p>${sectorLines}<h3>Candidatos disponíveis</h3><div class="staffing-candidates">${summary.available.map(c=>`<article><strong>${esc(c.name)}</strong><small>${esc(c.role)}</small><p>${num(c.fee)} para admitir + ${num(c.salary)}/semana</p>${SECTOR_IDS.map(id=>`<button data-staff-hire="${c.id}" data-staff-sector="${id}" ${summary.sectors[id].active>=summary.sectors[id].required+2?'disabled':''}>Contratar para ${esc(sec(id).name)}</button>`).join('')}</article>`).join('')||'<p>Todos os candidatos foram contratados.</p>'}</div><p>Os 16 NPCs originais mantêm suas fichas e histórico. Novas pessoas recebem identidade própria e período de integração.</p>`;};d=dialog('Gestão de pessoal','');d.addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;let kind,payload;if(b.dataset.staffHire){kind='hire';payload={candidateId:b.dataset.staffHire,sector:b.dataset.staffSector};}else if(b.dataset.staffCover){kind='cover';payload={sector:b.dataset.staffCover};}else if(b.dataset.staffFrom){kind='redistribute';payload={from:b.dataset.staffFrom,sector:b.dataset.staffTo};}else return;b.disabled=true;const out=await change(s=>staffAction(s,kind,payload));if(out.ok){tell('Decisão de gestão registrada.','success');paint();}else{tell(errorText(out.error),'alert');paint();}});paint();}
+function managementBars(rows){
+ const fmt=(v,d=0)=>num(v,d);
+ return '<div class="mg-cards">'+rows.map(([label,value,detail])=>'<article><small>'+esc(label)+'</small><strong>'+esc(String(value))+'</strong><span>'+esc(detail)+'</span></article>').join('')+'</div>';
+}
+function managementDashboard(){
+ const m=managementSnapshot(state),f=L.financePeriods(state);
+ return managementBars([
+ ['Quadro produtivo',m.staffedPosts+'/16','Ativos e coberturas'],
+ ['Vagas abertas',m.gaps,'Afastamentos e desligamentos'],
+ ['Produtividade',fmtPercent(m.productivity),'Indicador ponderado por vagas'],
+ ['Saúde coletiva',fmtPercent(m.health),'Média dos trabalhadores ativos'],
+ ['Receita semanal',num(m.weeklyRevenue),'créditos simulados'],
+ ['Custo semanal',num(m.weeklyCosts),'despesas de equipe'],
+ ['Lucro semanal',num(m.weeklyProfit),'receita menos custo recorrente'],
+ ['Meta trimestral',num(f.quarter.goal),'créditos de lucro']])+
+ '<h3>Distribuição por setor</h3><div class="mg-sector-grid">'+m.sectors.map(x=>'<article><h4>'+esc(sec(x.id).name)+'</h4>'+
+ '<p>'+x.active+'/'+x.required+' pessoas ativas · '+x.gap+' vaga(s) sem cobertura</p>'+
+ '<div class="mg-meter"><span style="width:'+Math.min(100,x.coverageRatio*100)+'%"></span></div>'+
+ '<small>Produtividade '+num(x.productivity,1)+'/100 · Saúde '+num(x.health,1)+'/100</small></article>').join('')+'</div>';
+}
+const fmtPercent=v=>num(v,1)+'/100';
+function openStaffing(){
+ let d=dialog('Gestão de pessoal e produtividade',''),preview=null;
+ const paint=()=>{
+  const summary=L.staffingSummary(state);
+  const sectorLines=SECTOR_IDS.map(id=>{
+   const o=summary.sectors[id];
+   return '<article class="staffing-sector"><h3>'+esc(sec(id).name)+' · '+o.active+'/'+o.required+' disponíveis</h3>'+
+    '<p>Vagas '+o.gap+' · Cobertura '+o.temporary+' · Pressão adicional '+o.pressure+' pontos</p>'+
+    '<button data-staff-cover="'+id+'" '+(o.gap?'':'disabled')+'>Simular cobertura · 4 semanas</button>'+
+    SECTOR_IDS.filter(from=>from!==id).map(from=>'<button data-staff-from="'+from+'" data-staff-to="'+id+'" '+(o.gap?'':'disabled')+'>Simular apoio de '+esc(sec(from).name)+'</button>').join('')+'</article>';
+  }).join('');
+  d.querySelector('.modal-content').innerHTML='<div class="mg-dashboard">'+managementDashboard()+'</div>'+
+   '<h3>Decisões de pessoal</h3><p class="continuous-note">Nenhuma simulação desconta créditos. Selecione uma opção para comparar antes de confirmar.</p>'+
+   '<div class="mg-sector-grid">'+sectorLines+'</div><h3>Candidatos disponíveis</h3>'+
+   '<div class="staffing-candidates mg-sector-grid">'+summary.available.map(c=>'<article><strong>'+esc(c.name)+'</strong><small>'+esc(c.role)+'</small>'+
+   '<p>Admissão '+num(c.fee)+' · '+num(c.salary)+'/semana</p>'+
+   SECTOR_IDS.map(id=>'<button data-staff-hire="'+c.id+'" data-staff-sector="'+id+'">Simular em '+esc(sec(id).name)+'</button>').join('')+'</article>').join('')+'</div>'+
+   '<p class="continuous-note">Projeções educativas, sem diagnóstico clínico ou previsão real de desempenho individual.</p>';
+ };
+ const compare=()=>{
+  if(!preview)return;
+  const m=preview,b=m.before,a=m.after;
+  const fields=[
+   ['Postos produtivos',b.staffedPosts,a.staffedPosts],
+   ['Vagas descobertas',b.gaps,a.gaps],
+   ['Produtividade',fmtPercent(b.productivity),fmtPercent(a.productivity)],
+   ['Saúde coletiva prevista (4 sem.)',fmtPercent(b.healthTrend4Weeks),fmtPercent(a.healthTrend4Weeks)],
+   ['Receita por semana',num(b.weeklyRevenue),num(a.weeklyRevenue)],
+   ['Custo semanal',num(b.weeklyCosts),num(a.weeklyCosts)],
+   ['Lucro semanal',num(b.weeklyProfit),num(a.weeklyProfit)]
+  ];
+  d.querySelector('.modal-content').innerHTML='<div class="mg-comparison"><p>Prévia sem alteração do saldo ou da partida. Entrada: '+num(m.fee)+' créditos.</p>'+
+   '<table><thead><tr><th>Indicador</th><th>Atual</th><th>Após decisão</th></tr></thead><tbody>'+
+   fields.map(([name,old,now])=>'<tr><th>'+esc(name)+'</th><td>'+old+'</td><td>'+now+'</td></tr>').join('')+'</tbody></table>'+
+   '<h3>Impacto projetado</h3>'+
+   managementBars([['Diferença no lucro em 4 semanas',num(m.netFourWeeks),'inclui taxa inicial'],
+    ['Lucro no fechamento trimestral',num(m.quarter.after),'meta '+num(m.quarter.goal)],
+    ['Resultado da meta',m.quarter.scenarioMeetsGoal?'Atingível':'Abaixo','sob hipótese estática']])+
+   '<p class="continuous-note">Cenário simplificado: os demais eventos e decisões permanecem constantes. A contratação entra em atividade na próxima semana. A saúde é uma tendência, não uma previsão clínica.</p>'+
+   '<div class="mg-actions"><button data-mg-back>Voltar sem contratar</button><button class="primary" data-mg-confirm>Confirmar decisão</button></div></div>';
+ };
+ d.addEventListener('click',async e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.hasAttribute('data-mg-back')){preview=null;paint();return;}
+  if(b.hasAttribute('data-mg-confirm')){
+   if(!preview)return;
+   if(comparisonChanged(null,state,preview)){preview=null;paint();tell('Cenário alterado. Faça uma nova simulação.','alert');return;}
+   b.disabled=true;const p=preview;
+   const r=await change(s=>staffAction(s,p.kind,p.payload),p.atRevision);
+   preview=null;paint();tell(r.ok?'Decisão confirmada e registrada.':errorText(r.error),r.ok?'success':'alert');return;
+  }
+  let kind,payload;
+  if(b.dataset.staffHire){kind='hire';payload={candidateId:b.dataset.staffHire,sector:b.dataset.staffSector};}
+  else if(b.dataset.staffCover){kind='cover';payload={sector:b.dataset.staffCover};}
+  else if(b.dataset.staffFrom){kind='redistribute';payload={from:b.dataset.staffFrom,sector:b.dataset.staffTo};}
+  else return;
+  const result=compareStaffingDecision(state,kind,payload);
+  if(!result.ok){tell(errorText(result.error),'alert');return;}
+  preview=result;compare();
+ });
+ paint();
+}
 function openFinance(){const report=L.financePeriods(state),fmt=x=>num(x,2),periods=[['Trimestre',report.quarter],['Semestre',report.semester],['Ano',report.year]];const bars=periods.map(([name,p])=>{const scale=Math.max(p.goal,Math.abs(p.profit),1);const width=Math.round(Math.min(100,Math.abs(p.profit)/scale*100));const target=Math.round(p.goal/scale*100);return `<article class="finance-period"><h3>${name} · ${p.weeks} semanas</h3><p>Receita ${fmt(p.revenue)} · Despesas ${fmt(p.costs)} · Lucro <b>${fmt(p.profit)}</b></p><div class="finance-track"><i style="width:${width}%;background:${p.profit<0?'#e76878':p.completed&&p.achieved?'#51c694':'#e7bb61'}"></i><span style="left:${target}%"></span></div><p>Meta ${fmt(p.goal)} créditos · ${p.completed?(p.achieved?'Meta atingida':'Meta não atingida'):'Apuração ao completar a semana '+p.end}</p></article>`;}).join('');const recent=report.history.slice(-12),max=Math.max(1000,...recent.map(x=>x.revenue));const points=recent.map((x,i)=>`${18+i*27},${105-x.revenue/max*85}`).join(' ');dialog('Resultados e metas',`<p>Receita-base semanal: 1.000 créditos divididos entre 16 postos (62,50 por posto). Afastamentos e desligamentos diminuem a produção; contratações e coberturas recompõem os postos. Receita não é lucro.</p><p>Capacidade atual: <b>${report.preview.productivePosts}/16</b> postos · Receita estimada da próxima semana: <b>${fmt(report.preview.revenue)}</b> créditos · Perda de capacidade: ${fmt(report.preview.lostRevenue)}</p>${bars}<h3>Receita semanal registrada</h3><svg viewBox="0 0 340 125" style="width:100%;height:auto" role="img" aria-label="Evolução semanal da receita"><path d="M18 12V105H322" fill="none" stroke="#8095ad" stroke-width="2"/><polyline points="${points}" fill="none" stroke="#59c8b1" stroke-width="3" stroke-linejoin="round"/>${recent.map((x,i)=>`<circle cx="${18+i*27}" cy="${105-x.revenue/max*85}" r="3" fill="#59c8b1"/>`).join('')}</svg><p class="continuous-note">Resultados em créditos fictícios. Metas configuradas para 12, 24 e 48 semanas simuladas. Os períodos fechados são avaliados pela receita menos as despesas operacionais registradas.</p>`);}
 function mountMap(){if(map)return;app.innerHTML='';map=window.PilhaMapa.mount({container:app,model:{read:()=>M.snapshot(state),head:panelHead,body:panelBody,buy},onEmployee:id=>staffPanel.open(id),onReplayIntro:()=>startExperience(true)});
  const tools=document.createElement('div');tools.className='continuous-tools';tools.innerHTML='<button data-company="heroes">Heróis</button><button data-company="employees">Lista de funcionários</button><button data-company="staffing">Gestão de pessoal</button><button data-company="finance">Resultados</button><button data-company="world">O mundo corporativo de PilhA+</button><button data-company="event" hidden>Alerta pendente</button><button data-company="advance">Avançar semana</button><button data-company="pause">Pausar tempo</button>';map.root.querySelector('.pm-hud__mid').append(tools);const strip=document.createElement('div');strip.className='continuous-strip';strip.innerHTML='<span class="continuous-team"></span><div class="living-clock-holder">'+worldGuide.clockMarkup()+'</div>';strip.addEventListener('click',e=>{if(e.target.closest('[data-company=calendar]'))worldGuide.openCalendar();});map.root.querySelector('.pm-tabs').after(strip);
