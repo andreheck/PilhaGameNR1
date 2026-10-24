@@ -93,6 +93,11 @@ def run(browser,w,h):
         check(page.locator('.world-specials article').count()==2,tag+': special mentors remain a separate category')
         page.wait_for_function('()=>Array.from(document.querySelectorAll(".world-heroes img")).every(i=>i.complete&&i.naturalWidth>0)')
         check(page.locator('.world-heroes img').evaluate_all('(is)=>is.every(i=>i.complete&&i.naturalWidth>0)'),tag+': canonical hero artwork loaded')
+        # Lazy portraits outside the mobile scrollport load only when visited.
+        for portrait_image in page.locator('.world-staff img[data-npc-art]').all():
+            portrait_image.scroll_into_view_if_needed()
+            portrait_image.evaluate('(i)=>i.decode()')
+        page.locator('.world-staff button').first.scroll_into_view_if_needed()
         page.wait_for_function('()=>Array.from(document.querySelectorAll(".world-staff img[data-npc-art]")).length===16&&Array.from(document.querySelectorAll(".world-staff img[data-npc-art]")).every(i=>i.complete&&i.naturalWidth>0)')
         check(page.locator('.world-staff [data-npc-id]').count()==16,tag+': same16 portraits in world catalogue')
         check(page.locator('.world-staff [data-npc-id]').evaluate_all('(rows)=>rows.every(r=>{const b=r.getBoundingClientRect();return b.width>=30&&b.width<=60;})'),tag+': catalogue portraits compact without flex stretching')
