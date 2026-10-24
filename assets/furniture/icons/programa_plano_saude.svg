@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Plano de saúde">
+ <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#dbe9ff"/><stop offset="1" stop-color="#a4cafa"/></linearGradient></defs>
+ <rect x="17" y="12" width="126" height="138" rx="24" fill="url(#bg)" stroke="#4989c9" stroke-width="5"/>
+ <rect x="39" y="31" width="82" height="98" rx="10" fill="#fff" stroke="#3f77b0" stroke-width="4"/>
+ <rect x="59" y="20" width="42" height="18" rx="7" fill="#4e96cf"/>
+ <path d="M80 95 C50 75 55 58 70 60 C75 60 79 65 80 68 C88 53 110 61 107 75 C105 85 92 95 80 103Z" fill="#e85f7a"/>
+ <path d="M58 115H102" stroke="#a7c0dd" stroke-linecap="round" stroke-width="6"/>
+</svg>
