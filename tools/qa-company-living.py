@@ -8,7 +8,7 @@ def check(ok,label):
     if not ok:raise AssertionError(label)
     report['checks'].append(label)
 def run(browser,w,h):
-    tag=f'{w}x{h}';ctx=browser.new_context(viewport={'width':w,'height':h},reduced_motion='reduce');page=ctx.new_page();errors=[]
+    tag=f'{w}x{h}';ctx=browser.new_context(viewport={'width':w,'height':h},reduced_motion='reduce',has_touch=w<900);page=ctx.new_page();errors=[]
     page.on('pageerror',lambda e:errors.append(str(e)))
     def snap(name):page.screenshot(path=str(OUT/f'{name}-{tag}.png'))
     def state():return page.evaluate('PilhaLiving.getState()')
@@ -16,7 +16,8 @@ def run(browser,w,h):
     def saved(expr):page.wait_for_function('()=>{const s=PilhaLiving.getState();return '+expr+';}')
     def enter():
         page.locator('.pi-root').wait_for();check(page.locator('.pi-motion').count()==0,tag+': no animation toggle in opening')
-        if page.locator('.pi-splash').is_visible():page.locator('.pi-splash').click()
+        # Splash transitions automatically; clicking it races with the invite fade-in.
+        page.locator('.pi-skip').wait_for(state='visible')
         page.locator('.pi-skip').click();page.locator('.living-guide[open]').wait_for();snap('guide')
         for _ in range(3):page.locator('[data-guide="next"]').click()
         page.locator('.continuous-gallery-dialog[open]').wait_for()
@@ -49,6 +50,13 @@ def run(browser,w,h):
         check(len(health)==16 and health==sorted(health,reverse=True),tag+': compact employee list ordered by health');snap('employees')
         page.locator('[data-employee="NPC-04"]').click()
         check('Raimunda' in page.locator('.employee-profile-head').inner_text(),tag+': employee details reflect matching identity');snap('profile')
+        check(page.locator('.employee-profile-head h2').evaluate('(e)=>e===document.activeElement'),tag+': profile heading receives focus')
+        page.keyboard.press('Tab')
+        check(page.locator('[data-employee-locate]').evaluate('(e)=>e===document.activeElement'),tag+': keyboard reaches locate action')
+        page.keyboard.press('Shift+Tab');page.keyboard.press('Enter')
+        check(page.locator('[data-employee="NPC-04"]').evaluate('(e)=>e===document.activeElement'),tag+': keyboard back returns to matching worker')
+        page.keyboard.press('Enter')
+
         # Phase1: all identities and canonical narrative fields, in both target viewports.
         catalog=json.loads((ROOT/'data/npcs/catalogo-v1.json').read_text(encoding='utf-8'))['npcs']
         colors={'NPC-04':'roxa','NPC-05':'verde','NPC-11':'azul','NPC-14':'camila','NPC-16':'amarela'}
@@ -86,7 +94,10 @@ def run(browser,w,h):
         page.locator('.employees-dialog[open]').wait_for()
         check('Raimunda' in page.locator('.employee-profile-head').inner_text(),tag+': clicking walking NPC opens its own health profile')
         page.locator('[data-employee-close]').click()
-        before=state();page.locator('[data-company="world"]').click();snap('world')
+        before=state();world_button=page.locator('[data-company="world"]')
+        if w<900:world_button.tap()
+        else:world_button.click()
+        snap('world')
         page.locator('[data-world-tab="personagens"]').click()
         check(page.locator('.world-heroes button').count()==6,tag+': world contains all six heroes')
         check(page.locator('.world-staff button').count()==16,tag+': world contains all sixteen NPCs')
@@ -147,6 +158,20 @@ def run(browser,w,h):
         page.reload(wait_until='domcontentloaded');enter();page.locator('[data-team-save]').click();page.locator('.pm-root').wait_for();page.wait_for_timeout(500)
         check(state()['paused'] and state()['week']==week and state()['budget']==money,tag+': reload preserves pause, week and balance')
         check(len(state()['staff'])==16,tag+': individual health persists')
+        # Same-origin real second tab: shared storage and Web Locks must consume one week.
+        if w==1366:
+            other=ctx.new_page();other.goto('http://127.0.0.1:8768/',wait_until='domcontentloaded')
+            other.locator('.pi-skip').wait_for(state='visible');other.locator('.pi-skip').click()
+            for _ in range(3):other.locator('[data-guide="next"]').click()
+            other.locator('[data-team-save]').click();other.locator('.pm-root').wait_for()
+            old_week=state()['week'];old_budget=state()['budget'];old_total=state()['weeklyIncome']['total']
+            page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.paused=false;s.lastWallMs=Date.now()-120500;localStorage.setItem(k,JSON.stringify(s));PilhaLiving.syncClock();}')
+            other.evaluate('PilhaLiving.syncClock()')
+            saved('s.week==='+str(old_week+1))
+            check(state()['budget']==old_budget+1000 and state()['weeklyIncome']['total']==old_total+1000,tag+': two browser tabs deposit one weekly income')
+            check(other.evaluate('PilhaLiving.getState().budget')==state()['budget'],tag+': both tabs share current budget')
+            page.locator('[data-company="pause"]').click();saved('s.paused===true');other.close()
+
         check(not errors,tag+': no uncaught browser exceptions')
         report['viewports'].append({'width':w,'height':h,'ok':True})
     except Exception:
@@ -162,7 +187,7 @@ try:
         opts={'headless':True,'args':['--no-sandbox']}
         if os.environ.get('CHROMIUM_PATH'):opts['executable_path']=os.environ['CHROMIUM_PATH']
         b=p.chromium.launch(**opts)
-        for w,h in [(1366,900),(390,844)]:run(b,w,h)
+        for w,h in [(1366,900),(390,844),(320,844),(844,390),(1440,900)]:run(b,w,h)
         b.close()
 except Exception as e:report['errors'].append(str(e));raise
 finally:
