@@ -146,3 +146,13 @@
 
 .living-topbar .living-time small{font-size:7px;letter-spacing:.08em;white-space:nowrap}.living-topbar .living-time-date{font-size:11px;white-space:nowrap}
 @media(orientation:landscape) and (max-height:500px){.living-topbar .living-clock-holder{width:320px}}
+
+@media(max-width:700px){
+ .living-topbar .living-time{display:grid;grid-template-columns:22px minmax(0,1fr) auto;grid-template-rows:auto auto;gap:2px 8px}
+ .living-topbar .living-time>svg{grid-column:1;grid-row:1 / 3;width:22px;height:22px}
+ .living-topbar .living-time>span:first-of-type{grid-column:2;grid-row:1 / 3;display:grid;min-width:0;gap:3px}
+ .living-topbar .living-time-digits{grid-column:3;grid-row:1;font-size:21px}
+ .living-topbar .living-time-state{grid-column:3;grid-row:2;text-align:right;justify-self:end}
+ .living-topbar .living-time-date{white-space:normal;font-size:10px}
+ .living-topbar .living-time small{white-space:normal;font-size:6px}
+}

@@ -12,7 +12,7 @@ Os elementos DOM existentes são movidos, preservando listeners de abas, replay,
 
 ## Verificação
 
-Build, sintaxe JS/Python e nove testes de perfis passaram localmente. Inspeção no navegador em1361×765,320×844 e844×390: barra única, sem overflow horizontal, calendário continua abrindo e mapa utilizável. Em320px, mapa medido em535px; em landscape,240px na nova estrutura. Transparência confirmada no estilo computado.
+Build, sintaxe JS/Python e nove testes de perfis passaram localmente. Inspeção no navegador em1361×765,320×844 e844×390: barra única, sem overflow horizontal, calendário continua abrindo e mapa utilizável. Em320px, mapa medido em535px; em landscape,240px na nova estrutura. Transparência confirmada no estilo computado. A validação ampliada encontrou overflow do relógio em320px; o calendário móvel passa a usar grade com data flexível e hora/estado na terceira coluna, mantendo todo o conteúdo.
 
 O QA GitHub repete os26 testes de empresa viva,17 de modo contínuo,9 de perfis, npm test e cinco resoluções (1366×900,390×844,320×844,844×390,1440×900), incluindo teclado, toque simulado, duas abas, receita, gestão, localização e reload. Consultar resultado final na PR; não confundir cobertura configurada com teste concluído.
 
