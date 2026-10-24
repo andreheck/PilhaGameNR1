@@ -1,0 +1,661 @@
+{
+  "version": "1.1.0",
+  "source": "Pilha_Game_Kit_Mobiliario_Poof_v1.zip (arquivo original entregue no chat)",
+  "catalogSource": "data/continuous/catalog.js",
+  "graphicsStatus": "external-raster-import-required",
+  "spriteRoot": "/assets/furniture/sprites/webp/",
+  "pngRoot": "/assets/furniture/sprites/png/",
+  "programIconRoot": "/assets/furniture/icons/",
+  "poof": {
+    "atlas": "/assets/furniture/effects/poof_atlas_4x3.png",
+    "columns": 4,
+    "rows": 3,
+    "frames": 12,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameMs": 65,
+    "revealFrame": 5,
+    "durationMs": 780,
+    "fallback": "procedural-svg"
+  },
+  "assets": [
+    {
+      "id": "sofa-azul",
+      "name": "Sofá azul",
+      "file": "sofa-azul.webp",
+      "png": "sofa-azul.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "poltrona-azul-a",
+      "name": "Poltrona azul A",
+      "file": "poltrona-azul-a.webp",
+      "png": "poltrona-azul-a.png",
+      "referenceWidth": 120,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "poltrona-azul-b",
+      "name": "Poltrona azul B",
+      "file": "poltrona-azul-b.webp",
+      "png": "poltrona-azul-b.png",
+      "referenceWidth": 120,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "mesa-centro-redonda",
+      "name": "Mesa de centro redonda",
+      "file": "mesa-centro-redonda.webp",
+      "png": "mesa-centro-redonda.png",
+      "referenceWidth": 155,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "mesa-escritorio",
+      "name": "Mesa de escritório",
+      "file": "mesa-escritorio.webp",
+      "png": "mesa-escritorio.png",
+      "referenceWidth": 230,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "mesa-reuniao",
+      "name": "Mesa de reuniões",
+      "file": "mesa-reuniao.webp",
+      "png": "mesa-reuniao.png",
+      "referenceWidth": 232,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "estante-livros",
+      "name": "Estante de livros",
+      "file": "estante-livros.webp",
+      "png": "estante-livros.png",
+      "referenceWidth": 114,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "gaveteiro",
+      "name": "Gaveteiro",
+      "file": "gaveteiro.webp",
+      "png": "gaveteiro.png",
+      "referenceWidth": 86,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "bebedouro",
+      "name": "Bebedouro",
+      "file": "bebedouro.webp",
+      "png": "bebedouro.png",
+      "referenceWidth": 80,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "planta-grande",
+      "name": "Planta grande",
+      "file": "planta-grande.webp",
+      "png": "planta-grande.png",
+      "referenceWidth": 115,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "planta-pequena",
+      "name": "Planta pequena",
+      "file": "planta-pequena.webp",
+      "png": "planta-pequena.png",
+      "referenceWidth": 74,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "divisoria-vidro",
+      "name": "Divisória de vidro",
+      "file": "divisoria-vidro.webp",
+      "png": "divisoria-vidro.png",
+      "referenceWidth": 206,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "tapete-almofadas",
+      "name": "Tapete e almofadas",
+      "file": "tapete-almofadas.webp",
+      "png": "tapete-almofadas.png",
+      "referenceWidth": 145,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "puff-azul",
+      "name": "Puff azul",
+      "file": "puff-azul.webp",
+      "png": "puff-azul.png",
+      "referenceWidth": 98,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "banco-lounge",
+      "name": "Banco lounge",
+      "file": "banco-lounge.webp",
+      "png": "banco-lounge.png",
+      "referenceWidth": 200,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "arvore-frutifera",
+      "name": "Árvore frutífera",
+      "file": "arvore-frutifera.webp",
+      "png": "arvore-frutifera.png",
+      "referenceWidth": 145,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "pilha-livros",
+      "name": "Pilha de livros",
+      "file": "pilha-livros.webp",
+      "png": "pilha-livros.png",
+      "referenceWidth": 73,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "quadro",
+      "name": "Quadro",
+      "file": "quadro.webp",
+      "png": "quadro.png",
+      "referenceWidth": 89,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "caixa-material",
+      "name": "Caixa de materiais",
+      "file": "caixa-material.webp",
+      "png": "caixa-material.png",
+      "referenceWidth": 89,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    },
+    {
+      "id": "armario-baixo",
+      "name": "Armário baixo",
+      "file": "armario-baixo.webp",
+      "png": "armario-baixo.png",
+      "referenceWidth": 110,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true
+    }
+  ],
+  "upgrades": {
+    "seg": {
+      "asset": "sofa-azul",
+      "position": [
+        1.4,
+        1.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "asse": {
+      "asset": "divisoria-vidro",
+      "position": [
+        2.8,
+        2.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "psic": {
+      "asset": "mesa-reuniao",
+      "position": [
+        5.4,
+        1.7
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "ergo": {
+      "asset": "mesa-escritorio",
+      "position": [
+        9.4,
+        1.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "fisi": {
+      "asset": "bebedouro",
+      "position": [
+        10.6,
+        2.6
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "espa": {
+      "asset": "divisoria-vidro",
+      "position": [
+        1.5,
+        5.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "jorn": {
+      "asset": "poltrona-azul-b",
+      "position": [
+        2.8,
+        6.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "auto": {
+      "asset": "mesa-escritorio",
+      "position": [
+        5.3,
+        5.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "lide": {
+      "asset": "mesa-reuniao",
+      "position": [
+        6.6,
+        6.3
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "rela": {
+      "asset": "mesa-centro-redonda",
+      "position": [
+        9.4,
+        5.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "muda": {
+      "asset": "quadro",
+      "position": [
+        10.6,
+        6.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "apoi": {
+      "asset": "banco-lounge",
+      "position": [
+        2.8,
+        3.1
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "puff": {
+      "asset": "puff-azul",
+      "position": [
+        1.4,
+        1.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "arvore": {
+      "asset": "planta-grande",
+      "position": [
+        5.4,
+        1.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "almofadas": {
+      "asset": "tapete-almofadas",
+      "position": [
+        9.4,
+        1.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "tapete": {
+      "asset": "tapete-almofadas",
+      "position": [
+        10.6,
+        2.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "capelao": {
+      "asset": null,
+      "position": [
+        1.7,
+        6.2
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": false,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "yoga": {
+      "asset": null,
+      "position": [
+        10.1,
+        2.7
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": false,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "plano": {
+      "asset": null,
+      "position": [
+        2.9,
+        2.4
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": false,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "livros": {
+      "asset": "estante-livros",
+      "position": [
+        2.8,
+        2.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "cursos": {
+      "asset": "mesa-reuniao",
+      "position": [
+        1.6,
+        5.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "frutifera": {
+      "asset": "arvore-frutifera",
+      "position": [
+        5.4,
+        5.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "banco": {
+      "asset": "banco-lounge",
+      "position": [
+        9.4,
+        5.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "intervalo": {
+      "asset": "sofa-azul",
+      "position": [
+        6.7,
+        2.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    }
+  },
+  "programs": {
+    "plano": "programa_plano_saude.svg",
+    "capelao": "programa_capelao.svg",
+    "yoga": "programa_professor_yoga.svg"
+  },
+  "notes": [
+    "Aparição é exclusivamente visual. Preços/efeitos/períodos vêm de data/continuous/catalog.js.",
+    "Um item visual por melhoria/setor reduz lotação e evita cruzar corredores dos NPCs.",
+    "Ao comprar nível 2 e 3, alterar acabamento sem criar outro objeto de chão.",
+    "Programa de benefício não cria mobiliário físico nem NPC automaticamente.",
+    "As imagens aprovadas ainda precisam ser adicionadas à pasta assets/furniture/. A cena usa o mobiliário isométrico procedural existente como fallback."
+  ]
+}
