@@ -1,5 +1,7 @@
 # Fase 1 — identidades e fichas dos 16 NPCs
 
+> Continuação posterior autorizada: os oito perfis foram concluídos no catálogo v1.1 e a hierarquia integrada. O relato abaixo registra a primeira entrega. Estado atual, cargos e novas evidências em [NPCS-PERFIS-HIERARQUIA-2026-10-23.md](../../releases/NPCS-PERFIS-HIERARQUIA-2026-10-23.md).
+
 Base: `fix/npc-focus-codex-continuation`, commit `70c64280e9bee29fa070fc2d9a938b302e237003` (PR #40). Entrega: `codex/npcs-fase1-perfis`. Atualização documental concorrente da base `0f7c551` incorporada; reconhece os quatro recortes já extraídos, sem retrabalho ou alteração funcional.
 
 ## Fontes e integridade

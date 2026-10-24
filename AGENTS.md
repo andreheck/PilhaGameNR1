@@ -1,5 +1,7 @@
 # Governança vigente — PM / PO / Codex
 
+> **Continuação autorizada pelo PM — 23/10/2026:** concluir autonomamente a narrativa de NPC-09–16 considerando os arquétipos e revisar/implementar a hierarquia. Catálogo v1.1, três gerências (Fernanda, José, Maria), cargos e organograma consultivo. Personalidade não determina cargo/saúde; manter idades ausentes e nenhum efeito contextual novo. Continuação na PR #41, sem merge ou produção. Relatório: `docs/releases/NPCS-PERFIS-HIERARQUIA-2026-10-23.md`.
+
 > **Entrega atual — 23/10/2026:** Fase 1 dos 16 NPCs em `codex/npcs-fase1-perfis`, baseada em `fix/npc-focus-codex-continuation` (`70c6428`). Integrar somente artes aprovadas e narrativa canônica em lista, ficha e catálogo. Preservar motor, calendário, câmera, sprites, economia e saves. Entregar testes, evidências e PR para aprovação; sem merge ou publicação em produção. Escopo: `docs/specs/NPCS-FASE1-2026-10-23.md`.
 
 > **Próxima entrega aprovada pelo PM — 22/10/2026:** conectar visualmente os três departamentos e ajustar a circulação em campo, a partir da galeria publicada `0c3dba6`. Branch `codex/empresa-conectada-circulacao`; escopo, testes e limitações em `docs/releases/EMPRESA-CONECTADA-2026-10-22.md`. Preservar estilo, dados, economia e relógio. A autorização vigente para atualizar o Vercel de testes continua aplicável; não autoriza merge.

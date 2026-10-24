@@ -50,3 +50,17 @@
 /* The catalogue's generic text-span flex rule must not stretch the portrait wrapper. */
 .world-staff button>.employee-avatar--art{flex:none;display:block;width:48px;height:56px}
 @media(max-width:700px){.employee-row .employee-avatar--art{width:36px;height:44px}}
+
+/* Organização consultiva e cargos: somente apresentação, sem efeito na simulação. */
+.organization-board{border:1px solid #d7af45;border-radius:16px;padding:16px;background:#142b4a}
+.organization-board ul{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:0}
+.organization-board li{display:grid;gap:5px;padding:10px;background:#0b2037;border-radius:10px}
+.organization-board small,.organization-team small{color:#a9bfd3}
+.organization-departments{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:24px}
+.organization-departments>section{min-width:0;border:1px solid #355676;border-radius:16px;padding:14px;background:#10253e}
+.organization-departments h4{margin:20px 0 8px;color:#8ed9d0}
+.organization-team{display:grid;gap:10px}
+.company-organization button{display:grid;gap:6px;text-align:left;width:100%;white-space:normal;overflow-wrap:anywhere;border:1px solid #3e6285;border-radius:12px;background:#183653;color:#eaf6ff;padding:12px;cursor:pointer}
+.company-organization button:hover,.company-organization button:focus-visible{outline:2px solid #ffd166;outline-offset:2px}
+.organization-manager{border-top:3px solid #ffd166;padding-top:10px}
+@media(max-width:700px){.organization-departments{grid-template-columns:1fr}.organization-board ul{grid-template-columns:repeat(2,minmax(0,1fr))}}

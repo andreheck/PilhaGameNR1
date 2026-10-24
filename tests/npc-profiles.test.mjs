@@ -7,7 +7,7 @@ test('all16 IDs bind canonical names, groups, profiles and unique approved RGBA 
  assert.equal(hashes.size,16);assert.equal(npcProfile('absent'),null);
 });
 test('every narrative field comes from the canonical catalog; unregistered details stay missing',()=>{
- for(const p of EMPLOYEES){const f=p.profile,c=catalog.npcs.find(x=>x.id===p.id);assert.deepEqual(f.strengths,c.forcas??[]);assert.deepEqual(f.watchouts,c.pontos_de_atencao??[]);assert.deepEqual(f.favorableConditions,c.condicoes_favoraveis??[]);assert.deepEqual(f.adverseConditions,c.condicoes_adversas??[]);assert.deepEqual(f.proposedSynergies,c.sinergias_propostas??[]);assert.deepEqual(f.proposedEffects,c.pontos??null);assert.equal(f.age,c.idade??null);if(Number(p.id.slice(-2))>=9){assert.equal(p.age,null);assert.equal(f.age,null);assert.deepEqual(f.strengths,[]);assert.equal(f.status,'pendente_refinamento');}}
+ for(const p of EMPLOYEES){const f=p.profile,c=catalog.npcs.find(x=>x.id===p.id);assert.deepEqual(f.strengths,c.forcas??[]);assert.deepEqual(f.watchouts,c.pontos_de_atencao??[]);assert.deepEqual(f.favorableConditions,c.condicoes_favoraveis??[]);assert.deepEqual(f.adverseConditions,c.condicoes_adversas??[]);assert.deepEqual(f.proposedSynergies,c.sinergias_propostas??[]);assert.deepEqual(f.proposedEffects,c.pontos??null);assert.equal(f.age,c.idade??null);if(Number(p.id.slice(-2))>=9){assert.equal(p.age,null);assert.equal(f.age,null);assert.ok(f.strengths.length>=3);assert.equal(f.status,'narrativa_editorial_v1');assert.equal(f.proposedEffects,null);}}
 });
 test('profiles and artwork do not change the original health formula, balance or persisted records',()=>{
  const s=M.fresh(),before=JSON.stringify(s),rows=L.staffView(s);assert.equal(JSON.stringify(s),before);for(const p of rows){const expected=Math.round(70+(M.metrics(s,p.home).index-50)*.35);assert.equal(p.health,expected);assert.ok(p.profile.disclaimer.includes('não determina saúde'));}
@@ -31,4 +31,14 @@ test('transient image errors show same-person fallback, retry once, and recover 
  const handlers={},classes=new Set();let retries=0;const image={isConnected:true,naturalWidth:0,dataset:{},matches:()=>true,getAttribute:()=>'/assets/npcs/npc-04-raimunda-debatedora.png',closest:()=>({classList:{add:k=>classes.add(k),remove:k=>classes.delete(k)}}),set src(v){assert.equal(v,'/assets/npcs/npc-04-raimunda-debatedora.png');retries++;}};
  globalThis.document={addEventListener:(event,fn)=>handlers[event]=fn};try{await import('../ui/employee-panel.js?fallback-event-test');}finally{delete globalThis.document;}
  handlers.error({target:image});assert.ok(classes.has('is-missing'));await new Promise(r=>setTimeout(r,800));assert.equal(retries,1);handlers.error({target:image});await new Promise(r=>setTimeout(r,800));assert.equal(retries,1,'no unbounded retry loop');image.naturalWidth=1122;handlers.load({target:image});assert.equal(classes.has('is-missing'),false);assert.equal(image.dataset.npcRetry,undefined);
+});
+
+
+test('organization has exactly16 unique jobs, three home managers and six non-worker advisors',async()=>{
+ const {MANAGERS,BOARD,jobFor}=await import('../data/continuous/organization.js');
+ const {organizationMarkup}=await import('../ui/company-organization.js');
+ assert.equal(BOARD.length,6);assert.equal(new Set(BOARD.map(h=>h.heroId)).size,6);assert.equal(jobFor('missing','escritorio'),null);
+ for(const sid of ['escritorio','producao','atendimento']){const people=EMPLOYEES.filter(p=>p.home===sid),leaders=people.filter(p=>p.organization.rank==='estrategico');assert.equal(leaders.length,1);assert.equal(leaders[0].id,MANAGERS[sid]);assert.equal(leaders[0].organization.reportsTo,'conselho');for(const p of people.filter(p=>p.id!==MANAGERS[sid]))assert.equal(p.organization.reportsTo,MANAGERS[sid]);}
+ const state=M.fresh(),before=JSON.stringify(state),html=organizationMarkup(L.staffView(state),[]);assert.equal(JSON.stringify(state),before);assert.equal((html.match(/data-org-id=/g)||[]).length,16);assert.equal((html.match(/data-org-hero=/g)||[]).length,6);for(const p of EMPLOYEES)assert.equal(html.split('data-org-id="'+p.id+'"').length,2);
+ assert.ok(html.includes('Gerente de Produção'));assert.ok(html.includes('Gerente de Atendimento'));assert.ok(html.includes('Gerente do Escritório'));
 });

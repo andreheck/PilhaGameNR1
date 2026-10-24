@@ -1,7 +1,7 @@
 {
-  "versao": "1.0.0",
+  "versao": "1.1.0",
   "registrado_em": "2026-10-21",
-  "estado": "catalogo_nao_integrado",
+  "estado": "narrativa_integrada_sem_efeitos_contextuais",
   "aviso": "Perfis MBTI são apenas construção ficcional. Não inferir aptidão profissional, diagnóstico, gripe, ansiedade ou problemas musculares a partir deles; eventos adversos exigem exposição contextual real no cenário simulado.",
   "ambientes": {
     "lideranca": "Liderança",
@@ -522,7 +522,33 @@
       "idade": null,
       "ambientes": null,
       "pontos": null,
-      "status": "pendente_refinamento"
+      "status": "narrativa_editorial_v1",
+      "papel": "Operação e logística",
+      "forcas": [
+        "Organiza materiais e acompanha entregas",
+        "Registra etapas para dar continuidade ao trabalho",
+        "Ajuda a identificar falhas nos fluxos logísticos",
+        "Consistência e atenção aos registros"
+      ],
+      "pontos_de_atencao": [
+        "Acúmulo de conferências sem apoio",
+        "Mudanças de processo sem orientação",
+        "Pode precisar de tempo para incorporar mudanças não explicadas."
+      ],
+      "condicoes_favoraveis": [
+        "Prioridades de entrega claras",
+        "Recursos e tempo para conferência"
+      ],
+      "condicoes_adversas": [
+        "Prazos incompatíveis com a capacidade",
+        "Instruções divergentes entre equipes"
+      ],
+      "sinergias_propostas": [
+        "NPC-11",
+        "NPC-13"
+      ],
+      "influencia": "Prefere organizar a rotina com etapas e critérios claros. Tendência ficcional flexível, não regra sobre pessoas reais.",
+      "fonte": "Continuação editorial autorizada pelo PM em 23/10/2026; função existente e arquétipo como referência ficcional, sem efeitos numéricos."
     },
     {
       "id": "NPC-10",
@@ -533,7 +559,33 @@
       "idade": null,
       "ambientes": null,
       "pontos": null,
-      "status": "pendente_refinamento"
+      "status": "narrativa_editorial_v1",
+      "papel": "Apoio à equipe",
+      "forcas": [
+        "Apoia a integração de colegas",
+        "Compartilha informações úteis à rotina",
+        "Ajuda a manter continuidade no atendimento",
+        "Atenção às necessidades cotidianas"
+      ],
+      "pontos_de_atencao": [
+        "Demandas de apoio concentradas em uma pessoa",
+        "Dificuldade de concluir tarefas com interrupções frequentes",
+        "Pode assumir apoio demais quando os limites não estão claros."
+      ],
+      "condicoes_favoraveis": [
+        "Distribuição equilibrada das solicitações",
+        "Canais claros para pedir ajuda"
+      ],
+      "condicoes_adversas": [
+        "Cobertura contínua de ausências sem reposição",
+        "Falta de pausas e limites de demanda"
+      ],
+      "sinergias_propostas": [
+        "NPC-06",
+        "NPC-12"
+      ],
+      "influencia": "Valoriza continuidade, colaboração e cuidado nos combinados da equipe. Tendência ficcional flexível, não regra sobre pessoas reais.",
+      "fonte": "Continuação editorial autorizada pelo PM em 23/10/2026; função existente e arquétipo como referência ficcional, sem efeitos numéricos."
     },
     {
       "id": "NPC-11",
@@ -544,7 +596,33 @@
       "idade": null,
       "ambientes": null,
       "pontos": null,
-      "status": "pendente_refinamento"
+      "status": "narrativa_editorial_v1",
+      "papel": "Coordenação operacional",
+      "forcas": [
+        "Coordena prioridades da operação",
+        "Organiza a distribuição de atividades",
+        "Acompanha impedimentos e recursos necessários",
+        "Clareza de execução"
+      ],
+      "pontos_de_atencao": [
+        "Pressão por resultados sem recursos correspondentes",
+        "Centralização excessiva de decisões",
+        "Pode insistir no plano antes de ouvir os impedimentos da equipe."
+      ],
+      "condicoes_favoraveis": [
+        "Metas viáveis e responsabilidades definidas",
+        "Autonomia compatível com a função"
+      ],
+      "condicoes_adversas": [
+        "Ordens conflitantes entre níveis de gestão",
+        "Equipe insuficiente para a demanda"
+      ],
+      "sinergias_propostas": [
+        "NPC-09",
+        "NPC-03"
+      ],
+      "influencia": "Gosta de transformar objetivos em responsabilidades e acompanhamento. Tendência ficcional flexível, não regra sobre pessoas reais.",
+      "fonte": "Continuação editorial autorizada pelo PM em 23/10/2026; função existente e arquétipo como referência ficcional, sem efeitos numéricos."
     },
     {
       "id": "NPC-12",
@@ -555,7 +633,33 @@
       "idade": null,
       "ambientes": null,
       "pontos": null,
-      "status": "pendente_refinamento"
+      "status": "narrativa_editorial_v1",
+      "papel": "Relações e atendimento",
+      "forcas": [
+        "Facilita a comunicação entre atendimento e equipe",
+        "Compartilha retornos para melhorar o serviço",
+        "Ajuda a construir acordos de atendimento",
+        "Articulação entre pessoas"
+      ],
+      "pontos_de_atencao": [
+        "Exposição contínua a conflitos com o público",
+        "Acúmulo de mediação sem suporte",
+        "Pode priorizar a harmonia e adiar uma conversa difícil."
+      ],
+      "condicoes_favoraveis": [
+        "Escalonamento claro de situações difíceis",
+        "Apoio da coordenação e pausas regulares"
+      ],
+      "condicoes_adversas": [
+        "Tratamento desrespeitoso sem resposta institucional",
+        "Volume de atendimento sem cobertura adequada"
+      ],
+      "sinergias_propostas": [
+        "NPC-10",
+        "NPC-07"
+      ],
+      "influencia": "Valoriza vínculos e acordos que facilitem o trabalho em conjunto. Tendência ficcional flexível, não regra sobre pessoas reais.",
+      "fonte": "Continuação editorial autorizada pelo PM em 23/10/2026; função existente e arquétipo como referência ficcional, sem efeitos numéricos."
     },
     {
       "id": "NPC-13",
@@ -566,7 +670,33 @@
       "idade": null,
       "ambientes": null,
       "pontos": null,
-      "status": "pendente_refinamento"
+      "status": "narrativa_editorial_v1",
+      "papel": "Recursos e operação",
+      "forcas": [
+        "Identifica necessidades práticas de recursos",
+        "Ajuda a testar soluções para a rotina operacional",
+        "Compartilha observações sobre equipamentos e processos",
+        "Investigação prática"
+      ],
+      "pontos_de_atencao": [
+        "Intervenções urgentes sem planejamento",
+        "Solicitações simultâneas sem ordem de prioridade",
+        "Pode comunicar pouco o raciocínio durante uma intervenção."
+      ],
+      "condicoes_favoraveis": [
+        "Ferramentas adequadas e orientação segura",
+        "Tempo para verificação antes da execução"
+      ],
+      "condicoes_adversas": [
+        "Equipamentos inadequados ou indisponíveis",
+        "Pressão para improvisar sem condições seguras"
+      ],
+      "sinergias_propostas": [
+        "NPC-02",
+        "NPC-09"
+      ],
+      "influencia": "Prefere explorar problemas concretos e testar soluções práticas. Tendência ficcional flexível, não regra sobre pessoas reais.",
+      "fonte": "Continuação editorial autorizada pelo PM em 23/10/2026; função existente e arquétipo como referência ficcional, sem efeitos numéricos."
     },
     {
       "id": "NPC-14",
@@ -577,7 +707,33 @@
       "idade": null,
       "ambientes": null,
       "pontos": null,
-      "status": "pendente_refinamento"
+      "status": "narrativa_editorial_v1",
+      "papel": "Melhoria do ambiente",
+      "forcas": [
+        "Observa oportunidades de melhorar os espaços",
+        "Reúne sugestões sobre conforto e uso do ambiente",
+        "Acompanha a adequação das melhorias à rotina",
+        "Observação do ambiente"
+      ],
+      "pontos_de_atencao": [
+        "Demandas de melhoria sem critérios de escolha",
+        "Responsabilização individual por problemas estruturais",
+        "Pode precisar de espaço para apresentar suas ideias sem pressão."
+      ],
+      "condicoes_favoraveis": [
+        "Participação dos trabalhadores nas mudanças",
+        "Recursos e retorno sobre as sugestões"
+      ],
+      "condicoes_adversas": [
+        "Mudanças físicas sem consulta aos usuários",
+        "Desconforto persistente sem encaminhamento"
+      ],
+      "sinergias_propostas": [
+        "NPC-16",
+        "NPC-05"
+      ],
+      "influencia": "Valoriza soluções sensíveis ao uso cotidiano e à experiência das pessoas. Tendência ficcional flexível, não regra sobre pessoas reais.",
+      "fonte": "Continuação editorial autorizada pelo PM em 23/10/2026; função existente e arquétipo como referência ficcional, sem efeitos numéricos."
     },
     {
       "id": "NPC-15",
@@ -588,7 +744,33 @@
       "idade": null,
       "ambientes": null,
       "pontos": null,
-      "status": "pendente_refinamento"
+      "status": "narrativa_editorial_v1",
+      "papel": "Organização operacional",
+      "forcas": [
+        "Ajuda a reorganizar tarefas diante de imprevistos",
+        "Identifica alternativas práticas de execução",
+        "Articula recursos para manter o fluxo de trabalho",
+        "Agilidade na resposta"
+      ],
+      "pontos_de_atencao": [
+        "Urgências que se tornam rotina",
+        "Mudanças rápidas sem alinhamento da equipe",
+        "Pode avançar antes de alinhar os efeitos da mudança com a equipe."
+      ],
+      "condicoes_favoraveis": [
+        "Limites claros de atuação e prioridades",
+        "Coordenação acessível para resolver impedimentos"
+      ],
+      "condicoes_adversas": [
+        "Retrabalho constante por mudanças de orientação",
+        "Pressão para manter o ritmo sem recuperação"
+      ],
+      "sinergias_propostas": [
+        "NPC-11",
+        "NPC-04"
+      ],
+      "influencia": "Gosta de agir diante de imprevistos e experimentar alternativas viáveis. Tendência ficcional flexível, não regra sobre pessoas reais.",
+      "fonte": "Continuação editorial autorizada pelo PM em 23/10/2026; função existente e arquétipo como referência ficcional, sem efeitos numéricos."
     },
     {
       "id": "NPC-16",
@@ -599,7 +781,34 @@
       "idade": null,
       "ambientes": null,
       "pontos": null,
-      "status": "pendente_refinamento"
+      "status": "narrativa_editorial_v1",
+      "papel": "Comunicação e criação",
+      "forcas": [
+        "Torna informações do trabalho mais claras",
+        "Contribui com materiais de comunicação acessíveis",
+        "Reúne ideias da equipe para iniciativas internas",
+        "Expressão e conexão"
+      ],
+      "pontos_de_atencao": [
+        "Pedidos criativos sem objetivo ou prazo definido",
+        "Revisões sucessivas com orientações contraditórias",
+        "Pode dividir a atenção entre muitas iniciativas ao mesmo tempo."
+      ],
+      "condicoes_favoraveis": [
+        "Briefings claros e retorno construtivo",
+        "Tempo de criação e colaboração entre áreas"
+      ],
+      "condicoes_adversas": [
+        "Interrupções frequentes e excesso de frentes",
+        "Desqualificação das contribuições sem diálogo"
+      ],
+      "sinergias_propostas": [
+        "NPC-08",
+        "NPC-14"
+      ],
+      "influencia": "Valoriza expressão, colaboração e comunicação próxima das pessoas. Tendência ficcional flexível, não regra sobre pessoas reais.",
+      "fonte": "Continuação editorial autorizada pelo PM em 23/10/2026; função existente e arquétipo como referência ficcional, sem efeitos numéricos."
     }
-  ]
+  ],
+  "revisao_editorial": "Oito perfis concluídos sob autonomia concedida pelo PM. Idades não definidas permanecem null; personalidade não determina cargo nem saúde."
 }
