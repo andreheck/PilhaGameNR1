@@ -34,7 +34,9 @@ def run(browser,w,h):
         check(len(set(p[0] for p in positions()))==16,tag+': every identity unique')
         a=positions();page.wait_for_timeout(1000);check(a!=positions(),tag+': walking automatically despite reduced decorative motion')
         check(page.locator('.pm-canvas').bounding_box()['height']>200,tag+': map has usable height')
-        check(page.locator('.pm-root').evaluate('(e)=>e.scrollWidth<=e.clientWidth+2'),tag+': map without horizontal overflow')
+        layout=page.locator('.pm-root').evaluate('(root)=>({width:root.clientWidth,scrollWidth:root.scrollWidth,offenders:[...root.querySelectorAll(".living-topbar,.living-topbar *")].filter(e=>e.scrollWidth>e.clientWidth+2||e.getBoundingClientRect().right>root.clientWidth+2).map(e=>({class:e.className,width:e.clientWidth,scrollWidth:e.scrollWidth,right:e.getBoundingClientRect().right,overflow:getComputedStyle(e).overflowX})).slice(0,25)})')
+        print(json.dumps({'viewport':tag,'layout':layout}),flush=True)
+        check(layout['scrollWidth']<=layout['width']+2,tag+': map without horizontal overflow')
         check(page.locator('[data-company="event"]').is_hidden(),tag+': catalogue absent from main map')
         digits=page.locator('.living-time-digits').inner_text();page.wait_for_timeout(1200)
         check(page.locator('.living-time-digits').inner_text()!=digits,tag+': visible simulated clock advances');snap('map')
@@ -189,7 +191,7 @@ try:
         opts={'headless':True,'args':['--no-sandbox']}
         if os.environ.get('CHROMIUM_PATH'):opts['executable_path']=os.environ['CHROMIUM_PATH']
         b=p.chromium.launch(**opts)
-        for w,h in [(1366,900),(390,844),(320,844),(844,390),(1440,900)]:run(b,w,h)
+        for w,h in [(320,844),(1366,900),(390,844),(844,390),(1440,900)]:run(b,w,h)
         b.close()
 except Exception as e:report['errors'].append(str(e));raise
 finally:
