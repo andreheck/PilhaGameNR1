@@ -4,7 +4,7 @@ Escopo: fechar PR #41 (NPCs, organograma, gestão e receita semanal), sobre `a23
 
 ## Falha encontrada e correção
 
-As suítes Node do commit `a238a51` passaram, mas o QA de navegador parou na abertura: clicava no splash enquanto a transição automática de 800 ms já o ocultava. O teste agora aguarda o botão real Pular introdução ficar visível. Não força cliques nem altera a abertura do produto. A nova rodada completa fica vinculada na PR.
+As suítes Node do commit `a238a51` passaram, mas o QA de navegador parou na abertura: clicava no splash enquanto a transição automática de 800 ms já o ocultava. O teste agora aguarda o botão real Pular introdução ficar visível. Não força cliques nem altera a abertura do produto. A nova rodada completa fica vinculada na PR. A cobertura ampliada também encontrou mapa com menos de200px em844×390: o layout landscape agora reserva240px ao canvas e permite rolagem vertical para acessar todos os controles, sem reduzir ou esconder ações.
 
 ## Matriz de cobertura da entrega
 

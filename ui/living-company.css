@@ -94,3 +94,15 @@
 .organization-departments header small{letter-spacing:0}
 
 .continuous-income{display:grid;gap:4px;min-width:0;max-width:340px;color:#ffe18a;font-size:11px}.continuous-income small{font-size:9px;color:#afc6dc;line-height:1.5}.continuous-strip{flex-wrap:wrap}@media(max-width:700px){.continuous-income{max-width:none;width:100%;padding:5px 0}.continuous-income b{font-size:11px}}
+
+/* Low landscape screens keep a usable map, with vertical access to all controls. */
+@media(orientation:landscape) and (max-height:500px){
+ .pm-root{overflow-y:auto;overscroll-behavior:contain;align-content:start}
+ .pm-root:not(.has-panel){grid-template-rows:auto}
+ .pm-root.has-panel{grid-template-rows:auto minmax(180px,42dvh)}
+ .pm-stage{height:auto;min-height:100dvh;grid-template-rows:auto auto auto minmax(240px,1fr)}
+ .pm-view{min-height:240px}
+ .continuous-strip{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,1fr);gap:3px 12px;padding-top:3px;padding-bottom:5px}
+ .living-clock-holder{grid-column:2;grid-row:1 / 3;width:100%}
+ .continuous-income{max-width:none;font-size:10px}.continuous-income small{font-size:8px}
+}
