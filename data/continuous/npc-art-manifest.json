@@ -18,7 +18,7 @@
       "group": "analistas",
       "canonical": "assets/npcs/npc-01-joao-arquiteto.png",
       "source_status": "approved_existing_cutout",
-      "source_hint": "Card aprovado 'perfil_de_joão_o_arquiteto_estratégico.png' / imagem enviada na conversa em 23/10. Extrair apenas personagem e remover fundo branco.",
+      "source_hint": "Recorte transparente de João já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-01-joao-arquiteto.png.",
       "sha256": "1fa46154217c998c1fb486e19da9864cb8968ac5c7a3467c0053a52adec707c7",
       "source_file": "existing-codex-cutout/npc-01-joao-arquiteto.png"
     },
@@ -30,7 +30,7 @@
       "group": "analistas",
       "canonical": "assets/npcs/npc-02-tiago-logico.png",
       "source_status": "approved_existing_cutout",
-      "source_hint": "Card aprovado 'cartão_de_perfil_do_tiago_lógico.png' / imagem enviada na conversa em 23/10. Extrair apenas personagem e remover fundo branco.",
+      "source_hint": "Recorte transparente de Tiago já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-02-tiago-logico.png.",
       "sha256": "8b7af051868bb3c36816d7690cb18d04f624a0f7c0dcb5822b5ca08dfb9c62a0",
       "source_file": "existing-codex-cutout/npc-02-tiago-logico.png"
     },
@@ -42,7 +42,7 @@
       "group": "analistas",
       "canonical": "assets/npcs/npc-03-fernanda-comandante.png",
       "source_status": "approved_existing_cutout",
-      "source_hint": "Card aprovado 'perfil_de_fernanda_a_comandante.png' / imagem enviada na conversa em 23/10. Extrair apenas personagem e remover fundo branco.",
+      "source_hint": "Recorte transparente de Fernanda já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-03-fernanda-comandante.png.",
       "sha256": "b102e7a39a0b2322802481e44dc73292ac6d88acdc1af9e9317ec23fbfca1b3e",
       "source_file": "existing-codex-cutout/npc-03-fernanda-comandante.png"
     },
@@ -54,7 +54,7 @@
       "group": "analistas",
       "canonical": "assets/npcs/npc-04-raimunda-debatedora.png",
       "source_status": "approved_existing_cutout",
-      "source_hint": "Card aprovado 'cartaz_de_perfil_da_raimunda_debatedora.png' / imagem enviada na conversa em 23/10. Extrair apenas personagem e remover fundo branco.",
+      "source_hint": "Recorte transparente de Raimunda já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-04-raimunda-debatedora.png.",
       "sha256": "49eb66488ff67997150ed6ef891829a17fd1d323ecaa94d57581b168faf15b86",
       "source_file": "existing-codex-cutout/npc-04-raimunda-debatedora.png"
     },

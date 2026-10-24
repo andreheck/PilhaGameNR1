@@ -1,6 +1,6 @@
 # Fase 1 — identidades e fichas dos 16 NPCs
 
-Base: `fix/npc-focus-codex-continuation`, commit `70c64280e9bee29fa070fc2d9a938b302e237003` (PR #40). Entrega: `codex/npcs-fase1-perfis`.
+Base: `fix/npc-focus-codex-continuation`, commit `70c64280e9bee29fa070fc2d9a938b302e237003` (PR #40). Entrega: `codex/npcs-fase1-perfis`. Atualização documental concorrente da base `0f7c551` incorporada; reconhece os quatro recortes já extraídos, sem retrabalho ou alteração funcional.
 
 ## Fontes e integridade
 
