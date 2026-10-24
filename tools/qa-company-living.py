@@ -28,6 +28,8 @@ def run(browser,w,h):
         page.locator('[data-direct-pick="PILHA-H01|principal"]').click()
         page.locator('[data-direct-pick="PILHA-H02|support"]').click()
         page.locator('[data-team-save]').click();page.locator('.pm-canvas').wait_for();page.wait_for_timeout(700)
+        check(page.locator('.living-topbar').count()==1,tag+': transparent header groups all controls')
+        check(page.locator('.living-topbar .living-clock-holder [data-company="calendar"]').count()==1,tag+': calendar remains in header')
         check(len(page.evaluate('PilhaLiving.getEmployees()'))==16,tag+': sixteen employees rendered')
         check(len(set(p[0] for p in positions()))==16,tag+': every identity unique')
         a=positions();page.wait_for_timeout(1000);check(a!=positions(),tag+': walking automatically despite reduced decorative motion')
