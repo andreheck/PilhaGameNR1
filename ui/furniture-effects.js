@@ -12,7 +12,7 @@ export function emitFurniturePoof(root,{name='Melhoria adquirida',level=1,zone=n
   puff.className='furniture-poof';
   puff.setAttribute('role','presentation');
   puff.style.left=centerX+'px';puff.style.top=centerY+'px';
-  puff.innerHTML='<span class="furniture-poof__cloud c1"></span><span class="furniture-poof__cloud c2"></span><span class="furniture-poof__cloud c3"></span><span class="furniture-poof__spark">✦</span>';
+  puff.innerHTML='<span class="furniture-poof__atlas"></span><span class="furniture-poof__cloud c1"></span><span class="furniture-poof__cloud c2"></span><span class="furniture-poof__cloud c3"></span><span class="furniture-poof__spark">✦</span>';
   holder.append(puff);
   const label=document.createElement('div');
   label.className='furniture-reward';
