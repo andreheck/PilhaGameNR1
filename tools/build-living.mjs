@@ -11,6 +11,16 @@ iso=replace(iso,'    function resize() {',`
       Object.keys(envs).forEach(function(key){
         var e=envs[key],members=employeeRows.filter(function(p){return p.home===key;}).sort(function(a,b){return a.id.localeCompare(b.id);});
         if(first){var templates=e.people.filter(function(p){return !p.sit;});e.people=members.map(function(p,i){return Object.assign({},templates[i]||{},aislePoint(i*AISLE_LENGTH/members.length),{employeeId:p.id,name:p.name,shirt:p.shirt,skin:p.skin,hair:p.hair,hairStyle:p.hairStyle,score:p.health,progress:i*AISLE_LENGTH/members.length,sit:false,npc:-1,wait:i*.11,speed:1.05,phase:i,seed:i*.71,restAway:false});});}
+        // Persist world positions of remaining workers; remove absent actors and restore returnees.
+        e.people=e.people.filter(function(p){return !p.employeeId||members.some(function(m){return m.id===p.employeeId;});});
+        members.forEach(function(m,i){
+          if(e.people.some(function(p){return p.employeeId===m.id;}))return;
+          var point=aislePoint((i+.35)*AISLE_LENGTH/Math.max(1,members.length));
+          e.people.push(Object.assign({},point,{employeeId:m.id,name:m.name,shirt:m.shirt,
+             skin:m.skin,hair:m.hair,hairStyle:m.hairStyle,score:m.health,
+             progress:(i+.35)*AISLE_LENGTH/Math.max(1,members.length),
+             sit:false,npc:-1,wait:0,speed:1.05,phase:i,seed:i*.71,restAway:false}));
+        });
         e.people.forEach(function(p){var m=employeeRows.find(function(x){return x.id===p.employeeId;});if(m){p.score=m.health;p.name=m.name;}});
       });commuters=[];render();
     }
