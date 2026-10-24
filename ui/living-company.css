@@ -64,3 +64,31 @@
 .company-organization button:hover,.company-organization button:focus-visible{outline:2px solid #ffd166;outline-offset:2px}
 .organization-manager{border-top:3px solid #ffd166;padding-top:10px}
 @media(max-width:700px){.organization-departments{grid-template-columns:1fr}.organization-board ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Organograma: conselho compacto, conexões e cartões com dados da gestão. */
+.organization-heading{display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:20px}
+.organization-heading h2{margin:6px 0;font-size:clamp(22px,3vw,30px)}
+.organization-heading>div>small{letter-spacing:.14em;color:#63d7d3;font-weight:800}
+.organization-count{border:1px solid #3c6588;border-radius:20px;padding:8px 12px;white-space:nowrap;color:#c2d9ea;font-size:12px}
+.organization-board{border-color:#b9994b;background:linear-gradient(135deg,#1c3a5a,#122641);position:relative}
+.organization-board h3{color:#ffdf79;margin:0 0 8px}.organization-board p{margin:0 0 14px;color:#bbcede}
+.organization-board li{display:flex;align-items:center;gap:10px;border:1px solid #38516a}.organization-board li>span{display:grid;gap:4px;min-width:0}
+.organization-board li img{width:38px;height:46px;object-fit:contain;border-radius:8px;background:#1b3d5e}.organization-board li b{font-size:12px}.organization-board li small{font-size:10px}
+.organization-rule-guide{margin:18px 0;padding:14px;border:1px solid #345677;border-radius:12px;display:grid;gap:8px;background:#0c2039;font-size:12px}
+.organization-rule-guide>b{color:#f9d36a}.organization-rule-guide>small{color:#afc4d6;line-height:1.5}
+.organization-departments{position:relative;padding-top:20px;gap:12px}.organization-departments:before{content:'';position:absolute;left:16%;right:16%;top:0;border-top:1px solid #5e809f}
+.organization-departments>section{position:relative;padding:12px;background:linear-gradient(180deg,#15314e,#0d2239)}
+.organization-departments>section:before{content:'';position:absolute;top:-21px;left:50%;height:20px;border-left:1px solid #5e809f}
+.organization-departments>section>header{display:flex;align-items:center;gap:10px;margin-bottom:14px}.organization-departments header h3{margin:0 0 5px;font-size:17px}.organization-departments header small{font-size:11px;color:#a7c0d4}
+.organization-sector-icon{display:grid;place-items:center;width:36px;height:36px;background:#274a68;border-radius:10px;color:#83e0db;font-size:22px}
+.organization-environment{font-size:11px;margin-bottom:14px}.organization-environment>span{display:flex;justify-content:space-between;gap:6px}.organization-environment b{color:#f4dc86}.organization-environment meter{width:100%;height:12px;accent-color:#63d6ad}
+.organization-manager{border-top:0;padding-top:0}.company-organization .organization-person{display:flex;align-items:center;gap:8px;padding:9px;min-height:74px}
+.organization-person>.employee-avatar--art{width:36px;height:50px;flex:none}.organization-person-info{display:grid;gap:5px;min-width:0;flex:1}.organization-person-info>strong{font-size:13px}.organization-person-info>span{font-size:11px;line-height:1.35}.organization-person-info>small{font-size:10px;color:#9cb8d1}
+.company-organization .is-manager{border-color:#dfbb57;background:linear-gradient(135deg,#304a57,#203953)}
+.organization-score{display:grid;gap:4px;text-align:right;font-size:18px;color:#ffdd77}.organization-score>small{font-size:9px;color:#bdd0df;font-weight:400}
+.organization-influence{display:grid;gap:6px;margin-top:10px;font-size:10px}.organization-influence>span{padding:6px 8px;border-radius:7px;border:1px solid #345675}.organization-influence>small{color:#a3bfd3;line-height:1.5}
+.organization-influence .is-risk{background:#52263e;color:#ffb2ca;border-color:#86445e}.organization-influence .is-benefit{background:#163e39;color:#81e5b9;border-color:#357767}.organization-influence .is-neutral{color:#aabdd0}
+.organization-departments h4{display:flex;align-items:center;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:.08em}.organization-departments h4 small{border:1px solid #41607c;padding:3px 6px;border-radius:6px}
+@media(max-width:700px){.organization-heading{display:block}.organization-count{display:inline-block;margin-top:6px}.organization-board ul{grid-template-columns:repeat(2,minmax(0,1fr))}.organization-board li{padding:7px;gap:6px}.organization-board li img{width:26px;height:36px}.organization-departments{gap:22px}.organization-departments:before{left:50%;right:auto;height:100%;border-left:1px solid #5e809f;border-top:0}.organization-person>.employee-avatar--art{width:40px;height:54px}}
+
+.organization-departments header small{letter-spacing:0}

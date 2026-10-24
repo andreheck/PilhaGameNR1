@@ -47,3 +47,36 @@ test('locate employee centers the person in both working and restoration sectors
  p=iso.getEmployees().find(p=>p.id===id);
  assert.ok(Math.abs(p.screen.x-600)<20,'pause keeps person in viewport');
 });
+
+
+// Management rules use real sector stress context and a weekly pre-effect snapshot.
+const management=await import('../simulation/leadership-effects.js');
+const factorsAt=(s,sid,value)=>{for(const [factor,base] of Object.entries(SECTORS.find(x=>x.id===sid).base))s.eventEffects.push({sid,factor,delta:value-base,at:s.week});};
+test('management uses strict >40 stress and >70 health thresholds, with exact boundaries',()=>{
+ const s=setup();factorsAt(s,'escritorio',60);s.staff['NPC-03'].health=70;let c=management.leadershipConditions(s).find(c=>c.sid==='escritorio');near(c.stress,40);assert.equal(c.penalty,0);assert.equal(c.bonus,0);
+ s.staff['NPC-03'].health=70.01;c=management.leadershipConditions(s)[0];assert.equal(c.bonus,7);
+ s.eventEffects=[];factorsAt(s,'escritorio',59.99);assert.ok(management.leadershipConditions(s)[0].stress>40);assert.equal(management.leadershipConditions(s)[0].penalty,-5);
+});
+test('stress reduces every sector member including manager; healthy manager helps only subordinates',()=>{
+ const s=setup();for(const p of EMPLOYEES)s.staff[p.id].health=60;s.staff['NPC-03'].health=80;const other=s.staff['NPC-11'].health;
+ management.applyLeadershipEffects(s,EMPLOYEES.filter(p=>p.home==='escritorio').map(p=>p.id));
+ assert.equal(s.staff['NPC-03'].health,75);for(const p of EMPLOYEES.filter(p=>p.home==='escritorio'&&p.id!=='NPC-03')){assert.equal(s.staff[p.id].health,62);assert.equal(s.staff[p.id].leadership.penalty,-5);assert.equal(s.staff[p.id].leadership.bonus,7);}assert.equal(s.staff['NPC-11'].health,other);
+ const once=JSON.stringify(s);management.applyLeadershipEffects(s,EMPLOYEES.filter(p=>p.home==='escritorio').map(p=>p.id));assert.equal(JSON.stringify(s),once);
+});
+test('management applies clamps and snapshots before effects, independent of employee ordering',()=>{
+ let s=setup();factorsAt(s,'escritorio',100);for(const p of EMPLOYEES.filter(p=>p.home==='escritorio'))s.staff[p.id].health=99;s.staff['NPC-03'].health=80;management.applyLeadershipEffects(s);assert.equal(s.staff['NPC-01'].health,100);assert.equal(s.staff['NPC-01'].leadership.delta,1);assert.equal(s.staff['NPC-03'].health,80);
+ s=setup();for(const p of EMPLOYEES)s.staff[p.id].health=1;management.applyLeadershipEffects(s);assert.ok(Object.values(s.staff).every(p=>p.health===0));L.validateLiving(s);
+ s=setup();s.staff['NPC-03'].health=71;management.applyLeadershipEffects(s);assert.equal(s.staff['NPC-03'].health,66);assert.equal(s.staff['NPC-01'].leadership.bonus,7,'manager was above70 in shared snapshot before losing5');
+});
+test('weekly management changes actual persisted health, environment average and keeps finances intact',()=>{
+ const s=setup();s.staff['NPC-03'].health=90;const before=JSON.stringify(s),r=L.advanceRunning(s);assert.ok(r.ok);assert.equal(JSON.stringify(s),before);const n=r.state;
+ for(const p of EMPLOYEES){const target=30+M.metrics(n,p.home).index*.65;const baseline=s.staff[p.id].health+(target-s.staff[p.id].health)*.2;const a=n.staff[p.id];near(a.health,Math.max(0,Math.min(100,baseline+a.leadership.penalty+a.leadership.bonus)));assert.equal(a.leadership.week,n.week);}
+ assert.equal(n.budget,s.budget);assert.deepEqual(n.receipts,s.receipts);const summary=management.leadershipSummary(n)[0];near(summary.averageHealth,EMPLOYEES.filter(p=>p.home==='escritorio').reduce((sum,p)=>sum+n.staff[p.id].health,0)/6);M.validate(n);L.validateLiving(n);
+ const restored=JSON.parse(JSON.stringify(n));assert.deepEqual(L.ensureLiving(restored),n);const readOnly=JSON.stringify(n);L.staffView(n);management.leadershipSummary(n);assert.equal(JSON.stringify(n),readOnly);
+});
+test('legacy saves get no retroactive management damage; pause and catch-up stay idempotent',()=>{
+ const s=setup();s.week=50;for(const p of Object.values(s.staff))p.week=50;const old=JSON.stringify(s);L.ensureLiving(s);assert.equal(JSON.stringify(s),old);
+ const paused=L.setPaused(s,true,now).state;assert.deepEqual(L.tickAt(paused,now+RULES.weekMs*5).state.staff,paused.staff);
+ const a=setup(),time=now+RULES.weekMs*3;const one=L.tickAt(a,time).state;let chunks=a;for(let i=1;i<=3;i++)chunks=L.tickAt(chunks,now+RULES.weekMs*i).state;assert.deepEqual(one.staff,chunks.staff);assert.deepEqual(L.tickAt(one,time).state,one);
+ const broken=JSON.parse(JSON.stringify(one));broken.staff['NPC-01'].leadership.bonus=100;assert.throws(()=>L.ensureLiving(broken),/invalid-leadership/);
+});

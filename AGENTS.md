@@ -1,5 +1,7 @@
 # Governança vigente — PM / PO / Codex
 
+> **Mecânicas de gestão autorizadas pelo PM — 23/10/2026:** implementar −5 saúde para todos do setor quando estresse do gestor >40%, +7 saúde para subordinados quando saúde do gestor >70%, e refinar visual do organograma. Política de integração: um fechamento por semana, snapshot após atualização ambiental e antes dos efeitos gerenciais; regras somadas, limites 0–100, estresse contextual do setor (não há estresse individual independente). Preservar economia, relógio, dados e câmera. Relatório: `docs/releases/GESTAO-SAUDE-2026-10-23.md`. Sem merge ou produção.
+
 > **Continuação autorizada pelo PM — 23/10/2026:** concluir autonomamente a narrativa de NPC-09–16 considerando os arquétipos e revisar/implementar a hierarquia. Catálogo v1.1, três gerências (Fernanda, José, Maria), cargos e organograma consultivo. Personalidade não determina cargo/saúde; manter idades ausentes e nenhum efeito contextual novo. Continuação na PR #41, sem merge ou produção. Relatório: `docs/releases/NPCS-PERFIS-HIERARQUIA-2026-10-23.md`.
 
 > **Entrega atual — 23/10/2026:** Fase 1 dos 16 NPCs em `codex/npcs-fase1-perfis`, baseada em `fix/npc-focus-codex-continuation` (`70c6428`). Integrar somente artes aprovadas e narrativa canônica em lista, ficha e catálogo. Preservar motor, calendário, câmera, sprites, economia e saves. Entregar testes, evidências e PR para aprovação; sem merge ou publicação em produção. Escopo: `docs/specs/NPCS-FASE1-2026-10-23.md`.

@@ -106,6 +106,9 @@ def run(browser,w,h):
         check(page.locator('[data-org-id]').count()==16,tag+': organization lists16 staff once')
         check(page.locator('[data-org-hero]').count()==6,tag+': six administrative advisors')
         check(page.locator('.organization-manager button').count()==3,tag+': one manager per department')
+        check(page.locator('[data-org-average]').count()==3,tag+': sector health averages visible')
+        check('−5' in page.locator('.organization-rule-guide').inner_text() and '+7' in page.locator('.organization-rule-guide').inner_text(),tag+': both management rules explained')
+        check(page.locator('.organization-influence .is-risk').count()==3,tag+': initial high-stress management risk visible')
         check(page.locator('.organization-departments').evaluate('(e)=>e.scrollWidth<=e.clientWidth+1'),tag+': responsive organization without overflow');snap('organization')
         page.locator('[data-org-id="NPC-11"]').click()
         check('Gerente de Produção' in page.locator('.employee-fields').inner_text(),tag+': job visible in linked profile')
@@ -123,6 +126,20 @@ def run(browser,w,h):
         check(state()['events']['current']['stage']=='decision',tag+': background catch-up keeps pending decision unanswered')
         old=state()['week'];page.locator('[data-company="advance"]').click();saved('s.week>'+str(old))
         check(state()['events']['current']['pick'] is None,tag+': pending event does not freeze time or auto-pick')
+        current=state()
+        check(all(p.get('leadership',{}).get('week')==current['week'] for p in current['staff'].values()),tag+': weekly management effects persisted for all16')
+        check(all(-5<=p['leadership']['delta']<=7 for p in current['staff'].values()),tag+': management health deltas bounded')
+        page.locator('[data-company="world"]').click();page.locator('[data-world-tab="organograma"]').click()
+        check('semana '+str(current['week']) in page.locator('.organization-influence').first.inner_text(),tag+': organization shows actual applied week')
+        page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.lastWallMs-=120500;localStorage.setItem(k,JSON.stringify(s));}')
+        page.evaluate('PilhaLiving.syncClock()')
+        page.wait_for_function('()=>document.querySelector(".organization-influence").textContent.includes("semana "+PilhaLiving.getState().week)')
+        check(state()['week']>current['week'],tag+': live organization updates after a weekly tick')
+        expected=sum(p['health'] for pid,p in state()['staff'].items() if pid in ['NPC-01','NPC-02','NPC-03','NPC-04','NPC-07','NPC-16'])/6
+        check(abs(float(page.locator('[data-org-average="escritorio"]').inner_text())-expected)<.06,tag+': live sector health matches persisted data')
+
+        page.locator('.living-world [data-world-close]').click()
+
         page.locator('[data-company="pause"]').click();saved('s.paused===true');money=state()['budget'];week=state()['week']
         page.reload(wait_until='domcontentloaded');enter();page.locator('[data-team-save]').click();page.locator('.pm-root').wait_for();page.wait_for_timeout(500)
         check(state()['paused'] and state()['week']==week and state()['budget']==money,tag+': reload preserves pause, week and balance')
