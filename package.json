@@ -1,9 +1,12 @@
 {
- "name":"pilha-game-alpha15","private":true,"type":"module",
- "scripts":{
-  "test":"node tests/alpha14.test.mjs && node tests/experience-integration.test.mjs && node tests/case01-scene.test.mjs && node tests/case02-integration.test.mjs && node tests/company-state.test.mjs && node tests/management-mechanics.test.mjs && node tests/static-flow.mjs && node tests/qa-navigation-fallback.test.mjs && node tests/navigation-collision.test.mjs && node tests/investment-system.test.mjs && node tests/open-hall.test.mjs && node tests/hero-team.test.mjs && node tests/mission-timeline.test.mjs && node tests/hero-progression.test.mjs && node tests/sector-map.test.mjs && node tests/player-experience.test.mjs && node tests/adverse-events.test.mjs && node tests/hero-gallery.test.mjs && node tests/company-circulation.test.mjs && node tests/hero-spotlight.test.mjs && node tests/hero-neon.test.mjs",
-  "build":"node tools/build-continuous.mjs && node tools/build-living.mjs && node tools/build-living-layout.mjs",
-  "test:continuous":"npm run build && node --test tests/company-continuous.test.mjs",
-  "test:living":"npm run build && node --test tests/company-living.test.mjs"
- }
+  "name": "pilha-game-alpha15",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/alpha14.test.mjs && node tests/experience-integration.test.mjs && node tests/case01-scene.test.mjs && node tests/case02-integration.test.mjs && node tests/company-state.test.mjs && node tests/management-mechanics.test.mjs && node tests/static-flow.mjs && node tests/qa-navigation-fallback.test.mjs && node tests/navigation-collision.test.mjs && node tests/investment-system.test.mjs && node tests/open-hall.test.mjs && node tests/hero-team.test.mjs && node tests/mission-timeline.test.mjs && node tests/hero-progression.test.mjs && node tests/sector-map.test.mjs && node tests/player-experience.test.mjs && node tests/adverse-events.test.mjs && node tests/hero-gallery.test.mjs && node tests/company-circulation.test.mjs && node tests/hero-spotlight.test.mjs && node tests/hero-neon.test.mjs && node tests/npc-profiles.test.mjs",
+    "build": "node tools/build-continuous.mjs && node tools/build-living.mjs && node tools/build-living-layout.mjs",
+    "test:continuous": "npm run build && node --test tests/company-continuous.test.mjs",
+    "test:living": "npm run build && node --test tests/company-living.test.mjs",
+    "test:npcs": "node tools/generate-npc-profiles.mjs && node --test tests/npc-profiles.test.mjs"
+  }
 }

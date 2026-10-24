@@ -1,5 +1,7 @@
 # Governança vigente — PM / PO / Codex
 
+> **Entrega atual — 23/10/2026:** Fase 1 dos 16 NPCs em `codex/npcs-fase1-perfis`, baseada em `fix/npc-focus-codex-continuation` (`70c6428`). Integrar somente artes aprovadas e narrativa canônica em lista, ficha e catálogo. Preservar motor, calendário, câmera, sprites, economia e saves. Entregar testes, evidências e PR para aprovação; sem merge ou publicação em produção. Escopo: `docs/specs/NPCS-FASE1-2026-10-23.md`.
+
 > **Próxima entrega aprovada pelo PM — 22/10/2026:** conectar visualmente os três departamentos e ajustar a circulação em campo, a partir da galeria publicada `0c3dba6`. Branch `codex/empresa-conectada-circulacao`; escopo, testes e limitações em `docs/releases/EMPRESA-CONECTADA-2026-10-22.md`. Preservar estilo, dados, economia e relógio. A autorização vigente para atualizar o Vercel de testes continua aplicável; não autoriza merge.
 
 > **Entrega de galeria autorizada em 22/10/2026:** integrar o pacote visual e os seis retratos enviados pelo PM, com as fichas canônicas do GitHub e progresso real salvo. Preservar principal/apoio distintos, orçamento, ciclo e habilidades existentes. A autorização vigente de atualizar o Vercel de testes acompanha esta entrega; não autoriza merge. Relatório: `docs/releases/GALERIA-HEROIS-2026-10-22.md`. Os retratos são para a galeria; não substituem os GLBs dos NPCs.
