@@ -136,8 +136,8 @@ def run(browser,w,h):
         page.wait_for_function('()=>{const a=document.querySelector(".employee-profile-head .employee-avatar--art"),i=a.querySelector("img");return !a.classList.contains("is-missing")&&i.complete&&i.naturalWidth>0;}')
         check(state()['budget']==before_fallback['budget'] and state()['staff']==before_fallback['staff'],tag+': fallback and recovery do not change state')
         page.locator('[data-employee-locate]').click();page.wait_for_timeout(400)
-        # Dismiss actionable notices before interacting with the room behind them.
-        while page.locator('.pm-toast__x').count():page.locator('.pm-toast__x').first.click()
+        # Notices expire after ten seconds; wait for their real dismissal before clicking the scene.
+        page.wait_for_function('()=>document.querySelectorAll(".pm-toast").length===0',timeout=15000)
         people=page.evaluate('PilhaLiving.getEmployees()');canvas=page.locator('.pm-canvas').bounding_box()
         found=next((p for p in people if p['id']=='NPC-04'),None)
         check(bool(found),tag+': locate preserves selected worker')
