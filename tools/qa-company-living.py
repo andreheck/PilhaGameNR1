@@ -231,9 +231,9 @@ def run(browser,w,h):
         check(page.locator('.event-chips .is-negative').count()>0,tag+': negative consequences visible before choosing')
         check(page.locator('.event-presentation').evaluate('(e)=>e.scrollWidth<=e.clientWidth+1'),tag+': event card fits viewport')
         snap('event-reference');page.locator('.event-presentation').screenshot(path=str(OUT/f'event-card-{tag}.png'))
-        before_event=state()['budget'];page.locator('[data-event-choice="2"]').click()
+        before_event=state()['budget'];page.locator('[data-event-choice="2"]').click();saved('s.events.current?.stage==="result"')
         check(state()['budget']==before_event and state()['events']['current']['stage']=='result',tag+': free choice keeps balance and stores consequence')
-        snap('event-consequence');page.locator('[data-event-finish]').click()
+        snap('event-consequence');page.locator('[data-event-finish]').click();saved('s.events.current===null')
         check(state()['events']['current'] is None,tag+': continue resolves the event once')
 
         check(not errors,tag+': no uncaught browser exceptions')
