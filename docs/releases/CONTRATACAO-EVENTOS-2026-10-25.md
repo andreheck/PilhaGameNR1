@@ -19,3 +19,20 @@ Validação visual local pela ferramenta de navegador bloqueada pela revisão au
 Cartas de contratação exibem personalidade como narrativa: não determinam saúde ou desempenho. As dez vagas remanescentes mantêm a pressão organizacional existente; o início com seis pessoas requer expandir equipe/cobertura. Alterações futuras de balanceamento e XP contínuo ficam no backlog.
 
 Revisão adicional: fichas de NPC não são recriadas quando o relógio muda sem alterar os dados exibidos. Isso preserva foco, leitura e fallback de retrato; atualização de saúde, rotina, cargo ou setor continua repintando a ficha. QA verifica a identidade do elemento após sincronização em pausa.
+
+
+## Fechamento confirmado — 25/10/2026
+
+Entrega operacional concluída e publicada em https://pilha-plus-game-preview.vercel.app/ com o código `713ed54db1318cd205cc802ba6366738e5bba5e8`, deployment `dpl_NgiLE6XTpFTFyjVzisrJgXsaNL5P` READY. PR #41 permanece aberta para aprovação, sem merge.
+
+- [Validar jogo](https://github.com/andreheck/PilhaGameNR1/actions/runs/40190313860): aprovado.
+- [Equipe viva e calendário](https://github.com/andreheck/PilhaGameNR1/actions/runs/40190313868): aprovado; npm test, test:continuous, test:living e test:npcs.
+- Navegador: **857 verificações, zero erros** em320×844,1366×900,390×844,844×390 e1440×900. As falhas intermediárias de avisos transitórios e atualização da ficha foram resolvidas; não são pendências da entrega.
+- [Evidências e fonte testada](https://github.com/andreheck/PilhaGameNR1/actions/runs/40190313868/artifacts/12596799200), disponíveis até01/11/2026. Cópia local do relatório em artifacts/hiring-final/report.json.
+- Reconfirmados HTTP200 e presença da contratação inicial, cards e nova apresentação dos eventos no endereço público. Não foi necessário limpar progresso, gerar novas artes ou repetir as suítes aprovadas.
+
+Para testar a jornada inicial sem alterar a partida existente, abrir uma janela anônima. A partida atual mantém seus funcionários; contratações adicionais estão em Menu → Gestão de pessoal.
+
+**Fora desta entrega:** homologação física/Safari, sessão humana longa, revisão de balanceamento inicial, XP por objetivos contínuos, sprites/GLBs individuais e variantes/móveis adicionais. São melhorias futuras ou homologações externas, não bloqueiam esta versão de testes. Não foram implementadas por inferência neste fechamento.
+
+Este fechamento altera apenas documentação; o código publicado e os resultados testados acima permanecem os mesmos.
