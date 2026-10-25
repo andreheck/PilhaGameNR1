@@ -134,3 +134,7 @@ test('pause companions use distinct standing positions rather than overlapping p
  const g={};vm.runInNewContext(fs.readFileSync(new URL('../ui/npc-route-navigation.js',import.meta.url),'utf8'),{window:g,Math,Set});const w={};vm.runInNewContext(fs.readFileSync(new URL('../dist/ui/continuous/iso.js',import.meta.url),'utf8'),{window:w,Math,Set});const defs=SECTORS.map((s,i)=>({key:s.id,bx:i%2*14,by:Math.floor(i/2)*10})),nav=w.PilhaIso.navigation;
  const paths=['NPC-11','NPC-12'].map(id=>g.PilhaNpcRoutes.route(defs,nav.aisle,nav.connections(defs),'producao','patio',id));assert.notDeepEqual(paths[0].at(-1),paths[1].at(-1));
 });
+
+test('temporary restoration programs stop influencing routines when their purchased term expires',()=>{
+ let s=setup();s.budget=100000;s=M.purchase(s,M.quote(s,'restauracao','intervalo')).state;const active=routines.restResources(s);assert.ok(active.environment>1);assert.ok(active.spaces.includes('bosque'));s.week+=8;const expired=routines.restResources(s);assert.equal(expired.environment,1);assert.ok(!expired.spaces.includes('bosque'));L.validateLiving(s);
+});

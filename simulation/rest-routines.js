@@ -1,5 +1,6 @@
 /** Deterministic two-day rota. Temporary scores are derived, never added to saves. */
 import {RULES,ITEMS} from '../data/continuous/catalog.js';
+import {stage} from './improvement-lifecycle.js';
 import {receiptEffectPhase} from './effect-lifecycle.js';
 export const ROUTINE_PERIOD=RULES.weekMs*2/7;
 export function routinePhase(elapsed,index,count=16){
@@ -7,11 +8,12 @@ export function routinePhase(elapsed,index,count=16){
  const scale=16/count;const stage=phase<.12*scale?'outbound':phase<.20*scale?'rest':phase<.32*scale?'return':phase<.50*scale?'afterglow':'work';
  return {phase,stage,offset:index/count,scale,progress:stage==='outbound'?phase/(.12*scale):stage==='return'?(phase-.20*scale)/(.12*scale):0};
 }
+const weight=(r,c,s)=>(r.lifecycle?stage(r,s.week,c).progress:receiptEffectPhase(r,c.timing,s.week).progress);
 export function restResources(s){
- const active=s.receipts.filter(r=>r.sid==='restauracao').map(r=>({r,c:ITEMS.find(c=>c.id===r.id)})).filter(x=>x.c&&receiptEffectPhase(x.r,x.c.timing,s.week).progress>0);
+ const active=s.receipts.filter(r=>r.sid==='restauracao').map(r=>({r,c:ITEMS.find(c=>c.id===r.id)})).filter(x=>x.c&&weight(x.r,x.c,s)>0);
  const spaces=['patio',...active.filter(x=>x.c.capacity).flatMap(x=>Array(x.c.capacity).fill(x.c.space))].slice(0,6);
- const environment=Math.min(4,1+active.reduce((n,x)=>n+(x.c.factors.carga||0)*.12*receiptEffectPhase(x.r,x.c.timing,s.week).progress,0));
- const social=Math.min(3,active.reduce((n,x)=>n+(x.c.factors.relac||0)*.15*receiptEffectPhase(x.r,x.c.timing,s.week).progress,0));
+ const environment=Math.min(4,1+active.reduce((n,x)=>n+(x.c.factors.carga||0)*.12*weight(x.r,x.c,s)*RULES.effects[x.r.level-1]*(1+(x.r.bonus||0)),0));
+ const social=Math.min(3,active.reduce((n,x)=>n+(x.c.factors.relac||0)*.15*weight(x.r,x.c,s)*RULES.effects[x.r.level-1]*(1+(x.r.bonus||0)),0));
  return {spaces,environment,social};
 }
 export function routineRows(s,people){
