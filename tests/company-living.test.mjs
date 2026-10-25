@@ -129,3 +129,8 @@ test('real routine renderer keeps16 finite selectable identities through a compl
  for(let t=16;t<routines.ROUTINE_PERIOD*2;t+=200){tick(t);const people=iso.getEmployees();assert.equal(people.length,16);assert.equal(new Set(people.map(p=>p.id)).size,16);assert.ok(people.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)&&Number.isFinite(p.screen.x)&&Number.isFinite(p.screen.y)));}
  assert.notEqual(JSON.stringify(iso.getEmployees()),JSON.stringify(before));s.paused=true;iso.setRoutineClock(s,L.routines(s));iso.setManualPause(true);const frozen=JSON.stringify(iso.getEmployees());tick(999999);assert.equal(JSON.stringify(iso.getEmployees()),frozen);
 });
+
+test('pause companions use distinct standing positions rather than overlapping portraits',()=>{
+ const g={};vm.runInNewContext(fs.readFileSync(new URL('../ui/npc-route-navigation.js',import.meta.url),'utf8'),{window:g,Math,Set});const w={};vm.runInNewContext(fs.readFileSync(new URL('../dist/ui/continuous/iso.js',import.meta.url),'utf8'),{window:w,Math,Set});const defs=SECTORS.map((s,i)=>({key:s.id,bx:i%2*14,by:Math.floor(i/2)*10})),nav=w.PilhaIso.navigation;
+ const paths=['NPC-11','NPC-12'].map(id=>g.PilhaNpcRoutes.route(defs,nav.aisle,nav.connections(defs),'producao','patio',id));assert.notDeepEqual(paths[0].at(-1),paths[1].at(-1));
+});
