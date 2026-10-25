@@ -20,3 +20,8 @@ test('build includes visual effect style and no double charging',()=>{
  assert.equal(V.poof.frames,12);assert.equal(V.poof.revealFrame,5);
  assert.equal(V.poof.durationMs,780);
 });
+
+test('baseline furniture uses approved assets without masquerading as a paid improvement',()=>{
+ for(const mapping of Object.values(V.baseline))for(const id of Object.values(mapping))assert.ok(V.assets.some(a=>a.id===id));assert.equal(V.baseline.escritorio.desk,'mesa-escritorio');assert.equal(V.baseline.producao.machine,undefined);
+ const code=fs.readFileSync(new URL('../tools/build-furniture.mjs',import.meta.url),'utf8');assert.match(code,/!it.installed&&basics/);assert.match(code,/it.visualLevel=0/);assert.match(code,/baselineArt=true/);
+});

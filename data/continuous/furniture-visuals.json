@@ -656,7 +656,29 @@
     "Um item visual por melhoria/setor reduz lotação e evita cruzar corredores dos NPCs.",
     "Ao comprar nível 2 e 3, alterar acabamento sem criar outro objeto de chão.",
     "Programa de benefício não cria mobiliário físico nem NPC automaticamente.",
-    "As imagens aprovadas ainda precisam ser adicionadas à pasta assets/furniture/. A cena usa o mobiliário isométrico procedural existente como fallback."
+    "Artes básicas substituem apenas aparência dos objetos existentes: não são compras nem concedem benefícios. Máquinas, esteiras e estantes industriais aguardam artes próprias."
   ],
-  "rasterImported": true
+  "rasterImported": true,
+  "baseline": {
+    "escritorio": {
+      "desk": "mesa-escritorio",
+      "table": "mesa-reuniao",
+      "chair": "poltrona-azul-a",
+      "plant": "planta-pequena",
+      "box": "gaveteiro",
+      "sofa": "sofa-azul"
+    },
+    "atendimento": {
+      "desk": "mesa-escritorio",
+      "chair": "poltrona-azul-b",
+      "plant": "planta-pequena",
+      "board": "quadro",
+      "sofa": "sofa-azul",
+      "box": "mesa-centro-redonda"
+    },
+    "producao": {
+      "crate": "caixa-material",
+      "box": "caixa-material"
+    }
+  }
 }

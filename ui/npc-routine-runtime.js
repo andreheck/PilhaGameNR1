@@ -9,12 +9,13 @@
       restVisitors=[];commuters=[];
       worldCfg.forEach(function(c){c.env.people.forEach(function(p){if(!p.employeeId)return;
         var row=routineClock.rows.find(function(r){return r.id===p.employeeId;});p.restAway=false;if(!row)return;
-        var phase=((elapsed/period-row.offset)%1+1)%1,k=row.scale||1;
+        var phase=((elapsed/period-row.offset)%1+1)%1,k=row.scale||1,speed=row.speed||1,outEnd=row.outEnd,pauseEnd=row.pauseEnd,tripEnd=row.tripEnd;
         var cache=JSON.stringify(worldCfg.map(function(c){return [c.key,c.bx,c.by];}))+c.key+row.space+p.employeeId;
         var path=routinePaths[cache]||(routinePaths[cache]=global.PilhaNpcRoutes.route(worldCfg,AISLE,connections,c.key,row.space,p.employeeId));
         if(!path.length)return;
-        if(phase<.32*k){p.restAway=true;var resting=phase>=.12*k&&phase<.20*k,t=phase<.12*k?phase/(.12*k):phase<.20*k?1:1-(phase-.20*k)/(.12*k),q=global.PilhaNpcRoutes.sample(path,t),clone=Object.assign({},p,q,{from:c.key,to:'restauracao',worker:p.employeeId,home:c.key,sit:resting,moving:!routineClock.paused&&!resting,phase:elapsed*.012,transit:!resting,npc:-1});
+        if(phase<tripEnd){p.restAway=true;var resting=phase>=outEnd&&phase<pauseEnd,t=phase<outEnd?phase/outEnd:phase<pauseEnd?1:1-(phase-pauseEnd)/(tripEnd-pauseEnd),q=global.PilhaNpcRoutes.sample(path,t),clone=Object.assign({},p,q,{from:c.key,to:'restauracao',worker:p.employeeId,home:c.key,sit:resting,moving:!routineClock.paused&&!resting,phase:elapsed*.012*speed,transit:!resting,npc:-1});
           if(resting){var dest=worldCfg.find(function(c){return c.key==='restauracao';});clone.x-=dest.bx;clone.y-=dest.by;restVisitors.push(clone);}else commuters.push(clone);
-        }else{var distance=(phase-.32*k)/(1-.32*k)*AISLE_LENGTH;Object.assign(p,aislePoint(distance));p.progress=distance;p.moving=!routineClock.paused;p.phase=elapsed*.006;}
+        }else{var u=(phase-tripEnd)/(1-tripEnd),distance=(u<.5?u*2:(1-u)*2)*AISLE_LENGTH*.5*speed,oldX=p.x,oldY=p.y;Object.assign(p,aislePoint(distance));p.progress=distance;p.vx=p.x-oldX;p.vy=p.y-oldY;p.moving=!routineClock.paused;p.phase=elapsed*.006*speed;}
+
       });});
     }

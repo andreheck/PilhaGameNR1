@@ -168,3 +168,17 @@
 .pm-stage:has(>.living-topbar)>.pm-view{position:relative;min-width:0;min-height:240px;z-index:0}
 .living-commandbar .continuous-strip{flex-basis:220px}.living-commandbar .continuous-tools{flex:1}
 @media(max-width:1100px){.living-commandbar .continuous-strip{flex-basis:100%}}
+
+/* Requested glass surfaces; retain contrasting labels and a separate map viewport. */
+.living-topbar{background:linear-gradient(120deg,rgba(7,22,43,.28),rgba(16,44,68,.12));box-shadow:none}
+.living-topbar .pm-hud,.living-topbar .pm-tabs,.living-commandbar,.living-commandbar .continuous-strip{background:transparent}
+.living-topbar .pm-goal,.living-topbar .pm-balance,.living-topbar .living-time{background:rgba(7,22,43,.24)}
+.living-commandbar .continuous-tools button,.living-topbar .pm-tab{background:rgba(26,62,80,.22)}
+.living-commandbar .continuous-tools [data-company=advance],.living-topbar .pm-tab[aria-pressed=true]{background:rgba(255,220,65,.94);color:#152138}
+.pm-panel{background:linear-gradient(150deg,rgba(12,35,66,.76),rgba(9,27,49,.62));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.pm-ph,.pm-body{background:transparent}.pm-factor,.pm-item{background:rgba(7,22,43,.28)}
+.hero-xp-help{flex-basis:100%;font-size:11px;line-height:1.55;color:#c5d9ed;padding:10px 12px;border:1px solid #7297bd45;border-radius:10px;background:#07162b66}
+.hero-xp-help summary{cursor:pointer;font-weight:700;color:#ffdc69}.hero-xp-help p{margin:7px 0}.hero-xp-help ol{margin:6px 0;padding-left:18px}
+@supports not (backdrop-filter:blur(1px)){.living-topbar{background:rgba(9,28,49,.72)}.pm-panel{background:rgba(9,28,49,.92)}}
+
+.employees-dialog,.living-world,.living-calendar,.continuous-modal{background:rgba(8,28,51,.84);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}

@@ -25,6 +25,9 @@ def run(browser,w,h):
         page.goto('http://127.0.0.1:8768/',wait_until='domcontentloaded')
         page.locator('.pi-root').wait_for();snap('opening');enter()
         check(page.locator('[data-direct-pick]').count()==12,tag+': explanation then six selectable heroes')
+        page.locator('.hero-xp-help summary').click()
+        check('25 XP' in page.locator('.hero-xp-help').inner_text() and '150 XP' in page.locator('.hero-xp-help').inner_text(),tag+': XP sources and current mode limitation explained')
+        page.locator('.hero-xp-help summary').click()
         page.locator('[data-direct-pick="PILHA-H01|principal"]').click()
         page.locator('[data-direct-pick="PILHA-H02|support"]').click()
         page.locator('[data-team-save]').click();page.locator('.pm-canvas').wait_for();page.wait_for_timeout(700)
@@ -43,6 +46,8 @@ def run(browser,w,h):
           return {count:images.filter(Boolean).length,atlas:poof.naturalWidth===1024&&poof.naturalHeight===768};
         }""")
         check(furniture['count']==20,tag+': all twenty approved WebP furnishings decode')
+        page.wait_for_function('PilhaLiving.getFurniture()?.loaded===20')
+        check(page.evaluate('PilhaLiving.getFurniture().baseline')>20,tag+': approved art replaces baseline furnishings before any purchase')
         check(furniture['atlas'],tag+': twelve-frame Poof atlas is present')
         check(len(set(p[0] for p in positions()))==16,tag+': every identity unique')
         a=positions();page.wait_for_timeout(1000);check(a!=positions(),tag+': walking automatically despite reduced decorative motion')

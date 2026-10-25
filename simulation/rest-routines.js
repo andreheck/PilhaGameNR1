@@ -3,10 +3,12 @@ import {RULES,ITEMS} from '../data/continuous/catalog.js';
 import {stage} from './improvement-lifecycle.js';
 import {receiptEffectPhase} from './effect-lifecycle.js';
 export const ROUTINE_PERIOD=RULES.weekMs*2/7;
-export function routinePhase(elapsed,index,count=16){
- const phase=((elapsed/ROUTINE_PERIOD-index/count)%1+1)%1;
- const scale=16/count;const stage=phase<.12*scale?'outbound':phase<.20*scale?'rest':phase<.32*scale?'return':phase<.50*scale?'afterglow':'work';
- return {phase,stage,offset:index/count,scale,progress:stage==='outbound'?phase/(.12*scale):stage==='return'?(phase-.20*scale)/(.12*scale):0};
+export const walkingFactor=health=>Number.isFinite(health)&&health<55?.6:1;
+export function routinePhase(elapsed,index,count=16,health=70){
+ const phase=((elapsed/ROUTINE_PERIOD-index/count)%1+1)%1,scale=16/count,speed=walkingFactor(health);
+ const outEnd=.08*scale/speed,pauseEnd=outEnd+.06*scale,tripEnd=pauseEnd+.08*scale/speed,glowEnd=tripEnd+.18*scale;
+ const stage=phase<outEnd?'outbound':phase<pauseEnd?'rest':phase<tripEnd?'return':phase<glowEnd?'afterglow':'work';
+ return {phase,stage,offset:index/count,scale,speed,outEnd,pauseEnd,tripEnd,glowEnd,progress:stage==='outbound'?phase/outEnd:stage==='return'?(phase-pauseEnd)/(tripEnd-pauseEnd):0};
 }
 const weight=(r,c,s)=>(r.lifecycle?stage(r,s.week,c).progress:receiptEffectPhase(r,c.timing,s.week).progress);
 export function restResources(s){
@@ -19,7 +21,7 @@ export function restResources(s){
 export function routineRows(s,people){
  const elapsed=(s.week-1)*RULES.weekMs+s.activeMs,resources=restResources(s);
  const ordinal=p=>(p.id.startsWith('NOVO-')?16:0)+Number(p.id.replace(/\D/g,''))-1;const count=Math.max(16,...people.map(p=>ordinal(p)+1));
- const rows=people.map((p,i)=>{const r=routinePhase(elapsed,ordinal(p),count);return {...r,id:p.id,sid:p.home,index:i,space:resources.spaces[i%resources.spaces.length]};});
+ const rows=people.map((p,i)=>{const r=routinePhase(elapsed,ordinal(p),count,s.staff?.[p.id]?.health??70);return {...r,id:p.id,sid:p.home,index:i,space:resources.spaces[i%resources.spaces.length]};});
  for(const r of rows){const influenced=['rest','return','afterglow'].includes(r.stage),company=rows.some(x=>x.id!==r.id&&x.stage==='rest'&&x.space===r.space);r.environmentBonus=influenced?resources.environment:0;r.socialBonus=influenced?resources.social+(company?1:0):0;r.healthBonus=Math.min(8,r.environmentBonus+r.socialBonus);}
  return rows;
 }

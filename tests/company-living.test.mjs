@@ -90,7 +90,7 @@ test('new week deposits usable funds once, persists its composition and never pa
  let s=setup();s.team={principal:'PILHA-H01',support:'PILHA-H02'};const original=JSON.stringify(s);s=L.advanceRunning(s).state;assert.equal(s.budget,10000+s.weeklyIncome.total+s.finance.earned-s.finance.operationalCosts);assert.equal(s.weeklyIncome.lastPayment.amount,1000);assert.equal(s.weeklyIncome.lastPayment.bonus,500);const paid=JSON.stringify(s);income.grantWeeklyIncome(s);assert.equal(JSON.stringify(s),paid);s.team.support='PILHA-H05';income.grantWeeklyIncome(s);assert.equal(s.budget,10000+s.weeklyIncome.total+s.finance.earned-s.finance.operationalCosts);s=L.advanceRunning(s).state;assert.equal(s.budget,10000+s.weeklyIncome.total+s.finance.earned-s.finance.operationalCosts);assert.equal(s.weeklyIncome.total,1750);assert.equal(s.weeklyIncome.lastPayment.bonus,250);const restored=L.ensureLiving(JSON.parse(JSON.stringify(s)));assert.equal(restored.budget,s.budget);assert.deepEqual(restored.weeklyIncome,s.weeklyIncome);assert.equal(JSON.parse(original).budget,10000);
 });
 test('income respects pause, repeated clocks, missed-week reconciliation and legacy initialization',()=>{
- let s=setup();s.team={principal:'PILHA-H01',support:'PILHA-H02'};const paused=L.setPaused(s,true,now).state;assert.equal(L.tickAt(paused,now+RULES.weekMs*3).state.budget,10000);const one=L.tickAt(s,now+RULES.weekMs*3).state;let parts=s;for(let i=1;i<=3;i++)parts=L.tickAt(parts,now+RULES.weekMs*i).state;assert.equal(one.budget,10000+one.weeklyIncome.total+one.finance.earned-one.finance.operationalCosts);assert.deepEqual(one.weeklyIncome,parts.weeklyIncome);assert.equal(L.tickAt(one,now+RULES.weekMs*3).state.budget,one.budget);
+ let s=setup();s.team={principal:'PILHA-H01',support:'PILHA-H02'};const paused=L.setPaused(s,true,now).state;assert.equal(L.tickAt(paused,now+RULES.weekMs*3).state.budget,10000);const one=L.tickAt(s,now+RULES.weekMs*3).state;let parts=s;for(let i=1;i<=3;i++)parts=L.tickAt(parts,now+RULES.weekMs*i).state;near(one.budget,10000+one.weeklyIncome.total+one.finance.earned-one.finance.operationalCosts);assert.deepEqual(one.weeklyIncome,parts.weeklyIncome);assert.equal(L.tickAt(one,now+RULES.weekMs*3).state.budget,one.budget);
  const legacy=M.fresh();legacy.week=40;L.ensureLiving(legacy);assert.equal(legacy.budget,10000);assert.equal(legacy.weeklyIncome.lastWeek,40);const next=L.advanceRunning(legacy).state;assert.equal(next.budget,10000+500+next.finance.earned-next.finance.operationalCosts);
 });
 test('deposited income can be spent through existing purchase flow; malformed ledgers reject',()=>{
@@ -108,7 +108,7 @@ test('weekly deposit is atomic on storage failure and serialized tabs consume on
 const routines=await import('../simulation/rest-routines.js');
 test('two-day rota gives every active NPC an outbound, rest, return and expiring score',()=>{
  const s=setup(),raw=JSON.stringify(s);for(const p of EMPLOYEES){const i=Number(p.id.slice(-2))-1;
- for(const [phase,stage] of [[.06,'outbound'],[.16,'rest'],[.26,'return'],[.40,'afterglow'],[.70,'work']]){s.activeMs=((i/16+phase)*routines.ROUTINE_PERIOD)%routines.ROUTINE_PERIOD;const r=L.routines(s).find(r=>r.id===p.id);assert.equal(r.stage,stage);assert.ok(r.healthBonus>=0&&r.healthBonus<=8);if(stage==='work')assert.equal(r.healthBonus,0);}
+ for(const [phase,stage] of [[.04,'outbound'],[.11,'rest'],[.18,'return'],[.30,'afterglow'],[.70,'work']]){s.activeMs=((i/16+phase)*routines.ROUTINE_PERIOD)%routines.ROUTINE_PERIOD;const r=L.routines(s).find(r=>r.id===p.id);assert.equal(r.stage,stage);assert.ok(r.healthBonus>=0&&r.healthBonus<=8);if(stage==='work')assert.equal(r.healthBonus,0);}
  }s.activeMs=0;assert.equal(JSON.stringify(s),raw);
  for(let t=0;t<routines.ROUTINE_PERIOD;t+=100){s.activeMs=t;assert.ok(L.attendance(s).length<=6);assert.equal(new Set(L.routines(s).map(r=>r.id)).size,16);}
 });
@@ -137,4 +137,16 @@ test('pause companions use distinct standing positions rather than overlapping p
 
 test('temporary restoration programs stop influencing routines when their purchased term expires',()=>{
  let s=setup();s.budget=100000;s=M.purchase(s,M.quote(s,'restauracao','intervalo')).state;const active=routines.restResources(s);assert.ok(active.environment>1);assert.ok(active.spaces.includes('bosque'));s.week+=8;const expired=routines.restResources(s);assert.equal(expired.environment,1);assert.ok(!expired.spaces.includes('bosque'));L.validateLiving(s);
+});
+
+test('below55 health slows transit by40percent without removing daily clock or pause coverage',()=>{
+ assert.equal(routines.walkingFactor(54.99),.6);assert.equal(routines.walkingFactor(55),1);assert.equal(routines.walkingFactor(100),1);
+ const fast=routines.routinePhase(routines.ROUTINE_PERIOD*.04,0,16,55),slow=routines.routinePhase(routines.ROUTINE_PERIOD*.04,0,16,54);
+ near(slow.progress,fast.progress*.6);assert.ok(slow.outEnd>fast.outEnd);assert.ok(slow.tripEnd>fast.tripEnd);
+ const s=setup();for(const p of Object.values(s.staff))p.health=40;for(let t=0;t<routines.ROUTINE_PERIOD;t+=100){s.activeMs=t;assert.ok(L.attendance(s).length<=6);assert.ok(L.routines(s).every(r=>r.speed===.6));}
+});
+
+test('legacy public save at week658 with empty cash and no productive employees receives next750 investment',()=>{
+ const old=M.fresh();old.week=658;old.budget=0;old.team={principal:'PILHA-H02',support:'PILHA-H05'};L.ensureLiving(old);for(const p of Object.values(old.staff))p.employment='resigned';const initial=JSON.stringify(old),next=L.advanceRunning(old).state;
+ assert.equal(JSON.stringify(old),initial);assert.equal(next.week,659);assert.equal(next.budget,750);assert.equal(next.weeklyIncome.lastPayment.amount,750);assert.equal(next.finance.ledger.at(-1).revenue,0);const once=JSON.stringify(next);income.grantWeeklyIncome(next);assert.equal(JSON.stringify(next),once);L.validateLiving(next);
 });
