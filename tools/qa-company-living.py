@@ -136,11 +136,15 @@ def run(browser,w,h):
         page.wait_for_function('()=>{const a=document.querySelector(".employee-profile-head .employee-avatar--art"),i=a.querySelector("img");return !a.classList.contains("is-missing")&&i.complete&&i.naturalWidth>0;}')
         check(state()['budget']==before_fallback['budget'] and state()['staff']==before_fallback['staff'],tag+': fallback and recovery do not change state')
         page.locator('[data-employee-locate]').click();page.wait_for_timeout(400)
+        # Dismiss actionable notices before interacting with the room behind them.
+        while page.locator('.pm-toast__x').count():page.locator('.pm-toast__x').first.click()
         people=page.evaluate('PilhaLiving.getEmployees()');canvas=page.locator('.pm-canvas').bounding_box()
         found=next((p for p in people if p['id']=='NPC-04'),None)
         check(bool(found),tag+': locate preserves selected worker')
         check(abs(found['screen']['x']-canvas['width']/2)<canvas['width']*.28 and abs(found['screen']['y']-canvas['height']/2)<canvas['height']*.28,tag+': locate frames selected worker in map center')
-        page.mouse.click(canvas['x']+found['screen']['x'],canvas['y']+found['screen']['y'])
+        point={'x':canvas['x']+found['screen']['x'],'y':canvas['y']+found['screen']['y']}
+        print(json.dumps({'viewport':tag,'npcClick':point,'target':page.evaluate('(p)=>document.elementFromPoint(p.x,p.y)?.className',point)}),flush=True)
+        page.mouse.click(point['x'],point['y'])
         page.locator('.employees-dialog[open]').wait_for()
         check('Raimunda' in page.locator('.employee-profile-head').inner_text(),tag+': clicking walking NPC opens its own health profile')
         page.locator('[data-employee-close]').click()
