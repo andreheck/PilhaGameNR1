@@ -17,3 +17,5 @@ Testes incluem nova equipe, escolhas inválidas, hierarquia dinâmica, candidato
 Validação visual local pela ferramenta de navegador bloqueada pela revisão automática por falta de créditos do workspace; ação não executada e bloqueio não contornado. CI do repositório permanece a via padrão de regressão automatizada. Homologação em aparelhos físicos/Safari e sessão humana longa continuam pendentes.
 
 Cartas de contratação exibem personalidade como narrativa: não determinam saúde ou desempenho. As dez vagas remanescentes mantêm a pressão organizacional existente; o início com seis pessoas requer expandir equipe/cobertura. Alterações futuras de balanceamento e XP contínuo ficam no backlog.
+
+Revisão adicional: fichas de NPC não são recriadas quando o relógio muda sem alterar os dados exibidos. Isso preserva foco, leitura e fallback de retrato; atualização de saúde, rotina, cargo ou setor continua repintando a ficha. QA verifica a identidade do elemento após sincronização em pausa.

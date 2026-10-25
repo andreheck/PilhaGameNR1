@@ -126,6 +126,9 @@ def run(browser,w,h):
                 check(bool(person.get('forcas')) and person['forcas'][0] in traits,tag+': canonical strengths '+pid)
             if pid in colors:snap('ficha-'+colors[pid])
         page.locator('[data-employee-list]').click();page.locator('[data-employee="NPC-04"]').click()
+        stable_profile=page.locator('.employee-profile-head h2').element_handle();rev=state()['revision']
+        page.evaluate('PilhaLiving.syncClock()');saved('s.revision>'+str(rev))
+        check(stable_profile.evaluate('(e)=>e.isConnected'),tag+': unchanged paused profile keeps DOM focus and portrait on clock sync')
         original=page.locator('.employee-profile-head img[data-npc-art]').get_attribute('src')
         before_fallback=state()
         page.locator('.employee-profile-head img[data-npc-art]').evaluate('(i)=>{i.src="/assets/npcs/qa-intentional-404.png";}')
