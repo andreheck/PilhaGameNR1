@@ -29,11 +29,26 @@ def run(browser,w,h):
         page.locator('[data-direct-pick="PILHA-H02|support"]').click()
         page.locator('[data-team-save]').click();page.locator('.pm-canvas').wait_for();page.wait_for_timeout(700)
         check(page.locator('.living-topbar').count()==1,tag+': transparent header groups all controls')
+        header=page.locator('.living-topbar').bounding_box();view=page.locator('.pm-view').bounding_box()
+        check(view['y']>=header['y']+header['height']-1,tag+': map starts below complete header')
         check(page.locator('.living-topbar .living-clock-holder [data-company="calendar"]').count()==1,tag+': calendar remains in header')
         check(len(page.evaluate('PilhaLiving.getEmployees()'))==16,tag+': sixteen employees rendered')
+
+        # Actual approved furniture sprites and Poof atlas must be served as image bytes.
+        furniture=page.evaluate("""async () => {
+          const base='/assets/furniture/sprites/webp/';
+          const ids=['sofa-azul','poltrona-azul-a','poltrona-azul-b','mesa-centro-redonda','mesa-escritorio','mesa-reuniao','estante-livros','gaveteiro','bebedouro','planta-grande','planta-pequena','divisoria-vidro','tapete-almofadas','puff-azul','banco-lounge','arvore-frutifera','pilha-livros','quadro','caixa-material','armario-baixo'];
+          const images=await Promise.all(ids.map(async id => {const i=new Image();i.src=base+id+'.webp';try{await i.decode();return i.naturalWidth>0&&i.naturalHeight>0}catch{return false}}));
+          const poof=new Image();poof.src='/assets/furniture/effects/poof_atlas_4x3.png';try{await poof.decode()}catch{}
+          return {count:images.filter(Boolean).length,atlas:poof.naturalWidth===1024&&poof.naturalHeight===768};
+        }""")
+        check(furniture['count']==20,tag+': all twenty approved WebP furnishings decode')
+        check(furniture['atlas'],tag+': twelve-frame Poof atlas is present')
         check(len(set(p[0] for p in positions()))==16,tag+': every identity unique')
         a=positions();page.wait_for_timeout(1000);check(a!=positions(),tag+': walking automatically despite reduced decorative motion')
         check(page.locator('.pm-canvas').bounding_box()['height']>200,tag+': map has usable height')
+        frame=page.evaluate('PilhaLiving.getWorldFrame()')
+        check(frame['left']>=0 and frame['top']>=0 and frame['right']<=frame['width'] and frame['bottom']<=frame['height'],tag+': all four rooms fit fully inside map viewport')
         layout=page.locator('.pm-root').evaluate('(root)=>({width:root.clientWidth,scrollWidth:root.scrollWidth,offenders:[...root.querySelectorAll(".living-topbar,.living-topbar *")].filter(e=>e.scrollWidth>e.clientWidth+2||e.getBoundingClientRect().right>root.clientWidth+2).map(e=>({class:e.className,width:e.clientWidth,scrollWidth:e.scrollWidth,right:e.getBoundingClientRect().right,overflow:getComputedStyle(e).overflowX})).slice(0,25)})')
         print(json.dumps({'viewport':tag,'layout':layout}),flush=True)
         check(layout['scrollWidth']<=layout['width']+2,tag+': map without horizontal overflow')
@@ -139,8 +154,8 @@ def run(browser,w,h):
         page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.lastWallMs-=240500;localStorage.setItem(k,JSON.stringify(s));}')
         page.evaluate('PilhaLiving.syncClock()');saved('s.week>=3')
         check(state()['events']['current']['stage']=='decision',tag+': background catch-up keeps pending decision unanswered')
-        old=state()['week'];old_money=state()['budget'];page.locator('[data-company="advance"]').click();saved('s.week>'+str(old))
-        check(state()['budget']==old_money+1000*(state()['week']-old),tag+': weekly base500 plus two epic bonuses250 each deposited')
+        old=state()['week'];old_money=state()['budget'];old_finance=state()['finance'];page.locator('[data-company="advance"]').click();saved('s.week>'+str(old))
+        check(abs(state()['budget']-(old_money+1000*(state()['week']-old)+state()['finance']['earned']-old_finance['earned']-state()['finance']['operationalCosts']+old_finance['operationalCosts']))<.02,tag+': weekly base500 plus two epic bonuses250 each deposited')
         check(state()['weeklyIncome']['lastPayment']['amount']==1000,tag+': weekly income receipt persisted')
         check('1.000,00' in page.locator('.continuous-income').inner_text(),tag+': weekly income visible in HUD')
         check(state()['events']['current']['pick'] is None,tag+': pending event does not freeze time or auto-pick')
@@ -168,11 +183,11 @@ def run(browser,w,h):
             other.locator('.pi-skip').wait_for(state='visible');other.locator('.pi-skip').click()
             for _ in range(3):other.locator('[data-guide="next"]').click()
             other.locator('[data-team-save]').click();other.locator('.pm-root').wait_for()
-            old_week=state()['week'];old_budget=state()['budget'];old_total=state()['weeklyIncome']['total']
+            old_week=state()['week'];old_budget=state()['budget'];old_total=state()['weeklyIncome']['total'];old_finance=state()['finance']
             page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.paused=false;s.lastWallMs=Date.now()-120500;localStorage.setItem(k,JSON.stringify(s));PilhaLiving.syncClock();}')
             other.evaluate('PilhaLiving.syncClock()')
             saved('s.week==='+str(old_week+1))
-            check(state()['budget']==old_budget+1000 and state()['weeklyIncome']['total']==old_total+1000,tag+': two browser tabs deposit one weekly income')
+            check(abs(state()['budget']-(old_budget+1000+state()['finance']['earned']-old_finance['earned']-state()['finance']['operationalCosts']+old_finance['operationalCosts']))<.02 and state()['weeklyIncome']['total']==old_total+1000,tag+': two browser tabs deposit one weekly income')
             check(other.evaluate('PilhaLiving.getState().budget')==state()['budget'],tag+': both tabs share current budget')
             page.locator('[data-company="pause"]').click();saved('s.paused===true');other.close()
 

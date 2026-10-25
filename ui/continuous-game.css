@@ -4,3 +4,17 @@ html,body,#continuous-app{margin:0;width:100%;height:100%;overflow:hidden;backgr
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.continuous-modal{animation:none}}
 /* HUD, tabs, duo strip and canvas require four independent rows. */
 .pm-stage{grid-template-rows:auto auto auto minmax(0,1fr)}
+
+
+/* Workforce & finance: responsive decision dashboard */
+.mg-dashboard{display:grid;gap:12px}.mg-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}
+.mg-cards article,.mg-sector-grid article{border:1px solid #456487;border-radius:12px;background:#102f54;padding:12px;min-width:0}
+.mg-cards small,.mg-cards span{display:block;color:#b5cce7;font-size:11px}
+.mg-cards strong{display:block;font-size:20px;color:#fff;letter-spacing:-.3px}
+.mg-sector-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.mg-sector-grid h4,.mg-sector-grid h3{font-size:13px;margin:0 0 6px}.mg-sector-grid p,.mg-sector-grid small{font-size:12px;color:#c5d9ea}
+.mg-sector-grid button,.mg-actions button{display:inline-block;border:1px solid #6290a7;background:#153c61;color:#f6fcff;border-radius:8px;padding:9px 11px;min-height:38px;margin:3px;font-size:12px}
+.mg-meter{height:7px;border-radius:8px;background:#294560;overflow:hidden}.mg-meter span{display:block;height:100%;background:#6bc9a8}
+.mg-comparison table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:12px}.mg-comparison th,.mg-comparison td{padding:10px 6px;border-bottom:1px solid #405775;text-align:right}
+.mg-comparison tr th:first-child{text-align:left}.mg-comparison td:last-child{color:#9ff1cc;font-weight:700}.mg-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:16px}
+@media(max-width:540px){.mg-cards,.mg-sector-grid{grid-template-columns:1fr}.mg-comparison table{font-size:11px}.mg-comparison th,.mg-comparison td{padding:7px 4px}.mg-cards strong{font-size:18px}}

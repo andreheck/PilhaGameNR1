@@ -43,3 +43,7 @@ Os resultados efetivos, erros e capturas de cada resolução ficam em `living-qa
 O card de índice do cabeçalho também foi corrigido: o CI mediu329px em um viewport de320px; a grade e o rótulo agora podem encolher/quebrar sem cortar conteúdo. O commit4b59caf passou nas cinco resoluções, incluindo o teste real de duas abas e teclado. O pedido posterior do PM acrescentou cabeçalho translúcido e agrupamento dos elementos; a rodada final repete a mesma matriz e verifica cabeçalho/calendário. Relatório: `docs/releases/CABECALHO-2026-10-24.md`.
 
 Sem merge ou publicação em produção. Aprovação final da PR continua com o PM.
+
+## Continuação do PM: trajetos e pátio
+
+O pedido posterior autorizou integrar trajetos, pausas, pátio e benefícios temporários, preservando a versão mostrada no print. As contribuições de mobiliário/Poof, pessoal e finanças de75c5b23 foram incorporadas na branch de revisão e testadas em conjunto, com os aportes semanais em rubrica separada. Os itens acima sobre integração futura dessas branches são históricos; não se referem ao estado desta continuação. Relatório: `docs/releases/ROTINAS-PATIO-2026-10-25.md`. Permanecem pendentes sprites/rigs individuais e a homologação humana/dispositivos/acessibilidade. Sem promoção de produção.

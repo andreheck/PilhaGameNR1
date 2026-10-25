@@ -162,3 +162,9 @@
 .living-topbar .pm-goal__top,.living-topbar .pm-goal__bar{min-width:0;width:100%}
 .living-topbar .pm-goal__top span{min-width:0;flex:1;white-space:normal;overflow-wrap:anywhere;overflow:visible;text-overflow:clip}
 .living-topbar .pm-goal__v{flex:none}
+
+/* The map owns its viewport below the header; its camera never measures the page. */
+.pm-stage:has(>.living-topbar){isolation:isolate;grid-template-rows:max-content minmax(0,1fr)}
+.pm-stage:has(>.living-topbar)>.pm-view{position:relative;min-width:0;min-height:240px;z-index:0}
+.living-commandbar .continuous-strip{flex-basis:220px}.living-commandbar .continuous-tools{flex:1}
+@media(max-width:1100px){.living-commandbar .continuous-strip{flex-basis:100%}}
