@@ -1,10 +1,10 @@
 /** Fictional management effects, evaluated once per simulated week. */
 import {EMPLOYEES} from '../data/continuous/employees.js';
-import {DEPARTMENTS,MANAGERS} from '../data/continuous/organization.js';
+import {DEPARTMENTS,managerMap} from '../data/continuous/organization.js';
 import {metrics} from './company-continuous.js';
 export const MANAGEMENT_RULES=Object.freeze({stressThreshold:40,healthThreshold:70,stressPenalty:-5,healthBonus:7});
 const clamp=n=>Math.max(0,Math.min(100,n));
-export function leadershipConditions(s){return DEPARTMENTS.map(sid=>{const managerId=MANAGERS[sid],health=s.staff[managerId].health,stress=metrics(s,sid).stress;return {sid,managerId,health,stress,penalty:stress>40?-5:0,bonus:health>70?7:0};});}
+export function leadershipConditions(s){return DEPARTMENTS.map(sid=>{const managerId=managerMap(s)[sid],health=s.staff[managerId].health,stress=metrics(s,sid).stress;return {sid,managerId,health,stress,penalty:stress>40?-5:0,bonus:health>70?7:0};});}
 /** Snapshot all managers before applying any effect; never compound while rendering. */
 export function applyLeadershipEffects(s,eligibleIds=EMPLOYEES.map(p=>p.id)){
  const eligible=new Set(eligibleIds),conditions=new Map(leadershipConditions(s).map(c=>[c.sid,c]));

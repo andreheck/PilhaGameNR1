@@ -23,3 +23,5 @@ const htmlPath=root+'index.html';fs.writeFileSync(htmlPath,fs.readFileSync(htmlP
 let finalIso=fs.readFileSync(isoPath,'utf8');
 finalIso=finalIso.replace('      setRoutineClock:setRoutineClock,','      getWorldFrame:function(){return {left:ox+bounds.umin*s,top:oy+bounds.vmin*s,right:ox+bounds.umax*s,bottom:oy+bounds.vmax*s,width:cw,height:ch};},\n      setRoutineClock:setRoutineClock,');
 fs.writeFileSync(isoPath,finalIso);
+
+const mapPath=root+'ui/continuous/map.js';let compactMap=fs.readFileSync(mapPath,'utf8');compactMap=compactMap.replace('iso.resize(); refocus(reduce ? 0 : .55);','iso.resize(); if(force)refocus(0);');fs.writeFileSync(mapPath,compactMap);

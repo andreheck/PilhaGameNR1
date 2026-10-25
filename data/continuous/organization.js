@@ -22,3 +22,11 @@ export const JOBS={
 export const RANK_NAMES={operacional:'Operacional',tatico:'Tático',estrategico:'Estratégico'};
 export const BOARD=Array.from({length:6},(_,i)=>({heroId:'PILHA-H0'+(i+1),position:'Conselheiro do conselho administrativo'}));
 export function jobFor(id,home){const assignment=JOBS[id];if(!assignment)return null;const [rank,position]=assignment;return {rank,rankName:RANK_NAMES[rank],position,managerId:MANAGERS[home],reportsTo:id===MANAGERS[home]?'conselho':MANAGERS[home]};}
+
+export const managerMap=s=>s.initialHiring?.status==='complete'?s.initialHiring.managers:MANAGERS;
+export function jobInCompany(s,p){
+ const id=managerMap(s)[p.home],base=p.organization;
+ if(s.initialHiring?.status!=='complete')return base;
+ if(p.id===id)return {rank:'estrategico',rankName:'Estratégico',position:'Gerente de '+({escritorio:'Escritório',producao:'Produção',atendimento:'Atendimento'}[p.home]),managerId:id,reportsTo:'conselho'};
+ return {...base,...(base?.rank==='estrategico'?{rank:'tatico',rankName:'Tático',position:'Especialista de setor'}:{}),managerId:id,reportsTo:id};
+}

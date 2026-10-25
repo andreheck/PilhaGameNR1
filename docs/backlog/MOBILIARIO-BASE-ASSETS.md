@@ -21,3 +21,8 @@ Piso de circulação, marcações de segurança, nomes e placas de setor podem c
 
 ## Contrato de arte
 Mesmo ângulo isométrico e iluminação do kit; PNG/WebP RGBA com fundo transparente, pivô no centro da base e sombra suave. Tamanho de referência240px para mesas/máquinas,120px para assentos/acessórios. Sem pessoas incorporadas aos novos móveis, para permitir NPCs separados. Respeitar footprints e corredores já navegáveis. Máquinas, esteiras e prateleiras industriais permanecem procedurais até aprovação das artes próprias; não usar estante de livros como estoque industrial.
+
+## Atualização25/10 — cinco assets criados e integrados para teste
+Máquina, esteira, estante industrial, bancada operacional e estação de atendimento estão em `assets/furniture/generated/`, com fundo transparente e manifesto de geração. Substituem os equivalentes básicos de Produção/Atendimento, sem alterar economia. A bancada adiciona um posto visual operacional. Os20WebPs aprovados permanecem intactos.
+
+P1 visual básico concluído; variantes ligada/parada, terminais de esteira e versões adicionais permanecem futuras. Próximos assets: balcão de recepção, cadeira avulsa, armário de EPI/ferramentas, palete/carrinho e luminária. Não usar o trecho histórico acima sobre fallback procedural como descrição da versão atual.

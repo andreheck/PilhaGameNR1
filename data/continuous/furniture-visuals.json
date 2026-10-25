@@ -258,6 +258,76 @@
         0.96
       ],
       "transparent": true
+    },
+    {
+      "id": "maquina-producao",
+      "name": "Máquina de produção",
+      "file": "maquina-producao.png",
+      "url": "/assets/furniture/generated/maquina-producao.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true,
+      "source": "imagegen-built-in",
+      "status": "generated-for-testing"
+    },
+    {
+      "id": "esteira-producao",
+      "name": "Esteira",
+      "file": "esteira-producao.png",
+      "url": "/assets/furniture/generated/esteira-producao.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true,
+      "source": "imagegen-built-in",
+      "status": "generated-for-testing"
+    },
+    {
+      "id": "estante-industrial",
+      "name": "Estante industrial",
+      "file": "estante-industrial.png",
+      "url": "/assets/furniture/generated/estante-industrial.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true,
+      "source": "imagegen-built-in",
+      "status": "generated-for-testing"
+    },
+    {
+      "id": "bancada-operacional",
+      "name": "Bancada operacional",
+      "file": "bancada-operacional.png",
+      "url": "/assets/furniture/generated/bancada-operacional.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true,
+      "source": "imagegen-built-in",
+      "status": "generated-for-testing"
+    },
+    {
+      "id": "estacao-atendimento",
+      "name": "Estação de atendimento",
+      "file": "estacao-atendimento.png",
+      "url": "/assets/furniture/generated/estacao-atendimento.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "transparent": true,
+      "source": "imagegen-built-in",
+      "status": "generated-for-testing"
     }
   ],
   "upgrades": {
@@ -656,7 +726,7 @@
     "Um item visual por melhoria/setor reduz lotação e evita cruzar corredores dos NPCs.",
     "Ao comprar nível 2 e 3, alterar acabamento sem criar outro objeto de chão.",
     "Programa de benefício não cria mobiliário físico nem NPC automaticamente.",
-    "Artes básicas substituem apenas aparência dos objetos existentes: não são compras nem concedem benefícios. Máquinas, esteiras e estantes industriais aguardam artes próprias."
+    "Cinco artes novas geradas para testes, com prompts e origem em assets/furniture/generated/generation-manifest.json. Não substituem os originais do kit."
   ],
   "rasterImported": true,
   "baseline": {
@@ -669,7 +739,7 @@
       "sofa": "sofa-azul"
     },
     "atendimento": {
-      "desk": "mesa-escritorio",
+      "desk": "estacao-atendimento",
       "chair": "poltrona-azul-b",
       "plant": "planta-pequena",
       "board": "quadro",
@@ -678,7 +748,11 @@
     },
     "producao": {
       "crate": "caixa-material",
-      "box": "caixa-material"
+      "box": "caixa-material",
+      "machine": "maquina-producao",
+      "conveyor": "esteira-producao",
+      "shelf": "estante-industrial",
+      "table": "bancada-operacional"
     }
   }
 }
