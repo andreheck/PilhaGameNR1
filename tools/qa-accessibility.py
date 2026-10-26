@@ -50,6 +50,8 @@ def run(browser, viewport, port):
                                   reduced_motion='reduce', has_touch=viewport[0] < 900)
     page = context.new_page()
     page.on('pageerror', lambda error: REPORT['errors'].append(str(error)))
+    page.on('console', lambda message: REPORT['errors'].append(message.text)
+            if message.type == 'error' else None)
     try:
         page.goto(f'http://127.0.0.1:{port}/', wait_until='domcontentloaded')
         page.locator('.pi-skip').wait_for(state='visible')

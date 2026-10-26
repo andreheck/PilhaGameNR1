@@ -27,7 +27,11 @@ jobs:
       - name: Browser and accessibility dependencies (CI only)
         run: |
           python -m pip install playwright==1.57.0
-          python -m playwright install --with-deps chromium
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHROMIUM_PATH=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          else
+            python -m playwright install --with-deps chromium
+          fi
           npm install --prefix artifacts/a11y-deps --ignore-scripts --no-package-lock --no-audit --no-fund axe-core@4.10.3
       - name: Desktop and mobile accessibility gate
         run: python tools/qa-accessibility.py
