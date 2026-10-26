@@ -63,6 +63,24 @@ def run(browser, viewport, port):
             page.locator('[data-guide="next"]').click()
         page.locator('.continuous-gallery-dialog[open]').wait_for()
         scan(page, 'herois', viewport)
+        if viewport[0] >= 900:
+            # axe cannot always resolve a gradient over artwork. Check the
+            # readable foreground against the darkest canonical gradient stop.
+            contrast = page.locator('.ph-btn--pick').evaluate("""button => {
+              const style=getComputedStyle(button),canvas=document.createElement('canvas');
+              canvas.width=canvas.height=1;const c=canvas.getContext('2d');
+              function luminance(color){
+                c.clearRect(0,0,1,1);c.fillStyle=color;c.fillRect(0,0,1,1);
+                const rgb=[...c.getImageData(0,0,1,1).data].slice(0,3).map(v=>{
+                  v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4;
+                });return rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722;
+              }
+              const a=luminance(style.color),b=luminance(style.getPropertyValue('--hc').trim());
+              return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);
+            }""")
+            REPORT['heroChoiceContrast'] = round(contrast, 2)
+            if contrast < 4.5:
+                REPORT['errors'].append(f'Hero choice contrast {contrast:.2f}:1 is below 4.5:1')
         page.locator('[data-direct-pick="PILHA-H01|principal"]').click()
         page.locator('[data-direct-pick="PILHA-H02|support"]').click()
         page.locator('[data-team-save]').click()
