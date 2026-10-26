@@ -12,7 +12,8 @@ assert.equal(cfg.rules.passScore,70);
 assert.equal(cfg.rules.minimumCorrect,2);
 for(const q of cfg.quiz)assert.equal(q.options.filter(o=>o.id===q.correct).length,1);
 let error=null;
-const source=file('mission01.js');
+// The VM injection anchor must work in Windows checkouts as well as LF on CI.
+const source=file('mission01.js').replace(/\r\n/g,'\n');
 const harness=source.replace('boot();\n})();',`globalThis.__gameTest={
   get:()=>state,set(x){state={...initial(),...x}},
   getScore:()=>score(), command, render, setOpened(id){opened=id},
