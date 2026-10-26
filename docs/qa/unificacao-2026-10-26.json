@@ -1,0 +1,1833 @@
+{
+  "baselineNamedBranches": 48,
+  "branchesAfterTrunk": 49,
+  "refs": [
+    {
+      "branch": "audit/manus-handoff-2026-10-17",
+      "sha": "760913380c1c2869ca23fef6a92622757ec8fab3",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        130,
+        1
+      ],
+      "containedBy": [
+        "audit/manus-handoff-2026-10-17"
+      ],
+      "contents": {
+        "runtime": 38,
+        "docs": 29,
+        "tests": 15,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "codex/empresa-conectada-circulacao",
+      "sha": "3448b981292b5575b45ccb6fa8b63341755b7f63",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        77,
+        0
+      ],
+      "containedBy": [
+        "codex/empresa-conectada-circulacao",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 85,
+        "docs": 134,
+        "tests": 26,
+        "assets": 51
+      }
+    },
+    {
+      "branch": "codex/galeria-herois-canonica",
+      "sha": "0c3dba6c3e1b8b64e5ceac0179aaaafa594fc851",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        78,
+        0
+      ],
+      "containedBy": [
+        "codex/empresa-conectada-circulacao",
+        "codex/galeria-herois-canonica",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 85,
+        "docs": 133,
+        "tests": 25,
+        "assets": 51
+      }
+    },
+    {
+      "branch": "codex/jornada-npcs-empresa",
+      "sha": "0aafd4bf4cef290d74e763befdb169870c6af52f",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        80,
+        0
+      ],
+      "containedBy": [
+        "codex/empresa-conectada-circulacao",
+        "codex/galeria-herois-canonica",
+        "codex/jornada-npcs-empresa",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 79,
+        "docs": 132,
+        "tests": 24,
+        "assets": 51
+      }
+    },
+    {
+      "branch": "codex/npcs-fase1-perfis",
+      "sha": "14e9166652c5caf62dd783467ca9db40bf4b4b05",
+      "finAncestor": false,
+      "liveAncestor": true,
+      "finDiff": [
+        0,
+        35
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis"
+      ],
+      "contents": {
+        "runtime": 116,
+        "docs": 184,
+        "tests": 39,
+        "assets": 104
+      }
+    },
+    {
+      "branch": "codex/revisao-equipe-viva",
+      "sha": "022a39d758e90a6aa981bf50edda25045e36f629",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        58,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 98,
+        "docs": 139,
+        "tests": 30,
+        "assets": 52
+      }
+    },
+    {
+      "branch": "codex/ux-tres-setores",
+      "sha": "1340f4aba86761643921268a76eda0de346edfde",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        83,
+        0
+      ],
+      "containedBy": [
+        "codex/empresa-conectada-circulacao",
+        "codex/galeria-herois-canonica",
+        "codex/jornada-npcs-empresa",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "codex/ux-tres-setores",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 69,
+        "docs": 121,
+        "tests": 22,
+        "assets": 45
+      }
+    },
+    {
+      "branch": "docs/governanca-pm-po-codex",
+      "sha": "171b396ef010fa434eb5d5fbf627c74ed3e9276d",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        85,
+        0
+      ],
+      "containedBy": [
+        "codex/empresa-conectada-circulacao",
+        "codex/galeria-herois-canonica",
+        "codex/jornada-npcs-empresa",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "codex/ux-tres-setores",
+        "docs/governanca-pm-po-codex",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 61,
+        "docs": 70,
+        "tests": 21,
+        "assets": 45
+      }
+    },
+    {
+      "branch": "docs/hero-roster-beta",
+      "sha": "f9299430e3001cca961ce0d9a7bd2ac64c78d759",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        144,
+        55
+      ],
+      "containedBy": [
+        "docs/hero-roster-beta"
+      ],
+      "contents": {
+        "runtime": 35,
+        "docs": 39,
+        "tests": 12,
+        "assets": 26
+      }
+    },
+    {
+      "branch": "docs/roadmap-handoff-2026-10-17",
+      "sha": "bce636d7966e2543bb1278d37e6a76a3c4dc27bf",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        130,
+        7
+      ],
+      "containedBy": [
+        "docs/roadmap-handoff-2026-10-17"
+      ],
+      "contents": {
+        "runtime": 38,
+        "docs": 32,
+        "tests": 15,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "feat/empresa-continua-restauracao",
+      "sha": "32501c7bbf60679c9d13285acc68a944aaf82823",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        63,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 91,
+        "docs": 136,
+        "tests": 29,
+        "assets": 52
+      }
+    },
+    {
+      "branch": "feat/equipe-viva-calendario",
+      "sha": "1a2079727bdd65e3e7a86da3a6f1d4f133ad418a",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        59,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "feat/equipe-viva-calendario",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 98,
+        "docs": 138,
+        "tests": 30,
+        "assets": 52
+      }
+    },
+    {
+      "branch": "feat/game-navigation-handoff",
+      "sha": "01f85634366eda72585be3e544babedaeb3dd9f1",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        144,
+        21
+      ],
+      "containedBy": [
+        "feat/game-navigation-handoff"
+      ],
+      "contents": {
+        "runtime": 34,
+        "docs": 27,
+        "tests": 11,
+        "assets": 26
+      }
+    },
+    {
+      "branch": "feat/hero-selection-zoom-thumbnails",
+      "sha": "bd006d25f3338bba66ce6d1c01cd67fbd488a853",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        130,
+        7
+      ],
+      "containedBy": [
+        "feat/hero-selection-zoom-thumbnails"
+      ],
+      "contents": {
+        "runtime": 38,
+        "docs": 29,
+        "tests": 15,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "feat/hero-spotlight-codex",
+      "sha": "602a819a5a47c63195efd2f5736daa2229b1e359",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        66,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 87,
+        "docs": 134,
+        "tests": 28,
+        "assets": 52
+      }
+    },
+    {
+      "branch": "feat/investment-prediction-alerts",
+      "sha": "4eaf05eee241d7b9c747fca8421872385388b4a0",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        136,
+        17
+      ],
+      "containedBy": [
+        "feat/investment-prediction-alerts",
+        "feat/investment-psychosocial-domains"
+      ],
+      "contents": {
+        "runtime": 39,
+        "docs": 30,
+        "tests": 15,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "feat/investment-psychosocial-domains",
+      "sha": "69e3a209374def57b0b4549668e6c9da90afcf76",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        136,
+        53
+      ],
+      "containedBy": [
+        "feat/investment-psychosocial-domains"
+      ],
+      "contents": {
+        "runtime": 39,
+        "docs": 34,
+        "tests": 15,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "feat/living-office-simulation",
+      "sha": "6b5d53055f29396438bed2e5761e327b0325a384",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        144,
+        30
+      ],
+      "containedBy": [
+        "docs/hero-roster-beta",
+        "feat/living-office-simulation"
+      ],
+      "contents": {
+        "runtime": 35,
+        "docs": 29,
+        "tests": 12,
+        "assets": 26
+      }
+    },
+    {
+      "branch": "feat/management-dashboard-scenario-preview",
+      "sha": "e2323750895d077f76302152da7e8e8f91f83856",
+      "finAncestor": false,
+      "liveAncestor": true,
+      "finDiff": [
+        0,
+        5
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "feat/management-dashboard-scenario-preview",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 108,
+        "docs": 153,
+        "tests": 37,
+        "assets": 92
+      }
+    },
+    {
+      "branch": "feat/mobiliario-poof-asset-pipeline",
+      "sha": "84ba91a87447494bc22f2c2eefc7f89a3b2d8022",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        26,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 102,
+        "docs": 153,
+        "tests": 32,
+        "assets": 92
+      }
+    },
+    {
+      "branch": "feat/npc-absence-resignation-release",
+      "sha": "40b2944748455ee8f96ff8497e5fb2e9b1e774b1",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        12,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "feat/management-dashboard-scenario-preview",
+        "feat/npc-absence-resignation-release",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 105,
+        "docs": 153,
+        "tests": 34,
+        "assets": 92
+      }
+    },
+    {
+      "branch": "feat/npc-balanceamento-contextual",
+      "sha": "3921a7bc81f5ad59b584df7b3c0a97e9d7a493ae",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        130,
+        7
+      ],
+      "containedBy": [
+        "feat/npc-balanceamento-contextual"
+      ],
+      "contents": {
+        "runtime": 38,
+        "docs": 30,
+        "tests": 15,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "feat/npc-furniture-effect-lifecycle",
+      "sha": "a14776e70ffb818207fed171e461529263342184",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        18,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "feat/management-dashboard-scenario-preview",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 104,
+        "docs": 153,
+        "tests": 33,
+        "assets": 92
+      }
+    },
+    {
+      "branch": "feat/npc-restoration-walks-and-sprites",
+      "sha": "0f7c5511020810dff0bd49100962233fc43ecb0d",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        52,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 98,
+        "docs": 139,
+        "tests": 30,
+        "assets": 52
+      }
+    },
+    {
+      "branch": "feat/psychosocial-environment-simulation",
+      "sha": "41a4977e2986915d699b53abf70c53f397c42846",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        144,
+        25
+      ],
+      "containedBy": [
+        "docs/hero-roster-beta",
+        "feat/living-office-simulation",
+        "feat/psychosocial-environment-simulation"
+      ],
+      "contents": {
+        "runtime": 34,
+        "docs": 28,
+        "tests": 11,
+        "assets": 26
+      }
+    },
+    {
+      "branch": "feat/quarterly-financial-targets",
+      "sha": "28c1de843d15ee5f0cc71e7dd9ff6bf980fa0320",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        0,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "feat/management-dashboard-scenario-preview",
+        "feat/quarterly-financial-targets",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 107,
+        "docs": 153,
+        "tests": 36,
+        "assets": 92
+      }
+    },
+    {
+      "branch": "feat/quarterly-profitability",
+      "sha": "adb5727ff55a5dd9b681333b1773d16e0eb07055",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        6,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "feat/management-dashboard-scenario-preview",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 106,
+        "docs": 153,
+        "tests": 35,
+        "assets": 92
+      }
+    },
+    {
+      "branch": "feat/staffing-hiring-coverage",
+      "sha": "adb5727ff55a5dd9b681333b1773d16e0eb07055",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        6,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "feat/management-dashboard-scenario-preview",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 106,
+        "docs": 153,
+        "tests": 35,
+        "assets": 92
+      }
+    },
+    {
+      "branch": "feature/ambiente-3d-ampliado-cc0-audio",
+      "sha": "6d3eaa877c0258df448212306f1765858d09f6db",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        139,
+        1
+      ],
+      "containedBy": [
+        "feature/ambiente-3d-ampliado-cc0-audio"
+      ],
+      "contents": {
+        "runtime": 36,
+        "docs": 26,
+        "tests": 12,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "feature/biblioteca-3d-alpha13",
+      "sha": "19ab857cf2db271af50f12c6742f21c201aeb5b4",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        147,
+        0
+      ],
+      "containedBy": [
+        "audit/manus-handoff-2026-10-17",
+        "codex/empresa-conectada-circulacao",
+        "codex/galeria-herois-canonica",
+        "codex/jornada-npcs-empresa",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "codex/ux-tres-setores",
+        "docs/governanca-pm-po-codex",
+        "docs/hero-roster-beta",
+        "docs/roadmap-handoff-2026-10-17",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/game-navigation-handoff",
+        "feat/hero-selection-zoom-thumbnails",
+        "feat/hero-spotlight-codex",
+        "feat/investment-prediction-alerts",
+        "feat/investment-psychosocial-domains",
+        "feat/living-office-simulation",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-balanceamento-contextual",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/psychosocial-environment-simulation",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "feature/ambiente-3d-ampliado-cc0-audio",
+        "feature/biblioteca-3d-alpha13",
+        "feature/caso-017-simulacao-consequencias",
+        "feature/caso-018-lideranca-3d",
+        "feature/collab-hero-duos",
+        "feature/company-state-cases-018-021",
+        "feature/hero-progression-recovery",
+        "feature/mecanica-demissao-estados-navegacao",
+        "feature/shareholder-timeline-kimi",
+        "fix/case018-live-silence",
+        "fix/navigation-segment-collision",
+        "fix/npc-focus-codex-continuation",
+        "fix/pr20-mobile-glb-qa",
+        "fix/revenue-produced-worker-health",
+        "integration/alpha15-vertical-slice",
+        "integration/pilha-current-vision",
+        "main",
+        "refactor/cases-01-05",
+        "refactor/sidebar-game-areas",
+        "release/alpha15-opening-characters"
+      ],
+      "contents": {
+        "runtime": 26,
+        "docs": 24,
+        "tests": 8,
+        "assets": 23
+      }
+    },
+    {
+      "branch": "feature/caso-017-simulacao-consequencias",
+      "sha": "0af176761fc4c3dfebe359583ca67feb52625bb0",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        144,
+        11
+      ],
+      "containedBy": [
+        "feature/caso-017-simulacao-consequencias"
+      ],
+      "contents": {
+        "runtime": 32,
+        "docs": 26,
+        "tests": 11,
+        "assets": 26
+      }
+    },
+    {
+      "branch": "feature/caso-018-lideranca-3d",
+      "sha": "4b0f1f54d89ff051535c11e5ec51dcace43e9311",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        141,
+        1
+      ],
+      "containedBy": [
+        "feature/caso-018-lideranca-3d"
+      ],
+      "contents": {
+        "runtime": 36,
+        "docs": 26,
+        "tests": 12,
+        "assets": 26
+      }
+    },
+    {
+      "branch": "feature/collab-hero-duos",
+      "sha": "c319fb34fe8c3c275216c7cdd5542baf320bc29b",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        97,
+        0
+      ],
+      "containedBy": [
+        "codex/empresa-conectada-circulacao",
+        "codex/galeria-herois-canonica",
+        "codex/jornada-npcs-empresa",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "codex/ux-tres-setores",
+        "docs/governanca-pm-po-codex",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "feature/collab-hero-duos",
+        "feature/hero-progression-recovery",
+        "feature/shareholder-timeline-kimi",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 51,
+        "docs": 48,
+        "tests": 19,
+        "assets": 44
+      }
+    },
+    {
+      "branch": "feature/company-state-cases-018-021",
+      "sha": "58942ff4dd1730ebe9b0c86cf39733bdacb1f164",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        136,
+        1
+      ],
+      "containedBy": [
+        "feature/company-state-cases-018-021"
+      ],
+      "contents": {
+        "runtime": 38,
+        "docs": 26,
+        "tests": 14,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "feature/hero-progression-recovery",
+      "sha": "93e2d61a06c11ca25ce97b80d8e42f98fb123a47",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        89,
+        0
+      ],
+      "containedBy": [
+        "codex/empresa-conectada-circulacao",
+        "codex/galeria-herois-canonica",
+        "codex/jornada-npcs-empresa",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "codex/ux-tres-setores",
+        "docs/governanca-pm-po-codex",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "feature/hero-progression-recovery",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 61,
+        "docs": 68,
+        "tests": 21,
+        "assets": 45
+      }
+    },
+    {
+      "branch": "feature/mecanica-demissao-estados-navegacao",
+      "sha": "d01fd190e110e08ece8de88d2b8583c0ce9100df",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        137,
+        1
+      ],
+      "containedBy": [
+        "feature/mecanica-demissao-estados-navegacao"
+      ],
+      "contents": {
+        "runtime": 37,
+        "docs": 26,
+        "tests": 13,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "feature/shareholder-timeline-kimi",
+      "sha": "e955638f396f49d2b1ff83e74c530303768abbb8",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        93,
+        0
+      ],
+      "containedBy": [
+        "codex/empresa-conectada-circulacao",
+        "codex/galeria-herois-canonica",
+        "codex/jornada-npcs-empresa",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "codex/ux-tres-setores",
+        "docs/governanca-pm-po-codex",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "feature/hero-progression-recovery",
+        "feature/shareholder-timeline-kimi",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 57,
+        "docs": 62,
+        "tests": 20,
+        "assets": 45
+      }
+    },
+    {
+      "branch": "fix/case018-live-silence",
+      "sha": "f8a32741729722585a039961e9f7cd89dc61859a",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        135,
+        1
+      ],
+      "containedBy": [
+        "fix/case018-live-silence"
+      ],
+      "contents": {
+        "runtime": 38,
+        "docs": 26,
+        "tests": 14,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "fix/navigation-segment-collision",
+      "sha": "b19ac83c0b37376cdc71c6f2da23f3f553c9e693",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        136,
+        5
+      ],
+      "containedBy": [
+        "feat/investment-prediction-alerts",
+        "feat/investment-psychosocial-domains",
+        "fix/navigation-segment-collision"
+      ],
+      "contents": {
+        "runtime": 38,
+        "docs": 27,
+        "tests": 14,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "fix/npc-focus-codex-continuation",
+      "sha": "0f7c5511020810dff0bd49100962233fc43ecb0d",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        52,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 98,
+        "docs": 139,
+        "tests": 30,
+        "assets": 52
+      }
+    },
+    {
+      "branch": "fix/pr20-mobile-glb-qa",
+      "sha": "20b2948e382f1e57aff63ad85480b417de6bdfe5",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        104,
+        3
+      ],
+      "containedBy": [
+        "fix/pr20-mobile-glb-qa"
+      ],
+      "contents": {
+        "runtime": 40,
+        "docs": 44,
+        "tests": 17,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "fix/revenue-produced-worker-health",
+      "sha": "75c5b2372f27f2544a1f5f70785565a28d08e256",
+      "finAncestor": false,
+      "liveAncestor": true,
+      "finDiff": [
+        0,
+        9
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 108,
+        "docs": 153,
+        "tests": 37,
+        "assets": 92
+      }
+    },
+    {
+      "branch": "integration/alpha15-vertical-slice",
+      "sha": "a33e0a65071e0ba529befbd6a0818a472c298390",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        130,
+        0
+      ],
+      "containedBy": [
+        "audit/manus-handoff-2026-10-17",
+        "codex/empresa-conectada-circulacao",
+        "codex/galeria-herois-canonica",
+        "codex/jornada-npcs-empresa",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "codex/ux-tres-setores",
+        "docs/governanca-pm-po-codex",
+        "docs/roadmap-handoff-2026-10-17",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-selection-zoom-thumbnails",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-balanceamento-contextual",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "feature/collab-hero-duos",
+        "feature/hero-progression-recovery",
+        "feature/shareholder-timeline-kimi",
+        "fix/npc-focus-codex-continuation",
+        "fix/pr20-mobile-glb-qa",
+        "fix/revenue-produced-worker-health",
+        "integration/alpha15-vertical-slice",
+        "integration/pilha-current-vision",
+        "main",
+        "release/alpha15-opening-characters"
+      ],
+      "contents": {
+        "runtime": 38,
+        "docs": 28,
+        "tests": 15,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "integration/pilha-current-vision",
+      "sha": "060390a1d037255816af1a5521e9da62a13ba689",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        104,
+        0
+      ],
+      "containedBy": [
+        "codex/empresa-conectada-circulacao",
+        "codex/galeria-herois-canonica",
+        "codex/jornada-npcs-empresa",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "codex/ux-tres-setores",
+        "docs/governanca-pm-po-codex",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "feature/collab-hero-duos",
+        "feature/hero-progression-recovery",
+        "feature/shareholder-timeline-kimi",
+        "fix/npc-focus-codex-continuation",
+        "fix/pr20-mobile-glb-qa",
+        "fix/revenue-produced-worker-health",
+        "integration/pilha-current-vision",
+        "release/alpha15-opening-characters"
+      ],
+      "contents": {
+        "runtime": 40,
+        "docs": 39,
+        "tests": 17,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "main",
+      "sha": "a0cb244f4950ffbbbd5ad466402c9d702419adb0",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        130,
+        4
+      ],
+      "containedBy": [
+        "feat/hero-selection-zoom-thumbnails",
+        "feat/npc-balanceamento-contextual",
+        "main"
+      ],
+      "contents": {
+        "runtime": 38,
+        "docs": 29,
+        "tests": 15,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "refactor/cases-01-05",
+      "sha": "aedc22c2616f58337951027a97dd2e1c4b5ce446",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        134,
+        1
+      ],
+      "containedBy": [
+        "refactor/cases-01-05"
+      ],
+      "contents": {
+        "runtime": 38,
+        "docs": 26,
+        "tests": 14,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "refactor/sidebar-game-areas",
+      "sha": "2ed7b317db1ded337db1307becbbcbd25c277fc2",
+      "finAncestor": false,
+      "liveAncestor": false,
+      "finDiff": [
+        133,
+        1
+      ],
+      "containedBy": [
+        "refactor/sidebar-game-areas"
+      ],
+      "contents": {
+        "runtime": 38,
+        "docs": 26,
+        "tests": 14,
+        "assets": 38
+      }
+    },
+    {
+      "branch": "release/alpha15-opening-characters",
+      "sha": "a0a17ef8ac8c2174f7188b9a76028eaf395ebb84",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        101,
+        0
+      ],
+      "containedBy": [
+        "codex/empresa-conectada-circulacao",
+        "codex/galeria-herois-canonica",
+        "codex/jornada-npcs-empresa",
+        "codex/npcs-fase1-perfis",
+        "codex/revisao-equipe-viva",
+        "codex/ux-tres-setores",
+        "docs/governanca-pm-po-codex",
+        "feat/empresa-continua-restauracao",
+        "feat/equipe-viva-calendario",
+        "feat/hero-spotlight-codex",
+        "feat/management-dashboard-scenario-preview",
+        "feat/mobiliario-poof-asset-pipeline",
+        "feat/npc-absence-resignation-release",
+        "feat/npc-furniture-effect-lifecycle",
+        "feat/npc-restoration-walks-and-sprites",
+        "feat/quarterly-financial-targets",
+        "feat/quarterly-profitability",
+        "feat/staffing-hiring-coverage",
+        "feature/collab-hero-duos",
+        "feature/hero-progression-recovery",
+        "feature/shareholder-timeline-kimi",
+        "fix/npc-focus-codex-continuation",
+        "fix/revenue-produced-worker-health",
+        "release/alpha15-opening-characters"
+      ],
+      "contents": {
+        "runtime": 47,
+        "docs": 40,
+        "tests": 18,
+        "assets": 44
+      }
+    },
+    {
+      "branch": "integration/unificado-2026-10-26",
+      "sha": "28c1de843d15ee5f0cc71e7dd9ff6bf980fa0320",
+      "finAncestor": true,
+      "liveAncestor": true,
+      "finDiff": [
+        0,
+        0
+      ],
+      "containedBy": [
+        "codex/npcs-fase1-perfis",
+        "feat/management-dashboard-scenario-preview",
+        "feat/quarterly-financial-targets",
+        "fix/revenue-produced-worker-health"
+      ],
+      "contents": {
+        "runtime": 107,
+        "docs": 153,
+        "tests": 36,
+        "assets": 92
+      }
+    }
+  ],
+  "remote": {
+    "checkedOn": "2026-10-26",
+    "projectId": "prj_qKNB2uUEJyL5sfnL9pZii8cmnKRe",
+    "scannedCount": 361,
+    "paginationComplete": true,
+    "selection": "latest deployment observed per named branch, complete paginated scan",
+    "deployments": [
+      {
+        "id": "dpl_6bYTvg1a4JZbrRvKjddbvouora1o",
+        "url": "pilha-plus-game-preview-6y7qa3xjz-andrehecks-projects.vercel.app",
+        "created": 1793016934468,
+        "state": "READY",
+        "target": null,
+        "ref": "codex/npcs-fase1-perfis",
+        "sha": "14e9166652c5caf62dd783467ca9db40bf4b4b05"
+      },
+      {
+        "id": "dpl_J5pemEmhNgSiJwD3Aug48GYWfphZ",
+        "url": "pilha-plus-game-preview-a56u6f24j-andrehecks-projects.vercel.app",
+        "created": 1792813876359,
+        "state": "READY",
+        "target": null,
+        "ref": "fix/revenue-produced-worker-health",
+        "sha": "75c5b2372f27f2544a1f5f70785565a28d08e256"
+      },
+      {
+        "id": "dpl_Dgcm5iRDzxThtJpcASbJ3HpZqW3m",
+        "url": "pilha-plus-game-preview-g5nxsbzwa-andrehecks-projects.vercel.app",
+        "created": 1792812494532,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/management-dashboard-scenario-preview",
+        "sha": "e2323750895d077f76302152da7e8e8f91f83856"
+      },
+      {
+        "id": "dpl_BMRgT7mCcAwhvMegWh7MbQnYAiF7",
+        "url": "pilha-plus-game-preview-rb8sa13hr-andrehecks-projects.vercel.app",
+        "created": 1792811674735,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/quarterly-financial-targets",
+        "sha": "28c1de843d15ee5f0cc71e7dd9ff6bf980fa0320"
+      },
+      {
+        "id": "dpl_7BZPNeAGZiANdNmHBCsfs4Xj22a7",
+        "url": "pilha-plus-game-preview-mlvaatgwa-andrehecks-projects.vercel.app",
+        "created": 1792811177163,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/staffing-hiring-coverage",
+        "sha": "adb5727ff55a5dd9b681333b1773d16e0eb07055"
+      },
+      {
+        "id": "dpl_DriAi9ezjo2yK18ukaZWVjK8EWM6",
+        "url": "pilha-plus-game-preview-fcur36hmz-andrehecks-projects.vercel.app",
+        "created": 1792810288949,
+        "state": "READY",
+        "target": "production",
+        "ref": "feat/npc-absence-resignation-release",
+        "sha": "40b2944748455ee8f96ff8497e5fb2e9b1e774b1"
+      },
+      {
+        "id": "dpl_5PJdsdfQJtpo4dFAu5fyDuRqR9xJ",
+        "url": "pilha-plus-game-preview-beyk555ie-andrehecks-projects.vercel.app",
+        "created": 1792809039159,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/npc-furniture-effect-lifecycle",
+        "sha": "a14776e70ffb818207fed171e461529263342184"
+      },
+      {
+        "id": "dpl_AxNPT7pZ4dh7uqVQDCnbcEQw8rGz",
+        "url": "pilha-plus-game-preview-i4ruuipge-andrehecks-projects.vercel.app",
+        "created": 1792808400598,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/mobiliario-poof-asset-pipeline",
+        "sha": "84ba91a87447494bc22f2c2eefc7f89a3b2d8022"
+      },
+      {
+        "id": "dpl_APxC9oxzBvVvpmAmcEdizMvxK1cn",
+        "url": "pilha-plus-game-preview-80gerz0jh-andrehecks-projects.vercel.app",
+        "created": 1792788384356,
+        "state": "READY",
+        "target": null,
+        "ref": "fix/npc-focus-codex-continuation",
+        "sha": "0f7c5511020810dff0bd49100962233fc43ecb0d"
+      },
+      {
+        "id": "dpl_DwBnbptzzQ5wh5BiWxVdwTGymNia",
+        "url": "pilha-plus-game-preview-6meahlgyc-andrehecks-projects.vercel.app",
+        "created": 1792766702336,
+        "state": "READY",
+        "target": null,
+        "ref": "codex/revisao-equipe-viva",
+        "sha": "022a39d758e90a6aa981bf50edda25045e36f629"
+      },
+      {
+        "id": "dpl_8XrirJKkeKcFoRXAep3P2ZxfPXJZ",
+        "url": "pilha-plus-game-preview-r03fx6h76-andrehecks-projects.vercel.app",
+        "created": 1792764121382,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/equipe-viva-calendario",
+        "sha": "1a2079727bdd65e3e7a86da3a6f1d4f133ad418a"
+      },
+      {
+        "id": "dpl_DB4XazbFmeeqUXbEbAaDbS1ZMBce",
+        "url": "pilha-plus-game-preview-gklxbxo7u-andrehecks-projects.vercel.app",
+        "created": 1792729352654,
+        "state": "READY",
+        "target": "production",
+        "ref": "feat/empresa-continua-restauracao",
+        "sha": "32501c7bbf60679c9d13285acc68a944aaf82823"
+      },
+      {
+        "id": "dpl_DZtdhBem1iH19nsotmRzA8p3Bdbp",
+        "url": "pilha-plus-game-preview-h8iiur66r-andrehecks-projects.vercel.app",
+        "created": 1792722270646,
+        "state": "READY",
+        "target": "production",
+        "ref": "feat/hero-spotlight-codex",
+        "sha": "602a819a5a47c63195efd2f5736daa2229b1e359"
+      },
+      {
+        "id": "dpl_FQ5378prpHwpy3hr1EhrkVXr1HUU",
+        "url": "pilha-plus-game-preview-63x88j7z5-andrehecks-projects.vercel.app",
+        "created": 1792716462209,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/hero-selection-zoom-thumbnails",
+        "sha": "bd006d25f3338bba66ce6d1c01cd67fbd488a853"
+      },
+      {
+        "id": "dpl_CzQQgycMWkMhijAf6TvSJM4E3wgC",
+        "url": "pilha-plus-game-preview-dwom4shkp-andrehecks-projects.vercel.app",
+        "created": 1792714412557,
+        "state": "READY",
+        "target": "production",
+        "ref": "codex/empresa-conectada-circulacao",
+        "sha": "3448b981292b5575b45ccb6fa8b63341755b7f63"
+      },
+      {
+        "id": "dpl_13XgcSEHzAoZqVu2DXayvBUs9X2Z",
+        "url": "pilha-plus-game-preview-9tb9ap0v4-andrehecks-projects.vercel.app",
+        "created": 1792698345168,
+        "state": "READY",
+        "target": "production",
+        "ref": "codex/galeria-herois-canonica",
+        "sha": "0c3dba6c3e1b8b64e5ceac0179aaaafa594fc851"
+      },
+      {
+        "id": "dpl_2Hx861aG7TubaaGMYkPwLvKUZdGY",
+        "url": "pilha-plus-game-preview-1ii0p8vzm-andrehecks-projects.vercel.app",
+        "created": 1792676320515,
+        "state": "READY",
+        "target": "production",
+        "ref": "codex/jornada-npcs-empresa",
+        "sha": "0aafd4bf4cef290d74e763befdb169870c6af52f"
+      },
+      {
+        "id": "dpl_BhdoB5s7iRU9471HgHW9XbNZxfs4",
+        "url": "pilha-plus-game-preview-4zvu355ur-andrehecks-projects.vercel.app",
+        "created": 1792627675940,
+        "state": "READY",
+        "target": null,
+        "ref": "docs/hero-roster-beta",
+        "sha": "f9299430e3001cca961ce0d9a7bd2ac64c78d759"
+      },
+      {
+        "id": "dpl_9YSJAqkeimtNwipuYvkPgZfo6gTs",
+        "url": "pilha-plus-game-preview-a9832vn4m-andrehecks-projects.vercel.app",
+        "created": 1792622690237,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/npc-balanceamento-contextual",
+        "sha": "3921a7bc81f5ad59b584df7b3c0a97e9d7a493ae"
+      },
+      {
+        "id": "dpl_4G3R8gvQwuuq5yVLWyfFFvtf6RZM",
+        "url": "pilha-plus-game-preview-5fm0s9ufb-andrehecks-projects.vercel.app",
+        "created": 1792599338769,
+        "state": "READY",
+        "target": "production",
+        "ref": "codex/ux-tres-setores",
+        "sha": "1340f4aba86761643921268a76eda0de346edfde"
+      },
+      {
+        "id": "dpl_DRXbY84ZurjNFiNiWLB7Sb7XFsZN",
+        "url": "pilha-plus-game-preview-q4aqgtrj0-andrehecks-projects.vercel.app",
+        "created": 1792456832956,
+        "state": "READY",
+        "target": null,
+        "ref": "docs/governanca-pm-po-codex",
+        "sha": "171b396ef010fa434eb5d5fbf627c74ed3e9276d"
+      },
+      {
+        "id": "dpl_C1m9sJLqfNR3usGnbzwxCtSdbnXv",
+        "url": "pilha-plus-game-preview-8k10n77mh-andrehecks-projects.vercel.app",
+        "created": 1792437815142,
+        "state": "READY",
+        "target": "production",
+        "ref": "feature/hero-progression-recovery",
+        "sha": "93e2d61a06c11ca25ce97b80d8e42f98fb123a47"
+      },
+      {
+        "id": "dpl_GgempaFKR4LQrzJMekaHHaKCaQfo",
+        "url": "pilha-plus-game-preview-f82iq8n7k-andrehecks-projects.vercel.app",
+        "created": 1792431766750,
+        "state": "READY",
+        "target": null,
+        "ref": "feature/shareholder-timeline-kimi",
+        "sha": "e955638f396f49d2b1ff83e74c530303768abbb8"
+      },
+      {
+        "id": "dpl_3kx4FuiRbD6nWoiY7gDSQRYWnJji",
+        "url": "pilha-plus-game-preview-kdsfzx8go-andrehecks-projects.vercel.app",
+        "created": 1792427752786,
+        "state": "READY",
+        "target": "production",
+        "ref": "feature/collab-hero-duos",
+        "sha": "c319fb34fe8c3c275216c7cdd5542baf320bc29b"
+      },
+      {
+        "id": "dpl_DsUHG3omiMSfvWakFsdGKH9t8vFB",
+        "url": "pilha-plus-game-preview-f3y7pq459-andrehecks-projects.vercel.app",
+        "created": 1792419550961,
+        "state": "BLOCKED",
+        "target": null,
+        "ref": "fix/pr20-mobile-glb-qa",
+        "sha": "20b2948e382f1e57aff63ad85480b417de6bdfe5"
+      },
+      {
+        "id": "dpl_3PVgU4yCpu9xrVATy1trGsjfV1zd",
+        "url": "pilha-plus-game-preview-cazxm28ku-andrehecks-projects.vercel.app",
+        "created": 1792418696447,
+        "state": "READY",
+        "target": "production",
+        "ref": "release/alpha15-opening-characters",
+        "sha": "a0a17ef8ac8c2174f7188b9a76028eaf395ebb84"
+      },
+      {
+        "id": "dpl_GzLw3ScQc1bCzs3EkYxjSZsiShhR",
+        "url": "pilha-plus-game-preview-5cxv9fq3x-andrehecks-projects.vercel.app",
+        "created": 1792411329120,
+        "state": "READY",
+        "target": "production",
+        "ref": "main",
+        "sha": "a0cb244f4950ffbbbd5ad466402c9d702419adb0"
+      },
+      {
+        "id": "dpl_ESqHhbi5zviSwA2EtxYgcU4zhZcW",
+        "url": "pilha-plus-game-preview-8nf59jxsu-andrehecks-projects.vercel.app",
+        "created": 1792290944748,
+        "state": "READY",
+        "target": null,
+        "ref": "integration/pilha-current-vision",
+        "sha": "060390a1d037255816af1a5521e9da62a13ba689"
+      },
+      {
+        "id": "dpl_6QmkvoBL7cDy1UxYWXWeT7r5wn1E",
+        "url": "pilha-plus-game-preview-nw7n3p8xa-andrehecks-projects.vercel.app",
+        "created": 1792289415111,
+        "state": "BLOCKED",
+        "target": null,
+        "ref": "audit/manus-handoff-2026-10-17",
+        "sha": "760913380c1c2869ca23fef6a92622757ec8fab3"
+      },
+      {
+        "id": "dpl_7VfoTX3jfLMEBNeGrE5YFvYjtdMZ",
+        "url": "pilha-plus-game-preview-cxh67t1ul-andrehecks-projects.vercel.app",
+        "created": 1792289234276,
+        "state": "READY",
+        "target": null,
+        "ref": "docs/roadmap-handoff-2026-10-17",
+        "sha": "bce636d7966e2543bb1278d37e6a76a3c4dc27bf"
+      },
+      {
+        "id": "dpl_9rXBgvU6sDhab9vv3LJM9ZfaP5fB",
+        "url": "pilha-plus-game-preview-8ge8omwnw-andrehecks-projects.vercel.app",
+        "created": 1792266569291,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/investment-psychosocial-domains",
+        "sha": "69e3a209374def57b0b4549668e6c9da90afcf76"
+      },
+      {
+        "id": "dpl_Cqjk8HUyVSjBKNRCY1SSUS2K2z1s",
+        "url": "pilha-plus-game-preview-i4e3pwbm6-andrehecks-projects.vercel.app",
+        "created": 1792128178472,
+        "state": "BLOCKED",
+        "target": null,
+        "ref": "refactor/sidebar-game-areas",
+        "sha": "2ed7b317db1ded337db1307becbbcbd25c277fc2"
+      },
+      {
+        "id": "dpl_HmAki6pKz8Zp9nKmVbZybhFS5q5U",
+        "url": "pilha-plus-game-preview-hqzz5xnt9-andrehecks-projects.vercel.app",
+        "created": 1792127039002,
+        "state": "BLOCKED",
+        "target": null,
+        "ref": "refactor/cases-01-05",
+        "sha": "aedc22c2616f58337951027a97dd2e1c4b5ce446"
+      },
+      {
+        "id": "dpl_3TosY8sN5GVaXVEcd26QWgLcGZCe",
+        "url": "pilha-plus-game-preview-1xmsp18k5-andrehecks-projects.vercel.app",
+        "created": 1792124741500,
+        "state": "BLOCKED",
+        "target": null,
+        "ref": "fix/case018-live-silence",
+        "sha": "f8a32741729722585a039961e9f7cd89dc61859a"
+      },
+      {
+        "id": "dpl_Ah3GZB1HAiCRrBnmrKqZRgbkpkYK",
+        "url": "pilha-plus-game-preview-6zckk6xbh-andrehecks-projects.vercel.app",
+        "created": 1792123391015,
+        "state": "BLOCKED",
+        "target": null,
+        "ref": "feature/company-state-cases-018-021",
+        "sha": "58942ff4dd1730ebe9b0c86cf39733bdacb1f164"
+      },
+      {
+        "id": "dpl_G4aWKopo3udrHDzYrg36rzew9eis",
+        "url": "pilha-plus-game-preview-jg97nt3b6-andrehecks-projects.vercel.app",
+        "created": 1792114328118,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/investment-prediction-alerts",
+        "sha": "4eaf05eee241d7b9c747fca8421872385388b4a0"
+      },
+      {
+        "id": "dpl_2ihU3pgAya48Q1kq5rhYVC9C8m5K",
+        "url": "pilha-plus-game-preview-mhm04lt42-andrehecks-projects.vercel.app",
+        "created": 1792113991835,
+        "state": "READY",
+        "target": null,
+        "ref": "fix/navigation-segment-collision",
+        "sha": "b19ac83c0b37376cdc71c6f2da23f3f553c9e693"
+      },
+      {
+        "id": "dpl_D9VxTsK2Nr8AbWt2zNpTLbv8ALEK",
+        "url": "pilha-plus-game-preview-p6q7y5uzy-andrehecks-projects.vercel.app",
+        "created": 1792113254544,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/living-office-simulation",
+        "sha": "6b5d53055f29396438bed2e5761e327b0325a384"
+      },
+      {
+        "id": "dpl_ca39iSkPuH4oB4Gt8eHpYyH7zHJi",
+        "url": "pilha-plus-game-preview-1f6ubxq2t-andrehecks-projects.vercel.app",
+        "created": 1792112000816,
+        "state": "BLOCKED",
+        "target": null,
+        "ref": "feature/mecanica-demissao-estados-navegacao",
+        "sha": "d01fd190e110e08ece8de88d2b8583c0ce9100df"
+      },
+      {
+        "id": "dpl_4JzFV9eNV3JPYr3nR2zjjG849SVJ",
+        "url": "pilha-plus-game-preview-o7e3m74qx-andrehecks-projects.vercel.app",
+        "created": 1792111075484,
+        "state": "BLOCKED",
+        "target": null,
+        "ref": "feature/ambiente-3d-ampliado-cc0-audio",
+        "sha": "6d3eaa877c0258df448212306f1765858d09f6db"
+      },
+      {
+        "id": "dpl_7h5Y5zWjoqT3Vy4efvuHm7h8rn2t",
+        "url": "pilha-plus-game-preview-114wme9yf-andrehecks-projects.vercel.app",
+        "created": 1792109656930,
+        "state": "BLOCKED",
+        "target": null,
+        "ref": "feature/caso-018-lideranca-3d",
+        "sha": "4b0f1f54d89ff051535c11e5ec51dcace43e9311"
+      },
+      {
+        "id": "dpl_CwpNi6JQxAqEZX2sV5HsTZfMZG3E",
+        "url": "pilha-plus-game-preview-acyfb8fyl-andrehecks-projects.vercel.app",
+        "created": 1792106600835,
+        "state": "BLOCKED",
+        "target": null,
+        "ref": "feature/caso-017-simulacao-consequencias",
+        "sha": "0af176761fc4c3dfebe359583ca67feb52625bb0"
+      },
+      {
+        "id": "dpl_9nhWs5yyj6VLdVc1dM9x1s5ostYd",
+        "url": "pilha-plus-game-preview-rihqah03v-andrehecks-projects.vercel.app",
+        "created": 1792088693897,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/psychosocial-environment-simulation",
+        "sha": "41a4977e2986915d699b53abf70c53f397c42846"
+      },
+      {
+        "id": "dpl_8f7PpvdYLAkaMhDyJZopRkWuBKuR",
+        "url": "pilha-plus-game-preview-4puwgtchj-andrehecks-projects.vercel.app",
+        "created": 1792088623777,
+        "state": "READY",
+        "target": null,
+        "ref": "feat/game-navigation-handoff",
+        "sha": "01f85634366eda72585be3e544babedaeb3dd9f1"
+      },
+      {
+        "id": "dpl_CFdDkB1FCmPnj3PqJMwbtXRzKJG8",
+        "url": "pilha-plus-game-preview-6yotqawzq-andrehecks-projects.vercel.app",
+        "created": 1791927595276,
+        "state": "READY",
+        "target": null,
+        "ref": "feature/biblioteca-3d-alpha13",
+        "sha": "f004c7aa4e0fa2fef49f52234299d51dd278062b"
+      }
+    ],
+    "prs": [
+      {
+        "number": 10,
+        "title": "feat: base de escritório vivo e máquina de estados",
+        "state": "open",
+        "merged": false,
+        "head": "feat/living-office-simulation",
+        "head_sha": "6b5d53055f29396438bed2e5761e327b0325a384",
+        "base": "feat/psychosocial-environment-simulation",
+        "base_sha": "41a4977e2986915d699b53abf70c53f397c42846",
+        "url": "https://github.com/andreheck/PilhaGameNR1/pull/10"
+      },
+      {
+        "number": 11,
+        "title": "fix: prevent office characters from crossing obstacles",
+        "state": "open",
+        "merged": false,
+        "head": "fix/navigation-segment-collision",
+        "head_sha": "b19ac83c0b37376cdc71c6f2da23f3f553c9e693",
+        "base": "main",
+        "base_sha": "eb8907bdac73cf4ff428345b0939709d0f5ca90a",
+        "url": "https://github.com/andreheck/PilhaGameNR1/pull/11"
+      },
+      {
+        "number": 12,
+        "title": "feat: add investment budget, floating alerts and 30-day forecasts",
+        "state": "open",
+        "merged": false,
+        "head": "feat/investment-prediction-alerts",
+        "head_sha": "4eaf05eee241d7b9c747fca8421872385388b4a0",
+        "base": "main",
+        "base_sha": "eb8907bdac73cf4ff428345b0939709d0f5ca90a",
+        "url": "https://github.com/andreheck/PilhaGameNR1/pull/12"
+      },
+      {
+        "number": 13,
+        "title": "feat: narrative onboarding and persistent psychosocial investment simulation",
+        "state": "open",
+        "merged": false,
+        "head": "feat/investment-psychosocial-domains",
+        "head_sha": "69e3a209374def57b0b4549668e6c9da90afcf76",
+        "base": "main",
+        "base_sha": "eb8907bdac73cf4ff428345b0939709d0f5ca90a",
+        "url": "https://github.com/andreheck/PilhaGameNR1/pull/13"
+      },
+      {
+        "number": 20,
+        "title": "feat: conciliar visão atual, investimentos e universo socioespacial do PilhA+",
+        "state": "open",
+        "merged": false,
+        "head": "integration/pilha-current-vision",
+        "head_sha": "060390a1d037255816af1a5521e9da62a13ba689",
+        "base": "main",
+        "base_sha": "a33e0a65071e0ba529befbd6a0818a472c298390",
+        "url": "https://github.com/andreheck/PilhaGameNR1/pull/20"
+      },
+      {
+        "number": 22,
+        "title": "Documenta elenco de heróis e ficha do Diretor para a beta",
+        "state": "open",
+        "merged": false,
+        "head": "docs/hero-roster-beta",
+        "head_sha": "f9299430e3001cca961ce0d9a7bd2ac64c78d759",
+        "base": "main",
+        "base_sha": "a0cb244f4950ffbbbd5ad466402c9d702419adb0",
+        "url": "https://github.com/andreheck/PilhaGameNR1/pull/22"
+      },
+      {
+        "number": 28,
+        "title": "feat: adotar os três setores do Claude preservando economia e ciclo",
+        "state": "open",
+        "merged": false,
+        "head": "codex/ux-tres-setores",
+        "head_sha": "1340f4aba86761643921268a76eda0de346edfde",
+        "base": "docs/governanca-pm-po-codex",
+        "base_sha": "171b396ef010fa434eb5d5fbf627c74ed3e9276d",
+        "url": "https://github.com/andreheck/PilhaGameNR1/pull/28"
+      },
+      {
+        "number": 32,
+        "title": "Jornada inicial, NPCs animados e 19 eventos do Claude com cadência ativa",
+        "state": "open",
+        "merged": false,
+        "head": "codex/jornada-npcs-empresa",
+        "head_sha": "0aafd4bf4cef290d74e763befdb169870c6af52f",
+        "base": "codex/ux-tres-setores",
+        "base_sha": "1340f4aba86761643921268a76eda0de346edfde",
+        "url": "https://github.com/andreheck/PilhaGameNR1/pull/32"
+      }
+    ]
+  }
+}
