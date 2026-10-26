@@ -107,7 +107,7 @@
     function detailHtml(h) {
       var pct = Math.round(h.xp / h.xpMax * 100), mine = chosen === h.id;
       var otherRole=o.activeRole==='support'?'principal':'support',duplicate=o.roles&&o.roles[otherRole]===h.id;
-      return '<div class="ph-d" style="--hc:' + h.cor + '" tabindex="-1" aria-labelledby="ph-d-name">' +
+      return '<div class="ph-d" style="--hc:' + h.cor + '" role="group" tabindex="-1" aria-labelledby="ph-d-name">' +
         '<div class="ph-d__bar"><button type="button" class="ph-d__back" aria-label="Voltar para a lista de heróis">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><span>Perfil</span></div>' +
         '<div class="ph-mobile-thumbs" role="group" aria-label="Miniaturas dos seis heróis">' +

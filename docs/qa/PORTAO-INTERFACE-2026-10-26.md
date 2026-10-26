@@ -65,3 +65,10 @@ pelo motor continuam dependentes de inspeção humana.
 A regressão completa da empresa no CI `40401978278` passou em cinco
 resoluções. A nova auditoria após as correções deve estar verde antes de
 aprovar esta PR.
+
+A inspeção das capturas revelou texto branco no botão amarelo de escolha
+do herói: a regra geral de botões sobrescrevia a cor escura já prevista.
+Corrigida a especificidade, preservando o estado de seleção. Os elementos
+com nome ARIA da faixa superior, receita e ficha também receberam papéis
+region/group compatíveis. A análise de contraste em fundos complexos continua
+pendente de revisão humana completa.
