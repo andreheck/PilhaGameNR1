@@ -6,7 +6,7 @@ test('approved rigs bind Beatriz and Mariana without replacing canonical portrai
  assert.deepEqual(catalog.bindings.map(b=>b.id),['NPC-16','NPC-07']);
  for(const b of catalog.bindings){assert.equal(crypto.createHash('sha256').update(fs.readFileSync(new URL('../'+b.sourceZip,import.meta.url))).digest('hex'),b.sha256);}
  assert.equal(report.retarget.matchedBones,report.retarget.totalBones);assert.equal(report.atlases.length,5);assert.equal(fs.existsSync(new URL('../dist/tools/npc-rigged-sources',import.meta.url)),false,'raw FBX archives are not published');
- for(const a of report.atlases){const bytes=fs.readFileSync(new URL('../assets/npc-sprites/rigged/'+a.file,import.meta.url));assert.equal(bytes.readUInt32BE(16),a.frames*128);assert.equal(bytes.readUInt32BE(20),768);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),a.sha256);if(a.action==='idle')assert.equal(a.distinctFrames,1);else assert.ok(a.distinctFrames>1);}
+ for(const a of report.atlases){const bytes=fs.readFileSync(new URL('../assets/npc-sprites/rigged/'+a.file,import.meta.url));assert.equal(bytes.readUInt32BE(16),a.frames*128);assert.equal(bytes.readUInt32BE(20),768);assert.equal(a.anchor[0],.5);assert.ok(a.anchor[1]>.6&&a.anchor[1]<.9,'feet pivot lies on the rendered ground plane');assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),a.sha256);if(a.action==='idle')assert.equal(a.distinctFrames,1);else assert.ok(a.distinctFrames>1);}
 });
 function engine(s,{images=true}={}){
  let raf,clock=0;const calls=[],noop=()=>{},ctx=new Proxy({drawImage:(image,...args)=>calls.push([image.src,...args]),measureText:t=>({width:t.length*7}),createRadialGradient:()=>({addColorStop:noop})},{get:(o,k)=>k in o?o[k]:noop});

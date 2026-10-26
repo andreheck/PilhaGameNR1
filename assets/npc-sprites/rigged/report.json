@@ -90,6 +90,11 @@
       "id": "NPC-16",
       "action": "walk",
       "clip": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
       "frames": 8,
       "directions": 4,
       "width": 1024,
@@ -103,12 +108,17 @@
       "id": "NPC-16",
       "action": "idle",
       "clip": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
       "frames": 8,
       "directions": 4,
       "width": 1024,
       "height": 768,
       "file": "beatriz-idle.png",
-      "sha256": "b97cb58b9b212def889166d744fe28457f735ef2fd6d1ebc7fb1b06579bbb0e2",
+      "sha256": "153a6189cb4e26bcf1768721f094f6d6e1b8732e38ee12ad8d218fb3cfa66b3c",
       "distinctFrames": 1
     },
     {
@@ -116,6 +126,11 @@
       "id": "NPC-07",
       "action": "walk",
       "clip": "Walking · adaptado do rig fornecido de Beatriz",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
       "frames": 8,
       "directions": 4,
       "width": 1024,
@@ -128,13 +143,18 @@
       "key": "mariana",
       "id": "NPC-07",
       "action": "idle",
-      "clip": "Walking · adaptado do rig fornecido de Beatriz",
+      "clip": "Armature|Armature|Armature|Armature|Talk_Passionately|baselayer",
+      "duration": 10.266666412353516,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
       "frames": 8,
       "directions": 4,
       "width": 1024,
       "height": 768,
       "file": "mariana-idle.png",
-      "sha256": "4e804ad85c54665b9ec0636cce24bd3e7660fe0ebda487f98ef2a74d3e6213c6",
+      "sha256": "8fcc9e138cfaa960c348e26d3240aad19b1b00bc57fcf44652b589b15557ec37",
       "distinctFrames": 1
     },
     {
@@ -142,13 +162,18 @@
       "id": "NPC-07",
       "action": "talk",
       "clip": "Armature|Armature|Armature|Armature|Talk_Passionately|baselayer",
-      "frames": 8,
+      "duration": 10.266666412353516,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 64,
       "directions": 4,
-      "width": 1024,
+      "width": 8192,
       "height": 768,
       "file": "mariana-talk.png",
-      "sha256": "59f584e06e2d52f3af68c9c0a3b08100a7cb2a537161d06e2e7a5117bbf08833",
-      "distinctFrames": 8
+      "sha256": "8e688d7d8152a3be6dec6aadcd63b7cde4f6f8fc7bb19f30f06791ccfe4ba2b5",
+      "distinctFrames": 64
     }
   ]
 }

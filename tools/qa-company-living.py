@@ -96,6 +96,13 @@ def run(browser,w,h):
         page.locator('[data-company="pause"]').click();saved('s.paused===true')
         a=positions();t=state()['activeMs'];page.wait_for_timeout(1400)
         check(positions()==a and state()['activeMs']==t,tag+': manual pause freezes movement and simulated time')
+        if w==1366:
+            for pid,label in [('NPC-07','mariana'),('NPC-16','beatriz')]:
+                menu();page.locator('[data-company="employees"]').click();page.locator(f'[data-employee="{pid}"]').click();page.locator('[data-employee-locate]').click()
+                page.wait_for_function('()=>document.querySelectorAll(".pm-toast").length===0',timeout=15000)
+                check(any(r['id']==pid for r in page.evaluate('PilhaLiving.getRiggedNPCs().drawn')),tag+': canonical rig visible after locating '+label)
+                snap('rigged-'+label)
+            page.locator('[data-z="home"]').click()
         page.locator('[data-company="calendar"]').click();snap('calendar')
         check(page.locator('.calendar-day.is-today').count()==1,tag+': simulated date highlighted')
         title=page.locator('.calendar-controls h2').inner_text();page.locator('[data-cal="next"]').click()
