@@ -1,0 +1,75 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Conversão dos NPCs aprovados</title>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
+<style>body{background:#15243a;color:#fff;font:16px system-ui}canvas{max-width:100%;background:#263953}#status{white-space:pre-wrap}</style>
+<h1>Modelos fornecidos pelo PM</h1><p id="status">Carregando…</p><div id="output"></div>
+<script type="module">
+import * as T from 'three';
+import {FBXLoader} from 'three/addons/loaders/FBXLoader.js';
+import {retargetClip} from 'three/addons/utils/SkeletonUtils.js';
+const status=document.getElementById('status');
+window.riggedResult={done:false,errors:[],models:[],exports:[]};
+const result=window.riggedResult;
+try{
+ const config=await (await fetch('/artifacts/rigged-work/input.json')).json();
+ const renderer=new T.WebGLRenderer({alpha:true,antialias:true,preserveDrawingBuffer:true});
+ renderer.setSize(128,192);renderer.setClearColor(0,0);renderer.outputColorSpace=T.SRGBColorSpace;
+ renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
+ const loaded=[];
+ for(const def of config){
+  status.textContent='Abrindo '+def.key;
+  const base='/artifacts/rigged-work/'+def.key+'/';
+  const manager=new T.LoadingManager();
+  manager.setURLModifier(url=>url.startsWith('data:')||url.startsWith('blob:')?url:/\.(png|jpg|jpeg)$/i.test(url)?base+decodeURIComponent(url).split(/[\\/]/).at(-1):url);
+  const model=await new FBXLoader(manager).loadAsync(base+def.fbx);
+  const textureLoader=new T.TextureLoader(),map=await textureLoader.loadAsync(base+def.texture);
+  map.colorSpace=T.SRGBColorSpace;
+  const roughnessMap=await textureLoader.loadAsync(base+def.roughness),metalnessMap=await textureLoader.loadAsync(base+def.metallic);
+  let mesh;model.traverse(o=>{if(o.isSkinnedMesh&&!mesh)mesh=o;if(o.isMesh){o.frustumCulled=false;o.material=new T.MeshStandardMaterial({map,roughnessMap,metalnessMap,roughness:1,metalness:1,side:T.DoubleSide});}});
+  if(!mesh?.skeleton||!model.animations.length)throw Error(def.key+': rig/animação ausente');
+  model.updateMatrixWorld(true);
+  loaded.push({...def,model,mesh,originalClips:model.animations});
+  result.models.push({key:def.key,id:def.id,clips:model.animations.map(c=>({name:c.name,duration:c.duration,tracks:c.tracks.length})),bones:mesh.skeleton.bones.map(b=>b.name)});
+ }
+ const donor=loaded.find(x=>x.key==='beatriz'),recipient=loaded.find(x=>x.key==='mariana');
+ const walking=donor.originalClips.find(c=>/walk/i.test(c.name))||donor.originalClips[0];
+ const normalize=n=>n.replace(/^.*:/,'').replace(/[^a-z0-9]/gi,'').toLowerCase();
+ const names=Object.fromEntries(recipient.mesh.skeleton.bones.map(b=>[b.name,donor.mesh.skeleton.bones.find(d=>normalize(d.name)===normalize(b.name))?.name]).filter(([,n])=>n));
+ if(Object.keys(names).length<recipient.mesh.skeleton.bones.length*.9)throw Error('Esqueletos incompatíveis para caminhada: '+Object.keys(names).length);
+ const hip=donor.mesh.skeleton.bones.find(b=>/hips|pelvis/i.test(b.name))||donor.mesh.skeleton.bones[0];
+ const height=o=>new T.Box3().setFromObject(o).getSize(new T.Vector3()).y;
+ const transferred=retargetClip(recipient.mesh,donor.mesh,walking,{names,hip:hip.name,preserveBonePositions:true,preserveBoneMatrix:true,hipInfluence:new T.Vector3(0,1,0),scale:height(recipient.model)/height(donor.model),fps:24});
+ for(const track of transferred.tracks)track.name=track.name.replace(/^\.bones\[([^\]]+)\]/,'$1');
+ transferred.name='Walking · adaptado do rig fornecido de Beatriz';
+ result.retarget={donor:'beatriz',recipient:'mariana',matchedBones:Object.keys(names).length,totalBones:recipient.mesh.skeleton.bones.length,method:'Three r180 SkeletonUtils.retargetClip, preserveBonePositions'};
+ donor.actions={walk:walking,idle:walking};
+ recipient.actions={walk:transferred,idle:transferred,talk:recipient.originalClips[0]};
+ // Use one fixed camera and pivot per character, including all frame bounds.
+ for(const item of loaded){
+  const model=item.model,scene=new T.Scene(),normalizer=new T.Group(),pivot=new T.Group();
+  normalizer.add(model);pivot.add(normalizer);scene.add(pivot);
+  scene.add(new T.HemisphereLight(0xffffff,0x73839a,2.1));
+  const light=new T.DirectionalLight(0xffffff,2.7);light.position.set(4,7,5);scene.add(light);
+  const camera=new T.OrthographicCamera(-.9,.9,1.35,-1.35,.1,100);camera.position.set(5,3.7,5);camera.lookAt(0,.85,0);
+  const mixer=new T.AnimationMixer(model),bounds=new T.Box3();
+  const root=model.getObjectByName(item.mesh.skeleton.bones.find(b=>/hips|pelvis/i.test(b.name))?.name||item.mesh.skeleton.bones[0].name);
+  let rootOrigin;
+  function pose(clip,t){mixer.stopAllAction();mixer.clipAction(clip).reset().play();mixer.setTime(t);if(root){if(!rootOrigin)rootOrigin=root.position.clone();root.position.x=rootOrigin.x;root.position.z=rootOrigin.z;}model.updateMatrixWorld(true);}
+  for(const [action,clip] of Object.entries(item.actions))for(let f=0;f<8;f++){pose(clip,action==='idle'?clip.duration*.125:f/8*clip.duration);bounds.union(new T.Box3().setFromObject(model));}
+  const size=bounds.getSize(new T.Vector3()),center=bounds.getCenter(new T.Vector3());
+  normalizer.scale.setScalar(1.7/size.y);model.position.sub(new T.Vector3(center.x,bounds.min.y,center.z));
+  const fixedPosition=model.position.clone();
+  for(const [action,clip] of Object.entries(item.actions)){
+   status.textContent='Renderizando '+item.key+' · '+action;
+   const atlas=document.createElement('canvas');atlas.width=1024;atlas.height=768;const ctx=atlas.getContext('2d');
+   for(let dir=0;dir<4;dir++)for(let f=0;f<8;f++){
+    pose(clip,action==='idle'?clip.duration*.125:f/8*clip.duration);model.position.copy(fixedPosition);pivot.rotation.y=dir*Math.PI/2;pivot.updateMatrixWorld(true);
+    renderer.render(scene,camera);ctx.drawImage(renderer.domElement,f*128,dir*192);
+   }
+   document.getElementById('output').append(atlas);
+   result.exports.push({key:item.key,id:item.id,action,clip:clip.name,frames:8,directions:4,width:1024,height:768,data:atlas.toDataURL('image/png')});
+  }
+  mixer.stopAllAction();
+ }
+ result.done=true;status.textContent='Concluído';
+}catch(e){result.errors.push(String(e.stack||e));result.done=true;status.textContent=String(e.stack||e);console.error(e);}
+</script></html>
