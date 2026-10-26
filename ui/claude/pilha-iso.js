@@ -512,7 +512,7 @@
     function layoutWorld(keep) {
       bounds = worldBounds();
       var bw = bounds.umax - bounds.umin, bh = bounds.vmax - bounds.vmin;
-      s0 = Math.min(cw * 0.94 / bw, ch * 0.94 / bh);
+      s0 = Math.min(cw * 0.86 / bw, ch * 0.86 / bh);
       home = { cx: (bounds.umin + bounds.umax) / 2, cy: (bounds.vmin + bounds.vmax) / 2, k: 1 };
       if (!keep || !camReady) { cam = { cx: home.cx, cy: home.cy, k: 1 }; camReady = true; }
       clampCam(); applyCam();

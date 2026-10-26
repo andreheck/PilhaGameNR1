@@ -1,0 +1,179 @@
+{
+  "done": true,
+  "errors": [],
+  "models": [
+    {
+      "key": "beatriz",
+      "id": "NPC-16",
+      "clips": [
+        {
+          "name": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+          "duration": 1.0333333015441895,
+          "tracks": 75
+        }
+      ],
+      "bones": [
+        "Hips",
+        "LeftUpLeg",
+        "LeftLeg",
+        "LeftFoot",
+        "LeftToeBase",
+        "RightUpLeg",
+        "RightLeg",
+        "RightFoot",
+        "RightToeBase",
+        "Spine02",
+        "Spine01",
+        "Spine",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftHand",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightHand",
+        "neck",
+        "Head",
+        "head_end",
+        "headfront"
+      ]
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "clips": [
+        {
+          "name": "Armature|Armature|Armature|Armature|Talk_Passionately|baselayer",
+          "duration": 10.266666412353516,
+          "tracks": 75
+        }
+      ],
+      "bones": [
+        "Hips",
+        "LeftUpLeg",
+        "LeftLeg",
+        "LeftFoot",
+        "LeftToeBase",
+        "RightUpLeg",
+        "RightLeg",
+        "RightFoot",
+        "RightToeBase",
+        "Spine02",
+        "Spine01",
+        "Spine",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftHand",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightHand",
+        "neck",
+        "Head",
+        "head_end",
+        "headfront"
+      ]
+    }
+  ],
+  "retarget": {
+    "donor": "beatriz",
+    "recipient": "mariana",
+    "matchedBones": 24,
+    "totalBones": 24,
+    "method": "Three r180 SkeletonUtils.retargetClip, preserveBonePositions"
+  },
+  "atlases": [
+    {
+      "key": "beatriz",
+      "id": "NPC-16",
+      "action": "walk",
+      "clip": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "beatriz-walk.png",
+      "sha256": "f9e24711a002d8cd2cdf16bb5a12731b52033bc97dee374a17edbb22560baafd",
+      "distinctFrames": 8
+    },
+    {
+      "key": "beatriz",
+      "id": "NPC-16",
+      "action": "idle",
+      "clip": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "beatriz-idle.png",
+      "sha256": "153a6189cb4e26bcf1768721f094f6d6e1b8732e38ee12ad8d218fb3cfa66b3c",
+      "distinctFrames": 1
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "action": "walk",
+      "clip": "Walking · adaptado do rig fornecido de Beatriz",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "mariana-walk.png",
+      "sha256": "187016d045703cdb45bcc77c94cc510aac16d46c9e4e7465502698c836f759a9",
+      "distinctFrames": 8
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "action": "idle",
+      "clip": "Armature|Armature|Armature|Armature|Talk_Passionately|baselayer",
+      "duration": 10.266666412353516,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "mariana-idle.png",
+      "sha256": "8fcc9e138cfaa960c348e26d3240aad19b1b00bc57fcf44652b589b15557ec37",
+      "distinctFrames": 1
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "action": "talk",
+      "clip": "Armature|Armature|Armature|Armature|Talk_Passionately|baselayer",
+      "duration": 10.266666412353516,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 64,
+      "directions": 4,
+      "width": 8192,
+      "height": 768,
+      "file": "mariana-talk.png",
+      "sha256": "8e688d7d8152a3be6dec6aadcd63b7cde4f6f8fc7bb19f30f06791ccfe4ba2b5",
+      "distinctFrames": 64
+    }
+  ]
+}

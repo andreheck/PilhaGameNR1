@@ -493,17 +493,35 @@ export const NPC_PROFILES = Object.freeze({
     "group": "sentinelas",
     "portrait": "/assets/npcs/npc-09-carlos-logistico.png",
     "age": null,
-    "roleLabel": null,
-    "summary": null,
-    "strengths": [],
-    "watchouts": [],
-    "favorableConditions": [],
-    "adverseConditions": [],
+    "roleLabel": "Operação e logística",
+    "summary": "Prefere organizar a rotina com etapas e critérios claros. Tendência ficcional flexível, não regra sobre pessoas reais.",
+    "strengths": [
+      "Organiza materiais e acompanha entregas",
+      "Registra etapas para dar continuidade ao trabalho",
+      "Ajuda a identificar falhas nos fluxos logísticos",
+      "Consistência e atenção aos registros"
+    ],
+    "watchouts": [
+      "Acúmulo de conferências sem apoio",
+      "Mudanças de processo sem orientação",
+      "Pode precisar de tempo para incorporar mudanças não explicadas."
+    ],
+    "favorableConditions": [
+      "Prioridades de entrega claras",
+      "Recursos e tempo para conferência"
+    ],
+    "adverseConditions": [
+      "Prazos incompatíveis com a capacidade",
+      "Instruções divergentes entre equipes"
+    ],
     "situationalSignals": [],
-    "proposedSynergies": [],
+    "proposedSynergies": [
+      "NPC-11",
+      "NPC-13"
+    ],
     "environments": null,
     "proposedEffects": null,
-    "status": "pendente_refinamento",
+    "status": "narrativa_editorial_v1",
     "disclaimer": "Perfil narrativo fictício; não determina saúde, doença ou aptidão."
   },
   "NPC-10": {
@@ -514,17 +532,35 @@ export const NPC_PROFILES = Object.freeze({
     "group": "sentinelas",
     "portrait": "/assets/npcs/npc-10-ana-defensora.png",
     "age": null,
-    "roleLabel": null,
-    "summary": null,
-    "strengths": [],
-    "watchouts": [],
-    "favorableConditions": [],
-    "adverseConditions": [],
+    "roleLabel": "Apoio à equipe",
+    "summary": "Valoriza continuidade, colaboração e cuidado nos combinados da equipe. Tendência ficcional flexível, não regra sobre pessoas reais.",
+    "strengths": [
+      "Apoia a integração de colegas",
+      "Compartilha informações úteis à rotina",
+      "Ajuda a manter continuidade no atendimento",
+      "Atenção às necessidades cotidianas"
+    ],
+    "watchouts": [
+      "Demandas de apoio concentradas em uma pessoa",
+      "Dificuldade de concluir tarefas com interrupções frequentes",
+      "Pode assumir apoio demais quando os limites não estão claros."
+    ],
+    "favorableConditions": [
+      "Distribuição equilibrada das solicitações",
+      "Canais claros para pedir ajuda"
+    ],
+    "adverseConditions": [
+      "Cobertura contínua de ausências sem reposição",
+      "Falta de pausas e limites de demanda"
+    ],
     "situationalSignals": [],
-    "proposedSynergies": [],
+    "proposedSynergies": [
+      "NPC-06",
+      "NPC-12"
+    ],
     "environments": null,
     "proposedEffects": null,
-    "status": "pendente_refinamento",
+    "status": "narrativa_editorial_v1",
     "disclaimer": "Perfil narrativo fictício; não determina saúde, doença ou aptidão."
   },
   "NPC-11": {
@@ -535,17 +571,35 @@ export const NPC_PROFILES = Object.freeze({
     "group": "sentinelas",
     "portrait": "/assets/npcs/npc-11-jose-executivo.png",
     "age": null,
-    "roleLabel": null,
-    "summary": null,
-    "strengths": [],
-    "watchouts": [],
-    "favorableConditions": [],
-    "adverseConditions": [],
+    "roleLabel": "Coordenação operacional",
+    "summary": "Gosta de transformar objetivos em responsabilidades e acompanhamento. Tendência ficcional flexível, não regra sobre pessoas reais.",
+    "strengths": [
+      "Coordena prioridades da operação",
+      "Organiza a distribuição de atividades",
+      "Acompanha impedimentos e recursos necessários",
+      "Clareza de execução"
+    ],
+    "watchouts": [
+      "Pressão por resultados sem recursos correspondentes",
+      "Centralização excessiva de decisões",
+      "Pode insistir no plano antes de ouvir os impedimentos da equipe."
+    ],
+    "favorableConditions": [
+      "Metas viáveis e responsabilidades definidas",
+      "Autonomia compatível com a função"
+    ],
+    "adverseConditions": [
+      "Ordens conflitantes entre níveis de gestão",
+      "Equipe insuficiente para a demanda"
+    ],
     "situationalSignals": [],
-    "proposedSynergies": [],
+    "proposedSynergies": [
+      "NPC-09",
+      "NPC-03"
+    ],
     "environments": null,
     "proposedEffects": null,
-    "status": "pendente_refinamento",
+    "status": "narrativa_editorial_v1",
     "disclaimer": "Perfil narrativo fictício; não determina saúde, doença ou aptidão."
   },
   "NPC-12": {
@@ -556,17 +610,35 @@ export const NPC_PROFILES = Object.freeze({
     "group": "sentinelas",
     "portrait": "/assets/npcs/npc-12-maria-consul.png",
     "age": null,
-    "roleLabel": null,
-    "summary": null,
-    "strengths": [],
-    "watchouts": [],
-    "favorableConditions": [],
-    "adverseConditions": [],
+    "roleLabel": "Relações e atendimento",
+    "summary": "Valoriza vínculos e acordos que facilitem o trabalho em conjunto. Tendência ficcional flexível, não regra sobre pessoas reais.",
+    "strengths": [
+      "Facilita a comunicação entre atendimento e equipe",
+      "Compartilha retornos para melhorar o serviço",
+      "Ajuda a construir acordos de atendimento",
+      "Articulação entre pessoas"
+    ],
+    "watchouts": [
+      "Exposição contínua a conflitos com o público",
+      "Acúmulo de mediação sem suporte",
+      "Pode priorizar a harmonia e adiar uma conversa difícil."
+    ],
+    "favorableConditions": [
+      "Escalonamento claro de situações difíceis",
+      "Apoio da coordenação e pausas regulares"
+    ],
+    "adverseConditions": [
+      "Tratamento desrespeitoso sem resposta institucional",
+      "Volume de atendimento sem cobertura adequada"
+    ],
     "situationalSignals": [],
-    "proposedSynergies": [],
+    "proposedSynergies": [
+      "NPC-10",
+      "NPC-07"
+    ],
     "environments": null,
     "proposedEffects": null,
-    "status": "pendente_refinamento",
+    "status": "narrativa_editorial_v1",
     "disclaimer": "Perfil narrativo fictício; não determina saúde, doença ou aptidão."
   },
   "NPC-13": {
@@ -577,17 +649,35 @@ export const NPC_PROFILES = Object.freeze({
     "group": "exploradores",
     "portrait": "/assets/npcs/npc-13-alisson-virtuoso.png",
     "age": null,
-    "roleLabel": null,
-    "summary": null,
-    "strengths": [],
-    "watchouts": [],
-    "favorableConditions": [],
-    "adverseConditions": [],
+    "roleLabel": "Recursos e operação",
+    "summary": "Prefere explorar problemas concretos e testar soluções práticas. Tendência ficcional flexível, não regra sobre pessoas reais.",
+    "strengths": [
+      "Identifica necessidades práticas de recursos",
+      "Ajuda a testar soluções para a rotina operacional",
+      "Compartilha observações sobre equipamentos e processos",
+      "Investigação prática"
+    ],
+    "watchouts": [
+      "Intervenções urgentes sem planejamento",
+      "Solicitações simultâneas sem ordem de prioridade",
+      "Pode comunicar pouco o raciocínio durante uma intervenção."
+    ],
+    "favorableConditions": [
+      "Ferramentas adequadas e orientação segura",
+      "Tempo para verificação antes da execução"
+    ],
+    "adverseConditions": [
+      "Equipamentos inadequados ou indisponíveis",
+      "Pressão para improvisar sem condições seguras"
+    ],
     "situationalSignals": [],
-    "proposedSynergies": [],
+    "proposedSynergies": [
+      "NPC-02",
+      "NPC-09"
+    ],
     "environments": null,
     "proposedEffects": null,
-    "status": "pendente_refinamento",
+    "status": "narrativa_editorial_v1",
     "disclaimer": "Perfil narrativo fictício; não determina saúde, doença ou aptidão."
   },
   "NPC-14": {
@@ -598,17 +688,35 @@ export const NPC_PROFILES = Object.freeze({
     "group": "exploradores",
     "portrait": "/assets/npcs/npc-14-camila-aventureira.png",
     "age": null,
-    "roleLabel": null,
-    "summary": null,
-    "strengths": [],
-    "watchouts": [],
-    "favorableConditions": [],
-    "adverseConditions": [],
+    "roleLabel": "Melhoria do ambiente",
+    "summary": "Valoriza soluções sensíveis ao uso cotidiano e à experiência das pessoas. Tendência ficcional flexível, não regra sobre pessoas reais.",
+    "strengths": [
+      "Observa oportunidades de melhorar os espaços",
+      "Reúne sugestões sobre conforto e uso do ambiente",
+      "Acompanha a adequação das melhorias à rotina",
+      "Observação do ambiente"
+    ],
+    "watchouts": [
+      "Demandas de melhoria sem critérios de escolha",
+      "Responsabilização individual por problemas estruturais",
+      "Pode precisar de espaço para apresentar suas ideias sem pressão."
+    ],
+    "favorableConditions": [
+      "Participação dos trabalhadores nas mudanças",
+      "Recursos e retorno sobre as sugestões"
+    ],
+    "adverseConditions": [
+      "Mudanças físicas sem consulta aos usuários",
+      "Desconforto persistente sem encaminhamento"
+    ],
     "situationalSignals": [],
-    "proposedSynergies": [],
+    "proposedSynergies": [
+      "NPC-16",
+      "NPC-05"
+    ],
     "environments": null,
     "proposedEffects": null,
-    "status": "pendente_refinamento",
+    "status": "narrativa_editorial_v1",
     "disclaimer": "Perfil narrativo fictício; não determina saúde, doença ou aptidão."
   },
   "NPC-15": {
@@ -619,17 +727,35 @@ export const NPC_PROFILES = Object.freeze({
     "group": "exploradores",
     "portrait": "/assets/npcs/npc-15-lucas-empreendedor.png",
     "age": null,
-    "roleLabel": null,
-    "summary": null,
-    "strengths": [],
-    "watchouts": [],
-    "favorableConditions": [],
-    "adverseConditions": [],
+    "roleLabel": "Organização operacional",
+    "summary": "Gosta de agir diante de imprevistos e experimentar alternativas viáveis. Tendência ficcional flexível, não regra sobre pessoas reais.",
+    "strengths": [
+      "Ajuda a reorganizar tarefas diante de imprevistos",
+      "Identifica alternativas práticas de execução",
+      "Articula recursos para manter o fluxo de trabalho",
+      "Agilidade na resposta"
+    ],
+    "watchouts": [
+      "Urgências que se tornam rotina",
+      "Mudanças rápidas sem alinhamento da equipe",
+      "Pode avançar antes de alinhar os efeitos da mudança com a equipe."
+    ],
+    "favorableConditions": [
+      "Limites claros de atuação e prioridades",
+      "Coordenação acessível para resolver impedimentos"
+    ],
+    "adverseConditions": [
+      "Retrabalho constante por mudanças de orientação",
+      "Pressão para manter o ritmo sem recuperação"
+    ],
     "situationalSignals": [],
-    "proposedSynergies": [],
+    "proposedSynergies": [
+      "NPC-11",
+      "NPC-04"
+    ],
     "environments": null,
     "proposedEffects": null,
-    "status": "pendente_refinamento",
+    "status": "narrativa_editorial_v1",
     "disclaimer": "Perfil narrativo fictício; não determina saúde, doença ou aptidão."
   },
   "NPC-16": {
@@ -640,17 +766,35 @@ export const NPC_PROFILES = Object.freeze({
     "group": "exploradores",
     "portrait": "/assets/npcs/npc-16-beatriz-artista.png",
     "age": null,
-    "roleLabel": null,
-    "summary": null,
-    "strengths": [],
-    "watchouts": [],
-    "favorableConditions": [],
-    "adverseConditions": [],
+    "roleLabel": "Comunicação e criação",
+    "summary": "Valoriza expressão, colaboração e comunicação próxima das pessoas. Tendência ficcional flexível, não regra sobre pessoas reais.",
+    "strengths": [
+      "Torna informações do trabalho mais claras",
+      "Contribui com materiais de comunicação acessíveis",
+      "Reúne ideias da equipe para iniciativas internas",
+      "Expressão e conexão"
+    ],
+    "watchouts": [
+      "Pedidos criativos sem objetivo ou prazo definido",
+      "Revisões sucessivas com orientações contraditórias",
+      "Pode dividir a atenção entre muitas iniciativas ao mesmo tempo."
+    ],
+    "favorableConditions": [
+      "Briefings claros e retorno construtivo",
+      "Tempo de criação e colaboração entre áreas"
+    ],
+    "adverseConditions": [
+      "Interrupções frequentes e excesso de frentes",
+      "Desqualificação das contribuições sem diálogo"
+    ],
     "situationalSignals": [],
-    "proposedSynergies": [],
+    "proposedSynergies": [
+      "NPC-08",
+      "NPC-14"
+    ],
     "environments": null,
     "proposedEffects": null,
-    "status": "pendente_refinamento",
+    "status": "narrativa_editorial_v1",
     "disclaimer": "Perfil narrativo fictício; não determina saúde, doença ou aptidão."
   }
 });

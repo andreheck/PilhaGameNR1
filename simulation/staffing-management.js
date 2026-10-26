@@ -1,3 +1,4 @@
+import {managerMap} from '../data/continuous/organization.js';
 /** Staff planning is a fictional management system, never individual HR advice.
  * Names below are additional candidates, distinct from the 16 canonical NPCs.
  * Their skills are narrative only; health is determined by workplace context. */
@@ -29,7 +30,7 @@ export function roster(s){
  const hires=s.staffing?.hires||[];
  return [...EMPLOYEES,...hires.map(h=>{
   const c=candidate(h.id);
-  return c?{...c,home:h.sector,archetype:'Contratação',type:'—',age:null,profile:null,portrait:null,
+  return c?{...c,organization:{rank:'operacional',rankName:'Operacional',position:'Analista em integração',managerId:managerMap(s)[h.sector],reportsTo:managerMap(s)[h.sector]},home:h.sector,archetype:'Contratação',type:'—',age:null,profile:null,portrait:null,
    strength:null,support:'Acompanhamento e integração',group:'novos',source:'equipe-contratada',
    profileStatus:'ficha-em-construcao'}:null;
  }).filter(Boolean)];
@@ -44,6 +45,8 @@ export function validateStaffing(s){
     !Number.isSafeInteger(t.lastPayrollWeek)||t.lastPayrollWeek<1||t.lastPayrollWeek>s.week||
     !Number.isSafeInteger(t.totalPayroll)||t.totalPayroll<0||t.totalPayroll>1e9||
     !Number.isSafeInteger(t.unpaid)||t.unpaid<0||t.unpaid>1e9)throw Error('invalid-staffing');
+ const canonical=t.canonicalHires||[];const canonicalIds=new Set();
+ for(const h of canonical){if(!EMPLOYEES.some(p=>p.id===h.id&&p.home===h.sector)||canonicalIds.has(h.id)||h.fee!==900||h.salary!==140||!weekIsInt(h.hiredAt)||!weekIsInt(h.startAt)||h.startAt!==h.hiredAt+1)throw Error('invalid-canonical-hire');canonicalIds.add(h.id);}
  const used=new Set();
  for(const h of t.hires){
   if(!candidate(h.id)||used.has(h.id)||!WORK.includes(h.sector)||
@@ -81,7 +84,7 @@ export function sectorStaffing(s,sector){
 export function staffingSummary(s){
  const t=s.staffing||{hires:[],coverage:[],assignments:[],unpaid:0,totalPayroll:0};
  const sectors=Object.fromEntries(WORK.map(id=>[id,sectorStaffing(s,id)]));
- const hires=t.hires||[],coverage=(t.coverage||[]).filter(x=>live(x,s.week));
+ const hires=[...(t.hires||[]),...(t.canonicalHires||[])],coverage=(t.coverage||[]).filter(x=>live(x,s.week));
  const weekly=hires.filter(h=>s.week>=h.startAt&&s.staff?.[h.id]?.employment!=='resigned')
    .reduce((n,h)=>n+h.salary,0)+coverage.reduce((n,c)=>n+c.weekly,0);
  return {sectors,gaps:Object.values(sectors).reduce((n,v)=>n+v.gap,0),
@@ -95,7 +98,13 @@ export function staffingSummary(s){
 export function staffAction(input,kind,payload={}){
  const s=copy(input),t=ensureStaffing(s);
  const sector=payload.sector,summary=staffingSummary(s);
- if(kind==='hire'){
+ if(kind==='hire-canonical'){
+  const c=EMPLOYEES.find(p=>p.id===payload.candidateId),a=c&&s.staff?.[c.id];
+  if(!c||a?.employment!=='candidate')return {ok:false,error:'invalid-candidate'};
+  if(s.budget<900)return {ok:false,error:'insufficient-budget'};
+  t.canonicalHires??=[];t.canonicalHires.push({id:c.id,sector:c.home,hiredAt:s.week,startAt:s.week+1,fee:900,salary:140});
+  a.employment='onboarding';a.week=s.week;s.budget-=900;record(t,s.week,'hire',c.name+' contratado(a); integração na próxima semana.');
+ }else if(kind==='hire'){
   const c=candidate(payload.candidateId);
   if(!WORK.includes(sector)||!c)return {ok:false,error:'invalid-candidate'};
   if(t.hires.some(h=>h.id===c.id))return {ok:false,error:'already-hired'};
@@ -132,7 +141,7 @@ function record(t,week,kind,text){
 export function advanceStaffing(s){
  const t=ensureStaffing(s),events=[];
  if(t.lastPayrollWeek>=s.week)return events;
- for(const h of t.hires){
+ for(const h of [...t.hires,...(t.canonicalHires||[])]){
   const person=s.staff?.[h.id];
   if(person?.employment==='onboarding'&&s.week>=h.startAt){
    person.employment='active';person.week=s.week;

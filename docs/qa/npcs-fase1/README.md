@@ -1,5 +1,7 @@
 # Fase 1 — identidades e fichas dos 16 NPCs
 
+> Continuação posterior autorizada: os oito perfis foram concluídos no catálogo v1.1 e a hierarquia integrada. O relato abaixo registra a primeira entrega. Estado atual, cargos e novas evidências em [NPCS-PERFIS-HIERARQUIA-2026-10-23.md](../../releases/NPCS-PERFIS-HIERARQUIA-2026-10-23.md).
+
 Base: `fix/npc-focus-codex-continuation`, commit `70c64280e9bee29fa070fc2d9a938b302e237003` (PR #40). Entrega: `codex/npcs-fase1-perfis`. Atualização documental concorrente da base `0f7c551` incorporada; reconhece os quatro recortes já extraídos, sem retrabalho ou alteração funcional.
 
 ## Fontes e integridade
@@ -33,7 +35,7 @@ Motor, saúde, calendário, movimento, câmera/foco da PR #40, mapa, três sprit
 ![Lista desktop](lista-desktop.png)
 ![Ficha roxa](ficha-roxa.png)
 ![Ficha verde](ficha-verde.png)
-![Ficha azul pendente](ficha-azul.png)
+![Ficha azul na primeira entrega](ficha-azul.png)
 ![Camila](ficha-camila.png)
 ![Beatriz](ficha-amarela.png)
 ![Catálogo com retratos compactos](catalogo-mundo.png)
@@ -43,4 +45,4 @@ Motor, saúde, calendário, movimento, câmera/foco da PR #40, mapa, três sprit
 
 ## Limites e decisões pendentes
 
-A Fase 1 não individualiza sprites no mapa nem ativa efeitos contextuais de personalidade. Os oito perfis pendentes exigem definição editorial pelo PO/PM. As artes somam cerca de 15 MB; uma futura otimização deve preservar as fontes aprovadas e a integridade por ID. Validação móvel em viewport Chromium, sem homologação em aparelhos físicos/Safari ou leitor de tela. PR para aprovação, sem merge e sem atualização do alias público de produção.
+A Fase 1 não individualiza sprites no mapa nem ativa efeitos de personalidade. Regras explícitas de gestão e receita semanal foram adicionadas em continuações posteriores, com testes próprios. Os oito perfis inicialmente pendentes foram concluídos na continuação autorizada pelo PM (catálogo v1.1). As artes somam cerca de 15 MB; uma futura otimização deve preservar as fontes aprovadas e a integridade por ID. Validação móvel em viewport Chromium, sem homologação em aparelhos físicos/Safari ou leitor de tela. PR para aprovação, sem merge e sem atualização do alias público de produção.
