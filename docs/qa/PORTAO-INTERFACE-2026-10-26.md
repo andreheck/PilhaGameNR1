@@ -2,7 +2,7 @@
 
 Entrega A.2 de infraestrutura, após o mapa da PR #49. Base local
 `codex/unificacao-mapa-2026-10-26`, `2cb4e99`. Não modifica regras de jogo,
-chaves persistentes nem layouts. Não executa merge ou deploy manual.
+chaves persistentes nem a estrutura do layout. Não executa merge ou deploy manual.
 
 ## Portão automatizado
 
@@ -51,3 +51,17 @@ passo, resultado esperado/observado e captura quando útil. Não preencher
 “passou” a partir do axe: leitores, navegação e equivalência do canvas exigem
 verificação própria. Alternativa textual do mapa, estados sem depender de cor
 e ajustes visuais pertencem às entregas B/C4 e continuam no backlog.
+
+## Achados da primeira auditoria
+
+O CI `40402490999`, SHA `7811867`, percorreu as vinte combinações
+de tela/tamanho. Detectou dois tipos de falha serious, ambos repetidos nos
+dois tamanhos: `aria-prohibited-attr` na barra de avanço semanal e
+`color-contrast` no selo URGENTE. Corrigidos com semântica de progressbar
+e valor atual, e texto escuro no selo rosa. Não foram suprimidas regras
+do axe nem reduzida a cobertura. Revisões de contraste marcadas incomplete
+pelo motor continuam dependentes de inspeção humana.
+
+A regressão completa da empresa no CI `40401978278` passou em cinco
+resoluções. A nova auditoria após as correções deve estar verde antes de
+aprovar esta PR.
