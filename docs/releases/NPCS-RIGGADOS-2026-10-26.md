@@ -25,3 +25,17 @@ Somente NPC-07 e NPC-16 recebem os novos visuais, também no deslocamento ao pá
 Conversão reproduzível em .github/workflows/npc-rigged-render.yml. Testes de identidade/hash, quadros distintos, animação, conversa durante pausa restaurativa, pausa manual, velocidade reduzida, fallback e ausência de mutação do save. QA padrão de cinco resoluções ampliado para verificar que os cinco atlas carregam e somente os dois IDs renderizam os novos visuais, com quadros avançando.
 
 CI, evidências e SHA publicado serão consolidados na PR após a rodada final. Homologação em aparelhos físicos/Safari continua pendente. Os14outros NPCs mantêm o padrão até o envio e compatibilização de seus próprios modelos; não clonar os dois novos visuais para outras identidades.
+
+## Fechamento validado — 26/10/2026
+
+Código testado e destinado ao site de testes: **837d582e7939fb21259f39e5c06e3d488812f30c**. Branch codex/npcs-fase1-perfis, PR41 aberta, sem merge.
+
+- [Validar jogo](https://github.com/andreheck/PilhaGameNR1/actions/runs/40320220240): aprovado.
+- [Equipe viva e calendário](https://github.com/andreheck/PilhaGameNR1/actions/runs/40320220110): aprovado, incluindo npm test, test:continuous, test:living (com cinco regressões próprias dos rigs) e test:npcs.
+- **874 verificações de navegador, zero erros**, em320×844,1366×900,390×844,844×390 e1440×900. Confirmados os cinco atlas carregados, dois IDs exclusivos, quadros reais avançando e ambos os NPCs localizáveis no mapa. Os testes anteriores de contratação, pausa, calendário, renda, eventos e progresso continuam aprovados.
+- [Conversão reproduzida](https://github.com/andreheck/PilhaGameNR1/actions/runs/40320220168): aprovada. Walking8quadros, Talk64quadros, quatro direções, poses de repouso e pivô vertical0,7919900286 do quadro. Caminhada adaptada com24/24ossos compatíveis.
+- [Capturas, relatório e fonte testada](https://github.com/andreheck/PilhaGameNR1/actions/runs/40320220110/artifacts/12648982201), disponíveis até02/11/2026.
+
+Capturas de integração inspecionadas: [Mariana no mapa](../qa/npcs-fase1/rigged-mariana-desktop.png) e [Beatriz no mapa](../qa/npcs-fase1/rigged-beatriz-desktop.png). A renderização mantém o piso, a ordem de profundidade dos móveis, o nome e o indicador de saúde. Os14outros NPCs preservam a aparência anterior. Os testes de navegador são do CI; não alegam homologação física/Safari.
+
+Deployment solicitado no mesmo projeto Vercel de testes: dpl_RTaFTua4nNQcAowCoKy7KE7BEPjU, para https://pilha-plus-game-preview.vercel.app/. Confirmação final do alias e HTTP registrada na PR. Recuperação anterior: dpl_NgiLE6XTpFTFyjVzisrJgXsaNL5P /713ed54. Documentação posterior não altera o código testado acima.
