@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Programa de yoga">
+ <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#cfd8ff"/><stop offset="1" stop-color="#bda9f6"/></linearGradient></defs>
+ <rect x="12" y="12" width="136" height="136" rx="28" fill="url(#bg)" stroke="#6958b3" stroke-width="5"/>
+ <circle cx="80" cy="51" r="15" fill="#233f80"/>
+ <path d="M80 73 Q56 76 48 98 M80 73 Q104 76 112 98" fill="none" stroke="#233f80" stroke-width="12" stroke-linecap="round"/>
+ <path d="M80 75Q71 90 81 107 M80 75Q91 90 81 107" fill="none" stroke="#233f80" stroke-width="13" stroke-linecap="round"/>
+ <path d="M78 110Q47 113 32 120 M81 110Q110 115 128 120" fill="none" stroke="#233f80" stroke-width="12" stroke-linecap="round"/>
+ <path d="M31 127 H129" stroke="#755cc4" stroke-width="5" stroke-linecap="round"/>
+</svg>

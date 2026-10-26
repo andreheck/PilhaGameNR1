@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "purpose": "Contrato de integração das artes aprovadas dos 16 NPCs. Não altera gameplay até que os arquivos canônicos existam.",
   "canonical_directory": "assets/npcs",
   "rules": {
@@ -17,8 +17,10 @@
       "archetype": "Arquiteto",
       "group": "analistas",
       "canonical": "assets/npcs/npc-01-joao-arquiteto.png",
-      "source_status": "extracted_by_codex_confirmed_by_user",
-      "source_hint": "Recorte transparente de João já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-01-joao-arquiteto.png."
+      "source_status": "approved_existing_cutout",
+      "source_hint": "Recorte transparente de João já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-01-joao-arquiteto.png.",
+      "sha256": "1fa46154217c998c1fb486e19da9864cb8968ac5c7a3467c0053a52adec707c7",
+      "source_file": "existing-codex-cutout/npc-01-joao-arquiteto.png"
     },
     {
       "id": "NPC-02",
@@ -27,8 +29,10 @@
       "archetype": "Lógico",
       "group": "analistas",
       "canonical": "assets/npcs/npc-02-tiago-logico.png",
-      "source_status": "extracted_by_codex_confirmed_by_user",
-      "source_hint": "Recorte transparente de Tiago já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-02-tiago-logico.png."
+      "source_status": "approved_existing_cutout",
+      "source_hint": "Recorte transparente de Tiago já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-02-tiago-logico.png.",
+      "sha256": "8b7af051868bb3c36816d7690cb18d04f624a0f7c0dcb5822b5ca08dfb9c62a0",
+      "source_file": "existing-codex-cutout/npc-02-tiago-logico.png"
     },
     {
       "id": "NPC-03",
@@ -37,8 +41,10 @@
       "archetype": "Comandante",
       "group": "analistas",
       "canonical": "assets/npcs/npc-03-fernanda-comandante.png",
-      "source_status": "extracted_by_codex_confirmed_by_user",
-      "source_hint": "Recorte transparente de Fernanda já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-03-fernanda-comandante.png."
+      "source_status": "approved_existing_cutout",
+      "source_hint": "Recorte transparente de Fernanda já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-03-fernanda-comandante.png.",
+      "sha256": "b102e7a39a0b2322802481e44dc73292ac6d88acdc1af9e9317ec23fbfca1b3e",
+      "source_file": "existing-codex-cutout/npc-03-fernanda-comandante.png"
     },
     {
       "id": "NPC-04",
@@ -47,8 +53,10 @@
       "archetype": "Debatedora",
       "group": "analistas",
       "canonical": "assets/npcs/npc-04-raimunda-debatedora.png",
-      "source_status": "extracted_by_codex_confirmed_by_user",
-      "source_hint": "Recorte transparente de Raimunda já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-04-raimunda-debatedora.png."
+      "source_status": "approved_existing_cutout",
+      "source_hint": "Recorte transparente de Raimunda já concluído pelo Codex. Localizar e reutilizar PNG produzido no workspace/branch, sem refazer a extração. Confirmar identidade e destino canônico: assets/npcs/npc-04-raimunda-debatedora.png.",
+      "sha256": "49eb66488ff67997150ed6ef891829a17fd1d323ecaa94d57581b168faf15b86",
+      "source_file": "existing-codex-cutout/npc-04-raimunda-debatedora.png"
     },
     {
       "id": "NPC-05",
@@ -57,8 +65,10 @@
       "archetype": "Advogada",
       "group": "diplomatas",
       "canonical": "assets/npcs/npc-05-aline-advogada.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/aline_advogada.png."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/aline_advogada.png.",
+      "sha256": "2e1e62563be5c24c8572ab3854f94b7d86ca8e17f7a439e8f468a28443a96eea",
+      "source_file": "fontes/NPC-05.png"
     },
     {
       "id": "NPC-06",
@@ -67,8 +77,10 @@
       "archetype": "Mediadora",
       "group": "diplomatas",
       "canonical": "assets/npcs/npc-06-leticia-mediadora.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/leticia_mediadora.png."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/leticia_mediadora.png.",
+      "sha256": "c40eb96e682006a0ce7aa7f7d139e93685e705dde45a2191df80440b0ee9f544",
+      "source_file": "fontes/NPC-06.png"
     },
     {
       "id": "NPC-07",
@@ -77,8 +89,10 @@
       "archetype": "Protagonista",
       "group": "diplomatas",
       "canonical": "assets/npcs/npc-07-mariana-protagonista.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/mariana_protagonista.png."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/mariana_protagonista.png.",
+      "sha256": "c83a641c6c5b2023d227c2159861a6a141d3ce9a8b13c79043c4e83980f64378",
+      "source_file": "fontes/NPC-07.png"
     },
     {
       "id": "NPC-08",
@@ -87,8 +101,10 @@
       "archetype": "Ativista",
       "group": "diplomatas",
       "canonical": "assets/npcs/npc-08-pedro-ativista.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/pedro_ativista.png."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte aprovada já criada: pilha_npcs_verde/pedro_ativista.png.",
+      "sha256": "ebb214bffb575cfe12b3fe6a47f8f0050da1323a791cddc3b50abda470356403",
+      "source_file": "fontes/NPC-08.png"
     },
     {
       "id": "NPC-09",
@@ -97,8 +113,10 @@
       "archetype": "Logístico",
       "group": "sentinelas",
       "canonical": "assets/npcs/npc-09-carlos-logistico.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte individual azul aprovada; referência local/conversa: carlos_profissional_de_logística_em_ação.png / perfil_de_carlos_sentinela_logístico.png."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte individual azul aprovada; referência local/conversa: carlos_profissional_de_logística_em_ação.png / perfil_de_carlos_sentinela_logístico.png.",
+      "sha256": "2a52bf6bca84ddc858dc753cb3f1077956dde08a7fe4d3c66599b435e952841b",
+      "source_file": "fontes/NPC-09.png"
     },
     {
       "id": "NPC-10",
@@ -107,8 +125,10 @@
       "archetype": "Defensora",
       "group": "sentinelas",
       "canonical": "assets/npcs/npc-10-ana-defensora.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte individual azul aprovada; referência local/conversa: ana_isfj_com_pasta_azul.png."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte individual azul aprovada; referência local/conversa: ana_isfj_com_pasta_azul.png.",
+      "sha256": "b4a03a1f783e40554e3ef0d5c15b86f071b8833050331731bd974c8c964e7346",
+      "source_file": "fontes/NPC-10.png"
     },
     {
       "id": "NPC-11",
@@ -117,8 +137,10 @@
       "archetype": "Executivo",
       "group": "sentinelas",
       "canonical": "assets/npcs/npc-11-jose-executivo.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte individual azul aprovada; referência local/conversa: josé_o_executivo_confiante_*.png."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte individual azul aprovada; referência local/conversa: josé_o_executivo_confiante_*.png.",
+      "sha256": "dee9d05ce54ea83ac2f29d21e529b1fd5bb83e47923f4450ee9389ac6a23b3cb",
+      "source_file": "fontes/NPC-11.png"
     },
     {
       "id": "NPC-12",
@@ -127,8 +149,10 @@
       "archetype": "Cônsul",
       "group": "sentinelas",
       "canonical": "assets/npcs/npc-12-maria-consul.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte individual azul aprovada; usar a mulher de blazer azul/caderno da série Sentinelas, não o card com texto."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte individual azul aprovada; usar a mulher de blazer azul/caderno da série Sentinelas, não o card com texto.",
+      "sha256": "f30f378ce2ed37c4aba9111c856a9b5b5760afec65ed82d3b601839b64adfcd1",
+      "source_file": "fontes/NPC-12.png"
     },
     {
       "id": "NPC-13",
@@ -137,8 +161,10 @@
       "archetype": "Virtuoso",
       "group": "exploradores",
       "canonical": "assets/npcs/npc-13-alisson-virtuoso.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte individual amarela aprovada: homem com colete amarelo utilitário, camiseta preta, calça cargo e relógio."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte individual amarela aprovada: homem com colete amarelo utilitário, camiseta preta, calça cargo e relógio.",
+      "sha256": "c40e7d241d6bae43978ab04a481b8bce87b60f452b2ca8e4d59321602fa4afc3",
+      "source_file": "fontes/NPC-13.png"
     },
     {
       "id": "NPC-14",
@@ -147,8 +173,10 @@
       "archetype": "Aventureira",
       "group": "exploradores",
       "canonical": "assets/npcs/npc-14-camila-aventureira.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte individual amarela aprovada: mulher com cardigan amarelo, camisa clara, calça creme e tablet."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte individual amarela aprovada: mulher com cardigan amarelo, camisa clara, calça creme e tablet.",
+      "sha256": "73efa08b1d9387cbf487eb96b83d0fe9ea4cd45a13ac534ea66a5e35da7bc2a6",
+      "source_file": "fontes/NPC-14.png"
     },
     {
       "id": "NPC-15",
@@ -157,8 +185,10 @@
       "archetype": "Empreendedor",
       "group": "exploradores",
       "canonical": "assets/npcs/npc-15-lucas-empreendedor.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte individual amarela aprovada: homem com jaqueta amarela/preta, braços cruzados e tênis."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte individual amarela aprovada: homem com jaqueta amarela/preta, braços cruzados e tênis.",
+      "sha256": "cd370a97e66515429e7c2092fe9536ed6ce4fbeb5dc3fe2be1cd81f224914859",
+      "source_file": "fontes/NPC-15.png"
     },
     {
       "id": "NPC-16",
@@ -167,8 +197,11 @@
       "archetype": "Artista",
       "group": "exploradores",
       "canonical": "assets/npcs/npc-16-beatriz-artista.png",
-      "source_status": "approved_transparent_art_available",
-      "source_hint": "Arte individual amarela aprovada: mulher negra/parda com cabelo cacheado volumoso, acessórios amarelos, tablet e gesto aberto."
+      "source_status": "approved_zip_individual",
+      "source_hint": "Arte individual amarela aprovada: mulher negra/parda com cabelo cacheado volumoso, acessórios amarelos, tablet e gesto aberto.",
+      "sha256": "d54ee91db632a67f51fdb5676b473bbf8c520c156ce5a7eca39731dca6c47f10",
+      "source_file": "fontes/NPC-16.png"
     }
-  ]
+  ],
+  "source_package_sha256": "e63e8d1494e8cdfd4fbcd9b6dcdf752d4c7934c21c7bdce37a442305409f20db"
 }

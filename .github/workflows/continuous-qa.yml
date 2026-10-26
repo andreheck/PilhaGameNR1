@@ -19,6 +19,7 @@ jobs:
       - run: npm test
       - run: npm run test:continuous
       - run: npm run test:living
+      - run: npm run test:npcs
       - run: python -m pip install playwright==1.57.0
       - name: Browser
         run: |
