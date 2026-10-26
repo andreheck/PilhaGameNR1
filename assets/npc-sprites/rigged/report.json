@@ -1,0 +1,154 @@
+{
+  "done": true,
+  "errors": [],
+  "models": [
+    {
+      "key": "beatriz",
+      "id": "NPC-16",
+      "clips": [
+        {
+          "name": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+          "duration": 1.0333333015441895,
+          "tracks": 75
+        }
+      ],
+      "bones": [
+        "Hips",
+        "LeftUpLeg",
+        "LeftLeg",
+        "LeftFoot",
+        "LeftToeBase",
+        "RightUpLeg",
+        "RightLeg",
+        "RightFoot",
+        "RightToeBase",
+        "Spine02",
+        "Spine01",
+        "Spine",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftHand",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightHand",
+        "neck",
+        "Head",
+        "head_end",
+        "headfront"
+      ]
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "clips": [
+        {
+          "name": "Armature|Armature|Armature|Armature|Talk_Passionately|baselayer",
+          "duration": 10.266666412353516,
+          "tracks": 75
+        }
+      ],
+      "bones": [
+        "Hips",
+        "LeftUpLeg",
+        "LeftLeg",
+        "LeftFoot",
+        "LeftToeBase",
+        "RightUpLeg",
+        "RightLeg",
+        "RightFoot",
+        "RightToeBase",
+        "Spine02",
+        "Spine01",
+        "Spine",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftHand",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightHand",
+        "neck",
+        "Head",
+        "head_end",
+        "headfront"
+      ]
+    }
+  ],
+  "retarget": {
+    "donor": "beatriz",
+    "recipient": "mariana",
+    "matchedBones": 24,
+    "totalBones": 24,
+    "method": "Three r180 SkeletonUtils.retargetClip, preserveBonePositions"
+  },
+  "atlases": [
+    {
+      "key": "beatriz",
+      "id": "NPC-16",
+      "action": "walk",
+      "clip": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "beatriz-walk.png",
+      "sha256": "f9e24711a002d8cd2cdf16bb5a12731b52033bc97dee374a17edbb22560baafd",
+      "distinctFrames": 8
+    },
+    {
+      "key": "beatriz",
+      "id": "NPC-16",
+      "action": "idle",
+      "clip": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "beatriz-idle.png",
+      "sha256": "b97cb58b9b212def889166d744fe28457f735ef2fd6d1ebc7fb1b06579bbb0e2",
+      "distinctFrames": 1
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "action": "walk",
+      "clip": "Walking · adaptado do rig fornecido de Beatriz",
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "mariana-walk.png",
+      "sha256": "187016d045703cdb45bcc77c94cc510aac16d46c9e4e7465502698c836f759a9",
+      "distinctFrames": 8
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "action": "idle",
+      "clip": "Walking · adaptado do rig fornecido de Beatriz",
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "mariana-idle.png",
+      "sha256": "4e804ad85c54665b9ec0636cce24bd3e7660fe0ebda487f98ef2a74d3e6213c6",
+      "distinctFrames": 1
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "action": "talk",
+      "clip": "Armature|Armature|Armature|Armature|Talk_Passionately|baselayer",
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "mariana-talk.png",
+      "sha256": "59f584e06e2d52f3af68c9c0a3b08100a7cb2a537161d06e2e7a5117bbf08833",
+      "distinctFrames": 8
+    }
+  ]
+}

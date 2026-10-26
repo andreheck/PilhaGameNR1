@@ -38,9 +38,9 @@ try:
         assert not report['errors'],report['errors']
         for image in report.pop('exports'):
             path=OUT/(image['key']+'-'+image['action']+'.png');path.write_bytes(base64.b64decode(image.pop('data').split(',',1)[1]))
-            im=Image.open(path).convert('RGBA');assert im.size==(1024,768)
+            im=Image.open(path).convert('RGBA');assert im.size==(image['frames']*128,768)
             alpha=im.getchannel('A');assert alpha.getextrema()==(0,255),'Missing transparency'
-            frames=[im.crop((f*128,0,(f+1)*128,192)).tobytes() for f in range(8)]
+            frames=[im.crop((f*128,0,(f+1)*128,192)).tobytes() for f in range(image['frames'])]
             if image['action']!='idle':assert len(set(frames))>1,'Animation is static'
             image.update({'file':path.name,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'distinctFrames':len(set(frames))})
             report.setdefault('atlases',[]).append(image)

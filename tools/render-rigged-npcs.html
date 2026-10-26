@@ -42,7 +42,7 @@ try{
  transferred.name='Walking · adaptado do rig fornecido de Beatriz';
  result.retarget={donor:'beatriz',recipient:'mariana',matchedBones:Object.keys(names).length,totalBones:recipient.mesh.skeleton.bones.length,method:'Three r180 SkeletonUtils.retargetClip, preserveBonePositions'};
  donor.actions={walk:walking,idle:walking};
- recipient.actions={walk:transferred,idle:transferred,talk:recipient.originalClips[0]};
+ recipient.actions={walk:transferred,idle:recipient.originalClips[0],talk:recipient.originalClips[0]};
  // Use one fixed camera and pivot per character, including all frame bounds.
  for(const item of loaded){
   const model=item.model,scene=new T.Scene(),normalizer=new T.Group(),pivot=new T.Group();
@@ -54,19 +54,19 @@ try{
   const root=model.getObjectByName(item.mesh.skeleton.bones.find(b=>/hips|pelvis/i.test(b.name))?.name||item.mesh.skeleton.bones[0].name);
   let rootOrigin;
   function pose(clip,t){mixer.stopAllAction();mixer.clipAction(clip).reset().play();mixer.setTime(t);if(root){if(!rootOrigin)rootOrigin=root.position.clone();root.position.x=rootOrigin.x;root.position.z=rootOrigin.z;}model.updateMatrixWorld(true);}
-  for(const [action,clip] of Object.entries(item.actions))for(let f=0;f<8;f++){pose(clip,action==='idle'?clip.duration*.125:f/8*clip.duration);bounds.union(new T.Box3().setFromObject(model));}
+  for(const [action,clip] of Object.entries(item.actions))for(let f=0;f<8;f++){pose(clip,action==='idle'?0:f/8*clip.duration);bounds.union(new T.Box3().setFromObject(model));}
   const size=bounds.getSize(new T.Vector3()),center=bounds.getCenter(new T.Vector3());
   normalizer.scale.setScalar(1.7/size.y);model.position.sub(new T.Vector3(center.x,bounds.min.y,center.z));
   const fixedPosition=model.position.clone();
   for(const [action,clip] of Object.entries(item.actions)){
    status.textContent='Renderizando '+item.key+' · '+action;
-   const atlas=document.createElement('canvas');atlas.width=1024;atlas.height=768;const ctx=atlas.getContext('2d');
-   for(let dir=0;dir<4;dir++)for(let f=0;f<8;f++){
-    pose(clip,action==='idle'?clip.duration*.125:f/8*clip.duration);model.position.copy(fixedPosition);pivot.rotation.y=dir*Math.PI/2;pivot.updateMatrixWorld(true);
+   const frames=action==='talk'?64:8,atlas=document.createElement('canvas');atlas.width=frames*128;atlas.height=768;const ctx=atlas.getContext('2d');
+   for(let dir=0;dir<4;dir++)for(let f=0;f<frames;f++){
+    pose(clip,action==='idle'?0:f/frames*clip.duration);model.position.copy(fixedPosition);pivot.rotation.y=dir*Math.PI/2;pivot.updateMatrixWorld(true);
     renderer.render(scene,camera);ctx.drawImage(renderer.domElement,f*128,dir*192);
    }
-   document.getElementById('output').append(atlas);
-   result.exports.push({key:item.key,id:item.id,action,clip:clip.name,frames:8,directions:4,width:1024,height:768,data:atlas.toDataURL('image/png')});
+   document.getElementById('output').append(atlas);camera.updateMatrixWorld(true);const ground=new T.Vector3(0,0,0).project(camera);
+   result.exports.push({key:item.key,id:item.id,action,clip:clip.name,duration:clip.duration,anchor:[.5,.5-.5*ground.y],frames,directions:4,width:atlas.width,height:768,data:atlas.toDataURL('image/png')});
   }
   mixer.stopAllAction();
  }
