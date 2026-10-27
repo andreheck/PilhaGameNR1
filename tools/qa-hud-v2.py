@@ -42,6 +42,8 @@ def run(browser,width,height,port):
         top=page.locator('.living-topbar').bounding_box();limit=height*(.30 if width==320 else .25)
         check(top['y']+top['height']<=limit,tag+': expanded HUD within height budget '+str(top['height']))
         check(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),tag+': no horizontal page overflow')
+        for control in page.locator('.hud-v2-bar>button,.hud-v2-bar .pm-balance').all():
+            check(control.evaluate('(e)=>e.scrollWidth<=e.clientWidth+1'),tag+': toolbar content not clipped')
         for selector in ['.hud-v2-bar>button','.hud-v2-hero','.hud-v2-details','.hud-v2-navigation .pm-tab']:
             for box in page.locator(selector).all():
                 r=box.bounding_box()

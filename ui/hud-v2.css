@@ -46,7 +46,7 @@
 .hud-v2 .pm-panel{z-index:300}.hud-v2-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media(max-width:899px){
  .hud-v2 .living-topbar{padding:4px max(6px,env(safe-area-inset-left)) 4px max(6px,env(safe-area-inset-right))}
- .hud-v2 .continuous-tools .hud-v2-bar{display:grid;grid-template-columns:44px minmax(60px,1fr) minmax(50px,.8fr) 44px 60px;gap:4px}
+ .hud-v2 .continuous-tools .hud-v2-bar{display:grid;grid-template-columns:44px minmax(60px,1fr) minmax(50px,.8fr) 44px 72px;gap:4px}
  .hud-v2 .continuous-tools .hud-v2-bar .living-clock-holder,.hud-v2 .hud-v2-mark{display:none}.hud-v2 .continuous-tools .hud-v2-menu-button span{display:none}
  .hud-v2 .continuous-tools .hud-v2-bar>.hud-v2-menu-button,.hud-v2 .continuous-tools .hud-v2-bar>.hud-v2-pause{font-size:0;padding:4px}
  .hud-v2 .continuous-tools .hud-v2-menu-button:before{content:'☰';font-size:20px}.hud-v2 .continuous-tools .hud-v2-pause:before{content:'Ⅱ';font-size:20px}.hud-v2 .continuous-tools .hud-v2-pause[aria-pressed=true]:before{content:'▶'}
