@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "source": "Pilha_Game_Kit_Mobiliario_Poof_v1.zip (arquivo original entregue no chat)",
   "catalogSource": "data/continuous/catalog.js",
   "graphicsStatus": "ready",
@@ -27,9 +27,32 @@
       "referenceWidth": 240,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 2,
+        "depth": 0.8,
+        "height": 0.85,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        1.0,
+        1.02,
+        0.45
+      ],
+      "standPoint": [
+        1.0,
+        1.2000000000000002,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        502,
+        367
+      ]
     },
     {
       "id": "poltrona-azul-a",
@@ -39,9 +62,32 @@
       "referenceWidth": 120,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.6,
+        "depth": 0.65,
+        "height": 0.95,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.3,
+        0.87,
+        0.45
+      ],
+      "standPoint": [
+        0.3,
+        1.05,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        1,
+        245,
+        271
+      ]
     },
     {
       "id": "poltrona-azul-b",
@@ -51,9 +97,32 @@
       "referenceWidth": 120,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.6,
+        "depth": 0.65,
+        "height": 0.95,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.3,
+        0.87,
+        0.45
+      ],
+      "standPoint": [
+        0.3,
+        1.05,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        1,
+        244,
+        264
+      ]
     },
     {
       "id": "mesa-centro-redonda",
@@ -63,9 +132,32 @@
       "referenceWidth": 155,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.8,
+        "depth": 0.8,
+        "height": 0.45,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.4,
+        1.02,
+        0.45
+      ],
+      "standPoint": [
+        0.4,
+        1.2000000000000002,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        3,
+        279,
+        243
+      ]
     },
     {
       "id": "mesa-escritorio",
@@ -75,9 +167,32 @@
       "referenceWidth": 230,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 1.6,
+        "depth": 0.8,
+        "height": 0.75,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.8,
+        1.02,
+        0.45
+      ],
+      "standPoint": [
+        0.8,
+        1.2000000000000002,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        454,
+        396
+      ]
     },
     {
       "id": "mesa-reuniao",
@@ -87,9 +202,32 @@
       "referenceWidth": 232,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 1.8,
+        "depth": 1,
+        "height": 0.75,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.9,
+        1.22,
+        0.45
+      ],
+      "standPoint": [
+        0.9,
+        1.4,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        467,
+        338
+      ]
     },
     {
       "id": "estante-livros",
@@ -99,9 +237,32 @@
       "referenceWidth": 114,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.9,
+        "depth": 0.4,
+        "height": 1.8,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.45,
+        0.62,
+        0.45
+      ],
+      "standPoint": [
+        0.45,
+        0.8,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        3,
+        209,
+        343
+      ]
     },
     {
       "id": "gaveteiro",
@@ -111,9 +272,32 @@
       "referenceWidth": 86,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.5,
+        "depth": 0.5,
+        "height": 0.65,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.25,
+        0.72,
+        0.45
+      ],
+      "standPoint": [
+        0.25,
+        0.9,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        1,
+        185,
+        293
+      ]
     },
     {
       "id": "bebedouro",
@@ -123,9 +307,32 @@
       "referenceWidth": 80,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.4,
+        "depth": 0.4,
+        "height": 1.1,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.2,
+        0.62,
+        0.45
+      ],
+      "standPoint": [
+        0.2,
+        0.8,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        2,
+        3,
+        119,
+        235
+      ]
     },
     {
       "id": "planta-grande",
@@ -135,9 +342,32 @@
       "referenceWidth": 115,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.55,
+        "depth": 0.55,
+        "height": 1.4,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.275,
+        0.77,
+        0.45
+      ],
+      "standPoint": [
+        0.275,
+        0.9500000000000001,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        3,
+        237,
+        246
+      ]
     },
     {
       "id": "planta-pequena",
@@ -147,9 +377,32 @@
       "referenceWidth": 74,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.3,
+        "depth": 0.3,
+        "height": 0.55,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.15,
+        0.52,
+        0.45
+      ],
+      "standPoint": [
+        0.15,
+        0.7,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        135,
+        140
+      ]
     },
     {
       "id": "divisoria-vidro",
@@ -159,9 +412,32 @@
       "referenceWidth": 206,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 1.8,
+        "depth": 0.15,
+        "height": 1.35,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.9,
+        0.37,
+        0.45
+      ],
+      "standPoint": [
+        0.9,
+        0.55,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        347,
+        293
+      ]
     },
     {
       "id": "tapete-almofadas",
@@ -171,9 +447,32 @@
       "referenceWidth": 145,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 1.2,
+        "depth": 1,
+        "height": 0.12,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.6,
+        1.22,
+        0.45
+      ],
+      "standPoint": [
+        0.6,
+        1.4,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        1,
+        333,
+        198
+      ]
     },
     {
       "id": "puff-azul",
@@ -183,9 +482,32 @@
       "referenceWidth": 98,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.65,
+        "depth": 0.65,
+        "height": 0.45,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.325,
+        0.87,
+        0.45
+      ],
+      "standPoint": [
+        0.325,
+        1.05,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        3,
+        195,
+        176
+      ]
     },
     {
       "id": "banco-lounge",
@@ -195,9 +517,32 @@
       "referenceWidth": 200,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 1.8,
+        "depth": 0.65,
+        "height": 0.85,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.9,
+        0.87,
+        0.45
+      ],
+      "standPoint": [
+        0.9,
+        1.05,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        365,
+        198
+      ]
     },
     {
       "id": "arvore-frutifera",
@@ -207,9 +552,32 @@
       "referenceWidth": 145,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.8,
+        "depth": 0.8,
+        "height": 2,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.4,
+        1.02,
+        0.45
+      ],
+      "standPoint": [
+        0.4,
+        1.2000000000000002,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        183,
+        245
+      ]
     },
     {
       "id": "pilha-livros",
@@ -219,9 +587,32 @@
       "referenceWidth": 73,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.3,
+        "depth": 0.25,
+        "height": 0.16,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.15,
+        0.47,
+        0.45
+      ],
+      "standPoint": [
+        0.15,
+        0.65,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        1,
+        149,
+        145
+      ]
     },
     {
       "id": "quadro",
@@ -231,9 +622,32 @@
       "referenceWidth": 89,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.8,
+        "depth": 0.12,
+        "height": 1.2,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.4,
+        0.33999999999999997,
+        0.45
+      ],
+      "standPoint": [
+        0.4,
+        0.52,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        1,
+        148,
+        198
+      ]
     },
     {
       "id": "caixa-material",
@@ -243,9 +657,32 @@
       "referenceWidth": 89,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 0.6,
+        "depth": 0.6,
+        "height": 0.6,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.3,
+        0.82,
+        0.45
+      ],
+      "standPoint": [
+        0.3,
+        1.0,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        3,
+        168,
+        151
+      ]
     },
     {
       "id": "armario-baixo",
@@ -255,9 +692,32 @@
       "referenceWidth": 110,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
-      "transparent": true
+      "transparent": true,
+      "scale": {
+        "width": 1,
+        "depth": 0.45,
+        "height": 0.8,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.5,
+        0.67,
+        0.45
+      ],
+      "standPoint": [
+        0.5,
+        0.8500000000000001,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        2,
+        217,
+        207
+      ]
     },
     {
       "id": "maquina-producao",
@@ -267,11 +727,34 @@
       "referenceWidth": 240,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
       "transparent": true,
       "source": "imagegen-built-in",
-      "status": "generated-for-testing"
+      "status": "generated-for-testing",
+      "scale": {
+        "width": 1.3,
+        "depth": 1,
+        "height": 1.6,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.65,
+        1.22,
+        0.45
+      ],
+      "standPoint": [
+        0.65,
+        1.4,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        0,
+        0,
+        1379,
+        1110
+      ]
     },
     {
       "id": "esteira-producao",
@@ -281,11 +764,34 @@
       "referenceWidth": 240,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
       "transparent": true,
       "source": "imagegen-built-in",
-      "status": "generated-for-testing"
+      "status": "generated-for-testing",
+      "scale": {
+        "width": 2.4,
+        "depth": 0.7,
+        "height": 0.85,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        1.2,
+        0.9199999999999999,
+        0.45
+      ],
+      "standPoint": [
+        1.2,
+        1.1,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        19,
+        15,
+        1506,
+        1008
+      ]
     },
     {
       "id": "estante-industrial",
@@ -295,11 +801,34 @@
       "referenceWidth": 240,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
       "transparent": true,
       "source": "imagegen-built-in",
-      "status": "generated-for-testing"
+      "status": "generated-for-testing",
+      "scale": {
+        "width": 1.8,
+        "depth": 0.5,
+        "height": 1.9,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.9,
+        0.72,
+        0.45
+      ],
+      "standPoint": [
+        0.9,
+        0.9,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        239,
+        25,
+        1384,
+        1024
+      ]
     },
     {
       "id": "bancada-operacional",
@@ -309,11 +838,34 @@
       "referenceWidth": 240,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
       "transparent": true,
       "source": "imagegen-built-in",
-      "status": "generated-for-testing"
+      "status": "generated-for-testing",
+      "scale": {
+        "width": 1.8,
+        "depth": 0.7,
+        "height": 0.9,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.9,
+        0.9199999999999999,
+        0.45
+      ],
+      "standPoint": [
+        0.9,
+        1.1,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        0,
+        11,
+        1510,
+        1024
+      ]
     },
     {
       "id": "estacao-atendimento",
@@ -323,11 +875,34 @@
       "referenceWidth": 240,
       "anchor": [
         0.5,
-        0.96
+        1
       ],
       "transparent": true,
       "source": "imagegen-built-in",
-      "status": "generated-for-testing"
+      "status": "generated-for-testing",
+      "scale": {
+        "width": 1.5,
+        "depth": 0.75,
+        "height": 1.05,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.75,
+        0.97,
+        0.45
+      ],
+      "standPoint": [
+        0.75,
+        1.15,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        231,
+        39,
+        1290,
+        954
+      ]
     }
   ],
   "upgrades": {
@@ -726,7 +1301,8 @@
     "Um item visual por melhoria/setor reduz lotação e evita cruzar corredores dos NPCs.",
     "Ao comprar nível 2 e 3, alterar acabamento sem criar outro objeto de chão.",
     "Programa de benefício não cria mobiliário físico nem NPC automaticamente.",
-    "Cinco artes novas geradas para testes, com prompts e origem em assets/furniture/generated/generation-manifest.json. Não substituem os originais do kit."
+    "Cinco artes novas geradas para testes, com prompts e origem em assets/furniture/generated/generation-manifest.json. Não substituem os originais do kit.",
+    "Régua 1 célula = 1 m, adulto 1,70 m; dimensões e âncoras são hipótese visual revisável. Copa básica não concede melhorias pagas."
   ],
   "rasterImported": true,
   "baseline": {
@@ -754,5 +1330,125 @@
       "shelf": "estante-industrial",
       "table": "bancada-operacional"
     }
-  }
+  },
+  "ruler": {
+    "cellMeters": 1,
+    "adultHeight": 1.7,
+    "status": "hipotese visual ajustavel; pedido PM 27/10/2026",
+    "unitPixels": 30,
+    "tileWidth": 64,
+    "tileHeight": 32
+  },
+  "amenities": [
+    {
+      "id": "geladeira",
+      "type": "fridge",
+      "name": "Geladeira da copa",
+      "position": [
+        4.6,
+        0.9
+      ],
+      "zone": 1,
+      "scale": {
+        "width": 0.7,
+        "depth": 0.7,
+        "height": 1.8
+      },
+      "anchor": [
+        0.5,
+        1
+      ],
+      "standPoint": [
+        0.35,
+        1.1,
+        0
+      ],
+      "facing": 2,
+      "source": "canvas-procedural-v1"
+    },
+    {
+      "id": "televisao",
+      "type": "television",
+      "name": "Televisão informativa",
+      "position": [
+        0.9,
+        4.65
+      ],
+      "zone": 3,
+      "scale": {
+        "width": 1.25,
+        "depth": 0.35,
+        "height": 1.5
+      },
+      "anchor": [
+        0.5,
+        1
+      ],
+      "standPoint": [
+        0.625,
+        0.75,
+        0
+      ],
+      "facing": 2,
+      "source": "canvas-procedural-v1"
+    },
+    {
+      "id": "copa",
+      "type": "coffee",
+      "name": "Bancada de café",
+      "position": [
+        5.65,
+        0.9
+      ],
+      "zone": 1,
+      "scale": {
+        "width": 1.1,
+        "depth": 0.6,
+        "height": 1.32
+      },
+      "anchor": [
+        0.5,
+        1
+      ],
+      "standPoint": [
+        0.55,
+        1.0,
+        0
+      ],
+      "facing": 2,
+      "source": "canvas-procedural-v1"
+    }
+  ],
+  "restClearance": [
+    {
+      "x": 2.65,
+      "y": 0.28,
+      "w": 0.9,
+      "d": 2.15
+    },
+    {
+      "x": 6.35,
+      "y": 0.28,
+      "w": 0.9,
+      "d": 2.15
+    },
+    {
+      "x": 10.35,
+      "y": 3.05,
+      "w": 1.4,
+      "d": 0.6
+    },
+    {
+      "x": 2.25,
+      "y": 6.25,
+      "w": 0.9,
+      "d": 1.45
+    },
+    {
+      "x": 9.25,
+      "y": 6.35,
+      "w": 0.9,
+      "d": 1.35
+    }
+  ]
 }
