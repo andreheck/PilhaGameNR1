@@ -58,6 +58,7 @@ def run(browser,width,height,port):
         check(page.locator('.hud-v2-menu-button').evaluate('(e)=>e===document.activeElement'),tag+': Escape returns focus')
         page.keyboard.press('n');check(state()['week']==old_week,tag+': disabled single-key shortcuts')
         page.locator('.hud-v2-menu-button').click();page.locator('[data-hud-shortcuts]').check();page.keyboard.press('Escape')
+        page.wait_for_function('document.activeElement===document.querySelector(".hud-v2-menu-button")')
         page.keyboard.press('Space');page.wait_for_function('PilhaLiving.getState().paused===false')
         page.keyboard.press('Space');page.wait_for_function('PilhaLiving.getState().paused===true')
         page.keyboard.press('n');page.wait_for_function(f'PilhaLiving.getState().week==={old_week+1}')
@@ -73,6 +74,7 @@ def run(browser,width,height,port):
         page.locator('.pm-tab[data-i="0"]').click();page.locator('.pm-root.has-panel').wait_for()
         audit.scan(page,'setor-critico',(width,height))
     except Exception:
+        report['failureContext']=page.evaluate('({focus:document.activeElement?.outerHTML,openDialogs:[...document.querySelectorAll("dialog[open]")].map(d=>d.className),preferences:localStorage.getItem("pilha-hud-preferences-v1"),paused:window.PilhaLiving?.getState().paused})')
         page.screenshot(path=str(OUT/f'FAILED-{tag}.png'));raise
     finally:ctx.close()
 

@@ -7,6 +7,7 @@
 .hud-v2 .pm-hud,.hud-v2 .living-commandbar,.hud-v2 .living-chrome-toggle,.hud-v2 .living-more{display:none!important}
 .hud-v2 .continuous-tools{display:contents}
 .hud-v2 .continuous-tools .hud-v2-bar{display:flex;align-items:center;gap:10px;min-width:0}
+.hud-v2 .continuous-tools .hud-v2-bar>*{order:0}
 .hud-v2 .continuous-tools .hud-v2-bar>button,.hud-v2 .continuous-tools .hud-v2-details,.hud-v2 .continuous-tools .hud-v2-band>button{min-width:44px;min-height:44px;padding:5px 12px;font-size:14px;border-radius:10px;border:1px solid #66839c;background:#17344b;color:#f2f7fa;line-height:1.25}
 .hud-v2 .continuous-tools .hud-v2-bar>.hud-v2-advance{background:#ffd43b;color:#07111f;font-weight:800}
 .hud-v2 .continuous-tools .hud-v2-bar .pm-balance{padding:3px 8px;min-width:115px;display:grid;grid-template-columns:auto auto;gap:0 7px;background:transparent;border:0;box-shadow:none}
@@ -38,6 +39,8 @@
 .hud-v2 .continuous-tools .hud-v2-menu .pm-replay{display:block!important;text-decoration:none}
 .hud-v2-menu-items{margin-top:18px}.hud-v2-menu-items button{text-align:left}.hud-v2-help{margin-top:20px}.hud-v2-help label{display:flex;align-items:center;gap:10px;min-height:44px}.hud-v2-help input{width:22px;height:22px}
 .hud-v2 .pm-toasts{top:auto;bottom:max(12px,env(safe-area-inset-bottom));z-index:200;max-height:35dvh;overflow-y:auto}
+.hud-v2 .pm-toast .pm-toast__act{color:#07111f;min-height:44px;font-size:14px}
+.hud-v2 .pm-toast .pm-toast__x{min-width:44px;min-height:44px}
 .hud-v2 .pm-panel{z-index:300}.hud-v2-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media(max-width:899px){
  .hud-v2 .living-topbar{padding:4px max(6px,env(safe-area-inset-left)) 4px max(6px,env(safe-area-inset-right))}

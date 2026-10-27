@@ -34,7 +34,7 @@ export function installHudV2({root,getState,getHeroes,storage,openCalendar,openH
  menuItems.append(calendar);if(replay)menuItems.append(replay);menuItems.append(help);
  const live=create('p','hud-v2-sr');live.setAttribute('role','status');live.setAttribute('aria-live','polite');
  const critical=create('p','hud-v2-sr');critical.setAttribute('role','alert');
- const delta=create('small','hud-v2-income');balance.append(delta);balance.setAttribute('role','group');balance.setAttribute('aria-label','Saldo fictício');balance.removeAttribute('aria-live');
+ const delta=create('small','hud-v2-income');delta.setAttribute('role','group');balance.append(delta);balance.setAttribute('role','group');balance.setAttribute('aria-label','Saldo fictício');balance.removeAttribute('aria-live');
  bar.append(menuButton,clock,balance,goal,pause,advance);
  tools.replaceChildren(bar,band,nav,menu,live,critical);top.append(tools);
  pause.classList.add('hud-v2-pause');advance.classList.add('hud-v2-advance');
@@ -61,7 +61,7 @@ export function installHudV2({root,getState,getHeroes,storage,openCalendar,openH
   const set=(el,text)=>{if(el.textContent!==text)el.textContent=text;};
   pause.setAttribute('aria-label',state.paused?'Retomar jogo':'Pausar jogo');set(pause,state.paused?'▶ Retomar':'Ⅱ Pausar');
   advance.setAttribute('aria-label','Avançar uma semana simulada');set(advance,'▶ Semana');
-  set(delta,'+'+money(q.total)+'/sem.');delta.setAttribute('aria-label','Próximo aporte semanal: '+money(q.total)+' créditos fictícios. Não representa lucro ou variação líquida.');
+  set(delta,'+'+(q.total>=1000?money(q.total/1000)+'mil':money(q.total))+'/sem');delta.setAttribute('aria-label','Próximo aporte semanal: '+money(q.total)+' créditos fictícios. Não representa lucro ou variação líquida.');
   goal.querySelector('.pm-goal__v').dataset.goal=String(RULES.companyGoal);set(goal.querySelector('.pm-goal__top span'),'Índice · meta '+RULES.companyGoal);
   goal.setAttribute('role','group');goal.setAttribute('aria-label','Índice da empresa '+index+' de 100; meta '+RULES.companyGoal);
   root.classList.toggle('hud-v2-collapsed',!preferences.expanded);toggle.setAttribute('aria-expanded',String(preferences.expanded));toggle.setAttribute('aria-label',preferences.expanded?'Recolher detalhes da dupla':'Expandir detalhes da dupla');set(toggle,preferences.expanded?'⌃':'⌄');
