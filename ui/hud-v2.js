@@ -63,7 +63,9 @@ export function installHudV2({root,getState,getHeroes,storage,openCalendar,openH
   set(mark.querySelector('small'),'Semana '+state.week);
   pause.setAttribute('aria-label',state.paused?'Retomar jogo':'Pausar jogo');set(pause,state.paused?'▶ Retomar':'Ⅱ Pausar');
   advance.setAttribute('aria-label','Avançar uma semana simulada');set(advance,'▶ Semana');
-  set(delta,'+'+(q.total>=1000?money(q.total/1000)+'mil':money(q.total))+'/sem');delta.setAttribute('aria-label','Próximo aporte semanal: '+money(q.total)+' créditos fictícios. Não representa lucro ou variação líquida.');
+  const contribution='+'+(q.total>=1000?money(q.total/1000)+'mil':money(q.total));
+  if(delta.dataset.value!==contribution){delta.replaceChildren(create('span','',contribution),document.createElement('wbr'),create('span','','/sem'));delta.dataset.value=contribution;}
+  delta.setAttribute('aria-label','Próximo aporte semanal: '+money(q.total)+' créditos fictícios. Não representa lucro ou variação líquida.');
   goal.querySelector('.pm-goal__v').dataset.goal=String(RULES.companyGoal);set(goal.querySelector('.pm-goal__top span'),'Índice · meta '+RULES.companyGoal);
   goal.setAttribute('role','group');goal.setAttribute('aria-label','Índice da empresa '+index+' de 100; meta '+RULES.companyGoal);
   root.classList.toggle('hud-v2-collapsed',!preferences.expanded);toggle.setAttribute('aria-expanded',String(preferences.expanded));toggle.setAttribute('aria-label',preferences.expanded?'Recolher detalhes da dupla':'Expandir detalhes da dupla');set(toggle,preferences.expanded?'⌃':'⌄');
