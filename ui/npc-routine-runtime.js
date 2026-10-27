@@ -13,6 +13,7 @@
           var pose=row.sampleAt(elapsed),speed=row.speed*(row.motionRate||1),oldX=p.x,oldY=p.y;
           p.riggedSeconds=elapsed*.001*speed;p.talking=!!pose.talking;p.partnerId=pose.partnerId;p.activity=pose.stage;p.isMeetingLeader=p.employeeId===pose.managerId;if(p.talking)p.facing=p.employeeId<pose.partnerId?0:2;
           if(pose.kind==='work'){
+            p.riggedSeconds*=1-(row.workSlot%6)*.02;
             var distance=pose.workFraction*AISLE_LENGTH*.5;
             Object.assign(p,aislePoint(distance));p.vx=p.x-oldX;p.vy=p.y-oldY;p.progress=distance;p.moving=!routineClock.paused&&pose.moving;p.phase=elapsed*.006*speed;
           }else{

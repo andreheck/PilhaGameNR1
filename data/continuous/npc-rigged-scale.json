@@ -1,0 +1,15 @@
+{
+  "referenceHeight": 1.7,
+  "source": "Alpha bounds measured on approved immutable 128x192 atlas frames",
+  "coverage": {
+    "NPC-16": {
+      "walk": 0.604167,
+      "idle": 0.609375
+    },
+    "NPC-07": {
+      "walk": 0.572917,
+      "idle": 0.609375,
+      "talk": 0.614583
+    }
+  }
+}

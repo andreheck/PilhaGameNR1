@@ -4,7 +4,7 @@ Base: codex/escala-mobiliario, dc1dd4a (PR #54); empresa contínua da #53. Pedid
 
 ## Regras desta entrega
 
-Constantes em simulation/npc-motion.js: ritmo relativo 0,85, permanência breve de até 5 s para conversa e 6 s de reunião no tempo de tela ativo. São hipóteses visuais configuráveis; não alteram os 120000 ms da semana C3. A desaceleração nas pernas de movimento é de 15%, adicional ao fator 0,6 já aprovado para saúde-base abaixo de 55. A cadência das pernas/clipes acompanha o fator. Não se afirma calibração em 1,2 m/s; a conversão física absoluta do briefing anterior permanece avaliação PO.
+Constantes em simulation/npc-motion.js: ritmo relativo 0,85, permanência breve de até 5 s para conversa e 6 s de reunião no tempo de tela ativo. São hipóteses visuais configuráveis; não alteram os 120000 ms da semana C3. A desaceleração nas pernas de movimento é de 15%, adicional ao fator 0,6 já aprovado para saúde-base abaixo de 55. No percurso de trabalho há variação adicional de até 10% entre posições de encontro para separar os corpos; a referência geral permanece 0,85. A cadência das pernas/clipes acompanha o fator. Não se afirma calibração em 1,2 m/s; a conversão física absoluta do briefing anterior permanece avaliação PO.
 
 Colegas do mesmo setor que se encontram na janela de permanência conversam parados. Pareamento recíproco e determinístico por IDs, sem usar personalidade, idade ou atributos sensíveis. Os dois ficam em posições próximas distintas, com sinal de conversa; Mariana usa o clipe de fala aprovado. Uma janela sem parceiro é apenas uma parada breve. O intervalo não acelera o deslocamento seguinte para recuperar o tempo parado.
 
@@ -17,6 +17,8 @@ Menu → Zonas e melhorias mostra a agenda dos três setores, data/hora simulada
 ## Dados e benefícios
 
 Nenhuma chave nova e nenhuma migração de save. Nada é gravado por participar de conversa ou assistir uma reunião; não há XP, pagamento ou prêmio novo. Os benefícios já existentes dos recursos restaurativos também influenciam quem está no pátio e permanecem temporários, limitados a 8. A reunião não altera a regra semanal de saúde dos gestores ou aportes.
+
+A altura visível dos dois rigs foi calibrada pelos recortes alfa dos cinco atlas originais, sem alterar imagens, malhas ou animações. A área transparente do frame não é contada como corpo. A seleção usa a âncora real de interação, evitando abrir a ficha do vizinho.
 
 O grafo recebeu seis âncoras e aproximações ortogonais de reunião. Zonas/IDs/origens, câmera, móveis pagos, efeitos e orçamento permanecem. Tráfego e lotação de pausa são distintos: o limite de seis assentos não proíbe outras pessoas de andar pelos corredores. A reunião usa a área reservada do pátio.
 

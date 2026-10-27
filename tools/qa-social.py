@@ -36,6 +36,7 @@ def run(browser,width,height,port):
         chat=page.evaluate('''()=>{const s=PilhaLiving.getState(),base=(s.week-1)*120000,rows=PilhaLiving.getRoutines();for(let t=base;t<base+119000;t+=100)for(const row of rows){const p=row.sampleAt(t),q=row.sampleAt(t+600);if(p.stage==='conversation'&&q.stage==='conversation'&&p.partnerId===q.partnerId)return {at:t-base,id:row.id,partner:p.partnerId};}throw Error('No reciprocal conversation in a week');}''')
         seek(chat['at']);actors=page.evaluate('PilhaLiving.getEmployees()');pair=[a for a in actors if a['id'] in [chat['id'],chat['partner']]]
         check(len(pair)==2 and all(a['activity']=='conversation' and a['talking'] and not a['moving'] for a in pair),tag+': two real co-workers stop and converse')
+        check(len({(a['x'],a['y']) for a in pair})==2,tag+': conversation partners occupy distinct positions')
         page.wait_for_timeout(600);after=page.evaluate('PilhaLiving.getEmployees()');check(all(next(b for b in after if b['id']==a['id'])['x']==a['x'] and next(b for b in after if b['id']==a['id'])['y']==a['y'] for a in pair),tag+': paused conversation does not slide')
         page.evaluate('(id)=>PilhaLiving.getEmployees().find(p=>p.id===id)',chat['id'])
         # Focus via the existing sector control; portraits remain NPCs, not heroes.

@@ -2,14 +2,16 @@
 import fs from 'node:fs';
 const root=new URL('../',import.meta.url),file=new URL('dist/ui/continuous/iso.js',root);
 const catalog=JSON.parse(fs.readFileSync(new URL('data/continuous/npc-rigged.json',root),'utf8'));
+const bodyScale=JSON.parse(fs.readFileSync(new URL('data/continuous/npc-rigged-scale.json',root),'utf8'));
 const report=JSON.parse(fs.readFileSync(new URL('assets/npc-sprites/rigged/report.json',root),'utf8'));
 const originalWalk=report.models.find(m=>m.key==='beatriz').clips.find(c=>/walk/i.test(c.name))?.duration||report.models.find(m=>m.key==='beatriz').clips[0].duration;
-const bindings=Object.fromEntries(catalog.bindings.map(p=>[p.id,{key:p.key,anchorY:report.atlases.find(a=>a.id===p.id&&a.action==='walk').anchor?.[1]||1,walk:p.walk,idle:p.idle,talk:p.talk,walkDuration:report.atlases.find(a=>a.id===p.id&&a.action==='walk').duration||originalWalk,talkDuration:report.models.find(m=>m.key===p.key).clips[0].duration,walkFrames:report.atlases.find(a=>a.id===p.id&&a.action==='walk').frames,talkFrames:report.atlases.find(a=>a.id===p.id&&a.action==='talk')?.frames||8}]));
+const bindings=Object.fromEntries(catalog.bindings.map(p=>[p.id,{key:p.key,visibleHeight:bodyScale.coverage[p.id],anchorY:report.atlases.find(a=>a.id===p.id&&a.action==='walk').anchor?.[1]||1,walk:p.walk,idle:p.idle,talk:p.talk,walkDuration:report.atlases.find(a=>a.id===p.id&&a.action==='walk').duration||originalWalk,talkDuration:report.models.find(m=>m.key===p.key).clips[0].duration,walkFrames:report.atlases.find(a=>a.id===p.id&&a.action==='walk').frames,talkFrames:report.atlases.find(a=>a.id===p.id&&a.action==='talk')?.frames||8}]));
 let source=fs.readFileSync(file,'utf8');
 function replace(a,b){if(!source.includes(a))throw Error('Rigged NPC build anchor changed: '+a.slice(0,70));source=source.replace(a,b);}
 replace('var employeeRows=[],employeeHits=[],employeeHover=null,employeePaused=false;',`var employeeRows=[],employeeHits=[],employeeHover=null,employeePaused=false;
     var riggedBindings=${JSON.stringify(bindings)},riggedImages={},riggedDrawn={};
     if(global.Image)Object.keys(riggedBindings).forEach(function(id){var row=riggedBindings[id];['walk','idle','talk'].forEach(function(action){if(!row[action])return;var img=new global.Image();riggedImages[id+'|'+action]=img;img.onload=function(){if(!running)render();};img.src=row[action];});});`);
+replace('var sh=2.15*u,sw=sh*128/192;',"var sh=(rigged?(furnitureCatalog?furnitureCatalog.ruler.adultHeight:1.7)/(rigged.visibleHeight[riggedAction]||.6):2.15)*u,sw=sh*128/192;");
 const selector=source.split('\n').find(l=>l.includes('var sprite = sharedIndexMode'));
 replace(selector,selector+`
       var rigged=riggedBindings[p.employeeId],riggedAction=walking?'walk':(sit||p.talking)&&rigged&&rigged.talk?'talk':'idle';

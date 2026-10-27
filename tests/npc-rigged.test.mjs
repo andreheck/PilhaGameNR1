@@ -36,3 +36,15 @@ test('unavailable sprite files keep all active actors visible through the existi
 test('Mariana uses her supplied conversation clip during a restorative pause',()=>{
  const s=L.ensureLiving(M.fresh());s.activeMs=Array.from({length:1200},(_,i)=>i*100).find(t=>L.routines(s).find(r=>r.id==='NPC-07').sampleAt(t).stage==='rest');const {iso,tick}=engine(s);tick(16);assert.equal(L.routines(s).find(p=>p.id==='NPC-07').stage,'rest');assert.equal(iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-07').action,'talk');
 });
+
+test('approved rigs share the adult reference height despite different transparent atlas padding',()=>{
+ const scale=JSON.parse(fs.readFileSync(new URL('../data/continuous/npc-rigged-scale.json',import.meta.url),'utf8'));
+ const s=L.ensureLiving(M.fresh()),{iso,calls,tick}=engine(s);tick(16);
+ const heights=iso.riggedAssetsStatus().drawn.map(p=>{
+  const binding=catalog.bindings.find(b=>b.id===p.id),url=binding[p.action];
+  const call=calls.filter(c=>c[0]===url).at(-1);assert.ok(call);
+  const coverage=scale.coverage[p.id][p.action];assert.ok(coverage>.3&&coverage<1);
+  return call[8]*coverage;
+ });
+ assert.equal(heights.length,2);assert.ok(Math.abs(heights[0]-heights[1])<.0001);
+});

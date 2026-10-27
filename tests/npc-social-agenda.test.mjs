@@ -34,7 +34,7 @@ test('selected managers are used; absent managers and inactive employees are not
 test('conversation partners are reciprocal co-workers with stationary poses; health boosts remain temporary and capped',()=>{
  const s=setup(),rows=L.routines(s);let found=false;
  for(let t=0;t<RULES.weekMs;t+=100){const poses=rows.map(r=>({...r,...r.sampleAt(t)}));
-  for(const p of poses.filter(p=>p.stage==='conversation')){found=true;const q=poses.find(q=>q.id===p.partnerId);assert.equal(q.partnerId,p.id);assert.equal(q.sid,p.sid);assert.ok(p.holding&&q.holding&&!p.moving&&!q.moving);}
+  for(const p of poses.filter(p=>p.stage==='conversation')){found=true;const q=poses.find(q=>q.id===p.partnerId);assert.equal(q.partnerId,p.id);assert.equal(q.sid,p.sid);assert.ok(Math.abs(q.workFraction-p.workFraction)>.013);assert.ok(p.holding&&q.holding&&!p.moving&&!q.moving);}
  }
  assert.ok(found,'a complete week must contain actual paired conversations');
  const before=JSON.stringify(s);s.activeMs=NPC_MOTION.meetingStarts[0]*RULES.weekMs+NPC_MOTION.meetingTravelMs/.85+500;
