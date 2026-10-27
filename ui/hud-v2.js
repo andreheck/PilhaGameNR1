@@ -23,6 +23,7 @@ export function installHudV2({root,getState,getHeroes,storage,openCalendar,openH
  let preferences=readHudPreferences(storage),teamSignature='',week=getState().week,previousBudget=getState().budget,eventSerial=getState().events.current?.serial;
  const create=(tag,cls,html='')=>{const el=document.createElement(tag);el.className=cls;el.innerHTML=html;return el;};
  const bar=create('div','hud-v2-bar');bar.setAttribute('role','group');bar.setAttribute('aria-label','Controles principais');
+ const mark=create('span','hud-v2-mark','<b>PilhA+ Game</b><small></small>');
  const menuButton=create('button','hud-v2-menu-button','☰ <span>Menu</span>');menuButton.type='button';menuButton.setAttribute('aria-haspopup','dialog');menuButton.setAttribute('aria-label','Abrir menu da empresa');
  const band=create('div','hud-v2-band'),duo=create('div','hud-v2-duo');duo.setAttribute('role','group');duo.setAttribute('aria-label','Dupla de conselheiros');band.append(duo,alert);
  const nav=create('div','hud-v2-navigation'),toggle=create('button','hud-v2-details','⌃');toggle.type='button';toggle.setAttribute('aria-label','Recolher detalhes da dupla');nav.append(tabs,toggle);
@@ -35,7 +36,7 @@ export function installHudV2({root,getState,getHeroes,storage,openCalendar,openH
  const live=create('p','hud-v2-sr');live.setAttribute('role','status');live.setAttribute('aria-live','polite');
  const critical=create('p','hud-v2-sr');critical.setAttribute('role','alert');
  const delta=create('small','hud-v2-income');delta.setAttribute('role','group');balance.append(delta);balance.setAttribute('role','group');balance.setAttribute('aria-label','Saldo fictício');balance.removeAttribute('aria-live');
- bar.append(menuButton,clock,balance,goal,pause,advance);
+ bar.append(menuButton,mark,clock,balance,goal,pause,advance);
  tools.replaceChildren(bar,band,nav,menu,live,critical);top.append(tools);
  pause.classList.add('hud-v2-pause');advance.classList.add('hud-v2-advance');
  const openMenu=()=>{if(!menu.open){menu.showModal();menu.querySelector('[data-hud-close]').focus();}};
@@ -59,6 +60,7 @@ export function installHudV2({root,getState,getHeroes,storage,openCalendar,openH
  function update(){
   const state=getState(),q=weeklyIncomeQuote(state),index=Math.round(company(state));
   const set=(el,text)=>{if(el.textContent!==text)el.textContent=text;};
+  set(mark.querySelector('small'),'Semana '+state.week);
   pause.setAttribute('aria-label',state.paused?'Retomar jogo':'Pausar jogo');set(pause,state.paused?'▶ Retomar':'Ⅱ Pausar');
   advance.setAttribute('aria-label','Avançar uma semana simulada');set(advance,'▶ Semana');
   set(delta,'+'+(q.total>=1000?money(q.total/1000)+'mil':money(q.total))+'/sem');delta.setAttribute('aria-label','Próximo aporte semanal: '+money(q.total)+' créditos fictícios. Não representa lucro ou variação líquida.');
@@ -67,7 +69,7 @@ export function installHudV2({root,getState,getHeroes,storage,openCalendar,openH
   root.classList.toggle('hud-v2-collapsed',!preferences.expanded);toggle.setAttribute('aria-expanded',String(preferences.expanded));toggle.setAttribute('aria-label',preferences.expanded?'Recolher detalhes da dupla':'Expandir detalhes da dupla');set(toggle,preferences.expanded?'⌃':'⌄');
   const signature=JSON.stringify(state.team);if(signature!==teamSignature){teamSignature=signature;const heroes=getHeroes();duo.replaceChildren();
    for(const [role,label] of [['principal','Principal'],['support','Apoio']]){const h=heroes.find(h=>h.id===state.team?.[role]);if(!h)continue;
-    const b=create('button','hud-v2-hero',`<img src="${esc(h.img)}" alt=""><span><b>${esc(shortName(h.id)||h.nome)}</b><small>${label}</small><small class="hud-v2-power">○ Em breve</small></span>`);
+    const b=create('button','hud-v2-hero',`<span class="hud-v2-avatar"><img src="${esc(h.img)}" alt=""></span><span><b>${esc(shortName(h.id)||h.nome)}</b><small>${label}</small><small class="hud-v2-power">○ Em breve</small></span>`);
     b.type='button';b.setAttribute('aria-label',`${h.nome}, ${label.toLowerCase()}. Poder individual ainda não disponível neste modo. Abrir ficha.`);b.onclick=()=>openHero(h.id);duo.append(b);
    }
   }
