@@ -3,6 +3,7 @@
  * Filename suffixes are not necessarily the version of their JSON envelope.
  */
 export const STORAGE_KEYS=Object.freeze([
+ {key:'pilha-hud-preferences-v1',version:1,format:'json',owner:'simulation/hud-preferences.js',scope:'presentation-preference',migration:'Only expanded and shortcuts booleans. Missing/unknown/corrupt data uses session defaults without overwriting the original on read; company and legacy saves are never touched.'},
  {key:'pilha-company-continuous-v2',version:2,format:'json',owner:'simulation/company-continuous.js',scope:'active',migration:'Existing v2 is preserved; absent v2 may import investment-v1 or mapa-v1. Living fields added without retroactive income or health effects.'},
  {key:'pilha-investment-v1',version:[1,2],format:'json',owner:'simulation/investment.js',scope:'legacy-economy',migration:'Envelope v1/v2 read defensively; original key retained when imported into continuous mode; XP and training remain here.'},
  {key:'pilha-mapa-v1',version:1,format:'json-v-field',owner:'ui/claude/pilha-mapa.js',scope:'legacy-map',migration:'v=1 balance and sector levels may be copied into absent continuous-v2; original bytes retained.'},
