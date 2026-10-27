@@ -7,6 +7,8 @@ on:
       - 'simulation/storage-keys.js'
       - 'tools/qa-hud-v2.py'
       - 'tools/qa-world.py'
+      - 'tools/qa-furniture.py'
+      - 'data/continuous/furniture-visuals*'
       - 'simulation/world-graph.js'
       - 'tests/world-graph.test.mjs'
       - '.github/workflows/hud-v2.yml'
@@ -37,6 +39,7 @@ jobs:
       - run: node --test tests/world-graph.test.mjs
       - run: python tools/qa-hud-v2.py
       - run: python tools/qa-world.py
+      - run: python tools/qa-furniture.py
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -44,4 +47,5 @@ jobs:
           path: |
             artifacts/hud-v2/
             artifacts/world/
+            artifacts/furniture/
           retention-days: 7

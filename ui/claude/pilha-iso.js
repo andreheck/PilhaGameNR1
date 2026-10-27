@@ -183,6 +183,7 @@
   function create(canvas, zoneColors, zoneNamesIn, worldGeometry) {
     var ctx = canvas.getContext("2d");
     var cw = 1, ch = 1, dpr = 1, s = 1, ox = 0, oy = 0;
+    var furnitureCatalog=null,furnitureImages={},furnitureAtlas=null,furnitureReveal={},furniturePresentation=null;
     var envs = {}, order = ["escritorio", "producao", "atendimento"];
     var env = null, time = 0, raf = 0, last = 0, isStatic = false, running = false, sharedIndexMode = false, inventory = new Set(), npcSheets = [], connections = [], commuters = [];
     var colors = zoneColors || ["#ffd166", "#48cae4", "#52b788", "#f4a261", "#9b5de5", "#e63946"];
@@ -303,7 +304,8 @@
 
     /* --- objetos --- */
     function drawItem(it, e) {
-      var hl = 0.22 + 0.78 * e.zh[it.z], t = time, x = it.x, y = it.y, w = it.w, d = it.d, h = it.h, c = it.c;
+      if(furniturePresentation&&furnitureCatalog&&furniturePresentation.draw({ctx:ctx,P:P,box:box,poly:poly,scale:s,unit:ZU,time:global.matchMedia&&global.matchMedia('(prefers-reduced-motion: reduce)').matches?0:time},it,e,{catalog:furnitureCatalog,images:furnitureImages,reveal:furnitureReveal,atlas:furnitureAtlas}))return;
+      var hl = 0.22 + 0.78 * e.zh[it.z], t = global.matchMedia&&global.matchMedia('(prefers-reduced-motion: reduce)').matches?0:time, x = it.x, y = it.y, w = it.w, d = it.d, h = it.h, c = it.c;
       var seed = it.x * 3 + it.y;
       if(sharedIndexMode){
         if(inventory.has('ergonomia')&&it.t==='desk'){w+=.22;h+=.12;c='#54b8b0';hl=Math.max(hl,.85);}
@@ -387,6 +389,7 @@
       ell(fx, fy, 0.26 * u, 0.11 * u, "rgba(0,0,0,.28)");
       var hipY = fy - (sit ? 0.42 : 0.62) * u + bob;
       var sprite = sharedIndexMode && !sit && p.npc >= 0 && npcSheets.length ? npcSheets[(p.sprite==null?p.npc+Math.max(0,order.indexOf(e.key)):p.sprite)%npcSheets.length] : null;
+      if(!sprite&&furnitureCatalog){u*=furnitureCatalog.ruler.adultHeight/1.43;hipY=fy-(sit?.42:.62)*u+bob;}
       if(!sprite){
       if (!sit) {
         ctx.lineCap = "round"; ctx.lineWidth = 0.13 * u; ctx.strokeStyle = tone("#1e293b", hl, 1);
@@ -715,6 +718,8 @@
     }
 
     return {
+      setFurniturePresentation:function(p){furniturePresentation=p;if(furnitureCatalog)Object.keys(envs).forEach(function(key){applyInstallations(envs[key]);});render();},
+      furnitureLayout:function(){return Object.values(envs).map(function(e){return {id:e.key,unplaced:e.furnitureUnplaced||[],items:e.items.filter(function(it){return !it.visualProgram;}).map(function(it){return {id:it.visualId||it.amenity||it.visualAsset||it.t,visualIds:it.visualIds||[],type:it.t,x:it.x,y:it.y,w:it.w,d:it.d,h:it.h,hidden:!!it.layoutHidden};})};});},
       setSharedIndexMode: function (value) { sharedIndexMode = !!value; render(); },
       setInventory:function(ids){if(JSON.stringify(Array.from(inventory))===JSON.stringify(ids))return;inventory=new Set(ids);Object.keys(envs).forEach(function(k){applyInstallations(envs[k]);});if(!running)render();},
       setNpcSheets:function(sheets){npcSheets=sheets;render();},
