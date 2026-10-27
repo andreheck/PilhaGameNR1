@@ -9,7 +9,7 @@ export function installWorldAccess({root,getState,focusZone,showDialog}){
  const canvas=root.querySelector('.pm-canvas'),description=document.createElement('p');
  description.id='company-world-description';description.className='pm-sr';
  description.textContent='Um único piso com Escritório, Produção, Atendimento e Restauração, ligados por corredores. Use as abas para focar uma zona, setas para mover a câmera, mais e menos para zoom. A lista Zonas e melhorias oferece navegação por teclado e leitura textual.';
- canvas.setAttribute('aria-describedby',description.id);canvas.after(description);
+ canvas.setAttribute('aria-label','Mapa isométrico da empresa: Escritório, Produção, Atendimento e Restauração em um piso contínuo.');canvas.setAttribute('aria-describedby',description.id);canvas.after(description);
  const link=document.createElement('button');link.type='button';link.className='world-access-link pm-sr';link.textContent='Abrir alternativa textual: Zonas e melhorias';description.after(link);
  const menu=document.createElement('button');menu.type='button';menu.dataset.company='zones';menu.textContent='Zonas e melhorias';root.querySelector('.living-menu-actions').append(menu);
  function markup(){
