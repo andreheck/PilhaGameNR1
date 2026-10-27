@@ -216,5 +216,5 @@
 @media(max-width:899px){.pm-root.has-panel{grid-template-rows:minmax(0,1fr) min(42dvh,360px)}.pm-root.has-panel .pm-ph>p{display:none}.pm-root.has-panel .pm-ph{padding:12px}.pm-root.has-panel .pm-ring{width:66px;height:66px;flex-basis:66px}.pm-root.has-panel .pm-ring b{font-size:24px}.pm-root.has-panel .pm-score{gap:10px}.pm-root.has-panel .pm-sgoal{margin-top:7px}.pm-root.has-panel .pm-ph__row h2{font-size:17px}}
 
 /* Camera controls remain reachable while the mobile sector sheet is open. */
-@media(max-width:899px){.pm-root.has-panel .pm-zoom{display:grid;z-index:3}.pm-root.has-panel .pm-zoom button{min-width:44px;min-height:44px}}
+@media(max-width:899px){.pm-root.has-panel .pm-stage>.pm-view{min-height:0}.pm-root.has-panel .pm-zoom{display:grid;z-index:3}.pm-root.has-panel .pm-zoom button{min-width:44px;min-height:44px}}
 .pm-root .pm-toast .pm-toast__act{color:#07111f;font-weight:750;min-height:44px;font-size:14px}
