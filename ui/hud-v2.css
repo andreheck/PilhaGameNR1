@@ -44,6 +44,12 @@
 .hud-v2 .pm-toast .pm-toast__act{color:#07111f;min-height:44px;font-size:14px}
 .hud-v2 .pm-toast .pm-toast__x{min-width:44px;min-height:44px}
 .hud-v2 .pm-panel{z-index:300}.hud-v2-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(min-width:900px){
+ .hud-v2 .living-topbar{display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:12px;align-items:center}
+ .hud-v2 .continuous-tools .hud-v2-bar{grid-column:1/-1}
+ .hud-v2 .continuous-tools .hud-v2-band{grid-column:1}
+ .hud-v2 .continuous-tools .hud-v2-navigation{grid-column:2}
+}
 @media(max-width:899px){
  .hud-v2 .living-topbar{padding:4px max(6px,env(safe-area-inset-left)) 4px max(6px,env(safe-area-inset-right))}
  .hud-v2 .continuous-tools .hud-v2-bar{display:grid;grid-template-columns:44px minmax(60px,1fr) minmax(50px,.8fr) 44px 72px;gap:4px}
