@@ -19,14 +19,15 @@ export function installWorldAccess({root,getState,focusZone,showDialog}){
    return `<section class="world-access-zone"><h3>${status.symbol} ${esc(s.name)} · ${status.text} · ${format(index)}/100</h3><p>${esc(s.description)}</p><dl>${FACTORS.map(f=>`<div><dt>${esc(f.name)}</dt><dd>${format(factors[f.id])}/100</dd></div>`).join('')}</dl><button type="button" data-world-zone="${i}">Examinar e melhorar ${esc(s.name)}</button><details><summary>Níveis e próximas melhorias de ${esc(s.name)}</summary><table><caption>Melhorias de ${esc(s.name)} · créditos fictícios</caption><thead><tr><th scope="col">Melhoria</th><th scope="col">Nível</th><th scope="col">Próximo nível</th></tr></thead><tbody>${ITEMS.filter(c=>c.rest===s.rest).map(c=>{const n=level(state,s.id,c.id),q=quote(state,s.id,c.id);return `<tr><th scope="row">${esc(c.name)}</th><td>${n}/3</td><td>${q.ok?format(q.cost)+' créditos'+(q.affordable?'':' · saldo insuficiente'):'Máximo adquirido'}</td></tr>`;}).join('')}</tbody></table></details></section>`;
   }).join('')}`;
  }
- function open(){
+ function open(event){
+  const opener=event?.currentTarget||link;let selected=false;
   menu.closest('details')?.removeAttribute('open');if(current?.open)return;
   const d=showDialog('Zonas e melhorias',markup());current=d;d.classList.add('world-access-dialog');d.setAttribute('aria-label','Zonas e melhorias');
   const title=d.querySelector('h2');title.tabIndex=-1;title.focus();
-  d.addEventListener('close',()=>{current=null;},{once:true});
+  d.addEventListener('close',()=>{current=null;if(selected)canvas.focus({preventScroll:true});else{const target=opener===link?link:root.querySelector('.hud-v2-menu-button')||root.querySelector('.living-more summary');target?.focus({preventScroll:true});}},{once:true});
   d.addEventListener('click',event=>{const button=event.target.closest('button');if(!button)return;
    if(button.hasAttribute('data-world-refresh')){d.querySelector('.modal-content').innerHTML=markup();d.querySelector('[data-world-refresh]').focus();}
-   else if(button.hasAttribute('data-world-zone')){const i=Number(button.dataset.worldZone);if(SECTORS[i]){d.close();focusZone(i);}}
+   else if(button.hasAttribute('data-world-zone')){const i=Number(button.dataset.worldZone);if(SECTORS[i]){selected=true;d.close();focusZone(i);}}
   });
  }
  link.onclick=open;menu.onclick=open;
