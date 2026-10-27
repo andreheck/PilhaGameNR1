@@ -22,6 +22,7 @@ const portals=[
 ].map(([zone,side,x,y])=>Object.freeze({zone,side,x,y,width:2}));
 const corridorPaths=[[point(13,4),point(13,9),point(13,14)],[point(8,9),point(13,9),point(22,9)]];
 export const REST_ANCHORS=Object.freeze({biblioteca:[2.9,2.1],bosque:[6.6,2.1],meditacao:[10.6,3.3],auditorio:[2.5,6.5],patio:[9.5,6.6]});
+export const MEETING_ANCHORS=Object.freeze([[9.1,4.8],[9.8,4.8],[10.5,4.8],[10.5,5.5],[9.8,5.5],[9.1,5.5]]);
 const key=p=>p.x.toFixed(4)+','+p.y.toFixed(4);
 const onSegment=(p,a,b)=>Math.abs((b.x-a.x)*(p.y-a.y)-(b.y-a.y)*(p.x-a.x))<1e-6&&p.x>=Math.min(a.x,b.x)-1e-6&&p.x<=Math.max(a.x,b.x)+1e-6&&p.y>=Math.min(a.y,b.y)-1e-6&&p.y<=Math.max(a.y,b.y)+1e-6;
 const projection=(p,a,b)=>{const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy)));return point(a.x+t*dx,a.y+t*dy);};
@@ -39,11 +40,12 @@ export function buildWorldGraph(aisle){
   let best=null;
   for(const s of segments.filter(s=>s.zone===zone)){const q=projection(p,s.a,s.b),d=Math.hypot(q.x-p.x,q.y-p.y);if(!best||d<best.distance)best={q,distance:d};}
   if(!best)throw Error('No aisle for '+zone);
-  node(best.q);node(p,type);if(key(p)!==key(best.q))segments.push({a:best.q,b:p,type,zone:null});
+  node(best.q);node(p,type);if(key(p)!==key(best.q)){if(Math.abs(best.q.x-p.x)>1e-6&&Math.abs(best.q.y-p.y)>1e-6){const bend=point(p.x,best.q.y);node(bend,type);segments.push({a:best.q,b:bend,type,zone:null},{a:bend,b:p,type,zone:null});}else segments.push({a:best.q,b:p,type,zone:null});}
   anchors[id]=key(p);
  }
  const rest=zones.find(z=>z.id==='restauracao');
  for(const [name,xy] of Object.entries(REST_ANCHORS))for(let seat=0;seat<6;seat++)attach(point(rest.x+xy[0]+seat%3*.18,rest.y+xy[1]+Math.floor(seat/3)*.12),rest.id,'rest',name+':'+seat);
+ MEETING_ANCHORS.forEach((xy,i)=>attach(point(rest.x+xy[0],rest.y+xy[1]),rest.id,'meeting','meeting:'+i));
  // Split perpendicular intersections as well as collinear joins.
  for(let i=0;i<segments.length;i++)for(let j=i+1;j<segments.length;j++){
   const a=segments[i],b=segments[j],av=Math.abs(a.a.x-a.b.x)<1e-6,bv=Math.abs(b.a.x-b.b.x)<1e-6;
@@ -69,7 +71,7 @@ export function shortestPath(graph,start,end){
 function route(defs,aisle,_links,home,space,workerId){
  if(defs.length!==zones.length||defs.some(d=>!zones.some(z=>z.id===d.key&&z.x===d.bx&&z.y===d.by)))return [];
  const g=buildWorldGraph(aisle),seat=Number(String(workerId||'0').replace(/\D/g,''))%6;
- return shortestPath(g,g.anchors[home],g.anchors[(REST_ANCHORS[space]?space:'patio')+':'+seat]);
+ return shortestPath(g,g.anchors[home],g.anchors[space.startsWith('meeting:')?space:(REST_ANCHORS[space]?space:'patio')+':'+seat]);
 }
 export const WORLD=Object.freeze({id:'pilha-world-v1',width:26,depth:18,doorWidth:2,zones:Object.freeze(zones),
  hallways:Object.freeze([{x:12,y:0,width:2,depth:18},{x:0,y:8,width:26,depth:2}]),

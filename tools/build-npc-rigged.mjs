@@ -12,7 +12,7 @@ replace('var employeeRows=[],employeeHits=[],employeeHover=null,employeePaused=f
     if(global.Image)Object.keys(riggedBindings).forEach(function(id){var row=riggedBindings[id];['walk','idle','talk'].forEach(function(action){if(!row[action])return;var img=new global.Image();riggedImages[id+'|'+action]=img;img.onload=function(){if(!running)render();};img.src=row[action];});});`);
 const selector=source.split('\n').find(l=>l.includes('var sprite = sharedIndexMode'));
 replace(selector,selector+`
-      var rigged=riggedBindings[p.employeeId],riggedAction=walking?'walk':sit&&rigged&&rigged.talk?'talk':'idle';
+      var rigged=riggedBindings[p.employeeId],riggedAction=walking?'walk':(sit||p.talking)&&rigged&&rigged.talk?'talk':'idle';
       var approvedSheet=riggedImages[p.employeeId+'|'+riggedAction];
       if(rigged)sprite=approvedSheet&&approvedSheet.complete&&approvedSheet.naturalWidth?approvedSheet:null;`);
 replace('ctx.drawImage(sprite,frame*128,(p.facing||0)*192,128,192,fx-sw/2,fy-sh,sw,sh);','ctx.drawImage(sprite,frame*128,(p.facing||0)*192,128,192,fx-sw/2,fy-sh*(rigged?rigged.anchorY:1),sw,sh);');

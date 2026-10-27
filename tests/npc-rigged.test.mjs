@@ -19,7 +19,7 @@ function engine(s,{images=true}={}){
  return {iso,calls,tick:n=>{clock=n;raf?.(n);}};
 }
 test('only the two approved actors draw rigged sheets and use animated frames without mutating saves',()=>{
- const s=L.ensureLiving(M.fresh());s.activeMs=12000;const before=JSON.stringify(s),{iso,calls,tick}=engine(s);tick(16);const first=iso.riggedAssetsStatus();tick(616);const next=iso.riggedAssetsStatus();
+ const s=L.ensureLiving(M.fresh());s.activeMs=Array.from({length:1200},(_,i)=>i*100).find(t=>{const rows=L.routines(s);return ['NPC-16','NPC-07'].every(id=>{const r=rows.find(r=>r.id===id);return r.sampleAt(t).moving&&r.sampleAt(t+700).moving;});});const before=JSON.stringify(s),{iso,calls,tick}=engine(s);tick(16);const first=iso.riggedAssetsStatus();tick(616);const next=iso.riggedAssetsStatus();
  assert.equal(next.loaded,5);assert.deepEqual(Array.from(next.bindings),['NPC-16','NPC-07']);assert.equal(next.drawn.length,2);assert.ok(next.drawn.every(p=>p.action==='walk'));assert.notEqual(next.drawn.find(p=>p.id==='NPC-16').frame,first.drawn.find(p=>p.id==='NPC-16').frame);
  assert.ok(calls.some(([src])=>src?.endsWith('/beatriz-walk.png')));assert.equal(iso.getEmployees().length,16);assert.equal(JSON.stringify(s),before);
  const p=iso.getEmployees().find(p=>p.id==='NPC-16');iso.focusEmployee(p.id,0);const focused=iso.getEmployees().find(q=>q.id===p.id);assert.equal(iso.pickEmployee(focused.screen.x,focused.screen.y),p.id);
@@ -34,5 +34,5 @@ test('unavailable sprite files keep all active actors visible through the existi
 });
 
 test('Mariana uses her supplied conversation clip during a restorative pause',()=>{
- const s=L.ensureLiving(M.fresh());s.activeMs=16286;const {iso,tick}=engine(s);tick(16);assert.equal(L.routines(s).find(p=>p.id==='NPC-07').stage,'rest');assert.equal(iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-07').action,'talk');
+ const s=L.ensureLiving(M.fresh());s.activeMs=Array.from({length:1200},(_,i)=>i*100).find(t=>L.routines(s).find(r=>r.id==='NPC-07').sampleAt(t).stage==='rest');const {iso,tick}=engine(s);tick(16);assert.equal(L.routines(s).find(p=>p.id==='NPC-07').stage,'rest');assert.equal(iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-07').action,'talk');
 });
