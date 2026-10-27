@@ -76,7 +76,7 @@ def run(browser,width,height,port):
         page.locator('.pm-tab[data-i="0"]').click();page.locator('.pm-root.has-panel').wait_for()
         audit.scan(page,'setor-critico',(width,height))
     except Exception:
-        report['failureContext']=page.evaluate('({focus:document.activeElement?.outerHTML,openDialogs:[...document.querySelectorAll("dialog[open]")].map(d=>d.className),preferences:localStorage.getItem("pilha-hud-preferences-v1"),paused:window.PilhaLiving?.getState().paused})')
+        report['failureContext']=page.evaluate('({focus:document.activeElement?.outerHTML.slice(0,500),openDialogs:[...document.querySelectorAll("dialog[open]")].map(d=>d.className),preferences:localStorage.getItem("pilha-hud-preferences-v1"),paused:window.PilhaLiving?.getState().paused})')
         page.screenshot(path=str(OUT/f'FAILED-{tag}.png'));raise
     finally:ctx.close()
 
