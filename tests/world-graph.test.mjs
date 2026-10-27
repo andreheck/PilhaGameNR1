@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {WORLD,REST_ANCHORS,buildWorldGraph,shortestPath} from '../simulation/world-graph.js';
+import {WORLD,REST_ANCHORS,MEETING_ANCHORS,buildWorldGraph,shortestPath} from '../simulation/world-graph.js';
 import {EMPLOYEES} from '../data/continuous/employees.js';
 import {SECTORS} from '../data/continuous/catalog.js';
 import * as M from '../simulation/company-continuous.js';
@@ -33,7 +33,7 @@ test('corridors, portals, work anchors and all rest seats form one connected gra
 });
 test('all sixteen canonical routes remain deterministic and cross zone boundaries only through open doors',()=>{
  const {aisle}=engine();
- for(const person of EMPLOYEES)for(const space of Object.keys(REST_ANCHORS)){
+ for(const person of EMPLOYEES)for(const space of [...Object.keys(REST_ANCHORS),...MEETING_ANCHORS.map((_,i)=>'meeting:'+i)]){
   const path=WORLD.route(defs,aisle,WORLD.links,person.home,space,person.id);
   assert.ok(path.length>2,person.id+' '+space);assert.deepEqual(path,WORLD.route(defs,aisle,WORLD.links,person.home,space,person.id));
   for(let i=1;i<path.length;i++){

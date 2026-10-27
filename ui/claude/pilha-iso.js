@@ -412,6 +412,11 @@
         ctx.drawImage(sprite,frame*128,(p.facing||0)*192,128,192,fx-sw/2,fy-sh,sw,sh);
         hr=.16*u;hy=fy-1.83*u;
       }
+      if(p.talking&&(p.activity==='meeting'?p.isMeetingLeader:p.employeeId<p.partnerId)){
+        var label=p.activity==='meeting'?'Reunião':'Conversa',socialY=hy-hr*3.6-10;
+        ctx.save();ctx.font='700 10px system-ui';var socialWidth=ctx.measureText(label).width+12;
+        rr(fx-socialWidth/2,socialY-11,socialWidth,18,6);ctx.fillStyle='#123b48';ctx.fill();ctx.strokeStyle='#82ddc1';ctx.stroke();ctx.fillStyle='#effff9';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,fx,socialY-2);ctx.restore();
+      }
       // balões de estado
       var cyc = (time * 0.35 + p.seed) % 5;
       if (hz < 0.35 && (cyc < 1.4 || isStatic && !sit && p.seed < 4)) {

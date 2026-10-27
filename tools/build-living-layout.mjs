@@ -11,6 +11,6 @@ iso=patch(iso,'    function PFor(c,x,y,z){',routines+'\n    function PFor(c,x,y,
 iso=patch(iso,'      setEmployees:setEmployees,','      setRoutineClock:setRoutineClock,\n      setEmployees:setEmployees,');
 iso=patch(iso,'stepCommuters(dt);','if(!routineClock)stepCommuters(dt);updateRoutinePeople();');
 iso=patch(iso,'var old=restVisitors;restVisitors=[];','if(routineClock)return;var old=restVisitors;restVisitors=[];');
-iso=patch(iso,'return result;}','commuters.forEach(function(p){var c=worldCfg&&worldCfg.find(function(c){return c.key===p.from;});if(c&&p.employeeId)result.push({id:p.employeeId,name:p.name,sector:c.key,x:p.x-c.bx,y:p.y-c.by,screen:PFor(c,p.x-c.bx,p.y-c.by,.7),moving:p.moving,health:p.score});});return result;}');
+iso=patch(iso,'return result;}','commuters.forEach(function(p){var c=worldCfg&&worldCfg.find(function(c){return c.key===p.from;});if(c&&p.employeeId)result.push({id:p.employeeId,name:p.name,sector:c.key,x:p.x-c.bx,y:p.y-c.by,screen:PFor(c,p.x-c.bx,p.y-c.by,.7),moving:p.moving,health:p.score,activity:p.activity,talking:!!p.talking,partnerId:p.partnerId});});return result;}');
 fs.writeFileSync(isoPath,iso);
 const htmlPath=root+'index.html';fs.writeFileSync(htmlPath,patch(fs.readFileSync(htmlPath,'utf8'),'<script src="/ui/continuous/iso.js">','<script src="/ui/npc-route-navigation.js"></script><script src="/ui/continuous/iso.js">'));

@@ -1,3 +1,6 @@
+import {routines} from '../simulation/company-living.js';
+import {roster} from '../simulation/staffing-management.js';
+import {RULES} from '../data/continuous/catalog.js';
 import {SECTORS,ITEMS,FACTORS} from '../data/continuous/catalog.js';
 import {metrics,values,level,quote} from '../simulation/company-continuous.js';
 import {sectorStatus} from './hud-v2.js';
@@ -13,8 +16,8 @@ export function installWorldAccess({root,getState,focusZone,showDialog}){
  const link=document.createElement('button');link.type='button';link.className='world-access-link pm-sr';link.textContent='Abrir alternativa textual: Zonas e melhorias';description.after(link);
  const menu=document.createElement('button');menu.type='button';menu.dataset.company='zones';menu.textContent='Zonas e melhorias';root.querySelector('.living-menu-actions').append(menu);
  function markup(){
-  const state=getState(),format=n=>n.toLocaleString('pt-BR',{maximumFractionDigits:1});
-  return `<p>Leitura da semana ${state.week}. Indicadores fictícios, não diagnósticos. As ações abrem o painel da zona com as opções de melhoria e valores atuais.</p><button type="button" data-world-refresh>Atualizar leitura</button>${SECTORS.map((s,i)=>{
+  const state=getState(),agenda=routines(state),people=roster(state),format=n=>n.toLocaleString('pt-BR',{maximumFractionDigits:1});
+  return `<p>Leitura da semana ${state.week}. Indicadores fictícios, não diagnósticos. As ações abrem o painel da zona com as opções de melhoria e valores atuais.</p><button type="button" data-world-refresh>Atualizar leitura</button><section class="world-team-agenda"><h3>Agenda da equipe · semana ${state.week}</h3><p>Conversas breves entre colegas do mesmo setor e uma reunião semanal no pátio com cada gerente ativo. Pausas e benefícios temporários continuam separados de salário e aportes.</p><ul>${SECTORS.filter(z=>!z.rest).map(z=>{const rows=agenda.filter(r=>r.sid===z.id),event=rows[0]?.agenda.find(e=>e.kind==='meeting');if(!event)return `<li><b>${esc(z.name)}</b>: reunião não agendada, sem gerente ativo.</li>`;const date=new Date(state.calendarEpochMs+event.start/RULES.weekMs*7*86400000).toLocaleString('pt-BR',{timeZone:'UTC',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});return `<li><b>${esc(z.name)}</b>: ${esc(people.find(p=>p.id===event.managerId)?.name||'Gerente')} e ${rows.length-1} colegas · ${date} · pátio.</li>`;}).join('')}</ul></section>${SECTORS.map((s,i)=>{
    const index=metrics(state,s.id).index,status=sectorStatus(index),factors=values(state,s.id);
    return `<section class="world-access-zone"><h3>${status.symbol} ${esc(s.name)} · ${status.text} · ${format(index)}/100</h3><p>${esc(s.description)}</p><dl>${FACTORS.map(f=>`<div><dt>${esc(f.name)}</dt><dd>${format(factors[f.id])}/100</dd></div>`).join('')}</dl><button type="button" data-world-zone="${i}">Examinar e melhorar ${esc(s.name)}</button><details><summary>Níveis e próximas melhorias de ${esc(s.name)}</summary><table><caption>Melhorias de ${esc(s.name)} · créditos fictícios</caption><thead><tr><th scope="col">Melhoria</th><th scope="col">Nível</th><th scope="col">Próximo nível</th></tr></thead><tbody>${ITEMS.filter(c=>c.rest===s.rest).map(c=>{const n=level(state,s.id,c.id),q=quote(state,s.id,c.id);return `<tr><th scope="row">${esc(c.name)}</th><td>${n}/3</td><td>${q.ok?format(q.cost)+' créditos'+(q.affordable?'':' · saldo insuficiente'):'Máximo adquirido'}</td></tr>`;}).join('')}</tbody></table></details></section>`;
   }).join('')}`;

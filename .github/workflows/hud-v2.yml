@@ -8,6 +8,9 @@ on:
       - 'tools/qa-hud-v2.py'
       - 'tools/qa-world.py'
       - 'tools/qa-furniture.py'
+      - 'tools/qa-social.py'
+      - 'simulation/npc-*.js'
+      - 'simulation/rest-routines.js'
       - 'data/continuous/furniture-visuals*'
       - 'simulation/world-graph.js'
       - 'tests/world-graph.test.mjs'
@@ -40,6 +43,7 @@ jobs:
       - run: python tools/qa-hud-v2.py
       - run: python tools/qa-world.py
       - run: python tools/qa-furniture.py
+      - run: python tools/qa-social.py
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -48,4 +52,5 @@ jobs:
             artifacts/hud-v2/
             artifacts/world/
             artifacts/furniture/
+            artifacts/social/
           retention-days: 7
