@@ -76,7 +76,7 @@ export function installHudV2({root,getState,getHeroes,storage,openCalendar,openH
    }
   }
   tabs.querySelectorAll('[data-i]').forEach(button=>{const id=Number(button.dataset.i),sector=SECTORS[id];if(!sector)return;
-   const value=Math.round(metrics(state,sector.id).index),status=sectorStatus(value);let label=button.querySelector('[data-hud-sector-state]');
+   const score=metrics(state,sector.id).index,value=Math.round(score),status=sectorStatus(score);let label=button.querySelector('[data-hud-sector-state]');
    if(!label){label=document.createElement('span');label.dataset.hudSectorState='';button.append(label);}set(label,' · '+status.text);
    const icon=button.querySelector('i');if(icon)set(icon,status.symbol);
    button.setAttribute('aria-label',`${sector.name}, ${value} de 100, ${status.text}`);
