@@ -211,3 +211,10 @@
 .living-topbar{position:relative}.living-topbar>.living-chrome-toggle{position:absolute;right:8px;bottom:5px;z-index:3;min-width:31px;min-height:29px;margin:0;border:1px solid #83adc357;border-radius:8px;background:#163348cc;color:#fff;font-size:20px;cursor:pointer}
 @media(max-width:420px){.living-topbar .living-clock-holder{width:76px;flex:0 0 76px;order:1}.living-topbar .living-time>span:first-of-type{display:none}.living-topbar .living-time{grid-template-columns:16px 1fr;min-height:30px}.living-topbar .living-time-digits{grid-column:2;grid-row:1;font-size:16px}.living-topbar .continuous-tools{margin-left:auto;gap:3px}.living-topbar .living-time-actions{gap:3px}.living-topbar .continuous-tools button,.living-more>summary{padding:5px;min-height:30px;font-size:9px}.living-topbar .pm-hud{gap:4px}}
 .hiring-footer [data-hiring-back]{border:1px solid #51709a;background:#213f66;color:#f2f5ff;cursor:pointer}
+
+/* Source of truth: mobile sheet, previously appended by build-living-layout. */
+@media(max-width:899px){.pm-root.has-panel{grid-template-rows:minmax(0,1fr) min(42dvh,360px)}.pm-root.has-panel .pm-ph>p{display:none}.pm-root.has-panel .pm-ph{padding:12px}.pm-root.has-panel .pm-ring{width:66px;height:66px;flex-basis:66px}.pm-root.has-panel .pm-ring b{font-size:24px}.pm-root.has-panel .pm-score{gap:10px}.pm-root.has-panel .pm-sgoal{margin-top:7px}.pm-root.has-panel .pm-ph__row h2{font-size:17px}}
+
+/* Camera controls remain reachable while the mobile sector sheet is open. */
+@media(max-width:899px){.pm-root.has-panel .pm-stage>.pm-view{min-height:0}.pm-root.has-panel .pm-zoom{display:grid;z-index:3}.pm-root.has-panel .pm-zoom button{min-width:44px;min-height:44px}}
+.pm-root .pm-toast .pm-toast__act{color:#07111f;font-weight:750;min-height:44px;font-size:14px}

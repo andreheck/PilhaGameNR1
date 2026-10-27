@@ -25,9 +25,6 @@ map=replace(map,'setMotion: setMotion, refresh: refresh','toast: toast, setMotio
 map=replace(map,'"1","2","3"','"1","2","3","4"');
 map=replace(map,'case "1": case "2": case "3": select(+e.key - 1, -1); break;','case "1": case "2": case "3": case "4": select(+e.key - 1, -1); break;');
 let iso=fs.readFileSync(path.join(root,'ui/claude/pilha-iso.js'),'utf8');
-iso=replace(iso,'var PALETTES = {','var PALETTES = {\n restauracao:{floorA:"#416b56",floorB:"#365d4a",wall:"#365c63",wallR:"#244652",line:"rgba(117,235,177,.4)"},');
-iso=replace(iso,'var VARIANTS = {','var VARIANTS = {\n restauracao:["R","R","R","R","R","R"],');
-iso=replace(iso,'return { key: key, pal: PALETTES[key], items: items, people: people,','if(key==="restauracao")people=[];\n return { key: key, pal: PALETTES[key], items: items, people: people,');
 iso=replace(iso,'inventory = new Set(), npcSheets','inventory = new Set(), localLevels = null, restVisitors = [], npcSheets');
 const extras=`
       if(localLevels){
