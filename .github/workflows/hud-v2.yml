@@ -6,6 +6,9 @@ on:
       - 'simulation/hud-preferences.js'
       - 'simulation/storage-keys.js'
       - 'tools/qa-hud-v2.py'
+      - 'tools/qa-world.py'
+      - 'simulation/world-graph.js'
+      - 'tests/world-graph.test.mjs'
       - '.github/workflows/hud-v2.yml'
 permissions:
   contents: read
@@ -31,10 +34,14 @@ jobs:
             python -m playwright install --with-deps chromium
           fi
           npm install --prefix artifacts/a11y-deps --ignore-scripts --no-package-lock --no-audit --no-fund axe-core@4.10.3
+      - run: node --test tests/world-graph.test.mjs
       - run: python tools/qa-hud-v2.py
+      - run: python tools/qa-world.py
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: hud-v2-qa
-          path: artifacts/hud-v2/
+          path: |
+            artifacts/hud-v2/
+            artifacts/world/
           retention-days: 7

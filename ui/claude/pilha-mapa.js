@@ -231,7 +231,7 @@
       root.querySelector(".pm-legend").textContent = "Cenário ilustrativo · índices sintéticos";
       balEl.setAttribute("aria-live", "polite");
     }
-    var iso = global.PilhaIso.create(canvas, FACTORS.map(function (f) { return f.cor; }), FACTORS.map(function (f) { return f.nome; }));
+    var iso = global.PilhaIso.create(canvas, FACTORS.map(function (f) { return f.cor; }), FACTORS.map(function (f) { return f.nome; }), o.world);
     iso.setSharedIndexMode(!!o.model);
     iso.setStatic(reduce);
 
@@ -239,6 +239,7 @@
 
     /* --- motor <-> estado --- */
     function layoutDefs(tall) {
+      if(o.world)return o.world.zones.map(function(z){return {key:z.id,name:z.name,bx:z.x,by:z.y};});
       var L = tall ? LAYOUTS.tall : LAYOUTS.wide;
       return SECTORS.map(function (s) { return { key: s.id, name: s.nome, bx: L[s.id][0], by: L[s.id][1] }; });
     }
@@ -256,9 +257,9 @@
       var w = view.clientWidth, h = view.clientHeight;
       if (!force && Math.abs(w - lastW) < 2 && Math.abs(h - lastH) < 2) return;
       lastW = w; lastH = h;
-      var tall = root.clientHeight > root.clientWidth * 1.05;
+      var tall = o.world ? false : root.clientHeight > root.clientWidth * 1.05;
       if (tall !== curTall) { curTall = tall; iso.setWorld(layoutDefs(tall), FACTORS.map(function (f) { return f.nome; })); iso.resize(); refocus(0); return; }
-      iso.resize(); refocus(reduce ? 0 : .55);
+      iso.resize(); if(force)refocus(0);
     }
 
     /* --- HUD --- */
@@ -391,7 +392,7 @@
       root.classList.toggle("has-panel", sel >= 0);
       // força o layout novo antes de reenquadrar a câmera
       void view.offsetWidth; lastW = view.clientWidth; lastH = view.clientHeight;
-      var tall = root.clientHeight > root.clientWidth * 1.05;
+      var tall = o.world ? false : root.clientHeight > root.clientWidth * 1.05;
       if (tall !== curTall) { curTall = tall; iso.setWorld(layoutDefs(tall), FACTORS.map(function (f) { return f.nome; })); }
       iso.resize();
     }
@@ -399,7 +400,7 @@
       var wasSel = sel; sel = i; selZone = zone == null ? -1 : zone;
       iso.setSelection(sel, selZone); iso.setHint(-1);
       applyLayout();
-      iso.focus(sel, selZone, wasSel < 0 ? 0.9 : 0.8);
+      iso.focus(sel, selZone, reduce ? 0 : o.world ? .35 : wasSel < 0 ? .9 : .8);
       renderPanel(); updateHud();
       if (selZone >= 0) later(function () { var el = sc.querySelector(".pm-factor.is-on"); if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" }); }, 50);
       if (o.onSelect) o.onSelect(SECTORS[sel].id);

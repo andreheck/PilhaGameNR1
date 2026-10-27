@@ -54,6 +54,7 @@
   var HAIRS = ["#2b1d0e", "#4a3728", "#111827", "#a16207", "#7f1d1d"];
 
   var PALETTES = {
+    restauracao:{floorA:'#416b56',floorB:'#365d4a',wall:'#365c63',wallR:'#244652',line:'rgba(117,235,177,.4)'},
     escritorio: { floorA: "#3a4f6b", floorB: "#33465f", wall: "#2a4160", wallR: "#223652", line: "rgba(255,255,255,.14)" },
     producao:   { floorA: "#555f6d", floorB: "#4c5663", wall: "#37465a", wallR: "#2d3a4b", line: "rgba(255,210,75,.5)" },
     atendimento:{ floorA: "#40407a", floorB: "#393970", wall: "#35356b", wallR: "#2b2b58", line: "rgba(190,160,255,.25)" }
@@ -95,6 +96,7 @@
 
   /* ---------- montagem dos ambientes ---------- */
   var VARIANTS = {
+    restauracao:["R","R","R","R","R","R"],
     escritorio:  ["A", "B", "A", "C", "B", "A"],
     producao:    ["P1", "P2", "P3", "P3", "P1", "P2"],
     atendimento: ["T1", "T2", "T1", "T1", "T2", "T3"]
@@ -173,11 +175,12 @@
       p.npc = n < 3 ? n : -1;
       people.push(p);
     }
+    if(key==="restauracao")people=[];
     return { key: key, pal: PALETTES[key], items: items, people: people, zh: [0, 0, 0, 0, 0, 0], lit: [false, false, false, false, false, false], tgt: [0, 0, 0, 0, 0, 0], waves: [], rand: rand };
   }
 
   /* ---------- renderizador ---------- */
-  function create(canvas, zoneColors, zoneNamesIn) {
+  function create(canvas, zoneColors, zoneNamesIn, worldGeometry) {
     var ctx = canvas.getContext("2d");
     var cw = 1, ch = 1, dpr = 1, s = 1, ox = 0, oy = 0;
     var envs = {}, order = ["escritorio", "producao", "atendimento"];
@@ -251,7 +254,7 @@
       var pal = e.pal, avg = (e.zh[0] + e.zh[1] + e.zh[2]) / 3, avgL = (e.zh[0] + e.zh[3]) / 2;
       var doors=connections.filter(function(c){return c.door.key===e.key;}).map(function(c){return c.door;});
       function wall(axis,length,color){
-        var cuts=doors.filter(function(d){return d.axis===axis;}).map(function(d){return [Math.max(0,d.at-.62),Math.min(length,d.at+.62)];}).sort(function(a,b){return a[0]-b[0];});
+        var cuts=doors.filter(function(d){return d.axis===axis;}).map(function(d){var half=(d.width||1.24)/2;return [Math.max(0,d.at-half),Math.min(length,d.at+half)];}).sort(function(a,b){return a[0]-b[0];});
         function face(a,b,z,h){if(b<=a)return;poly(axis==='y'?[P(a,0,z),P(b,0,z),P(b,0,h),P(a,0,h)]:[P(0,a,z),P(0,b,z),P(0,b,h),P(0,a,h)],color);}
         var start=0;cuts.forEach(function(c){face(start,c[0],0,WALLH);face(c[0],c[1],2.55,WALLH);var a=axis==='y'?P(c[0],0,0):P(0,c[0],0),b=axis==='y'?P(c[0],0,2.55):P(0,c[0],2.55),d=axis==='y'?P(c[1],0,2.55):P(0,c[1],2.55),f=axis==='y'?P(c[1],0,0):P(0,c[1],0);ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.lineTo(d[0],d[1]);ctx.lineTo(f[0],f[1]);ctx.strokeStyle='#74d6e5';ctx.lineWidth=Math.max(1.5,2*s);ctx.stroke();start=c[1];});face(start,length,0,WALLH);
       }
@@ -529,6 +532,7 @@
       return { cx: uv[0], cy: uv[1], k: clamp(k, KMIN, KMAX) };
     }
     function flyTo(v, dur) {
+      if(worldGeometry){dur=Math.min(.4,dur||0);if(global.matchMedia&&global.matchMedia('(prefers-reduced-motion: reduce)').matches)dur=0;}
       var t = { cx: v.cx, cy: v.cy, k: clamp(v.k, KMIN, KMAX) };
       if (!running || !dur) { anim = null; cam = t; clampCam(); applyCam(); render(); return; }
       anim = { from: { cx: cam.cx, cy: cam.cy, k: cam.k }, to: t, t: 0, dur: dur };
@@ -555,6 +559,13 @@
     }
 
     function drawPlazas() {
+      if(worldGeometry){
+        box(-.35,-.35,-SLAB-.18,worldGeometry.width+.7,worldGeometry.depth+.7,.18,'#203c4c',.95);
+        worldGeometry.hallways.forEach(function(h){
+          box(h.x,h.y,-SLAB,h.width,h.depth,SLAB,'#426c7c',.95);
+          poly([P(h.x,h.y,.01),P(h.x+h.width,h.y,.01),P(h.x+h.width,h.y+h.depth,.01),P(h.x,h.y+h.depth,.01)],'#365b70','rgba(116,214,229,.45)',Math.max(1,s));
+        });return;
+      }
       if(sharedIndexMode){
         var pts=[];worldCfg.forEach(function(c){[[c.bx-.7,c.by-.7],[c.bx+W+.7,c.by-.7],[c.bx+W+.7,c.by+D+.7],[c.bx-.7,c.by+D+.7]].forEach(function(p){pts.push(p);});});
         pts.sort(function(a,b){return a[0]-b[0]||a[1]-b[1];});
@@ -577,7 +588,7 @@
       ctx.save();
       connections.forEach(function(link){
         for(var i=1;i<link.points.length;i++){
-          var a=link.points[i-1],b=link.points[i],horizontal=Math.abs(a.x-b.x)>.01,w=.6;
+          var a=link.points[i-1],b=link.points[i],horizontal=Math.abs(a.x-b.x)>.01,w=worldGeometry?worldGeometry.doorWidth/2:.6;
           var x=Math.min(a.x,b.x)-(horizontal?0:w),y=Math.min(a.y,b.y)-(horizontal?w:0),ww=horizontal?Math.abs(b.x-a.x):w*2,dd=horizontal?w*2:Math.abs(b.y-a.y);
           box(x,y,-SLAB,ww,dd,SLAB,'#426c7c',.9);
           var q=[P(x,y,.015),P(x+ww,y,.015),P(x+ww,y+dd,.015),P(x,y+dd,.015)];
@@ -710,7 +721,7 @@
       resize: resize,
       setWorld: function (defs, names) {
         worldCfg = defs.map(function (d) { return { key: d.key, name: d.name, bx: d.bx, by: d.by, env: getEnv(d.key) }; });
-        connections=companyConnections(worldCfg);resetCommuters();
+        connections=worldGeometry?worldGeometry.links:companyConnections(worldCfg);resetCommuters();
         if (names) zoneNames = names;
         camReady = false; if (cw > 1) layoutWorld(false); render();
       },
@@ -736,6 +747,8 @@
         clampCam(); applyCam(); if (!running) render();
       },
       getZoom: function () { return cam.k; },
+      getWorldLayout:function(){return (worldCfg||[]).map(function(c){return {id:c.key,name:c.name,x:c.bx,y:c.by,width:W,depth:D};});},
+      getWorldFrame:function(){return {left:ox+bounds.umin*s,top:oy+bounds.vmin*s,right:ox+bounds.umax*s,bottom:oy+bounds.vmax*s,width:cw,height:ch};},
       getCirculation: function(){return {connections:connections.map(function(c){return {from:c.from,to:c.to,door:Object.assign({},c.door),points:c.points.map(function(p){return Object.assign({},p);})};}),commuters:commuters.map(function(p){return {from:p.from,to:p.to,x:p.x,y:p.y,moving:p.moving,phase:p.phase};})};},
       render: render,
       setEnv: function (key) { env = getEnv(key); if (isStatic) { for (var i = 0; i < 6; i++) env.zh[i] = env.lit[i] ? 1 : 0; } render(); },

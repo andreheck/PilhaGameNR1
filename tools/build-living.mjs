@@ -56,7 +56,7 @@ iso=replace(iso,'      // balões de estado',`      if(p.employeeId){
       // balões de estado`);
 iso=replace(iso,'var walkers=e.people.filter(function(p){return !p.sit;})','var walkers=e.people.filter(function(p){return !p.sit&&!p.restAway;})');
 iso=replace(iso,'    function render() {','    function render() {\n      employeeHits=[];');
-iso=replace(iso,'connections=companyConnections(worldCfg);resetCommuters();','connections=companyConnections(worldCfg);if(!employeeRows.length)resetCommuters();else commuters=[];');
+iso=replace(iso,'connections=worldGeometry?worldGeometry.links:companyConnections(worldCfg);resetCommuters();','connections=worldGeometry?worldGeometry.links:companyConnections(worldCfg);if(!employeeRows.length)resetCommuters();else commuters=[];');
 iso=replace(iso,'      setSharedIndexMode:',`      setEmployees:setEmployees,getEmployees:employeePositions,pickEmployee:pickEmployee,focusEmployee:focusEmployee,
       hoverEmployee:function(id){employeeHover=id;if(!running)render();},
       setManualPause:function(v){if(employeePaused===!!v)return;employeePaused=!!v;if(employeePaused){running=false;if(raf)global.cancelAnimationFrame(raf);raf=0;}else if(!running){isStatic=false;running=true;last=0;raf=global.requestAnimationFrame(loop);}render();},

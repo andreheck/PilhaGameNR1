@@ -1,6 +1,7 @@
 /** Pure navigation over existing aisles and company bridges. No scene mutation. */
 (function(g){
- function route(defs,aisle,links,home,space,workerId){
+ function route(defs,aisle,links,home,space,workerId,world){
+  if(world)return world.route(defs,aisle,links,home,space,workerId);
   var nodes=[],edges=[],map={};
   function node(x,y){var key=x.toFixed(4)+','+y.toFixed(4);if(map[key]!=null)return map[key];map[key]=nodes.length;nodes.push({x:x,y:y});return nodes.length-1;}
   function edge(a,b){if(a!==b)edges.push([a,b]);}
