@@ -30,7 +30,7 @@ A correção resolve um ciclo determinístico de 14 dias (sete pausas e duas reu
 
 ### P2 — Espaço interceptado em controles focados (#52)
 
-O listener global tratava Espaço como pausa mesmo com foco no botão Menu ou Avançar semana. A correção preserva a ativação nativa de botões, links, summary e controles ARIA; Espaço no canvas continua como atalho de jogo. O teste de navegador antigo reproduzia o comportamento errado ao manter foco em Menu. Foi corrigido e ampliado: Menu abre por Espaço sem mudar pausa; Avançar semana ativa uma vez por Espaço; N continua funcionando fora de diálogos/campos e o segundo aporte ocorre apenas uma vez. Atalhos desativáveis, proteção em inputs e foco/Esc continuam testados.
+O listener global tratava Espaço como pausa mesmo com foco no botão Menu ou Avançar semana. A correção preserva a ativação nativa de botões, links, summary e controles ARIA; Espaço no canvas continua como atalho de jogo. O teste de navegador antigo reproduzia o comportamento errado ao manter foco em Menu. Foi corrigido e ampliado: Menu abre por Espaço sem mudar pausa; Avançar semana ativa uma vez por Espaço; N continua funcionando fora de diálogos/campos e o segundo aporte ocorre apenas uma vez. Atalhos desativáveis, proteção em inputs e foco/Esc continuam testados. O roteiro aguarda o evento de fechamento e a restauração do foco antes de focar o canvas. A regressão dos rigs aguarda uma fase real de caminhada e exige avanço dos frames de walk; pausas/conversas não são falsamente tratadas como falha de animação.
 
 ## Consolidação #50 e portão de CI
 
