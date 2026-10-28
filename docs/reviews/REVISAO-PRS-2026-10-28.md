@@ -32,6 +32,10 @@ A correção resolve um ciclo determinístico de 14 dias (sete pausas e duas reu
 
 O listener global tratava Espaço como pausa mesmo com foco no botão Menu ou Avançar semana. A correção preserva a ativação nativa de botões, links, summary e controles ARIA; Espaço no canvas continua como atalho de jogo. O teste de navegador antigo reproduzia o comportamento errado ao manter foco em Menu. Foi corrigido e ampliado: Menu abre por Espaço sem mudar pausa; Avançar semana ativa uma vez por Espaço; N continua funcionando fora de diálogos/campos e o segundo aporte ocorre apenas uma vez. Atalhos desativáveis, proteção em inputs e foco/Esc continuam testados. O roteiro aguarda o evento de fechamento e a restauração do foco antes de focar o canvas. A regressão dos rigs aguarda uma fase real de caminhada e exige avanço dos frames de walk; pausas/conversas não são falsamente tratadas como falha de animação.
 
+### P2 — Botão Semana comprimido no celular com painel aberto (#52)
+
+Capturas da revisão revelaram que ocultar a meta no painel setorial deslocava automaticamente os controles na grade móvel: Semana ocupava a coluna de 44 px. Colunas e linha dos cinco controles agora são explícitas, preservando os 84 px do avanço. QA verifica o texto também com painel aberto.
+
 ## Consolidação #50 e portão de CI
 
 O head 14e9166 é descendente exato de fin/integration em 28c1de8. Não há necessidade de portar novamente galeria, fichas ou circulação. A consulta direta de check-runs retornou apenas Vercel Preview Comments aprovado; a consulta de workflows de PR não retornou execução desse head. Não confundir ausência de comentários da Vercel com testes de software.

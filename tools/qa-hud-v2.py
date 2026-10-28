@@ -83,6 +83,7 @@ def run(browser,width,height,port):
         check(state()['budget']==saved['budget'] and state()['receipts']==saved['receipts'],tag+': reload preserves progress')
         page.locator('.hud-v2-details').click()
         page.locator('.pm-tab[data-i="0"]').click();page.locator('.pm-root.has-panel').wait_for()
+        check(page.locator('.hud-v2-advance').evaluate('(e)=>e.scrollWidth<=e.clientWidth+1'),tag+': advance label fits with sector panel open')
         audit.scan(page,'setor-critico',(width,height))
     except Exception:
         report['failureContext']=page.evaluate('({focus:document.activeElement?.outerHTML.slice(0,500),openDialogs:[...document.querySelectorAll("dialog[open]")].map(d=>d.className),preferences:localStorage.getItem("pilha-hud-preferences-v1"),paused:window.PilhaLiving?.getState().paused})')

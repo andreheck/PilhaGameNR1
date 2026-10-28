@@ -55,6 +55,7 @@
 @media(max-width:899px){
  .hud-v2 .living-topbar{padding:4px max(6px,env(safe-area-inset-right)) 4px max(6px,env(safe-area-inset-left))}
  .hud-v2 .continuous-tools .hud-v2-bar{display:grid;grid-template-columns:44px minmax(60px,1fr) minmax(50px,.8fr) 44px 84px;gap:4px}
+ .hud-v2 .continuous-tools .hud-v2-bar>.hud-v2-menu-button{grid-column:1;grid-row:1}.hud-v2 .continuous-tools .hud-v2-bar>.pm-balance{grid-column:2;grid-row:1}.hud-v2 .continuous-tools .hud-v2-bar>.pm-goal{grid-column:3;grid-row:1}.hud-v2 .continuous-tools .hud-v2-bar>.hud-v2-pause{grid-column:4;grid-row:1}.hud-v2 .continuous-tools .hud-v2-bar>.hud-v2-advance{grid-column:5;grid-row:1}
  .hud-v2 .continuous-tools .hud-v2-bar .living-clock-holder,.hud-v2 .hud-v2-mark{display:none}.hud-v2 .continuous-tools .hud-v2-menu-button span{display:none}
  .hud-v2 .continuous-tools .hud-v2-bar>.hud-v2-menu-button,.hud-v2 .continuous-tools .hud-v2-bar>.hud-v2-pause{font-size:0;padding:4px}
  .hud-v2 .continuous-tools .hud-v2-menu-button:before{content:'☰';font-size:20px}.hud-v2 .continuous-tools .hud-v2-pause:before{content:'Ⅱ';font-size:20px}.hud-v2 .continuous-tools .hud-v2-pause[aria-pressed=true]:before{content:'▶'}
