@@ -1,0 +1,475 @@
+{
+  "date": "2026-10-28",
+  "runtime": "f6afe4328f64381c0f1038bcda53457c2954aaca",
+  "pull_requests": [
+    {
+      "number": 49,
+      "title": "[A.1] Mapear unificação e validar saves da base financeira",
+      "sha": "2cb4e991bbaf71c7393cecfb13d333785ed7ab2c",
+      "head": "codex/unificacao-mapa-2026-10-26",
+      "base": "codex/npcs-fase1-perfis",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "technical-review-chain",
+      "technical_findings": "Sem novo bloqueio técnico identificado no contrato de save."
+    },
+    {
+      "number": 50,
+      "title": "[A.2] Propor consolidação do runtime atual sobre fin",
+      "sha": "14e9166652c5caf62dd783467ca9db40bf4b4b05",
+      "head": "codex/npcs-fase1-perfis",
+      "base": "integration/unificado-2026-10-26",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "technical-review-chain",
+      "technical_findings": "Depende da correção CRLF já presente na #51; CI próprio de Actions não encontrado no head."
+    },
+    {
+      "number": 51,
+      "title": "[A.2/CI] Validar interfaces e corrigir contraste e semântica acessível",
+      "sha": "d819876fcbc52fb651b918b9860d0ec410e08915",
+      "head": "codex/ci-interface-accessibilidade",
+      "base": "codex/unificacao-mapa-2026-10-26",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "technical-review-chain",
+      "technical_findings": "Sem novo bloqueio técnico identificado; revisão manual de acessibilidade continua pendente."
+    },
+    {
+      "number": 52,
+      "title": "[B.1] HUD v2 experimental com dupla, menu e controles acessíveis",
+      "sha": "f8d02bd6ce8fc7d4da5eabaad473c1eb6e22e70e",
+      "head": "codex/hud-v2-controles",
+      "base": "codex/ci-interface-accessibilidade",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "technical-review-chain",
+      "technical_findings": "P2: Espaço em botões era interceptado pelo atalho de pausa. Corrigido nesta entrega."
+    },
+    {
+      "number": 53,
+      "title": "[Mundo/1] Unificar quatro zonas em uma planta contínua",
+      "sha": "db52714b792d52f952c2bd660820626de57348cf",
+      "head": "codex/mundo-continuo",
+      "base": "codex/hud-v2-controles",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "technical-review-chain",
+      "technical_findings": "Sem novo bloqueio técnico identificado na geometria e nas rotas."
+    },
+    {
+      "number": 54,
+      "title": "[Mundo/2] Escala, copa animada e disposição do mobiliário",
+      "sha": "dc1dd4aef81d9e22ef58d3d86c9f11a4a6b20fda",
+      "head": "codex/escala-mobiliario",
+      "base": "codex/mundo-continuo",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "technical-review-chain",
+      "technical_findings": "Sem novo bloqueio técnico identificado na lotação/escala atual; parâmetros visuais e interação com assentos seguem revisão PO."
+    },
+    {
+      "number": 55,
+      "title": "[NPCs] Ritmo mais lento, conversas e reunião semanal no pátio",
+      "sha": "f6afe4328f64381c0f1038bcda53457c2954aaca",
+      "head": "codex/npcs-conversas-reunioes",
+      "base": "codex/escala-mobiliario",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "technical-review-chain",
+      "technical_findings": "P2: pausa remarcada podia sobrepor a seguinte. Corrigido nesta entrega."
+    },
+    {
+      "number": 41,
+      "title": "Empresa viva: NPCs animados de Beatriz e Mariana integrados ao mapa",
+      "sha": "14e9166652c5caf62dd783467ca9db40bf4b4b05",
+      "head": "codex/npcs-fase1-perfis",
+      "base": "fix/npc-focus-codex-continuation",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 48,
+      "title": "Corrigir renda produzida por saúde, setor e custos operacionais",
+      "sha": "75c5b2372f27f2544a1f5f70785565a28d08e256",
+      "head": "fix/revenue-produced-worker-health",
+      "base": "feat/management-dashboard-scenario-preview",
+      "draft": false,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 47,
+      "title": "Painel integrado e prévia comparativa antes da contratação",
+      "sha": "e2323750895d077f76302152da7e8e8f91f83856",
+      "head": "feat/management-dashboard-scenario-preview",
+      "base": "feat/quarterly-financial-targets",
+      "draft": false,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 46,
+      "title": "Receita por funcionário ativo e metas de lucro trimestrais, semestrais e anuais",
+      "sha": "28c1de843d15ee5f0cc71e7dd9ff6bf980fa0320",
+      "head": "feat/quarterly-financial-targets",
+      "base": "feat/staffing-hiring-coverage",
+      "draft": false,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 45,
+      "title": "Gestão de pessoal: contratações, cobertura, redistribuição e custos",
+      "sha": "adb5727ff55a5dd9b681333b1773d16e0eb07055",
+      "head": "feat/staffing-hiring-coverage",
+      "base": "feat/npc-absence-resignation-release",
+      "draft": false,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 44,
+      "title": "NPCs: afastamentos 2/4/12 semanas, retorno e desligamento + release",
+      "sha": "40b2944748455ee8f96ff8497e5fb2e9b1e774b1",
+      "head": "feat/npc-absence-resignation-release",
+      "base": "feat/npc-furniture-effect-lifecycle",
+      "draft": false,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 43,
+      "title": "Melhorias com efeito imediato/tardio, temporário/permanente e progressão mensal",
+      "sha": "a14776e70ffb818207fed171e461529263342184",
+      "head": "feat/npc-furniture-effect-lifecycle",
+      "base": "feat/mobiliario-poof-asset-pipeline",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 40,
+      "title": "Corrigir foco da câmera no NPC localizado e testar trabalho/restauração",
+      "sha": "0f7c5511020810dff0bd49100962233fc43ecb0d",
+      "head": "fix/npc-focus-codex-continuation",
+      "base": "codex/revisao-equipe-viva",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 39,
+      "title": "fix: preservar recuperação de tempo ao pausar e tornar teste da galeria puro",
+      "sha": "022a39d758e90a6aa981bf50edda25045e36f629",
+      "head": "codex/revisao-equipe-viva",
+      "base": "feat/equipe-viva-calendario",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 38,
+      "title": "Equipe viva: movimento, saúde individual, abertura, calendário e mundo PilhA+",
+      "sha": "1a2079727bdd65e3e7a86da3a6f1d4f133ad418a",
+      "head": "feat/equipe-viva-calendario",
+      "base": "feat/empresa-continua-restauracao",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 37,
+      "title": "Empresa contínua: métricas C3, dupla direta, níveis e restauração",
+      "sha": "32501c7bbf60679c9d13285acc68a944aaf82823",
+      "head": "feat/empresa-continua-restauracao",
+      "base": "feat/hero-spotlight-codex",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 36,
+      "title": "Layout neon da entrada e galeria de heróis com retratos oficiais e QA responsivo",
+      "sha": "602a819a5a47c63195efd2f5736daa2229b1e359",
+      "head": "feat/hero-spotlight-codex",
+      "base": "codex/empresa-conectada-circulacao",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 35,
+      "title": "Ampliar herói selecionado e manter miniaturas na tela Equipe",
+      "sha": "bd006d25f3338bba66ce6d1c01cd67fbd488a853",
+      "head": "feat/hero-selection-zoom-thumbnails",
+      "base": "main",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": false,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 34,
+      "title": "Conectar departamentos e ajustar circulação dos NPCs",
+      "sha": "3448b981292b5575b45ccb6fa8b63341755b7f63",
+      "head": "codex/empresa-conectada-circulacao",
+      "base": "codex/galeria-herois-canonica",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 33,
+      "title": "Galeria dos seis heróis com fichas canônicas e seleção da dupla",
+      "sha": "0c3dba6c3e1b8b64e5ceac0179aaaafa594fc851",
+      "head": "codex/galeria-herois-canonica",
+      "base": "codex/jornada-npcs-empresa",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 32,
+      "title": "Jornada inicial, NPCs animados e 19 eventos do Claude com cadência ativa",
+      "sha": "0aafd4bf4cef290d74e763befdb169870c6af52f",
+      "head": "codex/jornada-npcs-empresa",
+      "base": "codex/ux-tres-setores",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 22,
+      "title": "Documenta elenco de heróis e ficha do Diretor para a beta",
+      "sha": "f9299430e3001cca961ce0d9a7bd2ac64c78d759",
+      "head": "docs/hero-roster-beta",
+      "base": "main",
+      "draft": false,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": false,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 31,
+      "title": "Registra fichas e balanceamento contextual dos 16 NPCs",
+      "sha": "3921a7bc81f5ad59b584df7b3c0a97e9d7a493ae",
+      "head": "feat/npc-balanceamento-contextual",
+      "base": "main",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": false,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 28,
+      "title": "feat: adotar os três setores do Claude preservando economia e ciclo",
+      "sha": "1340f4aba86761643921268a76eda0de346edfde",
+      "head": "codex/ux-tres-setores",
+      "base": "docs/governanca-pm-po-codex",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 27,
+      "title": "docs: concluir transição PM/PO/Codex com base verificada e backlog de continuidade",
+      "sha": "171b396ef010fa434eb5d5fbf627c74ed3e9276d",
+      "head": "docs/governanca-pm-po-codex",
+      "base": "feature/hero-progression-recovery",
+      "draft": false,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 26,
+      "title": "feat: recuperar ciclo do acionista e evolução por créditos e XP",
+      "sha": "93e2d61a06c11ca25ce97b80d8e42f98fb123a47",
+      "head": "feature/hero-progression-recovery",
+      "base": "feature/collab-hero-duos",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 25,
+      "title": "feat: acionista, dupla visível, ciclo de 30 dias e revisão Kimi",
+      "sha": "e955638f396f49d2b1ff83e74c530303768abbb8",
+      "head": "feature/shareholder-timeline-kimi",
+      "base": "feature/collab-hero-duos",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 24,
+      "title": "feat: integrar revisão Manus e seleção experimental de dupla de heróis",
+      "sha": "c319fb34fe8c3c275216c7cdd5542baf320bc29b",
+      "head": "feature/collab-hero-duos",
+      "base": "release/alpha15-opening-characters",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 21,
+      "title": "fix: estabilizar etiquetas móveis e fallback de animação",
+      "sha": "20b2948e382f1e57aff63ad85480b417de6bdfe5",
+      "head": "fix/pr20-mobile-glb-qa",
+      "base": "integration/pilha-current-vision",
+      "draft": false,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": false,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 23,
+      "title": "feat: salão único, upgrades visuais e abertura PilhA+ Game",
+      "sha": "a0a17ef8ac8c2174f7188b9a76028eaf395ebb84",
+      "head": "release/alpha15-opening-characters",
+      "base": "main",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 20,
+      "title": "feat: conciliar visão atual, investimentos e universo socioespacial do PilhA+",
+      "sha": "060390a1d037255816af1a5521e9da62a13ba689",
+      "head": "integration/pilha-current-vision",
+      "base": "main",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": true,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 19,
+      "title": "docs: audit Manus handoff before Alpha 1.5 integration",
+      "sha": "760913380c1c2869ca23fef6a92622757ec8fab3",
+      "head": "audit/manus-handoff-2026-10-17",
+      "base": "main",
+      "draft": false,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": false,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 18,
+      "title": "docs: plano diretor, cronograma e handoffs Claude/Manus/Kimi",
+      "sha": "bce636d7966e2543bb1278d37e6a76a3c4dc27bf",
+      "head": "docs/roadmap-handoff-2026-10-17",
+      "base": "main",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": false,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 13,
+      "title": "feat: narrative onboarding and persistent psychosocial investment simulation",
+      "sha": "69e3a209374def57b0b4549668e6c9da90afcf76",
+      "head": "feat/investment-psychosocial-domains",
+      "base": "main",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": false,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 12,
+      "title": "feat: add investment budget, floating alerts and 30-day forecasts",
+      "sha": "4eaf05eee241d7b9c747fca8421872385388b4a0",
+      "head": "feat/investment-prediction-alerts",
+      "base": "main",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": false,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 11,
+      "title": "fix: prevent office characters from crossing obstacles",
+      "sha": "b19ac83c0b37376cdc71c6f2da23f3f553c9e693",
+      "head": "fix/navigation-segment-collision",
+      "base": "main",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": false,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 10,
+      "title": "feat: base de escritório vivo e máquina de estados",
+      "sha": "6b5d53055f29396438bed2e5761e327b0325a384",
+      "head": "feat/living-office-simulation",
+      "base": "feat/psychosocial-environment-simulation",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": false,
+      "review_scope": "inventory-and-ancestry-only"
+    },
+    {
+      "number": 1,
+      "title": "feat: base de simulação psicossocial para o Pilha Game",
+      "sha": "41a4977e2986915d699b53abf70c53f397c42846",
+      "head": "feat/psychosocial-environment-simulation",
+      "base": "main",
+      "draft": true,
+      "local_commit_available": true,
+      "ancestor_of_reviewed_runtime": false,
+      "review_scope": "inventory-and-ancestry-only"
+    }
+  ],
+  "local_validation": {
+    "integrated": {
+      "base_sha": "f6afe4328f64381c0f1038bcda53457c2954aaca",
+      "tests_passed": 232,
+      "build": "passed"
+    },
+    "pr50_original": {
+      "sha": "14e9166652c5caf62dd783467ca9db40bf4b4b05",
+      "build": "passed",
+      "npm_test": "passed",
+      "all_test_files": {
+        "passed": 208,
+        "failed": 1,
+        "failure": "mission01 VM injection fails on stored CRLF source"
+      }
+    },
+    "pr50_controlled_probe": {
+      "change": "Only tests/mission01.test.mjs CRLF normalization from PR51 applied to an isolated export; original branch untouched",
+      "passed": 209,
+      "failed": 0
+    }
+  }
+}
