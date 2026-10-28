@@ -1,3 +1,5 @@
+> Registro histórico do início do projeto. As caixas abaixo não representam o estado atual do runtime. Para a revisão vigente e pendências verificadas, consulte [revisão das PRs](../docs/reviews/REVISAO-PRS-2026-10-28.md) e [fechamento técnico](../docs/reviews/FECHAMENTO-PENDENCIAS-2026-10-28.md). Mapa, componentes, saves, CI e ligação GitHub/Vercel já existem na cadeia #50–56; aceite e publicação são etapas distintas.
+
 # Backlog inicial
 - [x] Visão geral e GDD preliminar
 - [x] Definir perspectiva mista
