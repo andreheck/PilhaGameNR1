@@ -40,7 +40,7 @@ def run(browser,w,h,port):
    page.locator('[data-c="Carreira"]').click();page.locator('[data-promotion-target]').select_option('NPC-02')
    cost=page.locator('[data-item=promocao] .pm-item__bottom b').inner_text();old=page.evaluate('PilhaLiving.getState().budget')
    page.locator('[data-id=promocao][data-act=buy]').click();page.wait_for_function('PilhaLiving.getState().receipts.some(r=>r.id==="promocao"&&r.targetId==="NPC-02")')
-   check(page.evaluate('PilhaLiving.getEmployees().find(p=>p.id==="NPC-02").organization.position')=='Especialista de setor',tag+': targeted promotion changes real NPC title')
+   check(page.evaluate('async()=>{const L=await import("/simulation/company-living.js");return L.staffView(PilhaLiving.getState()).find(p=>p.id==="NPC-02").organization.position;}')=='Especialista de setor',tag+': targeted promotion changes real NPC title')
    check(page.evaluate('PilhaLiving.getState().budget')<old,tag+': promotion spends only shared budget')
    page.locator('[data-c="Cuidado e benefícios"]').click();page.locator('[data-item=vale-alimentacao] [data-act=buy]').click();page.wait_for_function('PilhaLiving.getState().receipts.some(r=>r.id==="vale-alimentacao")')
    check(page.locator('.benefit-icon').evaluate_all('(a)=>a.every(i=>i.complete&&i.naturalWidth)'),tag+': new programme icons load')
