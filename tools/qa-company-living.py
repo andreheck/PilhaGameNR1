@@ -256,7 +256,17 @@ def run(browser,w,h):
         check(page.locator('.event-chips .is-negative').count()>0,tag+': negative consequences visible before choosing')
         check(page.locator('.event-presentation').evaluate('(e)=>e.scrollWidth<=e.clientWidth+1'),tag+': event card fits viewport')
         snap('event-reference');page.locator('.event-presentation').screenshot(path=str(OUT/f'event-card-{tag}.png'))
-        before_event=state()['budget'];page.locator('[data-event-choice="2"]').click();saved('s.events.current?.stage==="result"')
+        before_event=state()['budget']
+        if w==1366:
+            # Hold one real clock transaction, then click while that lock is
+            # pending. The user action must wait, rather than be discarded.
+            page.evaluate("""()=>{const request=navigator.locks.request.bind(navigator.locks);navigator.locks.request=(...args)=>{navigator.locks.request=request;return new Promise(resolve=>{window.releaseReviewClock=()=>resolve(request(...args));});};PilhaLiving.syncClock();}""")
+            page.wait_for_function('typeof window.releaseReviewClock==="function"')
+        page.locator('[data-event-choice="2"]').click()
+        if w==1366:
+            page.evaluate('window.releaseReviewClock()')
+        saved('s.events.current?.stage==="result"')
+        if w==1366:check(True,tag+': event click waits for pending clock transaction instead of being lost')
         check(state()['budget']==before_event and state()['events']['current']['stage']=='result',tag+': free choice keeps balance and stores consequence')
         snap('event-consequence');page.locator('[data-event-finish]').click();saved('s.events.current===null')
         check(state()['events']['current'] is None,tag+': continue resolves the event once')

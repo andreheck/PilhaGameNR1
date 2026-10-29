@@ -14,6 +14,10 @@ QA de navegador nos layouts clássico e HUD v2, em 320×640, 390×844 e 1440×90
 
 A falha de CRLF do harness original já está corrigida na #51 e é coberta pelo CI cumulativo da #56. Não há correção de produto a duplicar nem necessidade de reescrever a branch histórica #50. Seu head isolado continua sem CI de Actions encontrado; a evidência isolada 208+1 e o ensaio com harness 209 foram preservados na revisão anterior. A liberação deve avaliar a cadeia completa, em vez de liberar #50 isoladamente. Essa ressalva de integração permanece explícita para o PM.
 
+### Disputa entre relógio e decisão de evento — revisão 29/10
+
+A regressão encontrou um clique de decisão descartado enquanto `change` estava ocupado com um tick. A UI agora aguarda a alteração em andamento antes de processar uma ação do jogador; ticks concorrentes continuam descartados e as proteções de revisão/serial do modelo permanecem. O teste prende uma transação real de relógio com Web Locks, clica na opção gratuita e só então libera o relógio: a consequência deve ser salva uma vez, sem débito. Não muda o ritmo ou as regras de eventos.
+
 ## Critérios e evidências
 
 - Central usa os mesmos elementos e callbacks dos avisos existentes; não altera decisões de eventos, compras, calendário, saúde, câmera ou saves.
