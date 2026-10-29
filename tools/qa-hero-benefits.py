@@ -26,6 +26,7 @@ def run(browser,w,h,port):
   check(bounds['sh']<=bounds['h']+2 and bounds['sw']<=bounds['w']+2,tag+': selection has no page scrolling')
   for control in page.locator('.ph-card,.direct-pick button,[data-team-save],[data-hero-role]').all():
    box=control.bounding_box();check(box and box['y']>=-1 and box['y']+box['height']<=h+1 and box['x']>=-1 and box['x']+box['width']<=w+1,tag+': all six heroes and team controls fit viewport')
+  check(page.locator('.ph-card').evaluate_all('(a)=>a.every(e=>{const n=e.querySelector(".ph-card__name").getBoundingClientRect(),r=e.getBoundingClientRect();return n.top>=r.top-1&&n.bottom<=r.bottom+1&&n.left>=r.left-1&&n.right<=r.right+1;})'),tag+': all hero names remain visible inside cards')
   check(page.locator('.direct-pick button').evaluate_all('(a)=>a.every(e=>e.getBoundingClientRect().height>=44)'),tag+': role controls remain touch-sized')
   if w>=900:
    for n in range(1,7):
