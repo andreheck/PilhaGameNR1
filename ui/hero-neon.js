@@ -65,6 +65,9 @@ function enhanceGallery(root,list){
  const purpose=document.createElement('p');purpose.className='neon-purpose';purpose.textContent=h.resumo;
  txt.querySelector('blockquote')?.before(purpose);
  if(cta)txt.append(cta);
+ const full=document.createElement('button');full.type='button';full.className='ph-btn hero-full-button';full.textContent='Ficha completa';
+ full.onclick=()=>{const sheet=document.createElement('dialog');sheet.className='hero-history hero-full-details';sheet.setAttribute('aria-label','Ficha completa de '+h.nome);sheet.innerHTML='<header><h2>'+esc(h.nome)+'</h2><button type="button" aria-label="Fechar ficha">×</button></header>';for(const selector of ['.ph-spec','.ph-canonical','.ph-ach']){const source=d.querySelector(selector);if(source){const clone=source.cloneNode(true);if(clone.tagName==='DETAILS')clone.open=true;sheet.append(clone);}}document.body.append(sheet);sheet.querySelector('header button').onclick=()=>sheet.close();sheet.addEventListener('close',()=>{sheet.remove();full.focus({preventScroll:true});},{once:true});sheet.showModal();};
+ if(cta)cta.append(full);
  const tiles=d.querySelector('.ph-tiles');
  if(tiles){
   const extra=document.createElement('div');extra.className='ph-tile neon-info-tile';extra.innerHTML=`<div class="neon-stat-icon">${icon(h.icone)}</div><h3>Especializa\u00e7\u00e3o</h3><p>${esc(h.especializacao)}</p>`;tiles.append(extra);

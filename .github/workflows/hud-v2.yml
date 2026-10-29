@@ -10,6 +10,9 @@ on:
       - 'tools/qa-furniture.py'
       - 'tools/qa-social.py'
       - 'tools/qa-notices.py'
+      - 'tools/qa-hero-benefits.py'
+      - 'data/continuous/benefits.js'
+      - 'data/continuous/catalog.js'
       - 'simulation/npc-*.js'
       - 'simulation/rest-routines.js'
       - 'data/continuous/furniture-visuals*'
@@ -41,6 +44,7 @@ jobs:
           fi
           npm install --prefix artifacts/a11y-deps --ignore-scripts --no-package-lock --no-audit --no-fund axe-core@4.10.3
       - run: node --test tests/world-graph.test.mjs
+      - run: python tools/qa-hero-benefits.py
       - run: python tools/qa-notices.py
       - run: python tools/qa-hud-v2.py
       - run: python tools/qa-world.py
@@ -56,4 +60,5 @@ jobs:
             artifacts/furniture/
             artifacts/social/
             artifacts/notices/
+            artifacts/hero-benefits/
           retention-days: 7

@@ -1289,12 +1289,124 @@
         "detalhe dourado"
       ],
       "effectSource": "canonical-purchase"
+    },
+    "promocao": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "bonus-produtividade": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "ppr": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "coparticipacao": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "vale-alimentacao": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "consulta-psicologica": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "psicoterapia": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "creche": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "moradia": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "mobilidade": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "bolsa-estudo": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "flexibilidade": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "desconexao": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
+    },
+    "acessibilidade": {
+      "asset": null,
+      "physical": false,
+      "levels": 3,
+      "environment": "each-work-sector",
+      "effectSource": "canonical-purchase"
     }
   },
   "programs": {
     "plano": "programa_plano_saude.svg",
     "capelao": "programa_capelao.svg",
-    "yoga": "programa_professor_yoga.svg"
+    "yoga": "programa_professor_yoga.svg",
+    "promocao": "/assets/benefits/promocao.svg",
+    "bonus-produtividade": "/assets/benefits/bonus-produtividade.svg",
+    "ppr": "/assets/benefits/ppr.svg",
+    "coparticipacao": "/assets/benefits/coparticipacao.svg",
+    "vale-alimentacao": "/assets/benefits/vale-alimentacao.svg",
+    "consulta-psicologica": "/assets/benefits/consulta-psicologica.svg",
+    "psicoterapia": "/assets/benefits/psicoterapia.svg",
+    "creche": "/assets/benefits/creche.svg",
+    "moradia": "/assets/benefits/moradia.svg",
+    "mobilidade": "/assets/benefits/mobilidade.svg",
+    "bolsa-estudo": "/assets/benefits/bolsa-estudo.svg",
+    "flexibilidade": "/assets/benefits/flexibilidade.svg",
+    "desconexao": "/assets/benefits/desconexao.svg",
+    "acessibilidade": "/assets/benefits/acessibilidade.svg"
   },
   "notes": [
     "Aparição é exclusivamente visual. Preços/efeitos/períodos vêm de data/continuous/catalog.js.",

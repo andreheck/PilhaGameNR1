@@ -18,3 +18,5 @@ html,body,#continuous-app{margin:0;width:100%;height:100%;overflow:hidden;backgr
 .mg-comparison table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:12px}.mg-comparison th,.mg-comparison td{padding:10px 6px;border-bottom:1px solid #405775;text-align:right}
 .mg-comparison tr th:first-child{text-align:left}.mg-comparison td:last-child{color:#9ff1cc;font-weight:700}.mg-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:16px}
 @media(max-width:540px){.mg-cards,.mg-sector-grid{grid-template-columns:1fr}.mg-comparison table{font-size:11px}.mg-comparison th,.mg-comparison td{padding:7px 4px}.mg-cards strong{font-size:18px}}
+
+.benefit-icon{width:44px;height:44px;flex:none}.benefit-scope{font-size:11px;color:#bbd1e9;line-height:1.45}.promotion-target{display:grid;gap:5px;margin:10px 0;font-size:12px}.promotion-target select{width:100%;min-height:44px;background:#0b2343;color:#edf5ff;border:1px solid #608bb1;border-radius:8px;padding:7px;font:inherit}.pm-effects .is-negative{color:#ffb5c8;border-color:#ab4d72;background:#431d35}
