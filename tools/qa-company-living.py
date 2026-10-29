@@ -57,8 +57,12 @@ def run(browser,w,h):
         rigs=page.evaluate('PilhaLiving.getRiggedNPCs()')
         check(set(rigs['bindings'])=={'NPC-07','NPC-16'},tag+': approved Mariana and Beatriz rigs bind only their canonical IDs')
         check(len(rigs['drawn'])==2,tag+': both rigged actors render without duplicating workers')
-        first_rig_frames={r['id']:r['frame'] for r in rigs['drawn']};page.wait_for_timeout(600)
-        check(any(first_rig_frames.get(r['id'])!=r['frame'] for r in page.evaluate('PilhaLiving.getRiggedNPCs().drawn')),tag+': real imported animation frames advance on map')
+        # Conversations/rest legitimately hold a pose. Observe a walking phase,
+        # rather than assuming at least one of the rigs must move every 600 ms.
+        page.wait_for_function('PilhaLiving.getRiggedNPCs().drawn.some(r=>r.action==="walk")',timeout=20000)
+        first_rig_frames={r['id']:r['frame'] for r in page.evaluate('PilhaLiving.getRiggedNPCs().drawn')}
+        page.wait_for_function('(before)=>PilhaLiving.getRiggedNPCs().drawn.some(r=>r.action==="walk"&&r.frame!==before[r.id])',arg=first_rig_frames,timeout=20000)
+        check(True,tag+': real imported walking animation frames advance on map')
 
         check(page.locator('.living-topbar').count()==1,tag+': transparent header groups all controls')
         header=page.locator('.living-topbar').bounding_box();view=page.locator('.pm-view').bounding_box()
@@ -252,7 +256,17 @@ def run(browser,w,h):
         check(page.locator('.event-chips .is-negative').count()>0,tag+': negative consequences visible before choosing')
         check(page.locator('.event-presentation').evaluate('(e)=>e.scrollWidth<=e.clientWidth+1'),tag+': event card fits viewport')
         snap('event-reference');page.locator('.event-presentation').screenshot(path=str(OUT/f'event-card-{tag}.png'))
-        before_event=state()['budget'];page.locator('[data-event-choice="2"]').click();saved('s.events.current?.stage==="result"')
+        before_event=state()['budget']
+        if w==1366:
+            # Hold one real clock transaction, then click while that lock is
+            # pending. The user action must wait, rather than be discarded.
+            page.evaluate("""()=>{const request=navigator.locks.request.bind(navigator.locks);navigator.locks.request=(...args)=>{navigator.locks.request=request;return new Promise(resolve=>{window.releaseReviewClock=()=>resolve(request(...args));});};PilhaLiving.syncClock();}""")
+            page.wait_for_function('typeof window.releaseReviewClock==="function"')
+        page.locator('[data-event-choice="2"]').click()
+        if w==1366:
+            page.evaluate('window.releaseReviewClock()')
+        saved('s.events.current?.stage==="result"')
+        if w==1366:check(True,tag+': event click waits for pending clock transaction instead of being lost')
         check(state()['budget']==before_event and state()['events']['current']['stage']=='result',tag+': free choice keeps balance and stores consequence')
         snap('event-consequence');page.locator('[data-event-finish]').click();saved('s.events.current===null')
         check(state()['events']['current'] is None,tag+': continue resolves the event once')

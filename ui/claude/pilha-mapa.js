@@ -377,13 +377,13 @@
         (t.chips ? '<div class="pm-toast__row">' + t.chips.join("") + '</div>' : "") +
         (t.action ? '<button type="button" class="pm-toast__act">' + esc(t.action.label) + '</button>' : "") + '</div>' +
         '<button type="button" class="pm-toast__x" aria-label="Fechar aviso">✕</button>';
-      function close() { if (!el.parentNode) return; el.classList.add("is-out"); setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, reduce ? 0 : 300); }
+      function close(automatic) { if (!el.parentNode) return; if (automatic === true && (toasts.closest("dialog[open]") || el.contains(document.activeElement) || el.matches(":hover"))) { later(function(){close(true);}, 1000); return; } el.classList.add("is-out"); setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, reduce ? 0 : 300); }
       el.querySelector(".pm-toast__x").addEventListener("click", close);
       if (t.action) el.querySelector(".pm-toast__act").addEventListener("click", function () { t.action.fn(); close(); });
       toasts.appendChild(el);
-      var maxT = (global.matchMedia && global.matchMedia("(max-width: 899px)").matches) ? 2 : 3;
-      while (toasts.children.length > maxT) toasts.removeChild(toasts.firstChild);
-      later(close, t.ms || (t.kind === "alert" ? 11000 : 7500));
+      var maxT = root.classList.contains("has-notice-center") ? 8 : (global.matchMedia && global.matchMedia("(max-width: 899px)").matches) ? 2 : 3;
+      while (toasts.children.length > maxT) toasts.removeChild(root.classList.contains("has-notice-center") ? (toasts.querySelector(".pm-toast:not(.pm-toast--alert)") || toasts.firstChild) : toasts.firstChild);
+      later(function(){close(true);}, t.ms || (t.kind === "alert" ? 11000 : 7500));
     }
     function chip(txt, cls) { return '<span class="pm-chip' + (cls ? " " + cls : "") + '">' + esc(txt) + "</span>"; }
 

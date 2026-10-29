@@ -47,3 +47,27 @@ test('meeting journeys and work trajectories meet continuously at the origin',()
   assert.ok((before.workFraction||0)<1e-5);assert.equal(depart.progress,0);assert.ok(back.progress<1e-5);assert.ok((after.workFraction||0)<1e-5);
  }
 });
+
+test('rest shifts never overlap neighbouring activities across health tiers, week parity or calendar limits',()=>{
+ for(const health of [0,40,54.99,55,70,100])for(const week of [1,2,3,20,99999]){
+  const s=setup();s.week=week;for(const p of Object.values(s.staff)){p.health=health;p.week=week;}
+  const rows=L.routines(s),next=L.routines({...s,week:week+1});
+  for(const row of rows){
+   const events=[...row.agenda,...next.find(r=>r.id===row.id).agenda].sort((a,b)=>a.start-b.start);
+   assert.equal(new Set(events.map(e=>e.key)).size,events.length,'no duplicated cycle-boundary event');
+   assert.equal(events.filter(e=>e.kind==='rest').length,7,row.id+' keeps all seven ordinary visits');
+   assert.equal(events.filter(e=>e.kind==='meeting').length,2);
+   for(let i=1;i<events.length;i++)assert.ok(events[i].start>=events[i-1].end-.0001,`${row.id}, health ${health}, week ${week}`);
+  }
+ }
+});
+
+test('sampling after refresh or reload preserves remapped pauses and position at the former overlap',()=>{
+ const s=setup();s.week=2;for(const p of Object.values(s.staff)){p.health=40;p.week=2;}
+ const early=L.routines(s).find(r=>r.id==='NPC-02');
+ for(const activeMs of [40000,54000,55000,56000,66000,119999]){
+  s.activeMs=activeMs;const restored=JSON.parse(JSON.stringify(s)),fresh=L.routines(restored).find(r=>r.id===early.id);
+  const time=(s.week-1)*RULES.weekMs+activeMs;
+  assert.deepEqual(early.sampleAt(time),fresh.sampleAt(time));
+ }
+});

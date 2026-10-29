@@ -53,6 +53,9 @@ export function installHudV2({root,getState,getHeroes,storage,openCalendar,openH
  function keydown(event){
   if(!preferences.shortcuts||event.repeat||event.ctrlKey||event.metaKey||event.altKey||event.defaultPrevented||document.querySelector('dialog[open],.pi-root'))return;
   if(event.target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable=false])'))return;
+  // Space activates the focused native control; it is a game shortcut only
+  // when focus is outside controls (for example, the map or page background).
+  if(event.key===' '&&event.target.closest?.('button,a[href],summary,[role=button],[role=link],[role=checkbox],[role=tab]'))return;
   const actions={' ':()=>pause.click(),n:()=>advance.click(),m:openMenu,h:()=>tools.querySelector('[data-company=heroes]').click(),'?':()=>{openMenu();shortcuts.focus();}};
   const action=actions[event.key.toLowerCase()];if(action){event.preventDefault();event.stopImmediatePropagation();action();}
  }
