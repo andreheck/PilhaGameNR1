@@ -26,7 +26,11 @@ export function jobFor(id,home){const assignment=JOBS[id];if(!assignment)return 
 export const managerMap=s=>s.initialHiring?.status==='complete'?s.initialHiring.managers:MANAGERS;
 export function jobInCompany(s,p){
  const id=managerMap(s)[p.home],base=p.organization;
- if(s.initialHiring?.status!=='complete')return base;
+ const steps=s.receipts?.filter(r=>r.id==='promocao'&&r.targetId===p.id).length||0;
+ const promoted=steps?{rank:'tatico',rankName:'Tático',position:base?.rank==='operacional'&&steps===1?'Especialista de setor':'Coordenador(a) de setor'}:{};
+ if(s.initialHiring?.status!=='complete')return {...base,...promoted};
  if(p.id===id)return {rank:'estrategico',rankName:'Estratégico',position:'Gerente de '+({escritorio:'Escritório',producao:'Produção',atendimento:'Atendimento'}[p.home]),managerId:id,reportsTo:'conselho'};
- return {...base,...(base?.rank==='estrategico'?{rank:'tatico',rankName:'Tático',position:'Especialista de setor'}:{}),managerId:id,reportsTo:id};
+ return {...base,...promoted,...(base?.rank==='estrategico'?{rank:'tatico',rankName:'Tático',position:'Especialista de setor'}:{}),managerId:id,reportsTo:id};
 }
+
+export function promotionAvailable(s,p){const job=jobInCompany(s,p);return p.id!==managerMap(s)[p.home]&&s.staff?.[p.id]?.employment==='active'&&job?.rank!=='estrategico'&&!/Coorden|Coordena/.test(job?.position||'');}

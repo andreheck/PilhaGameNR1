@@ -1,9 +1,9 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
 import {FURNITURE_VISUALS as V} from '../data/continuous/furniture-visuals.js';
 import {ITEMS} from '../data/continuous/catalog.js';
-test('20 approved and5 generated art IDs and24 item mappings are unique and canonical',()=>{
+test('20 approved and5 generated art IDs and38 item mappings are unique and canonical',()=>{
  assert.equal(V.assets.length,25);assert.equal(new Set(V.assets.map(x=>x.id)).size,25);
- assert.equal(Object.keys(V.upgrades).length,24);
+ assert.equal(Object.keys(V.upgrades).length,38);
  for(const item of ITEMS){const visual=V.upgrades[item.id];assert.ok(visual,item.id);
  assert.equal(visual.levels,3);assert.equal(visual.physical,!!visual.asset);
  if(visual.asset)assert.ok(V.assets.find(a=>a.id===visual.asset));}
