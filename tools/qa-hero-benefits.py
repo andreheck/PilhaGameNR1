@@ -19,7 +19,7 @@ def run(browser,w,h,port):
  try:
   page.goto(f'http://127.0.0.1:{port}/?hud=v2');page.locator('.pi-skip').click();page.locator('.living-guide[open]').wait_for()
   for _ in range(3):page.locator('[data-guide=next]').click()
-  page.locator('.continuous-gallery-dialog[open] .ph-d[data-neon-version]').wait_for()
+  page.locator('.continuous-gallery-dialog[open] .ph-d[data-neon-version]').wait_for(state='attached')
   page.wait_for_function('document.querySelectorAll(".ph-card img").length===6&&[...document.querySelectorAll(".ph-card img")].every(i=>i.complete&&i.naturalWidth)')
   before=page.evaluate('JSON.stringify(JSON.parse(localStorage.getItem("pilha-company-continuous-v2")))')
   bounds=page.locator('.continuous-gallery-dialog .ph-root').evaluate('(e)=>({h:e.clientHeight,sh:e.scrollHeight,w:e.clientWidth,sw:e.scrollWidth})')
