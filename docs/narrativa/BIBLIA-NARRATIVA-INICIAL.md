@@ -226,11 +226,97 @@ A ordem e os gatilhos serão validados depois, mas a narrativa pode ser organiza
 5. **Crescimento, poder e conflitos:** expansão, pressão por resultados, relações de trabalho, investidores e concorrência.
 6. **O futuro da empresa e das pessoas:** decisão estratégica final e consequências da trajetória construída.
 
-## 13. Pendências para as próximas versões
+
+## 13. Identidade, idade e tendências simbólicas dos signos
+
+### Objetivo da mecânica
+
+Na criação do mentorado, o jogador poderá definir sua data de nascimento. A partir dela, o jogo calcula automaticamente a idade do personagem na data de início da campanha e identifica seu signo solar ocidental. Essa camada acrescenta identidade, variedade narrativa e uma dimensão lúdica de descoberta da personalidade.
+
+O signo será visível ao jogador, acompanhado de uma descrição breve de suas tendências simbólicas. **Os pesos internos e os efeitos exatos permanecerão ocultos.** O jogador conhecerá o signo, mas precisará conhecer a história, conversar e observar as decisões do mentorado para compreender como ele se comporta.
+
+A astrologia é usada exclusivamente como linguagem simbólica e recurso ficcional de gameplay. Não é instrumento científico de avaliação da personalidade, não representa uma explicação causal do comportamento e não deve ser apresentada como psicometria.
+
+### Quatro camadas de influência — pesos equivalentes
+
+As decisões autônomas do mentorado serão influenciadas por quatro camadas com pesos equivalentes na arquitetura conceitual:
+
+1. **Temperamento simbólico (signo):** oferece tendências iniciais de expressão, preferência e reação. É uma inclinação leve, nunca uma regra.
+2. **História de vida:** considera origem, contexto familiar, rede de apoio, migração, experiências, oportunidades e barreiras vividas.
+3. **Personalidade construída:** reúne características que se desenvolvem ao longo da trajetória, como autonomia, confiança, sociabilidade, persistência, abertura à mudança, organização e tolerância à incerteza.
+4. **Estado atual:** representa condições circunstanciais e mutáveis, como cansaço, motivação, satisfação, pressão financeira, conflitos recentes, sobrecarga e acontecimentos importantes.
+
+Pesos equivalentes significam que nenhuma camada terá prioridade estrutural sobre as demais. Não significa que as quatro apontarão sempre para a mesma escolha, nem que o personagem terá comportamento previsível. O motor narrativo deverá combinar sinais convergentes e contraditórios, respeitando o contexto e a agência do personagem.
+
+A camada do signo não poderá sobrepor-se a direitos, condições objetivas, restrições de elegibilidade, valores declarados ou consequências relevantes. Em situações de risco, saúde, assédio, discriminação ou direitos trabalhistas, a resposta narrativa deverá considerar o contexto e a proteção da pessoa, sem atribuir a decisão ao signo.
+
+### Cadastro e cálculo da idade
+
+- O jogador informa a **data de nascimento** do mentorado; não informa a idade separadamente.
+- O jogo calcula a idade na data de início da campanha e atualiza esse valor conforme o tempo passa.
+- Aniversários podem gerar uma pequena cena, diálogo ou reflexão sobre a passagem do tempo, sem conceder automaticamente bônus ou penalidades.
+- A data de nascimento também determina o signo solar segundo o zodíaco ocidental tropical, usando as datas convencionais de cada signo.
+- A implementação deve tratar corretamente anos bissextos e aniversários ainda não ocorridos no ano da campanha.
+- A idade deve ser coerente com as possibilidades narrativas e legais de cada etapa da jornada. Regras de aprendizagem, estágio e trabalho precisam respeitar a legislação aplicável; o signo jamais altera requisitos legais.
+- Para simplificar a primeira versão, não serão solicitados horário ou local de nascimento e não serão calculados ascendente, casas ou mapa astral.
+
+### Catálogo de tendências simbólicas
+
+As descrições abaixo são referências narrativas, não rótulos fixos. Cada personagem pode expressar, contrariar ou transformar essas tendências.
+
+| Signo | Tendências simbólicas possíveis |
+|---|---|
+| Áries | iniciativa, coragem para começar, franqueza e possível impulsividade |
+| Touro | busca de estabilidade, persistência, pragmatismo e preferência por segurança |
+| Gêmeos | curiosidade, comunicação, versatilidade e interesse por variedade |
+| Câncer | vínculo, cuidado, proteção e atenção ao pertencimento |
+| Leão | expressividade, criatividade, reconhecimento e disposição para liderar |
+| Virgem | organização, análise, atenção a detalhes e aperfeiçoamento |
+| Libra | diplomacia, cooperação, equilíbrio e consideração de diferentes perspectivas |
+| Escorpião | intensidade, profundidade, reserva e pensamento estratégico |
+| Sagitário | exploração, independência, aprendizagem e abertura a experiências |
+| Capricórnio | planejamento, disciplina, responsabilidade e visão de longo prazo |
+| Aquário | inovação, autonomia, experimentação e questionamento de padrões |
+| Peixes | imaginação, sensibilidade, empatia e percepção das relações |
+
+### Como a influência aparece nas escolhas
+
+O signo poderá inclinar discretamente a preferência entre alternativas que já sejam plausíveis para o personagem. Por exemplo, diante de uma proposta de promoção que exige mudança de cidade, uma tendência simbólica à estabilidade pode favorecer a investigação de segurança e vínculos antes de aceitar; uma tendência à exploração pode favorecer a curiosidade pela experiência. Nenhuma delas determina a resposta.
+
+A decisão final deverá considerar, em conjunto:
+- o que o personagem valoriza e deseja naquele momento;
+- suas experiências anteriores e condições de vida;
+- suas características construídas ao longo da campanha;
+- seu estado atual e os acontecimentos recentes;
+- a qualidade concreta das alternativas, seus riscos e consequências;
+- a tendência simbólica associada ao signo.
+
+O personagem pode surpreender o jogador, agir de modo diferente da descrição do signo, mudar de opinião ou explicar uma escolha que parecia inesperada. As conversas e o histórico devem ajudar o jogador a compreender a pessoa, sem revelar fórmulas ou probabilidades.
+
+### Regras de transparência e salvaguardas
+
+- Mostrar o nome do signo e uma descrição curta de suas tendências simbólicas na ficha do mentorado.
+- Não mostrar pesos, percentuais, fórmulas, modificadores ou efeitos exatos.
+- Não exibir previsões deterministas, como “este signo sempre aceita desafios” ou “este signo não sabe trabalhar em equipe”.
+- Não usar signo para inferir competência, inteligência, ética, saúde mental, risco de adoecimento, desempenho ou potencial de liderança.
+- Não permitir que o signo determine contratação, promoção, remuneração, avaliação, desligamento ou qualquer decisão real de trabalho.
+- Evitar que a escolha do signo se torne uma estratégia de otimização para obter um mentorado mais fácil de conduzir.
+- Garantir diversidade de comportamentos dentro de cada signo e permitir evolução individual ao longo da campanha.
+- Manter as tendências como conteúdo lúdico e ficcional, com linguagem de possibilidade (“pode tender a”, “às vezes valoriza”), não como diagnóstico.
+
+### Atributo complementar — Coerência Pessoal
+
+Como evolução futura, considerar um indicador narrativo de **Coerência Pessoal**: o quanto as escolhas do mentorado permanecem alinhadas aos valores, objetivos e necessidades que ele próprio expressou. Não mede obediência ao jogador nem conformidade com os interesses da empresa.
+
+Exemplo: o personagem pode aceitar uma promoção por necessidade financeira, embora valorize tempo com a família. A escolha pode ser racional diante de suas circunstâncias e, ainda assim, produzir conflito interno. O indicador deve apoiar diálogos e autoconhecimento, não premiar uma escolha considerada “correta” pelo jogo.
+
+## 14. Pendências para as próximas versões
 
 - [ ] Localizar e catalogar as 51 histórias no app/site ou em sua fonte de dados.
-- [ ] Definir nome, idade, identidade de gênero, personalidade e voz do mentorado sem fixar estereótipos por origem.
+- [ ] Definir nome, identidade de gênero, personalidade e voz do mentorado sem fixar estereótipos por origem. A data de nascimento e a camada simbólica dos signos estão especificadas na seção 13.
 - [ ] Definir se a origem será escolhida pelo jogador ou sorteada, e quais variáveis iniciais serão afetadas.
+- [ ] Validar datas-limite dos signos, cálculo de idade e eventos de aniversário na implementação.
+- [ ] Testar a combinação das quatro camadas de influência e verificar que o signo não determina escolhas nem cria vantagens sistemáticas.
 - [ ] Especificar a máquina de estados da carreira e seus gatilhos.
 - [ ] Desenhar o primeiro conjunto de conversas de aconselhamento e suas consequências.
 - [ ] Definir indicadores e integração visual com os relatórios existentes.
@@ -239,6 +325,6 @@ A ordem e os gatilhos serão validados depois, mas a narrativa pode ser organiza
 - [ ] Definir tecnicamente a integração de elétrons, com privacidade por padrão.
 - [ ] Validar consistência técnica, pedagógica, trabalhista e de representação social.
 
-## 14. Limites desta especificação
+## 15. Limites desta especificação
 
 Este documento registra decisões e propostas narrativas iniciais. **Não significa que a mecânica esteja implementada**, que a integração com o app esteja concluída, que as 51 histórias tenham sido importadas ou que os sistemas existentes tenham sido alterados. A implementação deverá ocorrer em etapas, com testes e revisão própria.
