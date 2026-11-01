@@ -744,7 +744,91 @@ Exemplos de leitura:
 - [ ] A narrativa permite interseções entre raça, etnia, classe, gênero, deficiência e outros contextos sem presumir experiências idênticas.
 
 
-## 15. Pendências para as próximas versões
+
+## 15. Instruções de implementação para Codex — upgrade de diversidade e inclusão
+
+**Status:** decisões de design aprovadas para implementação técnica v1.0. A implementação ainda não foi realizada por este registro.
+
+### Fundamentação e interpretação da evidência
+
+A mecânica parte da premissa de que diversidade pode contribuir para melhores resultados organizacionais e financeiros. Estudos e análises da Gallup sobre diversidade, inclusão, engajamento e desempenho organizacional dão suporte à relevância estratégica do tema. Para manter rigor, o jogo não deve transformar essa evidência em uma afirmação causal simplista: diversidade demográfica, isoladamente, não garante maior lucro. A tradução em resultados depende também de inclusão, equidade de oportunidades, qualidade da gestão, participação, segurança psicológica e condições de trabalho.
+
+No Pilha Game, o bônus econômico é uma abstração de gameplay que recompensa a construção de equipes diversas e inclusivas. Não deve ser apresentado como calculadora de ROI real, previsão financeira ou garantia de produtividade.
+
+### Decisões aprovadas para a versão 1.0
+
+1. Implementar o Índice de Diversidade (ID) com pesos: raça/cor 40%, origem socioeconômica/classe 35% e pertencimento étnico 25%.
+2. Calcular cada subíndice com Simpson normalizado para 0–100; exibir os três resultados separadamente.
+3. Calcular o ID do setor com média ponderada dos subíndices válidos. Calcular o ID da empresa sobre a população total, não pela média simples dos setores.
+4. Incluir todos os funcionários simulados e os seis heróis, alocados explicitamente em seus setores.
+5. Exigir cobertura mínima de 80% em cada dimensão usada no cálculo do bônus. Abaixo disso, exibir “dados insuficientes” e não conceder bônus.
+6. Em setores com menos de 8 integrantes, sinalizar baixa robustez e suprimir detalhamentos que possam identificar personagens.
+7. Implementar o Fator de Inclusão (FI), de 0 a 100, com pesos: acesso equitativo 25%; progressão/mobilidade 25%; liderança/decisão 20%; equidade remuneratória 15%; permanência/pertencimento/resposta institucional 15%.
+8. Aplicar bloqueio do bônus diante de discriminação ou assédio grave sem resposta adequada, retaliação ou violação grave de direitos. Uma denúncia isolada não ativa automaticamente o bloqueio; avaliar a resposta institucional e a proteção.
+9. Calcular bônus máximo de 6% na lucratividade por hora do setor: FCI = 0,30 + 0,70 × (FI/100); bônus = 6% × (ID/100) × FCI. Cobertura insuficiente ou bloqueio de proteção resulta em 0%.
+10. Atualizar ID quando a composição mudar; atualizar FI por ciclos de gestão, usando janela móvel sugerida de três ciclos para permanência e inclusão.
+11. Não conceder bônus instantâneo por contratação isolada. Saídas involuntárias concentradas devem gerar alerta de equidade.
+12. O bônus incide apenas no resultado coletivo do setor. Nunca altera salário, produtividade, competência, potencial, avaliação ou valor individual.
+13. Saúde, segurança, direitos e condições de trabalho permanecem indicadores independentes e não podem ser compensados pelo ID ou FI.
+14. Dados demográficos são ficcionais/sintéticos no jogo. Não inferir identidade por imagem, nome, endereço, voz, função ou comportamento.
+
+### Orientações obrigatórias ao Codex
+
+Antes de editar:
+- Inspecionar a estrutura atual do repositório, identificar stack, arquitetura, estado de gerenciamento, modelos de funcionário/herói, setores, economia, relatórios e testes existentes.
+- Localizar a implementação atual de funcionários e dos seis heróis. Reutilizar os IDs, contratos e fontes de verdade existentes; não criar um segundo cadastro paralelo.
+- Identificar como a lucratividade por hora é calculada hoje e em que ponto os modificadores coletivos são aplicados.
+- Apresentar um plano curto com arquivos que pretende alterar e riscos de integração. Não presumir nomes de arquivos, bibliotecas, campos ou APIs antes de inspecionar o projeto.
+
+Implementação:
+- Criar um módulo isolado e testável para cálculo de diversidade, inclusão, cobertura e bônus. Separar regras de domínio de componentes visuais.
+- Manter pesos, limite de cobertura, tamanho mínimo de grupo e teto do bônus em configuração centralizada, sem espalhar números mágicos pelo código.
+- Para cada dimensão, calcular Simpson: D = 1 - Σ(pᵢ²). Normalizar para 0–100 usando o máximo possível para K categorias válidas e estáveis: ID_dimensão = 100 × D / (1 - 1/K). Tratar K menor que 2, população vazia, categorias desconhecidas e dados ausentes sem divisão por zero ou pontuação artificial. Definir e documentar o conjunto de categorias por dimensão; não remover categorias vazias dinamicamente de modo a inflar a pontuação.
+- Não converter dado ausente em categoria. Calcular cobertura por dimensão e impedir o bônus se qualquer dimensão exigida estiver abaixo de 80%.
+- Validar se raça/cor e pertencimento étnico se sobrepõem no modelo de dados. Preservar subíndices e sinalizar a questão; não inventar inferências nem fundir categorias silenciosamente.
+- Calcular o ID setorial a partir dos subíndices válidos e o ID da empresa a partir da população total. Não obter o ID da empresa pela média simples dos IDs setoriais.
+- Incluir heróis e funcionários uma única vez no universo de cálculo, respeitando setor/vínculo e evitando duplicidade.
+- Implementar FI com os pesos registrados. Como a rubrica detalhada de pontuação de cada componente ainda precisa ser especificada, não inventar indicadores, limiares ou pontuações arbitrárias: criar estrutura configurável e testes para a agregação ponderada, documentando os pontos que exigem definição de produto antes de ativar valores fictícios.
+- Implementar o bloqueio de proteção como regra prioritária, independente da média. Distinguir denúncia registrada de caso com resposta institucional inadequada/retaliação/violação grave; não punir a pessoa denunciante.
+- Aplicar o bônus somente ao cálculo coletivo de lucratividade/hora do setor, respeitando o teto de 6%. Consolidar resultados da empresa ponderando a contribuição econômica de cada setor, sem somar percentuais.
+- Atualizar o ID em mudanças de composição e o FI em ciclos de gestão; suportar janela móvel de três ciclos sem recalcular bônus a cada contratação isolada.
+- Criar alertas para baixa cobertura, grupo pequeno, concentração de saídas involuntárias e bloqueio de proteção.
+- Construir painel com ID geral, três subíndices, FI, cobertura por dimensão, tamanho da amostra, bônus vigente/teto e justificativa de bloqueios. Mostrar baixa robustez e dados insuficientes com linguagem clara.
+- Preservar a privacidade: não exibir recortes identificáveis em grupos pequenos; não criar ranking de grupos ou score individual; não cruzar identidade com saúde ou produtividade individual.
+- Não alterar fichas dos seis heróis por conta própria. Se faltarem atributos ficcionais, sinalizar pendência para decisão narrativa; nunca completar por aparência, nome ou função.
+- Não alterar os 19 eventos adversos, os sistemas NR-1, os indicadores clínicos/psicossociais ou as regras de carreira para fazer o bônus funcionar, salvo integração explicitamente necessária e documentada.
+- Não instalar dependências nem substituir arquitetura sem justificativa técnica.
+
+### Testes e critérios de aceite
+
+Criar testes unitários e de integração, no padrão já usado pelo repositório, cobrindo pelo menos:
+- distribuição totalmente homogênea e distribuição equilibrada;
+- uma, duas e múltiplas categorias; população vazia e categoria desconhecida;
+- dados ausentes e cobertura exatamente abaixo, igual e acima de 80%;
+- setores com 7 e 8 integrantes e proteção contra exposição de grupos pequenos;
+- inclusão de cada funcionário e herói uma única vez;
+- ID setorial diferente do ID calculado sobre a população total;
+- FI nos extremos 0 e 100 e validação da soma dos pesos em 100%;
+- bônus 0%, intermediário e teto de 6%, incluindo os exemplos numéricos registrados nesta Bíblia;
+- bloqueio por falha institucional grave e ausência de bloqueio por denúncia isolada;
+- ausência de bônus instantâneo por contratação isolada;
+- consolidação econômica ponderada por setor;
+- garantia de que nenhum atributo demográfico altera variável individual.
+
+Critérios de aceite:
+- Os cálculos são determinísticos, documentados e cobertos por testes.
+- O painel explica o resultado e expõe cobertura e limitações.
+- O bônus não ultrapassa 6% e não é aplicado quando houver cobertura insuficiente ou bloqueio.
+- Não há alteração individual de salário, competência, produtividade, carreira ou avaliação.
+- A mecânica pode ser desativada por configuração/feature flag durante testes e balanceamento.
+- Codex executa testes e lint/build disponíveis, relata comandos e resultados reais, lista arquivos modificados e limitações.
+- Codex não declara a tarefa concluída se houver rubricas do FI pendentes, dados dos heróis não validados ou testes falhando.
+- Trabalhar em branch de feature apropriada; não fazer merge em main nem apagar branches sem autorização explícita.
+- Ao concluir, atualizar a documentação técnica e este documento com o estado real: implementado, parcialmente implementado ou pendente.
+
+**Regra de colaboração:** Codex deve primeiro inspecionar e propor o plano; depois implementar em etapas pequenas, testar e reportar. Não inventar dados, não reescrever sistemas existentes sem necessidade e não confundir esta especificação com código já executado.
+
+## 16. Pendências para as próximas versões
 
 - [ ] Localizar e catalogar as 51 histórias no app/site ou em sua fonte de dados.
 - [ ] Definir nome, identidade de gênero e voz dos personagens mentorados sem fixar estereótipos por origem. Data de nascimento, signo e ficha-base estão especificados nas seções 13 e 14.
@@ -760,6 +844,6 @@ Exemplos de leitura:
 - [ ] Definir tecnicamente a integração de elétrons, com privacidade por padrão.
 - [ ] Validar consistência técnica, pedagógica, trabalhista e de representação social.
 
-## 16. Limites desta especificação
+## 17. Limites desta especificação
 
 Este documento registra decisões e propostas narrativas iniciais. **Não significa que a mecânica esteja implementada**, que a integração com o app esteja concluída, que as 51 histórias tenham sido importadas ou que os sistemas existentes tenham sido alterados. A implementação deverá ocorrer em etapas, com testes e revisão própria.
