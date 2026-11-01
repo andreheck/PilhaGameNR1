@@ -369,13 +369,131 @@ Como evolução futura, considerar um indicador narrativo de **Coerência Pessoa
 
 Exemplo: o personagem pode aceitar uma promoção por necessidade financeira, embora valorize tempo com a família. A escolha pode ser racional diante de suas circunstâncias e, ainda assim, produzir conflito interno. O indicador deve apoiar diálogos e autoconhecimento, não premiar uma escolha considerada “correta” pelo jogo.
 
-## 14. Pendências para as próximas versões
+
+## 14. Ficha-base do mentorado
+
+### Finalidade
+
+A ficha-base organiza as informações necessárias para que o mentorado seja reconhecível, coerente e capaz de evoluir durante a campanha. Não deve funcionar como um teste psicológico nem como um painel para o jogador controlar a pessoa. É uma estrutura narrativa para orientar diálogos, escolhas autônomas e consequências.
+
+A ficha separa quatro naturezas de informação: **identidade e contexto**, **características relativamente estáveis**, **elementos que se desenvolvem** e **estados circunstanciais**. Essa separação evita que uma dificuldade temporária seja confundida com personalidade ou que uma condição social seja tratada como traço individual.
+
+### Estrutura da ficha
+
+| Grupo | Campos | Comportamento ao longo do jogo |
+|---|---|---|
+| Identidade | Nome, pronomes/identidade de gênero quando definidos, data de nascimento, idade calculada e signo solar | Dados de referência; idade avança com o calendário. Não inferir características a partir de gênero ou signo. |
+| Contexto de vida | Uma das três origens, composição familiar relevante à narrativa, rede de apoio, contexto de moradia, responsabilidades e experiências importantes | Parte é definida na criação; novas informações podem surgir em conversas e eventos. Não transformar contexto em destino. |
+| Temperamento simbólico | Signo e tendências narrativas associadas | Referência lúdica estável; não é diagnóstico nem explicação suficiente para decisões. |
+| Traços construídos | Autonomia, confiança interpessoal, sociabilidade, persistência, abertura à mudança, organização e tolerância à incerteza | Evoluem gradualmente por experiências, aprendizagem e relações. Não são virtudes universais nem notas de desempenho. |
+| Valores e motivações | Valores prioritários, objetivos de curto e longo prazo, interesses, limites e necessidades relevantes | Descobertos em diálogo; podem mudar com reflexão e experiência. O personagem pode ter valores conflitantes. |
+| Competências e interesses | Conhecimentos, habilidades técnicas, competências relacionais, experiências, áreas de curiosidade e lacunas de aprendizagem | Desenvolvem-se com prática, formação, supervisão e oportunidades reais. Não deduzir competência de origem ou signo. |
+| Estado atual | Energia percebida, motivação, satisfação, pressão financeira, sensação de pertencimento, cansaço e acontecimentos recentes | Variáveis transitórias; oscilam com eventos e condições. Não devem ser tratadas como diagnóstico clínico. |
+| Relação de mentoria | Confiança no jogador, abertura ao diálogo, histórico de conselhos acolhidos ou recusados e qualidade da escuta | Evolui conforme a qualidade das interações. Não equivale a obediência, lealdade ou concordância. |
+| Coerência Pessoal | Relação entre escolhas, valores, objetivos e necessidades expressos pelo próprio personagem | Síntese narrativa interpretativa; pode gerar conversas, nunca punição por discordar do jogador. |
+
+### O que é fixo, o que evolui e o que oscila
+
+**Dados de identidade e referência**
+- Nome, data de nascimento e origem inicial são definidos na criação, salvo se a narrativa oferecer uma mudança legítima (por exemplo, atualização de nome ou descoberta de informação biográfica).
+- A idade é calculada pelo calendário da campanha; nunca deve ser digitada separadamente.
+- O signo é derivado da data de nascimento e permanece estável.
+- Identidade de gênero e pronomes devem ser definidos com respeito e não podem determinar competências, personalidade ou oportunidades.
+
+**Características que se desenvolvem**
+- Traços construídos não devem mudar abruptamente por um único evento.
+- Mudanças devem ter contexto, continuidade e possibilidade de reversão.
+- O jogo deve evitar classificar um traço como sempre positivo ou negativo. Persistência pode ajudar num projeto e dificultar o reconhecimento de que uma estratégia não funciona; sociabilidade pode favorecer colaboração, mas não deve ser exigida como condição de competência.
+- Competências crescem com aprendizagem e oportunidade. A falta de oportunidade não pode ser representada como falta de potencial.
+
+**Estados circunstanciais**
+- Estados atuais podem variar mais rapidamente, por exemplo após uma crise, uma conquista, um conflito, uma mudança na remuneração ou uma pausa adequada.
+- Um estado de cansaço ou desmotivação não deve alterar retrospectivamente a identidade ou definir a personalidade do personagem.
+- O jogo não deve simular diagnóstico, prognóstico ou risco clínico individual. Os estados são simplificações ficcionais e devem ser nomeados como percepções narrativas.
+
+### Valores, objetivos e limites
+
+Na criação ou nos primeiros diálogos, o mentorado deverá revelar gradualmente:
+- de três a cinco valores que considera importantes, sem exigir que o jogador os escolha por ele;
+- um objetivo profissional próximo e um objetivo pessoal ou de vida, que podem permanecer parcialmente privados;
+- interesses e atividades que existem fora do trabalho;
+- limites ou condições que influenciam decisões (por exemplo, necessidade de renda estável, responsabilidades de cuidado, localização ou continuidade dos estudos);
+- uma ou mais tensões entre objetivos, como crescer profissionalmente e preservar tempo pessoal.
+
+O jogador não deve visualizar necessariamente toda a vida íntima do personagem. Informações pessoais surgem quando fizer sentido narrativo e houver confiança. O personagem pode não querer compartilhar determinado assunto.
+
+### Competências: oportunidade não é potencial
+
+Registrar competências por evidências narrativas, como experiências, projetos, prática, formação ou demonstrações concretas. Distinguir:
+- **competência demonstrada:** já apareceu em uma atividade ou situação;
+- **competência em desenvolvimento:** há aprendizagem ou prática em curso;
+- **interesse:** área que desperta curiosidade, ainda sem evidência de domínio;
+- **oportunidade de aprendizagem:** acesso que a organização pode oferecer.
+
+Não confundir fluência linguística, familiaridade com códigos corporativos, disponibilidade fora do expediente, escolaridade formal ou acesso a equipamentos com inteligência, comprometimento ou potencial. O jogo deve mostrar como condições desiguais afetam oportunidades de demonstrar competências.
+
+### Relação de mentoria e confiança
+
+A relação com o jogador deve se desenvolver por interações observáveis:
+- escutar sem interromper ou minimizar;
+- fazer perguntas antes de aconselhar;
+- respeitar decisões e limites;
+- oferecer informações e caminhos realistas;
+- cumprir compromissos assumidos;
+- reconhecer quando não sabe e encaminhar para apoio apropriado.
+
+Confiança não deve aumentar apenas quando o personagem concorda com o jogador. Uma discordância respeitosa pode fortalecer a relação se houver escuta e respeito. Pressão, manipulação, quebra de confidencialidade ou promessa não cumprida podem fragilizá-la.
+
+### Coerência Pessoal — leitura narrativa
+
+A Coerência Pessoal não deve ser tratada como uma barra de “bom comportamento”. A leitura compara uma escolha com valores, objetivos e necessidades que o personagem efetivamente expressou, considerando as restrições disponíveis.
+
+Exemplo: aceitar uma promoção com mudança de cidade pode aproximar o personagem de um objetivo de carreira e, simultaneamente, afastá-lo de um valor de proximidade familiar. Não há resposta automaticamente certa. O conflito pode abrir uma conversa sobre prioridades, negociação e alternativas.
+
+A interface pode apresentar sínteses qualitativas, como “decisão alinhada a uma prioridade atual”, “há objetivos em tensão” ou “o personagem ainda está elaborando o que deseja”. Evitar percentuais de coerência sem fundamento narrativo.
+
+### Regras de agência e proteção
+
+1. O mentorado pode recusar conselhos, não responder, mudar de ideia, discordar e escolher caminhos que o jogador não prefere.
+2. O jogador oferece orientação e constrói condições organizacionais; não controla diretamente sentimentos, valores ou decisões pessoais.
+3. Não penalizar o personagem por exercer direitos, participar de mobilização coletiva, buscar apoio, estabelecer limites ou sair da empresa.
+4. Não usar atributos para decisões reais de seleção, contratação, promoção, remuneração, avaliação ou desligamento.
+5. Não representar os campos da ficha como dados de pessoas reais. São atributos de personagem ficcional.
+6. Não transformar saúde, sofrimento ou vulnerabilidade em moeda, recurso de exploração ou punição moral.
+7. Manter informações íntimas fora da interface gerencial, salvo quando uma revelação for necessária à cena e apresentada com contexto e respeito.
+8. Permitir diversidade de trajetórias, competências e formas de expressão em todas as origens e signos.
+
+### Exemplo resumido de ficha em jogo
+
+**Personagem fictício — exemplo de estrutura, não personagem canônico**
+- Identidade: nome a definir; idade calculada; signo exibido.
+- Origem: uma das três origens narrativas.
+- Valores: autonomia, segurança financeira e aprendizagem (revelados em diálogo).
+- Objetivo próximo: concluir uma formação e ganhar experiência em uma área de interesse.
+- Traços construídos: perfil em evolução, sem rótulo fixo.
+- Competências: evidências demonstradas e habilidades em desenvolvimento registradas separadamente.
+- Estado atual: pode estar motivado com um projeto e, ao mesmo tempo, cansado por uma semana de sobrecarga.
+- Relação de mentoria: confiança construída pela qualidade das conversas, não pela obediência.
+- Coerência Pessoal: síntese qualitativa de tensões entre prioridades declaradas e escolhas recentes.
+
+### Critérios de validação antes da implementação
+
+- [ ] Cada campo tem finalidade narrativa clara e não duplica outro sistema.
+- [ ] Traços estáveis, competências, valores e estados temporários estão separados na lógica e na interface.
+- [ ] A origem e o signo não determinam competências, potencial ou desfecho.
+- [ ] O jogador não consegue maximizar a obediência do personagem como condição de sucesso.
+- [ ] A confiança pode crescer com discordância respeitosa e cair após quebra de confiança.
+- [ ] A Coerência Pessoal não premia decisões convenientes à empresa ou ao jogador.
+- [ ] A ficha contém apenas informações necessárias à narrativa e não simula avaliação clínica.
+
+## 15. Pendências para as próximas versões
 
 - [ ] Localizar e catalogar as 51 histórias no app/site ou em sua fonte de dados.
-- [ ] Definir nome, identidade de gênero, personalidade e voz do mentorado sem fixar estereótipos por origem. A data de nascimento e a camada simbólica dos signos estão especificadas na seção 13.
+- [ ] Definir nome, identidade de gênero e voz dos personagens mentorados sem fixar estereótipos por origem. Data de nascimento, signo e ficha-base estão especificados nas seções 13 e 14.
 - [ ] Definir se a origem será escolhida pelo jogador ou sorteada, e quais variáveis iniciais serão afetadas.
 - [ ] Validar datas-limite dos signos, cálculo de idade e eventos de aniversário na implementação.
 - [ ] Testar a combinação das quatro camadas de influência e verificar que o signo não determina escolhas nem cria vantagens sistemáticas.
+- [ ] Validar a ficha-base com cenas de diálogo, progressão de competências e mudanças de estado.
 - [ ] Especificar a máquina de estados da carreira e seus gatilhos.
 - [ ] Desenhar o primeiro conjunto de conversas de aconselhamento e suas consequências.
 - [ ] Definir indicadores e integração visual com os relatórios existentes.
@@ -384,6 +502,6 @@ Exemplo: o personagem pode aceitar uma promoção por necessidade financeira, em
 - [ ] Definir tecnicamente a integração de elétrons, com privacidade por padrão.
 - [ ] Validar consistência técnica, pedagógica, trabalhista e de representação social.
 
-## 15. Limites desta especificação
+## 16. Limites desta especificação
 
 Este documento registra decisões e propostas narrativas iniciais. **Não significa que a mecânica esteja implementada**, que a integração com o app esteja concluída, que as 51 histórias tenham sido importadas ou que os sistemas existentes tenham sido alterados. A implementação deverá ocorrer em etapas, com testes e revisão própria.
