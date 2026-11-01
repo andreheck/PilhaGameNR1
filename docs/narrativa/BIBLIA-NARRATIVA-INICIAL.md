@@ -828,6 +828,69 @@ Critérios de aceite:
 
 **Regra de colaboração:** Codex deve primeiro inspecionar e propor o plano; depois implementar em etapas pequenas, testar e reportar. Não inventar dados, não reescrever sistemas existentes sem necessidade e não confundir esta especificação com código já executado.
 
+
+### Rubrica operacional do Fator de Inclusão (FI) — proposta v1.0 para validação
+
+Esta rubrica fecha a lacuna de especificação identificada acima. Os limiares abaixo são parâmetros iniciais de gameplay, não padrões científicos, jurídicos ou certificações de boas práticas. Devem ser configuráveis e calibrados em testes com dados sintéticos antes de ativar o bônus.
+
+**Princípio:** o FI avalia se a organização distribui oportunidades e trata pessoas de forma equitativa. Não mede se os grupos são diversos — isso pertence ao ID. Não atribui mérito ou responsabilidade a indivíduos.
+
+Cada componente recebe nota de 0 a 100. O FI final é a soma ponderada dos cinco componentes. Se um componente não tiver dados válidos suficientes, o FI fica “incompleto” e o bônus não é concedido; não redistribuir seu peso silenciosamente entre os demais componentes.
+
+#### 1. Acesso equitativo a contratação, formação e projetos — 25%
+
+Dividir em três subindicadores de peso igual:
+- Acesso à contratação: taxa de avanço entre etapas seletivas por grupo, comparada entre grupos elegíveis.
+- Acesso à formação: participação proporcional em oportunidades de formação, bolsas e capacitações.
+- Acesso a projetos relevantes: participação proporcional em projetos que ofereçam visibilidade, aprendizagem ou responsabilidade.
+
+Para cada subindicador, calcular a razão entre a menor e a maior taxa válida entre grupos comparáveis: nota = 100 × (menor taxa / maior taxa). Se todas as taxas forem zero, marcar “sem oportunidade observada”, não atribuir 100. Se não houver grupo ou denominador com amostra suficiente, marcar dado insuficiente. Nota do componente = média simples dos subindicadores válidos; os três são necessários para fechar o componente.
+
+#### 2. Progressão e mobilidade interna — 25%
+
+Avaliar taxas de promoção e mobilidade para funções de maior responsabilidade entre pessoas elegíveis, comparando grupos em janelas móveis de três ciclos. Para cada indicador, nota de paridade = 100 × (menor taxa / maior taxa), com comparação apenas entre grupos com denominadores válidos e oportunidades equivalentes. Nota do componente = média simples entre promoção e mobilidade. Não comparar pessoas que não eram elegíveis nem tratar ausência de promoção individual como falha.
+
+#### 3. Representação em liderança e decisões — 20%
+
+Comparar a participação de cada grupo nos níveis de liderança e em fóruns decisórios com sua participação na população elegível da organização/setor. Para cada grupo com base suficiente, calcular razão = participação do grupo na liderança / participação do grupo na população elegível. Nota de cada grupo = 100 × min(razão, 1); nota do componente = média ponderada pela população elegível dos grupos válidos. Exibir também a diferença de representação; a nota não deve esconder sub-representação. Não exigir equivalência mecânica em todo cargo ou setor sem considerar elegibilidade e contexto.
+
+#### 4. Equidade remuneratória em funções comparáveis — 15%
+
+Comparar remuneração por hora entre pessoas em funções, níveis, jornadas e vínculos comparáveis, usando dados sintéticos do jogo. Para cada grupo, calcular a diferença percentual absoluta em relação à referência comparável do conjunto: nota = max(0, 100 − 500 × diferença percentual). Assim, diferença de 0% resulta em 100; 5% ou mais resulta em 0. O parâmetro de 5% é um limiar provisório de balanceamento, não um limite legal ou conclusão automática de discriminação. Exibir diferença observada e tamanho da amostra. Não comparar médias brutas de cargos distintos nem concluir causalidade sem análise contextual.
+
+#### 5. Permanência, pertencimento e resposta institucional — 15%
+
+Dividir em três subindicadores:
+- Permanência: paridade entre taxas de retenção por grupo, em janela móvel de três ciclos, calculada como 100 × (menor taxa / maior taxa).
+- Pertencimento: resultado agregado de pesquisa ficcional de clima/pertencimento, com perguntas consistentes e escala comum; transformar a média da escala em 0–100. Comparar resultados por grupo somente quando houver base suficiente.
+- Resposta institucional: proporção de situações de discriminação/assédio com acolhimento, proteção contra retaliação, apuração tempestiva e providências documentadas. A pontuação deve refletir a qualidade da resposta, não a quantidade de denúncias. Caso não existam casos no período, usar auditoria de prontidão dos canais e protocolos; não presumir desempenho perfeito.
+
+Nota do componente = média simples dos três subindicadores. Um caso grave sem resposta adequada, retaliação ou violação grave de direitos ativa o bloqueio de proteção independentemente da nota agregada.
+
+#### Regras transversais da rubrica
+
+- Usar dados ficcionais e denominadores explícitos. Taxas só são comparáveis quando população elegível, período, jornada e oportunidade forem equivalentes.
+- Aplicar amostra mínima configurável para cada comparação. Como ponto inicial de teste, não calcular taxa de grupo com denominador inferior a 5; para painel público/agregado, manter o limite de supressão de grupos pequenos já estabelecido. Esses limites são salvaguardas de jogo, não orientação jurídica universal.
+- Quando houver menos de dois grupos comparáveis, ausência de oportunidades ou dados incompletos, sinalizar “não calculável” e não substituir por 100.
+- Para indicadores de paridade, a razão menor/maior mede diferença entre taxas; não prova discriminação nem identifica sua causa. O painel deve mostrar o indicador bruto e o contexto.
+- Não usar número de denúncias como penalidade. O bloqueio depende de falha institucional grave verificada no estado narrativo do jogo.
+- Se FI estiver incompleto, cobertura demográfica insuficiente ou proteção bloqueada, bônus = 0%, mantendo os indicadores visíveis.
+- Os cinco pesos devem totalizar exatamente 100%; a configuração deve ser validada automaticamente.
+- Permitir desativar o FI e o bônus por feature flag enquanto as rubricas e cenários ainda estiverem em validação.
+
+#### Cenários sintéticos obrigatórios para balanceamento
+
+Codex deverá criar fixtures de teste, sem dados de pessoas reais, que cubram:
+1. Equipe diversa com acesso, progressão e liderança equitativos: ID alto e FI alto; bônus próximo ao teto, se não houver bloqueio.
+2. Equipe diversa com oportunidades concentradas e disparidade remuneratória: ID alto e FI baixo; bônus reduzido.
+3. Equipe homogênea com práticas internas equitativas: FI pode ser alto, mas ID baixo limita o bônus; o painel não deve confundir os indicadores.
+4. Equipe diversa com assédio grave sem resposta institucional: ID e FI podem permanecer calculáveis, mas o bloqueio zera o bônus.
+5. Equipe com cobertura abaixo de 80%: sem bônus, mesmo que os dados observados indiquem diversidade elevada.
+6. Setor pequeno: mostrar alerta de robustez e ocultar recortes identificáveis.
+7. Contratação pontual sem mudança sustentável em acesso, progressão ou permanência: não produzir salto imediato de FI ou bônus.
+
+**Critério de produto:** antes de ativar o bônus por padrão, revisar os cenários com dados sintéticos, confirmar que a mecânica não incentiva contratações cosméticas ou manipulação de atributos e validar se a composição demográfica não está sendo usada como substituto de inclusão real.
+
 ## 16. Pendências para as próximas versões
 
 - [ ] Localizar e catalogar as 51 histórias no app/site ou em sua fonte de dados.
