@@ -578,6 +578,44 @@ O jogo deverá apresentar um painel de diversidade que permita acompanhar a comp
 - Distinguir origem socioeconômica da condição econômica atual: uma pessoa pode ter origem de baixa renda e alcançar maior renda, ou enfrentar mobilidade descendente.
 - Definir faixas e critérios transparentes antes da implementação; não apresentar uma classificação simplificada como verdade objetiva sobre a identidade da pessoa.
 
+### Abrangência: todos os funcionários e os seis heróis
+
+O cadastro narrativo e o sistema de diversidade devem abranger **100% dos funcionários simulados e todos os heróis já construídos**, sem exceção. Os heróis fazem parte da força de trabalho e também devem ser considerados nos recortes de composição organizacional e setorial, respeitando suas funções e vínculos no universo do jogo.
+
+Regras:
+- Cada funcionário e herói terá atributos ficcionais de raça/cor, pertencimento étnico (quando definido) e contexto/classe socioeconômica, conforme a ficha de personagem e as regras de representação.
+- Esses atributos descrevem contexto e identidade; não alteram diretamente inteligência, competência, produtividade individual, potencial, ética, saúde ou valor de qualquer personagem.
+- Não inferir ou preencher atributos dos seis heróis por aparência visual, nome, função ou estereótipo. Revisar as fichas já existentes e completar os campos em etapa própria, com validação narrativa.
+- A cobertura do painel deverá indicar quantos personagens têm informação definida, desconhecida ou não aplicável. Não converter ausência de informação em uma categoria.
+- A leitura deve ser possível no nível da empresa e de cada setor, com proteção contra exposição indevida de personagens em grupos pequenos.
+
+### Indicador gestor de diversidade e homogeneidade
+
+O painel gestor deverá apresentar, além das dimensões analíticas já descritas, um indicador visual de **Diversidade / Homogeneidade** para a empresa e para cada setor.
+
+- Quanto mais diversa for a composição do conjunto de funcionários, maior será o indicador de diversidade; quanto mais concentrada ou homogênea for a composição, maior será a indicação de homogeneidade.
+- O painel deve mostrar a composição por dimensão (raça/cor, pertencimento étnico e origem/classe socioeconômica) e permitir compreender quais fatores estão contribuindo para o resultado. Evitar esconder todas as dimensões em um número opaco.
+- O indicador será calculado separadamente para a empresa e para cada setor. A diversidade de um setor não deve ser presumida a partir da diversidade geral da empresa.
+- Os seis heróis entram no cálculo do setor e da empresa em que estiverem alocados, assim como os demais funcionários. A alocação setorial deve ser explícita e atualizável.
+- A fórmula, os pesos entre dimensões, o tratamento de dados ausentes e o tamanho mínimo de grupo ainda serão definidos na especificação técnica. Não somar dimensões de modo a permitir que diversidade em uma categoria mascare concentração extrema em outra sem que isso fique visível.
+
+### Bônus de produtividade e lucratividade por hora — regra de gameplay proposta
+
+Como mecânica de simulação, a diversidade de cada setor deverá gerar **pontos adicionais de lucratividade por hora**: quanto maior a diversidade setorial, maior o bônus potencial aplicado à lucratividade/hora daquele setor. O resultado poderá repercutir na produtividade e na lucratividade simuladas da empresa.
+
+Esta é uma regra ficcional de balanceamento do Pilha Game, definida para recompensar a construção de equipes diversas e estimular o jogador a observar a composição dos setores. **Não deve ser apresentada como prova de que diversidade demográfica, isoladamente, causa automaticamente aumento de produtividade ou lucro em organizações reais.** Na vida real, resultados dependem de condições de inclusão, segurança psicológica, gestão, desenho do trabalho, equidade, recursos, participação e muitos outros fatores.
+
+Diretrizes para a futura implementação:
+1. O bônus é aplicado ao resultado coletivo do setor, nunca como multiplicador de produtividade, salário, desempenho ou valor individual de uma pessoa em razão de sua identidade.
+2. A mecânica deverá considerar diversidade real da composição do setor, e não apenas diversidade na empresa como um todo.
+3. O bônus deve ser gradual, limitado e sujeito a balanceamento; não pode tornar diversidade um atalho para lucro nem permitir que uma empresa ignore condições de trabalho, saúde, segurança, remuneração justa ou direitos.
+4. A diversidade não compensa discriminação, assédio, desigualdade salarial, falta de acessibilidade ou concentração de poder. O painel deverá manter esses problemas visíveis e independentes do bônus.
+5. Ações cosméticas ou contratações pontuais não devem gerar benefício permanente se a composição, a permanência e a participação não forem sustentadas.
+6. A fórmula de conversão do indicador em pontos adicionais de lucratividade/hora, limites máximos, frequência de atualização e interação com outros modificadores econômicos serão definidos em etapa posterior de balanceamento.
+7. O jogador deverá conseguir comparar setores e compreender por que o bônus foi atribuído, sem expor dados sensíveis individuais.
+
+**Princípio de design:** diversidade deve ser reconhecida como característica estrutural de uma equipe; inclusão e equidade são condições para que essa diversidade se traduza em colaboração e bons resultados. A mecânica econômica é um incentivo lúdico, não uma avaliação de pessoas ou uma promessa de retorno financeiro no mundo real.
+
 ### Indicadores organizacionais sugeridos
 
 O painel deve permitir observar, no mínimo:
