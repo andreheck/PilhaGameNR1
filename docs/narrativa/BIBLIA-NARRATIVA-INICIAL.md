@@ -616,6 +616,80 @@ Diretrizes para a futura implementação:
 
 **Princípio de design:** diversidade deve ser reconhecida como característica estrutural de uma equipe; inclusão e equidade são condições para que essa diversidade se traduza em colaboração e bons resultados. A mecânica econômica é um incentivo lúdico, não uma avaliação de pessoas ou uma promessa de retorno financeiro no mundo real.
 
+### Proposta de pesos e contrapesos — versão para validação
+
+**Status:** proposta de balanceamento para futura implementação. Os parâmetros são escolhas de gameplay, não coeficientes científicos nem estimativas de retorno econômico real.
+
+#### Índice de Diversidade (ID)
+
+Pesos iniciais das dimensões:
+- Raça/cor: 40%.
+- Origem socioeconômica/classe: 35%.
+- Pertencimento étnico: 25%.
+
+Exibir sempre os três subíndices separadamente. Raça/cor e pertencimento étnico podem se sobrepor; testar a combinação para evitar dupla contagem. Se a definição de pertencimento étnico não for consistente para a população simulada, revisar essa dimensão em vez de forçar classificações.
+
+Para cada dimensão, usar inicialmente o índice de Simpson: diversidade = 1 menos a soma dos quadrados das proporções de cada categoria. Normalizar para escala 0–100 pelo máximo matemático possível para o número de categorias adotado. Distribuição concentrada gera pontuação baixa; distribuição mais equilibrada gera pontuação alta.
+
+O ID do setor será a média ponderada dos subíndices válidos. O ID da empresa será calculado sobre o conjunto total de funcionários, não pela média simples dos setores. Os seis heróis entram no setor em que estiverem alocados.
+
+#### Cobertura e qualidade dos dados
+
+- Exigir pelo menos 80% de cobertura válida em cada dimensão usada no cálculo do bônus.
+- Abaixo desse limite, mostrar “dados insuficientes” e suspender o bônus; ausência de informação não significa diversidade nem homogeneidade.
+- Em setores com menos de 8 integrantes, sinalizar baixa robustez e não exibir recortes que permitam identificar indivíduos. Pode-se usar janela móvel de períodos para estabilizar o cálculo.
+- Não inferir classe por raça, aparência, endereço ou cargo.
+- Não alterar atributos demográficos para otimizar pontuação.
+
+#### Fator de Inclusão (FI)
+
+O FI varia de 0 a 100 e funciona como contrapeso organizacional:
+
+| Dimensão | Peso |
+|---|---:|
+| Acesso equitativo a contratação, formação e projetos | 25% |
+| Progressão e mobilidade interna | 25% |
+| Representação em liderança e decisões | 20% |
+| Equidade remuneratória em funções comparáveis | 15% |
+| Permanência, pertencimento e resposta institucional | 15% |
+| **Total** | **100%** |
+
+Os componentes devem refletir políticas e resultados agregados, não atributos individuais. Os critérios de pontuação serão detalhados na implementação.
+
+Discriminação ou assédio grave sem resposta institucional adequada, retaliação ou violação grave de direitos bloqueiam o bônus enquanto a falha persistir. O bloqueio não reduz o ID: evidencia que composição diversa não significa inclusão. Denúncia, por si só, não gera bloqueio; é preciso considerar a resposta institucional e a proteção oferecida.
+
+#### Bônus de lucratividade por hora
+
+Teto inicial proposto: **+6% sobre a lucratividade por hora do setor**, aplicado ao resultado coletivo antes da consolidação dos resultados da empresa.
+
+- Fator de conversão de inclusão: FCI = 0,30 + 0,70 × (FI / 100).
+- Bônus percentual = 6% × (ID / 100) × FCI.
+- Com cobertura insuficiente ou bloqueio de proteção, bônus = 0%.
+
+Exemplos ilustrativos:
+- ID 50 e FI 80: bônus de 2,58%.
+- ID 80 e FI 100: bônus de 4,80%.
+- ID 100 e FI 100: bônus máximo de 6,00%.
+- ID 100 e FI 40: bônus de 3,48%.
+- Falha grave sem resposta adequada: bônus bloqueado.
+
+O bônus não altera salário, produtividade individual, competência ou avaliação de qualquer personagem. A consolidação da empresa deve ponderar os resultados setoriais pela participação de cada setor na atividade econômica, sem somar percentuais diretamente.
+
+#### Estabilidade e prevenção de exploração
+
+1. Atualizar o ID quando a composição mudar; atualizar o FI em ciclos de gestão, não a cada contratação isolada.
+2. Usar janela móvel sugerida de três ciclos para FI e permanência.
+3. Não conceder bônus instantâneo por contratação isolada.
+4. Saídas involuntárias concentradas em determinados grupos devem gerar alerta de equidade e afetar o componente de permanência.
+5. Bloqueios de proteção prevalecem sobre médias; bons resultados em uma dimensão não compensam falha grave em outra.
+6. O painel mostra ID, subíndices, FI, cobertura, bônus atual, teto e motivos de bloqueio.
+7. Saúde, segurança, direitos e condições de trabalho permanecem sistemas independentes.
+8. Testar o teto de 6% no balanceamento econômico; se tornar a mecânica dominante, revisar a curva sem enfraquecer a finalidade educativa.
+
+Exemplo de painel: “Operações — Diversidade 72/100; Inclusão 54/100; cobertura 92%; bônus +3,47% na lucratividade/hora. Atenção: baixa representação em liderança e diferença de acesso à formação.”
+
+A leitura descreve a estrutura organizacional, nunca o valor ou a produtividade presumida de grupos ou indivíduos.
+
 ### Indicadores organizacionais sugeridos
 
 O painel deve permitir observar, no mínimo:
