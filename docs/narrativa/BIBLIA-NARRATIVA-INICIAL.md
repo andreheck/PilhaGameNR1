@@ -279,6 +279,65 @@ As descrições abaixo são referências narrativas, não rótulos fixos. Cada p
 | Aquário | inovação, autonomia, experimentação e questionamento de padrões |
 | Peixes | imaginação, sensibilidade, empatia e percepção das relações |
 
+
+### Matriz de expressão: três origens × doze signos
+
+Esta matriz orienta a escrita de cenas e diálogos. Ela **não cria 36 personalidades fechadas**: apresenta possibilidades de como a mesma tendência simbólica pode ganhar expressões diferentes conforme o contexto de vida. O motor não deve presumir que a pessoa terá o comportamento descrito; deve usar as ideias como sementes narrativas, confirmadas ou contrariadas pela história individual.
+
+#### Origem A — Periferia: talento e responsabilidades precoces
+
+- **Áries:** iniciativa para propor soluções no trabalho; pode precisar avaliar riscos quando uma decisão também afeta a estabilidade familiar.
+- **Touro:** valorização de previsibilidade e segurança; pode buscar condições que permitam conciliar renda, estudo e responsabilidades de cuidado.
+- **Gêmeos:** curiosidade e facilidade para circular entre interesses; pode explorar caminhos de formação e redes de aprendizagem.
+- **Câncer:** atenção aos vínculos e à família; pode negociar limites para não assumir sozinho responsabilidades que precisam ser compartilhadas.
+- **Leão:** desejo de expressar talentos e ter reconhecimento; pode buscar visibilidade sem ser reduzido à narrativa de “superação”.
+- **Virgem:** interesse por organização e aperfeiçoamento; pode transformar conhecimento prático em propostas de melhoria, desde que tenha espaço e reconhecimento.
+- **Libra:** disposição para cooperação e diálogo; pode enfrentar dilemas entre evitar conflitos e reivindicar condições justas.
+- **Escorpião:** tendência à profundidade e à reserva; pode preferir construir confiança antes de compartilhar dificuldades ou planos.
+- **Sagitário:** interesse por explorar possibilidades; pode ponderar oportunidades de mobilidade diante de vínculos e responsabilidades locais.
+- **Capricórnio:** foco em planejamento e objetivos de longo prazo; pode estruturar etapas para formação e estabilidade sem que isso signifique aceitar sobrecarga.
+- **Aquário:** interesse por inovação e autonomia; pode questionar práticas injustas e propor alternativas, precisando de canais reais de participação.
+- **Peixes:** imaginação e sensibilidade às relações; pode encontrar sentido em atividades criativas ou de cuidado, sem ser automaticamente colocado nesse tipo de função.
+
+#### Origem B — Migração: reconstruir a vida
+
+- **Áries:** iniciativa para começar de novo; pode precisar de informação e proteção para que coragem não seja explorada por empregadores.
+- **Touro:** busca de estabilidade; pode priorizar renda previsível, moradia e segurança documental enquanto reconstrói sua rede.
+- **Gêmeos:** curiosidade e comunicação; pode desenvolver repertório linguístico e conexões, sem que domínio inicial do idioma seja confundido com inteligência.
+- **Câncer:** valorização de vínculos e pertencimento; pode buscar comunidades de apoio e formas de manter relações afetivas à distância.
+- **Leão:** desejo de reconhecimento; pode querer que suas qualificações e experiências anteriores sejam vistas para além da condição migratória.
+- **Virgem:** atenção a detalhes e organização; pode sistematizar documentos e processos, mas não deve receber sozinho o ônus burocrático da integração.
+- **Libra:** interesse por cooperação e mediação; pode atuar como ponte entre pessoas, sem ser transformado em intérprete informal ou representante de todo um grupo.
+- **Escorpião:** reserva e profundidade; pode decidir cuidadosamente quando e com quem compartilhar sua história, preservando privacidade.
+- **Sagitário:** abertura à exploração; pode ver a mudança como possibilidade de novos caminhos, sem apagar perdas, saudade ou dificuldades.
+- **Capricórnio:** planejamento e persistência; pode organizar metas de regularização, reconhecimento profissional e estabilidade, com apoio institucional adequado.
+- **Aquário:** autonomia e questionamento; pode propor novas perspectivas a partir de experiências diversas, sem ser tratado como porta-voz de todos os migrantes.
+- **Peixes:** imaginação e sensibilidade; pode criar vínculos por meio de arte, cultura ou solidariedade, sem presumir fragilidade emocional.
+
+#### Origem C — Classe média alta: privilégio e legitimidade
+
+- **Áries:** iniciativa para assumir desafios; pode precisar aprender a ouvir e reconhecer limites antes de agir.
+- **Touro:** busca de estabilidade e continuidade; pode questionar se segurança significa permanecer no negócio familiar ou construir trajetória própria.
+- **Gêmeos:** curiosidade e variedade; pode explorar áreas e experiências, evitando dispersão ou acesso privilegiado sem compromisso.
+- **Câncer:** valorização dos vínculos familiares; pode negociar expectativas e construir autonomia sem reduzir relações familiares a conflito.
+- **Leão:** expressividade e reconhecimento; pode lidar com a diferença entre prestígio herdado e legitimidade conquistada.
+- **Virgem:** organização e aperfeiçoamento; pode desenvolver competência real no cotidiano, sem confundir perfeccionismo com excelência.
+- **Libra:** diplomacia e cooperação; pode mediar expectativas familiares e relações de equipe, sem evitar conversas difíceis sobre privilégio.
+- **Escorpião:** profundidade e estratégia; pode refletir sobre poder, confiança e motivação própria, sem presumir manipulação ou ambição oculta.
+- **Sagitário:** exploração e independência; pode buscar experiências fora da empresa da família para ampliar repertório e autonomia.
+- **Capricórnio:** planejamento e ambição; pode construir credibilidade por entregas e aprendizagem, não apenas por acesso a recursos.
+- **Aquário:** inovação e inconformismo; pode questionar modelos tradicionais do negócio e aceitar que boas ideias exigem escuta e validação.
+- **Peixes:** imaginação e empatia; pode ampliar a compreensão de realidades diferentes da sua, sem ser automaticamente caracterizado como altruísta.
+
+#### Regras de leitura da matriz
+
+1. A origem modifica o **contexto em que uma tendência pode aparecer**, não a intensidade obrigatória do signo nem o valor da pessoa.
+2. A mesma tendência pode aparecer de modo diferente, não aparecer ou mudar com experiências e escolhas.
+3. Não associar signos específicos a origens específicas, nem criar combinações “melhores”, “piores” ou mais fáceis para o jogador.
+4. Não usar as descrições para atribuir automaticamente traços psicológicos, competências, vulnerabilidades ou destinos.
+5. Cada combinação deverá admitir múltiplas respostas narrativas e ser testada com personagens de diferentes gêneros, identidades, regiões e trajetórias.
+6. A matriz é material de apoio à escrita. As decisões do personagem continuam submetidas às quatro camadas de influência, às condições concretas e à sua agência.
+
 ### Como a influência aparece nas escolhas
 
 O signo poderá inclinar discretamente a preferência entre alternativas que já sejam plausíveis para o personagem. Por exemplo, diante de uma proposta de promoção que exige mudança de cidade, uma tendência simbólica à estabilidade pode favorecer a investigação de segurança e vínculos antes de aceitar; uma tendência à exploração pode favorecer a curiosidade pela experiência. Nenhuma delas determina a resposta.
