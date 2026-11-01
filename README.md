@@ -2,6 +2,11 @@
 
 Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.app/)**. O hub reúne casos educativos, câmera isométrica, personagens e painéis contextuais. A meta pedagógica dos casos é 75/100, com pontuação máxima de 100.
 
+## Narrativa e jornada de carreira
+
+- **Bíblia narrativa inicial:** [Jornada de Carreira, origens do mentorado, progressão profissional, aconselhamento, termômetro organizacional e diretrizes éticas](docs/narrativa/BIBLIA-NARRATIVA-INICIAL.md).
+- **App PilhA+:** https://vaideplanob.com.br/pilha-plus-app/ — referência indicada para futura consulta às histórias psicoeducativas e desenho da integração. O catálogo das 51 histórias ainda precisa ser localizado e mapeado antes de ser incorporado à narrativa.
+
 - **Missão 01 / Fundamentos da NR-1:** [Biblioteca e quiz](https://pilha-plus-game-preview.vercel.app/missao01.html).
 - **Caso 017:** [Fluxo de investigação](https://pilha-plus-game-preview.vercel.app/caso017.html).
 - **Biblioteca 3D experimental:** [Acessar](https://pilha-plus-game-preview.vercel.app/biblioteca3d.html).
