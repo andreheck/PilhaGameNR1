@@ -486,6 +486,152 @@ A interface pode apresentar sínteses qualitativas, como “decisão alinhada a 
 - [ ] A Coerência Pessoal não premia decisões convenientes à empresa ou ao jogador.
 - [ ] A ficha contém apenas informações necessárias à narrativa e não simula avaliação clínica.
 
+
+## 17. Proposta de personagem A — origem periférica (em validação)
+
+**Status:** proposta narrativa para validação; ainda não é personagem canônico nem está implementada.
+
+### Identidade inicial proposta
+
+- **Nome de trabalho:** Júlia.
+- **Idade inicial:** 19 anos.
+- **Origem:** periferia urbana; mora com a mãe e três irmãos mais novos.
+- **Família:** mãe solo e professora, com renda limitada e responsabilidades de cuidado compartilhadas de forma desigual.
+- **Raça/cor:** a definir com a validação do elenco e da matriz de diversidade. Não deduzir raça a partir do território, da renda ou da estrutura familiar.
+- **Escolaridade e entrada profissional:** concluiu o ensino médio e busca uma primeira oportunidade de aprendizagem remunerada; a rota inicial (jovem aprendiz ou outra modalidade legalmente adequada à idade e ao contexto) deverá ser definida na máquina de carreira.
+
+O nome, a idade e os demais dados são escolhas de concepção sujeitas à aprovação. A personagem não será apresentada como representante de todas as jovens periféricas.
+
+### História e contexto
+
+Júlia cresceu em um bairro periférico onde construiu vínculos comunitários e aprendeu a circular entre diferentes responsabilidades. A mãe é uma referência importante, mas a narrativa não deve romantizar a sobrecarga materna nem atribuir à filha a obrigação de resolver os problemas da família. Júlia pode ajudar em tarefas domésticas e no cuidado dos irmãos, mas também deseja ter tempo, amizades, lazer e projetos próprios.
+
+O deslocamento até oportunidades de estudo e trabalho pode consumir tempo e dinheiro. Acesso a computador, internet estável, cursos e contatos profissionais pode ser irregular. Essas condições são barreiras concretas que a empresa pode reduzir parcialmente — por exemplo, com horários previsíveis, apoio à formação, equipamentos e critérios transparentes — e não defeitos pessoais da personagem.
+
+### Valores, motivações e interesses
+
+Pontos de partida sugeridos, a serem revelados gradualmente em diálogo:
+- autonomia financeira e possibilidade de fazer escolhas próprias;
+- aprendizagem e construção de uma profissão;
+- vínculo com a família sem abrir mão da própria vida;
+- respeito, justiça e reconhecimento pelo trabalho;
+- desejo de conhecer outros lugares e ampliar seu repertório.
+
+Interesses possíveis: tecnologia aplicada a problemas cotidianos, comunicação visual e produção de conteúdo. São hipóteses narrativas, não competências presumidas pela origem. O jogo deverá oferecer oportunidades para que Júlia demonstre, desenvolva ou descarte esses interesses.
+
+### Competências iniciais e desenvolvimento
+
+A ficha inicial não deve atribuir competências por estereótipo. As primeiras evidências surgem em cenas: organização de uma atividade escolar, solução prática de um problema, colaboração em um projeto ou curiosidade por uma ferramenta. O jogador poderá oferecer formação e supervisão; Júlia também poderá descobrir que não gosta de uma área inicialmente escolhida.
+
+Distinguir sempre:
+- o que ela já demonstrou;
+- o que está aprendendo;
+- o que apenas lhe interessa;
+- o que ainda não teve oportunidade de experimentar.
+
+### Contradições e dilemas possíveis
+
+- Quer contribuir com as despesas de casa, mas não deseja assumir sozinha responsabilidades de adulto.
+- Busca estabilidade financeira, mas teme aceitar uma oportunidade que impeça a continuidade dos estudos.
+- Quer ser reconhecida pelo que sabe fazer, mas pode não dominar os códigos informais de processos seletivos e ambientes corporativos.
+- Valoriza a família, mas precisa construir limites e projetos próprios.
+- Pode ter orgulho de sua comunidade e, ao mesmo tempo, desejar mobilidade e novas experiências.
+
+Essas tensões não devem ser resolvidas sempre em favor do trabalho ou da empresa. Júlia pode recusar uma promoção, pedir mudança de horário, procurar outra organização ou decidir priorizar um projeto pessoal.
+
+### Voz e relação com o jogador
+
+A voz deve ser contemporânea e individual, sem excesso de gírias, caricatura territorial ou linguagem artificialmente “inspiradora”. Júlia pode ser bem-humorada, direta, curiosa ou reservada conforme a situação; não deve ser reduzida a uma única característica.
+
+Exemplo de abertura, ainda sujeito à revisão:
+> “Eu quero começar a trabalhar e aprender de verdade. Só preciso entender se vou conseguir conciliar isso com os estudos e com as coisas que acontecem em casa. Não quero que decidam por mim, mas queria conhecer as possibilidades.”
+
+A relação de mentoria deve permitir confiança, discordância e privacidade. Júlia não precisa contar toda sua história familiar para receber orientação profissional.
+
+### Salvaguardas de representação
+
+1. Não retratar a periferia apenas como violência, carência ou ausência de oportunidades; incluir vínculos, cultura, criatividade, conhecimento, humor, pertencimento e diversidade interna.
+2. Não transformar pobreza em combustível moral, nem sugerir que esforço individual resolve barreiras estruturais.
+3. Não atribuir baixa escolaridade, pouca competência digital, maternidade precoce, criminalidade ou qualquer característica à origem.
+4. Não exigir que a personagem sustente financeiramente a família como prova de caráter.
+5. Não fazer da personagem porta-voz de pessoas negras, periféricas ou de qualquer grupo.
+6. Validar texto, visual e situações com pessoas de diferentes experiências periféricas, evitando que a equipe de criação seja a única referência de autenticidade.
+
+## 18. Indicador de diversidade, equidade e acesso a oportunidades
+
+**Status:** especificação conceitual inicial para validação. Não implementada.
+
+### Finalidade
+
+O jogo deverá apresentar um painel de diversidade que permita acompanhar a composição da força de trabalho e, principalmente, a distribuição de oportunidades e resultados entre grupos. O indicador não deve ser uma pontuação moral da empresa nem uma métrica isolada de conformidade. Sua função é revelar desigualdades, orientar investigação e avaliar se ações organizacionais estão ampliando acesso, permanência, desenvolvimento e participação nas decisões.
+
+### Dimensões a acompanhar
+
+**Raça/cor e pertencimento étnico-racial**
+- No contexto brasileiro, a classificação de raça/cor deve ser compatível com categorias de autodeclaração utilizadas pelo IBGE: branca, preta, parda, amarela e indígena.
+- Pertencimento étnico não é sinônimo perfeito de raça/cor. Quando houver relevância narrativa, poderá existir campo separado e voluntário para pertencimentos étnicos específicos, respeitando a forma como a própria pessoa se identifica.
+- Povos indígenas, comunidades quilombolas e outros pertencimentos coletivos não devem ser reduzidos a uma simples subcategoria estatística ou usados como decoração narrativa.
+
+**Classe social e origem socioeconômica**
+- Não inferir classe social a partir de bairro, aparência, raça/cor, escolaridade ou ocupação.
+- No universo ficcional, considerar um conjunto de fatores de contexto, como faixa de renda familiar de origem, condições de moradia, acesso a recursos e estabilidade econômica, responsabilidades de cuidado e acesso a redes de oportunidade.
+- Distinguir origem socioeconômica da condição econômica atual: uma pessoa pode ter origem de baixa renda e alcançar maior renda, ou enfrentar mobilidade descendente.
+- Definir faixas e critérios transparentes antes da implementação; não apresentar uma classificação simplificada como verdade objetiva sobre a identidade da pessoa.
+
+### Indicadores organizacionais sugeridos
+
+O painel deve permitir observar, no mínimo:
+
+1. **Representatividade:** composição da força de trabalho por raça/cor, pertencimento étnico quando disponível e faixas de origem socioeconômica.
+2. **Distribuição hierárquica:** representação por nível, área, tipo de vínculo e posição de decisão.
+3. **Acesso:** candidaturas, contratações, aprendizagem, estágio, formação e participação em projetos, observados de forma agregada.
+4. **Progressão:** promoções, mobilidade interna, acesso a posições de liderança e tempo de progressão, quando houver base suficiente.
+5. **Equidade remuneratória:** diferenças de remuneração entre grupos em funções e níveis comparáveis, considerando jornada, vínculo e demais fatores relevantes. Diferenças brutas não devem ser apresentadas como prova automática de discriminação ou de sua ausência.
+6. **Permanência e saída:** rotatividade, desligamentos voluntários e involuntários e motivos narrativos agregados, sem atribuir causalidade sem evidência.
+7. **Experiência e proteção:** acesso a condições seguras, canais de denúncia, acolhimento, adaptações e resposta institucional a discriminação ou assédio.
+
+### Apresentação: não reduzir diversidade a uma nota única
+
+Recomendação: utilizar um painel com dimensões separadas, séries temporais e comparação entre composição geral e distribuição por níveis/oportunidades. Se houver um resumo visual, ele deve ser acompanhado dos componentes e dos limites de interpretação. Evitar um “índice de diversidade” único que esconda desigualdades internas ou permita compensar discriminação em uma dimensão com bons resultados em outra.
+
+Exemplos de leitura:
+- a participação de pessoas negras na força de trabalho aumentou, mas permanece baixa em cargos de liderança;
+- a empresa ampliou contratações de pessoas de diferentes origens socioeconômicas, mas não oferece acesso equivalente à formação;
+- a remuneração média geral melhorou, mas as diferenças persistem em funções comparáveis;
+- a representação está equilibrada em uma área e concentrada em outra.
+
+### Mecânicas e consequências no jogo
+
+- Ações como processos seletivos estruturados, critérios públicos de promoção, bolsas de formação, acessibilidade, mentoria, canais confiáveis e revisão de remuneração podem alterar gradualmente os indicadores.
+- Campanhas pontuais de contratação não devem produzir automaticamente equidade em progressão, remuneração ou poder decisório.
+- Metas precisam considerar contexto, linha de base, tempo e qualidade das oportunidades; não criar cotas fictícias como substituto de políticas reais ou tratar pessoas como unidades intercambiáveis.
+- O jogador deve investigar causas organizacionais e barreiras sistêmicas, em vez de “corrigir” características dos trabalhadores.
+- Eventos de discriminação devem ter consequências institucionais e exigir prevenção, acolhimento, apuração adequada e reparação; não devem virar apenas perda de pontos ou custo financeiro.
+- Nenhuma pessoa deve ser premiada, punida, contratada, promovida ou desligada por pertencer a determinado grupo. As mecânicas avaliam políticas e estruturas organizacionais, não o valor individual de alguém.
+
+### Privacidade, autodeclaração e qualidade dos dados
+
+- Em um contexto real, raça/cor e pertencimento étnico são dados pessoais sensíveis. A especificação de jogo não autoriza coletar esses dados de usuários ou trabalhadores reais.
+- Para o jogo, utilizar população e dados inteiramente ficcionais, ou dados sintéticos claramente identificados como tais.
+- Em qualquer futura adaptação para ambiente real, exigir avaliação jurídica e de proteção de dados, finalidade legítima, transparência, controles de acesso, segurança, retenção limitada e governança adequada.
+- A autodeclaração deve ser voluntária, sem inferência por imagem, nome, endereço, voz ou algoritmo.
+- Exibir resultados agregados e suprimir grupos muito pequenos quando houver risco de reidentificação. Não disponibilizar filtros que permitam identificar a raça, etnia ou condição socioeconômica de uma pessoa específica.
+- Ausência de informação não deve ser tratada como pertencimento a um grupo; apresentar cobertura e taxa de não resposta.
+- Não cruzar atributos sensíveis com dados individuais de saúde, desempenho ou produtividade.
+
+### Critérios de validação antes da implementação
+
+- [ ] Raça/cor, pertencimento étnico e classe/origem socioeconômica estão conceitualmente separados.
+- [ ] Categorias e critérios são transparentes, contextualizados no Brasil e revisados com pessoas dos grupos representados.
+- [ ] O painel diferencia representatividade de acesso, progressão, remuneração, permanência e poder decisório.
+- [ ] Dados são ficcionais/sintéticos no jogo e agregados por padrão.
+- [ ] Não há inferência de identidade por aparência, nome, território ou comportamento.
+- [ ] Não há pontuação individual, ranking de grupos ou efeito automático sobre competências e decisões de carreira.
+- [ ] O sistema evita reidentificação em grupos pequenos e comunica dados ausentes.
+- [ ] As mecânicas incentivam mudanças estruturais sustentáveis, não ações cosméticas.
+- [ ] A narrativa permite interseções entre raça, etnia, classe, gênero, deficiência e outros contextos sem presumir experiências idênticas.
+
+
 ## 15. Pendências para as próximas versões
 
 - [ ] Localizar e catalogar as 51 histórias no app/site ou em sua fonte de dados.
