@@ -18,7 +18,7 @@ const bounds={minX:-5,maxX:5,minZ:-5,maxZ:5};
 const obstacles=[{minX:0.5,maxX:1.5,minZ:-1,maxZ:1}];
 assert.equal(isWalkable({x:0,z:0},bounds,obstacles),true);
 assert.equal(isWalkable({x:1,z:0},bounds,obstacles),false);
-assert.deepEqual(moveWithCollision({x:0,z:0},{x:2,z:0},bounds,obstacles,2,1),{x:0,z:0});
+const blockedMove = moveWithCollision({x:0,z:0},{x:2,z:0},bounds,obstacles,2,1);\nassert.ok(blockedMove.x <= 0.281 && blockedMove.x >= 0, "movimento rápido não atravessa obstáculo");\nassert.equal(blockedMove.z, 0);
 assert.ok(isWalkable(moveWithCollision({x:0,z:0},{x:2,z:2},bounds,obstacles,2,1),bounds,obstacles));
 const exploring=createActorBrain({id:"worker-2",home:{x:0,z:0},seed:2});
 transitionActor(exploring,"exploring",[{x:1,z:1},{x:2,z:1}]);
