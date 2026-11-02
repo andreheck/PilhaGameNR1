@@ -25,6 +25,7 @@ const nextPeriod = advanceWorkforcePeriod(worker.state);
 assert.equal(nextPeriod.period, 2);
 assert.equal(nextPeriod.state.contractLedger.filter(x => x.type === "recurring").length, 1);
 assert.equal(nextPeriod.state.contractLedger.find(x => x.type === "recurring").amount, 1850);
+assert.equal(nextPeriod.state.contractLedger.filter(x => x.period === 2 && x.type === "recurring").length, 1);
 assert.ok(getContractPerformance("xacomigo").performance > getContractPerformance("taresolvido").performance);
 const collective = updateCollectiveRepresentation(nextPeriod.state, { organized: true, representatives: 2, agenda: ["Pausas", "Segurança"] });
 assert.equal(collective.collectiveRepresentation.organized, true);
