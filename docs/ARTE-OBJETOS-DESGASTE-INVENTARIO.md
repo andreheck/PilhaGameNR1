@@ -123,3 +123,22 @@ Luminária, sofá, mesa redonda, lixeira, plantas e demais objetos de apoio. Pla
 ## 8. Próxima implementação
 
 Implementar um pequeno protótipo de variação de materiais para `computerScreen` e `laptop`, com três condições (usado, precário e sucateado), em uma cena de teste isolada. Após revisão visual, expandir para mesa, cadeira, estante e livros. Não substituir o escritório principal antes da aprovação.
+
+
+## 9. Protótipo técnico criado
+
+Foi adicionada uma página isolada de inspeção, sem alterar a cena principal:
+
+- `/aged-inventory.html`: interface para selecionar monitor/notebook e alternar entre usado, precário e sucateado.
+- `/aged-inventory.js`: carrega os GLBs originais Kenney e aplica variações não destrutivas de material e marcas superficiais procedurais.
+- A cena permite rotação por mouse/toque via OrbitControls.
+- O protótipo não grava estado no jogo, não altera pontuação e não substitui os assets originais.
+
+**Abrir a prévia após deploy da branch:** `/aged-inventory.html`.
+
+### Limitações desta primeira passagem
+
+- Os danos são marcas superficiais genéricas para validar contraste e leitura; não representam ainda rachaduras modeladas, peças quebradas específicas ou geometria de reparo fiel a cada objeto.
+- O monitor e o notebook precisam de inspeção visual em navegador desktop e mobile para ajustar posição das marcas à orientação real das malhas.
+- A prévia depende dos GLBs Kenney publicados em `/assets/kenney-furniture/`.
+- Nenhuma integração com o mundo principal foi realizada. A aprovação visual é pré-requisito para expandir a técnica.
