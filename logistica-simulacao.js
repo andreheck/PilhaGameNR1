@@ -1,5 +1,5 @@
 import { DOMAINS, INTERVENTIONS, applyIntervention, getEmployeeSnapshot, getOrganizationSnapshot } from "/src/psychosocial-simulation.js";
-import { ensureManagementCycle, getManagementCapacity, consumeManagementAction, closeManagementPeriod } from "/src/management-cycle.js";
+import { ensureManagementCycle, getManagementCapacity, consumeManagementAction, closeManagementPeriod, resolveManagementReview } from "/src/management-cycle.js";
 import { evaluateEnterpriseOutcomes } from "/src/enterprise-outcomes.js";
 import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual, advanceWorkforcePeriod, updateCollectiveRepresentation, getWorkforceFinanceSnapshot } from "/src/workforce-relations.js";
 
@@ -52,8 +52,9 @@ function render() {
   $("management-capacity").textContent = `${capacity.remaining} de ${capacity.capacity} decisões estratégicas disponíveis`;
   $("cycle-summary").textContent = `Período ${capacity.period}: ${capacity.used} decisão(ões) utilizada(s). Ações exigem priorização e revisão no ciclo seguinte.`;
   const cycleEvents = game.managementCycle?.lastClose?.events ?? [];
-  const reviews = (game.managementCycle?.pendingReviews ?? []).filter(item => item.status === "due");
-  $("cycle-events").innerHTML = [...cycleEvents.map(item => `<li><strong>${safe(item.title)}</strong><small>Período ${item.period} · ${safe(item.message)}</small></li>`), ...reviews.map(item => `<li><strong>Revisão pendente: ${safe(item.label)}</strong><small>Retome a decisão e registre o acompanhamento.</small></li>`)].join("") || '<li class="empty-history">Nenhum evento registrado neste ciclo.</li>';
+  const pendingReviews = (game.managementCycle?.pendingReviews ?? []).filter(item => item.status === "pending" || item.status === "due");
+  const reviewMarkup = pendingReviews.map(item => `<li class="review-item"><strong>${item.status === "due" ? "Revisão vencida" : "Revisão agendada"}: ${safe(item.label)}</strong><small>${item.status === "due" ? "Verifique os efeitos da decisão e registre o resultado." : `Retorno previsto para o período ${item.duePeriod}.`}</small>${item.status === "due" ? `<div class="review-actions"><button class="text-button" type="button" data-review="${safe(item.id)}" data-review-outcome="completed">Concluída</button><button class="text-button" type="button" data-review="${safe(item.id)}" data-review-outcome="reviewed">Revisada · manter acompanhamento</button></div>` : ""}</li>`);
+  $("cycle-events").innerHTML = [...cycleEvents.map(item => `<li><strong>${safe(item.title)}</strong><small>Período ${item.period} · ${safe(item.message)}</small></li>`), ...reviewMarkup].join("") || '<li class="empty-history">Nenhum evento registrado neste ciclo.</li>';
   const enterprise = game.enterpriseOutcomes ?? { news: [], ending: null };
   $("news-feed").innerHTML = enterprise.news.slice(0, 8).map(item => `<article class="news-item ${item.severity}"><small>${safe(item.publication)} · período ${item.period}</small><strong>${safe(item.title)}</strong><p>${safe(item.body)}</p>${item.voice ? `<blockquote><p>“${safe(item.voice.quote)}”</p><cite>Fala dramatizada · ${safe(item.voice.role)}</cite></blockquote>` : ""}</article>`).join("") || '<p class="empty-history">Nenhuma notícia publicada. A redação acompanha os indicadores.</p>';
   $("game-over").hidden = !enterprise.ending;
@@ -111,6 +112,14 @@ function render() {
 }
 document.addEventListener("click", event => {
   if (game.enterpriseOutcomes?.ending && !event.target.closest("#ending-reset")) return;
+  const reviewButton = event.target.closest("[data-review]");
+  if (reviewButton) {
+    const result = resolveManagementReview(game, reviewButton.dataset.review, reviewButton.dataset.reviewOutcome);
+    if (!result.ok) { toast(result.reason); return; }
+    game = result.state; render();
+    toast(reviewButton.dataset.reviewOutcome === "completed" ? "Revisão concluída e registrada." : "Revisão registrada. O acompanhamento permanece no histórico.");
+    return;
+  }
   if (event.target.closest("#collective-toggle")) {
     const current = game.collectiveRepresentation ?? { organized: false, representatives: 0, agenda: [] };
     game = updateCollectiveRepresentation(game, { organized: !current.organized, representatives: current.organized ? 0 : 2, agenda: current.organized ? [] : ["Pausas e recuperação", "Segurança e prevenção", "Comunicação e respeito"] });
