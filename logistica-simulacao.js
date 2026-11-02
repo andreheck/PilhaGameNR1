@@ -54,6 +54,7 @@ function render() {
   const selected = employee(selectedId) || game.employees[0];
   if (selected) {
     const s = getEmployeeSnapshot(selected);
+    const identity = getRelationshipVisual(selected);
     const alerts = s.criticalAlerts.length ? `<ul class="alert-list">${s.criticalAlerts.map(a => `<li><strong>Investigar:</strong> ${safe(a)}</li>`).join("")}</ul>` : '<p class="panel-note">Sem alertas críticos configurados neste cenário sintético. Isso não significa ausência de risco real.</p>';
     const bars = DOMAINS.map(d => {
       const v = s.scores[d.id], cls = v < 40 ? "very-low" : v < 60 ? "low" : "";
@@ -61,6 +62,13 @@ function render() {
     }).join("");
     $("employee-detail").innerHTML = `<div class="profile-top"><div class="profile-avatar">${selected.emoji}</div><div><h3>${safe(selected.name)}</h3><p>${safe(selected.role)} · ${identity.label}</p></div><div class="profile-score"><strong>${s.score}</strong><small>/100 · ${s.mood.emoji}</small></div></div>${alerts}<div class="domain-list">${bars}</div><p class="panel-note">Scores fictícios para aprendizagem. Investigue as condições de trabalho; não classifique nem culpe pessoas.</p>`;
   }
+
+  const supplierCards = SUPPLIERS.map(supplier => {
+    const contract = game.contracts?.find(c => c.supplierId === supplier.id && c.active);
+    const performance = getContractPerformance(supplier.id);
+    return `<article class="supplier-card supplier-${supplier.color}"><div class="supplier-head"><strong>${safe(supplier.name)}</strong><span>${money(supplier.monthlyCost)}/mês</span></div><p>${safe(supplier.scope)} · até ${supplier.capacity} profissionais</p><div class="supplier-metrics"><span>Qualidade ${supplier.quality}</span><span>Continuidade ${supplier.continuity}</span><span>Segurança ${supplier.safety}</span><span>Desempenho ${performance.performance}/100</span></div><button class="apply-btn" type="button" data-supplier="${supplier.id}">${contract ? "Alocar profissional" : "Contratar fornecedor"}</button></article>`;
+  }).join("");
+  $("supplier-list").innerHTML = supplierCards;
 
   const supplierCards = SUPPLIERS.map(supplier => {
     const contract = game.contracts?.find(c => c.supplierId === supplier.id && c.active);
@@ -80,6 +88,29 @@ function render() {
   try { localStorage.setItem(KEY, JSON.stringify(game)); } catch {}
 }
 document.addEventListener("click", event => {
+  const supplierButton = event.target.closest("[data-supplier]");
+  if (supplierButton) {
+    const supplierId = supplierButton.dataset.supplier;
+    const active = game.contracts?.some(c => c.supplierId === supplierId && c.active);
+    if (!active) {
+      const result = contractSupplier(game, supplierId);
+      if (!result.ok) { toast(result.reason); return; }
+      game = result.state; render(); toast("Contrato registrado. Custos recorrentes são acompanhados por período.");
+    } else {
+      const count = game.employees.filter(person => person.supplierId === supplierId).length;
+      const supplier = SUPPLIERS.find(item => item.id === supplierId);
+      const result = addOutsourcedWorker(game, supplierId, {
+        id: `${supplierId}-${count + 1}`, name: `Profissional ${count + 1}`,
+        role: supplier.scope, emoji: "🦺",
+        location: { x: 18 + count * 12, y: 76 },
+        scores: { physicalHealth: 65, emotionalWellbeing: 62, socialSupport: 58, jobSatisfaction: 60, safetyConditions: 66, recovery: 57 },
+        criticalAlerts: []
+      });
+      if (!result.ok) { toast(result.reason); return; }
+      game = result.state; selectedId = result.worker.id; render(); toast("Profissional terceirizado alocado ao cenário.");
+    }
+    return;
+  }
   const person = event.target.closest("[data-worker]");
   if (person) { selectedId = person.dataset.worker; render(); return; }
   const button = event.target.closest("[data-apply]");
