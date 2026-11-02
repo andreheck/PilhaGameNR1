@@ -57,11 +57,23 @@ export function isWalkable(point, bounds, obstacles = [], radius = 0.22) {
 export function moveWithCollision(position, target, bounds, obstacles = [], speed = 1.2, dt = 1/60, radius = 0.22) {
   const dx = target.x-position.x, dz = target.z-position.z, distance = Math.hypot(dx,dz);
   if (distance < 0.001) return { ...position };
-  const step = Math.min(distance, Math.max(0, speed*dt));
-  const next = {x:position.x+dx/distance*step,z:position.z+dz/distance*step};
-  if (isWalkable(next,bounds,obstacles,radius)) return next;
-  const xOnly={x:next.x,z:position.z},zOnly={x:position.x,z:next.z};
-  if (isWalkable(xOnly,bounds,obstacles,radius)) return xOnly;
-  if (isWalkable(zOnly,bounds,obstacles,radius)) return zOnly;
-  return { ...position };
+  const travel = Math.min(distance, Math.max(0, speed*dt));
+  // Substeps prevent fast actors from tunnelling through thin obstacles.
+  const steps = Math.max(1, Math.ceil(travel / Math.max(0.05, radius * 0.5)));
+  const stepX = dx / distance * travel / steps;
+  const stepZ = dz / distance * travel / steps;
+  let current = { ...position };
+  for (let i = 0; i < steps; i += 1) {
+    const next = { x: current.x + stepX, z: current.z + stepZ };
+    if (isWalkable(next, bounds, obstacles, radius)) {
+      current = next;
+      continue;
+    }
+    const xOnly = { x: next.x, z: current.z };
+    const zOnly = { x: current.x, z: next.z };
+    if (isWalkable(xOnly, bounds, obstacles, radius)) current = xOnly;
+    else if (isWalkable(zOnly, bounds, obstacles, radius)) current = zOnly;
+    else break;
+  }
+  return current;
 }
