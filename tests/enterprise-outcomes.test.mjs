@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { ENDINGS, evaluateEnterpriseOutcomes } from "../src/enterprise-outcomes.js";
 
 let state = { budget: -100, period: 1, contracts: [{ active: true }] };
-let first = evaluateEnterpriseOutcomes(state, { budget: -100, period: 1, activeContracts: 1, score: 45, criticalAlerts: 2, minimumSafety: 40 });
+let first = evaluateEnterpriseOutcomes(state, { budget: -100, period: 1, activeContracts: 1, score: 45, criticalAlerts: 3, minimumSafety: 40 });
 assert.equal(first.gameOver, false);
 assert.ok(first.news.some(item => item.publication === "The Mentalist Post"));
 assert.ok(first.news.some(item => item.voice?.role === "Trabalhadora da operação"), "notícia inclui voz dramatizada de trabalhadora");
