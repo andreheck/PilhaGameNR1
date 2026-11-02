@@ -92,6 +92,7 @@ export function closeManagementPeriod(state, organization = {}) {
     dueReviews: dueReviews.map(item => item.label)
   };
   cycle.period += 1;
+  next.period = cycle.period;
   cycle.actionsUsed = 0;
   return { state: next, closedPeriod: cycle.lastClose.period, events, dueReviews };
 }
