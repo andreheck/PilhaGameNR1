@@ -1,5 +1,6 @@
 import { DOMAINS, INTERVENTIONS, applyIntervention, getEmployeeSnapshot, getOrganizationSnapshot } from "/src/psychosocial-simulation.js";
 import { ensureManagementCycle, getManagementCapacity, consumeManagementAction, closeManagementPeriod } from "/src/management-cycle.js";
+import { ensureManagementCycle, getManagementCapacity, consumeManagementAction, closeManagementPeriod } from "/src/management-cycle.js";
 import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual, advanceWorkforcePeriod, updateCollectiveRepresentation, getWorkforceFinanceSnapshot } from "/src/workforce-relations.js";
 
 const KEY = "pilha-logistica-simulation-v1";
@@ -47,6 +48,12 @@ function render() {
   $("alert-count").textContent = org.criticalAlerts;
   $("upgrade-count").textContent = game.history.length;
   $("period-count").textContent = String(game.period ?? 1);
+  const capacity = getManagementCapacity(game);
+  $("management-capacity").textContent = `${capacity.remaining} de ${capacity.capacity} decisões estratégicas disponíveis`;
+  $("cycle-summary").textContent = `Período ${capacity.period}: ${capacity.used} decisão(ões) utilizada(s).`;
+  const cycleEvents = game.managementCycle?.lastClose?.events ?? [];
+  const reviews = (game.managementCycle?.pendingReviews ?? []).filter(item => item.status === "due");
+  $("cycle-events").innerHTML = [...cycleEvents.map(item => `<li><strong>${safe(item.title)}</strong><small>Período ${item.period} · ${safe(item.message)}</small></li>`), ...reviews.map(item => `<li><strong>Revisão pendente: ${safe(item.label)}</strong></li>`)].join("") || '<li class="empty-history">Nenhum evento registrado.</li>';
   const capacity = getManagementCapacity(game);
   $("management-capacity").textContent = `${capacity.remaining} de ${capacity.capacity} decisões estratégicas disponíveis`;
   $("cycle-summary").textContent = `Período ${capacity.period}: ${capacity.used} decisão(ões) utilizada(s). Ações exigem priorização e revisão no ciclo seguinte.`;
