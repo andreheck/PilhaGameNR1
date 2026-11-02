@@ -121,7 +121,12 @@ document.addEventListener("click", event => {
     const minimumSafety = Math.min(...game.employees.map(person => Number(person.scores?.safetyConditions ?? 100)));
     const lowRecoveryCount = game.employees.filter(person => Number(person.scores?.recovery ?? 100) < 45).length;
     const cycleResult = closeManagementPeriod(game, { score: org.score, criticalAlerts: org.criticalAlerts, minimumSafety, lowRecoveryCount });
-    // Fecha o período financeiro antes de avaliar os desfechos: os custos recorrentes\n    // deste ciclo precisam participar do gatilho de insolvência e ruptura contratual.\n    const advanced = advanceWorkforcePeriod(cycleResult.state);\n    const financial = getWorkforceFinanceSnapshot(advanced.state, 1);\n    const outcome = evaluateEnterpriseOutcomes(advanced.state, { score: org.score, criticalAlerts: org.criticalAlerts, minimumSafety, budget: advanced.state.budget, activeContracts: financial.activeContracts, period: cycleResult.closedPeriod });\n    game = outcome.state; render(); toast(outcome.ending ? `Game over: ${outcome.ending.title}` : `Período ${cycleResult.closedPeriod} fechado. ${cycleResult.events.length} evento(s) para revisão.`); return;
+    // Fecha o período financeiro antes de avaliar os desfechos: os custos recorrentes
+    // deste ciclo precisam participar do gatilho de insolvência e ruptura contratual.
+    const advanced = advanceWorkforcePeriod(cycleResult.state);
+    const financial = getWorkforceFinanceSnapshot(advanced.state, 1);
+    const outcome = evaluateEnterpriseOutcomes(advanced.state, { score: org.score, criticalAlerts: org.criticalAlerts, minimumSafety, budget: advanced.state.budget, activeContracts: financial.activeContracts, period: cycleResult.closedPeriod });
+    game = outcome.state; render(); toast(outcome.ending ? `Game over: ${outcome.ending.title}` : `Período ${cycleResult.closedPeriod} fechado. ${cycleResult.events.length} evento(s) para revisão.`); return;
   }
   const supplierButton = event.target.closest("[data-supplier]");
   if (supplierButton) {
@@ -152,7 +157,11 @@ document.addEventListener("click", event => {
   if (!button) return;
   const id = button.dataset.apply;
   const target = document.querySelector(`[data-target="${CSS.escape(id)}"]`)?.value || "team";
-  const result = applyIntervention(game, id, target === "team" ? {} : { employeeId: target });\n  if (!result.ok) { toast(result.reason); return; }\n  const action = consumeManagementAction(result.state, { id, label: INTERVENTIONS.find(item => item.id === id)?.name });\n  if (!action.ok) { toast(action.reason); return; }\n  game = action.state;
+  const result = applyIntervention(game, id, target === "team" ? {} : { employeeId: target });
+  if (!result.ok) { toast(result.reason); return; }
+  const action = consumeManagementAction(result.state, { id, label: INTERVENTIONS.find(item => item.id === id)?.name });
+  if (!action.ok) { toast(action.reason); return; }
+  game = action.state;
   if (result.event.employeeId) selectedId = result.event.employeeId;
   render(); toast(result.note);
 });
