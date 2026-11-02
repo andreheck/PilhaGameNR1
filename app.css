@@ -31,3 +31,8 @@
 
 /* Botoes empilhados para acessos 2D e 3D da missao */
 .intro-action .btn{width:100%}.prelude-body>a.btn{max-width:100%}.intro-action .btn.ghost{border-color:#b5cbd0;color:#244e5e;background:#fff}.intro-action .btn.ghost:hover{background:#f5faf9}
+
+
+/* Sidebar translúcida — navegação principal */
+.sidebar{background:linear-gradient(165deg,rgba(26,52,78,.86),rgba(16,35,55,.82));backdrop-filter:blur(16px) saturate(135%);-webkit-backdrop-filter:blur(16px) saturate(135%);border-right:1px solid rgba(190,218,231,.22);box-shadow:8px 0 28px rgba(12,31,47,.12)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.sidebar{background:linear-gradient(165deg,#1a344e,#102337)}}
