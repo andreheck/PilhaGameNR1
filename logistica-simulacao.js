@@ -1,5 +1,5 @@
 import { DOMAINS, INTERVENTIONS, applyIntervention, getEmployeeSnapshot, getOrganizationSnapshot } from "/src/psychosocial-simulation.js";
-import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual } from "/src/workforce-relations.js";
+import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual, advanceWorkforcePeriod } from "/src/workforce-relations.js";
 
 const KEY = "pilha-logistica-simulation-v1";
 const fresh = () => ({
@@ -39,6 +39,8 @@ function render() {
   $("team-count").textContent = org.employeeCount;
   $("alert-count").textContent = org.criticalAlerts;
   $("upgrade-count").textContent = game.history.length;
+  $("period-count").textContent = String(game.period ?? 1);
+  $("contract-cost").textContent = money((game.contractLedger ?? []).filter(entry => entry.period === (game.period ?? 1)).reduce((sum, entry) => sum + entry.amount, 0));
 
   $("map-workers").innerHTML = game.employees.map(e => {
     const s = getEmployeeSnapshot(e);
@@ -69,13 +71,7 @@ function render() {
     return `<article class="supplier-card supplier-${supplier.color}"><div class="supplier-head"><strong>${safe(supplier.name)}</strong><span>${money(supplier.monthlyCost)}/mês</span></div><p>${safe(supplier.scope)} · até ${supplier.capacity} profissionais</p><div class="supplier-metrics"><span>Qualidade ${supplier.quality}</span><span>Continuidade ${supplier.continuity}</span><span>Segurança ${supplier.safety}</span><span>Desempenho ${performance.performance}/100</span></div><button class="apply-btn" type="button" data-supplier="${supplier.id}">${contract ? "Alocar profissional" : "Contratar fornecedor"}</button></article>`;
   }).join("");
   $("supplier-list").innerHTML = supplierCards;
-
-  const supplierCards = SUPPLIERS.map(supplier => {
-    const contract = game.contracts?.find(c => c.supplierId === supplier.id && c.active);
-    const performance = getContractPerformance(supplier.id);
-    return `<article class="supplier-card supplier-${supplier.color}"><div class="supplier-head"><strong>${safe(supplier.name)}</strong><span>${money(supplier.monthlyCost)}/mês</span></div><p>${safe(supplier.scope)} · até ${supplier.capacity} profissionais</p><div class="supplier-metrics"><span>Qualidade ${supplier.quality}</span><span>Continuidade ${supplier.continuity}</span><span>Segurança ${supplier.safety}</span><span>Desempenho ${performance.performance}/100</span></div><button class="apply-btn" type="button" data-supplier="${supplier.id}">${contract ? "Alocar profissional" : "Contratar fornecedor"}</button></article>`;
-  }).join("");
-  $("supplier-list").innerHTML = supplierCards;
+  $("contract-history").innerHTML = (game.contractLedger ?? []).slice(-8).reverse().map(entry => `<li><strong>${safe(entry.supplierId)}</strong><small>Período ${entry.period} · ${entry.type === "activation" ? "Ativação" : "Recorrência"} · ${money(entry.amount)}</small></li>`).join("") || "<li class=\"empty-history\">Nenhum lançamento contratual.</li>";
 
   const targets = `<option value="team">Aplicar à equipe</option>${game.employees.map(e => `<option value="${safe(e.id)}" ${e.id === selectedId ? "selected" : ""}>${safe(e.name)}</option>`).join("")}`;
   $("intervention-list").innerHTML = INTERVENTIONS.map(item => {
@@ -88,6 +84,10 @@ function render() {
   try { localStorage.setItem(KEY, JSON.stringify(game)); } catch {}
 }
 document.addEventListener("click", event => {
+  if (event.target.closest("#advance-period")) {
+    const result = advanceWorkforcePeriod(game);
+    game = result.state; render(); toast(`Período ${result.period} iniciado. Custos recorrentes registrados.`); return;
+  }
   const supplierButton = event.target.closest("[data-supplier]");
   if (supplierButton) {
     const supplierId = supplierButton.dataset.supplier;
