@@ -60,7 +60,7 @@ export function evaluateEnterpriseOutcomes(state, metrics = {}) {
   else if (s.laborExposure >= 3) ending = ENDINGS.laborCollapse;
   else if (s.supplierRisk >= 3) ending = ENDINGS.supplierExit;
   else if (s.customerRisk >= 3) ending = ENDINGS.customerLoss;
-  else if (s.deficit >= 2) ending = ENDINGS.bankruptcy;
+  else if (s.deficit >= 2 && s.supplierRisk < 2) ending = ENDINGS.bankruptcy;
   if (ending) {
     data.ending = { ...ending, period };
     addNews("company-ending-" + ending.id, "The Mentalist Post: " + ending.title, ending.description, "critical", { role: "Nota da redação", quote: `O encerramento não aconteceu de um dia para o outro. Os sinais estavam presentes nos períodos anteriores: ${ending.trigger}` });
