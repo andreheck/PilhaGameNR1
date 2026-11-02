@@ -25,4 +25,9 @@ const resolved = resolveManagementReview(nextClose.state, "review-workload", "co
 assert.equal(resolved.ok, true);
 assert.equal(resolved.state.managementCycle.pendingReviews[0].status, "completed");
 assert.equal(resolved.state.managementCycle.pendingReviews[0].resolvedPeriod, 3);
+const reopened = resolveManagementReview(nextClose.state, "listen", "reviewed");
+assert.equal(reopened.ok, true);
+assert.equal(reopened.state.managementCycle.pendingReviews[1].status, "pending", "revisão não concluída deve continuar acompanhada");
+assert.equal(reopened.state.managementCycle.pendingReviews[1].duePeriod, 4, "revisão deve ser reagendada para o período seguinte");
+assert.equal(reopened.state.managementCycle.pendingReviews[1].reviewCount, 1);
 console.log("management-cycle: capacidade, revisão, eventos condicionais e passagem de período PASS");
