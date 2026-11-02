@@ -9,7 +9,7 @@ const index = fs.readFileSync("index.html", "utf8");
 for (const id of [
   "budget", "team-score", "team-count", "alert-count", "upgrade-count",
   "map-workers", "employee-list", "intervention-list", "employee-detail",
-  "history", "reset-game", "toast"
+  "history", "reset-game", "toast", "cash-warning", "finance-summary", "finance-forecast"
 ]) assert.ok(html.includes(`id="${id}"`), `HTML deve conter #${id}`);
 
 assert.match(html, /name="viewport"/);
@@ -31,6 +31,9 @@ assert.match(html, /collective-status/);
 assert.match(html, /collective-toggle/);
 assert.match(js, /updateCollectiveRepresentation/);
 assert.match(js, /advanceWorkforcePeriod/);
+assert.match(js, /getWorkforceFinanceSnapshot/);
+assert.match(html, /Compromissos futuros/);
+assert.match(css, /finance-outlook/);
 assert.match(css, /relationship-taresolvido/);
 assert.match(css, /relationship-xacomigo/);
 assert.match(css, /@media\(max-width:720px\)/);
