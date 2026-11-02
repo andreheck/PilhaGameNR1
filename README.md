@@ -1,4 +1,15 @@
-# PilhA+ Game — Alpha 1.4
+# Ao Trabalho — Desafios da implementação da NR-1
+
+> Novo nome de produto aprovado para a evolução do jogo. O repositório, URLs e nomes internos legados permanecem temporariamente como estão para preservar compatibilidade. A alteração de marca nas telas e assets ainda não foi implementada.
+
+**Estado do projeto:** protótipos jogáveis e documentação em evolução; novas mecânicas descritas nos documentos abaixo ainda não estão implementadas.
+
+## Novas especificações de produto
+
+- **Relações de trabalho, terceirização, sindicalização, intranet, ouvidoria e comitê:** [Especificação](docs/tecnica/ESPECIFICACAO-RELACOES-DE-TRABALHO-INTRANET-OUVIDORIA.md) — inclui 33 mensagens contextuais para o feed.
+- **Diversidade, inclusão e bônus coletivo:** [Especificação técnica](docs/tecnica/ESPECIFICACAO-TECNICA-DIVERSIDADE-INCLUSAO.md).
+
+## Protótipo legado — Alpha 1.4
 
 Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.app/)**. O hub reúne casos educativos, câmera isométrica, personagens e painéis contextuais. A meta pedagógica dos casos é 75/100, com pontuação máxima de 100.
 
