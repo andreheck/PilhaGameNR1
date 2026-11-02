@@ -10,6 +10,8 @@ assert.equal(base.contracts, undefined, "compatibilidade: não mutar save legado
 const contracted = contractSupplier(initialized, "taresolvido");
 assert.equal(contracted.ok, true);
 assert.equal(contracted.contract.monthlyCost, 1850);
+assert.equal(contracted.state.budget, 6150, "ativação deve sair do caixa");
+assert.equal(contracted.state.contractLedger[0].balanceAfter, 6150);
 assert.equal(contractSupplier(contracted.state, "taresolvido").ok, false);
 const worker = addOutsourcedWorker(contracted.state, "taresolvido", { id: "terc-01", name: "Alex", role: "Apoio logístico", scores: {} });
 assert.equal(worker.ok, true);
@@ -23,6 +25,8 @@ assert.equal(addOutsourcedWorker(worker.state, "xacomigo", { id: "sem-contrato" 
 
 const nextPeriod = advanceWorkforcePeriod(worker.state);
 assert.equal(nextPeriod.period, 2);
+assert.equal(nextPeriod.state.budget, 4300, "recorrência deve sair do caixa a cada período");
+assert.equal(nextPeriod.state.contractLedger.at(-1).balanceAfter, 4300);
 assert.equal(nextPeriod.state.contractLedger.filter(x => x.type === "recurring").length, 1);
 assert.equal(nextPeriod.state.contractLedger.find(x => x.type === "recurring").amount, 1850);
 assert.equal(nextPeriod.state.contractLedger.filter(x => x.period === 2 && x.type === "recurring").length, 1);
@@ -31,4 +35,8 @@ const collective = updateCollectiveRepresentation(nextPeriod.state, { organized:
 assert.equal(collective.collectiveRepresentation.organized, true);
 assert.deepEqual(unionMembershipImpact(), { hiring: 0, evaluation: 0, pay: 0, promotion: 0, schedule: 0, retention: 0, publicDisclosure: false });
 assert.equal(SUPPLIERS.length, 2);
+const lowCash = contractSupplier({ ...base, budget: 1000 }, "taresolvido");
+assert.equal(lowCash.ok, false, "não assumir contrato sem caixa para o primeiro período");
+const insolvent = advanceWorkforcePeriod({ ...contracted.state, budget: 500 });
+assert.equal(insolvent.state.budget, -1350, "obrigação recorrente deve evidenciar déficit, não desaparecer");
 console.log("workforce-relations: contratos, capacidade, recorrência, identidade visual e salvaguardas coletivas PASS");
