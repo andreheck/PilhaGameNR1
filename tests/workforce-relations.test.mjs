@@ -34,7 +34,7 @@ const outlook = getWorkforceFinanceSnapshot(nextPeriod.state, 3);
 assert.equal(outlook.recurringPerPeriod, 1850);
 assert.equal(outlook.periods[0].projectedBalance, 2450);
 assert.equal(outlook.periods[1].projectedBalance, 600);
-assert.equal(outlook.projectedDeficitPeriod, 4);
+assert.equal(outlook.projectedDeficitPeriod, 5, "projeção começa no próximo período, sem cobrar duas vezes o atual");
 assert.ok(getContractPerformance("xacomigo").performance > getContractPerformance("taresolvido").performance);
 const collective = updateCollectiveRepresentation(nextPeriod.state, { organized: true, representatives: 2, agenda: ["Pausas", "Segurança"] });
 assert.equal(collective.collectiveRepresentation.organized, true);
