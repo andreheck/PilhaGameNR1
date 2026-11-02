@@ -110,6 +110,7 @@ function render() {
   try { localStorage.setItem(KEY, JSON.stringify(game)); } catch {}
 }
 document.addEventListener("click", event => {
+  if (game.enterpriseOutcomes?.ending && !event.target.closest("#ending-reset")) return;
   if (event.target.closest("#collective-toggle")) {
     const current = game.collectiveRepresentation ?? { organized: false, representatives: 0, agenda: [] };
     game = updateCollectiveRepresentation(game, { organized: !current.organized, representatives: current.organized ? 0 : 2, agenda: current.organized ? [] : ["Pausas e recuperação", "Segurança e prevenção", "Comunicação e respeito"] });
@@ -162,5 +163,7 @@ document.addEventListener("click", event => {
   if (result.event.employeeId) selectedId = result.event.employeeId;
   render(); toast(result.note);
 });
-$("reset-game").addEventListener("click", () => { game = fresh(); selectedId = game.employees[0].id; render(); toast("Simulação reiniciada."); });
+const restart = () => { game = ensureManagementCycle(fresh()); selectedId = game.employees[0].id; render(); toast("Nova partida iniciada."); };
+$("reset-game").addEventListener("click", restart);
+$("ending-reset").addEventListener("click", restart);
 render();
