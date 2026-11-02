@@ -53,7 +53,7 @@ function render() {
   $("cycle-summary").textContent = `Período ${capacity.period}: ${capacity.used} decisão(ões) utilizada(s). Ações exigem priorização e revisão no ciclo seguinte.`;
   const cycleEvents = game.managementCycle?.lastClose?.events ?? [];
   const pendingReviews = (game.managementCycle?.pendingReviews ?? []).filter(item => item.status === "pending" || item.status === "due");
-  const reviewMarkup = pendingReviews.map(item => `<li class="review-item"><strong>${item.status === "due" ? "Revisão vencida" : "Revisão agendada"}: ${safe(item.label)}</strong><small>${item.status === "due" ? "Verifique os efeitos da decisão e registre o resultado." : `Retorno previsto para o período ${item.duePeriod}.`}</small>${item.status === "due" ? `<div class="review-actions"><button class="text-button" type="button" data-review="${safe(item.id)}" data-review-outcome="completed">Concluída</button><button class="text-button" type="button" data-review="${safe(item.id)}" data-review-outcome="reviewed">Revisada · manter acompanhamento</button></div>` : ""}</li>`);
+  const reviewMarkup = pendingReviews.map(item => `<li class="review-item"><strong>${item.status === "due" ? "Revisão vencida" : "Revisão agendada"}: ${safe(item.label)}</strong><small>${item.status === "due" ? "Verifique os efeitos da decisão e registre o resultado." : `Retorno previsto para o período ${item.duePeriod}.`}</small>${item.status === "due" ? `<div class="review-actions"><button class="text-button" type="button" data-review="${safe(item.id)}" data-review-outcome="completed">Concluída</button><button class="text-button" type="button" data-review="${safe(item.id)}" data-review-outcome="reviewed">Reavaliar no próximo período</button></div>` : ""}</li>`);
   $("cycle-events").innerHTML = [...cycleEvents.map(item => `<li><strong>${safe(item.title)}</strong><small>Período ${item.period} · ${safe(item.message)}</small></li>`), ...reviewMarkup].join("") || '<li class="empty-history">Nenhum evento registrado neste ciclo.</li>';
   const enterprise = game.enterpriseOutcomes ?? { news: [], ending: null };
   $("news-feed").innerHTML = enterprise.news.slice(0, 8).map(item => `<article class="news-item ${item.severity}"><small>${safe(item.publication)} · período ${item.period}</small><strong>${safe(item.title)}</strong><p>${safe(item.body)}</p>${item.voice ? `<blockquote><p>“${safe(item.voice.quote)}”</p><cite>Fala dramatizada · ${safe(item.voice.role)}</cite></blockquote>` : ""}</article>`).join("") || '<p class="empty-history">Nenhuma notícia publicada. A redação acompanha os indicadores.</p>';
@@ -117,12 +117,18 @@ document.addEventListener("click", event => {
     const result = resolveManagementReview(game, reviewButton.dataset.review, reviewButton.dataset.reviewOutcome);
     if (!result.ok) { toast(result.reason); return; }
     game = result.state; render();
-    toast(reviewButton.dataset.reviewOutcome === "completed" ? "Revisão concluída e registrada." : "Revisão registrada. O acompanhamento permanece no histórico.");
+    toast(reviewButton.dataset.reviewOutcome === "completed" ? "Revisão concluída e registrada." : "Revisão registrada e reagendada para o próximo período.");
     return;
   }
   if (event.target.closest("#collective-toggle")) {
     const current = game.collectiveRepresentation ?? { organized: false, representatives: 0, agenda: [] };
-    game = updateCollectiveRepresentation(game, { organized: !current.organized, representatives: current.organized ? 0 : 2, agenda: current.organized ? [] : ["Pausas e recuperação", "Segurança e prevenção", "Comunicação e respeito"] });
+    const nextOrganized = !current.organized;
+    const action = consumeManagementAction(game, {
+      id: `collective-representation-${game.period}-${nextOrganized ? "organize" : "suspend"}`,
+      label: nextOrganized ? "Organizar representação coletiva" : "Revisar organização da representação coletiva"
+    });
+    if (!action.ok) { toast(action.reason); return; }
+    game = updateCollectiveRepresentation(action.state, { organized: nextOrganized, representatives: nextOrganized ? 2 : 0, agenda: nextOrganized ? ["Pausas e recuperação", "Segurança e prevenção", "Comunicação e respeito"] : [] });
     render(); toast(game.collectiveRepresentation.organized ? "Representação coletiva organizada. Nenhuma filiação individual foi exposta." : "Organização coletiva desativada."); return;
   }
   if (event.target.closest("#advance-period")) {
@@ -144,7 +150,12 @@ document.addEventListener("click", event => {
     if (!active) {
       const result = contractSupplier(game, supplierId);
       if (!result.ok) { toast(result.reason); return; }
-      game = result.state; render(); toast("Contrato registrado. Custos recorrentes são acompanhados por período.");
+      const action = consumeManagementAction(result.state, {
+        id: `supplier-contract-${supplierId}-${game.period}`,
+        label: `Contratar fornecedor ${result.contract.supplierName}`
+      });
+      if (!action.ok) { toast(action.reason); return; }
+      game = action.state; render(); toast("Contrato registrado. Custos recorrentes são acompanhados por período.");
     } else {
       const count = game.employees.filter(person => person.supplierId === supplierId).length;
       const supplier = SUPPLIERS.find(item => item.id === supplierId);
