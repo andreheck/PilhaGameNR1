@@ -19,3 +19,5 @@
 @media(max-width:720px){.supplier-list{grid-template-columns:1fr}}
 
 .contract-cycle{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;margin-top:12px;border:1px dashed var(--line);border-radius:10px}.contract-cycle p{font-size:10px;color:var(--muted);margin:4px 0 0}.contract-cycle .apply-btn{white-space:nowrap}
+
+.cash-warning{display:block;margin-top:5px;font-weight:800;color:#287e6b}.cash-warning.is-warning{color:#9a671d}.cash-warning.is-critical{color:#b33d35}.finance-outlook{margin-top:12px;padding:12px;border-radius:10px;background:#f2f6f8;border:1px solid var(--line)}.finance-outlook>strong{font-size:12px}.finance-outlook p{font-size:10px;color:var(--muted);margin:5px 0 8px}.finance-outlook ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.finance-outlook li{display:grid;gap:3px;padding:8px;background:#fff;border-radius:7px;font-size:9px;color:var(--muted)}.finance-outlook li strong{font-size:11px;color:var(--ink)}@media(max-width:720px){.finance-outlook ol{grid-template-columns:1fr}}
