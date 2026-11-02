@@ -55,7 +55,7 @@ function render() {
   const reviews = (game.managementCycle?.pendingReviews ?? []).filter(item => item.status === "due");
   $("cycle-events").innerHTML = [...cycleEvents.map(item => `<li><strong>${safe(item.title)}</strong><small>Período ${item.period} · ${safe(item.message)}</small></li>`), ...reviews.map(item => `<li><strong>Revisão pendente: ${safe(item.label)}</strong><small>Retome a decisão e registre o acompanhamento.</small></li>`)].join("") || '<li class="empty-history">Nenhum evento registrado neste ciclo.</li>';
   const enterprise = game.enterpriseOutcomes ?? { news: [], ending: null };
-  $("news-feed").innerHTML = enterprise.news.slice(0, 5).map(item => `<article class="news-item ${item.severity}"><small>${safe(item.publication)} · período ${item.period}</small><strong>${safe(item.title)}</strong><p>${safe(item.body)}</p></article>`).join("") || '<p class="empty-history">Nenhuma notícia publicada. A redação acompanha os indicadores.</p>';
+  $("news-feed").innerHTML = enterprise.news.slice(0, 8).map(item => `<article class="news-item ${item.severity}"><small>${safe(item.publication)} · período ${item.period}</small><strong>${safe(item.title)}</strong><p>${safe(item.body)}</p>${item.voice ? `<blockquote><p>“${safe(item.voice.quote)}”</p><cite>${safe(item.voice.role)}</cite></blockquote>` : ""}</article>`).join("") || '<p class="empty-history">Nenhuma notícia publicada. A redação acompanha os indicadores.</p>';
   $("game-over").hidden = !enterprise.ending;
   if (enterprise.ending) {
     $("game-over-title").textContent = enterprise.ending.title;
