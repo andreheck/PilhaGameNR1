@@ -85,7 +85,8 @@ export function updateCollectiveRepresentation(state, update = {}) {
   const next = ensureWorkforceState(state);
   next.collectiveRepresentation = {
     ...next.collectiveRepresentation,
-    organized: Boolean(update.organized ?? next.collectiveRepresentation.organized),
+    // A organização coletiva é iniciativa dos trabalhadores; a gestão não pode desativá-la.
+    organized: Boolean(next.collectiveRepresentation.organized || update.organized),
     representatives: Math.max(0, Number(update.representatives ?? next.collectiveRepresentation.representatives)),
     agenda: Array.isArray(update.agenda) ? [...update.agenda] : next.collectiveRepresentation.agenda
   };
