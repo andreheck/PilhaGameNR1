@@ -29,13 +29,17 @@ export function contractSupplier(state, supplierId) {
   if (next.contracts.some(contract => contract.supplierId === supplierId && contract.active)) {
     return { ok: false, reason: "Já existe contrato ativo com este fornecedor.", state };
   }
+  if (Number(next.budget ?? 0) < supplier.monthlyCost) {
+    return { ok: false, reason: "Saldo insuficiente para assumir o primeiro período do contrato.", state };
+  }
   const contract = {
     id: `contract-${supplierId}-${next.period}-${next.contracts.length + 1}`,
     supplierId, supplierName: supplier.name, monthlyCost: supplier.monthlyCost,
     scope: supplier.scope, capacity: supplier.capacity, active: true, startedAtPeriod: next.period
   };
   next.contracts.push(contract);
-  next.contractLedger.push({ period: next.period, contractId: contract.id, supplierId, amount: supplier.monthlyCost, type: "activation" });
+  next.budget = Number(next.budget ?? 0) - supplier.monthlyCost;
+  next.contractLedger.push({ period: next.period, contractId: contract.id, supplierId, amount: supplier.monthlyCost, type: "activation", balanceAfter: next.budget });
   return { ok: true, state: next, contract };
 }
 
@@ -59,9 +63,12 @@ export function advanceWorkforcePeriod(state) {
   const next = ensureWorkforceState(state);
   next.period += 1;
   for (const contract of next.contracts.filter(item => item.active)) {
+    // Despesa contratual é obrigação recorrente: pode gerar saldo negativo,
+    // representando pressão de caixa em vez de desaparecer do orçamento.
+    next.budget = Number(next.budget ?? 0) - contract.monthlyCost;
     next.contractLedger.push({
       period: next.period, contractId: contract.id, supplierId: contract.supplierId,
-      amount: contract.monthlyCost, type: "recurring"
+      amount: contract.monthlyCost, type: "recurring", balanceAfter: next.budget
     });
   }
   return { state: next, period: next.period };
