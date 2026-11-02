@@ -1,5 +1,5 @@
 import { DOMAINS, INTERVENTIONS, applyIntervention, getEmployeeSnapshot, getOrganizationSnapshot } from "/src/psychosocial-simulation.js";
-import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual, advanceWorkforcePeriod, updateCollectiveRepresentation } from "/src/workforce-relations.js";
+import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual, advanceWorkforcePeriod, updateCollectiveRepresentation, getWorkforceFinanceSnapshot } from "/src/workforce-relations.js";
 
 const KEY = "pilha-logistica-simulation-v1";
 const fresh = () => ({
@@ -34,6 +34,12 @@ function employee(id) { return game.employees.find(e => e.id === id); }
 function render() {
   const org = getOrganizationSnapshot(game);
   $("budget").textContent = money(game.budget);
+  const finance = getWorkforceFinanceSnapshot(game, 3);
+  $("cash-warning").textContent = finance.deficit ? "Déficit de caixa: replanejamento necessário" : finance.projectedDeficitPeriod ? `Atenção: projeção de déficit no período ${finance.projectedDeficitPeriod}` : "Caixa sob controle na projeção atual";
+  $("cash-warning").classList.toggle("is-critical", finance.deficit);
+  $("cash-warning").classList.toggle("is-warning", !finance.deficit && Boolean(finance.projectedDeficitPeriod));
+  $("finance-summary").textContent = finance.activeContracts ? `${finance.activeContracts} contrato(s) ativo(s) · ${money(finance.recurringPerPeriod)} por período · saldo atual ${money(finance.budget)}` : "Sem contratos ativos. Novas contratações criarão compromissos recorrentes.";
+  $("finance-forecast").innerHTML = finance.periods.map(item => `<li><span>Período ${item.period}</span><strong>${money(item.projectedBalance)}</strong></li>`).join("");
   $("team-score").textContent = org.score + "/100";
   $("team-mood").textContent = org.mood.emoji + " " + org.mood.label + " · indicador lúdico";
   $("team-count").textContent = org.employeeCount;
