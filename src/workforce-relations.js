@@ -107,7 +107,7 @@ export function getWorkforceFinanceSnapshot(state, horizon = 3) {
   const currentContractCost = ledger.filter(entry => entry.period === currentPeriod).reduce((sum, entry) => sum + Number(entry.amount ?? 0), 0);
   const budget = Number(state.budget ?? 0);
   const periods = Array.from({ length: Math.max(1, horizon) }, (_, index) => ({
-    period: currentPeriod + index,
+    period: currentPeriod + index + 1,
     projectedBalance: budget - (recurringPerPeriod * (index + 1)),
     recurringCost: recurringPerPeriod
   }));
