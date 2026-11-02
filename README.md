@@ -2,7 +2,7 @@
 
 > Novo nome de produto aprovado para a evolução do jogo. O repositório, URLs e nomes internos legados permanecem temporariamente como estão para preservar compatibilidade. A alteração de marca nas telas e assets ainda não foi implementada.
 
-**Estado do projeto:** protótipos jogáveis e documentação em evolução; novas mecânicas descritas nos documentos abaixo ainda não estão implementadas.
+**Estado do projeto:** protótipos jogáveis e documentação em evolução. A simulação logística já reúne orçamento e contratos recorrentes, capacidade gerencial por período, revisões, desfechos empresariais e repercussão pública ficcional no The Mentalist Post. Ainda requer QA integrado e validação de balanceamento antes de publicação.
 
 ## Novas especificações de produto
 
