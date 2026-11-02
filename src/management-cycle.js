@@ -100,7 +100,14 @@ export function resolveManagementReview(state, reviewId, outcome = "reviewed") {
   const next = ensureManagementCycle(state);
   const review = next.managementCycle.pendingReviews.find(item => item.id === reviewId);
   if (!review) return { ok: false, state, reason: "Revisão não encontrada." };
-  review.status = outcome === "completed" ? "completed" : "reviewed";
-  review.resolvedPeriod = next.managementCycle.period;
+  if (outcome === "completed") {
+    review.status = "completed";
+    review.resolvedPeriod = next.managementCycle.period;
+  } else {
+    review.status = "pending";
+    review.lastReviewedPeriod = next.managementCycle.period;
+    review.reviewCount = Number(review.reviewCount ?? 0) + 1;
+    review.duePeriod = next.managementCycle.period + 1;
+  }
   return { ok: true, state: next };
 }
