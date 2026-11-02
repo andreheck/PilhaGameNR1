@@ -142,3 +142,27 @@ Foi adicionada uma página isolada de inspeção, sem alterar a cena principal:
 - O monitor e o notebook precisam de inspeção visual em navegador desktop e mobile para ajustar posição das marcas à orientação real das malhas.
 - A prévia depende dos GLBs Kenney publicados em `/assets/kenney-furniture/`.
 - Nenhuma integração com o mundo principal foi realizada. A aprovação visual é pré-requisito para expandir a técnica.
+
+
+## 10. Expansão do protótipo — lote de mobiliário e livros
+
+O visualizador isolado foi ampliado para incluir seis famílias de objetos:
+
+| Objeto | Origem | Estados disponíveis |
+|---|---|---|
+| Monitor | GLB Kenney `computerScreen.glb` | usado, precário, sucateado |
+| Notebook | GLB Kenney `laptop.glb` | usado, precário, sucateado |
+| Mesa | GLB Kenney `desk.glb` | usado, precário, sucateado |
+| Cadeira | GLB Kenney `chairDesk.glb` | usado, precário, sucateado |
+| Estante | GLB Kenney `bookcaseOpen.glb` | usado, precário, sucateado |
+| Livro | geometria procedural local | usado, precário, sucateado |
+
+Arquivos atualizados:
+- `/aged-inventory.html`: opções de seleção dos seis objetos e explicação dos limites do protótipo.
+- `/aged-inventory.js`: carregamento dos cinco GLBs e geração procedural de um livro-base; aplicação de variações genéricas de material e marcas superficiais.
+
+### Estado de validação
+
+Esta expansão amplia a cobertura do catálogo, mas **não equivale à aprovação visual final**. Os efeitos de desgaste ainda são genéricos e não modelam danos específicos por peça. Em particular, pernas quebradas, rodízios ausentes, tela trincada, lombada rasgada e prateleiras empenadas permanecem como próximos refinamentos de geometria.
+
+Antes da integração ao escritório principal, executar inspeção em navegador desktop e mobile para verificar orientação das marcas, proporção, clipping, sombras e leitura em câmera isométrica. Não integrar nem alterar mecânicas de jogo nesta etapa.
