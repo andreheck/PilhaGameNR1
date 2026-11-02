@@ -1,6 +1,6 @@
 import { DOMAINS, INTERVENTIONS, applyIntervention, getEmployeeSnapshot, getOrganizationSnapshot } from "/src/psychosocial-simulation.js";
 import { ensureManagementCycle, getManagementCapacity, consumeManagementAction, closeManagementPeriod } from "/src/management-cycle.js";
-import { ensureManagementCycle, getManagementCapacity, consumeManagementAction, closeManagementPeriod } from "/src/management-cycle.js";
+import { evaluateEnterpriseOutcomes } from "/src/enterprise-outcomes.js";
 import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual, advanceWorkforcePeriod, updateCollectiveRepresentation, getWorkforceFinanceSnapshot } from "/src/workforce-relations.js";
 
 const KEY = "pilha-logistica-simulation-v1";
@@ -50,16 +50,17 @@ function render() {
   $("period-count").textContent = String(game.period ?? 1);
   const capacity = getManagementCapacity(game);
   $("management-capacity").textContent = `${capacity.remaining} de ${capacity.capacity} decisões estratégicas disponíveis`;
-  $("cycle-summary").textContent = `Período ${capacity.period}: ${capacity.used} decisão(ões) utilizada(s).`;
-  const cycleEvents = game.managementCycle?.lastClose?.events ?? [];
-  const reviews = (game.managementCycle?.pendingReviews ?? []).filter(item => item.status === "due");
-  $("cycle-events").innerHTML = [...cycleEvents.map(item => `<li><strong>${safe(item.title)}</strong><small>Período ${item.period} · ${safe(item.message)}</small></li>`), ...reviews.map(item => `<li><strong>Revisão pendente: ${safe(item.label)}</strong></li>`)].join("") || '<li class="empty-history">Nenhum evento registrado.</li>';
-  const capacity = getManagementCapacity(game);
-  $("management-capacity").textContent = `${capacity.remaining} de ${capacity.capacity} decisões estratégicas disponíveis`;
   $("cycle-summary").textContent = `Período ${capacity.period}: ${capacity.used} decisão(ões) utilizada(s). Ações exigem priorização e revisão no ciclo seguinte.`;
   const cycleEvents = game.managementCycle?.lastClose?.events ?? [];
   const reviews = (game.managementCycle?.pendingReviews ?? []).filter(item => item.status === "due");
   $("cycle-events").innerHTML = [...cycleEvents.map(item => `<li><strong>${safe(item.title)}</strong><small>Período ${item.period} · ${safe(item.message)}</small></li>`), ...reviews.map(item => `<li><strong>Revisão pendente: ${safe(item.label)}</strong><small>Retome a decisão e registre o acompanhamento.</small></li>`)].join("") || '<li class="empty-history">Nenhum evento registrado neste ciclo.</li>';
+  const enterprise = game.enterpriseOutcomes ?? { news: [], ending: null };
+  $("news-feed").innerHTML = enterprise.news.slice(0, 5).map(item => `<article class="news-item ${item.severity}"><small>${safe(item.publication)} · período ${item.period}</small><strong>${safe(item.title)}</strong><p>${safe(item.body)}</p></article>`).join("") || '<p class="empty-history">Nenhuma notícia publicada. A redação acompanha os indicadores.</p>';
+  $("game-over").hidden = !enterprise.ending;
+  if (enterprise.ending) {
+    $("game-over-title").textContent = enterprise.ending.title;
+    $("game-over-description").textContent = enterprise.ending.description;
+  }
   $("contract-cost").textContent = money((game.contractLedger ?? []).filter(entry => entry.period === (game.period ?? 1)).reduce((sum, entry) => sum + entry.amount, 0));
 
   $("map-workers").innerHTML = game.employees.map(e => {
@@ -119,8 +120,10 @@ document.addEventListener("click", event => {
     const minimumSafety = Math.min(...game.employees.map(person => Number(person.scores?.safetyConditions ?? 100)));
     const lowRecoveryCount = game.employees.filter(person => Number(person.scores?.recovery ?? 100) < 45).length;
     const cycleResult = closeManagementPeriod(game, { score: org.score, criticalAlerts: org.criticalAlerts, minimumSafety, lowRecoveryCount });
-    const result = advanceWorkforcePeriod(cycleResult.state);
-    game = result.state; render(); toast(`Período ${cycleResult.closedPeriod} fechado. ${cycleResult.events.length} evento(s) para revisão; custos recorrentes registrados.`); return;
+    const financial = getWorkforceFinanceSnapshot(cycleResult.state, 1);
+    const outcome = evaluateEnterpriseOutcomes(cycleResult.state, { score: org.score, criticalAlerts: org.criticalAlerts, minimumSafety, budget: cycleResult.state.budget, activeContracts: financial.activeContracts, period: cycleResult.closedPeriod });
+    const result = advanceWorkforcePeriod(outcome.state);
+    game = result.state; render(); toast(outcome.ending ? `Game over: ${outcome.ending.title}` : `Período ${cycleResult.closedPeriod} fechado. ${cycleResult.events.length} evento(s) para revisão.`); return;
   }
   const supplierButton = event.target.closest("[data-supplier]");
   if (supplierButton) {
