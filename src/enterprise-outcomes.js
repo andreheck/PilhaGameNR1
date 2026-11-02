@@ -35,16 +35,16 @@ export function evaluateEnterpriseOutcomes(state, metrics = {}) {
   s.supplierRisk = deficit && activeContracts > 0 ? s.supplierRisk + 1 : 0;
 
   const headlines = [];
-  const addNews = (id, title, body, severity = "warning") => {
+  const addNews = (id, title, body, severity = "warning", voice = null) => {
     if (data.news.some(item => item.id === id && item.period === Number(metrics.period ?? next.period ?? 1))) return;
-    const item = { id, title, body, severity, period: Number(metrics.period ?? next.period ?? 1), publication: "The Mentalist Post" };
+    const item = { id, title, body, severity, voice, period: Number(metrics.period ?? next.period ?? 1), publication: "The Mentalist Post" };
     data.news.unshift(item);
     headlines.push(item);
   };
-  if (score < 50 || alerts >= 2) addNews("workplace-crisis", "Crise interna acende alerta no setor", "Relatos de desgaste, alertas não resolvidos e instabilidade na operação colocam a gestão sob pressão.");
-  if (deficit) addNews("cash-crisis", "Fornecedores cobram pagamentos e continuidade", "A situação financeira ameaça contratos e a capacidade de manter a operação.");
-  if (s.criticalSafety >= 1) addNews("safety-investigation", "Condições críticas levam operação ao radar das autoridades", "A persistência de riscos de segurança exige resposta imediata e medidas de proteção.");
-  if (s.customerRisk >= 2) addNews("customer-confidence", "Clientes reavaliam contratos com a empresa", "A deterioração das condições internas começa a afetar a confiança comercial.");
+  if (score < 50 || alerts >= 2) addNews("workplace-crisis", "Crise interna acende alerta no setor", "Relatos de desgaste, alertas não resolvidos e instabilidade na operação colocam a gestão sob pressão.", "warning", { role: "Trabalhadora da operação", quote: "A gente não precisa de discurso bonito. Precisa conseguir trabalhar sem adoecer." });
+  if (deficit) addNews("cash-crisis", "Fornecedores cobram pagamentos e continuidade", "A situação financeira ameaça contratos e a capacidade de manter a operação.", "warning", { role: "Representante de fornecedor", quote: "Sem previsibilidade e pagamento, não conseguimos garantir a continuidade da equipe." });
+  if (s.criticalSafety >= 1) addNews("safety-investigation", "Condições críticas levam operação ao radar das autoridades", "A persistência de riscos de segurança exige resposta imediata e medidas de proteção.", "warning", { role: "Representante dos trabalhadores", quote: "O risco já foi comunicado. Agora precisamos ver a correção acontecer." });
+  if (s.customerRisk >= 2) addNews("customer-confidence", "Clientes reavaliam contratos com a empresa", "A deterioração das condições internas começa a afetar a confiança comercial.", "warning", { role: "Cliente estratégico", quote: "Nossa parceria depende de qualidade, continuidade e responsabilidade na cadeia." });
 
   let ending = null;
   if (s.deficit >= 2) ending = ENDINGS.bankruptcy;
@@ -54,7 +54,7 @@ export function evaluateEnterpriseOutcomes(state, metrics = {}) {
   else if (s.supplierRisk >= 3) ending = ENDINGS.supplierExit;
   if (ending) {
     data.ending = { ...ending, period: Number(metrics.period ?? next.period ?? 1) };
-    addNews("company-ending-" + ending.id, "The Mentalist Post: " + ending.title, ending.description, "critical");
+    addNews("company-ending-" + ending.id, "The Mentalist Post: " + ending.title, ending.description, "critical", { role: "Nota da redação", quote: `O encerramento não aconteceu de um dia para o outro. Os sinais estavam presentes nos períodos anteriores: ${ending.trigger}` });
   }
   return { state: next, ending: data.ending, news: headlines, gameOver: Boolean(data.ending) };
 }
