@@ -136,12 +136,28 @@ document.addEventListener("click", event => {
     const minimumSafety = Math.min(...game.employees.map(person => Number(person.scores?.safetyConditions ?? 100)));
     const lowRecoveryCount = game.employees.filter(person => Number(person.scores?.recovery ?? 100) < 45).length;
     const cycleResult = closeManagementPeriod(game, { score: org.score, criticalAlerts: org.criticalAlerts, minimumSafety, lowRecoveryCount });
-    // Fecha o período financeiro antes de avaliar os desfechos: os custos recorrentes
-    // deste ciclo precisam participar do gatilho de insolvência e ruptura contratual.
-    const advanced = advanceWorkforcePeriod(cycleResult.state);
-    const financial = getWorkforceFinanceSnapshot(advanced.state, 1);
-    const outcome = evaluateEnterpriseOutcomes(advanced.state, { score: org.score, criticalAlerts: org.criticalAlerts, minimumSafety, budget: advanced.state.budget, activeContracts: financial.activeContracts, period: cycleResult.closedPeriod });
-    game = outcome.state; render(); toast(outcome.ending ? `Game over: ${outcome.ending.title}` : `Período ${cycleResult.closedPeriod} fechado. ${cycleResult.events.length} evento(s) para revisão.`); return;
+    // Avalia o período que está sendo encerrado com seu próprio caixa e contratos.
+    // A recorrência só é debitada depois, na abertura do período seguinte.
+    const financial = getWorkforceFinanceSnapshot(cycleResult.state, 1);
+    const outcome = evaluateEnterpriseOutcomes(cycleResult.state, {
+      score: org.score,
+      criticalAlerts: org.criticalAlerts,
+      minimumSafety,
+      budget: cycleResult.state.budget,
+      activeContracts: financial.activeContracts,
+      period: cycleResult.closedPeriod
+    });
+    if (outcome.ending) {
+      game = outcome.state;
+      render();
+      toast(`Game over: ${outcome.ending.title}`);
+      return;
+    }
+    const advanced = advanceWorkforcePeriod(outcome.state);
+    game = advanced.state;
+    render();
+    toast(`Período ${cycleResult.closedPeriod} fechado. Período ${advanced.period} iniciado; ${cycleResult.events.length} evento(s) para revisão.`);
+    return;
   }
   const supplierButton = event.target.closest("[data-supplier]");
   if (supplierButton) {
