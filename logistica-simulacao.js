@@ -97,7 +97,8 @@ function render() {
   $("collective-status").textContent = collective.organized ? "Representação coletiva ativa" : "Representação coletiva ainda não organizada";
   $("collective-count").textContent = String(collective.representatives);
   $("collective-agenda").textContent = collective.agenda.length ? collective.agenda.join(" · ") : "Nenhuma pauta registrada";
-  $("collective-toggle").textContent = collective.organized ? "Suspender organização simulada" : "Organizar representação coletiva";
+  $("collective-toggle").textContent = collective.organized ? "Representação coletiva registrada" : "Registrar organização coletiva";
+  $("collective-toggle").disabled = collective.organized;
   $("contract-history").innerHTML = (game.contractLedger ?? []).slice(-8).reverse().map(entry => `<li><strong>${safe(entry.supplierId)}</strong><small>Período ${entry.period} · ${entry.type === "activation" ? "Ativação" : "Recorrência"} · ${money(entry.amount)}</small></li>`).join("") || "<li class=\"empty-history\">Nenhum lançamento contratual.</li>";
 
   const targets = `<option value="team">Aplicar à equipe</option>${game.employees.map(e => `<option value="${safe(e.id)}" ${e.id === selectedId ? "selected" : ""}>${safe(e.name)}</option>`).join("")}`;
@@ -122,14 +123,13 @@ document.addEventListener("click", event => {
   }
   if (event.target.closest("#collective-toggle")) {
     const current = game.collectiveRepresentation ?? { organized: false, representatives: 0, agenda: [] };
-    const nextOrganized = !current.organized;
-    const action = consumeManagementAction(game, {
-      id: `collective-representation-${game.period}-${nextOrganized ? "organize" : "suspend"}`,
-      label: nextOrganized ? "Organizar representação coletiva" : "Revisar organização da representação coletiva"
+    if (current.organized) { toast("A representação coletiva é autônoma e não pode ser suspensa pela gestão."); return; }
+    game = updateCollectiveRepresentation(game, {
+      organized: true,
+      representatives: 2,
+      agenda: ["Pausas e recuperação", "Segurança e prevenção", "Comunicação e respeito"]
     });
-    if (!action.ok) { toast(action.reason); return; }
-    game = updateCollectiveRepresentation(action.state, { organized: nextOrganized, representatives: nextOrganized ? 2 : 0, agenda: nextOrganized ? ["Pausas e recuperação", "Segurança e prevenção", "Comunicação e respeito"] : [] });
-    render(); toast(game.collectiveRepresentation.organized ? "Representação coletiva organizada. Nenhuma filiação individual foi exposta." : "Organização coletiva desativada."); return;
+    render(); toast("Organização coletiva registrada por iniciativa dos trabalhadores. A gestão deverá responder às pautas."); return;
   }
   if (event.target.closest("#advance-period")) {
     const org = getOrganizationSnapshot(game);
