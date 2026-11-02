@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { SUPPLIERS, addOutsourcedWorker, advanceWorkforcePeriod, contractSupplier, ensureWorkforceState, getContractPerformance, getRelationshipVisual, unionMembershipImpact, updateCollectiveRepresentation } from "../src/workforce-relations.js";
+import { SUPPLIERS, addOutsourcedWorker, advanceWorkforcePeriod, contractSupplier, ensureWorkforceState, getContractPerformance, getRelationshipVisual, getWorkforceFinanceSnapshot, unionMembershipImpact, updateCollectiveRepresentation } from "../src/workforce-relations.js";
 
 const base = { budget: 8000, employees: [{ id: "joana", name: "Joana" }], history: [] };
 const initialized = ensureWorkforceState(base);
@@ -30,6 +30,11 @@ assert.equal(nextPeriod.state.contractLedger.at(-1).balanceAfter, 4300);
 assert.equal(nextPeriod.state.contractLedger.filter(x => x.type === "recurring").length, 1);
 assert.equal(nextPeriod.state.contractLedger.find(x => x.type === "recurring").amount, 1850);
 assert.equal(nextPeriod.state.contractLedger.filter(x => x.period === 2 && x.type === "recurring").length, 1);
+const outlook = getWorkforceFinanceSnapshot(nextPeriod.state, 3);
+assert.equal(outlook.recurringPerPeriod, 1850);
+assert.equal(outlook.periods[0].projectedBalance, 2450);
+assert.equal(outlook.periods[1].projectedBalance, 600);
+assert.equal(outlook.projectedDeficitPeriod, 4);
 assert.ok(getContractPerformance("xacomigo").performance > getContractPerformance("taresolvido").performance);
 const collective = updateCollectiveRepresentation(nextPeriod.state, { organized: true, representatives: 2, agenda: ["Pausas", "Segurança"] });
 assert.equal(collective.collectiveRepresentation.organized, true);
@@ -39,4 +44,5 @@ const lowCash = contractSupplier({ ...base, budget: 1000 }, "taresolvido");
 assert.equal(lowCash.ok, false, "não assumir contrato sem caixa para o primeiro período");
 const insolvent = advanceWorkforcePeriod({ ...contracted.state, budget: 500 });
 assert.equal(insolvent.state.budget, -1350, "obrigação recorrente deve evidenciar déficit, não desaparecer");
+assert.equal(getWorkforceFinanceSnapshot(insolvent.state).deficit, true);
 console.log("workforce-relations: contratos, capacidade, recorrência, identidade visual e salvaguardas coletivas PASS");
