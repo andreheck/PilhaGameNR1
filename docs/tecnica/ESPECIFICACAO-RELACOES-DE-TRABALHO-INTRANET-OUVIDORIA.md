@@ -70,6 +70,14 @@ Trabalhadores terceirizados entram nos indicadores do ambiente e na experiência
 - reclamações, relatos e necessidade de intervenção;
 - impacto sobre prazos, qualidade e reputação interna.
 
+
+
+### 3.5 Regra financeira já implementada parcialmente
+
+Na simulação logística, a contratação de um fornecedor desconta do orçamento o custo do primeiro período. Cada avanço de período desconta novamente o valor dos contratos ativos. O histórico registra o lançamento e o saldo após a cobrança. A contratação inicial é recusada quando não há saldo suficiente para o primeiro período; obrigações recorrentes podem levar o caixa a saldo negativo, tornando visível a pressão financeira. Esta mecânica ainda não representa fluxo de caixa completo, impostos, reajustes, multas, encerramento contratual ou integração com todos os módulos econômicos do jogo.
+
+**Diretriz de dificuldade:** o custo recorrente deve competir com investimentos preventivos e capacidade operacional. O jogador não deve conseguir manter indefinidamente todos os contratos e todas as intervenções sem priorização. O saldo negativo deve gerar consequências sistêmicas em etapa posterior, sem penalidade aleatória ou punição instantânea sem explicação.
+
 ## 4. Sindicalização e representação coletiva
 
 ### 4.1 Duas possibilidades do jogador
