@@ -59,7 +59,7 @@ function render() {
   $("game-over").hidden = !enterprise.ending;
   if (enterprise.ending) {
     $("game-over-title").textContent = enterprise.ending.title;
-    $("game-over-description").textContent = enterprise.ending.description;
+    $("game-over-description").textContent = `${enterprise.ending.description} Gatilho do cenário: ${enterprise.ending.trigger}`;
   }
   $("contract-cost").textContent = money((game.contractLedger ?? []).filter(entry => entry.period === (game.period ?? 1)).reduce((sum, entry) => sum + entry.amount, 0));
 
@@ -121,10 +121,7 @@ document.addEventListener("click", event => {
     const minimumSafety = Math.min(...game.employees.map(person => Number(person.scores?.safetyConditions ?? 100)));
     const lowRecoveryCount = game.employees.filter(person => Number(person.scores?.recovery ?? 100) < 45).length;
     const cycleResult = closeManagementPeriod(game, { score: org.score, criticalAlerts: org.criticalAlerts, minimumSafety, lowRecoveryCount });
-    const financial = getWorkforceFinanceSnapshot(cycleResult.state, 1);
-    const outcome = evaluateEnterpriseOutcomes(cycleResult.state, { score: org.score, criticalAlerts: org.criticalAlerts, minimumSafety, budget: cycleResult.state.budget, activeContracts: financial.activeContracts, period: cycleResult.closedPeriod });
-    const result = advanceWorkforcePeriod(outcome.state);
-    game = result.state; render(); toast(outcome.ending ? `Game over: ${outcome.ending.title}` : `Período ${cycleResult.closedPeriod} fechado. ${cycleResult.events.length} evento(s) para revisão.`); return;
+    // Fecha o período financeiro antes de avaliar os desfechos: os custos recorrentes\n    // deste ciclo precisam participar do gatilho de insolvência e ruptura contratual.\n    const advanced = advanceWorkforcePeriod(cycleResult.state);\n    const financial = getWorkforceFinanceSnapshot(advanced.state, 1);\n    const outcome = evaluateEnterpriseOutcomes(advanced.state, { score: org.score, criticalAlerts: org.criticalAlerts, minimumSafety, budget: advanced.state.budget, activeContracts: financial.activeContracts, period: cycleResult.closedPeriod });\n    game = outcome.state; render(); toast(outcome.ending ? `Game over: ${outcome.ending.title}` : `Período ${cycleResult.closedPeriod} fechado. ${cycleResult.events.length} evento(s) para revisão.`); return;
   }
   const supplierButton = event.target.closest("[data-supplier]");
   if (supplierButton) {
@@ -155,11 +152,7 @@ document.addEventListener("click", event => {
   if (!button) return;
   const id = button.dataset.apply;
   const target = document.querySelector(`[data-target="${CSS.escape(id)}"]`)?.value || "team";
-  const action = consumeManagementAction(game, { id, label: INTERVENTIONS.find(item => item.id === id)?.name });
-  if (!action.ok) { toast(action.reason); return; }
-  const result = applyIntervention(action.state, id, target === "team" ? {} : { employeeId: target });
-  if (!result.ok) { toast(result.reason); return; }
-  game = result.state;
+  const result = applyIntervention(game, id, target === "team" ? {} : { employeeId: target });\n  if (!result.ok) { toast(result.reason); return; }\n  const action = consumeManagementAction(result.state, { id, label: INTERVENTIONS.find(item => item.id === id)?.name });\n  if (!action.ok) { toast(action.reason); return; }\n  game = action.state;
   if (result.event.employeeId) selectedId = result.event.employeeId;
   render(); toast(result.note);
 });
