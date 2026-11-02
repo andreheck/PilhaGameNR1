@@ -96,3 +96,26 @@ export function updateCollectiveRepresentation(state, update = {}) {
 export function unionMembershipImpact() {
   return { hiring: 0, evaluation: 0, pay: 0, promotion: 0, schedule: 0, retention: 0, publicDisclosure: false };
 }
+
+
+/** Resume caixa, compromissos e exposição financeira do ciclo atual. */
+export function getWorkforceFinanceSnapshot(state, horizon = 3) {
+  const currentPeriod = Number(state.period ?? 1);
+  const activeContracts = (state.contracts ?? []).filter(contract => contract.active);
+  const recurringPerPeriod = activeContracts.reduce((sum, contract) => sum + Number(contract.monthlyCost ?? 0), 0);
+  const ledger = state.contractLedger ?? [];
+  const currentContractCost = ledger.filter(entry => entry.period === currentPeriod).reduce((sum, entry) => sum + Number(entry.amount ?? 0), 0);
+  const budget = Number(state.budget ?? 0);
+  const periods = Array.from({ length: Math.max(1, horizon) }, (_, index) => ({
+    period: currentPeriod + index,
+    projectedBalance: budget - (recurringPerPeriod * (index + 1)),
+    recurringCost: recurringPerPeriod
+  }));
+  return {
+    budget, currentPeriod, currentContractCost, recurringPerPeriod,
+    activeContracts: activeContracts.length,
+    deficit: budget < 0,
+    projectedDeficitPeriod: periods.find(item => item.projectedBalance < 0)?.period ?? null,
+    periods
+  };
+}
