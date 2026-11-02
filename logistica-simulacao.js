@@ -1,5 +1,5 @@
 import { DOMAINS, INTERVENTIONS, applyIntervention, getEmployeeSnapshot, getOrganizationSnapshot } from "/src/psychosocial-simulation.js";
-import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual, advanceWorkforcePeriod } from "/src/workforce-relations.js";
+import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual, advanceWorkforcePeriod, updateCollectiveRepresentation } from "/src/workforce-relations.js";
 
 const KEY = "pilha-logistica-simulation-v1";
 const fresh = () => ({
@@ -71,6 +71,11 @@ function render() {
     return `<article class="supplier-card supplier-${supplier.color}"><div class="supplier-head"><strong>${safe(supplier.name)}</strong><span>${money(supplier.monthlyCost)}/mês</span></div><p>${safe(supplier.scope)} · até ${supplier.capacity} profissionais</p><div class="supplier-metrics"><span>Qualidade ${supplier.quality}</span><span>Continuidade ${supplier.continuity}</span><span>Segurança ${supplier.safety}</span><span>Desempenho ${performance.performance}/100</span></div><button class="apply-btn" type="button" data-supplier="${supplier.id}">${contract ? "Alocar profissional" : "Contratar fornecedor"}</button></article>`;
   }).join("");
   $("supplier-list").innerHTML = supplierCards;
+  const collective = game.collectiveRepresentation ?? { organized: false, representatives: 0, agenda: [] };
+  $("collective-status").textContent = collective.organized ? "Representação coletiva ativa" : "Representação coletiva ainda não organizada";
+  $("collective-count").textContent = String(collective.representatives);
+  $("collective-agenda").textContent = collective.agenda.length ? collective.agenda.join(" · ") : "Nenhuma pauta registrada";
+  $("collective-toggle").textContent = collective.organized ? "Suspender organização simulada" : "Organizar representação coletiva";
   $("contract-history").innerHTML = (game.contractLedger ?? []).slice(-8).reverse().map(entry => `<li><strong>${safe(entry.supplierId)}</strong><small>Período ${entry.period} · ${entry.type === "activation" ? "Ativação" : "Recorrência"} · ${money(entry.amount)}</small></li>`).join("") || "<li class=\"empty-history\">Nenhum lançamento contratual.</li>";
 
   const targets = `<option value="team">Aplicar à equipe</option>${game.employees.map(e => `<option value="${safe(e.id)}" ${e.id === selectedId ? "selected" : ""}>${safe(e.name)}</option>`).join("")}`;
@@ -84,6 +89,11 @@ function render() {
   try { localStorage.setItem(KEY, JSON.stringify(game)); } catch {}
 }
 document.addEventListener("click", event => {
+  if (event.target.closest("#collective-toggle")) {
+    const current = game.collectiveRepresentation ?? { organized: false, representatives: 0, agenda: [] };
+    game = updateCollectiveRepresentation(game, { organized: !current.organized, representatives: current.organized ? 0 : 2, agenda: current.organized ? [] : ["Pausas e recuperação", "Segurança e prevenção", "Comunicação e respeito"] });
+    render(); toast(game.collectiveRepresentation.organized ? "Representação coletiva organizada. Nenhuma filiação individual foi exposta." : "Organização coletiva desativada."); return;
+  }
   if (event.target.closest("#advance-period")) {
     const result = advanceWorkforcePeriod(game);
     game = result.state; render(); toast(`Período ${result.period} iniciado. Custos recorrentes registrados.`); return;
