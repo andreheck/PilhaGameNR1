@@ -1,0 +1,24 @@
+import assert from "node:assert/strict";
+import { closeManagementPeriod, consumeManagementAction, ensureManagementCycle, getManagementCapacity, resolveManagementReview } from "../src/management-cycle.js";
+
+const base = { period: 1, employees: [], budget: 5000 };
+const initialized = ensureManagementCycle(base);
+assert.equal(getManagementCapacity(initialized).remaining, 2);
+assert.equal(base.managementCycle, undefined, "não mutar save legado");
+const first = consumeManagementAction(initialized, { id: "review-workload", label: "Revisar carga de trabalho" });
+assert.equal(first.ok, true);
+assert.equal(first.capacity.remaining, 1);
+const second = consumeManagementAction(first.state, { id: "listen", label: "Escuta participativa" });
+assert.equal(second.ok, true);
+const third = consumeManagementAction(second.state, { id: "extra", label: "Ação extra" });
+assert.equal(third.ok, false, "limitar ações por período");
+const closed = closeManagementPeriod(second.state, { score: 47, criticalAlerts: 2, minimumSafety: 42, lowRecoveryCount: 2 });
+assert.equal(closed.closedPeriod, 1);
+assert.equal(closed.events.length, 4);
+assert.equal(getManagementCapacity(closed.state).period, 2);
+assert.equal(getManagementCapacity(closed.state).remaining, 2);
+assert.equal(closed.dueReviews.length, 2);
+const resolved = resolveManagementReview(closed.state, "review-workload", "completed");
+assert.equal(resolved.ok, true);
+assert.equal(resolved.state.managementCycle.pendingReviews[0].status, "completed");
+console.log("management-cycle: capacidade, revisão, eventos condicionais e passagem de período PASS");
