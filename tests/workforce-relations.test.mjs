@@ -19,8 +19,9 @@ assert.equal(worker.worker.relationshipType, "outsourced");
 assert.equal(worker.worker.payrollRegistry, "supplier");
 assert.equal(getRelationshipVisual(worker.worker).color, "orange");
 assert.equal(getRelationshipVisual({ id: "joana" }).color, "blue");
-assert.equal(addOutsourcedWorker(worker.state, "taresolvido", { id: "terc-02" }).ok, true);
-assert.equal(addOutsourcedWorker(worker.state, "taresolvido", { id: "terc-03" }).ok, false, "respeitar capacidade");
+const secondWorker = addOutsourcedWorker(worker.state, "taresolvido", { id: "terc-02" });
+assert.equal(secondWorker.ok, true);
+assert.equal(addOutsourcedWorker(secondWorker.state, "taresolvido", { id: "terc-03" }).ok, false, "respeitar capacidade");
 assert.equal(addOutsourcedWorker(worker.state, "xacomigo", { id: "sem-contrato" }).ok, false);
 
 const nextPeriod = advanceWorkforcePeriod(worker.state);
