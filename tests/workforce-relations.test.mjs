@@ -39,6 +39,8 @@ assert.equal(outlook.projectedDeficitPeriod, 5, "projeção começa no próximo 
 assert.ok(getContractPerformance("xacomigo").performance > getContractPerformance("taresolvido").performance);
 const collective = updateCollectiveRepresentation(nextPeriod.state, { organized: true, representatives: 2, agenda: ["Pausas", "Segurança"] });
 assert.equal(collective.collectiveRepresentation.organized, true);
+const protectedCollective = updateCollectiveRepresentation(collective, { organized: false, representatives: 0, agenda: [] });
+assert.equal(protectedCollective.collectiveRepresentation.organized, true, "a gestão não pode desativar a organização coletiva");
 assert.deepEqual(unionMembershipImpact(), { hiring: 0, evaluation: 0, pay: 0, promotion: 0, schedule: 0, retention: 0, publicDisclosure: false });
 assert.equal(SUPPLIERS.length, 2);
 const lowCash = contractSupplier({ ...base, budget: 1000 }, "taresolvido");
