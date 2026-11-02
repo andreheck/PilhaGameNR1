@@ -17,3 +17,5 @@
 .supplier-metrics{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
 .supplier-metrics span{font-size:9px;background:#edf2f5;border-radius:5px;padding:4px 6px}
 @media(max-width:720px){.supplier-list{grid-template-columns:1fr}}
+
+.contract-cycle{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;margin-top:12px;border:1px dashed var(--line);border-radius:10px}.contract-cycle p{font-size:10px;color:var(--muted);margin:4px 0 0}.contract-cycle .apply-btn{white-space:nowrap}
