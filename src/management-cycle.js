@@ -14,7 +14,7 @@ export function ensureManagementCycle(state) {
     eventHistory: [],
     pendingReviews: []
   };
-  next.managementCycle.period = Number(next.period ?? next.managementCycle.period ?? 1);
+  next.managementCycle.period = Math.max(Number(next.managementCycle.period ?? 1), Number(next.period ?? 1));
   next.managementCycle.capacityPerPeriod ??= ACTION_CAPACITY_PER_PERIOD;
   next.managementCycle.actionsUsed ??= 0;
   next.managementCycle.eventHistory ??= [];
@@ -92,7 +92,6 @@ export function closeManagementPeriod(state, organization = {}) {
     dueReviews: dueReviews.map(item => item.label)
   };
   cycle.period += 1;
-  next.period = cycle.period;
   cycle.actionsUsed = 0;
   return { state: next, closedPeriod: cycle.lastClose.period, events, dueReviews };
 }
