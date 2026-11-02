@@ -1,4 +1,5 @@
 import { DOMAINS, INTERVENTIONS, applyIntervention, getEmployeeSnapshot, getOrganizationSnapshot } from "/src/psychosocial-simulation.js";
+import { ensureManagementCycle, getManagementCapacity, consumeManagementAction, closeManagementPeriod } from "/src/management-cycle.js";
 import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual, advanceWorkforcePeriod, updateCollectiveRepresentation, getWorkforceFinanceSnapshot } from "/src/workforce-relations.js";
 
 const KEY = "pilha-logistica-simulation-v1";
@@ -20,7 +21,7 @@ function load() {
   } catch {}
   return fresh();
 }
-let game = load();
+let game = ensureManagementCycle(load());
 let selectedId = game.employees[0]?.id;
 const $ = id => document.getElementById(id);
 const money = n => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 }).format(n);
@@ -46,6 +47,12 @@ function render() {
   $("alert-count").textContent = org.criticalAlerts;
   $("upgrade-count").textContent = game.history.length;
   $("period-count").textContent = String(game.period ?? 1);
+  const capacity = getManagementCapacity(game);
+  $("management-capacity").textContent = `${capacity.remaining} de ${capacity.capacity} decisões estratégicas disponíveis`;
+  $("cycle-summary").textContent = `Período ${capacity.period}: ${capacity.used} decisão(ões) utilizada(s). Ações exigem priorização e revisão no ciclo seguinte.`;
+  const cycleEvents = game.managementCycle?.lastClose?.events ?? [];
+  const reviews = (game.managementCycle?.pendingReviews ?? []).filter(item => item.status === "due");
+  $("cycle-events").innerHTML = [...cycleEvents.map(item => `<li><strong>${safe(item.title)}</strong><small>Período ${item.period} · ${safe(item.message)}</small></li>`), ...reviews.map(item => `<li><strong>Revisão pendente: ${safe(item.label)}</strong><small>Retome a decisão e registre o acompanhamento.</small></li>`)].join("") || '<li class="empty-history">Nenhum evento registrado neste ciclo.</li>';
   $("contract-cost").textContent = money((game.contractLedger ?? []).filter(entry => entry.period === (game.period ?? 1)).reduce((sum, entry) => sum + entry.amount, 0));
 
   $("map-workers").innerHTML = game.employees.map(e => {
@@ -101,8 +108,12 @@ document.addEventListener("click", event => {
     render(); toast(game.collectiveRepresentation.organized ? "Representação coletiva organizada. Nenhuma filiação individual foi exposta." : "Organização coletiva desativada."); return;
   }
   if (event.target.closest("#advance-period")) {
-    const result = advanceWorkforcePeriod(game);
-    game = result.state; render(); toast(`Período ${result.period} iniciado. Custos recorrentes registrados.`); return;
+    const org = getOrganizationSnapshot(game);
+    const minimumSafety = Math.min(...game.employees.map(person => Number(person.scores?.safetyConditions ?? 100)));
+    const lowRecoveryCount = game.employees.filter(person => Number(person.scores?.recovery ?? 100) < 45).length;
+    const cycleResult = closeManagementPeriod(game, { score: org.score, criticalAlerts: org.criticalAlerts, minimumSafety, lowRecoveryCount });
+    const result = advanceWorkforcePeriod(cycleResult.state);
+    game = result.state; render(); toast(`Período ${cycleResult.closedPeriod} fechado. ${cycleResult.events.length} evento(s) para revisão; custos recorrentes registrados.`); return;
   }
   const supplierButton = event.target.closest("[data-supplier]");
   if (supplierButton) {
@@ -133,7 +144,9 @@ document.addEventListener("click", event => {
   if (!button) return;
   const id = button.dataset.apply;
   const target = document.querySelector(`[data-target="${CSS.escape(id)}"]`)?.value || "team";
-  const result = applyIntervention(game, id, target === "team" ? {} : { employeeId: target });
+  const action = consumeManagementAction(game, { id, label: INTERVENTIONS.find(item => item.id === id)?.name });
+  if (!action.ok) { toast(action.reason); return; }
+  const result = applyIntervention(action.state, id, target === "team" ? {} : { employeeId: target });
   if (!result.ok) { toast(result.reason); return; }
   game = result.state;
   if (result.event.employeeId) selectedId = result.event.employeeId;
