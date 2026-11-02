@@ -18,7 +18,7 @@ assert.match(html, /Simulação logística/);
 assert.match(html, /The Mentalist Post/);
 assert.match(js, /getOrganizationSnapshot/);
 assert.match(js, /evaluateEnterpriseOutcomes/);
-assert.match(js, /The Mentalist Post/);
+assert.match(js, /enterpriseOutcomes\.news/);
 assert.match(js, /consumeManagementAction/);
 assert.match(js, /closeManagementPeriod/);
 assert.match(html, /Consequências e revisões/);
