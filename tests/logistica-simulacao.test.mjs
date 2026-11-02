@@ -7,7 +7,7 @@ const css = fs.readFileSync("logistica-simulacao.css", "utf8");
 const index = fs.readFileSync("index.html", "utf8");
 
 for (const id of [
-  "budget", "team-score", "team-count", "alert-count", "upgrade-count", "management-capacity", "cycle-summary", "cycle-events",
+  "budget", "team-score", "team-count", "alert-count", "upgrade-count", "news-feed", "game-over", "ending-reset", "management-capacity", "cycle-summary", "cycle-events",
   "map-workers", "employee-list", "intervention-list", "employee-detail",
   "history", "reset-game", "toast", "cash-warning", "finance-summary", "finance-forecast"
 ]) assert.ok(html.includes(`id="${id}"`), `HTML deve conter #${id}`);
@@ -15,7 +15,10 @@ for (const id of [
 assert.match(html, /name="viewport"/);
 assert.match(index, /href="\/logistica-simulacao.html">Simulação logística<\/a>/);
 assert.match(html, /Simulação logística/);
+assert.match(html, /The Mentalist Post/);
 assert.match(js, /getOrganizationSnapshot/);
+assert.match(js, /evaluateEnterpriseOutcomes/);
+assert.match(js, /The Mentalist Post/);
 assert.match(js, /consumeManagementAction/);
 assert.match(js, /closeManagementPeriod/);
 assert.match(html, /Consequências e revisões/);
