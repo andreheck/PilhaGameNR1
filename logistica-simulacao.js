@@ -1,4 +1,5 @@
 import { DOMAINS, INTERVENTIONS, applyIntervention, getEmployeeSnapshot, getOrganizationSnapshot } from "/src/psychosocial-simulation.js";
+import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual } from "/src/workforce-relations.js";
 
 const KEY = "pilha-logistica-simulation-v1";
 const fresh = () => ({
@@ -41,11 +42,13 @@ function render() {
 
   $("map-workers").innerHTML = game.employees.map(e => {
     const s = getEmployeeSnapshot(e);
-    return `<button class="map-worker" type="button" data-worker="${safe(e.id)}" aria-pressed="${e.id === selectedId}" aria-label="Selecionar ${safe(e.name)}" style="left:${e.location.x}%;top:${e.location.y}%"><span class="head">${e.emoji}</span><span class="mood">${s.mood.emoji}</span><span class="worker-name">${safe(e.name)}</span></button>`;
+    const identity = getRelationshipVisual(e);
+    return `<button class="map-worker ${identity.className}" type="button" data-worker="${safe(e.id)}" aria-pressed="${e.id === selectedId}" aria-label="Selecionar ${safe(e.name)} · ${identity.label}" style="left:${e.location.x}%;top:${e.location.y}%"><span class="head">${e.emoji}</span><span class="mood">${s.mood.emoji}</span><span class="worker-name">${safe(e.name)}</span></button>`;
   }).join("");
   $("employee-list").innerHTML = game.employees.map(e => {
     const s = getEmployeeSnapshot(e);
-    return `<button class="employee-card" type="button" data-worker="${safe(e.id)}" aria-pressed="${e.id === selectedId}"><span class="employee-top"><span class="avatar">${e.emoji}</span><span><strong>${safe(e.name)}</strong><small>${safe(e.role)}</small></span></span><span class="card-score">${s.score}/100 · ${s.mood.emoji}</span></button>`;
+    const identity = getRelationshipVisual(e);
+    return `<button class="employee-card ${identity.className}" type="button" data-worker="${safe(e.id)}" aria-pressed="${e.id === selectedId}"><span class="employee-top"><span class="avatar">${e.emoji}</span><span><strong>${safe(e.name)}</strong><small>${safe(e.role)}</small><small class="relationship-label">${identity.symbol} ${identity.label}</small></span></span><span class="card-score">${s.score}/100 · ${s.mood.emoji}</span></button>`;
   }).join("");
 
   const selected = employee(selectedId) || game.employees[0];
@@ -56,8 +59,15 @@ function render() {
       const v = s.scores[d.id], cls = v < 40 ? "very-low" : v < 60 ? "low" : "";
       return `<div class="domain-row"><div class="domain-meta"><span>${safe(d.label)}</span><strong>${v}/100</strong></div><div class="bar" role="img" aria-label="${safe(d.label)}: ${v} de 100"><span class="${cls}" style="width:${v}%"></span></div></div>`;
     }).join("");
-    $("employee-detail").innerHTML = `<div class="profile-top"><div class="profile-avatar">${selected.emoji}</div><div><h3>${safe(selected.name)}</h3><p>${safe(selected.role)}</p></div><div class="profile-score"><strong>${s.score}</strong><small>/100 · ${s.mood.emoji}</small></div></div>${alerts}<div class="domain-list">${bars}</div><p class="panel-note">Scores fictícios para aprendizagem. Investigue as condições de trabalho; não classifique nem culpe pessoas.</p>`;
+    $("employee-detail").innerHTML = `<div class="profile-top"><div class="profile-avatar">${selected.emoji}</div><div><h3>${safe(selected.name)}</h3><p>${safe(selected.role)} · ${identity.label}</p></div><div class="profile-score"><strong>${s.score}</strong><small>/100 · ${s.mood.emoji}</small></div></div>${alerts}<div class="domain-list">${bars}</div><p class="panel-note">Scores fictícios para aprendizagem. Investigue as condições de trabalho; não classifique nem culpe pessoas.</p>`;
   }
+
+  const supplierCards = SUPPLIERS.map(supplier => {
+    const contract = game.contracts?.find(c => c.supplierId === supplier.id && c.active);
+    const performance = getContractPerformance(supplier.id);
+    return `<article class="supplier-card supplier-${supplier.color}"><div class="supplier-head"><strong>${safe(supplier.name)}</strong><span>${money(supplier.monthlyCost)}/mês</span></div><p>${safe(supplier.scope)} · até ${supplier.capacity} profissionais</p><div class="supplier-metrics"><span>Qualidade ${supplier.quality}</span><span>Continuidade ${supplier.continuity}</span><span>Segurança ${supplier.safety}</span><span>Desempenho ${performance.performance}/100</span></div><button class="apply-btn" type="button" data-supplier="${supplier.id}">${contract ? "Alocar profissional" : "Contratar fornecedor"}</button></article>`;
+  }).join("");
+  $("supplier-list").innerHTML = supplierCards;
 
   const targets = `<option value="team">Aplicar à equipe</option>${game.employees.map(e => `<option value="${safe(e.id)}" ${e.id === selectedId ? "selected" : ""}>${safe(e.name)}</option>`).join("")}`;
   $("intervention-list").innerHTML = INTERVENTIONS.map(item => {
