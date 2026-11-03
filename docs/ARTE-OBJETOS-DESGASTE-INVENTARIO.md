@@ -191,3 +191,12 @@ Os danos são geometrias auxiliares sobrepostas e posicionadas por proporções 
 - Testar desktop e mobile, inclusive carregamento e redimensionamento.
 - Substituir os marcadores genéricos por danos modelados especificamente nas malhas quando a direção de arte for aprovada.
 - Só então avaliar integração com a cena principal.
+
+
+## 12. Ferramenta de inspeção da orientação
+
+O visualizador recebeu um seletor de face de referência (+Z, -Z, +X e -X). Ele gira o conjunto de marcas de desgaste em torno do centro local do objeto, permitindo verificar rapidamente se a hipótese de frente (+Z) corresponde à orientação do GLB.
+
+**Como validar:** para cada objeto e condição, testar as quatro faces, girar a câmera e observar se as marcas ficam sobre a superfície pretendida, sem flutuar ou atravessar a malha. Registrar a face correta por objeto antes de definir uma configuração fixa.
+
+**Limite:** o seletor é uma ferramenta diagnóstica, não uma detecção automática da frente do modelo. A rotação para faces laterais é aproximada quando a profundidade e a largura do GLB têm proporções muito diferentes. A validação final ainda depende de inspeção visual real.
