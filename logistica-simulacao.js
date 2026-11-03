@@ -1,6 +1,7 @@
 import { DOMAINS, INTERVENTIONS, applyIntervention, getEmployeeSnapshot, getOrganizationSnapshot } from "/src/psychosocial-simulation.js";
 import { ensureManagementCycle, getManagementCapacity, consumeManagementAction, closeManagementPeriod, resolveManagementReview } from "/src/management-cycle.js";
 import { evaluateEnterpriseOutcomes } from "/src/enterprise-outcomes.js";
+import { ensureGovernanceState, recordManagerDeparture, appointSuccessor, applyDepartmentImpact, createCipa, recordCipaMemberExit, subsidizeCipaDepartment, getGovernanceInterventionCost } from "/src/organizational-governance.js";
 import { SUPPLIERS, addOutsourcedWorker, contractSupplier, getContractPerformance, getRelationshipVisual, advanceWorkforcePeriod, updateCollectiveRepresentation, getWorkforceFinanceSnapshot } from "/src/workforce-relations.js";
 
 const KEY = "pilha-logistica-simulation-v1";
@@ -22,7 +23,7 @@ function load() {
   } catch {}
   return fresh();
 }
-let game = ensureManagementCycle(load());
+let game = ensureGovernanceState(ensureManagementCycle(load()));
 let selectedId = game.employees[0]?.id;
 const $ = id => document.getElementById(id);
 const money = n => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 }).format(n);
@@ -79,12 +80,13 @@ function render() {
   if (selected) {
     const s = getEmployeeSnapshot(selected);
     const identity = getRelationshipVisual(selected);
+    const cipaMember = game.cipa?.members?.some(member => member.employeeId === selected.id && member.participatesInCipa);
     const alerts = s.criticalAlerts.length ? `<ul class="alert-list">${s.criticalAlerts.map(a => `<li><strong>Investigar:</strong> ${safe(a)}</li>`).join("")}</ul>` : '<p class="panel-note">Sem alertas críticos configurados neste cenário sintético. Isso não significa ausência de risco real.</p>';
     const bars = DOMAINS.map(d => {
       const v = s.scores[d.id], cls = v < 40 ? "very-low" : v < 60 ? "low" : "";
       return `<div class="domain-row"><div class="domain-meta"><span>${safe(d.label)}</span><strong>${v}/100</strong></div><div class="bar" role="img" aria-label="${safe(d.label)}: ${v} de 100"><span class="${cls}" style="width:${v}%"></span></div></div>`;
     }).join("");
-    $("employee-detail").innerHTML = `<div class="profile-top"><div class="profile-avatar">${selected.emoji}</div><div><h3>${safe(selected.name)}</h3><p>${safe(selected.role)} · ${identity.label}</p></div><div class="profile-score"><strong>${s.score}</strong><small>/100 · ${s.mood.emoji}</small></div></div>${alerts}<div class="domain-list">${bars}</div><p class="panel-note">Scores fictícios para aprendizagem. Investigue as condições de trabalho; não classifique nem culpe pessoas.</p>`;
+    $("employee-detail").innerHTML = `<div class="profile-top"><div class="profile-avatar">${selected.emoji}</div><div><h3>${safe(selected.name)}</h3><p>${safe(selected.role)} · ${identity.label}</p>${cipaMember ? '<span class="cipa-indicator">Integrante da comissão preventiva</span>' : ""}</div><div class="profile-score"><strong>${s.score}</strong><small>/100 · ${s.mood.emoji}</small></div></div>${alerts}<div class="domain-list">${bars}</div><p class="panel-note">Scores fictícios para aprendizagem. Investigue as condições de trabalho; não classifique nem culpe pessoas.</p>`;
   }
 
   const supplierCards = SUPPLIERS.map(supplier => {
@@ -101,6 +103,17 @@ function render() {
   $("collective-toggle").disabled = collective.organized;
   $("contract-history").innerHTML = (game.contractLedger ?? []).slice(-8).reverse().map(entry => `<li><strong>${safe(entry.supplierId)}</strong><small>Período ${entry.period} · ${entry.type === "activation" ? "Ativação" : "Recorrência"} · ${money(entry.amount)}</small></li>`).join("") || "<li class=\"empty-history\">Nenhum lançamento contratual.</li>";
 
+  const manager = game.managementPositions?.find(item => item.active);
+  const pendingSuccession = game.managementPositions?.find(item => item.successionPending);
+  $("succession-panel").innerHTML = manager
+    ? `<p><strong>${safe(manager.title)}:</strong> ${safe(manager.name)} · setor ${safe(manager.department)}</p><p class="panel-note">Se houver afastamento ou desligamento, o sucessor escolhe reorganizar o setor ou substituir a equipe. As próximas três ações no departamento terão impacto ampliado (±50%).</p><div class="governance-actions"><button class="text-button" data-manager-exit="health-leave">Afastamento por saúde</button><button class="text-button" data-manager-exit="dismissal">Demissão</button><button class="text-button" data-manager-exit="resignation">Pedido de desligamento</button></div>`
+    : pendingSuccession
+      ? `<p><strong>Sucessão pendente:</strong> ${safe(pendingSuccession.title)} · ${safe(pendingSuccession.department)}</p><label>Sucessor <select id="successor-select">${game.employees.map(person => `<option value="${safe(person.id)}">${safe(person.name)}</option>`).join("")}</select></label><div class="governance-actions"><button class="apply-btn" data-succession="reorganize">Reorganizar setor</button><button class="text-button" data-succession="replace-team">Trocar equipe do setor</button></div>`
+      : "<p>Não há posição gerencial configurada.</p>";
+  const cipa = game.cipa ?? { created: false, members: [], incidents: [] };
+  $("cipa-panel").innerHTML = cipa.created
+    ? `<p><strong>Comissão preventiva ativa</strong> · ${cipa.members.filter(member => member.status === "active").length}/${cipa.members.length} integrantes ativos</p><p class="panel-note">Cada setor tem um representante no cenário. O marcador aparece na ficha individual. Regra ficcional: cada saída ou afastamento de integrante gera custo único de R$ 1.000.</p><ul class="cipa-members">${cipa.members.map(member => `<li><span>${safe(member.name)} · ${safe(member.department)} · ${member.status === "active" ? "Ativo" : member.status === "on-leave" ? "Afastado" : "Desligado"}</span>${member.status === "active" ? `<button class="text-button" data-cipa-exit="${safe(member.employeeId)}" data-exit-reason="dismissal">Registrar saída</button><button class="text-button" data-cipa-exit="${safe(member.employeeId)}" data-exit-reason="health-leave">Afastamento</button>` : ""}</li>`).join("")}</ul><label>Setor que receberá subsídio <select id="cipa-subsidy-select">${game.departments.map(dept => `<option value="${safe(dept.id)}" ${cipa.subsidizedDepartment === dept.id ? "selected" : ""}>${safe(dept.name)}</option>`).join("")}</select></label><button class="apply-btn" data-cipa-subsidy>Escolher setor · 30% de desconto na próxima melhoria</button><p class="panel-note">Subsídio selecionado: ${cipa.subsidizedDepartment ? safe(game.departments.find(d => d.id === cipa.subsidizedDepartment)?.name) : "nenhum setor"}.</p>`
+    : `<p><strong>Criação da CIPA · ${money(1200)}</strong></p><p class="panel-note">Escolha um representante de cada setor. Esta é uma comissão simplificada para fins de jogo, não uma reprodução da composição legal da CIPA.</p><div class="cipa-selectors">${game.departments.map(dept => `<label>${safe(dept.name)}<select data-cipa-member="${safe(dept.id)}">${game.employees.filter(person => person.department === dept.id).map(person => `<option value="${safe(person.id)}">${safe(person.name)}</option>`).join("")}</select></label>`).join("")}</div><button class="apply-btn" data-cipa-create ${game.budget < 1200 ? "disabled" : ""}>Comprar e criar comissão</button>`;
   const targets = `<option value="team">Aplicar à equipe</option>${game.employees.map(e => `<option value="${safe(e.id)}" ${e.id === selectedId ? "selected" : ""}>${safe(e.name)}</option>`).join("")}`;
   $("intervention-list").innerHTML = INTERVENTIONS.map(item => {
     const effects = Object.entries(item.effects).map(([id,n]) => `<span class="effect-chip">${safe(DOMAINS.find(d => d.id === id)?.label || id)} +${n}</span>`).join("");
@@ -113,6 +126,36 @@ function render() {
 }
 document.addEventListener("click", event => {
   if (game.enterpriseOutcomes?.ending && !event.target.closest("#ending-reset")) return;
+  const managerExit = event.target.closest("[data-manager-exit]");
+  if (managerExit) {
+    const result = recordManagerDeparture(game, managerExit.dataset.managerExit);
+    if (!result.ok) { toast(result.reason); return; }
+    game = result.state; render(); toast("Saída gerencial registrada. A sucessão deverá escolher o rumo do departamento."); return;
+  }
+  const succession = event.target.closest("[data-succession]");
+  if (succession) {
+    const successorId = $("successor-select")?.value;
+    const result = appointSuccessor(game, successorId, succession.dataset.succession);
+    if (!result.ok) { toast(result.reason); return; }
+    game = result.state; render(); toast(result.strategy === "reorganize" ? "Setor reorganizado. As próximas três ações terão efeito ampliado positivo." : "Equipe substituída. As próximas três ações terão efeito ampliado negativo pela ruptura."); return;
+  }
+  if (event.target.closest("[data-cipa-create]")) {
+    const representatives = Object.fromEntries([...document.querySelectorAll("[data-cipa-member]")].map(select => [select.dataset.cipaMember, select.value]));
+    const result = createCipa(game, representatives);
+    if (!result.ok) { toast(result.reason); return; }
+    game = result.state; render(); toast("Comissão preventiva criada e representantes registrados nos perfis."); return;
+  }
+  const cipaExit = event.target.closest("[data-cipa-exit]");
+  if (cipaExit) {
+    const result = recordCipaMemberExit(game, cipaExit.dataset.cipaExit, cipaExit.dataset.exitReason);
+    if (!result.ok) { toast(result.reason); return; }
+    game = result.state; render(); toast("Evento registrado. Custo único de R$ 1.000 lançado no caixa."); return;
+  }
+  if (event.target.closest("[data-cipa-subsidy]")) {
+    const result = subsidizeCipaDepartment(game, $("cipa-subsidy-select")?.value);
+    if (!result.ok) { toast(result.reason); return; }
+    game = result.state; render(); toast("Subsídio de 30% registrado para a próxima melhoria do setor."); return;
+  }
   const reviewButton = event.target.closest("[data-review]");
   if (reviewButton) {
     const result = resolveManagementReview(game, reviewButton.dataset.review, reviewButton.dataset.reviewOutcome);
@@ -193,11 +236,18 @@ document.addEventListener("click", event => {
   if (!button) return;
   const id = button.dataset.apply;
   const target = document.querySelector(`[data-target="${CSS.escape(id)}"]`)?.value || "team";
-  const result = applyIntervention(game, id, target === "team" ? {} : { employeeId: target });
+  const selectedPerson = target === "team" ? null : employee(target);
+  const department = selectedPerson?.department ?? employee(selectedId)?.department ?? "separacao";
+  const baseIntervention = INTERVENTIONS.find(item => item.id === id);
+  const costInfo = getGovernanceInterventionCost(game, department, baseIntervention.cost);
+  const impact = applyDepartmentImpact(costInfo.state, department, baseIntervention.effects);
+  const result = applyIntervention(impact.state, id, { ...(target === "team" ? {} : { employeeId: target }), costOverride: costInfo.cost, effectsOverride: impact.effects });
   if (!result.ok) { toast(result.reason); return; }
   const action = consumeManagementAction(result.state, { id, label: INTERVENTIONS.find(item => item.id === id)?.name });
   if (!action.ok) { toast(action.reason); return; }
   game = action.state;
+  if (costInfo.discount) { game.cipa.subsidyUsed = true; toast("Subsídio da comissão aplicado à melhoria."); }
+  if (impact.multiplier > 1) toast(impact.direction > 0 ? "Efeito ampliado pela transição gerencial." : "Ruptura ampliou o impacto negativo da decisão.");
   if (result.event.employeeId) selectedId = result.event.employeeId;
   render(); toast(result.note);
 });
