@@ -27,3 +27,13 @@
 .news-item blockquote{margin:9px 0 0;padding:8px 10px;border-left:2px solid #8ca7b3;background:#ffffffb8;border-radius:0 7px 7px 0}.news-item blockquote p{font-size:10px;font-style:italic;color:#345264;margin:0}.news-item blockquote cite{display:block;font-size:9px;font-style:normal;font-weight:850;color:#718592;margin-top:5px}
 
 .review-item{padding-bottom:10px}.review-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.review-actions .text-button{padding:6px 8px;border:1px solid var(--line);border-radius:7px;background:#f4f7f8;cursor:pointer}.review-actions .text-button:hover{background:#e7eff2}.review-actions .text-button:focus-visible{outline:2px solid #287e6b;outline-offset:2px}
+
+
+.governance-card { display: grid; gap: 14px; }
+.governance-divider { height: 1px; background: var(--line, #dce4e9); margin: 4px 0; }
+.governance-actions, .cipa-selectors { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.cipa-selectors label, #succession-panel label, #cipa-panel label { display: grid; gap: 5px; min-width: 130px; margin: 8px 0; font-size: .88rem; }
+.cipa-selectors select, #succession-panel select, #cipa-panel select { max-width: 100%; padding: 8px; border: 1px solid var(--line, #dce4e9); border-radius: 8px; background: var(--surface, #fff); color: inherit; }
+.cipa-members { display: grid; gap: 8px; padding-left: 18px; }
+.cipa-members li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px; }
+.cipa-indicator { display: inline-block; margin-top: 5px; padding: 4px 8px; border-radius: 999px; background: #e8f3ec; color: #245d3c; font-size: .75rem; font-weight: 700; }
