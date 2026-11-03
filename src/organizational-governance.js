@@ -52,15 +52,28 @@ export function appointSuccessor(state, successorId, strategy = "reorganize") {
   position.appointedPeriod = Number(next.period ?? 1);
   // A escolha define o tom do período: reorganização favorece continuidade;
   // troca integral aumenta ruptura e risco de perda de conhecimento.
+  const affectedTeam = next.employees.filter(person =>
+    person.department === position.department && person.id !== successor.id
+  );
   next.departmentEffects[position.department] = {
     multiplier: DEPARTMENT_ACTION_MULTIPLIER,
-    direction: strategy === "reorganize" ? 1 : -1,
     remainingActions: 3,
     strategy,
     managerId: successor.id
   };
   if (strategy === "replace-team") {
-    next.employees = next.employees.filter(person => person.department !== position.department || person.id === successor.id);
+    // A equipe anterior não desaparece: é realocada e as vagas ficam explícitas.
+    // A contratação/reposição é uma decisão operacional posterior.
+    for (const person of affectedTeam) {
+      person.previousDepartment = position.department;
+      person.department = "realocacao";
+      person.teamTransitionStatus = "reassigned";
+    }
+    position.teamVacancies = affectedTeam.length;
+    position.teamReplacementPending = true;
+  } else {
+    position.teamVacancies = 0;
+    position.teamReplacementPending = false;
   }
   return { ok: true, state: next, position, successor, strategy };
 }
@@ -69,11 +82,13 @@ export function applyDepartmentImpact(state, department, effects) {
   const next = ensureGovernanceState(state);
   const active = next.departmentEffects[department];
   if (!active || active.remainingActions <= 0) return { state: next, effects: { ...effects }, multiplier: 1, direction: 1 };
+  // Amplifica a magnitude sem inverter o sentido: ganhos continuam ganhos
+  // e efeitos adversos continuam adversos.
   const adjusted = Object.fromEntries(Object.entries(effects).map(([key, value]) => [
-    key, Math.round(Number(value) * active.multiplier * active.direction)
+    key, Math.round(Number(value) * active.multiplier)
   ]));
   active.remainingActions -= 1;
-  return { state: next, effects: adjusted, multiplier: active.multiplier, direction: active.direction };
+  return { state: next, effects: adjusted, multiplier: active.multiplier, direction: 1 };
 }
 
 export function createCipa(state, representativesByDepartment = {}) {
