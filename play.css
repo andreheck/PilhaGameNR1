@@ -173,3 +173,18 @@
 .scene.show-static .scene-tags,.scene.show-static .actor-tags{display:block;z-index:4}
 @media (max-height:720px){.case-cast{gap:4px}.case-actor{font-size:9px}.case-actor img{height:23px;width:23px}}
 
+
+/* Comparador de impacto: leitura antes/depois da intervenção */
+.impact-compare{margin-top:8px;padding:9px;border:1px solid #dce7e9;border-radius:10px;background:#f7fafb;display:grid;gap:5px}
+.impact-compare-head,.impact-compare-labels{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.impact-compare-head b{font-size:9px;letter-spacing:.1em;color:#315b70}
+.impact-compare-head span,.impact-compare-labels{font-size:8px;color:#708590;font-weight:800}
+.impact-compare-labels{display:grid;grid-template-columns:1fr 1fr auto;padding:0 3px}
+.impact-metric{display:grid;grid-template-columns:minmax(70px,1fr) 27px 12px 27px 32px;align-items:center;gap:5px;padding:4px 5px;border-radius:6px;background:#fff;font-size:9px}
+.impact-metric span{color:#58717e;font-weight:700}
+.impact-metric b{text-align:center;font-size:10px;font-variant-numeric:tabular-nums}
+.impact-metric i{text-align:center;color:#91a2aa;font-style:normal}
+.impact-metric small{text-align:right;font-size:9px;font-weight:900;font-variant-numeric:tabular-nums}
+.impact-metric small.positive{color:#237957}.impact-metric small.negative{color:#b45a3c}.impact-metric small.neutral{color:#788b94}
+.impact-compare>p{margin:2px 0 0;color:#71858d;font-size:8px;line-height:1.45}
+@media(max-width:420px){.impact-metric{grid-template-columns:minmax(62px,1fr) 24px 10px 24px 29px;gap:3px}.impact-compare{padding:7px}}
