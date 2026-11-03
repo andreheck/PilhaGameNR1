@@ -2,8 +2,10 @@
 
 **Branch:** `qa/cycle-1-stability`  
 **Base:** `dc6a7e5be64704c4b31bcab06a3751e0ea588d2f`  
+**Commit da documentação inicial:** `3f49e97f934f7649b164d58f865630ce559cc1d5`  
+**Commit de integração testado pelo GitHub Actions:** `1a1f42365424bc308d051552b30ec8c905c5fbcc` (merge sintético da PR #61)  
 **Escopo:** abertura Ao Trabalho, onboarding, seleção inicial da dupla, navegação, persistência e compatibilidade.  
-**Status:** auditoria estática inicial; testes automatizados e QA interativo ainda não executados nesta rodada.
+**Status:** testes automatizados e regressão de navegador aprovados; validação específica da abertura Ao Trabalho e revisão manual final ainda pendentes.
 
 ## Objetivo
 
@@ -22,34 +24,41 @@ Confirmar que a jornada de entrada e o núcleo atual são confiáveis antes de a
 - O onboarding não deve solicitar novamente a dupla quando já existe uma dupla válida ou uma campanha congelada.
 - Há testes automatizados dedicados à dupla, à galeria, à experiência do jogador e à navegação/fallback.
 
-### Pontos que exigem validação
+### Pontos que exigem validação específica
 
 1. **Retorno à tela inicial:** confirmar se clicar no logo lateral retorna à abertura e se Jogar reabre corretamente a experiência sem reiniciar campanha, timer, dupla ou progresso.
 2. **Reentrada após primeira visita:** o fluxo de onboarding é iniciado no carregamento da aplicação. Confirmar se, ao retornar à abertura na mesma sessão, a intenção é entrar diretamente no jogo ou reapresentar a missão sem repetir a escolha da dupla.
 3. **Persistência da dupla:** testar primeira escolha, recarga, retorno à home, nova entrada e campanha já iniciada. A dupla congelada da campanha deve prevalecer.
 4. **Acessibilidade dos modais da abertura:** o modal possui rótulo e foco inicial, mas a implementação observada não demonstra contenção de foco (focus trap) nem tornar o fundo inerte enquanto aberto. Validar teclado e leitor de tela; corrigir se confirmado.
 5. **Configurações:** validar redução de animações e alto contraste após recarga, inclusive se a preferência afeta os componentes relevantes do jogo, não apenas a tela inicial.
-6. **Mobile:** verificar rolagem, altura útil, botões, sobreposição e teclado virtual em telas estreitas.
+6. **Mobile:** verificar a abertura e os modais em telas estreitas, incluindo rolagem, altura útil, botões e sobreposição.
 7. **Carregamento:** verificar se falhas de módulos 3D ou recursos externos mantêm a alternativa 2D e não bloqueiam a entrada.
 8. **Dados antigos/corrompidos:** garantir que dados inválidos não apaguem registros válidos nem impeçam a abertura do jogo.
 
-## Roteiro de testes automatizados
+## Evidências automatizadas — 03/11/2026
 
-Executar na raiz do repositório:
+A PR #61 acionou duas execuções de GitHub Actions. Ambas foram concluídas com `success`.
 
-```bash
-npm test
-```
+### 1. Workflow “Validar jogo” — run 41732251941
 
-O script principal agrega testes de casos, integração da experiência, estado da empresa, mecânicas, navegação/fallback, investimentos, equipe, linha do tempo, progressão, mapa, eventos, galeria, NPCs, mobiliário e gestão de pessoas.
+- Job `test`: concluído com sucesso.
+- Executou `npm test` no Node.js 22.23.4.
+- A suíte agregada percorreu testes de casos, integração, estado da empresa, mecânicas, navegação/fallback, investimentos, equipe, linha do tempo, progressão, mapa, eventos, galeria, NPCs, mobiliário e gestão de pessoas.
+- Resultado do job: **PASS**.
 
-Também executar:
+### 2. Workflow “Validar equipe viva e calendário” — run 41732251904
 
-```bash
-npm run build
-```
+- Job `regression`: concluído com sucesso.
+- Executou `npm test`, `npm run test:continuous`, `npm run test:living`, `npm run test:npcs` e `python tools/qa-company-living.py`.
+- Os scripts `test:continuous` e `test:living` executam `npm run build` antes de seus testes; portanto o build foi exercitado por esses fluxos.
+- A automação Playwright percorreu os viewports 320×844, 390×844, 844×390, 1366×900 e 1440×900.
+- A saída registrou `errors: []` e nenhuma exceção não tratada do navegador.
+- Foram verificados, entre outros pontos, navegação do mapa, perfis de colaboradores, calendário, persistência, fallback de imagens, equipe e eventos.
+- Resultado do job: **PASS**.
 
-Registrar comando, ambiente, commit, resultado e saída de falhas. Não considerar o deployment `READY` como substituto dos testes.
+### Limite importante das evidências
+
+A regressão Playwright aprovada está centrada na experiência “empresa viva” e no calendário. Ela não comprova, por si só, todos os critérios da nova abertura Ao Trabalho: retorno pelo logo lateral, modais Sobre/Créditos, configurações de contraste/animação, contenção de foco e repetição controlada do onboarding. Esses pontos continuam pendentes de teste direcionado.
 
 ## Checklist de QA manual — desktop e mobile
 
@@ -82,18 +91,18 @@ Registrar comando, ambiente, commit, resultado e saída de falhas. Não consider
 - [ ] Links e rotas legadas continuam acessíveis.
 
 ### D. Responsividade e acessibilidade
-- [ ] Viewport desktop 1440×900.
-- [ ] Viewport mobile 390×844.
-- [ ] Teclado: Tab, Shift+Tab, Enter, Espaço e Escape.
-- [ ] Foco visível em botões e links.
+- [x] Regressão automatizada em viewports 320×844, 390×844, 844×390, 1366×900 e 1440×900 para a experiência empresa viva/calendário.
+- [ ] Abertura Ao Trabalho verificada em desktop e mobile.
+- [ ] Teclado: Tab, Shift+Tab, Enter, Espaço e Escape na abertura e nos modais.
+- [ ] Foco visível em botões e links da abertura.
 - [ ] Contraste e ampliação de texto não ocultam controles.
-- [ ] Redução de movimento respeitada.
+- [ ] Redução de movimento respeitada na abertura e nas telas relevantes.
 - [ ] Sem rolagem horizontal indevida; painéis internos continuam alcançáveis.
 
 ### E. Compatibilidade e recuperação
-- [ ] WebGL/3D disponível: cena carrega e controles respondem.
-- [ ] WebGL indisponível ou falha simulada: fallback 2D continua utilizável.
-- [ ] Imagens/modelos ausentes não bloqueiam navegação e decisões.
+- [x] Regressão automatizada de fallback de imagens e recuperação sem troca de identidade.
+- [x] Regressão automatizada de navegação/fallback 2D.
+- [ ] WebGL/3D indisponível ou falha simulada: fallback 2D continua utilizável em teste direcionado.
 - [ ] Armazenamento local bloqueado/corrompido produz aviso claro e não declara salvamento falso.
 - [ ] Recarregar durante uma missão preserva o estado esperado.
 
@@ -110,14 +119,15 @@ Para cada falha, registrar:
 
 ## Critérios de conclusão do Ciclo 1
 
-- [ ] `npm test` aprovado.
-- [ ] `npm run build` aprovado.
-- [ ] Fluxo A–C aprovado em desktop e mobile.
-- [ ] Fallback e persistência verificados.
-- [ ] Problemas de acessibilidade classificados e corrigidos ou aceitos com justificativa.
-- [ ] Nenhum dado/progresso existente perdido.
+- [x] `npm test` aprovado no workflow de CI.
+- [x] Build exercitado por `npm run test:continuous` e `npm run test:living`.
+- [x] Regressão Playwright aprovada nos cinco viewports listados para a experiência empresa viva/calendário.
+- [ ] Fluxo da abertura e retorno à home aprovado em desktop e mobile.
+- [ ] Persistência da dupla e reentrada aprovadas em teste direcionado.
+- [ ] Acessibilidade dos modais e configurações classificada e corrigida ou aceita com justificativa.
+- [ ] Compatibilidade/fallback e recuperação de armazenamento verificados em teste direcionado.
 - [ ] Revisão final do diff e aprovação explícita antes de merge/deploy.
 
 ## Limites desta auditoria
 
-A inspeção de código não confirma renderização, toque, leitor de tela, desempenho, rede ou comportamento real do navegador. Nenhum desses itens deve ser marcado como aprovado sem execução e evidência.
+Os workflows de CI demonstram que as suítes executadas passaram no commit de integração da PR. Isso não equivale à validação manual completa da abertura Ao Trabalho nem a testes com leitor de tela, dispositivos físicos, condições reais de armazenamento bloqueado ou falhas de rede. Nenhum desses itens deve ser marcado como aprovado sem execução e evidência.
