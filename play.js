@@ -101,7 +101,7 @@ function setupWelcomeStory(){
   resume:id=>mission.ensureStart(id),
   message
 });
-document.getElementById('game').style.visibility='';document.getElementById('game').inert=false;
+if(window.__AO_TRABALHO_ENTERED){document.getElementById('game').style.visibility='';document.getElementById('game').inert=false;}
 if(viewOptions.includes(q))sectorMap.openTools();
 if(new URLSearchParams(location.search).has('legacy3d'))try{const {setupWorld}=await import('./world3d.js');world=await setupWorld($('scene'),chooseCase,sayActor,t=>{$('scene-status').textContent=t});window.__PILHA_WORLD__=world;$('scene-status').textContent='Salão pronto · selecione recursos e especialistas';const persistedCase=read('pilha-case01-v2');if(persistedCase?.sceneState)world.applySceneState(persistedCase.sceneState);const persistedManagement=managementState();if(persistedManagement.outcome)world.applyManagementDecision(persistedManagement);const investments=investmentState();for(const item of investments.upgrades||[]){const id=typeof item==='string'?item:item?.id;const u=UPGRADES.find(u=>u.id===id);if(u)world.applyInvestmentUpgrade?.(u,{animate:false})}if(innerWidth<690){}}catch(e){$('scene').classList.add('show-static');$('scene-status').textContent='Visão geral 2D · selecione um setor ou personagem';sceneEvent('MODO COMPATIBILIDADE','O mapa 2D continua com decisões e diálogos disponíveis.');message('Visualização 2D ativada. Os casos continuam jogáveis neste navegador.');console.warn('3D indisponível',e)}})();
 
