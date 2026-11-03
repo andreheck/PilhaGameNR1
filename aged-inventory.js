@@ -15,50 +15,77 @@ const grid=new THREE.GridHelper(7,28,0x9aada7,0xcbd5cf);grid.position.y=-.018;sc
 const controls=new OrbitControls(camera,renderer.domElement);controls.target.set(0,.7,0);controls.enableDamping=true;controls.minDistance=2;controls.maxDistance=10;
 const loader=new GLTFLoader();let active=null,loadToken=0;
 const SOURCES={computerScreen:'/assets/kenney-furniture/computerScreen.glb',laptop:'/assets/kenney-furniture/laptop.glb',desk:'/assets/kenney-furniture/desk.glb',chairDesk:'/assets/kenney-furniture/chairDesk.glb',bookcaseOpen:'/assets/kenney-furniture/bookcaseOpen.glb'};
-const STATES={
- used:{color:0xd5c9a8,roughness:.91,mark:.10},
- precarious:{color:0xb9a77e,roughness:1,mark:.24},
- scrapped:{color:0x89816e,roughness:1,mark:.40}
-};
+const STATES={used:{color:0xd5c9a8,roughness:.91,mark:.10},precarious:{color:0xb9a77e,roughness:1,mark:.24},scrapped:{color:0x89816e,roughness:1,mark:.40}};
 const labels={used:'Usado',precarious:'Precário',scrapped:'Sucateado'};
 function clearModel(){if(!active)return;scene.remove(active);active.traverse(o=>{if(o.isMesh){o.geometry?.dispose();if(Array.isArray(o.material))o.material.forEach(m=>m.dispose());else o.material?.dispose()}});active=null}
 function makeBook(){
  const g=new THREE.Group();g.name='procedural-book';
- const coverMat=new THREE.MeshStandardMaterial({color:0x426a72,roughness:.86});
- const pagesMat=new THREE.MeshStandardMaterial({color:0xe5d8b8,roughness:1});
- const cover=new THREE.Mesh(new THREE.BoxGeometry(.82,.13,.58),coverMat);cover.position.y=.065;g.add(cover);
- const pages=new THREE.Mesh(new THREE.BoxGeometry(.77,.105,.55),pagesMat);pages.position.set(.012,.066,0);g.add(pages);
+ const cover=new THREE.Mesh(new THREE.BoxGeometry(.82,.13,.58),new THREE.MeshStandardMaterial({color:0x426a72,roughness:.86}));cover.position.y=.065;g.add(cover);
+ const pages=new THREE.Mesh(new THREE.BoxGeometry(.77,.105,.55),new THREE.MeshStandardMaterial({color:0xe5d8b8,roughness:1}));pages.position.set(.012,.066,0);g.add(pages);
  const spine=new THREE.Mesh(new THREE.BoxGeometry(.07,.14,.59),new THREE.MeshStandardMaterial({color:0x294c55,roughness:.9}));spine.position.set(-.375,.065,0);g.add(spine);
  return g;
 }
-function makeWear(model,state){
- const cfg=STATES[state];const box=new THREE.Box3().setFromObject(model);const size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
+function localBounds(root){
+ root.updateMatrixWorld(true);
+ const inverse=root.matrixWorld.clone().invert(),box=new THREE.Box3();
+ root.traverse(o=>{if(!o.isMesh||!o.geometry)return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();const b=o.geometry.boundingBox.clone().applyMatrix4(inverse.clone().multiply(o.matrixWorld));box.union(b)});
+ return box;
+}
+function boxPart(group,material,size,position,rotation=0){
+ const mesh=new THREE.Mesh(new THREE.BoxGeometry(size.x,size.y,size.z),material);mesh.position.copy(position);mesh.rotation.z=rotation;group.add(mesh);return mesh;
+}
+function makeWear(model,item,state){
+ const cfg=STATES[state];
  model.traverse(o=>{if(!o.isMesh)return;o.castShadow=true;o.receiveShadow=true;const mats=Array.isArray(o.material)?o.material:[o.material];const changed=mats.map(m=>{const n=m.clone();if(n.color)n.color.lerp(new THREE.Color(cfg.color),cfg.mark);n.roughness=Math.max(n.roughness??.6,cfg.roughness);return n});o.material=Array.isArray(o.material)?changed:changed[0]});
- const marks=new THREE.Group();marks.name='procedural-wear-details';
- const dark=new THREE.MeshStandardMaterial({color:state==='used'?0x827b68:0x5d5548,roughness:1,transparent:true,opacity:state==='used'?.18:state==='precarious'?.32:.48});
- const pale=new THREE.MeshStandardMaterial({color:0xe5d9b9,roughness:1,transparent:true,opacity:state==='used'?.15:.28});
- const frontZ=box.min.z-.012;const count=state==='used'?2:state==='precarious'?5:7;
- for(let i=0;i<count;i++){const w=Math.max(.025,size.x*(.035+(i%3)*.012)),h=Math.max(.008,size.y*.012);const mark=new THREE.Mesh(new THREE.BoxGeometry(w,h,.008),i%2?pale:dark);mark.position.set(center.x-size.x*.32+(i*.137%1)*size.x*.64,box.min.y+size.y*(.18+(i*.173%1)*.68),frontZ);marks.add(mark)}
- if(state!=='used'){
-  const patch=new THREE.Mesh(new THREE.BoxGeometry(size.x*.13,.018,.018),dark);patch.position.set(center.x+size.x*.17,center.y+size.y*.12,frontZ-.02);patch.rotation.z=state==='scrapped'?.42:.18;marks.add(patch);
+ const bounds=localBounds(model),size=bounds.getSize(new THREE.Vector3()),c=bounds.getCenter(new THREE.Vector3());
+ const details=new THREE.Group();details.name='object-specific-wear';
+ const dark=new THREE.MeshStandardMaterial({color:state==='scrapped'?0x282b2a:0x665b49,roughness:1});
+ const rust=new THREE.MeshStandardMaterial({color:0x8b5436,roughness:1});
+ const pale=new THREE.MeshStandardMaterial({color:0xd9c9a6,roughness:1});
+ const front=bounds.max.z+Math.max(.008,size.z*.012);
+ if(state==='used'){
+  // Small, varied contact wear: limited to a few edges, not a uniform dirt overlay.
+  for(let i=0;i<3;i++)boxPart(details,pale,new THREE.Vector3(size.x*.045,.008,.006),new THREE.Vector3(bounds.min.x+size.x*(.18+i*.29),bounds.min.y+size.y*.72,front));
  }
- if(state==='scrapped'){
-  const missing=new THREE.Mesh(new THREE.BoxGeometry(Math.max(.06,size.x*.12),Math.max(.04,size.y*.1),.025),new THREE.MeshStandardMaterial({color:0x252b2b,roughness:1}));missing.position.set(box.max.x-size.x*.12,box.max.y-size.y*.12,frontZ-.025);marks.add(missing);
+ if(state==='precarious'||state==='scrapped'){
+  if(item==='computerScreen'||item==='laptop'){
+   // Screen fracture: branching lines on the camera-facing plane.
+   const w=size.x*(state==='scrapped'?.30:.18),h=size.y*(state==='scrapped'?.24:.13);
+   boxPart(details,dark,new THREE.Vector3(w,.012,.012),new THREE.Vector3(c.x+size.x*.08,c.y+size.y*.10,front),-.42);
+   boxPart(details,dark,new THREE.Vector3(.012,h,.012),new THREE.Vector3(c.x+size.x*.08-w*.34,c.y+size.y*.10+h*.36,front),.28);
+   if(state==='scrapped')boxPart(details,dark,new THREE.Vector3(w*.42,.01,.012),new THREE.Vector3(c.x+size.x*.18,c.y+size.y*.23,front),.68);
+  }else if(item==='desk'){
+   // Exposed, worn corner and a rusted repair plate.
+   boxPart(details,rust,new THREE.Vector3(size.x*.16,.018,.018),new THREE.Vector3(bounds.min.x+size.x*.16,bounds.max.y-size.y*.04,front));
+   if(state==='scrapped')boxPart(details,dark,new THREE.Vector3(size.x*.18,.045,.045),new THREE.Vector3(bounds.min.x+size.x*.12,bounds.min.y+size.y*.16,bounds.min.z+size.z*.18),-.22);
+  }else if(item==='chairDesk'){
+   // Worn arm/seat edge plus a dark wheel/socket cue near the base.
+   boxPart(details,rust,new THREE.Vector3(size.x*.24,.018,.018),new THREE.Vector3(c.x,c.y-size.y*.08,front));
+   if(state==='scrapped')boxPart(details,dark,new THREE.Vector3(size.x*.10,size.y*.055,size.z*.10),new THREE.Vector3(bounds.max.x-size.x*.10,bounds.min.y+size.y*.07,c.z));
+  }else if(item==='bookcaseOpen'){
+   // A visibly sagging shelf cue and corroded bracket.
+   boxPart(details,rust,new THREE.Vector3(size.x*.62,.018,.018),new THREE.Vector3(c.x,c.y-size.y*.10,front),state==='scrapped'?.045:.018);
+   boxPart(details,dark,new THREE.Vector3(.025,size.y*.10,.025),new THREE.Vector3(bounds.min.x+size.x*.18,c.y-size.y*.10,front));
+  }else if(item==='book'){
+   // Torn cover corner with exposed page tone.
+   boxPart(details,pale,new THREE.Vector3(size.x*.22,.012,.018),new THREE.Vector3(bounds.max.x-size.x*.13,bounds.max.y-size.y*.10,front),-.48);
+   if(state==='scrapped')boxPart(details,dark,new THREE.Vector3(size.x*.12,.014,.018),new THREE.Vector3(bounds.min.x+size.x*.12,c.y,front),.32);
+  }
  }
- model.add(marks);
+ model.add(details);
 }
 async function show(){
  const token=++loadToken;status.textContent='Carregando modelo…';clearModel();
  try{
   const item=itemSelect.value;let model;
   if(item==='book')model=makeBook();
-  else {const gltf=await loader.loadAsync(SOURCES[item]);if(token!==loadToken)return;model=gltf.scene;}
+  else{const gltf=await loader.loadAsync(SOURCES[item]);if(token!==loadToken)return;model=gltf.scene;}
   if(token!==loadToken)return;
   active=model;active.position.set(0,0,0);
-  const bounds=new THREE.Box3().setFromObject(active);const size=bounds.getSize(new THREE.Vector3());const scale=2.25/Math.max(size.x,size.y,size.z);active.scale.setScalar(scale);
+  const bounds=new THREE.Box3().setFromObject(active),size=bounds.getSize(new THREE.Vector3());active.scale.setScalar(2.25/Math.max(size.x,size.y,size.z));
   const scaled=new THREE.Box3().setFromObject(active);active.position.y=-scaled.min.y;
-  makeWear(active,conditionSelect.value);scene.add(active);
-  const finalBox=new THREE.Box3().setFromObject(active);const center=finalBox.getCenter(new THREE.Vector3());controls.target.copy(center);camera.position.set(center.x+3.6,center.y+2.5,center.z+5.2);camera.lookAt(center);
+  makeWear(active,item,conditionSelect.value);scene.add(active);
+  const finalBox=new THREE.Box3().setFromObject(active),center=finalBox.getCenter(new THREE.Vector3());controls.target.copy(center);camera.position.set(center.x+3.6,center.y+2.5,center.z+5.2);camera.lookAt(center);
   status.textContent='Modelo carregado · '+labels[conditionSelect.value];
  }catch(err){status.textContent='Não foi possível carregar o modelo. Verifique a disponibilidade do GLB.';console.error(err)}
 }
