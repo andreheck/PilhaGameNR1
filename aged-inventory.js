@@ -3,7 +3,7 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 
 const stage=document.querySelector('#stage'),status=document.querySelector('#status');
-const itemSelect=document.querySelector('#item'),conditionSelect=document.querySelector('#condition');
+const itemSelect=document.querySelector('#item'),conditionSelect=document.querySelector('#condition'),faceSelect=document.querySelector('#face');
 const scene=new THREE.Scene();scene.background=new THREE.Color(0xdce7e3);
 const camera=new THREE.PerspectiveCamera(34,1,.1,100);camera.position.set(3.8,3.0,5.6);
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.7));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;stage.append(renderer.domElement);
@@ -72,6 +72,10 @@ function makeWear(model,item,state){
    if(state==='scrapped')boxPart(details,dark,new THREE.Vector3(size.x*.12,.014,.018),new THREE.Vector3(bounds.min.x+size.x*.12,c.y,front),.32);
   }
  }
+ const faceAngles={'+Z':0,'-Z':Math.PI,'+X':Math.PI/2,'-X':-Math.PI/2};
+ // Keep damage geometry in model-local space, but let reviewers inspect each possible front face.
+ for(const part of details.children)part.position.sub(c);
+ details.position.copy(c);details.rotation.y=faceAngles[faceSelect.value]??0;
  model.add(details);
 }
 async function show(){
@@ -89,7 +93,7 @@ async function show(){
   status.textContent='Modelo carregado · '+labels[conditionSelect.value];
  }catch(err){status.textContent='Não foi possível carregar o modelo. Verifique a disponibilidade do GLB.';console.error(err)}
 }
-itemSelect.addEventListener('change',show);conditionSelect.addEventListener('change',show);
+itemSelect.addEventListener('change',show);conditionSelect.addEventListener('change',show);faceSelect.addEventListener('change',show);
 function resize(){const w=stage.clientWidth,h=stage.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)}
 new ResizeObserver(resize).observe(stage);resize();show();
 renderer.setAnimationLoop(()=>{controls.update();renderer.render(scene,camera)});
