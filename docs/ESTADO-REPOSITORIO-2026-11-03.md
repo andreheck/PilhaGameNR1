@@ -15,7 +15,7 @@ Consulta ao repositório GitHub, README da branch padrão, histórico recente de
 
 | PR | Tema | Situação observada | Próxima ação |
 |---|---|---|---|
-| [#60](https://github.com/andreheck/PilhaGameNR1/pull/60) | Camada de entrada “Ao Trabalho” antes da abertura legada | Draft; 12 commits; sem testes/QA visual reportados | Executar build/testes e QA desktop/mobile; validar navegação, retorno ao início e preservação do fluxo legado |
+| [#60](https://github.com/andreheck/PilhaGameNR1/pull/60) | Abertura “Ao Trabalho” antes da experiência legada | Draft; 12 commits; sem testes/QA visual reportados | Executar build/testes e QA desktop/mobile; validar navegação, retorno ao início e preservação do fluxo legado |
 | [#59](https://github.com/andreheck/PilhaGameNR1/pull/59) | Comparador de impacto de intervenções | Draft; branch isolada do baseline aprovado; validação pendente | Rodar `npm test`, build e QA visual; conferir limites, projeções e estados vazios |
 | [#58](https://github.com/andreheck/PilhaGameNR1/pull/58) | Pacote de auditoria Codex das últimas 48h | Draft; documentação, sem alteração de runtime declarada | Usar como checklist de conciliação; não considerar itens auditados como implementados sem evidência |
 | [#57](https://github.com/andreheck/PilhaGameNR1/pull/57) | Seleção compacta de heróis e 14 benefícios | Draft; descrição registra CI aprovado no SHA `b693dce15008453f621c79b0682229f4b54d277b` e QA automatizado; homologação física pendente | Revisão de produto e QA manual em aparelhos reais antes do aceite |
@@ -29,7 +29,7 @@ A listagem retornou outras PRs abertas, muitas empilhadas em bases diferentes. N
 1. **Investimentos/intervenções no jogo:** o sistema de orçamento fictício, catálogo de domínios psicossociais, compras e evolução de indicadores já aparece em documentação de implementação e em branches/PRs anteriores. Indicadores são mecânicas educativas, não medição psicossocial real.
 2. **Comparador de impacto de intervenções (#59):** compara indicadores atuais com projeção educativa de uma melhoria; é uma camada do sistema de investimentos do Game.
 3. **Simulador de Propostas de Trabalho:** continua sendo um módulo separado planejado dentro deste repositório, documentado em `simuladores/propostas-de-trabalho/README.md`. Não confundir com o comparador de intervenções nem afirmar que já foi implementado.
-4. **Camada “Ao Trabalho” (#60):** é uma nova proposta de tela inicial em PR draft, ainda sem validação. O README deve continuar descrevendo a experiência aprovada como baseline até que a nova camada seja testada e aceita.
+4. **Abertura “Ao Trabalho” (#60):** esse é o nome adotado para a nova entrada do jogo. A implementação está na PR draft e ainda depende de validação; o nome já está definido, mas a integração só deve ocorrer após QA e aceite.
 
 ## Atualizações documentais recomendadas
 
@@ -41,7 +41,7 @@ A listagem retornou outras PRs abertas, muitas empilhadas em bases diferentes. N
 ## Plano de ação priorizado
 
 1. **Conciliação técnica:** construir um mapa de dependências entre PRs e identificar qual baseline representa a última versão aprovada.
-2. **PR #60:** validar a nova tela de entrada sem remover ou reexibir indevidamente a abertura legada.
+2. **PR #60 — Ao Trabalho:** validar a abertura, o retorno à página inicial e a convivência com o fluxo legado, sem remover funcionalidades aprovadas.
 3. **PR #59:** validar cálculos, limites 0–100, comparações e linguagem de estimativa.
 4. **PR #57/#56/#41:** revisar cadeia de dependências e homologação manual; aproveitar evidências automatizadas existentes, sem tratá-las como substitutas de teste físico.
 5. **Simulador de propostas:** iniciar descoberta e protótipo isolado após estabilizar a arquitetura do Game.
