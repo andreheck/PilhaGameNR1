@@ -59,3 +59,17 @@ Esses impactos são hipóteses de simulação e **não devem ser apresentados co
 - **Especificação do módulo:** [simuladores/propostas-de-trabalho/README.md](simuladores/propostas-de-trabalho/README.md)
 - **Status:** especificação/backlog; não declarar como funcionalidade pronta antes da implementação e dos testes.
 - **Limite de integração:** não pertence ao `pilha-plus-app`; evolui dentro do repositório próprio do Game.
+
+
+## Estado do desenvolvimento — 03/11/2026
+
+A branch principal ainda identifica a versão de referência como **Alpha 1.4**. Existem evoluções posteriores em pull requests abertas e em rascunho; elas não fazem parte da versão principal até serem revisadas, testadas e integradas.
+
+- [PR #60 — nova camada de entrada “Ao Trabalho”](https://github.com/andreheck/PilhaGameNR1/pull/60): draft, QA pendente.
+- [PR #59 — comparador de impacto das intervenções](https://github.com/andreheck/PilhaGameNR1/pull/59): draft, testes/build/QA pendentes.
+- [PR #58 — pacote de auditoria Codex](https://github.com/andreheck/PilhaGameNR1/pull/58): draft documental.
+- [PR #57 — seleção compacta de heróis e benefícios](https://github.com/andreheck/PilhaGameNR1/pull/57): draft, com evidências de CI descritas na PR; homologação física pendente.
+
+O sistema de investimentos/intervenções do jogo e o comparador de impacto são diferentes do **Simulador de Propostas de Trabalho**, que permanece planejado como módulo próprio em [simuladores/propostas-de-trabalho](simuladores/propostas-de-trabalho/README.md).
+
+A auditoria documental completa, com riscos, dependências e próximos passos, está em [docs/ESTADO-REPOSITORIO-2026-11-03.md](docs/ESTADO-REPOSITORIO-2026-11-03.md). Não foram feitos merges, deploys ou alterações no alias público nesta atualização.
