@@ -1,0 +1,41 @@
+import assert from "node:assert/strict";
+import { ensureGovernanceState, recordManagerDeparture, appointSuccessor, applyDepartmentImpact, createCipa, recordCipaMemberExit, subsidizeCipaDepartment, getGovernanceInterventionCost, CIPA_MEMBER_EXIT_COST } from "../src/organizational-governance.js";
+const base = { period: 1, budget: 8000, employees: [
+  { id: "joana", name: "Joana" }, { id: "marcos", name: "Marcos" },
+  { id: "carla", name: "Carla" }, { id: "diego", name: "Diego" }
+] };
+let state = ensureGovernanceState(base);
+assert.equal(base.departments, undefined, "não mutar save legado");
+const departed = recordManagerDeparture(state, "health-leave");
+assert.equal(departed.ok, true);
+assert.equal(departed.state.managementPositions[0].successionPending, true);
+const successor = appointSuccessor(departed.state, "marcos", "reorganize");
+assert.equal(successor.ok, true);
+assert.equal(successor.state.managementPositions[0].active, true);
+const positive = applyDepartmentImpact(successor.state, "separacao", { recovery: 8, jobSatisfaction: 10 });
+assert.deepEqual(positive.effects, { recovery: 12, jobSatisfaction: 15 });
+assert.equal(positive.state.departmentEffects.separacao.remainingActions, 2);
+const departure2 = recordManagerDeparture(successor.state, "dismissal");
+const replacement = appointSuccessor(departure2.state, "carla", "replace-team");
+assert.equal(replacement.ok, true);
+assert.equal(replacement.state.employees.some(person => person.department === "separacao" && person.id !== "carla"), false);
+const negative = applyDepartmentImpact(replacement.state, "separacao", { recovery: 8 });
+assert.deepEqual(negative.effects, { recovery: -12 });
+let cipaState = ensureGovernanceState(base);
+const reps = { recebimento: "carla", separacao: "joana", conferencia: "marcos", expedicao: "diego" };
+const created = createCipa(cipaState, reps);
+assert.equal(created.ok, true);
+assert.equal(created.state.budget, 6800);
+assert.equal(created.state.cipa.members.length, 4);
+assert.equal(created.state.cipa.members.every(member => member.participatesInCipa), true);
+const subsidized = subsidizeCipaDepartment(created.state, "separacao");
+assert.equal(subsidized.ok, true);
+assert.equal(getGovernanceInterventionCost(subsidized.state, "separacao", 1000).cost, 700);
+assert.equal(getGovernanceInterventionCost(subsidized.state, "conferencia", 1000).cost, 1000);
+const exit = recordCipaMemberExit(subsidized.state, "joana", "health-leave");
+assert.equal(exit.ok, true);
+assert.equal(exit.state.budget, 5800);
+assert.equal(exit.incident.penalty, CIPA_MEMBER_EXIT_COST);
+assert.equal(recordCipaMemberExit(exit.state, "joana", "dismissal").ok, false, "não cobrar duas vezes pelo mesmo evento de saída");
+assert.equal(createCipa(created.state, reps).ok, false, "não permitir compra duplicada");
+console.log("organizational-governance: sucessão, impacto departamental, CIPA, penalidade e subsídio PASS");
