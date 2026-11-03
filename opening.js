@@ -1,6 +1,1 @@
-document.getElementById('game').inert=true;
-document.getElementById('game').style.visibility='hidden';
-window.PilhaOpeningReady=new Promise(resolve=>{
- if(!window.PilhaIntro||new URLSearchParams(location.search).has('jogar')){resolve();return;}
- window.PilhaIntro.mount({role:'Acionista',ctaLabel:'Conhecer minha missão',onStart:resolve});
-});
+var game=document.getElementById('game');game.inert=true;game.style.visibility='hidden';window.PilhaOpeningReady=new Promise(resolve=>{function startLegacy(){if(!window.PilhaIntro||new URLSearchParams(location.search).has('jogar')){resolve();return;}window.PilhaIntro.mount({role:'Acionista',ctaLabel:'Conhecer minha missão',onStart:resolve});}document.addEventListener('ao-trabalho:start',startLegacy,{once:true});if(new URLSearchParams(location.search).has('jogar'))startLegacy();});
