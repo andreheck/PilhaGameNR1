@@ -117,7 +117,8 @@ export function getOrganizationSnapshot(state, weights = {}) {
 export function applyIntervention(state, interventionId, options = {}) {
   const intervention = INTERVENTIONS.find(item => item.id === interventionId);
   if (!intervention) return { ok: false, reason: "Intervenção não encontrada.", state };
-  if ((state.budget ?? 0) < intervention.cost) {
+  const cost = Math.max(0, Number(options.costOverride ?? intervention.cost));
+  if ((state.budget ?? 0) < cost) {
     return { ok: false, reason: "Orçamento insuficiente.", state };
   }
   const targetId = options.employeeId;
@@ -126,7 +127,7 @@ export function applyIntervention(state, interventionId, options = {}) {
   }
 
   const next = clone(state);
-  next.budget -= intervention.cost;
+  next.budget -= cost;
   next.environment ??= {};
   next.environment.upgrades ??= [];
   if (!next.environment.upgrades.includes(intervention.id)) {
@@ -136,9 +137,10 @@ export function applyIntervention(state, interventionId, options = {}) {
   let changedEmployees = 0;
   next.employees = next.employees.map(employee => {
     if (targetId && employee.id !== targetId) return employee;
+    if (!targetId && options.department && employee.department !== options.department) return employee;
     changedEmployees += 1;
     const scores = { ...(employee.scores ?? {}) };
-    for (const [domain, effect] of Object.entries(intervention.effects)) {
+    for (const [domain, effect] of Object.entries(options.effectsOverride ?? intervention.effects)) {
       scores[domain] = clamp((scores[domain] ?? 0) + effect);
     }
     return { ...employee, scores };
@@ -148,7 +150,7 @@ export function applyIntervention(state, interventionId, options = {}) {
   const event = {
     interventionId: intervention.id,
     name: intervention.name,
-    cost: intervention.cost,
+    cost,
     organizationalMeasure: intervention.organizationalMeasure,
     employeeId: targetId ?? null,
     changedEmployees,
