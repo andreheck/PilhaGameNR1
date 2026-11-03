@@ -166,3 +166,28 @@ Arquivos atualizados:
 Esta expansão amplia a cobertura do catálogo, mas **não equivale à aprovação visual final**. Os efeitos de desgaste ainda são genéricos e não modelam danos específicos por peça. Em particular, pernas quebradas, rodízios ausentes, tela trincada, lombada rasgada e prateleiras empenadas permanecem como próximos refinamentos de geometria.
 
 Antes da integração ao escritório principal, executar inspeção em navegador desktop e mobile para verificar orientação das marcas, proporção, clipping, sombras e leitura em câmera isométrica. Não integrar nem alterar mecânicas de jogo nesta etapa.
+
+
+## 11. Segunda passagem — danos específicos por família
+
+A lógica de desgaste foi refinada para deixar de aplicar apenas uma sequência uniforme de marcas:
+
+- **Monitor e notebook:** linhas de fratura sobre o plano frontal estimado, com ramificações mais evidentes no estado sucateado.
+- **Mesa:** faixa de reparo/oxidação e sinal de dano na região inferior no estado sucateado.
+- **Cadeira:** desgaste na borda do assento e indicação de componente comprometido na base.
+- **Estante:** sinal de prateleira empenada e suporte oxidado.
+- **Livro:** canto de capa rasgado e indicação de exposição das páginas.
+
+Também foi adicionada uma função de limites em coordenadas locais do modelo, para posicionar os detalhes levando em conta as transformações internas dos GLBs, em vez de presumir que a caixa global coincide com o espaço local do objeto.
+
+### Limite desta passagem
+
+Os danos são geometrias auxiliares sobrepostas e posicionadas por proporções da caixa delimitadora. Não removem partes reais da malha, não quebram componentes estruturais de fato e ainda dependem de inspeção visual para confirmar qual lado do GLB corresponde à face frontal. Portanto, são protótipos de leitura visual, não assets finais de produção.
+
+### Validação pendente
+
+- Conferir orientação dos detalhes em cada GLB e ajustar a face frontal real.
+- Verificar se as sobreposições acompanham corretamente o objeto ao girar a câmera.
+- Testar desktop e mobile, inclusive carregamento e redimensionamento.
+- Substituir os marcadores genéricos por danos modelados especificamente nas malhas quando a direção de arte for aprovada.
+- Só então avaliar integração com a cena principal.
