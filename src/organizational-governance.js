@@ -80,9 +80,9 @@ export function createCipa(state, representativesByDepartment = {}) {
   const next = ensureGovernanceState(state);
   if (next.cipa.created) return { ok: false, reason: "A comissão já foi criada.", state };
   if (Number(next.budget ?? 0) < CIPA_CREATION_COST) return { ok: false, reason: "Orçamento insuficiente para criar a comissão.", state };
-  const members = next.departments.map(department => {
+  const members = next.departments.map((department, index) => {
     const person = next.employees.find(item => item.id === representativesByDepartment[department.id] && item.department === department.id);
-    return person ? { employeeId: person.id, name: person.name, department: department.id, status: "active", participatesInCipa: true } : null;
+    return person ? { employeeId: person.id, name: person.name, department: department.id, status: "active", participatesInCipa: true, committeeRole: index === 0 ? "presidente" : "representante titular" } : null;
   }).filter(Boolean);
   if (members.length !== next.departments.length) return { ok: false, reason: "Indique um representante disponível de cada setor.", state };
   next.budget -= CIPA_CREATION_COST;
@@ -97,6 +97,8 @@ export function recordCipaMemberExit(state, employeeId, reason = "dismissal") {
   if (!member) return { ok: false, reason: "Integrante ativo da comissão não encontrado.", state };
   member.status = reason === "health-leave" ? "on-leave" : "dismissed";
   member.exitReason = reason;
+  const employee = next.employees.find(person => person.id === employeeId);
+  if (employee) employee.employmentStatus = reason === "health-leave" ? "on-leave" : "dismissed";
   const incident = { employeeId, memberName: member.name, department: member.department, reason, period: Number(next.period ?? 1), penalty: CIPA_MEMBER_EXIT_COST };
   next.cipa.incidents.push(incident);
   next.budget = Number(next.budget ?? 0) - CIPA_MEMBER_EXIT_COST;
