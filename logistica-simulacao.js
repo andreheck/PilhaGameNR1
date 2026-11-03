@@ -241,7 +241,7 @@ document.addEventListener("click", event => {
   const baseIntervention = INTERVENTIONS.find(item => item.id === id);
   const costInfo = getGovernanceInterventionCost(game, department, baseIntervention.cost);
   const impact = applyDepartmentImpact(costInfo.state, department, baseIntervention.effects);
-  const result = applyIntervention(impact.state, id, { ...(target === "team" ? {} : { employeeId: target }), costOverride: costInfo.cost, effectsOverride: impact.effects });
+  const result = applyIntervention(impact.state, id, { ...(target === "team" ? {} : { employeeId: target }), costOverride: costInfo.cost, effectsOverride: impact.effects, department });
   if (!result.ok) { toast(result.reason); return; }
   const action = consumeManagementAction(result.state, { id, label: INTERVENTIONS.find(item => item.id === id)?.name });
   if (!action.ok) { toast(action.reason); return; }
