@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/alpha14.test.mjs && node tests/psychosocial-simulation.test.mjs && node tests/logistica-simulacao.test.mjs && node tests/office-actor-brain.test.mjs && node tests/workforce-relations.test.mjs && node tests/management-cycle.test.mjs && node tests/enterprise-outcomes.test.mjs"
+    "test": "node tests/alpha14.test.mjs && node tests/psychosocial-simulation.test.mjs && node tests/logistica-simulacao.test.mjs && node tests/office-actor-brain.test.mjs && node tests/workforce-relations.test.mjs && node tests/management-cycle.test.mjs && node tests/enterprise-outcomes.test.mjs && node tests/workforce-trajectories.test.mjs && node tests/organizational-governance.test.mjs"
   }
 }
