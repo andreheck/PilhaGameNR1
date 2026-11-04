@@ -159,3 +159,29 @@ O teste de ciclo de vida verifica os 24 itens, progressão de segurança psicol�
 4. Os índices de estresse, absenteísmo e produtividade são fórmulas simuladas. Não os apresentar como previsão real de adoecimento, indicador clínico ou medição de conformidade com a NR-1.
 5. A restauração é um complemento. A comunicação do inventário deve priorizar eliminar/reduzir riscos na organização do trabalho e não deslocar para o trabalhador a responsabilidade de se recuperar de condições nocivas.
 6. A auditoria foi estática por leitura dos módulos e testes existentes. A execução de testes e a inspeção do fluxo real no navegador continuam como etapa de validação antes de qualquer alteração de runtime.
+
+
+## 11. Fechamento do ciclo documental e de arquitetura
+
+**Status:** concluído para diagnóstico, documentação e definição do contrato técnico. A implementação visual dos cartões e a validação funcional ponta a ponta não fazem parte do que foi efetivamente entregue neste fechamento.
+
+### Entregas concluídas
+- Distinção documentada entre a entrada principal Ao Trabalho Alpha 1.5+ e o fluxo legado.
+- Catálogo de 24 melhorias, ciclo de vida, ativos visuais e identidade existente inventariados.
+- Fonte de verdade do motor contínuo, estrutura de estado, compra, cotação, transações, revisão, migração e persistência mapeadas.
+- README atualizado para refletir a linha Alpha 1.5+.
+- Critérios de aceite e sequência segura para a etapa de implementação registrados.
+
+### Verificações de integração
+- GitHub Actions no commit `efef5532a1608c2340a877c3a6895770132b36a3`: workflows **Validar jogo** e **Validar equipe viva e calendario** concluídas com sucesso.
+- Check Vercel para o commit: sucesso; deployment de preview em estado `READY`.
+- O deployment de preview contém a branch documental; como as alterações deste ciclo não modificaram o runtime, o estado READY confirma a publicação do preview, não uma validação visual/funcional das melhorias.
+- Nenhuma publicação em produção foi solicitada ou realizada.
+
+### Limites e pendências transferidas
+- Executar percurso real no navegador: entrar, abrir setor, consultar melhoria, comprar, confirmar instalação, avançar semana e recarregar.
+- Conferir múltiplas abas, saldo insuficiente, nível máximo, evento pendente, expiração e serviço recorrente na interface.
+- Revisar visualmente cartões em mobile e desktop, contraste, foco por teclado e redução de movimento.
+- Implementar os ajustes visuais somente após essa validação e rodar regressão completa.
+
+**Decisão de encerramento:** considerar concluída a fase de diagnóstico e arquitetura do Ciclo 2. Não declarar concluída a modernização visual nem a validação funcional do inventário. Essas entregas permanecem explicitamente pendentes para a etapa de implementação, evitando que documentação e checks de integração sejam confundidos com teste de experiência real.
