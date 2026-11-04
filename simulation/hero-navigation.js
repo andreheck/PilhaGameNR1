@@ -30,7 +30,9 @@ function compareNodes(a, b) {
  * @returns {Array<{x:number,y:number}>|null} Path includes start and goal;
  * null means invalid input or no walkable route.
  */
-export function findHeroPath({ width, height, start, goal, blocked = [] } = {}) {
+export function findHeroPath(input = {}) {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return null;
+  const { width, height, start, goal, blocked = [] } = input;
   if (!Number.isInteger(width) || width < 1
     || !Number.isInteger(height) || height < 1
     || !validPoint(start, width, height)
