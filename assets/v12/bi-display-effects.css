@@ -1,0 +1,30 @@
+/* Efeitos de painel BI do setor — camada sobre tela widescreen.
+   Dashboard e métricas reais devem ser renderizados pelo próprio jogo;
+   esta folha anima apenas luminosidade e atualização visual. */
+.bi-display { position:relative; isolation:isolate; }
+.bi-display__screen { position:absolute; inset:8% 8% 18% 8%; overflow:hidden; pointer-events:none; }
+.bi-display__screen::before {
+ content:""; position:absolute; inset:0; opacity:.16;
+ background:repeating-linear-gradient(to bottom,transparent 0 7px,rgba(160,235,255,.2) 8px 9px);
+ animation:bi-refresh 8s linear infinite;
+}
+.bi-display__screen::after {
+ content:""; position:absolute; top:0; bottom:0; left:-35%; width:22%;
+ background:linear-gradient(90deg,transparent,rgba(190,245,255,.2),transparent);
+ transform:skewX(-18deg); animation:bi-sheen 9s ease-in-out infinite;
+}
+.bi-display[data-state="novo"] .bi-display__screen { filter:brightness(1.06); }
+.bi-display[data-state="usado"] .bi-display__screen { filter:brightness(.88) saturate(.85); }
+.bi-display[data-state="precario"] .bi-display__screen { animation:bi-interference 5s steps(1,end) infinite; }
+.bi-display[data-state="sucateado"] .bi-display__screen { opacity:0; }
+@keyframes bi-refresh { from{background-position-y:0} to{background-position-y:80px} }
+@keyframes bi-sheen { 0%,35%{left:-35%} 75%,100%{left:125%} }
+@keyframes bi-interference {
+ 0%,88%,100%{transform:none;filter:none}
+ 89%{transform:translateX(3px);filter:brightness(1.5) hue-rotate(15deg)}
+ 90%{transform:translateX(-2px);filter:brightness(.6)}
+ 93%{transform:translateX(1px);filter:contrast(1.4)}
+}
+@media (prefers-reduced-motion:reduce) {
+ .bi-display *, .bi-display *::before, .bi-display *::after { animation:none!important; }
+}
