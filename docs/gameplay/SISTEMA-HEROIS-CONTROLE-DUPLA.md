@@ -8,12 +8,12 @@
 
 Antes desta branch foram conferidas as frentes e PRs relevantes:
 
-- PR #57 / `codex/herois-compactos-beneficios`: seleção dos seis heróis, principal/apoio, fichas e benefícios. Reaproveitar; não reconstruir galeria.
+- PR #57 / `codex/herois-compactos-beneficios`: seleção compacta dos seis heróis, principal/apoio, fichas e benefícios. Continua draft e diverge do baseline v1.5+; a base `d504d36` já possui `state.team`, galeria e seleção principal/apoio. Reaproveitar o que já existe na base; portar apenas melhorias específicas de layout/benefícios após conciliação, sem merge integral.
 - PRs #53–56 e módulos de empresa viva: mapa contínuo, circulação, NPCs, conversas, pausas e reuniões. Reaproveitar; não criar outro mapa nem rotina de NPC.
 - PR #40: foco de câmera em funcionário localizado. Referência para foco contextual, mas não é controle de um herói.
 - PR #60: tela inicial Ao Trabalho já foi integrada por merge em 03/11/2026. Não duplicar a abertura.
 - Branches antigas `feat/hero-spotlight-codex` e `feature/collab-hero-duos` estão atrás da base v1.5+ e não devem ser portadas sem necessidade.
-- PR #62 é QA documental da base v1.5+; não implementa o controle de heróis.
+- PR #62 é QA documental da base v1.5+; não implementa o controle de heróis. Sua existência reforça que a linha `d504d36` é a referência para esta evolução.
 
 ## Distinção de elenco
 
