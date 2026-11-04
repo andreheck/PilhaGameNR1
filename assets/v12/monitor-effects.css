@@ -1,0 +1,56 @@
+/* PilhA+ — efeitos de tela para objetos isométricos.
+   Aplicar em um wrapper com a imagem PNG como camada-base.
+   O recorte .screen-mask deve ser ajustado à perspectiva de cada asset. */
+.monitor-object { position: relative; isolation: isolate; }
+.monitor-object img { display:block; width:100%; height:auto; position:relative; z-index:1; }
+.monitor-screen-fx {
+  position:absolute; z-index:2; pointer-events:none; overflow:hidden;
+  /* Ajustar inset/clip-path por asset: não usar coordenadas genéricas sem QA. */
+  inset: 22% 19% 31% 19%;
+  clip-path: polygon(3% 12%, 96% 0, 100% 87%, 8% 100%);
+  border-radius: 3%;
+}
+.monitor-screen-fx::before {
+  content:""; position:absolute; inset:-30% 0;
+  opacity:0; background:repeating-linear-gradient(
+    to bottom, transparent 0 5px, rgba(190,245,255,.18) 6px 7px
+  );
+}
+.monitor-screen-fx::after {
+  content:""; position:absolute; inset:0; opacity:0;
+  background:linear-gradient(115deg, transparent 30%, rgba(90,225,255,.18) 48%, transparent 65%);
+  transform:translateX(-120%);
+}
+.monitor-object[data-state="novo"] .monitor-screen-fx {
+  background:rgba(20,190,255,.13); animation: monitor-breathe 3.2s ease-in-out infinite;
+}
+.monitor-object[data-state="novo"] .monitor-screen-fx::before { opacity:.3; animation: monitor-scan 5s linear infinite; }
+.monitor-object[data-state="novo"] .monitor-screen-fx::after { opacity:.8; animation: monitor-sheen 6s ease-in-out infinite; }
+.monitor-object[data-state="usado"] .monitor-screen-fx {
+  background:rgba(30,160,190,.07); animation: monitor-breathe 5s ease-in-out infinite;
+}
+.monitor-object[data-state="usado"] .monitor-screen-fx::before { opacity:.2; animation: monitor-scan 7s linear infinite; }
+.monitor-object[data-state="precario"] .monitor-screen-fx { animation: monitor-glitch 4.8s steps(1,end) infinite; }
+.monitor-object[data-state="precario"] .monitor-screen-fx::before { opacity:.45; animation: monitor-scan 3s linear infinite; }
+.monitor-object[data-state="sucateado"] .monitor-screen-fx { background:transparent; }
+.monitor-spark, .monitor-flame { position:absolute; z-index:3; pointer-events:none; opacity:0; }
+.monitor-object[data-state="sucateado"] .monitor-spark { animation: monitor-spark 2.8s steps(1,end) infinite; }
+.monitor-object[data-state="sucateado"] .monitor-flame { animation: monitor-flame 1.8s ease-in-out infinite; }
+@keyframes monitor-breathe { 0%,100%{filter:brightness(1);opacity:.45} 50%{filter:brightness(1.22);opacity:.9} }
+@keyframes monitor-scan { from{transform:translateY(-25%)} to{transform:translateY(25%)} }
+@keyframes monitor-sheen { 0%,25%{transform:translateX(-120%)} 65%,100%{transform:translateX(120%)} }
+@keyframes monitor-glitch {
+  0%,87%,100%{filter:none;opacity:1}
+  88%{filter:brightness(1.7) hue-rotate(30deg);transform:translateX(2px)}
+  89%{filter:brightness(.55);transform:translateX(-2px)}
+  92%{filter:contrast(1.4);transform:translateX(1px)}
+}
+@keyframes monitor-spark {
+  0%,88%,100%{opacity:0;transform:scale(.5)}
+  89%{opacity:1;transform:scale(1.15)}
+  91%{opacity:.15;transform:scale(.7)}
+}
+@keyframes monitor-flame { 0%,100%{opacity:.35;filter:brightness(.9)} 50%{opacity:.8;filter:brightness(1.35)} }
+@media (prefers-reduced-motion: reduce) {
+  .monitor-object *, .monitor-object *::before, .monitor-object *::after { animation:none!important; }
+}
