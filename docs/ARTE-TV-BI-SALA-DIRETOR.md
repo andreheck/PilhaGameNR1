@@ -1,30 +1,32 @@
 # TV de BI da sala do diretor — pacote de arte
 
-## Entrega local desta rodada
-Foram exportados quatro PNGs individuais com transparência e quatro GIFs animados, todos em canvas 768 × 512:
+## Arte aprovada nesta rodada
+Quatro estados individuais da TV widescreen em perspectiva isométrica frontal, com estrutura, escala e câmera coerentes:
+- `tv_bi_novo.png` — painel íntegro, brilho azul e LED verde.
+- `tv_bi_usado.png` — desgaste superficial e brilho reduzido.
+- `tv_bi_precario.png` — interferências, trincas e falhas de exibição.
+- `tv_bi_sucateado.png` — tela quebrada, carcaça queimada, faíscas e cabos expostos.
 
-- `tv_bi_novo.png` / `tv_bi_novo.gif`
-- `tv_bi_usado.png` / `tv_bi_usado.gif`
-- `tv_bi_precario.png` / `tv_bi_precario.gif`
-- `tv_bi_sucateado.png` / `tv_bi_sucateado.gif`
+Todos os PNGs foram exportados em canvas 768 × 512, RGBA, com canal alfa. A prévia e o pacote ZIP foram entregues na conversa de trabalho. Os arquivos binários ainda não estão versionados neste repositório.
 
-Os PNGs têm canal alfa e os GIFs têm ciclos animados. O pacote ZIP e a prévia foram entregues na conversa. Os binários ainda não foram adicionados a este repositório.
+## Direção de implementação
+- Usar PNG estático como camada-base.
+- Aplicar brilho, scanlines e interferência com CSS; partículas de avaria podem usar Canvas.
+- Ajustar máscaras à geometria real da tela e às áreas de avaria. Os seletores CSS existentes são uma base, não uma integração validada.
+- GIFs são protótipos de visualização; não usar como formato final de gameplay.
+- Testar em escala real na sala do diretor e no inventário antes de aprovar integração.
 
-## Revisão de qualidade — ressalvas antes da integração
-- Os estados novo/usado/precário mantêm enquadramento frontal isométrico semelhante.
-- O estado sucateado foi ilustrado pelo lado traseiro, portanto não preserva a mesma vista frontal dos demais. Tratar como conceito de avaria, não como conjunto final consistente; refazer esse estado na mesma câmera antes de aprovar a biblioteca.
-- As animações GIF são protótipos. Na integração, preferir PNG + CSS/Canvas com máscaras ajustadas à tela.
-- Revisar os GIFs quadro a quadro e conferir que brilho/partículas não escapem da área da tela ou da avaria.
-- Confirmar escala no cenário da sala do diretor e no inventário.
+## Conteúdo do BI
+A TV representa indicadores coletivos do setor: produtividade/entregas, qualidade/retrabalho, segurança, clima e ações preventivas. Métricas exibidas na arte são ilustrativas. No jogo, usar dados agregados ou fictícios; não exibir ranking individual de saúde mental nem criar mecanismos de vigilância psicossocial.
 
-## Papel do objeto
-A TV representa o painel coletivo de BI da sala do diretor. O dashboard deve trabalhar com dados agregados e fictícios/de jogo: produtividade, qualidade, segurança, clima e ações preventivas. Não exibir ranking individual de saúde mental nem transformar indicadores psicossociais em mecanismo de vigilância.
+## QA
+- [x] Quatro estados exportados individualmente.
+- [x] Perspectiva frontal isométrica consistente, inclusive no estado sucateado.
+- [x] PNGs com canal alfa.
+- [ ] Binários adicionados ao GitHub.
+- [ ] Máscaras CSS calibradas sobre os PNGs finais.
+- [ ] Teste de escala, legibilidade, desempenho e acessibilidade de movimento no cenário.
+- [ ] Preview do jogo validado com a TV posicionada na sala do diretor.
 
-## Estado da entrega
-- [x] PNGs individuais exportados localmente.
-- [x] GIFs individuais exportados localmente.
-- [x] Prévia de quatro estados criada.
-- [x] Diretrizes de efeitos CSS documentadas em `assets/v12/bi-display-effects.css`.
-- [ ] Binários enviados ao GitHub.
-- [ ] Estado sucateado refeito na mesma perspectiva.
-- [ ] Integração e teste no cenário do jogo.
+## Estado
+A arte está concluída como entrega visual local. A integração no jogo permanece pendente até que os binários sejam versionados e os efeitos/máscaras sejam validados no cenário.
