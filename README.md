@@ -6,7 +6,7 @@ Referência atual: [motor temporal e hipóteses](docs/MOTOR-ESTATISTICO-TEMPORAL
 
 # PilhA+ Game — desenvolvimento atual
 
-**Fonte canônica:** [Visão de Produto (18/10/2026)](docs/PRODUTO-CANONICO-2026-10-18.md). A versão Alpha 1.4 da main continua publicada; esta branch contém candidata de integração de investimentos, prólogo opcional, navegação por colisão, fallback 2D e estado global, pendente de testes.
+**Fonte canônica:** [Visão de Produto (18/10/2026)](docs/PRODUTO-CANONICO-2026-10-18.md). A entrada principal desta linha de desenvolvimento é a **Ao Trabalho — Alpha 1.5+**, servida por `index.html` e `play.js`. A base técnica auditada para o Ciclo 2 é `feat/comparador-impacto-intervencao` (`d504d36c5f4215c2ac1e445be9a6a75637360813`); o trabalho de planejamento está em branch própria e não representa publicação de produção. A versão histórica Alpha 1.4 está documentada abaixo.
 
 **Áreas:** Casos 01–05, Equipe, Investimentos, Biblioteca e Progresso. O novo mapa costeiro e os sistemas de currículos, mobilidade e contratação são especificações atuais ainda não implementadas como gameplay.
 
