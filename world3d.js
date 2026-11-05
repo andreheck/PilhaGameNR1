@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {CASES} from './cases-data.js';
+import {moveSafely} from './simulation/navigation.js';
 const regions=[
  {name:'Operações',x:-4.7,z:2.7,color:0x607f92,mark:'01',w:4.3,d:4.1},
  {name:'Liderança',x:-4.8,z:-3.0,color:0x879e9b,mark:'02',w:4.1,d:3.3},
@@ -116,12 +117,30 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  };
  const clampWalk=(x,z)=>[THREE.MathUtils.clamp(x,-7.55,7.55),THREE.MathUtils.clamp(z,-5.75,5.75)];
  const collisionRects=[[-7.55,-5.75,7.55,-5.35],[-7.55,5.35,7.55,5.75],[-7.55,-5.75,-7.15,5.75],[7.15,-5.75,7.55,5.75],[-1.75,.15,-.85,1.2],[-1.75,-.25,-.85,-.05],[.55,-.25,1.85,.95],[-3.8,-3.35,-2.0,-2.0],[.55,-3.35,1.65,-2.85]];
- const isBlocked=(x,z)=>collisionRects.some(([minX,minZ,maxX,maxZ])=>x>minX&&x<maxX&&z>minZ&&z<maxZ);
- const safeStep=(x,z,actor)=>{const [cx,cz]=clampWalk(x,z);if(!isBlocked(cx,cz))return [cx,cz];actor.routeIndex=Math.min(actor.routeIndex+1,Math.max(0,actor.route.length-1));return [actor.root.position.x,actor.root.position.z]};
+ const safeStep=(x,z,actor)=>{const current={x:actor.root.position.x,z:actor.root.position.z};const next=moveSafely(current,{x,z},collisionRects,{minX:-7.55,maxX:7.55,minZ:-5.75,maxZ:5.75},.18);if(next.blocked)actor.routeIndex=Math.min(actor.routeIndex+1,Math.max(0,actor.route.length-1));return [next.x,next.z]};
  function setActorState(actor,state,now=performance.now()){const def=STATE_DEFS[state]||STATE_DEFS.idle;actor.state=state;actor.stateSince=now;actor.stateUntil=now+def.duration;actor.highlight?.material.color.setHex(def.color);const mode=state==='exploring'?'walk':state==='talking'?'talk':state==='working'?'work':state==='pausing'?'pause':state==='concerned'?'concerned':'idle';animate(actor.key,mode);}
  function buildManagement(decision){managementGroup.clear();managementBuild.length=0;const positive=decision.key==='protect',negative=decision.key==='dismiss';const color=positive?0x65b894:negative?0xd66d63:0xf0b45c;const x=positive?-2.15:negative?-3.65:-.2,z=positive?2.58:negative?1.18:-.2;const base=new THREE.Mesh(new THREE.BoxGeometry(1.15,.08,.72),effectMat(color,.92,positive?0x1e6546:negative?0x702e2e:0x8c5e1c));base.position.set(x,.06,z);managementGroup.add(base);managementBuild.push({mesh:base,targetY:.06});const marker=new THREE.Mesh(new THREE.TorusGeometry(.48,.055,8,28),new THREE.MeshBasicMaterial({color,transparent:true,opacity:.95}));marker.rotation.x=-Math.PI/2;marker.position.set(x,.13,z);managementGroup.add(marker);managementBuild.push({mesh:marker,targetY:.13});if(positive){for(const px of [x-.34,x,x+.34]){const cube=box(.22,.55,.22,px,.28,z,solid(0xd7a769),managementGroup);cube.scale.y=.01;managementBuild.push({mesh:cube,targetY:.28});}}else{const beacon=new THREE.Mesh(new THREE.CylinderGeometry(.13,.18,.7,16),effectMat(color,.9,negative?0x9d3f35:0x8c5e1c));beacon.position.set(x,.38,z);managementGroup.add(beacon);managementBuild.push({mesh:beacon,targetY:.38});}}
  function applyManagementDecision(decision){managementDecision=decision;managementGroup.visible=true;managementStarted=performance.now();buildManagement(decision);const actor=actors.find(a=>a.key==='operadora');if(actor){setEmotion(actor,decision.emoji);setActorState(actor,decision.state);if(decision.key==='dismiss')actor.nextRoutineAt=Infinity;else actor.nextRoutineAt=performance.now()+1800;}regionMats['01']?.color.setHex(decision.key==='protect'?0x4f9678:decision.key==='dismiss'?0xb86b59:0xd39b62);onStatus(`${decision.emoji} ${decision.key==='dismiss'?'estado não atendido · risco persistente':decision.key==='protect'?'medida de proteção construída · 30 dias':'monitoramento sem intervenção · 30 dias'}`);}
 
+ function applyInvestmentUpgrade(upgrade){
+  const targetRegion=upgrade.category==='ambiente'?'05':upgrade.category==='rotina'?'04':upgrade.category==='gestao'?'01':'02';
+  const palette={ambiente:0x5d9f91,rotina:0x7cae91,gestao:0x5b987d,pessoas:0x6d9ba8};
+  const color=palette[upgrade.category]||0x6d9ba8;
+  regionMats[targetRegion]?.color.setHex(color);
+  const region=regions.find(r=>r.mark===targetRegion);
+  if(region){
+    const ring=new THREE.Mesh(new THREE.RingGeometry(.42,.62,32),new THREE.MeshBasicMaterial({color:0xf6b65e,transparent:true,opacity:.95,side:THREE.DoubleSide,depthWrite:false}));
+    ring.rotation.x=-Math.PI/2;ring.position.set(region.x,.075,region.z);scene.add(ring);
+    const start=performance.now();
+    const animateRing=now=>{if(!on){scene.remove(ring);ring.geometry.dispose();ring.material.dispose();return;}const p=Math.min(1,(now-start)/950);ring.scale.setScalar(1+p*3);ring.material.opacity=.95*(1-p);if(p<1)requestAnimationFrame(animateRing);else{scene.remove(ring);ring.geometry.dispose();ring.material.dispose();}};
+    requestAnimationFrame(animateRing);
+  }
+  const actor=actors.find(a=>a.key==='operadora');
+  if(actor&&upgrade.category==='rotina'){setEmotion(actor,'☕');setActorState(actor,'pausing');actor.nextRoutineAt=performance.now()+2500;}
+  if(actor&&upgrade.category==='pessoas'){setEmotion(actor,'🤝');setActorState(actor,'talking');actor.nextRoutineAt=performance.now()+3000;}
+  onStatus(`Melhoria instalada: ${upgrade.name} · previsão educativa para 30 dias`);
+ }
+ function resetInvestmentUpgrades(){for(const [id,material] of Object.entries(regionMats))material.color.setHex(baseRegionColors[id]);for(const actor of actors){if(actor.key==='operadora'){setEmotion(actor,actor.emotionBase||'😮‍💨');actor.nextRoutineAt=performance.now()+1000;}}onStatus('Melhorias reiniciadas · escritório padrão');}
  function beginRoutine(actor,now){const points=routines[actor.key];if(!points?.length||!actor.mixer)return;actor.route=points;actor.routeIndex=0;const point=points[actor.routineIndex%points.length];actor.routineIndex=(actor.routineIndex+1)%points.length;actor.goalX=point[0];actor.goalZ=point[1];setActorState(actor,'exploring',now);actor.nextRoutineAt=now+7000+Math.random()*5000;onStatus(`${actor.name} · rotina de exploração ativa`);}
  let last=performance.now(),on=true,choice='';const preferReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  function frame(t){if(!on)return;requestAnimationFrame(frame);const dt=Math.min(.05,(t-last)/1000);last=t;
@@ -148,5 +167,5 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  const pattern=mode==='walk'?/walk/i:mode==='run'?/run/i:mode==='idle'?/idle|baselayer|clip0/i:/discuss|answer|sit|baselayer|clip0/i;
  const next=a.clips.find(c=>pattern.test(c.name))||a.clips[0];const current=a.mixer._actions?.find(x=>x.isRunning());const n=a.mixer.clipAction(next);if(current!==n){n.reset().play();if(current)n.crossFadeFrom(current,.34,true)}a.state=({walk:'exploring',talk:'talking',discuss:'talking',work:'working',pause:'pausing',concerned:'concerned',idle:'idle'})[mode]||mode;return true;
  }
- return {focus,reset:()=>focus(null),animate,focusActor:(id)=>animate(id,'talk'),applySceneState,clearSceneState,applyManagementDecision,setActorState,dispose:()=>{on=false;window.removeEventListener('keydown',handleDown);window.removeEventListener('keyup',handleUp);window.removeEventListener('blur',resetHeld);renderer.dispose();renderer.domElement.remove()},actorCount:()=>actors.length};
+ return {focus,reset:()=>focus(null),animate,focusActor:(id)=>animate(id,'talk'),applySceneState,clearSceneState,applyManagementDecision,applyInvestmentUpgrade,resetInvestmentUpgrades,setActorState,dispose:()=>{on=false;window.removeEventListener('keydown',handleDown);window.removeEventListener('keyup',handleUp);window.removeEventListener('blur',resetHeld);renderer.dispose();renderer.domElement.remove()},actorCount:()=>actors.length};
 }
