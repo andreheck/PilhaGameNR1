@@ -54,6 +54,11 @@ def run(browser,w,h):
         page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));delete s.initialHiring;delete s.staffing.canonicalHires;for(const p of Object.values(s.staff))p.employment="active";s.budget=10000;localStorage.setItem(k,JSON.stringify(s));PilhaLiving.syncClock();}')
         page.wait_for_function('PilhaLiving.getEmployees().length===16')
         page.wait_for_function('PilhaLiving.getRiggedNPCs()?.loaded===5')
+        # The approved rigs have no seated-work clips. While either actor is at a
+        # computer, the renderer deliberately uses the procedural typing pose;
+        # wait for both actors to reach a walk/idle segment before asserting the
+        # imported atlases are visibly drawn.
+        page.wait_for_function('PilhaLiving.getRiggedNPCs()?.drawn.length===2',timeout=45000)
         rigs=page.evaluate('PilhaLiving.getRiggedNPCs()')
         check(set(rigs['bindings'])=={'NPC-07','NPC-16'},tag+': approved Mariana and Beatriz rigs bind only their canonical IDs')
         check(len(rigs['drawn'])==2,tag+': both rigged actors render without duplicating workers')
