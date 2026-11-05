@@ -1,0 +1,605 @@
+{
+  "versao": "1.0.0",
+  "registrado_em": "2026-10-21",
+  "estado": "catalogo_nao_integrado",
+  "aviso": "Perfis MBTI são apenas construção ficcional. Não inferir aptidão profissional, diagnóstico, gripe, ansiedade ou problemas musculares a partir deles; eventos adversos exigem exposição contextual real no cenário simulado.",
+  "ambientes": {
+    "lideranca": "Liderança",
+    "rh": "RH",
+    "operacao": "Operação",
+    "saude_bem_estar": "Saúde e Bem-Estar",
+    "reunioes": "Reuniões",
+    "servidor_tecnologia": "Servidor de Tecnologia",
+    "galpao_logistica": "Galpão de Logística"
+  },
+  "regras": {
+    "escala_pontos": [
+      0,
+      100
+    ],
+    "ativacao_favoravel": "Em ambiente positivo com condições favoráveis observáveis e recursos adequados; uma vez por ciclo.",
+    "ativacao_adversa": "Em ambiente negativo somente se uma condição adversa observável estiver ativa; MBTI isolado nunca ativa penalidade.",
+    "ambiente_neutro": "Efeito zero, inclusive nos dois setores não classificados.",
+    "deduplicacao": "Apenas um efeito por NPC-setor-ciclo, sem bônus por alternância de salas.",
+    "limite_agregado_por_setor_ciclo": {
+      "saude": [
+        -4,
+        4
+      ],
+      "psicossocial": [
+        -8,
+        8
+      ]
+    },
+    "sinergias": "Propostas narrativas; validar contexto, recursos e intervenção antes de atribuir bônus.",
+    "saude": "Sinais situacionais não são estados clínicos nem propriedades dos tipos MBTI; gripes e epidemias são eventos externos de exposição e não de personalidade.",
+    "contratacao": "Nunca usar MBTI ou saúde para excluir ou ranquear pessoas reais; no jogo avaliar competências, funções e condições da vaga."
+  },
+  "npcs": [
+    {
+      "id": "NPC-01",
+      "tipo": "INTJ",
+      "nome": "João",
+      "arquetipo": "Arquiteto",
+      "grupo": "analistas",
+      "idade": 38,
+      "papel": "Planejamento e melhoria de processos",
+      "forcas": [
+        "Visão estratégica",
+        "Organização e foco",
+        "Análise de processos"
+      ],
+      "pontos_de_atencao": [
+        "Perfeccionismo",
+        "Isolamento em projetos longos",
+        "Impaciência com improvisação"
+      ],
+      "condicoes_favoraveis": [
+        "metas_claras",
+        "tempo_para_planejamento"
+      ],
+      "condicoes_adversas": [
+        "metas_conflitantes",
+        "tela_prolongada",
+        "sobrecarga"
+      ],
+      "sinais_situacionais": [
+        "fadiga_simulada",
+        "tensao_muscular_simulada"
+      ],
+      "ambientes": {
+        "positivos": [
+          "lideranca",
+          "servidor_tecnologia"
+        ],
+        "negativos": [
+          "galpao_logistica",
+          "saude_bem_estar"
+        ],
+        "neutro": "reunioes"
+      },
+      "pontos": {
+        "favoravel": {
+          "saude": 1,
+          "psicossocial": 4
+        },
+        "adverso": {
+          "saude": -1,
+          "psicossocial": -3
+        }
+      },
+      "sinergias_propostas": [
+        "NPC-02",
+        "NPC-03"
+      ],
+      "influencia": "Organiza prioridades e antecipa gargalos.",
+      "fonte": "roxos: ganhos dos cards; perdas propostas para teste",
+      "status": "parametros_prototipo"
+    },
+    {
+      "id": "NPC-02",
+      "tipo": "INTP",
+      "nome": "Tiago",
+      "arquetipo": "Lógico",
+      "grupo": "analistas",
+      "idade": 27,
+      "papel": "Análise de tecnologia e solução de problemas",
+      "forcas": [
+        "Raciocínio analítico",
+        "Criatividade técnica",
+        "Aprendizado rápido"
+      ],
+      "pontos_de_atencao": [
+        "Dispersão com rotinas mal organizadas",
+        "Pode adiar entregas",
+        "Dificuldade com prazos não negociados"
+      ],
+      "condicoes_favoraveis": [
+        "autonomia_com_suporte",
+        "tempo_para_analise"
+      ],
+      "condicoes_adversas": [
+        "interrupcoes_constantes",
+        "cobranca_hostil",
+        "jornada_imprevisivel"
+      ],
+      "sinais_situacionais": [
+        "fadiga_simulada",
+        "estresse_simulado"
+      ],
+      "ambientes": {
+        "positivos": [
+          "servidor_tecnologia",
+          "operacao"
+        ],
+        "negativos": [
+          "lideranca",
+          "galpao_logistica"
+        ],
+        "neutro": "reunioes"
+      },
+      "pontos": {
+        "favoravel": {
+          "saude": 0,
+          "psicossocial": 3
+        },
+        "adverso": {
+          "saude": -1,
+          "psicossocial": -3
+        }
+      },
+      "sinergias_propostas": [
+        "NPC-01",
+        "NPC-04"
+      ],
+      "influencia": "Encontra alternativas técnicas e reduz retrabalho quando há suporte.",
+      "fonte": "roxos: ganhos dos cards; perdas propostas para teste",
+      "status": "parametros_prototipo"
+    },
+    {
+      "id": "NPC-03",
+      "tipo": "ENTJ",
+      "nome": "Fernanda",
+      "arquetipo": "Comandante",
+      "grupo": "analistas",
+      "idade": 41,
+      "papel": "Coordenação e alinhamento de equipes",
+      "forcas": [
+        "Liderança",
+        "Decisão",
+        "Visão de resultados"
+      ],
+      "pontos_de_atencao": [
+        "Pode centralizar decisões",
+        "Impaciência",
+        "Pode elevar pressão por metas"
+      ],
+      "condicoes_favoraveis": [
+        "metas_claras",
+        "recursos_adequados",
+        "participacao_da_equipe"
+      ],
+      "condicoes_adversas": [
+        "metas_inviaveis",
+        "sobrecarga",
+        "falta_de_recursos"
+      ],
+      "sinais_situacionais": [
+        "estresse_simulado",
+        "tensao_muscular_simulada"
+      ],
+      "ambientes": {
+        "positivos": [
+          "lideranca",
+          "reunioes"
+        ],
+        "negativos": [
+          "rh",
+          "saude_bem_estar"
+        ],
+        "neutro": "operacao"
+      },
+      "pontos": {
+        "favoravel": {
+          "saude": 0,
+          "psicossocial": 3
+        },
+        "adverso": {
+          "saude": -1,
+          "psicossocial": -4
+        }
+      },
+      "sinergias_propostas": [
+        "NPC-07",
+        "NPC-01"
+      ],
+      "influencia": "Articula recursos e decisões sem ignorar os efeitos das metas.",
+      "fonte": "roxos: ganhos dos cards; perdas propostas para teste",
+      "status": "parametros_prototipo"
+    },
+    {
+      "id": "NPC-04",
+      "tipo": "ENTP",
+      "nome": "Raimunda",
+      "arquetipo": "Debatedora",
+      "grupo": "analistas",
+      "idade": 34,
+      "papel": "Administração e melhoria organizacional",
+      "forcas": [
+        "Comunicação estratégica",
+        "Questionamento construtivo",
+        "Inovação"
+      ],
+      "pontos_de_atencao": [
+        "Pode prolongar debates",
+        "Impaciência com processos rígidos",
+        "Vários projetos simultâneos"
+      ],
+      "condicoes_favoraveis": [
+        "espaco_para_propor",
+        "acordos_de_prioridade"
+      ],
+      "condicoes_adversas": [
+        "burocracia_sem_proposito",
+        "sobrecarga",
+        "conflitos_sem_mediacao"
+      ],
+      "sinais_situacionais": [
+        "fadiga_simulada",
+        "estresse_simulado"
+      ],
+      "ambientes": {
+        "positivos": [
+          "rh",
+          "reunioes"
+        ],
+        "negativos": [
+          "operacao",
+          "galpao_logistica"
+        ],
+        "neutro": "servidor_tecnologia"
+      },
+      "pontos": {
+        "favoravel": {
+          "saude": 0,
+          "psicossocial": 4
+        },
+        "adverso": {
+          "saude": -1,
+          "psicossocial": -3
+        }
+      },
+      "sinergias_propostas": [
+        "NPC-08",
+        "NPC-02"
+      ],
+      "influencia": "Estimula análise crítica e melhoria colaborativa.",
+      "fonte": "roxos: ganhos dos cards; perdas propostas para teste",
+      "status": "parametros_prototipo"
+    },
+    {
+      "id": "NPC-05",
+      "tipo": "INFJ",
+      "nome": "Aline",
+      "arquetipo": "Advogada",
+      "grupo": "diplomatas",
+      "idade": 35,
+      "papel": "Analista de clima e relações",
+      "forcas": [
+        "Escuta atenta",
+        "Pensamento de longo prazo",
+        "Mediação discreta"
+      ],
+      "pontos_de_atencao": [
+        "Pode absorver conflitos",
+        "Demora a agir sem informações",
+        "Precisa de limites emocionais"
+      ],
+      "condicoes_favoraveis": [
+        "escuta_com_devolutiva",
+        "recursos_adequados"
+      ],
+      "condicoes_adversas": [
+        "conflitos_sem_mediacao",
+        "falta_de_apoio",
+        "sobrecarga"
+      ],
+      "sinais_situacionais": [
+        "desgaste_simulado"
+      ],
+      "ambientes": {
+        "positivos": [
+          "rh",
+          "saude_bem_estar"
+        ],
+        "negativos": [
+          "operacao",
+          "galpao_logistica"
+        ],
+        "neutro": "reunioes"
+      },
+      "pontos": {
+        "favoravel": {
+          "saude": 1,
+          "psicossocial": 4
+        },
+        "adverso": {
+          "saude": -2,
+          "psicossocial": -3
+        }
+      },
+      "sinergias_propostas": [
+        "NPC-06",
+        "NPC-07"
+      ],
+      "influencia": "Ajuda colegas a nomear tensões e construir respostas.",
+      "fonte": "grupo verde: ficha JSON original",
+      "status": "parametros_prototipo"
+    },
+    {
+      "id": "NPC-06",
+      "tipo": "INFP",
+      "nome": "Letícia",
+      "arquetipo": "Mediadora",
+      "grupo": "diplomatas",
+      "idade": 29,
+      "papel": "Apoio à experiência humana",
+      "forcas": [
+        "Empatia e escuta",
+        "Criatividade para conflitos",
+        "Respeito às diferenças"
+      ],
+      "pontos_de_atencao": [
+        "Pode adiar confrontos",
+        "Desgaste em comunicação hostil",
+        "Precisa de prioridades claras"
+      ],
+      "condicoes_favoraveis": [
+        "participacao_da_equipe",
+        "escuta_com_devolutiva"
+      ],
+      "condicoes_adversas": [
+        "cobranca_hostil",
+        "falta_de_voz",
+        "mudanca_sem_participacao"
+      ],
+      "sinais_situacionais": [
+        "desgaste_simulado"
+      ],
+      "ambientes": {
+        "positivos": [
+          "saude_bem_estar",
+          "rh"
+        ],
+        "negativos": [
+          "lideranca",
+          "servidor_tecnologia"
+        ],
+        "neutro": "operacao"
+      },
+      "pontos": {
+        "favoravel": {
+          "saude": 2,
+          "psicossocial": 4
+        },
+        "adverso": {
+          "saude": -2,
+          "psicossocial": -3
+        }
+      },
+      "sinergias_propostas": [
+        "NPC-05",
+        "NPC-14"
+      ],
+      "influencia": "Facilita acordos, pertencimento e cooperação.",
+      "fonte": "grupo verde: ficha JSON original",
+      "status": "parametros_prototipo"
+    },
+    {
+      "id": "NPC-07",
+      "tipo": "ENFJ",
+      "nome": "Mariana",
+      "arquetipo": "Protagonista",
+      "grupo": "diplomatas",
+      "idade": 37,
+      "papel": "Articuladora de equipes",
+      "forcas": [
+        "Comunicação acolhedora",
+        "Engajamento",
+        "Decisões coletivas"
+      ],
+      "pontos_de_atencao": [
+        "Pode assumir demandas alheias",
+        "Dificuldade de dizer não",
+        "Pode apressar consensos"
+      ],
+      "condicoes_favoraveis": [
+        "apoio_entre_pares",
+        "metas_claras"
+      ],
+      "condicoes_adversas": [
+        "responsabilidade_isolada",
+        "metas_conflitantes",
+        "falta_de_recursos"
+      ],
+      "sinais_situacionais": [
+        "sobrecarga_simulada"
+      ],
+      "ambientes": {
+        "positivos": [
+          "lideranca",
+          "reunioes"
+        ],
+        "negativos": [
+          "servidor_tecnologia",
+          "galpao_logistica"
+        ],
+        "neutro": "rh"
+      },
+      "pontos": {
+        "favoravel": {
+          "saude": 1,
+          "psicossocial": 5
+        },
+        "adverso": {
+          "saude": -2,
+          "psicossocial": -4
+        }
+      },
+      "sinergias_propostas": [
+        "NPC-12",
+        "NPC-03"
+      ],
+      "influencia": "Coordena apoio e reforça clareza de propósito.",
+      "fonte": "grupo verde: ficha JSON original",
+      "status": "parametros_prototipo"
+    },
+    {
+      "id": "NPC-08",
+      "tipo": "ENFP",
+      "nome": "Pedro",
+      "arquetipo": "Ativista",
+      "grupo": "diplomatas",
+      "idade": 25,
+      "papel": "Facilitador de ideias",
+      "forcas": [
+        "Criatividade colaborativa",
+        "Energia em novos projetos",
+        "Conexões entre pessoas"
+      ],
+      "pontos_de_atencao": [
+        "Pode começar frentes demais",
+        "Precisa de apoio para concluir",
+        "Desgaste com ambiguidade"
+      ],
+      "condicoes_favoraveis": [
+        "tempo_para_ideias",
+        "prioridades_claras"
+      ],
+      "condicoes_adversas": [
+        "prioridades_incompativeis",
+        "jornada_imprevisivel",
+        "interrupcoes_constantes"
+      ],
+      "sinais_situacionais": [
+        "fadiga_simulada"
+      ],
+      "ambientes": {
+        "positivos": [
+          "reunioes",
+          "rh"
+        ],
+        "negativos": [
+          "operacao",
+          "servidor_tecnologia"
+        ],
+        "neutro": "saude_bem_estar"
+      },
+      "pontos": {
+        "favoravel": {
+          "saude": 1,
+          "psicossocial": 4
+        },
+        "adverso": {
+          "saude": -1,
+          "psicossocial": -4
+        }
+      },
+      "sinergias_propostas": [
+        "NPC-04",
+        "NPC-16"
+      ],
+      "influencia": "Amplia iniciativas quando há tempo e objetivos claros.",
+      "fonte": "grupo verde: ficha JSON original",
+      "status": "parametros_prototipo"
+    },
+    {
+      "id": "NPC-09",
+      "tipo": "ISTJ",
+      "nome": "Carlos",
+      "arquetipo": "Logístico",
+      "grupo": "sentinelas",
+      "idade": null,
+      "ambientes": null,
+      "pontos": null,
+      "status": "pendente_refinamento"
+    },
+    {
+      "id": "NPC-10",
+      "tipo": "ISFJ",
+      "nome": "Ana",
+      "arquetipo": "Defensora",
+      "grupo": "sentinelas",
+      "idade": null,
+      "ambientes": null,
+      "pontos": null,
+      "status": "pendente_refinamento"
+    },
+    {
+      "id": "NPC-11",
+      "tipo": "ESTJ",
+      "nome": "José",
+      "arquetipo": "Executivo",
+      "grupo": "sentinelas",
+      "idade": null,
+      "ambientes": null,
+      "pontos": null,
+      "status": "pendente_refinamento"
+    },
+    {
+      "id": "NPC-12",
+      "tipo": "ESFJ",
+      "nome": "Maria",
+      "arquetipo": "Cônsul",
+      "grupo": "sentinelas",
+      "idade": null,
+      "ambientes": null,
+      "pontos": null,
+      "status": "pendente_refinamento"
+    },
+    {
+      "id": "NPC-13",
+      "tipo": "ISTP",
+      "nome": "Alisson",
+      "arquetipo": "Virtuoso",
+      "grupo": "exploradores",
+      "idade": null,
+      "ambientes": null,
+      "pontos": null,
+      "status": "pendente_refinamento"
+    },
+    {
+      "id": "NPC-14",
+      "tipo": "ISFP",
+      "nome": "Camila",
+      "arquetipo": "Aventureira",
+      "grupo": "exploradores",
+      "idade": null,
+      "ambientes": null,
+      "pontos": null,
+      "status": "pendente_refinamento"
+    },
+    {
+      "id": "NPC-15",
+      "tipo": "ESTP",
+      "nome": "Lucas",
+      "arquetipo": "Empreendedor",
+      "grupo": "exploradores",
+      "idade": null,
+      "ambientes": null,
+      "pontos": null,
+      "status": "pendente_refinamento"
+    },
+    {
+      "id": "NPC-16",
+      "tipo": "ESFP",
+      "nome": "Beatriz",
+      "arquetipo": "Artista",
+      "grupo": "exploradores",
+      "idade": null,
+      "ambientes": null,
+      "pontos": null,
+      "status": "pendente_refinamento"
+    }
+  ]
+}
