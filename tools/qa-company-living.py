@@ -90,8 +90,11 @@ def run(browser,w,h):
         rigs=page.evaluate('PilhaLiving.getRiggedNPCs()')
         check(set(rigs['bindings'])=={'NPC-07','NPC-16'},tag+': approved Mariana and Beatriz rigs bind only their canonical IDs')
         check(len(rigs['drawn'])==2,tag+': both rigged actors render without duplicating workers')
-        first_rig_frames={r['id']:r['frame'] for r in rigs['drawn']};page.wait_for_timeout(600)
-        check(any(first_rig_frames.get(r['id'])!=r['frame'] for r in page.evaluate('PilhaLiving.getRiggedNPCs().drawn')),tag+': real imported animation frames advance on map')
+        # A seated conversation can legitimately hold a pose; observe a walk.
+        page.wait_for_function('PilhaLiving.getRiggedNPCs().drawn.some(r=>r.action==="walk")',timeout=20000)
+        first_rig_frames={r['id']:r['frame'] for r in page.evaluate('PilhaLiving.getRiggedNPCs().drawn')}
+        page.wait_for_function('(before)=>PilhaLiving.getRiggedNPCs().drawn.some(r=>r.action==="walk"&&r.frame!==before[r.id])',arg=first_rig_frames,timeout=20000)
+        check(True,tag+': real imported walking animation frames advance on map')
 
         check(page.locator('.living-topbar').count()==1,tag+': transparent header groups all controls')
         header=page.locator('.living-topbar').bounding_box();view=page.locator('.pm-view').bounding_box()

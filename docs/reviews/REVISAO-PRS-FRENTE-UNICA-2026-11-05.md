@@ -24,6 +24,8 @@ As demais PRs listadas no JSON receberam somente inventário nesta rodada. Nenhu
 
 ## Pendência reproduzida: agenda na fronteira
 
+**Atualização posterior em 05/11:** a adaptação foi implementada na continuidade da #69. Relatório e critérios em `docs/releases/NPCS-AGENDA-CICLICA-2026-11-05.md`. O registro abaixo preserva a reprodução que motivou a correção; não representa mais o status técnico final desta pendência. A capacidade passa a medir ocupação física, distinguindo-a de trânsito.
+
 Base eef2a88, semana 2, todos os NPCs com saúde 40: para NPC-02, `sampleAt(239999)` calculado pela agenda montada no início da semana difere da mesma consulta após reconstruí-la em activeMs=119999. Não foi observado overlap na amostra de semanas 2–3; foi observada instabilidade de posição após recálculo.
 
 A correção de ciclo fixo da #56 não pode ser copiada isoladamente: na experiência atual, ritmos individuais e limitação compartilhada de seis trajetos exigem adaptação conjunta. O ensaio não preservou as sete pausas de um NPC em 14 dias, portanto não foi incluído nesta entrega.

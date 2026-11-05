@@ -8,6 +8,54 @@ import {MANAGERS,DEPARTMENTS} from '../data/continuous/organization.js';
 
 const setup=()=>L.ensureLiving(M.fresh());
 
+test('fourteen-day cycles retain seven complete pauses and two meetings without overlap',()=>{
+ for(const health of [0,40,54.99,55,70,100])for(const week of [1,2,3,20,99999]){
+  const s=setup();s.week=week;for(const p of Object.values(s.staff)){p.health=health;p.week=week;}
+  const rows=L.routines(s),next=L.routines({...s,week:week+1});
+  for(const row of rows){
+   const events=[...row.agenda,...next.find(r=>r.id===row.id).agenda].sort((a,b)=>a.start-b.start);
+   assert.equal(new Set(events.map(e=>e.key)).size,events.length,'unique event keys');
+   assert.equal(events.filter(e=>e.kind==='rest').length,7,row.id+' seven pauses');
+   assert.equal(events.filter(e=>e.kind==='meeting').length,2,row.id+' two meetings');
+   for(let i=1;i<events.length;i++)assert.ok(events[i].start>=events[i-1].end-.0001,`${row.id} health ${health} week ${week}`);
+  }
+ }
+});
+
+test('rebuilding at week and cycle boundaries preserves positions and conversations',()=>{
+ for(const week of [1,2,3,20,99999]){
+  const s=setup();s.week=week;s.activeMs=119000;for(const p of Object.values(s.staff)){p.health=40;p.week=week;}
+  const rows=L.routines(s);
+  for(const delta of [0,999,1000,1001,2000]){
+   const active=119000+delta,freshState=JSON.parse(JSON.stringify({...s,week:week+Math.floor(active/RULES.weekMs),activeMs:active%RULES.weekMs}));
+   const fresh=L.routines(freshState),time=(week-1)*RULES.weekMs+active;
+   for(const row of rows)assert.deepEqual(row.sampleAt(time),fresh.find(r=>r.id===row.id).sampleAt(time),row.id+' week '+week+' delta '+delta);
+  }
+ }
+});
+
+test('rest capacity counts seated visitors, not people walking through corridors',()=>{
+ for(const health of [40,55,100,'mixed']){
+  const s=setup();Object.values(s.staff).forEach((p,i)=>{p.health=health==='mixed'?(i%3?40:70):health;});
+  const rows=L.routines(s),events=rows.flatMap(r=>r.agenda);
+  const next=L.routines({...s,week:2});events.push(...next.flatMap(r=>r.agenda));
+  for(const time of events.flatMap(e=>[e.start,e.out,e.pauseEnd,e.end]).concat(Array.from({length:480},(_,i)=>i*500))){
+   const present=rows.map(r=>r.sampleAt(time)).filter(p=>p.kind==='rest'&&p.inRestArea);
+   assert.ok(present.length<=6,'seated visitors '+present.length+' at '+time);
+  }
+ }
+});
+
+test('every departure and return meets the work route continuously at its origin',()=>{
+ const s=setup();for(const p of Object.values(s.staff))p.health=40;
+ for(const row of L.routines(s))for(const event of row.agenda){
+  const before=row.sampleAt(event.start-.001),departure=row.sampleAt(event.start),back=row.sampleAt(event.end-.001),after=row.sampleAt(event.end);
+  assert.ok((before.workFraction||0)<1e-5,row.id+' depart from origin');
+  assert.equal(departure.progress,0);assert.ok(back.progress<1e-5);
+  assert.ok((after.workFraction||0)<1e-5,row.id+' return to origin');
+ }
+});
+
 test('movement is slower and the conversation pause is stationary',()=>{
   assert.equal(NPC_MOTION.walkRate,.85);
   assert.ok(workFraction(1000,0,20000,.6).fraction<workFraction(1000,0,20000,1).fraction);
