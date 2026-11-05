@@ -15,7 +15,7 @@ def capture(page,name):
 def ready_entry(page):
     page.goto('http://127.0.0.1:8765/',wait_until='domcontentloaded')
     page.locator('.at-start').wait_for(state='visible')
-    page.locator('[data-start="play" ]'.Replace(' ]',']')).click()
+    page.locator('[data-start="play"]').click()
     for _ in range(50):
         if page.locator('.player-entry').is_visible(): break
         for selector in ['.pi-cta','.pi-skip','#welcome-skip','#welcome-close']:
@@ -34,24 +34,22 @@ def run_view(browser,width,height):
         ready_entry(page)
         page.locator('.player-entry [data-entry="next"]').click()
         page.locator('.player-entry [data-entry="next"]').click()
-        page.locator('.neon-entry-roster .neon-hero-card').first.wait_for()
+        page.locator('.player-entry [data-entry="pick"]').click()
+        page.locator('#hero-team-dialog[open] .ph-root').wait_for()
+        page.locator('.hero-gallery-dialog .ph-card').first.wait_for()
         page.wait_for_timeout(300)
-        check(page.locator('.neon-entry-roster .neon-hero-card').count()==6,tag+': six canonical entry cards')
-        check(page.locator('.neon-entry-roster img').evaluate_all('(images)=>images.every(i=>i.complete&&i.naturalWidth>0)'),tag+': all entry portraits loaded')
-        # Header intentionally spans the inner card margins. Test the viewport container.
-        check(page.locator('.player-entry').evaluate('(e)=>e.scrollWidth<=e.clientWidth+2'),tag+': entry without horizontal overflow')
-        capture(page,'entry-'+tag)
+        check(page.locator('.hero-gallery-dialog .ph-card').count()==6,tag+': six canonical hero cards')
+        check(page.locator('.hero-gallery-dialog .ph-card img').first.evaluate('(i)=>i.complete&&i.naturalWidth>0'),tag+': visible hero portrait loaded')
+        check(page.locator('.hero-gallery-dialog .ph-root').evaluate('(e)=>e.scrollWidth<=e.clientWidth+2'),tag+': gallery without horizontal overflow')
+        capture(page,'gallery-'+tag)
         snapshot='JSON.stringify(Object.fromEntries(Object.keys(localStorage).map(k=>[k,localStorage.getItem(k)])))'
         before=page.evaluate(snapshot)
-        page.locator('[data-neon-preview="PILHA-H03"]').click()
-        page.locator('#hero-team-dialog[open]').wait_for()
+        page.locator('.hero-gallery-dialog .ph-card[data-id="PILHA-H03"]').click()
         page.locator('.ph-d[data-neon-version]').wait_for()
         page.wait_for_timeout(300)
         check(page.locator('#ph-d-name').inner_text()=='Cientista de Dados',tag+': matching profile from entry')
         check(page.locator('.ph-card').count()==6,tag+': six roster thumbnails')
         check(page.locator('.ph-d__fig img').evaluate('(i)=>i.complete&&i.naturalWidth>0'),tag+': selected portrait loaded')
-        check(page.locator('.ph-root').evaluate('(e)=>e.scrollWidth<=e.clientWidth+2'),tag+': gallery without horizontal overflow')
-        capture(page,'gallery-'+tag)
         for hero_id in HEROES:
             selector=('.ph-card[data-id="%s"]' if width>=900 else '.ph-detail [data-hero-preview="%s"]')%hero_id
             page.locator(selector).click();page.wait_for_timeout(100)
@@ -69,6 +67,7 @@ def run_view(browser,width,height):
         page.locator('.ph-btn--pick').click()
         page.locator('[data-hero-save]').click()
         page.locator('#hero-team-dialog').wait_for(state='hidden')
+        page.locator('.player-entry [data-entry="next"]').click()
         page.locator('.neon-entry-pair .neon-pair-portrait').first.wait_for()
         check(page.locator('.neon-entry-pair .neon-pair-portrait').count()==2,tag+': selected pair portraits')
         pair=page.evaluate('JSON.parse(localStorage.getItem("pilha-hero-teams-v1")).teams["01"]')
