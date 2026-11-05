@@ -45,7 +45,7 @@ def run(browser,w,h):
         page.locator('.continuous-gallery-dialog[open]').wait_for()
     try:
         page.goto('http://127.0.0.1:8768/',wait_until='domcontentloaded')
-        page.locator('.pi-root').wait_for();snap('opening');enter()
+        page.locator('.at-start').wait_for(state='visible');snap('start-initial');enter();snap('opening')
         check(page.locator('[data-direct-pick]').count()==12,tag+': explanation then six selectable heroes')
         page.locator('.hero-xp-help summary').click()
         check('25 XP' in page.locator('.hero-xp-help').inner_text() and '150 XP' in page.locator('.hero-xp-help').inner_text(),tag+': XP sources and current mode limitation explained')
