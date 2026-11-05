@@ -1,0 +1,486 @@
+/* PilhA+ Game — Abertura + camada de convite
+   Elementos herdados do app PilhA+: símbolo dourado, anel tracejado,
+   satélites em órbita contrária, orbes coloridas e fundo azul-marinho. */
+
+.pi-root {
+  --pi-navy-0: #080e1e;
+  --pi-navy-1: #10283b;
+  --pi-navy-2: #0f172a;
+  --pi-gold: #ffd24b;
+  --pi-gold-hot: #ffe433;
+  --pi-ink: #f4f6fb;
+  --pi-ink-soft: #b9c3d6;
+  --pi-sick: #555b66;
+  --pi-focus: #8facff;
+
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: var(--pi-ink);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(156, 163, 175, 0.2), transparent 34rem),
+    radial-gradient(circle at 50% 90%, rgba(255, 210, 0, 0.08), transparent 30rem),
+    linear-gradient(145deg, var(--pi-navy-0), var(--pi-navy-1) 58%, var(--pi-navy-0));
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.pi-root[hidden] { display: none; }
+.pi-root.is-leaving { opacity: 0; visibility: hidden; }
+
+.pi-root *, .pi-root *::before, .pi-root *::after { box-sizing: border-box; }
+
+/* estrelas de fundo (poeira de energia) */
+.pi-root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 22%, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(1px 1px at 78% 14%, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1.5px 1.5px at 88% 62%, rgba(255, 224, 120, 0.5), transparent),
+    radial-gradient(1px 1px at 22% 78%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 55% 90%, rgba(255, 224, 120, 0.4), transparent),
+    radial-gradient(1px 1px at 40% 8%, rgba(255, 255, 255, 0.35), transparent);
+  pointer-events: none;
+}
+
+.pi-stage {
+  grid-area: 1 / 1;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  min-height: 100dvh;
+  padding: 16px;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.pi-stage[hidden] { display: none; }
+.pi-stage.is-out { opacity: 0; transform: scale(1.04); pointer-events: none; }
+.pi-stage.is-in { animation: pi-stage-in 0.8s ease both; }
+
+@keyframes pi-stage-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Logo + órbitas ---------- */
+.pi-orbit {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--pi-orbit-size, 216px);
+  height: var(--pi-orbit-size, 216px);
+  isolation: isolate;
+}
+.pi-orbit__ring {
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed rgba(156, 163, 175, 0.42);
+  border-radius: 50%;
+  animation: pi-spin 20s linear infinite;
+}
+.pi-orbit__sat {
+  position: absolute;
+  inset: -7px;
+  border: 1px solid rgba(255, 210, 75, 0.22);
+  border-radius: 50%;
+  animation: pi-spin 18s linear infinite reverse;
+}
+.pi-orbit__sat--inner {
+  inset: 14px;
+  border-color: rgba(255, 210, 75, 0.14);
+  animation-duration: 14s;
+  animation-direction: normal;
+}
+.pi-orbit__orb {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--c, var(--pi-gold));
+  box-shadow: 0 0 12px 2px var(--c, var(--pi-gold));
+}
+.pi-orbit__orb--b { top: auto; bottom: -5px; }
+.pi-logo {
+  position: relative;
+  width: 46%;
+  filter: drop-shadow(0 0 18px rgba(255, 210, 0, 0.45));
+  animation: pi-breathe 3.2s ease-in-out infinite;
+}
+.pi-logo svg { display: block; width: 100%; height: auto; }
+
+@keyframes pi-spin { to { transform: rotate(360deg); } }
+@keyframes pi-breathe {
+  0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 14px rgba(255, 210, 0, 0.35)); }
+  50%      { transform: scale(1.05); filter: drop-shadow(0 0 26px rgba(255, 210, 0, 0.6)); }
+}
+
+/* ---------- Etapa 1: abertura ---------- */
+.pi-splash { text-align: center; cursor: pointer; }
+.pi-splash .pi-orbit { --pi-orbit-size: min(62vw, 260px); }
+.pi-wordmark {
+  margin: 22px 0 4px;
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  animation: pi-rise 0.9s 0.5s ease both;
+}
+.pi-wordmark b { color: var(--pi-gold-hot); font-weight: 900; }
+.pi-wordmark span { font-weight: 500; opacity: 0.85; }
+.pi-tagline {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pi-ink-soft);
+  animation: pi-rise 0.9s 0.8s ease both;
+}
+.pi-loading {
+  width: 120px;
+  height: 3px;
+  margin-top: 26px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: #414247;
+  animation: pi-rise 0.9s 1s ease both;
+}
+.pi-loading i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--pi-gold), var(--pi-gold-hot));
+  transform-origin: left;
+  animation: pi-load var(--pi-splash-ms, 3200ms) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes pi-load { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes pi-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Etapa 2: convite ---------- */
+.pi-invite {
+  align-content: start;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: stretch;
+  gap: 10px;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 14px 16px 20px;
+}
+.pi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+.pi-brand { font-size: 1rem; font-weight: 800; letter-spacing: 0.02em; }
+.pi-brand b { color: var(--pi-gold-hot); }
+.pi-brand small {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--pi-ink-soft);
+}
+.pi-badge {
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 210, 75, 0.4);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--pi-gold);
+  background: rgba(255, 210, 75, 0.08);
+}
+
+/* diorama isométrico do ambiente */
+.pi-scene { display: grid; gap: 10px; min-width: 0; width: 100%; }
+.pi-field {
+  position: relative;
+  width: 100%;
+  height: clamp(250px, 66vw, 420px);
+}
+.pi-iso {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.pi-iso.is-swap { opacity: 0; transition: none; }
+
+/* abas de ambiente */
+.pi-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(8, 14, 30, 0.45);
+}
+.pi-tab {
+  position: relative;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pi-ink-soft);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.pi-tab[aria-selected="true"] { background: rgba(255, 210, 75, 0.16); color: var(--pi-gold-hot); box-shadow: inset 0 0 0 1px rgba(255, 210, 75, 0.5); }
+.pi-tab:focus-visible { outline: 3px solid var(--pi-focus); outline-offset: 2px; }
+.pi-tab__ok { display: none; margin-left: 6px; color: #4ade80; }
+.pi-tab.is-done .pi-tab__ok { display: inline; }
+
+/* pontos de investigação sobre cada setor */
+.pi-node {
+  position: absolute;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  width: 44px;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+/* só o conteúdo flutua; a área de toque fica parada */
+.pi-node__body {
+  display: block;
+  animation: pi-float 5s ease-in-out infinite;
+}
+.pi-node:nth-of-type(2n) .pi-node__body { animation-delay: -1.7s; }
+.pi-node:nth-of-type(3n) .pi-node__body { animation-delay: -3.1s; }
+.pi-node__orb {
+  display: block;
+  width: 60%;
+  margin: 0 auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.7), transparent 34%),
+    radial-gradient(circle at 50% 50%, var(--c), color-mix(in srgb, var(--c) 55%, #000));
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18) inset, 0 0 22px 3px color-mix(in srgb, var(--c) 55%, transparent);
+  filter: grayscale(0.92) brightness(0.62);
+  transition: filter 0.6s ease, box-shadow 0.6s ease, transform 0.3s ease;
+}
+/* estado "adoecido": pulso irregular, como um sinal de alerta */
+.pi-node:not(.is-lit) .pi-node__orb { animation: pi-sick 2.6s ease-in-out infinite; }
+.pi-node:hover .pi-node__orb,
+.pi-node:focus-visible .pi-node__orb { transform: scale(1.1); }
+.pi-node:focus-visible { outline: 2px solid var(--pi-focus); outline-offset: 6px; border-radius: 50%; }
+.pi-node.is-lit .pi-node__orb {
+  filter: none;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) inset, 0 0 30px 7px color-mix(in srgb, var(--c) 70%, transparent);
+  animation: pi-charge 0.9s ease-out;
+}
+.pi-node__label {
+  display: block;
+  width: max-content;
+  max-width: 92px;
+  margin: 4px auto 0;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(8, 14, 30, 0.7);
+  font-size: 0.64rem;
+  font-weight: 750;
+  line-height: 1.2;
+  color: var(--pi-ink-soft);
+}
+.pi-node.is-lit .pi-node__label { color: var(--pi-ink); }
+@media (max-width: 899px) {
+  .pi-node__label { display: none; }
+  .pi-node.is-lit .pi-node__label, .pi-node:focus-visible .pi-node__label { display: block; position: absolute; left: 50%; top: 100%; transform: translateX(-50%); z-index: 2; }
+}
+
+@keyframes pi-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes pi-sick {
+  0%, 100% { opacity: 0.9; }
+  46% { opacity: 0.55; }
+  52% { opacity: 1; }
+}
+@keyframes pi-charge {
+  0%   { transform: scale(0.85); }
+  45%  { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+/* painel de texto + CTA */
+.pi-panel { text-align: center; max-width: 620px; margin: 0 auto; width: 100%; }
+.pi-role {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #1a1400;
+  background: linear-gradient(90deg, var(--pi-gold), var(--pi-gold-hot));
+}
+.pi-title {
+  margin: 0 0 8px;
+  font-size: clamp(1.55rem, 5.4vw, 2.5rem);
+  font-weight: 850;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.pi-title em { font-style: normal; color: var(--pi-gold-hot); }
+.pi-lead {
+  margin: 0 auto 14px;
+  max-width: 52ch;
+  font-size: clamp(0.92rem, 2.8vw, 1.02rem);
+  line-height: 1.5;
+  color: var(--pi-ink-soft);
+}
+.pi-meter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--pi-ink-soft);
+}
+.pi-meter__bar {
+  width: min(220px, 50vw);
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #2a3342;
+}
+.pi-meter__bar i {
+  display: block;
+  height: 100%;
+  width: var(--p, 0%);
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--pi-gold), var(--pi-gold-hot));
+  box-shadow: 0 0 12px rgba(255, 228, 51, 0.6);
+  transition: width 0.5s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+.pi-hint {
+  min-height: 2.6em;
+  margin: 0 auto 12px;
+  max-width: 46ch;
+  font-size: 0.86rem;
+  line-height: 1.35;
+  color: var(--pi-ink);
+}
+
+.pi-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: min(360px, 100%);
+  min-height: 52px;
+  padding: 0 28px;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 1.02rem;
+  font-weight: 850;
+  color: #1a1400;
+  background: linear-gradient(180deg, var(--pi-gold-hot), var(--pi-gold) 55%, #ffb000);
+  box-shadow: 0 6px 0 #b57600, 0 12px 30px rgba(255, 190, 0, 0.35);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.pi-cta:hover { transform: translateY(-1px); }
+.pi-cta:active { transform: translateY(5px); box-shadow: 0 1px 0 #b57600, 0 6px 16px rgba(255, 190, 0, 0.3); }
+.pi-cta:focus-visible, .pi-skip:focus-visible { outline: 3px solid var(--pi-focus); outline-offset: 3px; }
+.pi-cta svg { width: 20px; height: 20px; }
+.pi-cta.is-ready { animation: pi-cta-pulse 2.4s ease-in-out infinite; }
+@keyframes pi-cta-pulse {
+  0%, 100% { box-shadow: 0 6px 0 #b57600, 0 12px 30px rgba(255, 190, 0, 0.35); }
+  50%      { box-shadow: 0 6px 0 #b57600, 0 12px 44px rgba(255, 210, 0, 0.7); }
+}
+.pi-skip {
+  display: block;
+  margin: 14px auto 0;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--pi-ink-soft);
+  text-decoration: underline;
+  text-decoration-color: rgba(147, 197, 253, 0.35);
+  text-underline-offset: 0.28rem;
+  cursor: pointer;
+}
+.pi-disclaimer {
+  margin: 4px auto 0;
+  max-width: 56ch;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  text-align: center;
+  color: #8793a8;
+}
+
+/* ---------- Telas largas: cena à esquerda, painel à direita ---------- */
+@media (min-width: 900px) {
+  .pi-invite {
+    grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr);
+    column-gap: 36px;
+    align-content: center;
+    align-items: center;
+  }
+  .pi-top { grid-column: 1 / -1; }
+  .pi-field { height: clamp(340px, 58vh, 520px); }
+  .pi-panel { text-align: left; margin: 0; }
+  .pi-lead { margin-left: 0; }
+  .pi-meter { justify-content: flex-start; }
+  .pi-hint { margin-left: 0; }
+  .pi-node__label { font-size: 0.72rem; max-width: 110px; }
+  .pi-node { width: 56px; }
+}
+
+/* ---------- Telas baixas (celular na horizontal) ---------- */
+@media (max-height: 640px) {
+  .pi-field { height: clamp(200px, 56vh, 320px); }
+  .pi-lead, .pi-disclaimer { display: none; }
+}
+
+/* ---------- Movimento reduzido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .pi-orbit__ring, .pi-orbit__sat, .pi-logo, .pi-node__body, .pi-node__orb,
+  .pi-cta.is-ready, .pi-wordmark, .pi-tagline, .pi-loading { animation: none !important; }
+  .pi-iso { transition: none; }
+  .pi-loading i { animation-duration: 0.01ms !important; }
+  .pi-stage, .pi-root { transition-duration: 0.01ms; }
+  .pi-stage.is-in { animation: none; }
+}
