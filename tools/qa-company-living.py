@@ -338,6 +338,10 @@ def run(browser,w,h):
 
         # Observe the published agenda itself: never replace sampleAt with a fixture.
         if w>=900 or w==390:
+            # Financial/absence regressions above can legitimately leave all16
+            # employees absent. Use an active synthetic workforce for visual QA.
+            page.evaluate('async()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.activeMs=0;s.paused=true;s.lastWallMs=Date.now();for(const p of Object.values(s.staff)){p.employment="active";p.health=70;p.previous=70;p.lowWeeks=0;p.criticalWeeks=0;p.returnProtectedUntil=s.week+3;p.leaveUntil=null;p.leaveStarted=null;p.leaveDuration=null;p.reason=null;}localStorage.setItem(k,JSON.stringify(s));await PilhaLiving.syncClock();}')
+            page.wait_for_function('PilhaLiving.getEmployees().length===16')
             page.locator('[data-company="pause"]').click();saved('s.paused===false')
             for activity in ['computer','moving-material']:
                 worker=None

@@ -21,6 +21,8 @@ O teste de integração usa L.routines real sem remover sampleAt e percorre uma 
 
 O QA no navegador observa atividades reais, pausa o jogo e localiza o funcionário pela interface para capturar computador e transporte de caixa em desktop/celular. Não injeta uma agenda alternativa para essas capturas. Evidências e SHA final ficam na PR #69 antes de atualizar o site de testes.
 
+A etapa visual usa uma equipe ativa no save sintético de QA, após concluir os testes financeiros e de afastamento. O primeiro ensaio havia chegado à captura com os 16 funcionários afastados, causando timeout legítimo por ausência de atores; a captura de falha foi examinada. Essa preparação não muda regras ou dados de jogadores: a agenda e o renderer usados continuam sendo os reais.
+
 ## Limites visuais
 
 As poses de sentar/digitar/manusear são procedurais: os dois modelos riggados fornecidos ainda não possuem esses clipes específicos. Os objetos nas mãos são props visuais; não representam um inventário físico persistente de caixas/pastas. Não são declaradas novas animações FBX entregues.
