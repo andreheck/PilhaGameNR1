@@ -14,6 +14,8 @@ def capture(page,name):
     page.screenshot(path=str(OUT/(name+'.png')),full_page=False)
 def ready_entry(page):
     page.goto('http://127.0.0.1:8765/',wait_until='domcontentloaded')
+    page.locator('.at-start').wait_for(state='visible')
+    page.locator('[data-start="play" ]'.Replace(' ]',']')).click()
     for _ in range(50):
         if page.locator('.player-entry').is_visible(): break
         for selector in ['.pi-cta','.pi-skip','#welcome-skip','#welcome-close']:
