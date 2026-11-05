@@ -19,7 +19,7 @@ def run(browser,w,h):
     def enter():
         page.locator('.at-start').wait_for(state='visible')
         check(page.locator('.at-start__logo').get_attribute('alt')=='Ao Trabalho',tag+': accessible new start screen')
-        check(page.locator('#game').evaluate('(e)=>e.inert&&getComputedStyle(e).visibility==="hidden"'),tag+': game remains inactive behind start screen')
+        check(page.locator('#continuous-app').evaluate('(e)=>e.inert&&getComputedStyle(e).visibility==="hidden"'),tag+': live company remains inactive behind start screen')
         check(page.locator('[data-start="play"]').inner_text().strip().endswith('Jogar'),tag+': start screen offers direct play')
         snap('start-screen')
         page.locator('[data-start="about"]').click()
