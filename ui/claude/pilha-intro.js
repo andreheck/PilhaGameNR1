@@ -132,14 +132,14 @@
       // ----- Etapa 1: abertura -----
       '<section class="pi-stage pi-splash" aria-live="polite">' +
       '<div class="pi-orbit">' + orbitHtml(id + "s", ["#ffd166", "#48cae4", "#e63946"]) + "</div>" +
-      '<h1 class="pi-wordmark">PilhA<b>+</b> <span>Game</span></h1>' +
+      '<h1 class="pi-wordmark">Ao <span>Trabalho</span></h1>' +
       '<p class="pi-tagline">Gestão &amp; Cuidado</p>' +
       '<div class="pi-loading" role="progressbar" aria-label="Preparando o jogo"><i></i></div>' +
       "</section>" +
       // ----- Etapa 2: convite -----
       '<section class="pi-stage pi-invite" hidden>' +
       '<header class="pi-top">' +
-      '<div class="pi-brand-group"><div class="pi-orbit pi-brand-mark" aria-hidden="true">'+orbitHtml(id+'b',["#ffd166", "#48cae4", "#e63946"])+'</div><div class="pi-brand">PilhA<b>+</b> Game<small>GESTÃO &amp; CUIDADO</small></div></div>' +
+      '<div class="pi-brand-group"><div class="pi-orbit pi-brand-mark" aria-hidden="true">'+orbitHtml(id+'b',["#ffd166", "#48cae4", "#e63946"])+'</div><div class="pi-brand">Ao Trabalho<small>GESTÃO &amp; CUIDADO</small></div></div>' +
       '<span class="pi-badge">ALPHA 1.5</span></header>' +
       '<div class="pi-scene">' +
       '<div class="pi-field" role="group" aria-label="Ambiente de trabalho adoecido, visto de cima">' +

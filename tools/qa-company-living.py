@@ -17,27 +17,7 @@ def run(browser,w,h):
     def menu():
         if not page.locator('.living-more').evaluate('(e)=>e.open'):page.locator('.living-more summary').click()
     def enter():
-        page.locator('.at-start').wait_for(state='visible')
-        check(page.locator('.at-start__logo').get_attribute('alt')=='Ao Trabalho',tag+': accessible new start screen')
-        check(page.locator('#continuous-app').evaluate('(e)=>e.inert&&getComputedStyle(e).visibility==="hidden"'),tag+': live company remains inactive behind start screen')
-        check(page.locator('.living-guide[open]').count()==0,tag+': player onboarding waits until Jogar')
-        check(page.locator('[data-start="play"]').inner_text().strip().endswith('Jogar'),tag+': start screen offers direct play')
-        snap('start-screen')
-        page.locator('[data-start="about"]').click()
-        check(page.locator('.at-start__modal[role="dialog"]').is_visible() and 'experiência educativa' in page.locator('.at-start__modal-body').inner_text(),tag+': start screen explains the game')
-        page.locator('.at-start__modal-close').click()
-        page.locator('[data-start="credits"]').click()
-        check('Créditos' in page.locator('.at-start__modal h2').inner_text(),tag+': start screen credits open')
-        page.keyboard.press('Escape')
-        check(page.locator('.at-start__modal').is_hidden(),tag+': start screen modal closes with Escape')
-        page.locator('[data-start="settings"]').click()
-        check(page.locator('[data-setting="motion"]').count()==1 and page.locator('[data-setting="contrast"]').count()==1,tag+': start screen exposes motion and contrast settings')
-        page.locator('[data-setting="motion"]').check();page.locator('[data-setting="contrast"]').check()
-        check(page.locator('html').evaluate('(e)=>e.classList.contains("at-reduced-motion")&&e.classList.contains("at-high-contrast")'),tag+': start screen settings apply')
-        page.locator('[data-setting="motion"]').uncheck();page.locator('[data-setting="contrast"]').uncheck()
-        page.keyboard.press('Escape')
-        page.locator('[data-start="play"]').click()
-        check(page.evaluate('window.__AO_TRABALHO_ENTERED===true'),tag+': Jogar enters the game')
+        check(page.locator('.at-start').count()==0,tag+': direct opening without additional start screen')
         page.locator('.pi-root').wait_for();check(page.locator('.pi-motion').count()==0,tag+': no animation toggle in opening')
         # Splash transitions automatically; clicking it races with the invite fade-in.
         page.locator('.pi-skip').wait_for(state='visible')
@@ -46,7 +26,7 @@ def run(browser,w,h):
         page.locator('.continuous-gallery-dialog[open]').wait_for()
     try:
         page.goto('http://127.0.0.1:8768/',wait_until='domcontentloaded')
-        page.locator('.at-start').wait_for(state='visible');snap('start-initial');enter();snap('opening')
+        enter();snap('opening')
         check(page.locator('[data-direct-pick]').count()==12,tag+': explanation then six selectable heroes')
         if h>=600:
             check(page.locator('.continuous-gallery-dialog').evaluate('e=>[...e.querySelectorAll(".ph-card,[data-direct-pick],[data-team-save]")].every(n=>{const r=n.getBoundingClientRect();return r.top>=0&&r.left>=0&&r.bottom<=innerHeight+2&&r.right<=innerWidth+2})'),tag+': six heroes and selection controls fit one screen')
@@ -301,7 +281,6 @@ def run(browser,w,h):
         # Same-origin real second tab: shared storage and Web Locks must consume one week.
         if w==1366:
             other=ctx.new_page();other.goto('http://127.0.0.1:8768/',wait_until='domcontentloaded')
-            other.locator('.at-start').wait_for(state='visible');other.locator('[data-start="play"]').click()
             other.locator('.pi-root').wait_for(state='visible')
             other.locator('.pi-skip').wait_for(state='visible');other.locator('.pi-skip').click()
             for _ in range(3):other.locator('[data-guide="next"]').click()
