@@ -48,6 +48,13 @@ def run(browser,w,h):
         page.goto('http://127.0.0.1:8768/',wait_until='domcontentloaded')
         page.locator('.at-start').wait_for(state='visible');snap('start-initial');enter();snap('opening')
         check(page.locator('[data-direct-pick]').count()==12,tag+': explanation then six selectable heroes')
+        if h>=600:
+            check(page.locator('.continuous-gallery-dialog').evaluate('e=>[...e.querySelectorAll(".ph-card,[data-direct-pick],[data-team-save]")].every(n=>{const r=n.getBoundingClientRect();return r.top>=0&&r.left>=0&&r.bottom<=innerHeight+2&&r.right<=innerWidth+2})'),tag+': six heroes and selection controls fit one screen')
+        if w>=900:
+            page.locator('.hero-full-button').click()
+            page.locator('.hero-full-details[open]').wait_for();snap('hero-full-details')
+            check(page.locator('.hero-full-details').inner_text().strip()!='',tag+': full canonical profile remains available')
+            page.locator('.hero-full-details header button').click()
         page.locator('.hero-xp-help summary').click()
         check('25 XP' in page.locator('.hero-xp-help').inner_text() and '150 XP' in page.locator('.hero-xp-help').inner_text(),tag+': XP sources and current mode limitation explained')
         page.locator('.hero-xp-help summary').click()
@@ -304,7 +311,7 @@ try:
         opts={'headless':True,'args':['--no-sandbox']}
         if os.environ.get('CHROMIUM_PATH'):opts['executable_path']=os.environ['CHROMIUM_PATH']
         b=p.chromium.launch(**opts)
-        for w,h in [(320,844),(1366,900),(390,844),(844,390),(1440,900)]:run(b,w,h)
+        for w,h in [(320,844),(1366,768),(390,844),(844,390),(1440,900)]:run(b,w,h)
         b.close()
 except Exception as e:report['errors'].append(str(e));raise
 finally:
