@@ -177,5 +177,5 @@ setInterval(syncClock,3000);setInterval(()=>{if(map&&!document.hidden)worldGuide
 document.addEventListener('visibilitychange',syncClock);window.addEventListener('pageshow',syncClock);
 let entryRunning=false;
 async function startExperience(){if(entryRunning)return;entryRunning=true;try{await playOpening();await explainGame(!!state.team);openTeam(!map);}finally{entryRunning=false;}}
-window.PilhaLiving={getRiggedNPCs:()=>map?.iso.riggedAssetsStatus(),getFurniture:()=>map?.iso.furnitureVisuals(),getWorldFrame:()=>map?.iso.getWorldFrame(),getRoutines:()=>L.routines(state),getEmployees:()=>map?.iso.getEmployees()||[],getState:()=>JSON.parse(JSON.stringify(state)),audio:audioStatus,syncClock};
-if(load())startExperience();
+window.PilhaLiving={getRiggedNPCs:()=>map?.iso.riggedAssetsStatus(),getFurniture:()=>map?.iso.furnitureVisuals(),getFurnitureLayout:()=>map?.iso.furnitureLayout(),getWorldFrame:()=>map?.iso.getWorldFrame(),getRoutines:()=>L.routines(state),getEmployees:()=>map?.iso.getEmployees()||[],getState:()=>JSON.parse(JSON.stringify(state)),audio:audioStatus,syncClock};
+if(new URLSearchParams(location.search).get('debug')==='scale')import('./scale-scene.js').then(m=>m.showScaleScene(app));else if(load())startExperience();

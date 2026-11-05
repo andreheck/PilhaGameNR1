@@ -1,8 +1,15 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
 import {FURNITURE_VISUALS as V} from '../data/continuous/furniture-visuals.js';
 import {createFurniturePresentation,spriteSize} from '../ui/furniture-presentation.js';
-import {WORLD} from '../simulation/world-graph.js';
 import {ITEMS} from '../data/continuous/catalog.js';
+// Mirror the four rooms in the current continuous map. The previous source
+// branch imported a world-graph module that is not part of the v1.5 baseline.
+const WORLD={zones:[
+ {id:'escritorio',name:'Escritório',x:0,y:0},
+ {id:'producao',name:'Produção',x:14,y:0},
+ {id:'atendimento',name:'Atendimento',x:0,y:10},
+ {id:'restauracao',name:'Restauração',x:14,y:10}
+]};
 function engine(){
  const noop=()=>{},ctx=new Proxy({measureText:t=>({width:t.length*7}),createRadialGradient:()=>({addColorStop:noop})},{get:(o,k)=>k in o?o[k]:noop});
  const window={devicePixelRatio:1,requestAnimationFrame:()=>1,cancelAnimationFrame:noop,setTimeout:noop};
