@@ -35,7 +35,7 @@ def run(browser,w,h):
         page.locator('[data-setting="motion"]').check();page.locator('[data-setting="contrast"]').check()
         check(page.locator('html').evaluate('(e)=>e.classList.contains("at-reduced-motion")&&e.classList.contains("at-high-contrast")'),tag+': start screen settings apply')
         page.locator('[data-setting="motion"]').uncheck();page.locator('[data-setting="contrast"]').uncheck()
-        page.locator('.at-start__modal-close').click()
+        page.keyboard.press('Escape')
         page.locator('[data-start="play"]').click()
         check(page.evaluate('window.__AO_TRABALHO_ENTERED===true'),tag+': Jogar enters the game')
         page.locator('.pi-root').wait_for();check(page.locator('.pi-motion').count()==0,tag+': no animation toggle in opening')
