@@ -21,5 +21,6 @@ export function workFraction(t,start,end,speed=1,slot=0){
   const leg=(span-hold)/2;
   const local=Math.max(0,Math.min(span,t-start));
   const peak=NPC_MOTION.walkRate*speed*(1-hold/span)*(1-(slot%6)*.02);
-  return {fraction:local<leg?peak*local/leg:local<leg+hold?peak:peak*(span-local)/leg,holding:local>=leg&&local<leg+hold};
+  return {fraction:local<leg?peak*local/leg:local<leg+hold?peak:peak*(span-local)/leg,holding:local>=leg&&local<leg+hold,
+    segment:local<leg?'task':local<leg+hold?'gather':'return-home',segmentProgress:local<leg?local/leg:local<leg+hold?(local-leg)/Math.max(1,hold):(local-leg-hold)/leg,gatherFraction:peak};
 }

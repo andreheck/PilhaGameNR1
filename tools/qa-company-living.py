@@ -336,6 +336,27 @@ def run(browser,w,h):
         snap('event-consequence');page.locator('[data-event-finish]').click();saved('s.events.current===null')
         check(state()['events']['current'] is None,tag+': continue resolves the event once')
 
+        # Observe the published agenda itself: never replace sampleAt with a fixture.
+        if w>=900 or w==390:
+            page.locator('[data-company="pause"]').click();saved('s.paused===false')
+            for activity in ['computer','moving-material']:
+                worker=None
+                for attempt in range(3):
+                    page.wait_for_function('(a)=>PilhaLiving.getEmployees().some(p=>p.activity===a&&(a!=="moving-material"||p.sector==="producao"))',arg=activity,timeout=45000)
+                    page.locator('[data-company="pause"]').click();saved('s.paused===true')
+                    actors=page.evaluate('PilhaLiving.getEmployees()')
+                    worker=next((p for p in actors if p.get('activity')==activity and (activity!='moving-material' or p.get('sector')=='producao')),None)
+                    if worker:break
+                    page.locator('[data-company="pause"]').click();saved('s.paused===false')
+                check(bool(worker),tag+': actual agenda renders '+activity)
+                if activity=='computer':
+                    check(worker['sitting'] and abs(worker['x']-worker['workstation']['x'])<.01 and abs(worker['y']-worker['workstation']['y'])<.01,tag+': worker sits at the arranged computer station')
+                else:check(worker['carrying']=='box' and worker['workTarget']['item']['type'] in ['conveyor','machine','table'],tag+': box travels toward actual equipment')
+                menu();page.locator('[data-company="employees"]').click()
+                page.locator('[data-employee="'+worker['id']+'"]').click();page.locator('[data-employee-locate]').click();page.wait_for_timeout(400);snap('interaction-'+activity)
+                page.locator('[data-company="pause"]').click();saved('s.paused===false')
+            page.locator('[data-company="pause"]').click();saved('s.paused===true')
+
         check(not errors,tag+': no uncaught browser exceptions')
         report['viewports'].append({'width':w,'height':h,'ok':True})
     except Exception:

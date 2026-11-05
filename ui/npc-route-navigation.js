@@ -17,7 +17,19 @@
   if(!isFinite(dist[end]))return [];var path=[];for(var u=end;u!=null;u=prev[u])path.unshift(nodes[u]);return path;
  }
  function sample(path,t){if(!path.length)return null;var lengths=path.slice(1).map(function(p,i){return Math.hypot(p.x-path[i].x,p.y-path[i].y);}),total=lengths.reduce(function(a,b){return a+b;},0),d=Math.max(0,Math.min(1,t))*total;for(var i=0;i<lengths.length;i++){if(d<=lengths[i]){var k=lengths[i]?d/lengths[i]:0;return {x:path[i].x+(path[i+1].x-path[i].x)*k,y:path[i].y+(path[i+1].y-path[i].y)*k,tx:path[i+1].x,ty:path[i+1].y};}d-=lengths[i];}return path[path.length-1];}
- function routeWithin(aisle,start,target){
+ function routeAround(aisle,start,target,items){
+  var bounds=items.filter(function(it){return !it.layoutHidden&&!it.visualProgram;}).map(function(it){return {x:it.x-.12,y:it.y-.12,w:it.w+.24,d:it.d+.24};});
+  function inside(p,b){return p.x>b.x&&p.x<b.x+b.w&&p.y>b.y&&p.y<b.y+b.d;}
+  function clear(a,b){return !bounds.some(function(r){var lo=0,hi=1;for(var i=0;i<2;i++){var k=i?'y':'x',span=i?r.d:r.w,delta=b[k]-a[k];if(Math.abs(delta)<1e-9){if(a[k]<=r[k]||a[k]>=r[k]+span)return false;}else{var p=(r[k]-a[k])/delta,q=(r[k]+span-a[k])/delta;lo=Math.max(lo,Math.min(p,q));hi=Math.min(hi,Math.max(p,q));if(lo>=hi)return false;}}return hi>1e-7&&lo<1-1e-7;});}
+  var nodes=[start,target].concat(aisle),dist=[],prev=[],done=new Set();
+  bounds.forEach(function(b){nodes.push({x:b.x-.025,y:b.y-.025},{x:b.x+b.w+.025,y:b.y-.025},{x:b.x-.025,y:b.y+b.d+.025},{x:b.x+b.w+.025,y:b.y+b.d+.025});});
+  nodes=nodes.filter(function(p,i){return i<2||p.x>.05&&p.x<11.95&&p.y>.05&&p.y<7.95&&!bounds.some(function(b){return inside(p,b);});});
+  dist=nodes.map(function(){return Infinity;});dist[0]=0;
+  while(done.size<nodes.length){var u=-1;dist.forEach(function(d,i){if(!done.has(i)&&(u<0||d<dist[u]))u=i;});if(u<0||!isFinite(dist[u])||u===1)break;done.add(u);nodes.forEach(function(p,v){if(done.has(v)||v===u||!clear(nodes[u],p))return;var d=dist[u]+Math.hypot(nodes[u].x-p.x,nodes[u].y-p.y);if(d<dist[v]){dist[v]=d;prev[v]=u;}});}
+  if(!isFinite(dist[1]))return [];var path=[];for(var n=1;n!=null;n=prev[n])path.unshift(nodes[n]);return path;
+ }
+ function routeWithin(aisle,start,target,items){
+  if(items)return routeAround(aisle,start,target,items);
   var nodes=[],edges=[],lookup={};
   function node(p){var key=p.x.toFixed(4)+','+p.y.toFixed(4);if(lookup[key]!=null)return lookup[key];lookup[key]=nodes.length;nodes.push({x:p.x,y:p.y});return nodes.length-1;}
   function edge(a,b){if(a!==b)edges.push([a,b]);}

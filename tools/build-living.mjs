@@ -1,17 +1,18 @@
 /** Adapt built continuous mode only; legacy scenes and old entry remain intact. */
 import fs from 'node:fs';import {fileURLToPath} from 'node:url';
 import {workActivity} from '../simulation/work-agenda.js';
+import {workTargets} from '../ui/npc-work-targets.js';
 const out=fileURLToPath(new URL('../dist/',import.meta.url));
 function replace(s,a,b){if(!s.includes(a))throw Error('Living anchor missing: '+a.slice(0,70));return s.replace(a,b);}
 let iso=fs.readFileSync(out+'ui/continuous/iso.js','utf8');
 iso=replace(iso,'var envs = {}, order =','var employeeRows=[],employeeHits=[],employeeHover=null,employeePaused=false;\n    var envs = {}, order =');
 iso=replace(iso,'function setRestVisitors(list){','function setRestVisitorsLegacy(list){');
-iso=replace(iso,'    function resize() {',`
+iso=replace(iso,'    function resize() {',workTargets.toString()+`\n
     function setEmployees(rows){
       var first=!employeeRows.length;employeeRows=rows.slice();
       Object.keys(envs).forEach(function(key){
         var e=envs[key],members=employeeRows.filter(function(p){return p.home===key;}).sort(function(a,b){return a.id.localeCompare(b.id);});
-        if(!e.workstations)e.workstations=e.people.filter(function(p){return p.sit;}).map(function(p){return {x:p.x,y:p.y,seatId:e.key+'-'+p.x.toFixed(2)+'-'+p.y.toFixed(2)};});
+        var anchors=workTargets(e.items,AISLE);e.workstations=anchors.stations;var signature=JSON.stringify(e.items.map(function(it){return [it.x,it.y,it.w,it.d,it.layoutHidden,it.visualProgram];}));if(signature!==e.workSignature){e.workSignature=signature;e.workRevision=(e.workRevision||0)+1;}
         if(first){var templates=e.people.filter(function(p){return !p.sit;});e.people=members.map(function(p,i){var progress=(i+.5)*AISLE_LENGTH/Math.max(1,members.length),start=aislePoint(progress);return Object.assign({},templates[i]||{},start,{employeeId:p.id,name:p.name,shirt:p.shirt,skin:p.skin,hair:p.hair,hairStyle:p.hairStyle,score:p.health,progress:progress,homeProgress:progress,workstation:e.workstations[i]||null,sit:false,npc:-1,wait:i*.11,speed:1.05,phase:i,seed:i*.71,restAway:false});});}
         // Persist world positions of remaining workers; remove absent actors and restore returnees.
         e.people=e.people.filter(function(p){return !p.employeeId||members.some(function(m){return m.id===p.employeeId;});});
@@ -23,7 +24,7 @@ iso=replace(iso,'    function resize() {',`
              progress:progress,homeProgress:progress,workstation:e.workstations[i]||null,
              sit:false,npc:-1,wait:0,speed:1.05,phase:i,seed:i*.71,restAway:false}));
         });
-        e.people.forEach(function(p){var i=members.findIndex(function(x){return x.id===p.employeeId;}),m=employeeRows.find(function(x){return x.id===p.employeeId;});if(m){p.score=m.health;p.name=m.name;p.workstation=e.workstations[i]||null;}});
+        e.people.forEach(function(p){var i=members.findIndex(function(x){return x.id===p.employeeId;}),m=employeeRows.find(function(x){return x.id===p.employeeId;});if(m){p.score=m.health;p.name=m.name;p.workstation=e.workstations[i]||null;p.materialSource=anchors.sources[i%anchors.sources.length]||anchors.destinations[i%anchors.destinations.length]||null;p.materialDestination=anchors.destinations[i%anchors.destinations.length]||p.materialSource;}});
       });commuters=[];render();
     }
     function setRestVisitors(list){
@@ -33,7 +34,7 @@ iso=replace(iso,'    function resize() {',`
       list.forEach(function(v,i){var p=getEnv(v.sid).people.find(function(x){return x.employeeId===v.id;});if(!p)return;p.restAway=true;var xy=pos[v.space]||pos.bosque;restVisitors.push(Object.assign({},p,{home:v.sid,worker:v.id,x:xy[0]+i%2*.3,y:xy[1]+i%2*.25,sit:true,moving:false,npc:-1}));});render();
     }
     function PFor(c,x,y,z){var a=bx,b=by;bx=c.bx;by=c.by;var q=P(x,y,z);bx=a;by=b;return {x:q[0],y:q[1]};}
-    function employeePositions(){var result=[];if(worldCfg)worldCfg.forEach(function(c){c.env.people.filter(function(p){return p.employeeId&&!p.restAway;}).forEach(function(p){result.push({id:p.employeeId,name:p.name,sector:c.key,x:p.x,y:p.y,screen:PFor(c,p.x,p.y,.7),moving:!!p.moving,sitting:!!p.sit,activity:p.activity||'walk',talking:!!p.talking,partnerId:p.partnerId,carrying:p.carrying||null,health:p.score});});});restVisitors.forEach(function(p){var c=worldCfg&&worldCfg.find(function(c){return c.key==='restauracao';});if(c)result.push({id:p.employeeId,name:p.name,sector:'restauracao',x:p.x,y:p.y,screen:PFor(c,p.x,p.y,.7),moving:false,sitting:!!p.sit,activity:p.activity||'rest',talking:!!p.talking,partnerId:p.partnerId,carrying:null,health:p.score});});return result;}
+    function employeePositions(){var result=[];if(worldCfg)worldCfg.forEach(function(c){c.env.people.filter(function(p){return p.employeeId&&!p.restAway;}).forEach(function(p){result.push({id:p.employeeId,name:p.name,sector:c.key,x:p.x,y:p.y,screen:PFor(c,p.x,p.y,.7),moving:!!p.moving,sitting:!!p.sit,activity:p.activity||'walk',talking:!!p.talking,partnerId:p.partnerId,carrying:p.carrying||null,workTarget:p.workTarget||null,workstation:p.workstation||null,health:p.score});});});restVisitors.forEach(function(p){var c=worldCfg&&worldCfg.find(function(c){return c.key==='restauracao';});if(c)result.push({id:p.employeeId,name:p.name,sector:'restauracao',x:p.x,y:p.y,screen:PFor(c,p.x,p.y,.7),moving:false,sitting:!!p.sit,activity:p.activity||'rest',talking:!!p.talking,partnerId:p.partnerId,carrying:null,health:p.score});});return result;}
     function focusEmployee(id,dur){
       if(!worldCfg)return false;
       var p=employeePositions().find(function(x){return x.id===id;});

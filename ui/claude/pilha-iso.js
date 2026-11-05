@@ -417,7 +417,9 @@
         ctx.fillStyle=tone(p.skin,hl,1);ell(fx-.2*u,fy-.38*u+reach,.045*u,.035*u,ctx.fillStyle);ell(fx+.2*u,fy-.38*u-reach,.045*u,.035*u,ctx.fillStyle);ctx.restore();
       }
       if(p.carrying){
-        var ox=fx+.13*u,oy=hy+.62*u;
+        // Reach/lift motion makes pickup and placement visible at the object.
+        var handling=p.activity==='handling'||p.activity==='handling-folder',lift=handling?Math.sin((p.phase||0)*1.8)*.055*u:0;
+        var ox=fx+.13*u,oy=hy+.62*u+lift;
         ctx.save();
         if(p.carrying==='box'){
           var w=.23*u,h=.16*u,dep=.08*u;
@@ -430,6 +432,9 @@
           poly([[ox-.12*u,oy],[ox-.02*u,oy-.09*u],[ox+.08*u,oy-.09*u],[ox+.12*u,oy-.01*u]],tone('#c8e8ff',hl,1));
           ctx.strokeStyle=tone('#2e6795',hl,1);ctx.lineWidth=Math.max(1,.025*u);ctx.beginPath();ctx.moveTo(ox-.12*u,oy+.06*u);ctx.lineTo(ox+.11*u,oy+.04*u);ctx.stroke();
         }
+        ctx.strokeStyle=tone(p.shirt,hl,1);ctx.lineCap='round';ctx.lineWidth=Math.max(1,.07*u);
+        ctx.beginPath();ctx.moveTo(fx-.1*u,hy+.32*u);ctx.lineTo(ox-.12*u,oy+.1*u);ctx.moveTo(fx+.1*u,hy+.32*u);ctx.lineTo(ox+.12*u,oy+.1*u);ctx.stroke();
+        ell(ox-.12*u,oy+.1*u,.04*u,.035*u,tone(p.skin,hl,1));ell(ox+.12*u,oy+.1*u,.04*u,.035*u,tone(p.skin,hl,1));
         ctx.restore();
       }
       // balões de estado

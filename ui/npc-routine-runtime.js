@@ -1,7 +1,7 @@
     var routineClock=null,routinePaths={};
     function setRoutineClock(state,rows){
       var elapsed=(state.week-1)*120000+state.activeMs;
-      routineClock={elapsed:elapsed,at:performance.now(),paused:state.paused,rows:rows};updateRoutinePeople();if(!running)render();
+      routineClock={elapsed:elapsed,at:performance.now(),paused:state.paused,rows:rows};if(Object.keys(routinePaths).length>512)routinePaths={};updateRoutinePeople();if(!running)render();
     }
     function updateRoutinePeople(){
       if(!routineClock||!worldCfg)return;
@@ -15,10 +15,23 @@
           if(p.talking)p.facing=p.employeeId<pose.partnerId?0:2;
           if(pose.kind==='work'){
             p.riggedSeconds*=1-(row.workSlot%6)*.02;
-            var distance=pose.workFraction*AISLE_LENGTH*.5;
-            if(pose.talking)distance+=p.employeeId<pose.partnerId?-.28:.28;
-            Object.assign(p,aislePoint(distance));p.vx=p.x-oldX;p.vy=p.y-oldY;p.progress=distance;p.moving=!routineClock.paused&&pose.moving;p.phase=elapsed*.006*speed;
+            var distance=pose.gatherFraction*AISLE_LENGTH*.5;
+            // Give every actor the same gather anchor before, during and after
+            // conversation, so a partner appearing cannot teleport the actor.
+            distance+=(row.workSlot%2?1:-1)*.18;
+            var home=aislePoint(p.homeProgress||0),gather=aislePoint(distance);
+            var points={home:home,gather:gather,station:p.workstation||home,source:p.materialSource||home,destination:p.materialDestination||home};
+            var plan=pose.workSegment==='task'?workTask(pose.workProgress,{sector:c.key,hasWorkstation:!!p.workstation,speed:speed}):pose.workSegment==='return-home'?{activity:'walk',moving:true,sit:false,carrying:null,from:'gather',to:'home',route:pose.workProgress}:{activity:pose.talking?'conversation':pose.stage,moving:false,sit:false,carrying:null,to:'gather',route:1};
+            p.activity=plan.activity;p.carrying=plan.carrying;p.sit=plan.sit;p.workTarget=points[plan.to];
+            if(plan.moving){
+              var from=points[plan.from],to=points[plan.to],workKey=c.key+'|'+p.employeeId+'|'+c.env.workRevision+'|'+[from.x,from.y,to.x,to.y].map(function(n){return n.toFixed(4);}).join(',');
+              var workPath=routinePaths[workKey]||(routinePaths[workKey]=global.PilhaNpcRoutes.routeWithin(AISLE,from,to,c.env.items));
+              var q=global.PilhaNpcRoutes.sample(workPath,plan.route);if(q)Object.assign(p,q);else{Object.assign(p,from);plan.moving=false;}
+            }else Object.assign(p,points[plan.to]);
+            p.vx=p.x-oldX;p.vy=p.y-oldY;p.progress=p.homeProgress||0;p.moving=!routineClock.paused&&plan.moving;p.phase=elapsed*.006*speed;
+            if(plan.moving&&Math.hypot(p.vx,p.vy)>.00001)p.facing=Math.abs(p.vx)>Math.abs(p.vy)?(p.vx>0?1:3):(p.vy>0?0:2);
           }else{
+            p.sit=false;p.carrying=null;p.workTarget=null;
             var target=pose.target||pose.space,cache=JSON.stringify(worldCfg.map(function(c){return [c.key,c.bx,c.by];}))+c.key+target+p.employeeId;
             var path=routinePaths[cache]||(routinePaths[cache]=global.PilhaNpcRoutes.route(worldCfg,AISLE,connections,c.key,target,p.employeeId,aislePoint(p.homeProgress||0)));
             if(!path.length)return;

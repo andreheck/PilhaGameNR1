@@ -1,5 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
 import * as M from '../simulation/company-continuous.js';import * as L from '../simulation/company-living.js';import {EMPLOYEES} from '../data/continuous/employees.js';import {RULES,SECTORS,ITEMS} from '../data/continuous/catalog.js';
+import {createFurniturePresentation} from '../ui/furniture-presentation.js';
+import {FURNITURE_VISUALS as V} from '../data/continuous/furniture-visuals.js';
+import {workTargets} from '../ui/npc-work-targets.js';
 const now=1000000,near=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`),setup=()=>L.tickAt(M.fresh(),now).state;
 test('16 canonical identities; ages missing from registry remain null',()=>{assert.equal(EMPLOYEES.length,16);assert.equal(new Set(EMPLOYEES.map(p=>p.id)).size,16);assert.equal(EMPLOYEES[3].name,'Raimunda');assert.ok(EMPLOYEES.slice(8).every(p=>p.age===null));});
 test('migration adds workforce without resetting money or purchases',()=>{const a=M.purchase(M.fresh(),M.quote(M.fresh(),'producao','jorn')).state,b=JSON.parse(JSON.stringify(a));L.ensureLiving(a);assert.equal(a.budget,8800);assert.deepEqual(a.receipts,b.receipts);assert.equal(Object.keys(a.staff).length,16);assert.equal(a.version,2);});
@@ -14,16 +17,44 @@ test('corrupted health and timestamps are rejected rather than silently replaced
 test('fictional calendar follows fractional weeks and respects pause',()=>{const s=setup(),a=L.simulatedTime(s,now),b=L.simulatedTime(s,now+1000);assert.equal(a.iso,'2026-10-23T08:00:00.000Z');near(b.date-a.date,7*86400000/RULES.weekMs*1000);assert.equal(L.calendarMonth(s,0,now).count,31);assert.equal(L.calendarMonth(s,1,now).count,30);s.paused=true;assert.equal(L.simulatedTime(s,now).iso,L.simulatedTime(s,now+999999).iso);});
 function engine(){let raf,clock=0;const noop=()=>{},ctx=new Proxy({measureText:t=>({width:t.length*7}),createRadialGradient:()=>({addColorStop:noop})},{get:(o,k)=>k in o?o[k]:noop});const window={devicePixelRatio:1,requestAnimationFrame:fn=>(raf=fn,1),cancelAnimationFrame:()=>{raf=null;}};vm.runInNewContext(fs.readFileSync(new URL('../ui/npc-route-navigation.js',import.meta.url),'utf8'),{window,Math,Set});vm.runInNewContext(fs.readFileSync(new URL('../dist/ui/continuous/iso.js',import.meta.url),'utf8'),{window,Math,Set,performance:{now:()=>clock}});const iso=window.PilhaIso.create({getContext:()=>ctx,getBoundingClientRect:()=>({width:1200,height:700})});iso.resize();iso.setWorld(SECTORS.map((s,i)=>({key:s.id,name:s.name,bx:i%2*14,by:Math.floor(i/2)*10})));iso.setEmployees(L.staffView(setup()));iso.setStatic(false);iso.start();return {iso,tick:ts=>{clock=ts;raf?.(ts);}};}
 test('all16 actors walk automatically, can be picked and respect manual pause',()=>{const {iso,tick}=engine();const before=JSON.stringify(iso.getEmployees());for(let i=1;i<=120;i++)tick(i*16);assert.notEqual(JSON.stringify(iso.getEmployees()),before);const people=iso.getEmployees();assert.equal(people.length,16);assert.equal(new Set(people.map(p=>p.id)).size,16);assert.ok(people.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.screen.x)));const p=people[0];assert.equal(iso.pickEmployee(p.screen.x,p.screen.y),p.id);iso.setManualPause(true);const paused=JSON.stringify(iso.getEmployees());iso.start();tick(3000);assert.equal(JSON.stringify(iso.getEmployees()),paused);iso.setManualPause(false);tick(3100);tick(3300);assert.notEqual(JSON.stringify(iso.getEmployees()),paused);});
-test('desk employees sit at unique computer stations and production workers carry boxes',()=>{
- const {iso}=engine(),s=setup(),rows=L.routines(s).map(r=>({...r,sampleAt:undefined}));
- const office=rows.find(r=>r.id==='NPC-01');Object.assign(office,{offset:.6,outEnd:.08,pauseEnd:.14,tripEnd:.22,scale:1,speed:1});
- const production=rows.find(r=>r.id==='NPC-09');Object.assign(production,{offset:.5,outEnd:.08,pauseEnd:.14,tripEnd:.22,scale:1,speed:1});
- iso.setRoutineClock({week:1,activeMs:0,paused:false},rows);
- const workers=iso.getEmployees(),desk=workers.find(p=>p.id==='NPC-01'),operator=workers.find(p=>p.id==='NPC-09');
- assert.equal(desk.activity,'computer');assert.equal(desk.sitting,true);assert.equal(desk.moving,false);
- assert.equal(operator.activity,'moving-material');assert.equal(operator.carrying,'box');assert.equal(operator.moving,true);
- const officeSeats=workers.filter(p=>p.sector==='escritorio'&&p.sitting);
- assert.equal(new Set(officeSeats.map(p=>p.id)).size,officeSeats.length);
+test('real social agenda reaches arranged desks and transports material between actual furniture',()=>{
+ const {iso}=engine(),s=setup(),raw=JSON.stringify(s);iso.setFurniturePresentation(createFurniturePresentation());iso.setFurnitureCatalog(V);iso.setEmployees(L.staffView(s));
+ for(const maximum of [false,true]){
+ iso.setSectorInventory(Object.fromEntries(SECTORS.map(z=>[z.id,Object.fromEntries(ITEMS.filter(i=>!!i.rest===z.rest).map(i=>[i.id,maximum?3:0]))])));iso.setEmployees(L.staffView(s));
+ const seen=new Set(),seats=new Set();
+ for(let t=0;t<120000;t+=200){
+  s.activeMs=t;const rows=L.routines(s);assert.ok(rows.every(r=>typeof r.sampleAt==='function'));
+  iso.setRoutineClock({...s,paused:true},rows);
+  const workers=iso.getEmployees();assert.equal(new Set(workers.map(p=>p.id)).size,16);
+  for(const p of workers){
+   if(p.activity==='computer'){seen.add(p.sector);seats.add(p.id);assert.ok(p.sitting&&!p.moving);near(p.x,p.workstation.x);near(p.y,p.workstation.y);assert.equal(p.workstation.item.type,'desk');}
+   if(p.activity==='moving-material'&&p.sector==='producao'){seen.add('boxes');assert.equal(p.carrying,'box');}
+   if(p.activity==='handling'&&p.sector==='producao'){seen.add('handling');assert.ok(p.workTarget?.item);near(p.x,p.workTarget.x);near(p.y,p.workTarget.y);}
+   if(p.carrying==='folder')seen.add('folders');
+  }
+  const occupied=workers.filter(p=>p.activity==='computer').map(p=>p.sector+'|'+p.workstation.seatId);assert.equal(new Set(occupied).size,occupied.length);
+ }
+ for(const activity of ['escritorio','atendimento','boxes','handling','folders'])assert.ok(seen.has(activity),activity);
+ assert.ok(seats.size>=11,'every administrative employee reaches a computer');
+ }
+ s.activeMs=0;assert.equal(JSON.stringify(s),raw);
+});
+
+test('work paths reach arranged furniture with body clearance at baseline and maximum upgrades',()=>{
+ const {iso}=engine(),g={};vm.runInNewContext(fs.readFileSync(new URL('../ui/npc-route-navigation.js',import.meta.url),'utf8'),{window:g,Math,Set});
+ iso.setFurniturePresentation(createFurniturePresentation());iso.setFurnitureCatalog(V);
+ const aisle=[{x:.35,y:.28},{x:4,y:.28},{x:4,y:4},{x:8,y:4},{x:8,y:.28},{x:11.75,y:.28},{x:11.75,y:7.7},{x:.35,y:7.7}],home=aisle[0];
+ for(const maximum of [false,true]){
+  iso.setSectorInventory(Object.fromEntries(SECTORS.map(z=>[z.id,Object.fromEntries(ITEMS.filter(i=>!!i.rest===z.rest).map(i=>[i.id,maximum?3:0]))])));
+  for(const room of iso.furnitureLayout().filter(r=>r.id!=='restauracao')){
+   const items=room.items.map(it=>({...it,t:it.type,layoutHidden:it.hidden})),targets=workTargets(items,aisle);
+   for(const target of [...targets.stations,...targets.sources,...targets.destinations]){
+    const path=g.PilhaNpcRoutes.routeWithin(aisle,home,target,items);assert.ok(path.length>0,room.id+' '+target.seatId);
+    near(path.at(-1).x,target.x);near(path.at(-1).y,target.y);
+    for(let step=0;step<=200;step++){const p=g.PilhaNpcRoutes.sample(path,step/200);for(const b of items)assert.ok(!(p.x>b.x-.08&&p.x<b.x+b.w+.08&&p.y>b.y-.08&&p.y<b.y+b.d+.08),room.id+' route intersects '+b.type);}
+   }
+  }
+ }
 });
 test('restoring visitors keeps exactly16 rendered identities',()=>{const {iso}=engine();iso.setRestVisitors([{id:'NPC-01',sid:'escritorio',space:'biblioteca'}]);assert.equal(iso.getEmployees().length,16);assert.equal(iso.getEmployees().filter(p=>p.id==='NPC-01').length,1);assert.equal(iso.getEmployees().find(p=>p.id==='NPC-01').sector,'restauracao');iso.setEmployees(L.staffView(setup()));iso.setRestVisitors([]);assert.equal(iso.getEmployees().find(p=>p.id==='NPC-01').sector,'escritorio');});
 test('built entry gates the live company behind Ao Trabalho, then keeps opening and calendar without an animation toggle',()=>{const html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(html,/class="at-start"/);assert.match(html,/data-start="play"/);assert.match(html,/continuous\/ao-trabalho-entry.js/);assert.match(html,/id="continuous-app" inert style="visibility:hidden"/);assert.match(html,/continuous\/intro.js/);const intro=fs.readFileSync(new URL('../dist/ui/continuous/intro.js',import.meta.url),'utf8');assert.doesNotMatch(intro,/class="pi-motion"|motionButton/);const ui=fs.readFileSync(new URL('../ui/continuous-game.js',import.meta.url),'utf8');assert.match(ui,/data-company="employees"/);assert.match(ui,/data-company="world"/);assert.doesNotMatch(ui,/'case\d|play\.js|document.hidden\|\|/);assert.match(ui,/await playOpening\(\);await explainGame/);});
