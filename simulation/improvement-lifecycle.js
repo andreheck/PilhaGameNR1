@@ -28,7 +28,7 @@ const defaults={
  intervalo:{start:'imediato',duration:'temporario',durationWeeks:8,frequency:'mensal'}
 };
 export function lifecycle(item){
- const d=defaults[item.id]||{};
+ const d=item.lifecycle||defaults[item.id]||{};
  return Object.freeze({
   ...legacy,...d,
   delayWeeks:item.timing.delay||0,

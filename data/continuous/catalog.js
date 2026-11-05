@@ -1,3 +1,4 @@
+import {BENEFITS} from './benefits.js';
 /** Original C3 values extracted from PilhA+ Game.zip.
  * SHA256 cacd69bc9be7130df5c63f31f415cc20947d7ef03b1062bc4a3ba8797f3b2b77.
  * Timings, restoration prices and synergy mapping are experimental game proposals, not clinical evidence. */
@@ -38,6 +39,6 @@ const restore=[
  ['intervalo','Intervalo estendido',650,{carga:6,auton:4},['imediato',0,0],'bosque',2,'Pausas com cobertura, sem transferir sobrecarga aos colegas.']
 ];
 const time=([kind,delay,ramp])=>({kind,delay,ramp});
-export const ITEMS=[...original.map(([id,name,category,cost,factors,t,where])=>({id,name,category,cost,factors,timing:time(t),where:Object.fromEntries(SECTORS.slice(0,3).map((s,i)=>[s.id,where[i]])),origin:'ZIP C3',rest:false})),...restore.map(([id,name,cost,factors,t,space,capacity,description])=>({id,name,cost,factors,timing:time(t),space,capacity,description,category:'Restauração',origin:'Proposta de balanceamento',rest:true}))];
+export const ITEMS=[...original.map(([id,name,category,cost,factors,t,where])=>({id,name,category,cost,factors,timing:time(t),where:Object.fromEntries(SECTORS.slice(0,3).map((s,i)=>[s.id,where[i]])),origin:'ZIP C3',rest:false})),...restore.map(([id,name,cost,factors,t,space,capacity,description])=>({id,name,cost,factors,timing:time(t),space,capacity,description,category:'Restauração',origin:'Proposta de balanceamento',rest:true})),...BENEFITS];
 export const RULES={startBalance:10000,companyGoal:45,sectorGoal:50,effects:[1.4,1.12,.84],costs:[1,1.4,1.9],priceStep:50,weekMs:120000,restCap:6,eventGapWeeks:2};
 export const SOURCE={file:'PilhA+ Game.zip',sha256:'cacd69bc9be7130df5c63f31f415cc20947d7ef03b1062bc4a3ba8797f3b2b77',eventFile:'simulation/event-catalog.js',eventCount:19,eventsIdenticalToZip:true,originalClock:'Cada compra avança uma semana',formulas:{index:'mean(carga,auton,relac,lider,recon,seg)',company:'mean(escritorio,producao,atendimento)',stress:'100-(carga*.4+auton*.3+lider*.3)',absenteeism:'2+(100-index)*.12',climate:'(relac+recon+seg)/3',productivity:'40+index*.6'},sampleHeroActions:{count:6,implemented:false,reason:'São SAMPLE no ZIP e não substituem os poderes canônicos.'}};

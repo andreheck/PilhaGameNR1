@@ -18,9 +18,6 @@ map=replace(map,'"Índice do ciclo · compartilhado"','"Índice da empresa · me
 map=replace(map,'root.querySelector(".pm-goal__bar u").hidden = true;','root.querySelector(".pm-goal__bar u").hidden = false;');
 map=replace(map,"o.model ? (st.owned.length ? '· em melhoria' : '· observar') : Math.round(h) + '%'","Math.round(h) + '%'");
 map=replace(map,'o.model.body(SECTORS[sel], st)','o.model.body(SECTORS[sel], st, {zone:selZone,filter:catFilter})');
-map=replace(map,'async function buy(cid) {','async function buy(cid, expectedLevel, expectedRevision) {');
-map=replace(map,'await o.model.buy(cid)','await o.model.buy(cid, SECTORS[sel].id, expectedLevel, expectedRevision)');
-map=replace(map,'buy(b.getAttribute("data-id"));','buy(b.getAttribute("data-id"), Number(b.dataset.level), Number(b.dataset.revision));');
 map=replace(map,'setMotion: setMotion, refresh: refresh','toast: toast, setMotion: setMotion, refresh: refresh');
 map=replace(map,'"1","2","3"','"1","2","3","4"');
 map=replace(map,'case "1": case "2": case "3": select(+e.key - 1, -1); break;','case "1": case "2": case "3": case "4": select(+e.key - 1, -1); break;');

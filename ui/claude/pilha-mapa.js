@@ -419,12 +419,12 @@
     }
 
     /* --- compra --- */
-    async function buy(cid) {
+    async function buy(cid, button) {
       if (o.model) {
         if (sel < 0 || root.dataset.buying === "true") return;
         root.dataset.buying = "true";
         var result;
-        try { result = await o.model.buy(cid); }
+        try { result = await o.model.buy(cid, SECTORS[sel].id, Number(button?.dataset.level), Number(button?.dataset.revision), panel.querySelector("[data-promotion-target]")?.value || null); }
         catch (_) { result = {ok:false}; }
         finally { delete root.dataset.buying; }
         refresh();
@@ -577,7 +577,7 @@
       else if (a === "factor") zoneFocus(+b.getAttribute("data-z"));
       else if (a === "whole") { selZone = -1; iso.setSelection(sel, -1); iso.focus(sel, -1, 0.8); renderPanel(); }
       else if (a === "cat") { catFilter = b.getAttribute("data-c"); renderBody(); }
-      else if (a === "buy") buy(b.getAttribute("data-id"));
+      else if (a === "buy") buy(b.getAttribute("data-id"), b);
     });
     function onKey(e) {
       if (!root.isConnected) return document.removeEventListener("keydown", onKey);
