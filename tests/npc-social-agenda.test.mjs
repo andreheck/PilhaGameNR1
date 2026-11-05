@@ -16,6 +16,22 @@ test('movement is slower and the conversation pause is stationary',()=>{
   assert.equal(workFraction(0,0,20000).fraction,0);assert.equal(workFraction(20000,0,20000).fraction,0);
 });
 
+test('individual paces survive reload and roster ordering independently from health',()=>{
+  const state=setup(),before=JSON.stringify(state),rows=L.routines(state);
+  assert.equal(new Set(rows.map(r=>r.pace)).size,16);
+  assert.ok(rows.every(r=>r.pace>=.82&&r.pace<=1.18));
+  const restored=JSON.parse(before);restored.staff=Object.fromEntries(Object.entries(restored.staff).reverse());
+  for(const row of L.routines(restored))assert.equal(row.pace,rows.find(r=>r.id===row.id).pace);
+  for(const worker of Object.values(restored.staff))worker.health=40;
+  for(const row of L.routines(restored)){
+    const original=rows.find(r=>r.id===row.id);
+    assert.equal(row.pace,original.pace);
+    assert.ok(Math.abs(row.speed/original.speed-.6)<1e-10);
+    assert.ok(row.outEnd>original.outEnd);
+  }
+  assert.equal(JSON.stringify(state),before);
+});
+
 test('each staffed department has one weekly patio meeting with its selected manager and distinct seats',()=>{
   const state=setup(),before=JSON.stringify(state),rows=L.routines(state);
   for(const sid of DEPARTMENTS){
@@ -26,7 +42,8 @@ test('each staffed department has one weekly patio meeting with its selected man
       const event=row.agenda.find(e=>e.kind==='meeting');
       assert.equal(event.managerId,MANAGERS[sid]);assert.equal(event.key,meeting.key);
     }
-    assert.equal(new Set(members.map(r=>r.sampleAt(meeting.start+NPC_MOTION.meetingTravelMs/.85+100).seat)).size,members.length);
+    const arrival=meeting.start+Math.max(...members.map(r=>NPC_MOTION.meetingTravelMs/(NPC_MOTION.walkRate*r.speed)))+100;
+    assert.equal(new Set(members.map(r=>r.sampleAt(arrival).seat)).size,members.length);
     const inMeeting=members.map(r=>r.sampleAt(meeting.start+NPC_MOTION.meetingTravelMs/(NPC_MOTION.walkRate*r.speed)+100));
     assert.ok(inMeeting.every(p=>p.stage==='meeting'&&p.space==='patio'&&p.talking));
   }
@@ -55,7 +72,7 @@ test('conversation partners are reciprocal and health effects remain temporary',
   assert.ok(pair,'a full week contains a real paired conversation');
   assert.notDeepEqual([pair[0].workFraction,pair[0].id],[pair[1].workFraction,pair[1].id]);
   const meeting=rows.find(r=>r.sid==='escritorio').agenda.find(e=>e.kind==='meeting');
-  const copy={...state,activeMs:meeting.start+NPC_MOTION.meetingTravelMs/.85+100};
+  const copy={...state,activeMs:meeting.start+Math.max(...rows.filter(r=>r.sid==='escritorio').map(r=>NPC_MOTION.meetingTravelMs/(NPC_MOTION.walkRate*r.speed)))+100};
   const staffBefore=JSON.stringify(copy.staff),visits=L.routines(copy).filter(r=>r.sid==='escritorio');
   assert.ok(visits.every(r=>r.stage==='meeting'&&r.healthBonus>0&&r.healthBonus<=8));
   assert.equal(JSON.stringify(copy.staff),staffBefore);

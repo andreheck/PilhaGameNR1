@@ -7,6 +7,14 @@ export const NPC_MOTION=Object.freeze({
   meetingStarts:[.15,.435,.72]
 });
 
+/** Stable visual variation by ID only; unrelated to personality, job or health. */
+export function walkingPace(id){
+  const key=String(id??'');
+  const canonical=/^NPC-(\d+)$/.exec(key);
+  const seed=canonical?Number(canonical[1]):Array.from(key).reduce((n,c)=>(n*31+c.charCodeAt(0))%997,0);
+  return .82+((seed*7)%17)/16*.36;
+}
+
 export function workFraction(t,start,end,speed=1,slot=0){
   const span=Math.max(1,end-start);
   const hold=Math.min(NPC_MOTION.conversationMs,span*.30);

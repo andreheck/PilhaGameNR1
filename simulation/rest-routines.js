@@ -2,15 +2,15 @@
 import {RULES,ITEMS} from '../data/continuous/catalog.js';
 import {stage} from './improvement-lifecycle.js';
 import {receiptEffectPhase} from './effect-lifecycle.js';
-import {NPC_MOTION} from './npc-motion.js';
+import {NPC_MOTION,walkingPace} from './npc-motion.js';
 import {addSocialAgenda} from './npc-social-agenda.js';
 export const ROUTINE_PERIOD=RULES.weekMs*2/7;
 export const walkingFactor=health=>Number.isFinite(health)&&health<55?.6:1;
-export function routinePhase(elapsed,index,count=16,health=70){
- const phase=((elapsed/ROUTINE_PERIOD-index/count)%1+1)%1,scale=16/count,speed=walkingFactor(health);
+export function routinePhase(elapsed,index,count=16,health=70,pace=1){
+ const phase=((elapsed/ROUTINE_PERIOD-index/count)%1+1)%1,scale=16/count,speed=walkingFactor(health)*pace;
  const outEnd=.08*scale/(speed*NPC_MOTION.walkRate),pauseEnd=outEnd+.06*scale,tripEnd=pauseEnd+.08*scale/(speed*NPC_MOTION.walkRate),glowEnd=tripEnd+.18*scale;
  const stage=phase<outEnd?'outbound':phase<pauseEnd?'rest':phase<tripEnd?'return':phase<glowEnd?'afterglow':'work';
- return {phase,stage,offset:index/count,scale,speed,outEnd,pauseEnd,tripEnd,glowEnd,progress:stage==='outbound'?phase/outEnd:stage==='return'?(phase-pauseEnd)/(tripEnd-pauseEnd):0};
+ return {phase,stage,offset:index/count,scale,pace,speed,outEnd,pauseEnd,tripEnd,glowEnd,progress:stage==='outbound'?phase/outEnd:stage==='return'?(phase-pauseEnd)/(tripEnd-pauseEnd):0};
 }
 const weight=(r,c,s)=>(r.lifecycle?stage(r,s.week,c).progress:receiptEffectPhase(r,c.timing,s.week).progress);
 export function restResources(s){
@@ -23,7 +23,7 @@ export function restResources(s){
 export function routineRows(s,people){
  const elapsed=(s.week-1)*RULES.weekMs+s.activeMs,resources=restResources(s);
  const ordinal=p=>(p.id.startsWith('NOVO-')?16:0)+Number(p.id.replace(/\D/g,''))-1;const count=Math.max(16,...people.map(p=>ordinal(p)+1));
- const base=people.map((p,i)=>{const r=routinePhase(elapsed,ordinal(p),count,s.staff?.[p.id]?.health??70);return {...r,id:p.id,sid:p.home,index:i,space:resources.spaces[ordinal(p)%resources.spaces.length]};});
+ const base=people.map((p,i)=>{const r=routinePhase(elapsed,ordinal(p),count,s.staff?.[p.id]?.health??70,walkingPace(p.id));return {...r,id:p.id,sid:p.home,index:i,space:resources.spaces[ordinal(p)%resources.spaces.length]};});
  const rows=addSocialAgenda(s,people,base,ROUTINE_PERIOD);
  for(const r of rows){const influenced=r.influenced,company=rows.some(x=>x.id!==r.id&&x.inRestArea&&x.space===r.space);r.environmentBonus=influenced?resources.environment:0;r.socialBonus=influenced?resources.social+(company?1:0):0;r.healthBonus=Math.min(8,r.environmentBonus+r.socialBonus);}
  return rows;

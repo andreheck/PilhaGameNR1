@@ -34,5 +34,8 @@ test('unavailable sprite files keep all active actors visible through the existi
 });
 
 test('Mariana uses her supplied conversation clip during a restorative pause',()=>{
- const s=L.ensureLiving(M.fresh());s.activeMs=9900;const {iso,tick}=engine(s);tick(16);const mariana=L.routines(s).find(p=>p.id==='NPC-07');assert.equal(mariana.stage,'rest');assert.equal(mariana.talking,true);assert.ok(mariana.partnerId);assert.equal(iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-07').action,'talk');
+ const s=L.ensureLiving(M.fresh()),row=L.routines(s).find(p=>p.id==='NPC-07');let time;
+ for(let t=0;t<120000;t+=100){const pose=row.sampleAt(t);if(pose.stage==='rest'&&pose.talking){time=t;break;}}
+ assert.notEqual(time,undefined,'Mariana shares a restorative pause');s.activeMs=time;
+ const {iso,tick}=engine(s);tick(16);const mariana=L.routines(s).find(p=>p.id==='NPC-07');assert.equal(mariana.stage,'rest');assert.equal(mariana.talking,true);assert.ok(mariana.partnerId);assert.equal(iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-07').action,'talk');
 });

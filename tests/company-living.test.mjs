@@ -163,7 +163,7 @@ test('below55 health slows transit by40percent without removing daily clock or p
  assert.equal(routines.walkingFactor(54.99),.6);assert.equal(routines.walkingFactor(55),1);assert.equal(routines.walkingFactor(100),1);
  const fast=routines.routinePhase(routines.ROUTINE_PERIOD*.04,0,16,55),slow=routines.routinePhase(routines.ROUTINE_PERIOD*.04,0,16,54);
  near(slow.progress,fast.progress*.6);assert.ok(slow.outEnd>fast.outEnd);assert.ok(slow.tripEnd>fast.tripEnd);
- const s=setup();for(const p of Object.values(s.staff))p.health=40;for(let t=0;t<routines.ROUTINE_PERIOD;t+=100){s.activeMs=t;assert.ok(L.attendance(s).length<=6);assert.ok(L.routines(s).every(r=>r.speed===.6));}
+ const s=setup();for(const p of Object.values(s.staff))p.health=40;for(let t=0;t<routines.ROUTINE_PERIOD;t+=100){s.activeMs=t;assert.ok(L.attendance(s).length<=6);assert.ok(L.routines(s).every(r=>Math.abs(r.speed/r.pace-.6)<1e-10));}
 });
 
 test('legacy public save at week658 with empty cash and no productive employees receives next750 investment',()=>{
