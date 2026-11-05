@@ -258,6 +258,8 @@ def run(browser,w,h):
         # Same-origin real second tab: shared storage and Web Locks must consume one week.
         if w==1366:
             other=ctx.new_page();other.goto('http://127.0.0.1:8768/',wait_until='domcontentloaded')
+            other.locator('.at-start').wait_for(state='visible');other.locator('[data-start="play"]').click()
+            other.locator('.pi-root').wait_for(state='visible')
             other.locator('.pi-skip').wait_for(state='visible');other.locator('.pi-skip').click()
             for _ in range(3):other.locator('[data-guide="next"]').click()
             other.locator('[data-team-save]').click();other.locator('.pm-root').wait_for()
