@@ -11,7 +11,8 @@ fs.appendFileSync(root+'ui/living-company.css',`\n@media(max-width:899px){.pm-ro
 // Route visits use one clock and existing aisle/bridge geometry; no teleport clones.
 const isoPath=root+'ui/continuous/iso.js';let iso=fs.readFileSync(isoPath,'utf8');
 const routines=fs.readFileSync(new URL('../ui/npc-routine-runtime.js',import.meta.url),'utf8');
-iso=iso.replace('    function PFor(c,x,y,z){',routines+'\n    function PFor(c,x,y,z){');
+import {workActivity} from '../simulation/work-agenda.js';
+iso=iso.replace('    function PFor(c,x,y,z){',workActivity.toString()+'\n'+routines+'\n    function PFor(c,x,y,z){');
 iso=iso.replace('      setEmployees:setEmployees,','      setRoutineClock:setRoutineClock,\n      setEmployees:setEmployees,');
 iso=iso.replace('stepCommuters(dt);','if(!routineClock)stepCommuters(dt);updateRoutinePeople();');
 iso=iso.replace('var old=restVisitors;restVisitors=[];','if(routineClock)return;var old=restVisitors;restVisitors=[];');

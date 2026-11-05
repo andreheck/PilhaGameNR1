@@ -1,6 +1,6 @@
 /** Pure navigation over existing aisles and company bridges. No scene mutation. */
 (function(g){
- function route(defs,aisle,links,home,space,workerId){
+ function route(defs,aisle,links,home,space,workerId,startPoint){
   var nodes=[],edges=[],map={};
   function node(x,y){var key=x.toFixed(4)+','+y.toFixed(4);if(map[key]!=null)return map[key];map[key]=nodes.length;nodes.push({x:x,y:y});return nodes.length-1;}
   function edge(a,b){if(a!==b)edges.push([a,b]);}
@@ -12,10 +12,21 @@
   var origin=defs.find(function(c){return c.key===home;}),dest=defs.find(function(c){return c.key==='restauracao';});if(!origin||!dest)return [];
   var target={biblioteca:[2.9,2.1],bosque:[6.6,2.1],meditacao:[10.6,3.3],auditorio:[2.5,6.5],patio:[9.5,6.6]}[space]||[9.5,6.6];var seat=Number(String(workerId||'0').replace(/\D/g,''))%6;target=[target[0]+(seat%3)*.18,target[1]+Math.floor(seat/3)*.12];
   function attach(x,y,c){var near=null;segments.slice(0,defs.length*aisle.length).forEach(function(s){if(s[0].x<c.bx||s[0].x>c.bx+12||s[0].y<c.by||s[0].y>c.by+8)return;var a=s[0],b=s[1],dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((x-a.x)*dx+(y-a.y)*dy)/(dx*dx+dy*dy))),px=a.x+t*dx,py=a.y+t*dy,d=Math.hypot(x-px,y-py);if(!near||d<near.d)near={s:s,x:px,y:py,d:d};});var n=node(near.x,near.y);edge(n,node(near.s[0].x,near.s[0].y));edge(n,node(near.s[1].x,near.s[1].y));var end=node(x,y);edge(n,end);return end;}
-  var start=node(origin.bx+aisle[0].x,origin.by+aisle[0].y),end=attach(dest.bx+target[0],dest.by+target[1],dest),dist=nodes.map(function(){return Infinity;}),prev=[],done=new Set();dist[start]=0;
+  var start=startPoint?attach(origin.bx+startPoint.x,origin.by+startPoint.y,origin):node(origin.bx+aisle[0].x,origin.by+aisle[0].y),end=attach(dest.bx+target[0],dest.by+target[1],dest),dist=nodes.map(function(){return Infinity;}),prev=[],done=new Set();dist[start]=0;
   while(done.size<nodes.length){var u=-1;dist.forEach(function(d,i){if(!done.has(i)&&(u<0||d<dist[u]))u=i;});if(u<0||!isFinite(dist[u])||u===end)break;done.add(u);edges.forEach(function(e){var v=e[0]===u?e[1]:e[1]===u?e[0]:-1;if(v<0)return;var d=dist[u]+Math.hypot(nodes[u].x-nodes[v].x,nodes[u].y-nodes[v].y);if(d<dist[v]){dist[v]=d;prev[v]=u;}});}
   if(!isFinite(dist[end]))return [];var path=[];for(var u=end;u!=null;u=prev[u])path.unshift(nodes[u]);return path;
  }
  function sample(path,t){if(!path.length)return null;var lengths=path.slice(1).map(function(p,i){return Math.hypot(p.x-path[i].x,p.y-path[i].y);}),total=lengths.reduce(function(a,b){return a+b;},0),d=Math.max(0,Math.min(1,t))*total;for(var i=0;i<lengths.length;i++){if(d<=lengths[i]){var k=lengths[i]?d/lengths[i]:0;return {x:path[i].x+(path[i+1].x-path[i].x)*k,y:path[i].y+(path[i+1].y-path[i].y)*k,tx:path[i+1].x,ty:path[i+1].y};}d-=lengths[i];}return path[path.length-1];}
- g.PilhaNpcRoutes={route:route,sample:sample};
+ function routeWithin(aisle,start,target){
+  var nodes=[],edges=[],lookup={};
+  function node(p){var key=p.x.toFixed(4)+','+p.y.toFixed(4);if(lookup[key]!=null)return lookup[key];lookup[key]=nodes.length;nodes.push({x:p.x,y:p.y});return nodes.length-1;}
+  function edge(a,b){if(a!==b)edges.push([a,b]);}
+  var points=aisle.map(function(p){return {x:p.x,y:p.y};});
+  points.forEach(node);for(var i=0;i<points.length;i++)edge(i,(i+1)%points.length);
+  function attach(point){var best=null;for(var i=0;i<points.length;i++){var a=points[i],b=points[(i+1)%points.length],dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((point.x-a.x)*dx+(point.y-a.y)*dy)/(dx*dx+dy*dy))),p={x:a.x+t*dx,y:a.y+t*dy},d=Math.hypot(point.x-p.x,point.y-p.y);if(!best||d<best.d)best={i:i,p:p,d:d};}var n=node(best.p);edge(n,best.i);edge(n,(best.i+1)%points.length);var dest=node(point);edge(n,dest);return dest;}
+  var from=attach(start),to=attach(target),dist=nodes.map(function(){return Infinity;}),prev=[],done=new Set();dist[from]=0;
+  while(done.size<nodes.length){var u=-1;dist.forEach(function(d,i){if(!done.has(i)&&(u<0||d<dist[u]))u=i;});if(u<0||!isFinite(dist[u])||u===to)break;done.add(u);edges.forEach(function(e){var v=e[0]===u?e[1]:e[1]===u?e[0]:-1;if(v<0)return;var d=dist[u]+Math.hypot(nodes[u].x-nodes[v].x,nodes[u].y-nodes[v].y);if(d<dist[v]){dist[v]=d;prev[v]=u;}});}
+  if(!isFinite(dist[to]))return [];var path=[];for(var u=to;u!=null;u=prev[u])path.unshift(nodes[u]);return path;
+ }
+ g.PilhaNpcRoutes={route:route,routeWithin:routeWithin,sample:sample};
 })(typeof window==='undefined'?globalThis:window);
