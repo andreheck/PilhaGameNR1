@@ -177,4 +177,5 @@ document.addEventListener('visibilitychange',syncClock);window.addEventListener(
 let entryRunning=false;
 async function startExperience(){if(entryRunning)return;entryRunning=true;try{await playOpening();await explainGame(!!state.team);openTeam(!map);}finally{entryRunning=false;}}
 window.PilhaLiving={getRiggedNPCs:()=>map?.iso.riggedAssetsStatus(),getFurniture:()=>map?.iso.furnitureVisuals(),getWorldFrame:()=>map?.iso.getWorldFrame(),getRoutines:()=>L.routines(state),getEmployees:()=>map?.iso.getEmployees()||[],getState:()=>JSON.parse(JSON.stringify(state)),audio:audioStatus,syncClock};
-if(load())startExperience();
+if(window.__AO_TRABALHO_ENTERED&&load())startExperience();
+document.addEventListener('ao-trabalho:start',()=>{if(load())startExperience();},{once:true});
