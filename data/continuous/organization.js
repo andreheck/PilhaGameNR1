@@ -28,7 +28,7 @@ export function jobInCompany(s,p){
  const id=managerMap(s)[p.home],base=p.organization,steps=s.receipts?.filter(r=>r.id==='promocao'&&r.targetId===p.id).length||0;
  const rank=base?.rank==='operacional'?'tatico':base?.rank||'tatico';
  const promoted=steps?{rank,rankName:RANK_NAMES[rank],position:steps===1?'Especialista de setor':'Coordenador(a) de setor'}:{};
- if(p.id===id)return {rank:'estrategico',rankName:'Estratégico',position:'Gerente de '+({escritorio:'Escritório',producao:'Produção',atendimento:'Atendimento'}[p.home]),managerId:id,reportsTo:'conselho'};
+ if(p.id===id)return {rank:'estrategico',rankName:'Estratégico',position:({escritorio:'Gerente do Escritório',producao:'Gerente de Produção',atendimento:'Gerente de Atendimento'}[p.home]),managerId:id,reportsTo:'conselho'};
  if(s.initialHiring?.status!=='complete')return {...base,...promoted};
  return {...base,...promoted,...(base?.rank==='estrategico'?{rank:'tatico',rankName:'Tático',position:'Especialista de setor'}:{}),managerId:id,reportsTo:id};
 }
