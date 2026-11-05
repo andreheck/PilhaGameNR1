@@ -1,4 +1,18 @@
-> **Entrega atual — recuperação e progressão (19/10/2026):** leia [registro](docs/releases/RECUPERACAO-PROGRESSAO-2026-10-19.md), [níveis/XP](docs/PROGRESSAO-HEROIS-2026-10-19.md) e [elétrons futuros](docs/INTEGRACAO-ELETRONS-PILHA-APP.md). Jogador acionista; formação usa créditos fictícios. Não presumir conexão real com o App.
+# PilhA+ Game / Ao Trabalho — versão de testes integrada
+
+Frente de desenvolvimento: `codex/unified-social-agenda`, [PR #69](https://github.com/andreheck/PilhaGameNR1/pull/69). O site de testes é [pilha-plus-game-preview.vercel.app](https://pilha-plus-game-preview.vercel.app/); o commit implantado e a validação devem ser conferidos na PR. Publicar o teste não significa mesclar a branch na main.
+
+A jornada atual é tela inicial Ao Trabalho → apresentação → dupla de heróis → contratação inicial → empresa contínua com Escritório, Produção, Atendimento e Restauração. Inclui 16 NPCs canônicos, ritmos individuais, postos de trabalho, pausas, conversas, reuniões semanais, 38 melhorias/benefícios e progresso local.
+
+`npm run build` gera a entrada em `dist/index.html`, usando `ui/continuous-game.js` e `simulation/company-continuous.js`. Catálogo: `data/continuous/catalog.js`; estado empresarial: `pilha-company-continuous-v2`. Os casos e motores legados são preservados como histórico, sem duplicar seu fluxo no menu contínuo atual.
+
+Validação: `npm test`, `npm run test:continuous`, `npm run test:living`, `npm run test:npcs` e QA Playwright do CI. Relatórios: [revisão das PRs](docs/reviews/REVISAO-PRS-FRENTE-UNICA-2026-11-05.md) e [agenda cíclica](docs/releases/NPCS-AGENDA-CICLICA-2026-11-05.md). Índices são recursos educativos fictícios; não constituem diagnóstico ou comprovação normativa. Novos rigs de heróis e variantes finais de móveis desgastados não são declarados entregues.
+
+## Referências históricas de desenvolvimento
+
+Os registros abaixo preservam decisões e rotas de versões anteriores. Sua descrição de telas e versões publicadas não substitui o fluxo de testes acima.
+
+> **Registro — recuperação e progressão (19/10/2026):** leia [registro](docs/releases/RECUPERACAO-PROGRESSAO-2026-10-19.md), [níveis/XP](docs/PROGRESSAO-HEROIS-2026-10-19.md) e [elétrons futuros](docs/INTEGRACAO-ELETRONS-PILHA-APP.md). Jogador acionista; formação usa créditos fictícios. Não presumir conexão real com o App.
 
 ## Atualização: acionista, dupla visível e ciclo de 30 dias
 
@@ -6,7 +20,7 @@ Referência atual: [motor temporal e hipóteses](docs/MOTOR-ESTATISTICO-TEMPORAL
 
 # PilhA+ Game — desenvolvimento atual
 
-**Fonte canônica:** [Visão de Produto (18/10/2026)](docs/PRODUTO-CANONICO-2026-10-18.md). A versão Alpha 1.4 da main continua publicada; esta branch contém candidata de integração de investimentos, prólogo opcional, navegação por colisão, fallback 2D e estado global, pendente de testes.
+**Referência histórica:** [Visão de Produto (18/10/2026)](docs/PRODUTO-CANONICO-2026-10-18.md). A integração daquela época reunia investimentos, prólogo opcional, navegação por colisão, fallback 2D e estado global. O status atual da frente contínua está descrito no início deste README.
 
 **Áreas:** Casos 01–05, Equipe, Investimentos, Biblioteca e Progresso. O novo mapa costeiro e os sistemas de currículos, mobilidade e contratação são especificações atuais ainda não implementadas como gameplay.
 
