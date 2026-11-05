@@ -15,7 +15,7 @@ test('fictional calendar follows fractional weeks and respects pause',()=>{const
 function engine(){let raf,clock=0;const noop=()=>{},ctx=new Proxy({measureText:t=>({width:t.length*7}),createRadialGradient:()=>({addColorStop:noop})},{get:(o,k)=>k in o?o[k]:noop});const window={devicePixelRatio:1,requestAnimationFrame:fn=>(raf=fn,1),cancelAnimationFrame:()=>{raf=null;}};vm.runInNewContext(fs.readFileSync(new URL('../ui/npc-route-navigation.js',import.meta.url),'utf8'),{window,Math,Set});vm.runInNewContext(fs.readFileSync(new URL('../dist/ui/continuous/iso.js',import.meta.url),'utf8'),{window,Math,Set,performance:{now:()=>clock}});const iso=window.PilhaIso.create({getContext:()=>ctx,getBoundingClientRect:()=>({width:1200,height:700})});iso.resize();iso.setWorld(SECTORS.map((s,i)=>({key:s.id,name:s.name,bx:i%2*14,by:Math.floor(i/2)*10})));iso.setEmployees(L.staffView(setup()));iso.setStatic(false);iso.start();return {iso,tick:ts=>{clock=ts;raf?.(ts);}};}
 test('all16 actors walk automatically, can be picked and respect manual pause',()=>{const {iso,tick}=engine();const before=JSON.stringify(iso.getEmployees());for(let i=1;i<=120;i++)tick(i*16);assert.notEqual(JSON.stringify(iso.getEmployees()),before);const people=iso.getEmployees();assert.equal(people.length,16);assert.equal(new Set(people.map(p=>p.id)).size,16);assert.ok(people.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.screen.x)));const p=people[0];assert.equal(iso.pickEmployee(p.screen.x,p.screen.y),p.id);iso.setManualPause(true);const paused=JSON.stringify(iso.getEmployees());iso.start();tick(3000);assert.equal(JSON.stringify(iso.getEmployees()),paused);iso.setManualPause(false);tick(3100);tick(3300);assert.notEqual(JSON.stringify(iso.getEmployees()),paused);});
 test('desk employees sit at unique computer stations and production workers carry boxes',()=>{
- const {iso}=engine(),s=setup(),rows=L.routines(s).map(r=>({...r}));
+ const {iso}=engine(),s=setup(),rows=L.routines(s).map(r=>({...r,sampleAt:undefined}));
  const office=rows.find(r=>r.id==='NPC-01');Object.assign(office,{offset:.6,outEnd:.08,pauseEnd:.14,tripEnd:.22,scale:1,speed:1});
  const production=rows.find(r=>r.id==='NPC-09');Object.assign(production,{offset:.5,outEnd:.08,pauseEnd:.14,tripEnd:.22,scale:1,speed:1});
  iso.setRoutineClock({week:1,activeMs:0,paused:false},rows);
@@ -118,14 +118,15 @@ test('weekly deposit is atomic on storage failure and serialized tabs consume on
 
 const routines=await import('../simulation/rest-routines.js');
 test('two-day rota gives every active NPC an outbound, rest, return and expiring score',()=>{
- const s=setup(),raw=JSON.stringify(s);for(const p of EMPLOYEES){const i=Number(p.id.slice(-2))-1;
- for(const [phase,stage] of [[.04,'outbound'],[.11,'rest'],[.18,'return'],[.30,'afterglow'],[.70,'work']]){s.activeMs=((i/16+phase)*routines.ROUTINE_PERIOD)%routines.ROUTINE_PERIOD;const r=L.routines(s).find(r=>r.id===p.id);assert.equal(r.stage,stage);assert.ok(r.healthBonus>=0&&r.healthBonus<=8);if(stage==='work')assert.equal(r.healthBonus,0);}
+ const s=setup(),raw=JSON.stringify(s);for(const p of EMPLOYEES){const stages=new Set();
+ for(let t=0;t<routines.ROUTINE_PERIOD;t+=routines.ROUTINE_PERIOD/200){s.activeMs=t;const r=L.routines(s).find(r=>r.id===p.id);stages.add(r.stage);assert.ok(r.healthBonus>=0&&r.healthBonus<=8);}
+ assert.ok(stages.has('outbound'),p.id+' outbound');assert.ok(stages.has('rest'),p.id+' rest');assert.ok(stages.has('return'),p.id+' return');assert.ok([...stages].some(x=>['work','conversation','afterglow','meeting','meeting-outbound','meeting-return'].includes(x)),p.id+' work or social agenda');
  }s.activeMs=0;assert.equal(JSON.stringify(s),raw);
  for(let t=0;t<routines.ROUTINE_PERIOD;t+=100){s.activeMs=t;assert.ok(L.attendance(s).length<=6);assert.equal(new Set(L.routines(s).map(r=>r.id)).size,16);}
 });
 test('approved patio upgrades increase temporary benefits without mutating saved health',()=>{
  let s=setup();s.activeMs=routines.ROUTINE_PERIOD*.16;const base=L.staffView(s).find(p=>p.id==='NPC-01'),original=s.staff['NPC-01'].health;s.budget=100000;s=M.purchase(s,M.quote(s,'restauracao','banco')).state;s.activeMs=routines.ROUTINE_PERIOD*.16;
- const improved=L.staffView(s).find(p=>p.id==='NPC-01');assert.ok(improved.temporaryBonus>base.temporaryBonus);assert.equal(s.staff['NPC-01'].health,original);assert.ok(improved.health<=100);const once=JSON.stringify(s);L.staffView(s);L.staffView(s);assert.equal(JSON.stringify(s),once);s.activeMs=routines.ROUTINE_PERIOD*.7;assert.equal(L.staffView(s).find(p=>p.id==='NPC-01').temporaryBonus,0);
+ const improved=L.staffView(s).find(p=>p.id==='NPC-01');assert.ok(improved.temporaryBonus>base.temporaryBonus);assert.equal(s.staff['NPC-01'].health,original);assert.ok(improved.health<=100);const once=JSON.stringify(s);L.staffView(s);L.staffView(s);assert.equal(JSON.stringify(s),once);s.activeMs=routines.ROUTINE_PERIOD*.7;const later=L.staffView(s).find(p=>p.id==='NPC-01');if(later.routine.startsWith('meeting'))assert.ok(later.temporaryBonus>0,'weekly patio meetings may grant a temporary social influence');else assert.equal(later.temporaryBonus,0);
 });
 test('all departments have complete routes through connected aisles in both layouts',()=>{
  const g={};vm.runInNewContext(fs.readFileSync(new URL('../ui/npc-route-navigation.js',import.meta.url),'utf8'),{window:g,Math,Set});

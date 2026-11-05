@@ -19,7 +19,7 @@ function engine(s,{images=true,offsets={}}={}){
  return {iso,calls,tick:n=>{clock=n;raf?.(n);}};
 }
 test('only the two approved actors draw rigged sheets and use animated frames without mutating saves',()=>{
- const s=L.ensureLiving(M.fresh());s.activeMs=12000;const before=JSON.stringify(s),{iso,calls,tick}=engine(s,{offsets:{'NPC-16':.45}});tick(16);const first=iso.riggedAssetsStatus();tick(616);const next=iso.riggedAssetsStatus();
+ const s=L.ensureLiving(M.fresh());s.activeMs=0;const before=JSON.stringify(s),{iso,calls,tick}=engine(s,{offsets:{'NPC-16':.45}});tick(16);const first=iso.riggedAssetsStatus();tick(616);const next=iso.riggedAssetsStatus();
  assert.equal(next.loaded,5);assert.deepEqual(Array.from(next.bindings),['NPC-16','NPC-07']);assert.ok(next.drawn.length>=1);assert.ok(next.drawn.every(p=>['walk','talk','idle'].includes(p.action)));assert.ok(next.drawn.some(p=>p.id==='NPC-16'&&p.action==='walk'));
  assert.ok(calls.some(([src])=>src?.endsWith('/beatriz-walk.png')));assert.equal(iso.getEmployees().length,16);assert.equal(JSON.stringify(s),before);
  const p=iso.getEmployees().find(p=>p.id==='NPC-16');iso.focusEmployee(p.id,0);const focused=iso.getEmployees().find(q=>q.id===p.id);assert.equal(iso.pickEmployee(focused.screen.x,focused.screen.y),p.id);
@@ -34,5 +34,5 @@ test('unavailable sprite files keep all active actors visible through the existi
 });
 
 test('Mariana uses her supplied conversation clip during a restorative pause',()=>{
- const s=L.ensureLiving(M.fresh());s.activeMs=16286;const {iso,tick}=engine(s);tick(16);assert.equal(L.routines(s).find(p=>p.id==='NPC-07').stage,'rest');assert.equal(iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-07').action,'talk');
+ const s=L.ensureLiving(M.fresh());s.activeMs=9900;const {iso,tick}=engine(s);tick(16);const mariana=L.routines(s).find(p=>p.id==='NPC-07');assert.equal(mariana.stage,'rest');assert.equal(mariana.talking,true);assert.ok(mariana.partnerId);assert.equal(iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-07').action,'talk');
 });
