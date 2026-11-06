@@ -1,3 +1,4 @@
+import {robotWeeklyRevenue} from './blue-robot.js';
 /** Fictional cashflow: 1,000 weekly credits divided across 16 baseline posts.
  * An active worker contributes based on their simulated health and sector conditions.
  * Hiring/covering a post restores capacity; spare headcount cannot create revenue.
@@ -71,13 +72,15 @@ export function financePreview(s){
    environmentFactor:round(envFactor),revenue:round(sectorRevenue),
    gap:sectorStaffing(s,sid).gap});
  }
- const revenue=round(rawRevenue);
+ const robotRevenue=round(robotWeeklyRevenue(s));
+ if(robotRevenue){const production=bySector.find(x=>x.id==='producao');production.revenue=round(production.revenue+robotRevenue);perWorker.push({id:'ROBOT-01',name:'Robô Azul · automação',sector:'producao',temporary:false,automation:true,health:100,healthFactor:1,environmentFactor:1,contribution:robotRevenue,capacityShare:0});}
+ const revenue=round(rawRevenue+robotRevenue);
  const vacantLoss=round((FINANCE_RULES.basePosts-productivePosts)*perPost);
  const healthLoss=round(productivePosts*perPost-rawHealthOnly);
  const environmentLoss=round(rawHealthOnly-rawRevenue);
  return {base:FINANCE_RULES.baseRevenue,productivePosts,originalActive,hiresActive,
-  temporary:coverage.length,revenue,monthlyEquivalent:round(revenue*4),
-  lostRevenue:round(FINANCE_RULES.baseRevenue-revenue),
+  temporary:coverage.length,robotRevenue,revenue,monthlyEquivalent:round(revenue*4),
+  lostRevenue:round(FINANCE_RULES.baseRevenue-rawRevenue),
   vacantLoss,healthLoss,environmentLoss,perPost,bySector,perWorker};
 }
 export function financeWeek(s,weeklyCost=0){
