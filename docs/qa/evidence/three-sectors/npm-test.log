@@ -1,0 +1,180 @@
+
+> test
+> node tests/alpha14.test.mjs && node tests/experience-integration.test.mjs && node tests/case01-scene.test.mjs && node tests/case02-integration.test.mjs && node tests/company-state.test.mjs && node tests/management-mechanics.test.mjs && node tests/static-flow.mjs && node tests/qa-navigation-fallback.test.mjs && node tests/navigation-collision.test.mjs && node tests/investment-system.test.mjs && node tests/open-hall.test.mjs && node tests/hero-team.test.mjs && node tests/mission-timeline.test.mjs && node tests/hero-progression.test.mjs && node tests/sector-map.test.mjs
+
+Alpha 1.4: 5 casos, 100 pts, bloqueio sequencial, progresso legado, GLBs, animacoes, CSS PASS
+Hub 3D ampliado, mobiliário CC0 e remoção da visão estática pass
+✔ a central encaminha o Caso 01 para a jornada completa (1.0009ms)
+✔ o Caso 01 usa o motor simulado no dashboard (0.8195ms)
+✔ uma decisão estrutural produz consequências educativas em 30 dias (1.0423ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11.5054
+✔ deriva estado visual persistente para uma intervenção estrutural (3.8668ms)
+✔ serializa e restaura o estado sem perder decisões ou consequências (1.4717ms)
+✔ serializa alertas visuais quando há exposição de privacidade (0.4285ms)
+✔ rejeita payloads inválidos e limita o tamanho do horizonte (0.7012ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14.6947
+✔ Caso 02 é encaminhado para uma página dedicada (1.0692ms)
+✔ Caso 02 usa o mesmo mundo 3D com novas presenças de liderança (0.657ms)
+✔ simulação segura melhora segurança psicológica em 30 dias (0.753ms)
+✔ exposição pública mantém uma consequência educativa negativa (0.1909ms)
+✔ painel recalcula silêncio em tempo real a partir do estado global (0.5474ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11.6753
+Estado global da empresa e efeitos nos Casos 02–05: PASS
+✔ estado global é versionado, acumulável e tem histórico limitado (1.8357ms)
+✔ proteção melhora o contexto global dos Casos 02 a 05 (0.4631ms)
+✔ demissão cria contexto adverso sem apagar o progresso individual (0.2677ms)
+✔ Caso 02 recebe o contexto global sem decisão e mantém os valores iniciais (1.1516ms)
+✔ Caso 02 e Casos 03–05 recebem efeitos persistentes do estado da empresa (0.7289ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13.9389
+Mecânica de proteção, adiamento e demissão após adoecimento: PASS
+✔ a medida de proteção registra 30 dias e melhora o cenário (1.1518ms)
+✔ adiar é o cenário neutro com risco residual (0.2236ms)
+✔ demitir após adoecimento marca o estado não atendido (0.2069ms)
+✔ hub conecta as três escolhas ao feedback persistente da cena (0.4259ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11.8057
+Caso 01: success 100 failure 23 ethical guardrails pass
+App: home, 5 cases (1 playable, 4 disabled), 4 portraits, score persistence pass
+Assets: 10 WebP files valid; static overview removed
+QA navegação, score, elenco e fallback 2D: PASS
+Navigation swept collision tests: PASS
+✔ detecta obstáculo no segmento mesmo quando início e destino estão livres (1.7378ms)
+✔ movimento longo não atravessa parede estreita (tunneling) (0.3953ms)
+✔ permite deslizar pelo eixo livre quando o trajeto diagonal bloqueia (0.2704ms)
+✔ respeita limites do escritório e impede passagem em corredor obstruído (0.2272ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10.7365
+Investment budget, forecasts, persistence and floating alerts: PASS
+✔ cada nova sessão começa com 10000 créditos e persiste no localStorage (2.8902ms)
+✔ compra reduz saldo, guarda histórico e agenda previsão em 30 dias (1.2667ms)
+✔ não permite saldo negativo nem comprar a mesma melhoria duas vezes (0.2514ms)
+✔ previsões diferenciam instalada, disponível e sem orçamento (0.3033ms)
+✔ hub contém aviso flutuante, tela de investimentos e feedback visual (2.0705ms)
+✔ catálogo cobre fatores psicossociais e riscos físicos do trabalho (1.2682ms)
+✔ efeitos nos indicadores só amadurecem ao avançar o horizonte de 30 dias (1.6643ms)
+✔ estado dos indicadores e eventos permanece persistido (0.3413ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19.2652
+✔ os 12 recursos fisicos correspondem ao catalogo financeiro existente (2.5914ms)
+✔ melhoria, duplicacao, recarga e 30 dias mantem contrato de simulacao (0.7387ms)
+✔ malhas fornecidas preservam esqueletos e animacoes em arquivos locais leves (7.1832ms)
+✔ transformacao e restauracao sao explicitas e nao apenas alteracao da cor do setor (1.2751ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18.3901
+✔ seis heróis da PR22, todos disponíveis, sem bônus numéricos inventados (2.4032ms)
+✔ dupla exige duas identidades diferentes e um Caso 01–05 (0.2138ms)
+✔ salva/restaura uma dupla por caso, sem tocar orçamento ou progresso (0.5055ms)
+✔ seleção inválida não destrói uma dupla anterior (0.1753ms)
+✔ estado ausente, corrompido, excessivo, legado e registros inválidos são seguros (0.3221ms)
+✔ armazenamento bloqueado não declara sucesso falso (0.2379ms)
+✔ proteção Manus cobre lista vazia e ausência de clipe compatível (2.9855ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14.8103
+✔ one real hour is exactly seven simulated days; 30 days exceed 4h (1.5765ms)
+✔ pause does not advance; no negative/NaN delta; bounded month (1.0873ms)
+✔ clock and evaluation are invariant to tick partition, no frame-dependent stacking (179.1903ms)
+✔ Director ability has delay, ramp, finite action, decay and cooldown (0.6402ms)
+✔ only assigned approved active skill can be invoked, no invented other-hero powers (0.3637ms)
+✔ permanence requires explicit exception or eligible power level strictly over 20 (0.3727ms)
+✔ resources ramp gradually, synergy is bounded, active effect can expire (0.7913ms)
+✔ a late purchase matures relative to its purchase day; persistent inventory is idempotent (0.4578ms)
+✔ validated state tolerates invalid JSON and does not write real dates into elapsed time (0.8861ms)
+✔ Kimi P1: every flagged option blocks approval even with 3 perfect choices (1.0645ms)
+✔ perfect plans still score100 and require time for new timed missions; legacy achievements preserved (0.5848ms)
+✔ no instant advance button, immutable old financial catalog, visible shareholder strip (1.1944ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 196.2075
+✔ level curve is bounded and both XP sources are explicit (1.9089ms)
+✔ insufficient funds, stale quote, unknown identity and cap do not mutate (0.2294ms)
+✔ one write atomically commits training + budget, failure gives neither (0.6366ms)
+✔ replayed training uses expected level; separate purchases share newest budget (1.7104ms)
+✔ safe confirmed situation rewards frozen assigned duo only; no XP for harmful option (1.5447ms)
+✔ case XP requires 30 days + new approved safe plan; elapsed time alone never awards (0.8191ms)
+✔ hero level snapshots affect only model strength, never delay, duration or permanence (1.2645ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14.8462
+✔ three visual sectors retain all five case IDs without duplicating them (1.5323ms)
+✔ P&D Tech has the four documented concepts without executable temporal effects (0.2044ms)
+✔ new psychologist sheet is conceptual and cannot be activated as a runtime ability (0.1496ms)
+✔ map purchases and formation use the same budget and preserve unrelated saves (2.3149ms)
+✔ repeated or concurrent map purchases charge a shared upgrade only once (0.4467ms)
+✔ storage failure and malformed saves cannot confirm a map purchase or overwrite saves (0.4107ms)
+✔ installation changes inventory but never accelerates time or immediately increases axes (2.4809ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13.9675

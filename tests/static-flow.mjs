@@ -5,7 +5,7 @@ import path from 'node:path';
 import { CASE01_INITIAL, simulateCase01 } from '../simulation/case01.js';
 import { deriveCase01SceneState } from '../simulation/case01-scene.js';
 const root=path.resolve(import.meta.dirname,'..');
-const src=name=>fs.readFileSync(path.join(root,name),'utf8');
+const src=name=>fs.readFileSync(path.join(root,name),'utf8').replace(/\r\n/g,'\n');
 function runtime(initial={}){
   const local=new Map(Object.entries(initial));
   const main={innerHTML:'',addEventListener(){},focus(){}};

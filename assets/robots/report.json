@@ -1,0 +1,49 @@
+{
+  "done": true,
+  "errors": [],
+  "models": [
+    {
+      "key": "blue-robot",
+      "clips": [
+        {
+          "name": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+          "duration": 1.0333333015441895
+        }
+      ]
+    }
+  ],
+  "atlases": [
+    {
+      "key": "blue-robot",
+      "id": "ROBOT-01",
+      "action": "walk",
+      "clip": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "key": "blue-robot",
+      "id": "ROBOT-01",
+      "action": "idle",
+      "clip": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768
+    }
+  ],
+  "sourceSha256": "f74eaf66cb1421d674b64f7e28b0198456163a4566c0482eb6142e67312fce66",
+  "materialNote": "FBX without usable textures; provisional blue material"
+}

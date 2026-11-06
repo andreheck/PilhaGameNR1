@@ -1,0 +1,14 @@
+Estado global da empresa e efeitos nos Casos 02–05: PASS
+✔ estado global é versionado, acumulável e tem histórico limitado (1.379ms)
+✔ proteção melhora o contexto global dos Casos 02 a 05 (0.4204ms)
+✔ demissão cria contexto adverso sem apagar o progresso individual (0.2377ms)
+✔ Caso 02 recebe o contexto global sem decisão e mantém os valores iniciais (1.0645ms)
+✔ Caso 02 e Casos 03–05 recebem efeitos persistentes do estado da empresa (0.5785ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11.774

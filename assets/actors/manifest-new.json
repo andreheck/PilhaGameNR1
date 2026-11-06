@@ -1,0 +1,35 @@
+[
+  {
+    "key": "mentor",
+    "source": "Meshy_AI_Rigged_Stylized_Man_biped_Meshy_Merged_Animations.fbx",
+    "bones": 23,
+    "polygons": 9340,
+    "sourceAnimations": [
+      "target_character|target_character|target_character|falling_down",
+      "target_character|target_character|target_character|Jump_Run",
+      "target_character|target_character|target_character|Running",
+      "target_character|target_character|target_character|Stand_to_Sit",
+      "target_character|target_character|target_character|Talk_with_Ha",
+      "target_character|target_character|target_character|Walking",
+      "target_character|target_character|target_character|Wave_One_Han"
+    ],
+    "bytes": 1247104,
+    "output": "mentor-pilha.glb"
+  },
+  {
+    "key": "mentora",
+    "source": "Meshy_AI_woman_character_rigge_biped_Meshy_Merged_Animations.fbx",
+    "bones": 23,
+    "polygons": 10393,
+    "sourceAnimations": [
+      "target_character|target_character|target_character|Angry_Ground",
+      "target_character|target_character|target_character|Discuss_Whil",
+      "target_character|target_character|target_character|falling_down",
+      "target_character|target_character|target_character|Running",
+      "target_character|target_character|target_character|Walking",
+      "target_character|target_character|target_character|Wave_One_Han"
+    ],
+    "bytes": 1720864,
+    "output": "mentora-biblioteca.glb"
+  }
+]

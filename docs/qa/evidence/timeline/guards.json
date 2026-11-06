@@ -1,0 +1,11 @@
+{
+  "kind": "Chromium headless; controlled visibility and Web Locks test",
+  "checks": [
+    "reduced motion disables orbital animation",
+    "latest Scientist and Engineer conceptual powers visible, no fabricated runnable effects",
+    "only one tab may own the real clock; duo freezes immediately",
+    "hidden-page event pauses and does not accumulate time"
+  ],
+  "errors": [],
+  "passed": true
+}
