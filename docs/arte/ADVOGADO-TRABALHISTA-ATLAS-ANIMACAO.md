@@ -50,7 +50,7 @@ As animações de locomoção devem funcionar em qualquer direção por rotaçã
 ## Exportação e integração
 
 - Formato de intercâmbio preferencial: glTF 2.0 / GLB, com malha, armature, materiais e clips de animação.
-- Blender como ferramenta de autoria sugerida; confirmar pipeline e versão de runtime antes de fechar configurações.
+- Meshy como ferramenta de autoria/modelagem e rigging, seguindo o fluxo já validado no Psiquiatra; Blender pode ser usado para inspeção técnica e ajustes se necessário.
 - Aplicar transformações, escala consistente e nomes estáveis para bones e actions.
 - Incluir clips separados e nomeados de forma inequívoca: `Idle`, `Walk`, `Run`, `Talk`, `Point`, `Interact`.
 - Verificar orientação frontal, unidade, escala, origem/pivot no chão e bounding box.
@@ -99,10 +99,10 @@ O modelo `assets/actors/operadora.glb` pode servir como segunda referência de c
 
 **Regra:** não definir uma altura numérica arbitrária para o Advogado. Primeiro medir o GLB de referência no Blender e registrar suas dimensões reais (X/Y/Z) e unidade; em seguida, modelar o Advogado para corresponder à mesma altura e escala visual. A dimensão do bounding box pode variar ligeiramente por causa do coque, óculos ou postura, mas a altura corporal e a escala dos pés devem permanecer compatíveis.
 
-Não foi possível confirmar, pela listagem textual do repositório, as dimensões numéricas internas do arquivo GLB. Portanto, elas permanecem pendentes de inspeção do modelo em ferramenta 3D; tamanho do arquivo em bytes não deve ser usado como substituto da dimensão geométrica.
+**Contexto confirmado pelo responsável pelo projeto:** o Psiquiatra foi modelado e rigado no Meshy e já foi testado na primeira versão do mapa. Portanto, ele é uma referência validada de produção e integração, não apenas um arquivo GLB existente. O Advogado deverá seguir o mesmo fluxo de autoria no Meshy e o mesmo padrão de exportação/integração que funcionou com o Psiquiatra.\n\nAs dimensões geométricas numéricas (X/Y/Z), altura corporal, unidade e detalhes da hierarquia do rig ainda precisam ser extraídos do GLB ou do projeto Meshy; não devem ser inferidos pelo tamanho do arquivo em bytes.
 
 ### Critérios adicionais
 - [ ] Abrir `psiquiatra.glb` e registrar bounding box X/Y/Z, altura do chão ao topo e escala/unidade.
-- [ ] Confirmar se o modelo contém armature/skin e clips de animação; não presumir que o arquivo é rigado.
+- [x] Confirmado pelo responsável: Psiquiatra modelado e rigado no Meshy, testado na primeira versão do mapa.\n- [ ] Inspecionar o GLB/projeto Meshy para registrar dimensões, nomes/hierarquia dos bones, clips exportados e configurações de exportação.
 - [ ] Comparar visualmente com `operadora.glb` e `psicologa.glb`.
 - [ ] Usar a mesma escala, origem, orientação e convenção de exportação no Advogado Trabalhista.
