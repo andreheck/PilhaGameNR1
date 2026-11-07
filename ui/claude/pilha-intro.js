@@ -248,7 +248,7 @@
         placeNodes();
         iso.start();
         cta.focus({ preventScroll: true });
-      }, reduce ? 0 : 600);
+      }, o.skipSplash||reduce ? 0 : 600);
     }
 
     function onNode(e) {
@@ -296,10 +296,12 @@
       if (root.parentNode) root.parentNode.removeChild(root);
     }
 
+    root.getIntroCastStatus=function(){return iso.getIntroCastStatus?iso.getIntroCastStatus():null;};
     function onResize() { if (!invite.hidden) { iso.resize(); placeNodes(); } }
     function onVis() { if (document.hidden) iso.stop(); else if (!invite.hidden) iso.start(); }
 
     iso = global.PilhaIso.create(canvas, signals.map(function (s) { return s.color; }));
+    if(o.cast&&iso.setIntroCast)iso.setIntroCast(o.cast);
     iso.setStatic(motionChoice==='off');
     applyMotion();
     iso.setEnv(envKey());
@@ -320,7 +322,7 @@
       if (!shown && (e.key === "Enter" || e.key === " ")) showInvite();
     });
 
-    if (o.skipSplash) showInvite();
+    if (o.skipSplash){splash.hidden=true;showInvite();}
     else later(showInvite, reduce ? 800 : o.splashMs);
 
     return { destroy: destroy, root: root };

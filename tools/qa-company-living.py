@@ -18,6 +18,7 @@ def run(browser,w,h):
         if not page.locator('.living-more').evaluate('(e)=>e.open'):page.locator('.living-more summary').click()
     def enter():
         check(page.locator('.at-start').count()==0,tag+': direct opening without additional start screen')
+        page.locator('.cinematic-start').click()
         page.locator('.pi-root').wait_for();check(page.locator('.pi-motion').count()==0,tag+': no animation toggle in opening')
         # Splash transitions automatically; clicking it races with the invite fade-in.
         page.locator('.pi-skip').wait_for(state='visible')
@@ -281,6 +282,7 @@ def run(browser,w,h):
         # Same-origin real second tab: shared storage and Web Locks must consume one week.
         if w==1366:
             other=ctx.new_page();other.goto('http://127.0.0.1:8768/',wait_until='domcontentloaded')
+            other.locator('.cinematic-start').click()
             other.locator('.pi-root').wait_for(state='visible')
             other.locator('.pi-skip').wait_for(state='visible');other.locator('.pi-skip').click()
             for _ in range(3):other.locator('[data-guide="next"]').click()
