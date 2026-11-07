@@ -81,3 +81,28 @@ As animações de locomoção devem funcionar em qualquer direção por rotaçã
 ## Restrições de escopo
 
 Esta especificação não adiciona o herói ao roster e não altera seleção de personagens, atributos, habilidades, raridade, economia ou regras de missão. Não declara modelagem, rigging ou integração concluídos. Preservar os sistemas existentes de navegação e NPCs; integrar o personagem ao pipeline já existente em vez de criar uma arquitetura paralela.
+
+
+## Referência dimensional obrigatória — modelo existente
+
+O modelo-base para proporções e escala será **`assets/actors/psiquiatra.glb`**, já presente na branch principal do projeto. Ele deve ser aberto no Blender (ou ferramenta 3D equivalente) e usado como referência direta para:
+
+- altura total do personagem, da sola do pé ao topo da cabeça/cabelo;
+- largura dos ombros e quadril;
+- proporção cabeça/corpo e comprimento dos membros;
+- escala dos pés e distância entre eles na pose neutra;
+- posição da origem (origin) e altura do plano do chão;
+- orientação frontal e eixos locais;
+- bounding box e escala aplicada na exportação.
+
+O modelo `assets/actors/operadora.glb` pode servir como segunda referência de consistência entre personagens. A pasta `assets/actors` na branch principal também contém `psicologa.glb`.
+
+**Regra:** não definir uma altura numérica arbitrária para o Advogado. Primeiro medir o GLB de referência no Blender e registrar suas dimensões reais (X/Y/Z) e unidade; em seguida, modelar o Advogado para corresponder à mesma altura e escala visual. A dimensão do bounding box pode variar ligeiramente por causa do coque, óculos ou postura, mas a altura corporal e a escala dos pés devem permanecer compatíveis.
+
+Não foi possível confirmar, pela listagem textual do repositório, as dimensões numéricas internas do arquivo GLB. Portanto, elas permanecem pendentes de inspeção do modelo em ferramenta 3D; tamanho do arquivo em bytes não deve ser usado como substituto da dimensão geométrica.
+
+### Critérios adicionais
+- [ ] Abrir `psiquiatra.glb` e registrar bounding box X/Y/Z, altura do chão ao topo e escala/unidade.
+- [ ] Confirmar se o modelo contém armature/skin e clips de animação; não presumir que o arquivo é rigado.
+- [ ] Comparar visualmente com `operadora.glb` e `psicologa.glb`.
+- [ ] Usar a mesma escala, origem, orientação e convenção de exportação no Advogado Trabalhista.
