@@ -99,10 +99,28 @@ O modelo `assets/actors/operadora.glb` pode servir como segunda referência de c
 
 **Regra:** não definir uma altura numérica arbitrária para o Advogado. Primeiro medir o GLB de referência no Blender e registrar suas dimensões reais (X/Y/Z) e unidade; em seguida, modelar o Advogado para corresponder à mesma altura e escala visual. A dimensão do bounding box pode variar ligeiramente por causa do coque, óculos ou postura, mas a altura corporal e a escala dos pés devem permanecer compatíveis.
 
-**Contexto confirmado pelo responsável pelo projeto:** o Psiquiatra foi modelado e rigado no Meshy e já foi testado na primeira versão do mapa. Portanto, ele é uma referência validada de produção e integração, não apenas um arquivo GLB existente. O Advogado deverá seguir o mesmo fluxo de autoria no Meshy e o mesmo padrão de exportação/integração que funcionou com o Psiquiatra.\n\nAs dimensões geométricas numéricas (X/Y/Z), altura corporal, unidade e detalhes da hierarquia do rig ainda precisam ser extraídos do GLB ou do projeto Meshy; não devem ser inferidos pelo tamanho do arquivo em bytes.
+**Contexto confirmado pelo responsável pelo projeto:** o Psiquiatra foi modelado e rigado no Meshy e já foi testado na primeira versão do mapa. Portanto, ele é uma referência validada de produção e integração, não apenas um arquivo GLB existente. O Advogado deverá seguir o mesmo fluxo de autoria no Meshy e o mesmo padrão de exportação/integração que funcionou com o Psiquiatra.
+
+### Inspeção técnica do GLB fornecido (2026-11-07)
+
+Arquivo analisado: `Meshy_AI_Rigged_Male_Psychiatr_All_Animations.glb`, fornecido pelo responsável pelo projeto.
+
+- Contêiner: GLB, glTF 2.0; gerador identificado: Blender glTF I/O v4.0.43.
+- Malha principal: 15.837 vértices e 10.334 triângulos, em uma primitiva.
+- Esqueleto: 1 skin com 23 joints; nomes de ossos no padrão `mixamorig`, incluindo Hips, Spine/Spine1/Spine2, Neck, Head, braços, antebraços, mãos, pernas, pés e dedos dos pés. Há também o nó `headfront` incluído na skin.
+- Materiais e imagens: 1 material, 2 referências de textura e 1 imagem incorporada.
+- Nó raiz de personagem: `target_character`, com escala uniforme `0.01`.
+- Bounds locais da posição da malha: X = -0,429968 a +0,429968; Y = aproximadamente 0 a 1,600000; Z = -0,299655 a +0,299655. Extensão local aproximada: 0,85994 × 1,60 × 0,59931.
+- A escala `0.01` do nó raiz deve ser considerada ao calcular as dimensões efetivas no runtime. O GLB não declara uma unidade física explícita; portanto, não afirmar que as dimensões locais são metros nem converter para altura física sem confirmar a convenção do loader/runtime.
+- Eixo vertical aparente da malha: Y. Confirmar orientação frontal e convenção de eixos no runtime antes de exportar o novo ator.
+- Clips encontrados: `Running` (aprox. 0,708 s), `Walking` (aprox. 1,083 s), `Discuss_While_Moving` (aprox. 8,083 s) e `Armature|clip0|baselayer` (aprox. 0,042 s). Cada clip possui 46 canais, com canais de rotação e translação para os 23 joints.
+
+**Implicação para o Advogado:** usar como referência o rig humanoide de 23 joints e a convenção de hierarquia/nomenclatura `mixamorig`; manter proporções visuais e escala compatíveis, respeitando o nó raiz com escala 0.01 apenas se a auditoria do runtime confirmar que esse é o padrão compartilhado pelos atores. O novo personagem precisará de clips próprios para gestos de fala, apontar e interação; não presumir que os quatro clips do Psiquiatra já atendem a essas ações.
 
 ### Critérios adicionais
-- [ ] Abrir `psiquiatra.glb` e registrar bounding box X/Y/Z, altura do chão ao topo e escala/unidade.
-- [x] Confirmado pelo responsável: Psiquiatra modelado e rigado no Meshy, testado na primeira versão do mapa.\n- [ ] Inspecionar o GLB/projeto Meshy para registrar dimensões, nomes/hierarquia dos bones, clips exportados e configurações de exportação.
+- [x] Abrir e inspecionar o GLB do Psiquiatra fornecido pelo responsável.
+- [x] Registrar dimensões locais da malha, escala do nó raiz, quantidade de vértices/triângulos, estrutura do rig e clips encontrados.
+- [x] Confirmado pelo responsável: Psiquiatra modelado e rigado no Meshy, testado na primeira versão do mapa.
+- [ ] Confirmar unidade física e escala efetiva no runtime/loader do jogo.
 - [ ] Comparar visualmente com `operadora.glb` e `psicologa.glb`.
 - [ ] Usar a mesma escala, origem, orientação e convenção de exportação no Advogado Trabalhista.
