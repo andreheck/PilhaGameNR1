@@ -1,0 +1,332 @@
+[
+  {
+    "file": "Props_Moveis\\Armario_Arquivo_Office\\Office Filing Cabinet.glb",
+    "bytes": 15271248,
+    "clips": [],
+    "meshes": 1,
+    "skins": 0
+  },
+  {
+    "file": "Props_Moveis\\Cadeira_Giratoria\\Meshy_AI_Office_Swivel_Chair_1013182007_image-to-3d-texture.fbx",
+    "bytes": 29601436,
+    "clips": []
+  },
+  {
+    "file": "Props_Moveis\\Empilhadeira_Forklift\\Meshy_AI_Stylized_Forklift_1013180442_image-to-3d-texture.fbx",
+    "bytes": 56587356,
+    "clips": []
+  },
+  {
+    "file": "Props_Moveis\\Mesa_Escritorio_PC\\Meshy_AI_Office_Desk_with_Comp_1013181942_image-to-3d-texture.fbx",
+    "bytes": 27403324,
+    "clips": []
+  },
+  {
+    "file": "Props_Moveis\\Palete_com_Caixas\\Meshy_AI_Pallet_with_Boxes_1013180504_image-to-3d-texture.fbx",
+    "bytes": 40432316,
+    "clips": []
+  },
+  {
+    "file": "Props_Moveis\\Porta_Paletes_Rack\\Meshy_AI_Warehouse_Storage_Rac_1013180420_image-to-3d-texture.fbx",
+    "bytes": 73680668,
+    "clips": []
+  },
+  {
+    "file": "Personagens\\01_Acionista_Heck\\Meshy_AI_Rigged_Stylized_Man_biped_Meshy_Merged_Animations.fbx",
+    "bytes": 19122940,
+    "clips": [
+      "target_character|target_character|falling_down / AnimStack",
+      "target_character|target_character|Jump_Run / AnimStack",
+      "target_character|target_character|Running / AnimStack",
+      "target_character|target_character|Stand_to_Sit_Transition_M / AnimStack",
+      "target_character|target_character|Talk_with_Hands_Open / AnimStack",
+      "target_character|target_character|Walking / AnimStack",
+      "target_character|target_character|Wave_One_Hand / AnimStack"
+    ]
+  },
+  {
+    "file": "Personagens\\02_Diretor\\Meshy_AI_Stylized_Director_Rig_biped_Meshy_Merged_Animations.fbx",
+    "bytes": 23948140,
+    "clips": [
+      "target_character|target_character|Confused_Scratch / AnimStack",
+      "target_character|target_character|Discuss_While_Moving / AnimStack",
+      "target_character|target_character|Running / AnimStack",
+      "target_character|target_character|Stand_to_Sit_Transition_M / AnimStack",
+      "target_character|target_character|Walking / AnimStack",
+      "target_character|target_character|Wave_One_Hand / AnimStack"
+    ]
+  },
+  {
+    "file": "Personagens\\03_Diretora_Ensino\\Meshy_AI_woman_character_rigge_biped_Meshy_Merged_Animations.fbx",
+    "bytes": 17384684,
+    "clips": [
+      "target_character|target_character|Angry_Ground_Stomp / AnimStack",
+      "target_character|target_character|Discuss_While_Moving / AnimStack",
+      "target_character|target_character|falling_down / AnimStack",
+      "target_character|target_character|Running / AnimStack",
+      "target_character|target_character|Walking / AnimStack",
+      "target_character|target_character|Wave_One_Hand / AnimStack"
+    ]
+  },
+  {
+    "file": "Personagens\\04_Gestora\\Meshy_AI_business_woman_rigged_biped_Meshy_Merged_Animations.fbx",
+    "bytes": 21709708,
+    "clips": [
+      "target_character|target_character|Running / AnimStack",
+      "target_character|target_character|Stand_and_Chat / AnimStack",
+      "target_character|target_character|Stand_to_Sit_Transition_M / AnimStack",
+      "target_character|target_character|Walking / AnimStack",
+      "target_character|target_character|Wave_One_Hand / AnimStack"
+    ]
+  },
+  {
+    "file": "Personagens\\05_Adm_Geral_SmartEmployee\\Meshy_AI_base_employee_smart_r_biped_Meshy_Merged_Animations.fbx",
+    "bytes": 8723228,
+    "clips": [
+      "target_character|target_character|Depressed_Full_Turn_Left / AnimStack",
+      "target_character|target_character|falling_down / AnimStack",
+      "target_character|target_character|Running / AnimStack",
+      "target_character|target_character|Stand_to_Sit_Transition_M / AnimStack",
+      "target_character|target_character|Talk_with_Hands_Open / AnimStack",
+      "target_character|target_character|Walking / AnimStack",
+      "target_character|target_character|Wave_One_Hand / AnimStack"
+    ]
+  },
+  {
+    "file": "Personagens\\06_Adm_Geral_ChibiWorker\\Meshy_AI_Chibi_Worker_Rigged_All_Animations.glb",
+    "bytes": 12159952,
+    "clips": [
+      {
+        "name": "Running",
+        "channels": 46
+      },
+      {
+        "name": "Walking",
+        "channels": 46
+      },
+      {
+        "name": "Discuss_While_Moving",
+        "channels": 46
+      },
+      {
+        "name": "Armature|clip0|baselayer",
+        "channels": 46
+      }
+    ],
+    "meshes": 1,
+    "skins": 1
+  },
+  {
+    "file": "Personagens\\07_Operador_Logistica_V1_GLB\\char_op_log_m_01_v01.glb",
+    "bytes": 11878336,
+    "clips": [
+      {
+        "name": "Running",
+        "channels": 46
+      },
+      {
+        "name": "Walking",
+        "channels": 46
+      },
+      {
+        "name": "Armature|clip0|baselayer",
+        "channels": 46
+      }
+    ],
+    "meshes": 1,
+    "skins": 1
+  },
+  {
+    "file": "Personagens\\08_Operador_Logistica_V2_GLB\\char_op_log_m_02_v01.glb",
+    "bytes": 12159952,
+    "clips": [
+      {
+        "name": "Running",
+        "channels": 46
+      },
+      {
+        "name": "Walking",
+        "channels": 46
+      },
+      {
+        "name": "Discuss_While_Moving",
+        "channels": 46
+      },
+      {
+        "name": "Armature|clip0|baselayer",
+        "channels": 46
+      }
+    ],
+    "meshes": 1,
+    "skins": 1
+  },
+  {
+    "file": "Personagens\\09_Operador_Logistica_V2_Rigged_FBX\\Meshy_AI_Logistics_Worker_V2_R_biped_Meshy_Merged_Animations.fbx",
+    "bytes": 19321532,
+    "clips": [
+      "target_character|target_character|Running / AnimStack",
+      "target_character|target_character|Talk_with_Left_Hand_Raised / AnimStack",
+      "target_character|target_character|Walk_to_Sit / AnimStack",
+      "target_character|target_character|Walking / AnimStack"
+    ]
+  },
+  {
+    "file": "Personagens\\10_Psicologa_Rigged\\Meshy_AI_psychologist_rigged_All_Animations.glb",
+    "bytes": 17699544,
+    "clips": [
+      {
+        "name": "Running",
+        "channels": 46
+      },
+      {
+        "name": "Walking",
+        "channels": 46
+      },
+      {
+        "name": "Sitting_Answering_Questions",
+        "channels": 46
+      },
+      {
+        "name": "Armature|clip0|baselayer",
+        "channels": 46
+      }
+    ],
+    "meshes": 1,
+    "skins": 1
+  },
+  {
+    "file": "Personagens\\11_Psicologa_Tall\\Meshy_AI_psychologist_tall_rig_All_Animations.glb",
+    "bytes": 17077876,
+    "clips": [
+      {
+        "name": "Running",
+        "channels": 46
+      },
+      {
+        "name": "Walking",
+        "channels": 46
+      },
+      {
+        "name": "Sitting_Answering_Questions",
+        "channels": 46
+      },
+      {
+        "name": "Armature|clip0|baselayer",
+        "channels": 46
+      }
+    ],
+    "meshes": 1,
+    "skins": 1
+  },
+  {
+    "file": "Personagens\\12_Psiquiatra_Masculino\\Meshy_AI_Rigged_Male_Psychiatr_All_Animations.glb",
+    "bytes": 17678296,
+    "clips": [
+      {
+        "name": "Running",
+        "channels": 46
+      },
+      {
+        "name": "Walking",
+        "channels": 46
+      },
+      {
+        "name": "Discuss_While_Moving",
+        "channels": 46
+      },
+      {
+        "name": "Armature|clip0|baselayer",
+        "channels": 46
+      }
+    ],
+    "meshes": 1,
+    "skins": 1
+  },
+  {
+    "file": "Personagens\\13_Psiquiatra_Rigged_V1\\Meshy_AI_Rigged_Psychiatrist_R_All_Animations.glb",
+    "bytes": 18180272,
+    "clips": [
+      {
+        "name": "Running",
+        "channels": 46
+      },
+      {
+        "name": "Walking",
+        "channels": 46
+      },
+      {
+        "name": "Discuss_While_Moving",
+        "channels": 46
+      },
+      {
+        "name": "Stand_to_Sit_Transition_M",
+        "channels": 46
+      },
+      {
+        "name": "Armature|clip0|baselayer",
+        "channels": 46
+      }
+    ],
+    "meshes": 1,
+    "skins": 1
+  },
+  {
+    "file": "Personagens\\14_Psiquiatra_Rigged_New\\Meshy_AI_Rigged_Psychiatrist_R_All_Animations new.glb",
+    "bytes": 18180272,
+    "clips": [
+      {
+        "name": "Running",
+        "channels": 46
+      },
+      {
+        "name": "Walking",
+        "channels": 46
+      },
+      {
+        "name": "Discuss_While_Moving",
+        "channels": 46
+      },
+      {
+        "name": "Stand_to_Sit_Transition_M",
+        "channels": 46
+      },
+      {
+        "name": "Armature|clip0|baselayer",
+        "channels": 46
+      }
+    ],
+    "meshes": 1,
+    "skins": 1
+  },
+  {
+    "file": "Personagens\\15_Robo_Pilha_Mixamo_Walking\\Meshy_AI_Blue_Robot_Rigged_20261105_animated_mixamo_Walking.fbx",
+    "bytes": 1059148,
+    "clips": [
+      "Armature|Armature|Armature|Armature|walking_man|baselayer / AnimStack"
+    ]
+  },
+  {
+    "file": "Personagens\\16_Boy_Character_Rigged\\boy-character.fbx",
+    "bytes": 1947564,
+    "clips": []
+  },
+  {
+    "file": "Personagens\\NPCs\\NPC_Amarelo_Mulher_Walking\\Meshy_AI_woman_rigged_biped_Animation_Walking_frame_rate_30.fbx",
+    "bytes": 16088156,
+    "clips": [
+      "Armature|Armature|Armature|Armature|walking_man|baselayer / AnimStack"
+    ]
+  },
+  {
+    "file": "Personagens\\NPCs\\NPC_Verde_Trancas_TalkPassionately\\Meshy_AI_Woman_Braids_Rigged_biped_Animation_Talk_Passionately_frame_rate_30.fbx",
+    "bytes": 19682348,
+    "clips": [
+      "Armature|Armature|Armature|Armature|Talk_Passionately|baselayer / AnimStack"
+    ]
+  },
+  {
+    "file": "Cenarios\\Galpao_Diorama\\Meshy_AI_Warehouse_Diorama_Roo_1013180404_image-to-3d-texture.fbx",
+    "bytes": 80560300,
+    "clips": []
+  }
+]

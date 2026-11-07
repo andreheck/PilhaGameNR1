@@ -410,7 +410,7 @@
         hr=.16*u;hy=fy-1.83*u;
       }
       if(p.activity==='computer'){
-        var reach=.04*u+Math.sin((p.phase||0)*1.8)*.025*u;
+        var gesture=p.riggedSeconds!=null?p.riggedSeconds:(p.phase||0),reach=.04*u+Math.sin(gesture*3.8)*.025*u;
         ctx.save();ctx.lineCap='round';ctx.lineWidth=Math.max(1,.075*u);ctx.strokeStyle=tone(p.shirt,hl,.95);
         ctx.beginPath();ctx.moveTo(fx-.1*u,fy-.76*u);ctx.lineTo(fx-.2*u,fy-.38*u+reach);ctx.stroke();
         ctx.beginPath();ctx.moveTo(fx+.1*u,fy-.76*u);ctx.lineTo(fx+.2*u,fy-.38*u-reach);ctx.stroke();
@@ -418,8 +418,8 @@
       }
       if(p.carrying){
         // Reach/lift motion makes pickup and placement visible at the object.
-        var handling=p.activity==='handling'||p.activity==='handling-folder',lift=handling?Math.sin((p.phase||0)*1.8)*.055*u:0;
-        var ox=fx+.13*u,oy=hy+.62*u+lift;
+        var handling=p.activity==='handling'||p.activity==='handling-folder',gesture=p.riggedSeconds!=null?p.riggedSeconds:(p.phase||0),progress=p.handlingProgress||0,handHeight=p.interaction==='pickup'?progress:p.interaction==='place'?1-progress:1,lift=handling?(1-handHeight)*.3*u+Math.sin(gesture*2.2)*.025*u:0;
+        var ox=fx+((p.facing||0)>1?-.13:.13)*u,oy=hy+.62*u+lift;
         ctx.save();
         if(p.carrying==='box'){
           var w=.23*u,h=.16*u,dep=.08*u;

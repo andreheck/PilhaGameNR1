@@ -46,7 +46,9 @@ export function createFurniturePresentation(){
   if([it.visualId,...(it.visualIds||[])].some(id=>id&&reveal[e.key+'|'+id]>Date.now()))return true;
   const x=it.x,y=it.y,w=it.w,d=it.d,h=it.h;
   if(it.amenity){
-   if(it.t==='fridge'){
+   if(it.t==='patioBench'){for(const dx of [.1,w-.17])box(x+dx,y+.06,0,.07,d-.1,.43,'#39546a',1);box(x,y,.43,w,d,.08,'#be9865',1);box(x,y,.51,w,.07,.29,'#be9865',1);
+   }else if(it.t==='patioPlanter'){box(x,y,0,w,d,.33,'#967551',1);box(x+.04,y+.04,.33,w-.08,d-.08,.04,'#5c4936',1);for(const dx of [.12,.35]){box(x+dx,y+.2,.36,.04,.04,.25,'#567949',1);const leaf=P(x+dx,y+.2,.71);ctx.fillStyle='#6aaf72';ctx.beginPath();ctx.ellipse(leaf[0],leaf[1],unit*s*.16,unit*s*.22,0,0,Math.PI*2);ctx.fill();}
+   }else if(it.t==='fridge'){
     box(x,y,0,w,d,h,'#b8d1dc',.95);box(x+.04,y+d,.06,w-.08,.025,h-.12,'#e5edf1',.95);
     box(x+.04,y+d+.027,h*.68,w-.08,.014,.025,'#768fa2',1);
     box(x+w*.8,y+d+.035,h*.22,.035,.025,.36,'#37566b',1);

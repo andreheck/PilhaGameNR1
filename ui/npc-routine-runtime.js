@@ -22,7 +22,7 @@
             var home=aislePoint(p.homeProgress||0),gather=aislePoint(distance);
             var points={home:home,gather:gather,station:p.workstation||home,source:p.materialSource||home,destination:p.materialDestination||home};
             var plan=pose.workSegment==='task'?workTask(pose.workProgress,{sector:c.key,hasWorkstation:!!p.workstation,speed:speed}):pose.workSegment==='return-home'?{activity:'walk',moving:true,sit:false,carrying:null,from:'gather',to:'home',route:pose.workProgress}:{activity:pose.talking?'conversation':pose.stage,moving:false,sit:false,carrying:null,to:'gather',route:1};
-            p.activity=plan.activity;p.carrying=plan.carrying;p.sit=plan.sit;p.workTarget=points[plan.to];
+            p.activity=plan.activity;p.interaction=plan.interaction||null;p.handlingProgress=plan.handlingProgress||0;p.carrying=plan.carrying;p.sit=plan.sit;p.workTarget=points[plan.to];if(!plan.moving&&p.workTarget&&p.workTarget.item){var item=p.workTarget.item,faceX=item.x+item.w/2-p.x,faceY=item.y+item.d/2-p.y;p.facing=Math.abs(faceX)>Math.abs(faceY)?(faceX>0?1:3):(faceY>0?0:2);}
             if(plan.moving){
               var from=points[plan.from],to=points[plan.to],workKey=c.key+'|'+p.employeeId+'|'+c.env.workRevision+'|'+[from.x,from.y,to.x,to.y].map(function(n){return n.toFixed(4);}).join(',');
               var workPath=routinePaths[workKey]||(routinePaths[workKey]=global.PilhaNpcRoutes.routeWithin(AISLE,from,to,c.env.items));
@@ -49,7 +49,7 @@
           if(resting){var dest=worldCfg.find(function(c){return c.key==='restauracao';});clone.x-=dest.bx;clone.y-=dest.by;restVisitors.push(clone);}else commuters.push(clone);
         }else{
           var u=(phase-tripEnd)/(1-tripEnd),plan=workActivity(u,{sector:c.key,hasWorkstation:!!p.workstation}),oldX=p.x,oldY=p.y;
-          p.activity=plan.activity;p.carrying=plan.carrying;p.sit=plan.sit;p.progress=p.homeProgress||0;p.phase=elapsed*.006*speed;
+          p.activity=plan.activity;p.interaction=plan.interaction||null;p.handlingProgress=plan.handlingProgress||0;p.carrying=plan.carrying;p.sit=plan.sit;p.progress=p.homeProgress||0;p.phase=elapsed*.006*speed;
           if(plan.activity==='to-workstation'||plan.activity==='from-workstation'){
             var station=p.workstation,workKey=cache+'|work|'+station.seatId,workPath=routinePaths[workKey]||(routinePaths[workKey]=global.PilhaNpcRoutes.routeWithin(AISLE,start,station));
             var q=global.PilhaNpcRoutes.sample(workPath,plan.route);if(q)Object.assign(p,q);

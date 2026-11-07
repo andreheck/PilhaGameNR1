@@ -22,3 +22,6 @@ test('progresso fora dos limites é limitado e setores administrativos usam past
  assert.equal(workActivity(2,{sector:'escritorio'}).carrying,null);
  assert.equal(workActivity(.4,{sector:'atendimento'}).carrying,'folder');
 });
+
+import {workTask} from '../simulation/work-agenda.js';
+test('coleta e colocação progridem junto ao móvel antes e depois do transporte',()=>{const stages=Array.from({length:1001},(_,i)=>workTask(i/1000,{sector:'producao',speed:.85}));const pickup=stages.filter(x=>x.interaction==='pickup'),place=stages.filter(x=>x.interaction==='place');assert.ok(pickup.length>0&&place.length>0);for(const rows of [pickup,place]){assert.ok(rows.every(x=>x.handlingProgress>=0&&x.handlingProgress<=1&&!x.moving&&x.carrying==='box'));assert.ok(rows.at(-1).handlingProgress>rows[0].handlingProgress);}assert.ok(stages.some(x=>x.moving&&x.carrying==='box'));assert.equal(pickup[0].to,'source');assert.equal(place[0].to,'destination');});

@@ -11,4 +11,6 @@ replace(selector,selector+`
 replace('fy-sh*(rigged?rigged.anchorY:1)','fy-sh*(p.robotId?.7919900286:rigged?rigged.anchorY:1)');
 replace("if(p.activity==='computer'){",`if(p.robotId){ctx.save();ctx.font='bold 10px system-ui';ctx.fillStyle='#a9e8ff';ctx.textAlign='center';ctx.fillText(p.activity==='recharge'?'⚡ Recarga':'⚡ '+Math.round(p.robotBattery||100)+'%',fx,hy-14);ctx.restore();}if(p.activity==='computer'){`);
 replace('getEmployees:employeePositions,',`getEmployees:employeePositions,getRobotActor:function(){var p=envs.producao&&envs.producao.people.find(function(p){return p.robotId;});return p?{x:p.x,y:p.y,moving:p.moving,activity:p.activity,battery:p.robotBattery,loaded:!!(robotWalk&&robotWalk.complete&&robotWalk.naturalWidth)}:null;},`);
+replace('if (hz < 0.35 &&','if (!p.robotId && hz < 0.35 &&');
+replace('} else if (hz > 0.8 &&','} else if (!p.robotId && hz > 0.8 &&');
 fs.writeFileSync(file,s);

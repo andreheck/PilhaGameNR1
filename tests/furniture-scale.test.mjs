@@ -22,7 +22,7 @@ test('one metric ruler and category height ratios, alpha crop and interaction an
  assert.deepEqual(V,JSON.parse(fs.readFileSync(new URL('../data/continuous/furniture-visuals.json',import.meta.url),'utf8')));
  const ratios={'mesa-escritorio':[.4,.5],'mesa-reuniao':[.4,.5],'poltrona-azul-a':[.5,.65],'sofa-azul':[.4,.6],'estante-livros':[1,1.2],'bebedouro':[.6,.7],'planta-grande':[.75,.9]};
  for(const a of V.assets){assert.ok(a.scale.width>0&&a.scale.depth>0&&a.scale.height>0);assert.equal(a.anchor.length,2);assert.equal(a.sitPoint.length,3);assert.equal(a.standPoint.length,3);assert.equal(a.bounds.length,4);const r=ratios[a.id];if(r)assert.ok(a.scale.height/1.7>=r[0]&&a.scale.height/1.7<=r[1]);const size=spriteSize(a,30);assert.ok(size.height>a.scale.height*30);}
- assert.deepEqual(V.amenities.map(a=>a.id),['geladeira','televisao','copa']);
+ assert.deepEqual(V.amenities.map(a=>a.id),['geladeira','televisao','copa','banco-patio-a','banco-patio-b','jardineira-patio']);
 });
 test('all baseline and maximum-level furniture fits without overlapping aisles, doors or each other',()=>{
  const iso=engine();for(const max of [false,true]){

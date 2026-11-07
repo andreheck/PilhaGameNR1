@@ -10,9 +10,9 @@ export function workTask(progress,{sector,hasWorkstation=false,speed=1}={}){
  }
  const a=.12/v,b=.15/v,c=.12/v,hold=(1-a-b-c)/2,material=sector==='producao'?'box':'folder';
  if(p<a)return {activity:'to-material',moving:true,sit:false,carrying:null,from:'home',to:'source',route:p/a};
- if(p<a+hold)return {activity:'handling',moving:false,sit:false,carrying:material,to:'source',route:1};
+ if(p<a+hold)return {activity:'handling',moving:false,sit:false,carrying:material,interaction:'pickup',handlingProgress:(p-a)/hold,to:'source',route:1};
  if(p<a+hold+b)return {activity:'moving-material',moving:true,sit:false,carrying:material,from:'source',to:'destination',route:(p-a-hold)/b};
- if(p<1-c)return {activity:'handling',moving:false,sit:false,carrying:material,to:'destination',route:1};
+ if(p<1-c)return {activity:'handling',moving:false,sit:false,carrying:material,interaction:'place',handlingProgress:(p-a-hold-b)/hold,to:'destination',route:1};
  return {activity:'walk',moving:true,sit:false,carrying:null,from:'destination',to:'gather',route:(p-1+c)/c};
 }
 export function workActivity(progress,{sector,hasWorkstation=false}={}){
