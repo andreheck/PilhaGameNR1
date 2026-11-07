@@ -21,9 +21,9 @@ try:
    for _ in range(3):page.locator('[data-guide="next"]').click()
    page.locator('[data-team-save]').click();page.locator('.pm-root').wait_for();page.wait_for_function('PilhaLiving.getRobot().actor?.loaded===true')
    page.locator('.pm-tab[data-i="1"]').click();page.wait_for_timeout(1500)
-   first=page.evaluate('PilhaLiving.getRobot()');page.wait_for_timeout(500);second=page.evaluate('PilhaLiving.getRobot()');assert first['actor']['x']!=second['actor']['x'] or first['actor']['y']!=second['actor']['y']
+   first=page.evaluate('PilhaLiving.getRobot()');page.wait_for_function('(a)=>{const r=PilhaLiving.getRobot().actor;return r.x!==a.x||r.y!==a.y;}',arg=first['actor'],timeout=5000);second=page.evaluate('PilhaLiving.getRobot()')
    page.screenshot(path=str(OUT/(str(width)+'.png')))
-   page.locator('.pm-tab[data-i="3"]').click();page.wait_for_timeout(400);page.screenshot(path=str(OUT/('patio-'+str(width)+'.png')))
+   page.locator('.pm-tab[data-i="3"]').click();page.wait_for_timeout(1100);page.screenshot(path=str(OUT/('patio-'+str(width)+'.png')))
    page.evaluate("async()=>{const M=await import('/simulation/company-continuous.js');const s=JSON.parse(localStorage.getItem(M.KEY));s.activeMs=120000/7*(1-1/96);s.paused=true;s.lastWallMs=Date.now();localStorage.setItem(M.KEY,JSON.stringify(s));await PilhaLiving.syncClock();}")
    page.wait_for_function('PilhaLiving.getRobot().actor?.activity==="recharge"');paused=page.evaluate('PilhaLiving.getRobot()');page.wait_for_timeout(300);assert page.evaluate('PilhaLiving.getRobot()')==paused
    page.screenshot(path=str(OUT/('recharge-'+str(width)+'.png')));assert not errors,errors;assert page.evaluate('PilhaLiving.getEmployees().length')==16
