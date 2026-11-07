@@ -201,3 +201,5 @@ test('legacy public save at week658 with empty cash and no productive employees 
  const old=M.fresh();old.week=658;old.budget=0;old.team={principal:'PILHA-H02',support:'PILHA-H05'};L.ensureLiving(old);for(const p of Object.values(old.staff))p.employment='resigned';const initial=JSON.stringify(old),next=L.advanceRunning(old).state;
  assert.equal(JSON.stringify(old),initial);assert.equal(next.week,659);assert.equal(next.budget,750);assert.equal(next.weeklyIncome.lastPayment.amount,750);assert.equal(next.finance.ledger.at(-1).revenue,0);const once=JSON.stringify(next);income.grantWeeklyIncome(next);assert.equal(JSON.stringify(next),once);L.validateLiving(next);
 });
+
+test('camera reaches selected department on wall time even with low frame rate',()=>{const {iso,tick}=engine();tick(16);iso.focus(3,-1,.8);tick(1016);const slow=iso.getWorldFrame();iso.focus(3,-1,0);const direct=iso.getWorldFrame();for(const key of ['left','right','top','bottom'])assert.ok(Math.abs(slow[key]-direct[key])<.01,key+' camera transition must finish without extra simulation frames');});

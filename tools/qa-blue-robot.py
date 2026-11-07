@@ -13,7 +13,7 @@ report=[]
 try:
  with sync_playwright() as p:
   b=p.chromium.launch(headless=True,executable_path=os.environ.get('CHROMIUM_PATH') or ('C:/Program Files/Google/Chrome/Application/chrome.exe' if os.name=='nt' else None),args=['--use-angle=swiftshader','--enable-unsafe-swiftshader'])
-  for width,height in [(1366,768),(390,844)]:
+  for width,height in ([(390,844)] if '--mobile-only' in sys.argv else [(1366,768),(390,844)]):
    ctx=b.new_context(viewport={'width':width,'height':height});page=ctx.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
    page.goto('http://127.0.0.1:8774/')
    page.evaluate("""async()=>{const M=await import('/simulation/company-continuous.js'),L=await import('/simulation/company-living.js');const s=L.ensureLiving(M.fresh());s.team={principal:'PILHA-H01',support:'PILHA-H02'};s.blueRobot=true;s.paused=false;s.lastWallMs=Date.now();localStorage.setItem(M.KEY,JSON.stringify(s));}""")

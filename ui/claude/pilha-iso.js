@@ -727,9 +727,10 @@
 
     function loop(ts) {
       if (!running) return;
-      var dt = last ? Math.min(0.05, (ts - last) / 1000) : 0.016;
+      var cameraDt=last?Math.max(0,(ts-last)/1000):0.016;
+      var dt=Math.min(0.05,cameraDt);
       last = ts; time += dt;
-      if (worldCfg) { stepCamera(dt); worldCfg.forEach(function (c) { step(c.env, dt); }); stepCommuters(dt); } else step(env, dt);
+      if (worldCfg) { stepCamera(cameraDt); worldCfg.forEach(function (c) { step(c.env, dt); }); stepCommuters(dt); } else step(env, dt);
       render();
       raf = global.requestAnimationFrame(loop);
     }

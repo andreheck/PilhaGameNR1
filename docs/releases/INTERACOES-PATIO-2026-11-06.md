@@ -9,3 +9,7 @@ Pátio: dois bancos e jardineira na mesma escala métrica, sujeitos ao packing e
 Próximos passos: retarget/validação das transições de sentar; inspeção de poses dos clipes genéricos para transporte; estação de recarga; escala dos modelos de Props_Moveis. Especialistas não serão vinculados arbitrariamente às fichas dos funcionários.
 
 Validação em 07/11: build, escala/packing 3/3, tarefas 4/4 e empresa viva 37/37 passaram. QA isolado do Chrome em desktop/celular passou sem exceções; captura desktop do pátio examinada. No celular, o painel reduz a área visível e o enquadramento do pátio ainda precisa de refinamento. Robô excluído dos balões ambientais de adoecimento/recuperação após conferir a captura: sua bateria não representa saúde humana.
+
+Diagnóstico da câmera: a transição usava o dt limitado a 50 ms da simulação, alongando a animação em navegadores lentos. Agora usa tempo real de quadro, mantendo o limite da simulação. Regressão compara foco animado após um quadro lento com o foco direto no mesmo setor.
+
+Após a correção, a nova captura móvel confirmou o pátio inteiro acima do painel, sem a cobertura observada no ensaio anterior. Empresa viva: 38/38 com o teste de câmera. Leitura da bateria no menu/API usa o mesmo relógio simulado corrente, incluindo o intervalo entre gravações.
