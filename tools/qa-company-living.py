@@ -230,7 +230,8 @@ def run(browser,w,h):
         page.locator('[data-world-tab="personagens"]').click()
         check(page.locator('.world-heroes button').count()==6,tag+': world contains all six heroes')
         check(page.locator('.world-staff button').count()==16,tag+': world contains all sixteen NPCs')
-        check(page.locator('.world-specials article').count()==2,tag+': special mentors remain a separate category')
+        check(page.locator('.world-specials article').count()==4,tag+': mentors and new supporting cast remain outside staff and heroes')
+        for name in ['Heck','Letícia','Malik','Advogado']:check(name in page.locator('.world-specials').inner_text(),tag+': special cast includes '+name)
         page.wait_for_function('()=>Array.from(document.querySelectorAll(".world-heroes img")).every(i=>i.complete&&i.naturalWidth>0)')
         check(page.locator('.world-heroes img').evaluate_all('(is)=>is.every(i=>i.complete&&i.naturalWidth>0)'),tag+': canonical hero artwork loaded')
         # Lazy portraits outside the mobile scrollport load only when visited.
