@@ -81,7 +81,7 @@ for(const z of [-roomD/2,roomD/2]){frame(.045,wallH+.08,.045,-roomW/2,wallH/2,z)
 frame(roomW,.045,.06,0,wallH,-roomD/2);frame(roomW,.045,.06,0,wallH,roomD/2);
 frame(.82,.055,.07,0,wallH,.0+roomD/2); // lintel above the entrance
 // Door leaf is slightly ajar; its opening remains visibly passable.
-const officeDoor=new THREE.Group();officeDoor.position.set(-.39,0,roomD/2-.02);officeDoor.rotation.y=-.38;managerOffice.add(officeDoor);
+const officeDoor=new THREE.Group();officeDoor.position.set(-.39,0,roomD/2-.02);officeDoor.rotation.y=-Math.PI/2;managerOffice.add(officeDoor);
 const doorGlass=box(.76,wallH,.035,.38,wallH/2,0,glass,officeDoor);doorGlass.castShadow=false;doorGlass.renderOrder=4;
 box(.035,wallH,.045,.02,wallH/2,0,glassEdge,officeDoor);
 box(.035,wallH,.045,.74,wallH/2,0,glassEdge,officeDoor);
@@ -167,7 +167,7 @@ const plantStem=solid(0x438b70);for(let i=0;i<3;i++){const stem=box(.025,.22,.02
   gestor:{'02':[[.7,-2.55],[-1.0,-2.55],[-2.9,-2.35]]}
  };
  const clampWalk=(x,z)=>[THREE.MathUtils.clamp(x,-7.55,7.55),THREE.MathUtils.clamp(z,-5.75,5.75)];
- const collisionRects=[[-7.55,-5.75,7.55,-5.35],[-7.55,5.35,7.55,5.75],[-7.55,-5.75,-7.15,5.75],[7.15,-5.75,7.55,5.75],[-1.75,.15,-.85,1.2],[-1.75,-.25,-.85,-.05],[.55,-.25,1.85,.95],[-3.8,-3.35,-2.0,-2.0],[.55,-3.35,1.65,-2.85]];
+ const collisionRects=[[-7.55,-5.75,7.55,-5.35],[-7.55,5.35,7.55,5.75],[-7.55,-5.75,-7.15,5.75],[7.15,-5.75,7.55,5.75],[-1.75,.15,-.85,1.2],[-1.75,-.25,-.85,-.05],[.55,-.25,1.85,.95],[-3.8,-3.35,-2.0,-2.0],[.55,-3.35,1.65,-2.85],[-6.11,-4.22,-3.49,-4.12],[-6.11,-4.22,-6.02,-1.78],[-3.58,-4.22,-3.49,-1.78],[-6.02,-1.88,-5.30,-1.77],[-4.30,-1.88,-3.58,-1.77]];
  const isBlocked=(x,z)=>collisionRects.some(([minX,minZ,maxX,maxZ])=>x>minX&&x<maxX&&z>minZ&&z<maxZ);
  const safeStep=(x,z,actor)=>{const [cx,cz]=clampWalk(x,z);if(!isBlocked(cx,cz))return [cx,cz];actor.routeIndex=Math.min(actor.routeIndex+1,Math.max(0,actor.route.length-1));return [actor.root.position.x,actor.root.position.z]};
  function setActorState(actor,state,now=performance.now()){const def=STATE_DEFS[state]||STATE_DEFS.idle;actor.state=state;actor.stateSince=now;actor.stateUntil=now+def.duration;actor.highlight?.material.color.setHex(def.color);const mode=state==='exploring'?'walk':state==='talking'?'talk':state==='working'?'work':state==='pausing'?'pause':state==='concerned'?'concerned':'idle';animate(actor.key,mode);}
