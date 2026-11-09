@@ -4,6 +4,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'artifacts'/'living';OUT.mkdir(parents=True,exist_ok=True)
 report={'viewports':[],'checks':[],'errors':[]}
+EXPECTED_FURNITURE=len(json.loads((ROOT/'data/continuous/furniture-visuals.json').read_text(encoding='utf-8'))['assets'])
 def check(ok,label):
     if not ok:raise AssertionError(label)
     report['checks'].append(label)
@@ -124,8 +125,8 @@ def run(browser,w,h):
           return {count:images.filter(Boolean).length,atlas:poof.naturalWidth===1024&&poof.naturalHeight===768};
         }""")
         check(furniture['count']==20,tag+': all twenty approved WebP furnishings decode')
-        page.wait_for_function('PilhaLiving.getFurniture()?.loaded===25')
-        check(page.evaluate('PilhaLiving.getFurniture().assets')==25,tag+': all five new operation sprites loaded')
+        page.wait_for_function('(n)=>PilhaLiving.getFurniture()?.loaded===n',arg=EXPECTED_FURNITURE)
+        check(page.evaluate('PilhaLiving.getFurniture().assets')==EXPECTED_FURNITURE,tag+': complete furniture catalogue loaded')
         check(page.evaluate('PilhaLiving.getFurniture().baseline')>20,tag+': approved art replaces baseline furnishings before any purchase')
         furniture_layout=page.evaluate('PilhaLiving.getFurnitureLayout()')
         check(all(not room['unplaced'] and all(not item['hidden'] for item in room['items']) for room in furniture_layout),tag+': scaled furniture fits the connected rooms')

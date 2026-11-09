@@ -903,6 +903,821 @@
         1290,
         954
       ]
+    },
+    {
+      "id": "rest2-almofadas_encosto",
+      "name": "Almofadas de encosto",
+      "url": "/assets/restorative-v2/almofadas_encosto.png",
+      "file": "almofadas_encosto.png",
+      "transparent": true,
+      "scale": {
+        "width": 1.4679426401541606,
+        "depth": 0.27833194000049166,
+        "height": 0.48521423645873796,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9562705985728962
+      ],
+      "bounds": [
+        0,
+        0,
+        146,
+        114
+      ],
+      "sitPoint": [
+        0.7339713200770803,
+        0.4783319400004917,
+        0.46
+      ],
+      "standPoint": [
+        0.7339713200770803,
+        0.7783319400004917,
+        0
+      ],
+      "projection": {
+        "width": 59.95372162458339,
+        "height": 46.56975543587107,
+        "anchor": [
+          0.5,
+          0.9562705985728962
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 146,
+        "duration": 1
+      },
+      "seats": [],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-banco_arco_externo",
+      "name": "Banco Wi-Fi · arco externo",
+      "url": "/assets/restorative-v2/banco_arco_externo.png",
+      "file": "banco_arco_externo.png",
+      "transparent": true,
+      "scale": {
+        "width": 5.020452976226807,
+        "depth": 1.4493610858917236,
+        "height": 0.9499999953806401,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9850358723664115
+      ],
+      "bounds": [
+        0,
+        0,
+        514,
+        331
+      ],
+      "sitPoint": [
+        2.5102264881134033,
+        1.6493610858917236,
+        0.46
+      ],
+      "standPoint": [
+        2.5102264881134033,
+        1.9493610858917236,
+        0
+      ],
+      "projection": {
+        "width": 211.10698504742746,
+        "height": 136.08995991495019,
+        "anchor": [
+          0.5,
+          0.9850358723664115
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 514,
+        "duration": 1
+      },
+      "seats": [
+        {
+          "name": "SIT_arco_externo_1",
+          "x": 4.4705017361790675,
+          "y": 1.1364051854525266,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.6343932841636453,
+            0.7730104533627371
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_2",
+          "x": 3.9668424049057363,
+          "y": 0.7998707795069673,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.4713967368259978,
+            0.8819212643483549
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_3",
+          "x": 3.407206140829692,
+          "y": 0.5680618489308582,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.29028467725446233,
+            0.9569403357322089
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_4",
+          "x": 2.813099451731746,
+          "y": 0.4498866809262956,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.09801714032956081,
+            0.9951847266721968
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_5",
+          "x": 2.207353524495061,
+          "y": 0.4498866809262956,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.09801714032956065,
+            0.9951847266721969
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_6",
+          "x": 1.6132468353971152,
+          "y": 0.5680618489308582,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.29028467725446216,
+            0.9569403357322089
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_7",
+          "x": 1.0536105713210706,
+          "y": 0.7998707795069668,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.4713967368259976,
+            0.881921264348355
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_8",
+          "x": 0.5499512400477391,
+          "y": 1.1364051854525261,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.6343932841636453,
+            0.7730104533627371
+          ]
+        }
+      ],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-banco_arco_interno",
+      "name": "Banco Wi-Fi · arco interno",
+      "url": "/assets/restorative-v2/banco_arco_interno.png",
+      "file": "banco_arco_interno.png",
+      "transparent": true,
+      "scale": {
+        "width": 2.333446979522705,
+        "depth": 0.91718989610672,
+        "height": 0.9499999953806401,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9759234772719081
+      ],
+      "bounds": [
+        0,
+        0,
+        263,
+        206
+      ],
+      "sitPoint": [
+        1.1667234897613525,
+        1.11718989610672,
+        0.46
+      ],
+      "standPoint": [
+        1.1667234897613525,
+        1.41718989610672,
+        0
+      ],
+      "projection": {
+        "width": 108.0933150797761,
+        "height": 84.5831249311245,
+        "anchor": [
+          0.5,
+          0.9759234772719081
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 263,
+        "duration": 1
+      },
+      "seats": [
+        {
+          "name": "SIT_arco_interno_1",
+          "x": 1.7617234897613527,
+          "y": 0.5944372796817599,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.5000000000000002,
+            0.8660254037844386
+          ]
+        },
+        {
+          "name": "SIT_arco_interno_2",
+          "x": 1.1667234897613525,
+          "y": 0.43500751018524175,
+          "height": 0.4599999967217446,
+          "forward": [
+            -6.123233995736766e-17,
+            1
+          ]
+        },
+        {
+          "name": "SIT_arco_interno_3",
+          "x": 0.5717234897613528,
+          "y": 0.5944372796817596,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.49999999999999994,
+            0.8660254037844387
+          ]
+        }
+      ],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-banco_arco_medio",
+      "name": "Banco Wi-Fi · arco médio",
+      "url": "/assets/restorative-v2/banco_arco_medio.png",
+      "file": "banco_arco_medio.png",
+      "transparent": true,
+      "scale": {
+        "width": 3.676949977874756,
+        "depth": 1.1821385622024536,
+        "height": 0.9499999953806401,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5000000000000001,
+        0.9815400837578016
+      ],
+      "bounds": [
+        0,
+        0,
+        388,
+        269
+      ],
+      "sitPoint": [
+        1.838474988937378,
+        1.3821385622024536,
+        0.46
+      ],
+      "standPoint": [
+        1.838474988937378,
+        1.6821385622024536,
+        0
+      ],
+      "projection": {
+        "width": 159.56376834210522,
+        "height": 110.31835156228907,
+        "anchor": [
+          0.5000000000000001,
+          0.9815400837578016
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 388,
+        "duration": 1
+      },
+      "seats": [
+        {
+          "name": "SIT_arco_medio_1",
+          "x": 3.09633542884327,
+          "y": 0.8437110706972806,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.5877852522924731,
+            0.8090169943749475
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_2",
+          "x": 2.4997713568997653,
+          "y": 0.5397464937880398,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.3090169943749475,
+            0.9510565162951535
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_3",
+          "x": 1.8384749889373782,
+          "y": 0.4350074386596683,
+          "height": 0.4599999967217446,
+          "forward": [
+            -6.123233995736766e-17,
+            1
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_4",
+          "x": 1.1771786209749906,
+          "y": 0.5397464937880394,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.30901699437494734,
+            0.9510565162951536
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_5",
+          "x": 0.5806145490314858,
+          "y": 0.8437110706972806,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.587785252292473,
+            0.8090169943749476
+          ]
+        }
+      ],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-banco_ponto_central",
+      "name": "Banco Wi-Fi · ponto central",
+      "url": "/assets/restorative-v2/banco_ponto_central.png",
+      "file": "banco_ponto_central.png",
+      "transparent": true,
+      "scale": {
+        "width": 0.9200000166893005,
+        "depth": 0.9200000166893005,
+        "height": 0.5980000018626451,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9604207708635528
+      ],
+      "bounds": [
+        0,
+        0,
+        154,
+        126
+      ],
+      "sitPoint": [
+        0.46000000834465027,
+        1.1200000166893005,
+        0.46
+      ],
+      "standPoint": [
+        0.46000000834465027,
+        1.4200000166893005,
+        0
+      ],
+      "projection": {
+        "width": 62.95293612774975,
+        "height": 51.45293564957149,
+        "anchor": [
+          0.5,
+          0.9604207708635528
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 154,
+        "duration": 1
+      },
+      "seats": [],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-banco_wifi_completo",
+      "name": "Banco Wi-Fi completo",
+      "url": "/assets/restorative-v2/banco_wifi_completo.png",
+      "file": "banco_wifi_completo.png",
+      "transparent": true,
+      "scale": {
+        "width": 5.020452976226807,
+        "depth": 3.985007494688034,
+        "height": 0.9499999990314245,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9884724100420609
+      ],
+      "bounds": [
+        0,
+        0,
+        711,
+        430
+      ],
+      "sitPoint": [
+        2.5102264881134033,
+        4.185007494688034,
+        0.46
+      ],
+      "standPoint": [
+        2.5102264881134033,
+        4.485007494688034,
+        0
+      ],
+      "projection": {
+        "width": 292.2476701289094,
+        "height": 176.6603025652147,
+        "anchor": [
+          0.5,
+          0.9884724100420609
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 711,
+        "duration": 1
+      },
+      "seats": [
+        {
+          "name": "SIT_arco_externo_1",
+          "x": 4.4705017361790675,
+          "y": 1.1364051854525266,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.6343932841636453,
+            0.7730104533627371
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_2",
+          "x": 3.9668424049057363,
+          "y": 0.7998707795069673,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.4713967368259978,
+            0.8819212643483549
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_3",
+          "x": 3.407206140829692,
+          "y": 0.5680618489308582,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.29028467725446233,
+            0.9569403357322089
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_4",
+          "x": 2.813099451731746,
+          "y": 0.4498866809262956,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.09801714032956081,
+            0.9951847266721968
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_5",
+          "x": 2.207353524495061,
+          "y": 0.4498866809262956,
+          "height": 0.460000000372529,
+          "forward": [
+            0.09801714032956065,
+            0.9951847266721969
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_6",
+          "x": 1.6132468353971152,
+          "y": 0.5680618489308582,
+          "height": 0.460000000372529,
+          "forward": [
+            0.29028467725446216,
+            0.9569403357322089
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_7",
+          "x": 1.0536105713210706,
+          "y": 0.7998707795069668,
+          "height": 0.460000000372529,
+          "forward": [
+            0.4713967368259976,
+            0.881921264348355
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_8",
+          "x": 0.5499512400477391,
+          "y": 1.1364051854525261,
+          "height": 0.460000000372529,
+          "forward": [
+            0.6343932841636453,
+            0.7730104533627371
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_1",
+          "x": 3.7680869280192955,
+          "y": 1.7937111183809964,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.5877852522924731,
+            0.8090169943749475
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_2",
+          "x": 3.1715228560757907,
+          "y": 1.4897465414717557,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.3090169943749475,
+            0.9510565162951535
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_3",
+          "x": 2.5102264881134033,
+          "y": 1.385007486343384,
+          "height": 0.460000000372529,
+          "forward": [
+            -6.123233995736766e-17,
+            1
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_4",
+          "x": 1.848930120151016,
+          "y": 1.4897465414717552,
+          "height": 0.460000000372529,
+          "forward": [
+            0.30901699437494734,
+            0.9510565162951536
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_5",
+          "x": 1.2523660482075112,
+          "y": 1.7937111183809964,
+          "height": 0.460000000372529,
+          "forward": [
+            0.587785252292473,
+            0.8090169943749476
+          ]
+        },
+        {
+          "name": "SIT_arco_interno_1",
+          "x": 3.1052264881134035,
+          "y": 2.4944372558399017,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.5000000000000002,
+            0.8660254037844386
+          ]
+        },
+        {
+          "name": "SIT_arco_interno_2",
+          "x": 2.5102264881134033,
+          "y": 2.335007486343384,
+          "height": 0.460000000372529,
+          "forward": [
+            -6.123233995736766e-17,
+            1
+          ]
+        },
+        {
+          "name": "SIT_arco_interno_3",
+          "x": 1.9152264881134036,
+          "y": 2.4944372558399017,
+          "height": 0.460000000372529,
+          "forward": [
+            0.49999999999999994,
+            0.8660254037844387
+          ]
+        }
+      ],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-caixa_de_som",
+      "name": "Caixa de som",
+      "url": "/assets/restorative-v2/caixa_de_som.png",
+      "file": "caixa_de_som.png",
+      "transparent": true,
+      "scale": {
+        "width": 0.18400000035762787,
+        "depth": 0.18400000035762787,
+        "height": 0.24799999966472389,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.8817423858799994
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "sitPoint": [
+        0.09200000017881393,
+        0.3840000003576279,
+        0.46
+      ],
+      "standPoint": [
+        0.09200000017881393,
+        0.6840000003576279,
+        0
+      ],
+      "projection": {
+        "width": 15.971814657412834,
+        "height": 17.48037484877831,
+        "anchor": [
+          0.5,
+          0.8817423858799994
+        ]
+      },
+      "animation": {
+        "frames": 8,
+        "frameWidth": 64,
+        "duration": 2
+      },
+      "seats": [],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-fonte_agua",
+      "name": "Fonte de água",
+      "url": "/assets/restorative-v2/fonte_agua.png",
+      "file": "fonte_agua.png",
+      "transparent": true,
+      "scale": {
+        "width": 1.600000023841858,
+        "depth": 1.600000023841858,
+        "height": 1.5560000005364418,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9803150341943947
+      ],
+      "bounds": [
+        0,
+        0,
+        259,
+        252
+      ],
+      "sitPoint": [
+        0.800000011920929,
+        1.8000000238418579,
+        0.46
+      ],
+      "standPoint": [
+        0.800000011920929,
+        2.100000023841858,
+        0
+      ],
+      "projection": {
+        "width": 106.47293658551341,
+        "height": 103.45293712612752,
+        "anchor": [
+          0.5,
+          0.9803150341943947
+        ]
+      },
+      "animation": {
+        "frames": 8,
+        "frameWidth": 259,
+        "duration": 2.4000000953674316
+      },
+      "seats": [],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-incensario",
+      "name": "Incensário",
+      "url": "/assets/restorative-v2/incensario.png",
+      "file": "incensario.png",
+      "transparent": true,
+      "scale": {
+        "width": 0.2160000056028366,
+        "depth": 0.2160000056028366,
+        "height": 0.4219999996572733,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9388061697405075
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        81
+      ],
+      "sitPoint": [
+        0.1080000028014183,
+        0.4160000056028366,
+        0.46
+      ],
+      "standPoint": [
+        0.1080000028014183,
+        0.7160000056028366,
+        0
+      ],
+      "projection": {
+        "width": 17.89693541821606,
+        "height": 33.278968176720035,
+        "anchor": [
+          0.5,
+          0.9388061697405075
+        ]
+      },
+      "animation": {
+        "frames": 8,
+        "frameWidth": 64,
+        "duration": 3
+      },
+      "seats": [],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-tapete_indiano",
+      "name": "Tapete indiano",
+      "url": "/assets/restorative-v2/tapete_indiano.png",
+      "file": "tapete_indiano.png",
+      "transparent": true,
+      "scale": {
+        "width": 2.4154052734375,
+        "depth": 1.558878779411316,
+        "height": 0.03500000014901161,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9703620481978559
+      ],
+      "bounds": [
+        0,
+        0,
+        320,
+        168
+      ],
+      "sitPoint": [
+        1.20770263671875,
+        1.7588787794113159,
+        0.46
+      ],
+      "standPoint": [
+        1.20770263671875,
+        2.058878779411316,
+        0
+      ],
+      "projection": {
+        "width": 131.25002475079663,
+        "height": 68.71147990968592,
+        "anchor": [
+          0.5,
+          0.9703620481978559
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 320,
+        "duration": 1
+      },
+      "seats": [
+        {
+          "name": "SIT_tapete_1",
+          "x": 1.20770263671875,
+          "y": 0.7810539603233337,
+          "height": 0.03500000007450581,
+          "forward": [
+            0,
+            1
+          ]
+        }
+      ],
+      "source": "patio-sala-v2"
     }
   ],
   "upgrades": {
@@ -1528,5 +2343,42 @@
       "w": 0.9,
       "d": 1.35
     }
-  ]
+  ],
+  "annex": {
+    "depth": 18,
+    "startY": 8,
+    "unit": "meter",
+    "placements": [
+      {
+        "asset": "rest2-banco_wifi_completo",
+        "x": 1,
+        "y": 10
+      },
+      {
+        "asset": "rest2-fonte_agua",
+        "x": 9,
+        "y": 9.1
+      },
+      {
+        "asset": "rest2-tapete_indiano",
+        "x": 8.6,
+        "y": 12
+      },
+      {
+        "asset": "rest2-almofadas_encosto",
+        "x": 8.9,
+        "y": 14.4
+      },
+      {
+        "asset": "rest2-caixa_de_som",
+        "x": 10.8,
+        "y": 14.5
+      },
+      {
+        "asset": "rest2-incensario",
+        "x": 11.2,
+        "y": 14.5
+      }
+    ]
+  }
 }

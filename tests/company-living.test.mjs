@@ -51,7 +51,7 @@ test('work paths reach arranged furniture with body clearance at baseline and ma
    for(const target of [...targets.stations,...targets.sources,...targets.destinations]){
     const path=g.PilhaNpcRoutes.routeWithin(aisle,home,target,items);assert.ok(path.length>0,room.id+' '+target.seatId);
     near(path.at(-1).x,target.x);near(path.at(-1).y,target.y);
-    for(let step=0;step<=200;step++){const p=g.PilhaNpcRoutes.sample(path,step/200);for(const b of items)assert.ok(!(p.x>b.x-.08&&p.x<b.x+b.w+.08&&p.y>b.y-.08&&p.y<b.y+b.d+.08),room.id+' route intersects '+b.type);}
+    for(let step=0;step<=200;step++){const p=g.PilhaNpcRoutes.sample(path,step/200);for(const b of items)assert.ok(!(p.x>b.x-.08&&p.x<b.x+b.w+.08&&p.y>b.y-.08&&p.y<b.y+b.d+.08),room.id+' route intersects '+b.type+' '+JSON.stringify({point:p,item:b,target}));}
    }
   }
  }

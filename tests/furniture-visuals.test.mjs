@@ -1,8 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
 import {FURNITURE_VISUALS as V} from '../data/continuous/furniture-visuals.js';
 import {ITEMS} from '../data/continuous/catalog.js';
-test('20 approved and5 generated art IDs and24 furniture mappings are unique and canonical',()=>{
- assert.equal(V.assets.length,25);assert.equal(new Set(V.assets.map(x=>x.id)).size,25);
+test('approved, generated and supplied restorative art IDs retain canonical furniture mappings',()=>{
+ assert.equal(V.assets.filter(a=>!a.id.startsWith('rest2-')).length,25);assert.equal(V.assets.filter(a=>a.id.startsWith('rest2-')).length,10);assert.equal(new Set(V.assets.map(x=>x.id)).size,V.assets.length);
  assert.equal(Object.keys(V.upgrades).length,24);
  const furnitureItems=ITEMS.filter(item=>!item.origin?.startsWith('PM 29/10/2026'));
  assert.equal(furnitureItems.length,24);
