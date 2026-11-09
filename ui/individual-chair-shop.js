@@ -1,0 +1,15 @@
+import {CHAIR_ITEMS} from '../data/continuous/individual-chairs.js';
+import {FACTORS} from '../data/continuous/catalog.js';
+import {chairCandidates} from '../simulation/individual-chairs.js';
+import * as M from '../simulation/company-continuous.js';
+import {escapeHtml as esc} from './hero-neon.js';
+export function chairShopMarkup(state,sid,selections={}){
+ if(sid==='restauracao')return '';
+ return `<section class="pm-sec chair-shop"><h3>Assentos individuais</h3><p class="continuous-note">Designe uma pessoa do setor. Ela usa a cadeira durante a pausa no posto; os bônus aparecem apenas durante o uso. Reatribuir não cobra créditos.</p><div class="pm-shop">${CHAIR_ITEMS.map(c=>{
+  const key=sid+'|'+c.id,owned=state.receipts.filter(r=>r.sid===sid&&r.id===c.id).at(-1),eligible=chairCandidates(state,sid,c.id);
+  let target=selections[key]||owned?.targetId;if(!eligible.some(p=>p.id===target))target=eligible[0]?.id||'';selections[key]=target;
+  const lv=M.level(state,sid,c.id),q=M.quote(state,sid,c.id,{targetId:target}),changed=!!owned&&owned.targetId!==target;
+  const next=Math.min(3,lv+1),effects=Object.entries(c.individualEffects).map(([id,v])=>{const f=FACTORS.find(f=>f.id===id);return `<span class="individual-factor" style="--factor:${f.color}">+${v*next} ${esc(f.name)}</span>`;}).join('');
+  return `<article class="pm-item chair-item" data-chair-item="${c.id}"><div class="pm-item__top"><img class="chair-shop-icon" src="${c.icon}" alt="${esc(c.name)}"><div><strong>${esc(c.name)}</strong><small>${esc(c.description)}</small></div></div><label class="promotion-target">Quem vai usar<select data-chair-target="${c.id}" data-chair-sector="${sid}" aria-label="Usuário da ${esc(c.name)}">${eligible.map(p=>`<option value="${p.id}" ${target===p.id?'selected':''}>${esc(p.name)} · ${esc(p.role)}</option>`).join('')||'<option value="">Nenhum usuário ativo disponível</option>'}</select></label><div class="pm-levels" aria-label="Nível ${lv} de 3">${[1,2,3].map(n=>`<i class="${lv>=n?'is-on':''}"></i>`).join('')}<b>Nível ${lv}/3</b></div><p class="benefit-scope">${lv===3?'Benefícios atuais':'Benefícios do próximo nível'} · enquanto usar</p><div class="pm-effects">${effects}<span class="pm-chip">+${next+1} saúde temporária</span></div><p class="benefit-scope">${esc(c.audience)}</p>${changed?'<p class="benefit-scope">Confirme a reatribuição antes de melhorar o nível.</p>':''}<div class="pm-item__bottom"><b>${lv===3?'Nível máximo':q.ok?q.cost.toLocaleString('pt-BR')+' créditos':'Escolha um usuário'}</b>${changed?`<button data-chair-assign="${c.id}" data-chair-sector="${sid}" data-chair-user="${target}">Reatribuir · sem custo</button>`:`<button data-chair-buy="${c.id}" data-chair-sector="${sid}" data-chair-user="${target}" data-level="${q.level||4}" data-revision="${state.revision}" ${!q.ok||!q.affordable||state.events.current?.stage==='decision'?'disabled':''}>${lv===3?'Máximo':!eligible.length?'Sem usuário':!q.affordable?'Sem saldo':lv?'Melhorar':'Comprar'}</button>`}</div></article>`;
+ }).join('')}</div></section>`;
+}

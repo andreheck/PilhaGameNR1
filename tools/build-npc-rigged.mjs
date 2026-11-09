@@ -14,7 +14,7 @@ const selector=source.split('\n').find(l=>l.includes('var sprite = sharedIndexMo
 replace(selector,selector+`
       var rigged=riggedBindings[p.employeeId],riggedAction=walking?'walk':(p.talking||sit&&p.activity!=='computer')&&rigged&&rigged.talk?'talk':'idle';
       var approvedSheet=riggedImages[p.employeeId+'|'+riggedAction];
-      if(rigged)sprite=sit&&p.activity==='computer'?null:(approvedSheet&&approvedSheet.complete&&approvedSheet.naturalWidth?approvedSheet:null);`);
+      if(rigged)sprite=sit&&(p.activity==='computer'||p.activity==='using-chair')?null:(approvedSheet&&approvedSheet.complete&&approvedSheet.naturalWidth?approvedSheet:null);`);
 replace('ctx.drawImage(sprite,frame*128,(p.facing||0)*192,128,192,fx-sw/2,fy-sh,sw,sh);','ctx.drawImage(sprite,frame*128,(p.facing||0)*192,128,192,fx-sw/2,fy-sh*(rigged?rigged.anchorY:1),sw,sh);');
 replace('hr=.16*u;hy=fy-1.83*u;',`hr=.16*u;hy=fy-1.83*u;
       }

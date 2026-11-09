@@ -2,10 +2,10 @@ import test from 'node:test';import assert from 'node:assert/strict';import fs f
 import {FURNITURE_VISUALS as V} from '../data/continuous/furniture-visuals.js';
 import {ITEMS} from '../data/continuous/catalog.js';
 test('approved, generated and supplied restorative art IDs retain canonical furniture mappings',()=>{
- assert.equal(V.assets.filter(a=>!a.id.startsWith('rest2-')).length,25);assert.equal(V.assets.filter(a=>a.id.startsWith('rest2-')).length,10);assert.equal(new Set(V.assets.map(x=>x.id)).size,V.assets.length);
- assert.equal(Object.keys(V.upgrades).length,24);
+ assert.equal(V.assets.filter(a=>!a.id.startsWith('rest2-')&&!a.id.startsWith('chair-')).length,25);assert.equal(V.assets.filter(a=>a.id.startsWith('rest2-')).length,10);assert.equal(new Set(V.assets.map(x=>x.id)).size,V.assets.length);
+ assert.equal(Object.keys(V.upgrades).length,27);
  const furnitureItems=ITEMS.filter(item=>!item.origin?.startsWith('PM 29/10/2026'));
- assert.equal(furnitureItems.length,24);
+ assert.equal(furnitureItems.length,27);
  for(const item of furnitureItems){const visual=V.upgrades[item.id];assert.ok(visual,item.id);
  assert.equal(visual.levels,3);assert.equal(visual.physical,!!visual.asset);
  if(visual.asset)assert.ok(V.assets.find(a=>a.id===visual.asset));}

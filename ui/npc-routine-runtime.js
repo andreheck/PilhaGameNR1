@@ -8,7 +8,7 @@
       var elapsed=routineClock.elapsed+(routineClock.paused?0:performance.now()-routineClock.at),period=routineWeekMs*2/7;
       restVisitors=[];commuters=[];
       worldCfg.forEach(function(c){c.env.people.forEach(function(p){if(!p.employeeId)return;
-        var row=routineClock.rows.find(function(r){return r.id===p.employeeId;});p.restAway=false;if(!row)return;
+        var row=routineClock.rows.find(function(r){return r.id===p.employeeId;});p.restAway=false;p.chairInUse=null;p.chairHealthBonus=0;if(!row)return;
         if(row.sampleAt){
           var pose=row.sampleAt(elapsed),speed=row.speed*(row.motionRate||1),oldX=p.x,oldY=p.y;
           p.riggedSeconds=elapsed*.001*speed;p.talking=!!pose.talking;p.partnerId=pose.partnerId;p.activity=pose.stage;p.isMeetingLeader=p.employeeId===pose.managerId;
@@ -21,10 +21,16 @@
             distance+=(row.workSlot%2?1:-1)*.18;
             var home=aislePoint(p.homeProgress||0),gather=aislePoint(distance);
             var points={home:home,gather:gather,station:p.workstation||home,source:p.materialSource||home,destination:p.materialDestination||home};
-            var paths={};[['home','station'],['station','gather'],['home','source'],['source','destination'],['destination','gather'],['home','gather'],['gather','home']].forEach(function(pair){var from=points[pair[0]],to=points[pair[1]],key=c.key+'|'+p.employeeId+'|'+c.env.workRevision+'|'+[from.x,from.y,to.x,to.y].map(function(n){return n.toFixed(4);}).join(',');paths[pair.join('|')]=routinePaths[key]||(routinePaths[key]=global.PilhaNpcRoutes.routeWithin(AISLE,from,to,c.env.items));});
+            // Keep this destination stable for the complete work window. A new
+            // purchase/reassignment takes effect on the next trip, not by teleport.
+            if(!p.workChair||p.workChair.window!==pose.workStart)p.workChair={window:pose.workStart,id:p.chair&&pose.workStart/routineWeekMs+1>=p.chair.activeFrom?p.chair.id:null,assignedAt:p.chair&&p.chair.assignedAt};
+            var chairItem=p.workChair.id&&c.env.items.find(function(it){return !it.layoutHidden&&(it.visualId===p.workChair.id||(it.visualIds||[]).includes(p.workChair.id));}),chairAsset=chairItem&&furnitureCatalog&&furnitureCatalog.assets.find(function(a){return a.id===chairItem.visualAsset;}),seat=chairAsset&&chairAsset.seats&&chairAsset.seats[0];
+            if(seat)points.gather={x:chairItem.x+seat.x,y:chairItem.y+seat.y,item:{x:chairItem.x,y:chairItem.y,w:chairItem.w,d:chairItem.d,type:'individualChair'}};
+            var paths={};[['home','station'],['station','gather'],['home','source'],['source','destination'],['destination','gather'],['home','gather'],['gather','home']].forEach(function(pair){var from=points[pair[0]],to=points[pair[1]],chairLeg=seat&&(pair.includes('gather')),key=c.key+'|'+p.employeeId+'|'+c.env.workRevision+'|'+[from.x,from.y,to.x,to.y].map(function(n){return n.toFixed(4);}).join(',')+'|'+(chairLeg?p.workChair.id:'');paths[pair.join('|')]=routinePaths[key]||(routinePaths[key]=global.PilhaNpcRoutes.routeWithin(AISLE,from,to,chairLeg?c.env.items.filter(function(it){return it!==chairItem;}):c.env.items));});
             var duration=pose.workEnd-pose.workStart;
             var plan=pacedWorkPlan((elapsed-pose.workStart)/duration,{durationMs:duration,conversationMs:routineWeekMs/24,sector:c.key,hasWorkstation:!!p.workstation,speed:speed,paths:paths});
             p.talking=!!pose.talking&&plan.activity==='conversation';
+            if(seat&&plan.activity==='conversation'){plan.activity='using-chair';plan.sit=true;plan.carrying=null;p.talking=false;if(p.chair&&p.chair.id===p.workChair.id&&p.chair.assignedAt===p.workChair.assignedAt){p.chairInUse=p.chair.id;p.chairHealthBonus=p.chair.healthBonus;}}
             p.activity=plan.activity;p.interaction=plan.interaction||null;p.handlingProgress=plan.handlingProgress||0;p.carrying=plan.carrying;p.sit=plan.sit;p.workTarget=points[plan.to];if(!plan.moving&&p.workTarget&&p.workTarget.item){var item=p.workTarget.item,faceX=item.x+item.w/2-p.x,faceY=item.y+item.d/2-p.y;p.facing=Math.abs(faceX)>Math.abs(faceY)?(faceX>0?1:3):(faceY>0?0:2);}
             if(plan.moving){
               var from=points[plan.from],workPath=plan.path;
