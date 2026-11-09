@@ -1,0 +1,1804 @@
+{
+  "version": 1,
+  "scope": "Supplied cast roles; only confirmed employee IDs are bound",
+  "actors": [
+    {
+      "done": true,
+      "id": "heck",
+      "joints": 23,
+      "inventory": [
+        {
+          "name": "Running",
+          "duration": 0.6333333253860474,
+          "tracks": 46
+        },
+        {
+          "name": "Walking",
+          "duration": 1.0333333015441895,
+          "tracks": 46
+        },
+        {
+          "name": "Headache_Relief",
+          "duration": 4.8333330154418945,
+          "tracks": 46
+        },
+        {
+          "name": "Jump_Run",
+          "duration": 2.0999999046325684,
+          "tracks": 46
+        },
+        {
+          "name": "Motivational_Cheer",
+          "duration": 9,
+          "tracks": 46
+        },
+        {
+          "name": "Stand_to_Sit_Transition_M",
+          "duration": 4.766666889190674,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_with_Hands_Open",
+          "duration": 3.9666666984558105,
+          "tracks": 46
+        },
+        {
+          "name": "Walk_Slowly_and_Look_Around",
+          "duration": 23.799999237060547,
+          "tracks": 46
+        },
+        {
+          "name": "Wave_One_Hand",
+          "duration": 4.099999904632568,
+          "tracks": 46
+        },
+        {
+          "name": "falling_down",
+          "duration": 2.2666666507720947,
+          "tracks": 46
+        },
+        {
+          "name": "run_fast_6_inplace",
+          "duration": 0.8333330154418945,
+          "tracks": 46
+        }
+      ],
+      "retarget": null,
+      "actions": {
+        "walk": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Caminhar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/heck-walk.png",
+          "sha256": "e90e7c554fd685d2ef8676732d1bc1f534ea3ab706cdb686c0f3b256dd3095cd",
+          "distinctFrames": 16,
+          "bytes": 509967
+        },
+        "idle": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 1,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "hold",
+          "label": "Em espera",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/heck-idle.png",
+          "sha256": "6688c0eca8e69fb993fca147c97c0405d2e7e40ac9a0051a0ba79801afeb358e",
+          "distinctFrames": 1,
+          "bytes": 34924
+        },
+        "talk": {
+          "clip": "Talk_with_Hands_Open",
+          "sourceClip": "Talk_with_Hands_Open",
+          "duration": 3.9666666984558105,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Conversar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/heck-talk.png",
+          "sha256": "4fa6988a1b7fff02f03ee3df44b72a07a9185145858857d7cd585f025b13903f",
+          "distinctFrames": 64,
+          "bytes": 1842742
+        },
+        "sit": {
+          "clip": "Stand_to_Sit_Transition_M",
+          "sourceClip": "Stand_to_Sit_Transition_M",
+          "duration": 4.766666889190674,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Sentar",
+          "seatedHipHeight": 0.6276313004820407,
+          "url": "/assets/expanded-cast/heck-sit.png",
+          "sha256": "a98d7d9691bcbf232a30052ccb6b1869310d283f076cd4310a82e299e244bcad",
+          "distinctFrames": 48,
+          "bytes": 1363239
+        },
+        "wave": {
+          "clip": "Wave_One_Hand",
+          "sourceClip": "Wave_One_Hand",
+          "duration": 4.099999904632568,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Saudar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/heck-wave.png",
+          "sha256": "2d216df0d85cba238ad0d0ca23a3b9303c821c0f6cb5547e8b789a8f365346f2",
+          "distinctFrames": 48,
+          "bytes": 1287059
+        },
+        "cheer": {
+          "clip": "Motivational_Cheer",
+          "sourceClip": "Motivational_Cheer",
+          "duration": 9,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Comemorar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/heck-cheer.png",
+          "sha256": "469e5526f8ae92b5e245b9661e1248fe2652af8f86044f827193fd243a53f972",
+          "distinctFrames": 64,
+          "bytes": 2020921
+        }
+      },
+      "name": "Heck · Mentor",
+      "sector": "escritorio",
+      "source": "Meshy_AI_Rigged_Stylized_Man_20261018_animated_mixamo_All_animation.glb",
+      "sourceSha256": "11b3beca97c454b730c90e2421f0925d542ff3bf6db96d20501bf2a292480156",
+      "sourceBytes": 22513208,
+      "portrait": "/assets/expanded-cast/heck-portrait.png",
+      "binding": null
+    },
+    {
+      "done": true,
+      "id": "mariana",
+      "joints": 23,
+      "inventory": [
+        {
+          "name": "Running",
+          "duration": 0.6333333253860474,
+          "tracks": 46
+        },
+        {
+          "name": "Walking",
+          "duration": 1.0333333015441895,
+          "tracks": 46
+        },
+        {
+          "name": "Casual_Walk",
+          "duration": 4.1666669845581055,
+          "tracks": 46
+        },
+        {
+          "name": "Clapping_Run",
+          "duration": 13.666666984558105,
+          "tracks": 46
+        },
+        {
+          "name": "Confident_Strut",
+          "duration": 2.6666667461395264,
+          "tracks": 46
+        },
+        {
+          "name": "Confident_Walk",
+          "duration": 5.733334064483643,
+          "tracks": 46
+        },
+        {
+          "name": "Excited_Walk_F",
+          "duration": 9.733333587646484,
+          "tracks": 46
+        },
+        {
+          "name": "Idle_9",
+          "duration": 2,
+          "tracks": 46
+        },
+        {
+          "name": "Quick_Walk",
+          "duration": 3,
+          "tracks": 46
+        },
+        {
+          "name": "Red_Carpet_Walk_inplace",
+          "duration": 5.9666666984558105,
+          "tracks": 46
+        },
+        {
+          "name": "Stumble_Walk",
+          "duration": 2.566667079925537,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_Passionately",
+          "duration": 10.266666412353516,
+          "tracks": 46
+        },
+        {
+          "name": "Thoughtful_Walk",
+          "duration": 4.699999809265137,
+          "tracks": 46
+        },
+        {
+          "name": "Unsteady_Walk",
+          "duration": 2.9666669368743896,
+          "tracks": 46
+        },
+        {
+          "name": "Victory_Cheer",
+          "duration": 9.333333015441895,
+          "tracks": 46
+        },
+        {
+          "name": "Walking_with_Phone",
+          "duration": 2.5,
+          "tracks": 46
+        }
+      ],
+      "retarget": null,
+      "actions": {
+        "walk": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Caminhar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/mariana-walk.png",
+          "sha256": "272e6d0d42b0da88533b453e75308076c5b6bb13706f942742f4c356d45107fd",
+          "distinctFrames": 16,
+          "bytes": 478829
+        },
+        "idle": {
+          "clip": "Idle_9",
+          "sourceClip": "Idle_9",
+          "duration": 2,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Em espera",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/mariana-idle.png",
+          "sha256": "5e6baec23c53b1badd58ebcc29246a359d92891fe1fcfb4c3ae141bdad38ef77",
+          "distinctFrames": 16,
+          "bytes": 423867
+        },
+        "talk": {
+          "clip": "Talk_Passionately",
+          "sourceClip": "Talk_Passionately",
+          "duration": 10.266666412353516,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Conversar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/mariana-talk.png",
+          "sha256": "15bd2745443d2332aaff5803a38dead722eb65d6df0c34840a900d928c1596e5",
+          "distinctFrames": 64,
+          "bytes": 1714821
+        },
+        "cheer": {
+          "clip": "Victory_Cheer",
+          "sourceClip": "Victory_Cheer",
+          "duration": 9.333333015441895,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Comemorar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/mariana-cheer.png",
+          "sha256": "bf098d386ece00d3006ee6a139a5fe8480330abc72e3ed61887c7c05761fae52",
+          "distinctFrames": 64,
+          "bytes": 1806928
+        }
+      },
+      "name": "Mariana",
+      "sector": "atendimento",
+      "source": "Meshy_AI_Woman_Braids_Rigged_20261025_animated_mixamo_All_animation.glb",
+      "sourceSha256": "3fcd4342938169696f85ade7b83a4bd442ac232b29d7f549c42e1f4ff093cec0",
+      "sourceBytes": 25274404,
+      "portrait": "/assets/expanded-cast/mariana-portrait.png",
+      "binding": "NPC-07"
+    },
+    {
+      "done": true,
+      "id": "ensino",
+      "joints": 23,
+      "inventory": [
+        {
+          "name": "Running",
+          "duration": 0.6333333253860474,
+          "tracks": 46
+        },
+        {
+          "name": "Walking",
+          "duration": 1.0333333015441895,
+          "tracks": 46
+        },
+        {
+          "name": "Angry_Ground_Stomp",
+          "duration": 1.399999976158142,
+          "tracks": 46
+        },
+        {
+          "name": "Confident_Walk",
+          "duration": 5.733334064483643,
+          "tracks": 46
+        },
+        {
+          "name": "Discuss_While_Moving",
+          "duration": 8.033333778381348,
+          "tracks": 46
+        },
+        {
+          "name": "Female_Walk_Pick_Put_In_Pocket",
+          "duration": 9.5,
+          "tracks": 46
+        },
+        {
+          "name": "Injured_Walk",
+          "duration": 8.666666984558105,
+          "tracks": 46
+        },
+        {
+          "name": "Quick_Walk",
+          "duration": 3,
+          "tracks": 46
+        },
+        {
+          "name": "Stand_and_Chat",
+          "duration": 5.1666669845581055,
+          "tracks": 46
+        },
+        {
+          "name": "Stumble_Walk",
+          "duration": 2.566667079925537,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_with_Hands_Open",
+          "duration": 3.9666669368743896,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_with_Left_Hand_on_Hip",
+          "duration": 5.1666669845581055,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_with_Right_Hand_Open",
+          "duration": 3.733333110809326,
+          "tracks": 46
+        },
+        {
+          "name": "Unsteady_Walk",
+          "duration": 2.9666669368743896,
+          "tracks": 46
+        },
+        {
+          "name": "Walking_with_Phone",
+          "duration": 2.5,
+          "tracks": 46
+        },
+        {
+          "name": "Wave_One_Hand",
+          "duration": 4.099999904632568,
+          "tracks": 46
+        },
+        {
+          "name": "falling_down",
+          "duration": 2.2666666507720947,
+          "tracks": 46
+        },
+        {
+          "name": "open_door_4",
+          "duration": 8.066666603088379,
+          "tracks": 46
+        }
+      ],
+      "retarget": null,
+      "actions": {
+        "walk": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Caminhar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/ensino-walk.png",
+          "sha256": "207a79fab70ff4f6f56d2d0fd62dc27e460c257326707c0d2b9207eb09061050",
+          "distinctFrames": 16,
+          "bytes": 457872
+        },
+        "idle": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 1,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "hold",
+          "label": "Em espera",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/ensino-idle.png",
+          "sha256": "d4beaa7bad3c39ff6ab53e05183bb71c28153e3b457acfe0b43b102e9a453db0",
+          "distinctFrames": 1,
+          "bytes": 30989
+        },
+        "talk": {
+          "clip": "Talk_with_Hands_Open",
+          "sourceClip": "Talk_with_Hands_Open",
+          "duration": 3.9666669368743896,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Conversar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/ensino-talk.png",
+          "sha256": "93da9638a951fee2e81aad3770ddf7a11a48ef5973b3d36b327cca7ae1759f41",
+          "distinctFrames": 64,
+          "bytes": 1651717
+        },
+        "wave": {
+          "clip": "Wave_One_Hand",
+          "sourceClip": "Wave_One_Hand",
+          "duration": 4.099999904632568,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Saudar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/ensino-wave.png",
+          "sha256": "cbb3ed194ce0fa4b784c8d74cece6807b4d2a7cffa64080df3a341fbb8696a3d",
+          "distinctFrames": 48,
+          "bytes": 1043147
+        },
+        "interact": {
+          "clip": "Female_Walk_Pick_Put_In_Pocket",
+          "sourceClip": "Female_Walk_Pick_Put_In_Pocket",
+          "duration": 9.5,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Manusear objeto",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/ensino-interact.png",
+          "sha256": "53ee264f718655ca88b303fdf4bc29631b08d8433f8655af534a42624fa87f16",
+          "distinctFrames": 64,
+          "bytes": 1608600
+        }
+      },
+      "name": "Diretora de Ensino",
+      "sector": "atendimento",
+      "source": "Meshy_AI_woman_character_rigged_20261018_animated_mixamo_All_animation.glb",
+      "sourceSha256": "cc85780d7240b9c4008909d2ccd4a77797ad024280031d19817aebc3919e213c",
+      "sourceBytes": 23052892,
+      "portrait": "/assets/expanded-cast/ensino-portrait.png",
+      "binding": null
+    },
+    {
+      "done": true,
+      "id": "gestora",
+      "joints": 23,
+      "inventory": [
+        {
+          "name": "Running",
+          "duration": 0.6333333253860474,
+          "tracks": 46
+        },
+        {
+          "name": "Walking",
+          "duration": 1.0333333015441895,
+          "tracks": 46
+        },
+        {
+          "name": "Casual_Walk",
+          "duration": 4.1666669845581055,
+          "tracks": 46
+        },
+        {
+          "name": "Confident_Walk",
+          "duration": 5.733334064483643,
+          "tracks": 46
+        },
+        {
+          "name": "Elderly_Shaky_Walk",
+          "duration": 2.8333330154418945,
+          "tracks": 46
+        },
+        {
+          "name": "Phone_Conversation",
+          "duration": 4.8333330154418945,
+          "tracks": 46
+        },
+        {
+          "name": "Quick_Walk",
+          "duration": 3,
+          "tracks": 46
+        },
+        {
+          "name": "Stage_Walk",
+          "duration": 6.6666669845581055,
+          "tracks": 46
+        },
+        {
+          "name": "Stand_and_Chat",
+          "duration": 5.166666507720947,
+          "tracks": 46
+        },
+        {
+          "name": "Stand_to_Sit_Transition_M",
+          "duration": 4.766666889190674,
+          "tracks": 46
+        },
+        {
+          "name": "Stumble_Walk",
+          "duration": 2.566667079925537,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_with_Hands_Open",
+          "duration": 3.9666669368743896,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_with_Left_Hand_on_Hip",
+          "duration": 5.1666669845581055,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_with_Right_Hand_Open",
+          "duration": 3.733333110809326,
+          "tracks": 46
+        },
+        {
+          "name": "Texting_Walk",
+          "duration": 2,
+          "tracks": 46
+        },
+        {
+          "name": "Unsteady_Walk",
+          "duration": 2.9666669368743896,
+          "tracks": 46
+        },
+        {
+          "name": "Wake_Up_and_Look_Up",
+          "duration": 3.5,
+          "tracks": 46
+        },
+        {
+          "name": "Wave_One_Hand",
+          "duration": 4.099999904632568,
+          "tracks": 46
+        },
+        {
+          "name": "Wave_for_Help",
+          "duration": 5.033332824707031,
+          "tracks": 46
+        }
+      ],
+      "retarget": null,
+      "actions": {
+        "walk": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Caminhar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/gestora-walk.png",
+          "sha256": "90d1ea4d9aa288330f654580bc94f203c361e081ce01284ffcc52a46e988a6a7",
+          "distinctFrames": 16,
+          "bytes": 406440
+        },
+        "idle": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 1,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "hold",
+          "label": "Em espera",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/gestora-idle.png",
+          "sha256": "19707284399d2401cc2c29816f0b425f876571d5578510a2e2de728eeae502e3",
+          "distinctFrames": 1,
+          "bytes": 27720
+        },
+        "talk": {
+          "clip": "Talk_with_Hands_Open",
+          "sourceClip": "Talk_with_Hands_Open",
+          "duration": 3.9666669368743896,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Conversar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/gestora-talk.png",
+          "sha256": "b63fc885fb8883b169d3556aaf325c20e94ba0f70c5d4f753521afe596eca103",
+          "distinctFrames": 64,
+          "bytes": 1454478
+        },
+        "sit": {
+          "clip": "Stand_to_Sit_Transition_M",
+          "sourceClip": "Stand_to_Sit_Transition_M",
+          "duration": 4.766666889190674,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Sentar",
+          "seatedHipHeight": 0.6522753778543172,
+          "url": "/assets/expanded-cast/gestora-sit.png",
+          "sha256": "8a1953ea533936dfddc8d0ab2d7a55154e6c6f4ed4009130a0190701aae66e3b",
+          "distinctFrames": 48,
+          "bytes": 1079338
+        },
+        "wave": {
+          "clip": "Wave_One_Hand",
+          "sourceClip": "Wave_One_Hand",
+          "duration": 4.099999904632568,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Saudar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/gestora-wave.png",
+          "sha256": "1b3d98f77c1e81a26d189cb6b8cc76c3657af8841acf6481531c3d5c44f96edb",
+          "distinctFrames": 48,
+          "bytes": 985634
+        },
+        "phone": {
+          "clip": "Phone_Conversation",
+          "sourceClip": "Phone_Conversation",
+          "duration": 4.8333330154418945,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Telefonar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/gestora-phone.png",
+          "sha256": "f447cba580848f503476731410af8f14b42fd1f84d22f3494db6ba3886b76181",
+          "distinctFrames": 48,
+          "bytes": 1127557
+        }
+      },
+      "name": "Gestora",
+      "sector": "escritorio",
+      "source": "Meshy_AI_business_woman_rigged_20261013_animated_mixamo_All_animation.glb",
+      "sourceSha256": "fdf40abb76692de21bbac6db6ba9d7920a9d4beab543188515126bf7eb8e3cbd",
+      "sourceBytes": 26854416,
+      "portrait": "/assets/expanded-cast/gestora-portrait.png",
+      "binding": null
+    },
+    {
+      "done": true,
+      "id": "logistica-2",
+      "joints": 23,
+      "inventory": [
+        {
+          "name": "Running",
+          "duration": 0.6333333253860474,
+          "tracks": 46
+        },
+        {
+          "name": "Walking",
+          "duration": 1.0333333015441895,
+          "tracks": 46
+        },
+        {
+          "name": "Casual_Walk",
+          "duration": 4.1666669845581055,
+          "tracks": 46
+        },
+        {
+          "name": "Confident_Walk",
+          "duration": 5.733334064483643,
+          "tracks": 46
+        },
+        {
+          "name": "Excited_Walk_F",
+          "duration": 9.733333587646484,
+          "tracks": 46
+        },
+        {
+          "name": "Female_Crouch_Pick_Throw_Forward",
+          "duration": 4.866666793823242,
+          "tracks": 46
+        },
+        {
+          "name": "Happy_Sway_Standing",
+          "duration": 10,
+          "tracks": 46
+        },
+        {
+          "name": "Love_You_Pop_Dance",
+          "duration": 10,
+          "tracks": 46
+        },
+        {
+          "name": "Quick_Walk",
+          "duration": 3,
+          "tracks": 46
+        },
+        {
+          "name": "Red_Carpet_Walk",
+          "duration": 5.966667175292969,
+          "tracks": 46
+        },
+        {
+          "name": "Stand_Talking_Angry",
+          "duration": 20.799999237060547,
+          "tracks": 46
+        },
+        {
+          "name": "Stumble_Walk",
+          "duration": 2.566667079925537,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_with_Left_Hand_Raised",
+          "duration": 4.633333206176758,
+          "tracks": 46
+        },
+        {
+          "name": "Thoughtful_Walk",
+          "duration": 4.699999809265137,
+          "tracks": 46
+        },
+        {
+          "name": "Unsteady_Walk",
+          "duration": 2.9666669368743896,
+          "tracks": 46
+        },
+        {
+          "name": "Wake_Up_and_Look_Up",
+          "duration": 3.5,
+          "tracks": 46
+        },
+        {
+          "name": "Walk_to_Sit",
+          "duration": 8.333333015441895,
+          "tracks": 46
+        },
+        {
+          "name": "Wave_for_Help",
+          "duration": 5.033332824707031,
+          "tracks": 46
+        },
+        {
+          "name": "open_door_4",
+          "duration": 8.066666603088379,
+          "tracks": 46
+        },
+        {
+          "name": "walking_2",
+          "duration": 1.1666669845581055,
+          "tracks": 46
+        }
+      ],
+      "retarget": null,
+      "actions": {
+        "walk": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Caminhar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/logistica-2-walk.png",
+          "sha256": "a9d31f2395a30ab41b14839419823434eee58fddeaf3b81c7f2c7d7bad565f63",
+          "distinctFrames": 16,
+          "bytes": 512015
+        },
+        "idle": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 1,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "hold",
+          "label": "Em espera",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/logistica-2-idle.png",
+          "sha256": "e5d5c4881b41769407790f6eb8e6becf5ee51d04352b75137f06a6b40b897304",
+          "distinctFrames": 1,
+          "bytes": 34630
+        },
+        "talk": {
+          "clip": "Talk_with_Left_Hand_Raised",
+          "sourceClip": "Talk_with_Left_Hand_Raised",
+          "duration": 4.633333206176758,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Conversar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/logistica-2-talk.png",
+          "sha256": "00021b764f387d4dc7d1d374cc98b461d02c0fc5e01016a40e49f173c34c63e7",
+          "distinctFrames": 64,
+          "bytes": 1852791
+        },
+        "sit": {
+          "clip": "Walk_to_Sit",
+          "sourceClip": "Walk_to_Sit",
+          "duration": 8.333333015441895,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Sentar",
+          "seatedHipHeight": 0.6348729861835987,
+          "url": "/assets/expanded-cast/logistica-2-sit.png",
+          "sha256": "98865f0d7550269762cd84e629ccc182259ff86e8275b398147c4c6f013716c9",
+          "distinctFrames": 48,
+          "bytes": 1410661
+        },
+        "interact": {
+          "clip": "Female_Crouch_Pick_Throw_Forward",
+          "sourceClip": "Female_Crouch_Pick_Throw_Forward",
+          "duration": 4.866666793823242,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Agachar e manipular · teste",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/logistica-2-interact.png",
+          "sha256": "0dae40ea807c5b867828d2d849f8b6159c0b06c2cf7c306bd0e5c734aa96f4df",
+          "distinctFrames": 48,
+          "bytes": 1461643
+        }
+      },
+      "name": "Operador logístico",
+      "sector": "producao",
+      "source": "Meshy_AI_Logistics_Worker_V2_Rigged_20261013_animated_mixamo_All_animation.glb",
+      "sourceSha256": "09fce7d7637421c6db8710dd3d692a1fcc8ae93191a8c64cceeaea22cc4454fb",
+      "sourceBytes": 27672588,
+      "portrait": "/assets/expanded-cast/logistica-2-portrait.png",
+      "binding": null
+    },
+    {
+      "done": true,
+      "id": "administrativo",
+      "joints": 23,
+      "inventory": [
+        {
+          "name": "Running",
+          "duration": 0.6333333253860474,
+          "tracks": 46
+        },
+        {
+          "name": "Walking",
+          "duration": 1.0333333015441895,
+          "tracks": 46
+        },
+        {
+          "name": "Depressed_Full_Turn_Left",
+          "duration": 8.800000190734863,
+          "tracks": 46
+        },
+        {
+          "name": "Stand_to_Sit_Transition_M",
+          "duration": 4.766666889190674,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_with_Hands_Open",
+          "duration": 3.9666666984558105,
+          "tracks": 46
+        },
+        {
+          "name": "Wave_One_Hand",
+          "duration": 4.099999904632568,
+          "tracks": 46
+        },
+        {
+          "name": "falling_down",
+          "duration": 2.2666666507720947,
+          "tracks": 46
+        }
+      ],
+      "retarget": null,
+      "actions": {
+        "walk": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Caminhar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/administrativo-walk.png",
+          "sha256": "6820ead7633585f256e8035935fe69709932f80c1c9fe4c77c24315b76c5098e",
+          "distinctFrames": 16,
+          "bytes": 421334
+        },
+        "idle": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 1,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "hold",
+          "label": "Em espera",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/administrativo-idle.png",
+          "sha256": "576ad6bf6574960ec357e066e3001b076869bac2d6926168733000356641f5be",
+          "distinctFrames": 1,
+          "bytes": 28222
+        },
+        "talk": {
+          "clip": "Talk_with_Hands_Open",
+          "sourceClip": "Talk_with_Hands_Open",
+          "duration": 3.9666666984558105,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Conversar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/administrativo-talk.png",
+          "sha256": "c0518579610d6d717c0a7e2162dee9e3b616ec70f2aa1a700ec69e5f849b32d2",
+          "distinctFrames": 64,
+          "bytes": 1530025
+        },
+        "sit": {
+          "clip": "Stand_to_Sit_Transition_M",
+          "sourceClip": "Stand_to_Sit_Transition_M",
+          "duration": 4.766666889190674,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Sentar",
+          "seatedHipHeight": 0.6402419910635929,
+          "url": "/assets/expanded-cast/administrativo-sit.png",
+          "sha256": "dab3fe2732a812019caf5e0ab79cea4a59abc08b9db5d203712249281f0559e2",
+          "distinctFrames": 48,
+          "bytes": 1145886
+        },
+        "wave": {
+          "clip": "Wave_One_Hand",
+          "sourceClip": "Wave_One_Hand",
+          "duration": 4.099999904632568,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Saudar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/administrativo-wave.png",
+          "sha256": "3f6ed1d803b2a707ef8010e77b17e1ac529fa27c9a10ed30e5af6e7136026dd4",
+          "distinctFrames": 48,
+          "bytes": 1050608
+        }
+      },
+      "name": "Profissional administrativo",
+      "sector": "escritorio",
+      "source": "Meshy_AI_base_employee_smart_rigged_20261013_animated_mixamo_All_animation.glb",
+      "sourceSha256": "c7a5a774f397d5a28e82dfa2c48d72e4f8bbe9fc7875cd757959ee40b4aecab7",
+      "sourceBytes": 9429684,
+      "portrait": "/assets/expanded-cast/administrativo-portrait.png",
+      "binding": null
+    },
+    {
+      "done": true,
+      "id": "garoto",
+      "joints": 23,
+      "inventory": [
+        {
+          "name": "Running",
+          "duration": 0.6333333253860474,
+          "tracks": 46
+        },
+        {
+          "name": "Walking",
+          "duration": 1.0333333015441895,
+          "tracks": 46
+        },
+        {
+          "name": "Casual_Walk",
+          "duration": 4.1666669845581055,
+          "tracks": 46
+        },
+        {
+          "name": "Clapping_Run",
+          "duration": 13.666666984558105,
+          "tracks": 46
+        },
+        {
+          "name": "Confident_Strut",
+          "duration": 2.6666667461395264,
+          "tracks": 46
+        },
+        {
+          "name": "Idle_9",
+          "duration": 2,
+          "tracks": 46
+        },
+        {
+          "name": "Red_Carpet_Walk_inplace",
+          "duration": 5.9666666984558105,
+          "tracks": 46
+        },
+        {
+          "name": "Stage_Walk",
+          "duration": 6.6666669845581055,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_Passionately",
+          "duration": 10.266666412353516,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_with_Hands_Open",
+          "duration": 3.9666669368743896,
+          "tracks": 46
+        },
+        {
+          "name": "Talk_with_Right_Hand_Open",
+          "duration": 3.733333110809326,
+          "tracks": 46
+        },
+        {
+          "name": "Victory_Cheer",
+          "duration": 9.333333015441895,
+          "tracks": 46
+        }
+      ],
+      "retarget": null,
+      "actions": {
+        "walk": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Caminhar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/garoto-walk.png",
+          "sha256": "90dad0089690576e1ffb32e873972541f2edde3e09d19047782113530f3aee7b",
+          "distinctFrames": 16,
+          "bytes": 517582
+        },
+        "idle": {
+          "clip": "Idle_9",
+          "sourceClip": "Idle_9",
+          "duration": 2,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Em espera",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/garoto-idle.png",
+          "sha256": "bca6991e63a6ce929ddf83c47abf984d4809944556b15f39926d26621ce64380",
+          "distinctFrames": 16,
+          "bytes": 503145
+        },
+        "talk": {
+          "clip": "Talk_Passionately",
+          "sourceClip": "Talk_Passionately",
+          "duration": 10.266666412353516,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Conversar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/garoto-talk.png",
+          "sha256": "5ecfc6845f9ef69822ec78758ee295d4b2a05f702e67c7b450775cf048a0c704",
+          "distinctFrames": 64,
+          "bytes": 2038824
+        },
+        "cheer": {
+          "clip": "Victory_Cheer",
+          "sourceClip": "Victory_Cheer",
+          "duration": 9.333333015441895,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Comemorar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/garoto-cheer.png",
+          "sha256": "a8e5eea873cf31e266b83e6ea35f986672c515e870c8918a586c51e441c10abb",
+          "distinctFrames": 64,
+          "bytes": 2140687
+        }
+      },
+      "name": "Jovem profissional",
+      "sector": "atendimento",
+      "source": "Meshy_AI_boy_hoodie_textured_rigged_20261027_animated_mixamo_All_animation.glb",
+      "sourceSha256": "5ad69c1edc2aa032841d03722a3c61ba551803fc490766797d6a59faf5f57a34",
+      "sourceBytes": 30965644,
+      "portrait": "/assets/expanded-cast/garoto-portrait.png",
+      "binding": null
+    },
+    {
+      "done": true,
+      "id": "diretor",
+      "joints": 23,
+      "inventory": [
+        {
+          "name": "Running",
+          "duration": 0.6333333253860474,
+          "tracks": 46
+        },
+        {
+          "name": "Walking",
+          "duration": 1.0333333015441895,
+          "tracks": 46
+        },
+        {
+          "name": "Confused_Scratch",
+          "duration": 11.5,
+          "tracks": 46
+        },
+        {
+          "name": "Discuss_While_Moving",
+          "duration": 8.033333778381348,
+          "tracks": 46
+        },
+        {
+          "name": "Stand_to_Sit_Transition_M",
+          "duration": 4.766666889190674,
+          "tracks": 46
+        },
+        {
+          "name": "Wave_One_Hand",
+          "duration": 4.099999904632568,
+          "tracks": 46
+        }
+      ],
+      "retarget": null,
+      "actions": {
+        "walk": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Caminhar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/diretor-walk.png",
+          "sha256": "f4773f65c8a8a3ba211056e499ea5503481855bfd1e1d4c62559f8774ff83360",
+          "distinctFrames": 16,
+          "bytes": 486207
+        },
+        "idle": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 1,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "hold",
+          "label": "Em espera",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/diretor-idle.png",
+          "sha256": "8708c60098eb92f10938ec73166e8ad798b347ae62ef874101958437dd0a8deb",
+          "distinctFrames": 1,
+          "bytes": 33268
+        },
+        "talk": {
+          "clip": "Discuss_While_Moving",
+          "sourceClip": "Discuss_While_Moving",
+          "duration": 8.033333778381348,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Conversar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/diretor-talk.png",
+          "sha256": "22d4e7aceb2e564bb4db8d247203ead2acc9d07fcf86234f787ab689b8fe4829",
+          "distinctFrames": 64,
+          "bytes": 1789930
+        },
+        "sit": {
+          "clip": "Stand_to_Sit_Transition_M",
+          "sourceClip": "Stand_to_Sit_Transition_M",
+          "duration": 4.766666889190674,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Sentar",
+          "seatedHipHeight": 0.6480324267688021,
+          "url": "/assets/expanded-cast/diretor-sit.png",
+          "sha256": "e1e7baea2360274562e94f7d2237348fc1ec8bca29385cdfe548d9a7c244a370",
+          "distinctFrames": 48,
+          "bytes": 1322609
+        },
+        "wave": {
+          "clip": "Wave_One_Hand",
+          "sourceClip": "Wave_One_Hand",
+          "duration": 4.099999904632568,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Saudar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/diretor-wave.png",
+          "sha256": "e1b1cc007ff383d9034d2232359021733b2bdc7e7eb63b944594c1c19eb7e0ee",
+          "distinctFrames": 48,
+          "bytes": 1271193
+        }
+      },
+      "name": "Diretor",
+      "sector": "escritorio",
+      "source": "Meshy_AI_Stylized_Director_Rigged_20261014_animated_mixamo_All_animation.glb",
+      "sourceSha256": "ed5cc44daa44698419470b27070313dfb176bb855dd92bbd89beb06e2f1f9baf",
+      "sourceBytes": 25018108,
+      "portrait": "/assets/expanded-cast/diretor-portrait.png",
+      "binding": null
+    },
+    {
+      "done": true,
+      "id": "yoga",
+      "joints": 69,
+      "inventory": [
+        {
+          "name": "Running",
+          "duration": 0.6333333253860474,
+          "tracks": 192
+        },
+        {
+          "name": "Walking",
+          "duration": 1.0333333015441895,
+          "tracks": 192
+        },
+        {
+          "name": "_01a1c1e3_4163_72bc_b676_919e79e69ddf",
+          "duration": 6.9666666984558105,
+          "tracks": 192
+        },
+        {
+          "name": "_01a1c1e3_cbe1_72b7_a088_a1eb62260356",
+          "duration": 6.9666666984558105,
+          "tracks": 192
+        },
+        {
+          "name": "_01a1c1e7_fc91_7384_98ef_84dabfd390a2",
+          "duration": 4.4666666984558105,
+          "tracks": 192
+        },
+        {
+          "name": "Axe_Breathe_and_Look_Around",
+          "duration": 11.266666412353516,
+          "tracks": 192
+        },
+        {
+          "name": "Lie_Down_Hands_Spread",
+          "duration": 3.700000047683716,
+          "tracks": 192
+        },
+        {
+          "name": "Long_Breathe_and_Look_Around",
+          "duration": 11.266666412353516,
+          "tracks": 192
+        },
+        {
+          "name": "Short_Breathe_and_Look_Around",
+          "duration": 7.833333492279053,
+          "tracks": 192
+        },
+        {
+          "name": "Sit_Cross_Legged",
+          "duration": 9.533333778381348,
+          "tracks": 192
+        },
+        {
+          "name": "Sit_Cross_Legged_on_Floor",
+          "duration": 2.5,
+          "tracks": 192
+        },
+        {
+          "name": "Sit_to_standTransition_Female_2",
+          "duration": 2.2666666507720947,
+          "tracks": 192
+        },
+        {
+          "name": "Thoughtful_Walk",
+          "duration": 4.700000286102295,
+          "tracks": 192
+        },
+        {
+          "name": "Walk_to_Sit",
+          "duration": 8.333333015441895,
+          "tracks": 192
+        },
+        {
+          "name": "walking_2",
+          "duration": 1.1666666269302368,
+          "tracks": 192
+        }
+      ],
+      "retarget": null,
+      "actions": {
+        "walk": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Caminhar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/yoga-walk.png",
+          "sha256": "459bd83651d3f95e04a0e417bc40a72fa2466ee8c998b863279b40f7111b6f97",
+          "distinctFrames": 16,
+          "bytes": 439413
+        },
+        "idle": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 1,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "hold",
+          "label": "Em espera",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/yoga-idle.png",
+          "sha256": "81fafb8df8eb47cd0a6a85e24c28e096a627981f4f15ea5ad59f94681e79e043",
+          "distinctFrames": 1,
+          "bytes": 28868
+        },
+        "sit": {
+          "clip": "Walk_to_Sit",
+          "sourceClip": "Walk_to_Sit",
+          "duration": 8.333333015441895,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Sentar",
+          "seatedHipHeight": 0.663036833328667,
+          "url": "/assets/expanded-cast/yoga-sit.png",
+          "sha256": "c86bdf1b54bcd368938d1c97d9805bf8a265b1ec343214236a72fa5867d9f611",
+          "distinctFrames": 48,
+          "bytes": 1247149
+        },
+        "breathe": {
+          "clip": "Long_Breathe_and_Look_Around",
+          "sourceClip": "Long_Breathe_and_Look_Around",
+          "duration": 11.266666412353516,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Respiração e alongamento",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/yoga-breathe.png",
+          "sha256": "2d444610fb15a354a5d9a407e02181056bd8b6e6e129dc1f2050898abbf0131d",
+          "distinctFrames": 64,
+          "bytes": 1723094
+        },
+        "floor-sit": {
+          "clip": "Sit_Cross_Legged_on_Floor",
+          "sourceClip": "Sit_Cross_Legged_on_Floor",
+          "duration": 2.5,
+          "frames": 32,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Sentar no tapete",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/yoga-floor-sit.png",
+          "sha256": "d19712cde269c609b860b365bf9aeb19411a9cbf9cfb42ae2eeacd04a4d3693f",
+          "distinctFrames": 32,
+          "bytes": 471676
+        },
+        "floor-idle": {
+          "clip": "Sit_Cross_Legged_on_Floor",
+          "sourceClip": "Sit_Cross_Legged_on_Floor",
+          "duration": 2.5,
+          "frames": 1,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "hold",
+          "label": "Pausa sentada no tapete",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/yoga-floor-idle.png",
+          "sha256": "d322253e92ab538d1829333056e673efae204f1595aa4b4ce67e0e23e7f965b4",
+          "distinctFrames": 1,
+          "bytes": 23157
+        },
+        "rise": {
+          "clip": "Sit_to_standTransition_Female_2",
+          "sourceClip": "Sit_to_standTransition_Female_2",
+          "duration": 2.2666666507720947,
+          "frames": 32,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Levantar do tapete",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/yoga-rise.png",
+          "sha256": "ee93eb2ddcf616e61707cca004738c239cd7d8ff51f2af8471363147b892c417",
+          "distinctFrames": 32,
+          "bytes": 822872
+        },
+        "posture": {
+          "clip": "Sit_Cross_Legged",
+          "sourceClip": "Sit_Cross_Legged",
+          "duration": 9.533333778381348,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Postura sentada",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/yoga-posture.png",
+          "sha256": "e5cd65be0ad9b1dbeab8c3e7477af097444691662e78eb56ac7f6c8202e08c4c",
+          "distinctFrames": 64,
+          "bytes": 1313755
+        }
+      },
+      "name": "Malik · Professor de yoga",
+      "sector": "restauracao",
+      "source": "Meshy_AI_Malik_20261109_animated_mixamo_All_animation.glb",
+      "sourceSha256": "e1cfd28ba814083fcaf12f856e34039a8cc6680ffb27aa991035de4a900bcd00",
+      "sourceBytes": 52118088,
+      "portrait": "/assets/expanded-cast/yoga-portrait.png",
+      "binding": null
+    },
+    {
+      "done": true,
+      "id": "advogado",
+      "joints": 76,
+      "inventory": [
+        {
+          "name": "Running",
+          "duration": 0.6333333253860474,
+          "tracks": 192
+        },
+        {
+          "name": "Walking",
+          "duration": 1.0333333015441895,
+          "tracks": 192
+        },
+        {
+          "name": "_01a1c1e3_cbe1_72b7_a088_a1eb62260356",
+          "duration": 6.9666666984558105,
+          "tracks": 192
+        },
+        {
+          "name": "_01a1c1e7_fc91_7384_98ef_84dabfd390a2",
+          "duration": 4.4666666984558105,
+          "tracks": 192
+        },
+        {
+          "name": "Casual_Walk",
+          "duration": 4.166666507720947,
+          "tracks": 192
+        },
+        {
+          "name": "Unsteady_Walk",
+          "duration": 2.9666666984558105,
+          "tracks": 192
+        },
+        {
+          "name": "Wake_Up_and_Look_Up",
+          "duration": 3.5,
+          "tracks": 192
+        },
+        {
+          "name": "Walk_to_Sit",
+          "duration": 8.333333015441895,
+          "tracks": 192
+        },
+        {
+          "name": "open_door_4",
+          "duration": 8.066666603088379,
+          "tracks": 192
+        },
+        {
+          "name": "walking_2_inplace",
+          "duration": 1.1666666269302368,
+          "tracks": 192
+        }
+      ],
+      "retarget": null,
+      "actions": {
+        "walk": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 16,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "loop",
+          "label": "Caminhar",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/advogado-walk.png",
+          "sha256": "6511e5c3169da87b9c231356692a8b076dd56e6b0e81e28b91d18aa7bb0885ac",
+          "distinctFrames": 16,
+          "bytes": 397419
+        },
+        "idle": {
+          "clip": "Walking",
+          "sourceClip": "Walking",
+          "duration": 1.0333333015441895,
+          "frames": 1,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "hold",
+          "label": "Em espera",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/advogado-idle.png",
+          "sha256": "8170a65c726264ecdeb2d448564747779cff8194ffc50c88682b6412a4fad287",
+          "distinctFrames": 1,
+          "bytes": 26315
+        },
+        "sit": {
+          "clip": "Walk_to_Sit",
+          "sourceClip": "Walk_to_Sit",
+          "duration": 8.333333015441895,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Sentar",
+          "seatedHipHeight": 0.6615233568037134,
+          "url": "/assets/expanded-cast/advogado-sit.png",
+          "sha256": "adcea66355b18bda51816f8ba60b0f6591579db0b945cf282bb60587f47bff5c",
+          "distinctFrames": 48,
+          "bytes": 1110773
+        },
+        "extra-1": {
+          "clip": "_01a1c1e3_cbe1_72b7_a088_a1eb62260356",
+          "sourceClip": "_01a1c1e3_cbe1_72b7_a088_a1eb62260356",
+          "duration": 6.9666666984558105,
+          "frames": 64,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Animação adicional1",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/advogado-extra-1.png",
+          "sha256": "4e689480f14e103b8309bc8eff5879b4f7f32f00a64f6ade60eedf1f573dd3ca",
+          "distinctFrames": 64,
+          "bytes": 1048928
+        },
+        "extra-2": {
+          "clip": "_01a1c1e7_fc91_7384_98ef_84dabfd390a2",
+          "sourceClip": "_01a1c1e7_fc91_7384_98ef_84dabfd390a2",
+          "duration": 4.4666666984558105,
+          "frames": 48,
+          "frameWidth": 128,
+          "frameHeight": 192,
+          "directions": 4,
+          "anchorY": 0.7389009324952482,
+          "renderHeight": 3.5579601599793103,
+          "mode": "once",
+          "label": "Animação adicional2",
+          "seatedHipHeight": null,
+          "url": "/assets/expanded-cast/advogado-extra-2.png",
+          "sha256": "13492b49076b8cd85f121a752216f84712d2152a6f2f5529f97e601e303b1555",
+          "distinctFrames": 48,
+          "bytes": 989588
+        }
+      },
+      "name": "Advogado",
+      "sector": "escritorio",
+      "source": "Meshy_AI_Textured_Man_in_Blue_Suit_20261109_animated_mixamo_All_animation.glb",
+      "sourceSha256": "83ebbac605cdffaa9e45a934617dc50f3b18f24ac27892c64c0ff335cada1df9",
+      "sourceBytes": 21707284,
+      "portrait": "/assets/expanded-cast/advogado-portrait.png",
+      "binding": null
+    }
+  ],
+  "limitations": [
+    "Mariana retains the validated procedural seated pose; chair retarget rejected after visual inspection.",
+    "Beatriz keeps her previously approved rig and canonical identity."
+  ]
+}

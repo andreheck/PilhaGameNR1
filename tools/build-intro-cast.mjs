@@ -7,8 +7,8 @@ replace('var employeeRows=[],employeeHits=[],employeeHover=null,employeePaused=f
 const selector=s.split('\n').find(l=>l.includes('var sprite = sharedIndexMode'));
 replace(selector,selector+`
  var introDef=p.introCastKey&&introCastRows.find(function(m){return m.id===p.introCastKey;}),introImage=introDef&&introCastImages[introDef.id];if(introDef&&introImage&&introImage.complete&&introImage.naturalWidth)sprite=introImage;`);
-replace('var sh=2.15*u,sw=sh*128/192;',"if(introDef)frame=walking&&!isStatic?Math.floor(time*Math.min(.8,p.speed)/Math.max(.8,introDef.duration)*8)%8:2;var sh=2.15*u,sw=sh*128/192;");
-replace('var sh=2.15*u,sw=sh*128/192;','var sh=(introDef?2.7:2.15)*u,sw=sh*128/192;if(introDef)introCastDrawn[introDef.id]={id:introDef.id,frame:frame,x:p.x,y:p.y,moving:p.moving,sector:e.key};');
+replace('var sh=2.15*u,sw=sh*128/192;',"if(introDef)frame=walking&&!isStatic?Math.floor(time*Math.min(.8,p.speed)/Math.max(.8,introDef.duration)*(introDef.frames||8))%(introDef.frames||8):0;var sh=2.15*u,sw=sh*128/192;");
+replace('var sh=2.15*u,sw=sh*128/192;','var sh=(introDef?(introDef.renderHeight||2.7):2.15)*u,sw=sh*128/192;if(introDef)introCastDrawn[introDef.id]={id:introDef.id,frame:frame,x:p.x,y:p.y,moving:p.moving,sector:e.key};');
 replace('fy-sh*(p.robotId?.7919900286:rigged?rigged.anchorY:1)','fy-sh*(introDef?introDef.anchorY:p.robotId?.7919900286:rigged?rigged.anchorY:1)');
 replace('      setRoutineClock:setRoutineClock,',`      setIntroCast:setIntroCast,getIntroCastStatus:function(){return {count:introCastRows.length,loaded:Object.values(introCastImages).filter(function(i){return i.complete&&i.naturalWidth;}).length,drawn:Object.values(introCastDrawn)};},
       setRoutineClock:setRoutineClock,`);
