@@ -22,7 +22,7 @@ test('real social agenda reaches arranged desks and transports material between 
  for(const maximum of [false,true]){
  iso.setSectorInventory(Object.fromEntries(SECTORS.map(z=>[z.id,Object.fromEntries(ITEMS.filter(i=>!!i.rest===z.rest).map(i=>[i.id,maximum?3:0]))])));iso.setEmployees(L.staffView(s));
  const seen=new Set(),seats=new Set();
- for(let t=0;t<120000;t+=200){
+ for(let t=0;t<RULES.weekMs;t+=RULES.weekMs/600){
   s.activeMs=t;const rows=L.routines(s);assert.ok(rows.every(r=>typeof r.sampleAt==='function'));
   iso.setRoutineClock({...s,paused:true},rows);
   const workers=iso.getEmployees();assert.equal(new Set(workers.map(p=>p.id)).size,16);
@@ -153,7 +153,7 @@ test('weekly rota with rescheduled pauses gives every active NPC an outbound, re
  for(let t=0;t<RULES.weekMs;t+=RULES.weekMs/240){s.activeMs=t;const r=L.routines(s).find(r=>r.id===p.id);stages.add(r.stage);assert.ok(r.healthBonus>=0&&r.healthBonus<=8);}
  assert.ok(stages.has('outbound'),p.id+' outbound');assert.ok(stages.has('rest'),p.id+' rest');assert.ok(stages.has('return'),p.id+' return');assert.ok([...stages].some(x=>['work','conversation','afterglow','meeting','meeting-outbound','meeting-return'].includes(x)),p.id+' work or social agenda');
  }s.activeMs=0;assert.equal(JSON.stringify(s),raw);
- for(let t=0;t<routines.ROUTINE_PERIOD;t+=100){s.activeMs=t;assert.ok(L.attendance(s).filter(r=>r.inRestArea).length<=6);assert.equal(new Set(L.routines(s).map(r=>r.id)).size,16);}
+ for(let t=0;t<routines.ROUTINE_PERIOD;t+=RULES.weekMs/1200){s.activeMs=t;assert.ok(L.attendance(s).filter(r=>r.inRestArea).length<=6);assert.equal(new Set(L.routines(s).map(r=>r.id)).size,16);}
 });
 test('approved patio upgrades increase temporary benefits without mutating saved health',()=>{
  let s=setup();s.activeMs=routines.ROUTINE_PERIOD*.16;const base=L.staffView(s).find(p=>p.id==='NPC-01'),original=s.staff['NPC-01'].health;s.budget=100000;s=M.purchase(s,M.quote(s,'restauracao','banco')).state;s.activeMs=routines.ROUTINE_PERIOD*.16;
@@ -194,7 +194,7 @@ test('below55 health slows transit by40percent without removing daily clock or p
  assert.equal(routines.walkingFactor(54.99),.6);assert.equal(routines.walkingFactor(55),1);assert.equal(routines.walkingFactor(100),1);
  const fast=routines.routinePhase(routines.ROUTINE_PERIOD*.04,0,16,55),slow=routines.routinePhase(routines.ROUTINE_PERIOD*.04,0,16,54);
  near(slow.progress,fast.progress*.6);assert.ok(slow.outEnd>fast.outEnd);assert.ok(slow.tripEnd>fast.tripEnd);
- const s=setup();for(const p of Object.values(s.staff))p.health=40;for(let t=0;t<routines.ROUTINE_PERIOD;t+=100){s.activeMs=t;assert.ok(L.attendance(s).filter(r=>r.inRestArea).length<=6);assert.ok(L.routines(s).every(r=>Math.abs(r.speed/r.pace-.6)<1e-10));}
+ const s=setup();for(const p of Object.values(s.staff))p.health=40;for(let t=0;t<routines.ROUTINE_PERIOD;t+=RULES.weekMs/1200){s.activeMs=t;assert.ok(L.attendance(s).filter(r=>r.inRestArea).length<=6);assert.ok(L.routines(s).every(r=>Math.abs(r.speed/r.pace-.6)<1e-10));}
 });
 
 test('legacy public save at week658 with empty cash and no productive employees receives next750 investment',()=>{

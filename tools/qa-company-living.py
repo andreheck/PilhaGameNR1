@@ -254,7 +254,7 @@ def run(browser,w,h):
         page.locator('[data-company="pause"]').click();saved('s.paused===false');a=positions();page.wait_for_timeout(1100)
         check(a!=positions(),tag+': resume restarts employees')
         audio=page.evaluate('PilhaLiving.audio()');check(audio['state']=='running' and audio['played']>0,tag+': WebAudio unlocked and tones scheduled after gestures')
-        page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.lastWallMs-=240500;localStorage.setItem(k,JSON.stringify(s));}')
+        page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.lastWallMs-=s.clockWeekMs*2+500;localStorage.setItem(k,JSON.stringify(s));}')
         page.evaluate('PilhaLiving.syncClock()');saved('s.week>=3')
         check(state()['events']['current']['stage']=='decision',tag+': background catch-up keeps pending decision unanswered')
         old=state()['week'];old_money=state()['budget'];old_finance=state()['finance'];page.locator('[data-company="advance"]').click();saved('s.week>'+str(old))
@@ -267,7 +267,7 @@ def run(browser,w,h):
         check(all(-5<=p['leadership']['delta']<=7 for p in current['staff'].values()),tag+': management health deltas bounded')
         menu();page.locator('[data-company="world"]').click();page.locator('[data-world-tab="organograma"]').click()
         check('semana '+str(current['week']) in page.locator('.organization-influence').first.inner_text(),tag+': organization shows actual applied week')
-        page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.lastWallMs-=120500;localStorage.setItem(k,JSON.stringify(s));}')
+        page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.lastWallMs-=s.clockWeekMs+500;localStorage.setItem(k,JSON.stringify(s));}')
         page.evaluate('PilhaLiving.syncClock()')
         page.wait_for_function('()=>document.querySelector(".organization-influence").textContent.includes("semana "+PilhaLiving.getState().week)')
         check(state()['week']>current['week'],tag+': live organization updates after a weekly tick')
@@ -289,7 +289,7 @@ def run(browser,w,h):
             for _ in range(3):other.locator('[data-guide="next"]').click()
             other.locator('[data-team-save]').click();other.locator('.pm-root').wait_for()
             old_week=state()['week'];old_budget=state()['budget'];old_total=state()['weeklyIncome']['total'];old_finance=state()['finance']
-            page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.paused=false;s.lastWallMs=Date.now()-120500;localStorage.setItem(k,JSON.stringify(s));PilhaLiving.syncClock();}')
+            page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.paused=false;s.lastWallMs=Date.now()-(s.clockWeekMs+500);localStorage.setItem(k,JSON.stringify(s));PilhaLiving.syncClock();}')
             other.evaluate('PilhaLiving.syncClock()')
             saved('s.week==='+str(old_week+1))
             check(abs(state()['budget']-(old_budget+1000+state()['finance']['earned']-old_finance['earned']-state()['finance']['operationalCosts']+old_finance['operationalCosts']))<.02 and state()['weeklyIncome']['total']==old_total+1000,tag+': two browser tabs deposit one weekly income')
@@ -324,24 +324,21 @@ def run(browser,w,h):
             # employees absent. Use an active synthetic workforce for visual QA.
             page.evaluate('async()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.activeMs=0;s.paused=true;s.lastWallMs=Date.now();for(const p of Object.values(s.staff)){p.employment="active";p.health=70;p.previous=70;p.lowWeeks=0;p.criticalWeeks=0;p.returnProtectedUntil=s.week+3;p.leaveUntil=null;p.leaveStarted=null;p.leaveDuration=null;p.reason=null;}localStorage.setItem(k,JSON.stringify(s));await PilhaLiving.syncClock();}')
             page.wait_for_function('PilhaLiving.getEmployees().length===16')
-            page.locator('[data-company="pause"]').click();saved('s.paused===false')
             for activity in ['computer','moving-material']:
                 worker=None
-                for attempt in range(3):
-                    page.wait_for_function('(a)=>PilhaLiving.getEmployees().some(p=>p.activity===a&&(a!=="moving-material"||p.sector==="producao"))',arg=activity,timeout=45000)
-                    page.locator('[data-company="pause"]').click();saved('s.paused===true')
+                # Sample the actual agenda at saved times; avoid waiting15 real minutes.
+                for step in range(150):
+                    page.evaluate('async(t)=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.activeMs=t*s.clockWeekMs/150;s.paused=true;s.lastWallMs=Date.now();localStorage.setItem(k,JSON.stringify(s));await PilhaLiving.syncClock();}',step)
                     actors=page.evaluate('PilhaLiving.getEmployees()')
                     worker=next((p for p in actors if p.get('activity')==activity and (activity!='moving-material' or p.get('sector')=='producao')),None)
                     if worker:break
-                    page.locator('[data-company="pause"]').click();saved('s.paused===false')
                 check(bool(worker),tag+': actual agenda renders '+activity)
                 if activity=='computer':
                     check(worker['sitting'] and abs(worker['x']-worker['workstation']['x'])<.01 and abs(worker['y']-worker['workstation']['y'])<.01,tag+': worker sits at the arranged computer station')
                 else:check(worker['carrying']=='box' and worker['workTarget']['item']['type'] in ['conveyor','machine','table'],tag+': box travels toward actual equipment')
                 menu();page.locator('[data-company="employees"]').click()
                 page.locator('[data-employee="'+worker['id']+'"]').click();page.locator('[data-employee-locate]').click();page.wait_for_timeout(400);snap('interaction-'+activity)
-                page.locator('[data-company="pause"]').click();saved('s.paused===false')
-            page.locator('[data-company="pause"]').click();saved('s.paused===true')
+            check(state()['paused'],tag+': sampled agenda remains paused')
 
         check(not errors,tag+': no uncaught browser exceptions')
         report['viewports'].append({'width':w,'height':h,'ok':True})

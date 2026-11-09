@@ -24,10 +24,10 @@ test('fourteen-day cycles retain seven complete pauses and two meetings without 
 
 test('rebuilding at week and cycle boundaries preserves positions and conversations',()=>{
  for(const week of [1,2,3,20,99999]){
-  const s=setup();s.week=week;s.activeMs=119000;for(const p of Object.values(s.staff)){p.health=40;p.week=week;}
+  const s=setup();s.week=week;s.activeMs=RULES.weekMs-1000;for(const p of Object.values(s.staff)){p.health=40;p.week=week;}
   const rows=L.routines(s);
   for(const delta of [0,999,1000,1001,2000]){
-   const active=119000+delta,freshState=JSON.parse(JSON.stringify({...s,week:week+Math.floor(active/RULES.weekMs),activeMs:active%RULES.weekMs}));
+   const active=RULES.weekMs-1000+delta,freshState=JSON.parse(JSON.stringify({...s,week:week+Math.floor(active/RULES.weekMs),activeMs:active%RULES.weekMs}));
    const fresh=L.routines(freshState),time=(week-1)*RULES.weekMs+active;
    for(const row of rows)assert.deepEqual(row.sampleAt(time),fresh.find(r=>r.id===row.id).sampleAt(time),row.id+' week '+week+' delta '+delta);
   }
@@ -39,7 +39,7 @@ test('rest capacity counts seated visitors, not people walking through corridors
   const s=setup();Object.values(s.staff).forEach((p,i)=>{p.health=health==='mixed'?(i%3?40:70):health;});
   const rows=L.routines(s),events=rows.flatMap(r=>r.agenda);
   const next=L.routines({...s,week:2});events.push(...next.flatMap(r=>r.agenda));
-  for(const time of events.flatMap(e=>[e.start,e.out,e.pauseEnd,e.end]).concat(Array.from({length:480},(_,i)=>i*500))){
+  for(const time of events.flatMap(e=>[e.start,e.out,e.pauseEnd,e.end]).concat(Array.from({length:480},(_,i)=>i*RULES.weekMs/240))){
    const present=rows.map(r=>r.sampleAt(time)).filter(p=>p.kind==='rest'&&p.inRestArea);
    assert.ok(present.length<=6,'seated visitors '+present.length+' at '+time);
   }
@@ -110,7 +110,7 @@ test('inactive managers do not get cloned and chosen managers replace defaults',
 
 test('conversation partners are reciprocal and health effects remain temporary',()=>{
   const state=setup(),rows=L.routines(state);let pair;
-  for(let t=0;t<RULES.weekMs&&!pair;t+=100){
+  for(let t=0;t<RULES.weekMs&&!pair;t+=RULES.weekMs/1200){
     const poses=rows.map(r=>({...r,...r.sampleAt(t)}));
     for(const p of poses.filter(p=>p.stage==='conversation')){
       const q=poses.find(x=>x.id===p.partnerId);

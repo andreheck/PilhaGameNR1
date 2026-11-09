@@ -8,7 +8,7 @@ export const ROUTINE_PERIOD=RULES.weekMs*2/7;
 export const walkingFactor=health=>Number.isFinite(health)&&health<55?.6:1;
 export function routinePhase(elapsed,index,count=16,health=70,pace=1){
  const phase=((elapsed/ROUTINE_PERIOD-index/count)%1+1)%1,scale=16/count,speed=walkingFactor(health)*pace;
- const outEnd=.08*scale/(speed*NPC_MOTION.walkRate),pauseEnd=outEnd+.06*scale,tripEnd=pauseEnd+.08*scale/(speed*NPC_MOTION.walkRate),glowEnd=tripEnd+.18*scale;
+ const outEnd=.095*scale/(speed*NPC_MOTION.walkRate),pauseEnd=outEnd+.06*scale,tripEnd=pauseEnd+.095*scale/(speed*NPC_MOTION.walkRate),glowEnd=tripEnd+.18*scale;
  const stage=phase<outEnd?'outbound':phase<pauseEnd?'rest':phase<tripEnd?'return':phase<glowEnd?'afterglow':'work';
  return {phase,stage,offset:index/count,scale,pace,speed,outEnd,pauseEnd,tripEnd,glowEnd,progress:stage==='outbound'?phase/outEnd:stage==='return'?(phase-pauseEnd)/(tripEnd-pauseEnd):0};
 }

@@ -1,9 +1,10 @@
-/** Visual pacing assumptions for the continuous game. Calendar time is unchanged. */
+import {RULES} from '../data/continuous/catalog.js';
+/** Visual pacing follows the canonical calendar; work speed is a separate bound. */
 export const NPC_MOTION=Object.freeze({
   walkRate:.70,
-  conversationMs:5000,
-  meetingTravelMs:4500,
-  meetingMs:6000,
+  conversationMs:RULES.weekMs/24,
+  meetingTravelMs:RULES.weekMs*.0375,
+  meetingMs:RULES.weekMs*.05,
   meetingStarts:[.15,.435,.72]
 });
 

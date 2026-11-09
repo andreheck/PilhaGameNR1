@@ -376,7 +376,8 @@
         (t.chips ? '<div class="pm-toast__row">' + t.chips.join("") + '</div>' : "") +
         (t.action ? '<button type="button" class="pm-toast__act">' + esc(t.action.label) + '</button>' : "") + '</div>' +
         '<button type="button" class="pm-toast__x" aria-label="Fechar aviso">✕</button>';
-      function close(automatic) { if (!el.parentNode) return; if (automatic === true && (toasts.closest("dialog[open]") || el.contains(document.activeElement) || el.matches(":hover"))) { later(function(){close(true);}, 1000); return; } el.classList.add("is-out"); setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, reduce ? 0 : 300); }
+      var readUntil=0;
+      function close(automatic) { if (!el.parentNode) return; if (automatic === true) { if (toasts.closest("dialog[open]") || el.contains(document.activeElement) || el.matches(":hover")) readUntil=Date.now()+5000; if (Date.now()<readUntil) { later(function(){close(true);}, 1000); return; } } el.classList.add("is-out"); setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, reduce ? 0 : 300); }
       el.querySelector(".pm-toast__x").addEventListener("click", close);
       if (t.action) el.querySelector(".pm-toast__act").addEventListener("click", function () { t.action.fn(); close(); });
       toasts.appendChild(el);

@@ -1,3 +1,4 @@
+import {RULES} from '../data/continuous/catalog.js';
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';import crypto from 'node:crypto';
 import * as M from '../simulation/company-continuous.js';import * as L from '../simulation/company-living.js';import {SECTORS} from '../data/continuous/catalog.js';
 const catalog=JSON.parse(fs.readFileSync(new URL('../data/continuous/npc-rigged.json',import.meta.url)));
@@ -35,7 +36,7 @@ test('unavailable sprite files keep all active actors visible through the existi
 
 test('Mariana uses her supplied conversation clip during a restorative pause',()=>{
  const s=L.ensureLiving(M.fresh()),row=L.routines(s).find(p=>p.id==='NPC-07');let time;
- for(let t=0;t<120000;t+=100){const pose=row.sampleAt(t);if(pose.stage==='rest'&&pose.talking){time=t;break;}}
+ for(let t=0;t<RULES.weekMs;t+=RULES.weekMs/1200){const pose=row.sampleAt(t);if(pose.stage==='rest'&&pose.talking){time=t;break;}}
  assert.notEqual(time,undefined,'Mariana shares a restorative pause');s.activeMs=time;
  const {iso,tick}=engine(s);tick(16);const mariana=L.routines(s).find(p=>p.id==='NPC-07');assert.equal(mariana.stage,'rest');assert.equal(mariana.talking,true);assert.ok(mariana.partnerId);assert.equal(iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-07').action,'talk');
 });

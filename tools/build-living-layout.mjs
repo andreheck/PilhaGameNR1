@@ -1,5 +1,6 @@
 /** Preserve usable map space and frame located employees without a covering sheet. */
 import fs from 'node:fs';import {fileURLToPath} from 'node:url';
+import {RULES} from '../data/continuous/catalog.js';
 const root=fileURLToPath(new URL('../dist/',import.meta.url));
 const path=root+'ui/continuous-game.js',text=fs.readFileSync(path,'utf8');
 const old="map.select(SECTORS.findIndex(s=>s.id===p.current));map.iso.hoverEmployee(id);";
@@ -13,7 +14,7 @@ const isoPath=root+'ui/continuous/iso.js';let iso=fs.readFileSync(isoPath,'utf8'
 const routines=fs.readFileSync(new URL('../ui/npc-routine-runtime.js',import.meta.url),'utf8');
 import {workActivity,workTask} from '../simulation/work-agenda.js';
 import {pacedWorkPlan} from '../ui/npc-paced-work.js';
-iso=iso.replace('    function PFor(c,x,y,z){',workActivity.toString()+'\n'+workTask.toString()+'\n'+pacedWorkPlan.toString()+'\n'+routines+'\n    function PFor(c,x,y,z){');
+iso=iso.replace('    function PFor(c,x,y,z){','var routineWeekMs='+RULES.weekMs+';\n'+workActivity.toString()+'\n'+workTask.toString()+'\n'+pacedWorkPlan.toString()+'\n'+routines+'\n    function PFor(c,x,y,z){');
 iso=iso.replace('      setEmployees:setEmployees,','      setRoutineClock:setRoutineClock,\n      setEmployees:setEmployees,');
 iso=iso.replace('stepCommuters(dt);','if(!routineClock)stepCommuters(dt);updateRoutinePeople();');
 iso=iso.replace('var old=restVisitors;restVisitors=[];','if(routineClock)return;var old=restVisitors;restVisitors=[];');

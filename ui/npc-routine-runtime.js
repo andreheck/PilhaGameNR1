@@ -1,11 +1,11 @@
     var routineClock=null,routinePaths={};
     function setRoutineClock(state,rows){
-      var elapsed=(state.week-1)*120000+state.activeMs;
+      var elapsed=(state.week-1)*routineWeekMs+state.activeMs;
       routineClock={elapsed:elapsed,at:performance.now(),paused:state.paused,rows:rows};if(Object.keys(routinePaths).length>512)routinePaths={};updateRoutinePeople();if(!running)render();
     }
     function updateRoutinePeople(){
       if(!routineClock||!worldCfg)return;
-      var elapsed=routineClock.elapsed+(routineClock.paused?0:performance.now()-routineClock.at),period=120000*2/7;
+      var elapsed=routineClock.elapsed+(routineClock.paused?0:performance.now()-routineClock.at),period=routineWeekMs*2/7;
       restVisitors=[];commuters=[];
       worldCfg.forEach(function(c){c.env.people.forEach(function(p){if(!p.employeeId)return;
         var row=routineClock.rows.find(function(r){return r.id===p.employeeId;});p.restAway=false;if(!row)return;
@@ -23,7 +23,7 @@
             var points={home:home,gather:gather,station:p.workstation||home,source:p.materialSource||home,destination:p.materialDestination||home};
             var paths={};[['home','station'],['station','gather'],['home','source'],['source','destination'],['destination','gather'],['home','gather'],['gather','home']].forEach(function(pair){var from=points[pair[0]],to=points[pair[1]],key=c.key+'|'+p.employeeId+'|'+c.env.workRevision+'|'+[from.x,from.y,to.x,to.y].map(function(n){return n.toFixed(4);}).join(',');paths[pair.join('|')]=routinePaths[key]||(routinePaths[key]=global.PilhaNpcRoutes.routeWithin(AISLE,from,to,c.env.items));});
             var duration=pose.workEnd-pose.workStart;
-            var plan=pacedWorkPlan((elapsed-pose.workStart)/duration,{durationMs:duration,sector:c.key,hasWorkstation:!!p.workstation,speed:speed,paths:paths});
+            var plan=pacedWorkPlan((elapsed-pose.workStart)/duration,{durationMs:duration,conversationMs:routineWeekMs/24,sector:c.key,hasWorkstation:!!p.workstation,speed:speed,paths:paths});
             p.talking=!!pose.talking&&plan.activity==='conversation';
             p.activity=plan.activity;p.interaction=plan.interaction||null;p.handlingProgress=plan.handlingProgress||0;p.carrying=plan.carrying;p.sit=plan.sit;p.workTarget=points[plan.to];if(!plan.moving&&p.workTarget&&p.workTarget.item){var item=p.workTarget.item,faceX=item.x+item.w/2-p.x,faceY=item.y+item.d/2-p.y;p.facing=Math.abs(faceX)>Math.abs(faceY)?(faceX>0?1:3):(faceY>0?0:2);}
             if(plan.moving){
@@ -38,7 +38,7 @@
             var path=routinePaths[cache]||(routinePaths[cache]=global.PilhaNpcRoutes.route(worldCfg,AISLE,connections,c.key,target,p.employeeId,aislePoint(p.homeProgress||0)));
             if(!path.length)return;
             var q=global.PilhaNpcRoutes.sample(path,pose.progress),nextQ=global.PilhaNpcRoutes.sample(path,pose.progress+(pose.stage.includes('return')?-.001:.001)),resting=pose.holding,clone=Object.assign({},p,q,{from:c.key,to:'restauracao',worker:p.employeeId,home:c.key,sit:resting&&!pose.meeting,moving:!routineClock.paused&&!resting,phase:elapsed*.0034*speed,transit:!resting,npc:-1,talking:!!pose.talking,activity:pose.stage,vx:nextQ.x-q.x,vy:nextQ.y-q.y});
-            if(resting){var dest=worldCfg.find(function(c){return c.key==='restauracao';});if(dest){clone.x-=dest.bx;clone.y-=dest.by;}if(pose.meeting){var faceX=9.8-clone.x,faceY=5.15-clone.y;clone.facing=Math.abs(faceX)>Math.abs(faceY)?(faceX>0?1:3):(faceY>0?0:2);}restVisitors.push(clone);}else commuters.push(clone);
+            if(resting){var dest=worldCfg.find(function(c){return c.key==='restauracao';});if(dest){clone.x-=dest.bx;clone.y-=dest.by;}if(pose.meeting){var faceX=(dest&&dest.depth>8?4.1:9.8)-clone.x,faceY=(dest&&dest.depth>8?15.45:5.15)-clone.y;clone.facing=Math.abs(faceX)>Math.abs(faceY)?(faceX>0?1:3):(faceY>0?0:2);}restVisitors.push(clone);}else commuters.push(clone);
             p.restAway=true;
           }
           return;
