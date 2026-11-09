@@ -9,8 +9,8 @@ function expandedPose(id,e){
   var cycle=t%35;action=cycle<12?'breathe':cycle<14.5?'floor-sit':cycle<31?'floor-idle':'rise';frameTime=cycle-(cycle<12?0:cycle<14.5?12:cycle<31?14.5:31);
  }else{
   // Same unobstructed company aisle as the introductory actors; no furniture crossing.
-  var elapsed=t%32,d=(n*1.3+Math.min(elapsed,20)*.56)%AISLE_LENGTH,point=aislePoint(d),next=aislePoint((d+.01)%AISLE_LENGTH);
-  x=point.x;y=point.y;action=elapsed<20?'walk':actor.actions.talk?'talk':'idle';frameTime=action==='walk'?t*.56/1.4:t;
+  var elapsed=t%32,walkTime=Math.floor(t/32)*20+Math.min(elapsed,20),d=(n*1.3+walkTime*.56)%AISLE_LENGTH,point=aislePoint(d),next=aislePoint((d+.01)%AISLE_LENGTH);
+  x=point.x;y=point.y;action=elapsed<20?'walk':actor.actions.talk?'talk':'idle';frameTime=action==='walk'?walkTime*.56/1.4:t;
   var dx=next.x-x,dy=next.y-y;facing=Math.abs(dx)>Math.abs(dy)?(dx>0?1:3):(dy>0?0:2);
  }
  var clip=actor.actions[action]||actor.actions.idle,frame=clip.mode==='hold'?0:clip.mode==='once'?Math.min(clip.frames-1,Math.floor(frameTime/clip.duration*clip.frames)):Math.floor(frameTime/clip.duration*clip.frames)%clip.frames;

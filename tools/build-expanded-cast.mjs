@@ -10,9 +10,10 @@ replace('      setIntroCast:setIntroCast,',`      setSupportingActor:function(id
 // Upgrade the confirmed Mariana binding without changing her ID or approved portrait.
 const mariana=cast.find(a=>a.id==='mariana'),w=mariana.actions.walk,t=mariana.actions.talk;
 const match=s.match(/var riggedBindings=(\{.*?\}),riggedImages=/);if(!match)throw Error('Missing canonical bindings');const bindings=JSON.parse(match[1]);
-Object.assign(bindings['NPC-07'],{walk:w.url,idle:mariana.actions.idle.url,talk:t.url,walkDuration:w.duration,talkDuration:t.duration,walkFrames:w.frames,talkFrames:t.frames,anchorY:w.anchorY,renderHeight:w.renderHeight});
+Object.assign(bindings['NPC-07'],{walk:w.url,idle:mariana.actions.idle.url,talk:t.url,walkDuration:w.duration,talkDuration:t.duration,walkFrames:w.frames,talkFrames:t.frames,idleFrames:mariana.actions.idle.frames,idleDuration:mariana.actions.idle.duration,anchorY:w.anchorY,renderHeight:w.renderHeight});
 s=s.replace(match[0],'var riggedBindings='+JSON.stringify(bindings)+',riggedImages=');
 replace('var sh=(introDef?(introDef.renderHeight||2.7):2.15)*u','var sh=(introDef?(introDef.renderHeight||2.7):rigged&&rigged.renderHeight?rigged.renderHeight:2.15)*u');
+replace("frame=riggedAction==='idle'?0:Math.floor(Math.max(0,elapsed)/duration*frameCount)%frameCount;","if(riggedAction==='idle'){frameCount=rigged.idleFrames||1;duration=rigged.idleDuration||1;}frame=Math.floor(Math.max(0,elapsed)/duration*frameCount)%frameCount;");
 fs.writeFileSync(file,s);
 const mfile=new URL('dist/ui/continuous/map.js',root);let m=fs.readFileSync(mfile,'utf8');const anchor='if(id&&o.onEmployee){o.onEmployee(id);return;}';if(!m.includes(anchor))throw Error('Map employee priority');m=m.replace(anchor,anchor+'var special=iso.pickSupportingActor(p.x,p.y);if(special&&o.onSupportingActor){o.onSupportingActor(special);return;}');fs.writeFileSync(mfile,m);
 console.log('Expanded cast: 10 supplied models; canonical Mariana; yoga and lawyer visual support.');
