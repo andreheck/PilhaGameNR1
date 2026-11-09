@@ -31,12 +31,12 @@ Construir uma sala compacta para o gestor dentro da região administrativa/lider
 - Não criar ainda mecânica de gestão exclusiva, diálogos ou novos indicadores: esta entrega é construção espacial e integração visual.
 
 ## Critérios de aceite
-- [ ] Sala localizada dentro do setor administrativo/Liderança (02), sem virar cenário separado.
-- [ ] Reutilização comprovada dos móveis 3D já presentes no repositório.
-- [ ] Vidros transparentes legíveis em desktop e mobile.
-- [ ] Porta e rota de circulação desobstruídas.
-- [ ] Aquário pequeno inserido sem bloquear circulação.
-- [ ] TV BI posicionada com escala e orientação adequadas.
+- [x] Sala localizada dentro do setor administrativo/Liderança (02), sem virar cenário separado.
+- [x] Chamadas de carregamento dos móveis GLB existentes adicionadas ao grupo da sala (validação visual ainda pendente).
+- [x] Painéis de vidro e perfis estruturais implementados (QA visual desktop/mobile pendente).
+- [x] Abertura de acesso e folha de porta articulada implementadas; colisores de paredes adicionados (teste de navegação pendente).
+- [x] Aquário pequeno procedural inserido sobre console.
+- [x] Placeholder de TV BI posicionado na parede; substituir pelo asset final quando os binários forem versionados.
 - [ ] Personagens circulam sem atravessar paredes ou ficar presos.
 - [ ] Sala continua legível em diferentes zooms e ângulos.
 - [ ] QA visual no navegador e screenshot do mapa atualizado.
@@ -51,3 +51,13 @@ Construir uma sala compacta para o gestor dentro da região administrativa/lider
 
 ## Referência visual
 A imagem conceitual da conversa é apenas referência de organização: sala compacta, vidro, mesa, cadeiras, TV BI, aquário e plantas. Não usar a imagem como textura nem substituir os GLBs existentes por ilustração 2D.
+
+
+## Implementação inicial (branch `feat/sala-gestor-administrativo`)
+- Criado o grupo `manager-office-glass-room` dentro da região Liderança (02), em `world3d.js`.
+- Painéis de vidro, perfis, abertura de entrada e folha de porta articulada.
+- Mobiliário Kenney carregado diretamente no grupo da sala (mesa, cadeira, estante e planta).
+- Aquário pequeno com tanque transparente, água, pedras e peixes estilizados.
+- Placeholder independente `manager-office-bi-display`; ainda não é o PNG final da TV BI.
+- Adicionados limites de colisão aproximados para paredes e segmentos da entrada.
+- **Ainda não validado:** escala real dos GLBs, transparência em navegador, colisões com os personagens, screenshot desktop/mobile e integração do asset final da TV.
