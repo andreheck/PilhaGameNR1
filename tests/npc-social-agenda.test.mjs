@@ -57,7 +57,7 @@ test('every departure and return meets the work route continuously at its origin
 });
 
 test('movement is slower and the conversation pause is stationary',()=>{
-  assert.equal(NPC_MOTION.walkRate,.85);
+  assert.ok(NPC_MOTION.walkRate>0&&NPC_MOTION.walkRate<.85);
   assert.ok(workFraction(1000,0,20000,.6).fraction<workFraction(1000,0,20000,1).fraction);
   const a=workFraction(9500,0,20000),b=workFraction(10500,0,20000);
   assert.equal(a.fraction,b.fraction);assert.ok(a.holding&&b.holding);

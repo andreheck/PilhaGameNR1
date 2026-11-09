@@ -1,6 +1,6 @@
 /** Visual pacing assumptions for the continuous game. Calendar time is unchanged. */
 export const NPC_MOTION=Object.freeze({
-  walkRate:.85,
+  walkRate:.70,
   conversationMs:5000,
   meetingTravelMs:4500,
   meetingMs:6000,

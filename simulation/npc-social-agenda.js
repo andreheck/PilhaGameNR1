@@ -23,7 +23,7 @@ export function addSocialAgenda(state,people,rows,period){
     }
     const last=events.filter(e=>e.end<=now).at(-1),next=events.find(e=>e.start>now),start=last?.end??now-period,end=next?.start??now+period;
     const w=workFraction(now,start,end,row.speed,row.workSlot),influenced=!!last&&now-last.end<.18*period*row.scale;
-    return {stage:influenced?'afterglow':'work',kind:'work',space:last?.space||row.space,workFraction:w.fraction,workSegment:w.segment,workProgress:w.segmentProgress,gatherFraction:w.gatherFraction,holding:w.holding,moving:!w.holding,influenced,inRestArea:false,meeting:false};
+    return {stage:influenced?'afterglow':'work',kind:'work',space:last?.space||row.space,workStart:start,workEnd:end,workFraction:w.fraction,workSegment:w.segment,workProgress:w.segmentProgress,gatherFraction:w.gatherFraction,holding:w.holding,moving:!w.holding,influenced,inRestArea:false,meeting:false};
   }
   return rows.map(row=>{
     const sampleAt=now=>{
