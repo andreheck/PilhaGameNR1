@@ -21,3 +21,7 @@
 - [ ] Criar um GLB definitivo para o Colaborador antes de recolocá-lo na cena 3D.
 - [ ] Evoluir os Casos 02–05 sobre o mesmo ambiente antes de duplicar a cena.
 - [ ] Fazer QA visual em 1440×900 e 390×844 após a próxima expansão de mecânicas.
+
+## Backlog de ambiente e mobiliário
+
+- [ ] **#71 — Criar sala do gestor integrada ao departamento administrativo:** paredes de vidro, porta e circulação livre, reaproveitamento dos móveis GLB existentes, pequeno aquário e TV de BI. Plano técnico: `docs/PLANO-SALA-GESTOR-ADMINISTRATIVO.md`.
