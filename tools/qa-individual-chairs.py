@@ -13,9 +13,7 @@ try:
   for width,height in [(1366,768),(390,844)]:
    ctx=browser.new_context(viewport={'width':width,'height':height});page=ctx.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
    try:
-    page.goto('http://127.0.0.1:8782/');page.evaluate('''async()=>{const M=await import('/simulation/company-continuous.js'),L=await import('/simulation/company-living.js');const s=L.ensureLiving(M.fresh());s.team={principal:'PILHA-H01',support:'PILHA-H02'};s.paused=true;s.lastWallMs=Date.now();s.events.nextWeek=999;s.eventEffects.push({sid:'escritorio',factor:'carga',delta:-6,at:1});localStorage.setItem(M.KEY,JSON.stringify(s));}''');page.reload();page.locator('.cinematic-start').click();page.locator('.pi-skip').click();page.locator('.living-guide[open]').wait_for()
-    for _ in range(3):page.locator('[data-guide="next"]').click()
-    page.locator('[data-team-save]').click();page.locator('.pm-root').wait_for();page.wait_for_function('PilhaLiving.getFurniture()?.loaded===38')
+    page.goto('http://127.0.0.1:8782/');page.evaluate('''async()=>{const M=await import('/simulation/company-continuous.js'),L=await import('/simulation/company-living.js');const s=L.ensureLiving(M.fresh());s.team={principal:'PILHA-H01',support:'PILHA-H02'};s.paused=true;s.lastWallMs=Date.now();s.events.nextWeek=999;s.eventEffects.push({sid:'escritorio',factor:'carga',delta:-6,at:1});localStorage.setItem(M.KEY,JSON.stringify(s));}''');page.reload();page.locator('.cinematic-resume').click();page.locator('.pm-root').wait_for();page.wait_for_function('PilhaLiving.getFurniture()?.loaded===38')
     original=page.evaluate('PilhaLiving.getState()');index=page.evaluate("async()=>{const M=await import('/simulation/company-continuous.js');return M.metrics(PilhaLiving.getState(),'escritorio').index;}")
     page.locator('.pm-tab[data-i="0"]').click();page.locator('.chair-shop').wait_for();assert page.locator('[data-chair-item]').count()==3
     for i,item in enumerate(['cadeira-producao','cadeira-pensamento','cadeira-descompressao']):

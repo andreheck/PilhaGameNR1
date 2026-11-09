@@ -34,6 +34,7 @@ jobs:
       - run: python tools/qa-cinematic-intro.py
       - run: python tools/qa-restorative-v2.py
       - run: python tools/qa-individual-chairs.py
+      - run: python tools/qa-entry-settings-orb.py
       - name: Archive reviewed source
         if: always()
         run: mkdir -p artifacts/living && git archive --format=zip HEAD > artifacts/living/reviewed-source.zip
@@ -72,4 +73,10 @@ jobs:
         with:
           name: individual-chairs-qa
           path: artifacts/individual-chairs/qa/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: entry-settings-orb-qa
+          path: artifacts/entry-settings-orb/
           retention-days: 7

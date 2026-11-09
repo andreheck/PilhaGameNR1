@@ -36,7 +36,7 @@ def run(browser,w,h):
             page.locator('.hero-full-button').click()
             page.locator('.hero-full-details[open]').wait_for();snap('hero-full-details')
             check(page.locator('.hero-full-details').inner_text().strip()!='',tag+': full canonical profile remains available')
-            page.locator('.hero-full-details header button').click()
+            page.locator('.hero-full-details header button:not([data-game-home])').click()
         page.locator('.hero-xp-help summary').click()
         check('25 XP' in page.locator('.hero-xp-help').inner_text() and '150 XP' in page.locator('.hero-xp-help').inner_text(),tag+': XP sources and current mode limitation explained')
         page.locator('.hero-xp-help summary').click()
@@ -287,17 +287,13 @@ def run(browser,w,h):
         page.locator('.living-world [data-world-close]').click()
 
         page.locator('[data-company="pause"]').click();saved('s.paused===true');money=state()['budget'];week=state()['week']
-        page.reload(wait_until='domcontentloaded');enter();page.locator('[data-team-save]').click();page.locator('.pm-root').wait_for();page.wait_for_timeout(500)
+        page.reload(wait_until='domcontentloaded');page.locator('.cinematic-resume').click();page.locator('.pm-root').wait_for();page.wait_for_timeout(500)
         check(state()['paused'] and state()['week']==week and state()['budget']==money,tag+': reload preserves pause, week and balance')
         check(len(state()['staff'])==16,tag+': individual health persists')
         # Same-origin real second tab: shared storage and Web Locks must consume one week.
         if w==1366:
             other=ctx.new_page();other.goto('http://127.0.0.1:8768/',wait_until='domcontentloaded')
-            other.locator('.cinematic-start').click()
-            other.locator('.pi-root').wait_for(state='visible')
-            other.locator('.pi-skip').wait_for(state='visible');other.locator('.pi-skip').click()
-            for _ in range(3):other.locator('[data-guide="next"]').click()
-            other.locator('[data-team-save]').click();other.locator('.pm-root').wait_for()
+            other.locator('.cinematic-resume').click();other.locator('.pm-root').wait_for()
             old_week=state()['week'];old_budget=state()['budget'];old_total=state()['weeklyIncome']['total'];old_finance=state()['finance']
             page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.paused=false;s.lastWallMs=Date.now()-(s.clockWeekMs+500);localStorage.setItem(k,JSON.stringify(s));PilhaLiving.syncClock();}')
             other.evaluate('PilhaLiving.syncClock()')

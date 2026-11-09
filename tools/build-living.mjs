@@ -84,5 +84,5 @@ intro=intro.slice(0,c)+`    function applyMotion(){root.dataset.motion=reduce?'r
 `+intro.slice(d);
 intro=replace(intro,'    function start() {','    function start() {if(leaving)return;leaving=true;');
 fs.writeFileSync(out+'ui/continuous/intro.js',intro);
-let html=fs.readFileSync(out+'index.html','utf8');html=replace(html,'</head>','<link rel="stylesheet" href="/ui/claude/pilha-intro.css"><link rel="stylesheet" href="/ui/living-company.css"></head>');html=replace(html,'<script type="module" src="/ui/continuous-game.js">','<script src="/ui/continuous/intro.js"></script><script type="module" src="/ui/continuous-game.js">');fs.writeFileSync(out+'index.html',html);
+let html=fs.readFileSync(out+'index.html','utf8');html=replace(html,'</head>','<link rel="stylesheet" href="/ui/claude/pilha-intro.css"><link rel="stylesheet" href="/ui/living-company.css"><link rel="stylesheet" href="/ui/game-interface.css"></head>');html=replace(html,'<script type="module" src="/ui/continuous-game.js">','<script src="/ui/continuous/intro.js"></script><script type="module" src="/ui/continuous-game.js">');fs.writeFileSync(out+'index.html',html);
 console.log('Living mode: opening, named workers, manual pause and calendar.');
