@@ -56,10 +56,62 @@ export async function setupWorld(container,onCase,onActor,onStatus){
  const case02Objects=new THREE.Group();case02Objects.name='case02-built-objects';case02Objects.visible=false;scene.add(case02Objects);
  const libraryFurniture=new THREE.Group();libraryFurniture.name='integrated-nr1-library';scene.add(libraryFurniture);
  const officeProps=new THREE.Group();officeProps.name='kenney-cc0-office-furniture';scene.add(officeProps);
- function loadProp(name,x,z,scale=1,rotation=0){loader.load(`/assets/kenney-furniture/${name}.glb`,gl=>{const model=gl.scene;model.scale.setScalar(scale);model.position.set(x,0,z);model.rotation.y=rotation;model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true}});officeProps.add(model)},undefined,()=>{});}
+ function loadProp(name,x,z,scale=1,rotation=0,parent=officeProps){loader.load(`/assets/kenney-furniture/${name}.glb`,gl=>{const model=gl.scene;model.scale.setScalar(scale);model.position.set(x,0,z);model.rotation.y=rotation;model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true}});parent.add(model)},undefined,()=>{});}
  loadProp('desk',-1.25,.15,1.15,Math.PI/2);loadProp('chairDesk',-1.25,.88,.9,Math.PI);loadProp('desk',1.2,.15,1.15,Math.PI/2);loadProp('chairDesk',1.2,.88,.9,Math.PI);
  loadProp('bookcaseOpen',-7.0,-3.95,1.55,Math.PI/2);loadProp('bookcaseOpen',-5.7,-3.95,1.55,Math.PI/2);
  loadProp('loungeSofa',1.1,-.2,1.15,Math.PI);loadProp('tableRound',0,.25,.9,0);loadProp('lampSquareFloor',2.0,-.55,1.2,0);loadProp('pottedPlant',6.0,5.0,1.4,0);loadProp('pottedPlant',-7.0,5.0,1.4,0);loadProp('trashcan',6.7,-3.9,1.2,0);loadProp('computerScreen',-4.7,2.35,.8,0);loadProp('laptop',-3.7,2.35,.7,0);
+
+/* Sala do gestor: integrada à região Liderança (02), com mobiliário GLB reutilizado. */
+const managerOffice=new THREE.Group();managerOffice.name='manager-office-glass-room';managerOffice.position.set(-4.8,0,-3.0);scene.add(managerOffice);
+const officeFloor=box(2.55,.035,2.35,0,.025,0,new THREE.MeshStandardMaterial({color:0xd9e5e5,roughness:.88}),managerOffice);
+const glass=new THREE.MeshPhysicalMaterial({color:0xb8d8dc,transparent:true,opacity:.22,roughness:.12,metalness:0,depthWrite:false,side:THREE.DoubleSide});
+const glassEdge=solid(0x365968),frameAccent=solid(0xd6a45f);
+const glassPanel=(w,h,d,x,y,z)=>{const p=box(w,h,d,x,y,z,glass,managerOffice);p.castShadow=false;p.renderOrder=3;return p};
+const frame=(w,h,d,x,y,z)=>box(w,h,d,x,y,z,glassEdge,managerOffice);
+const roomW=2.55,roomD=2.35,wallH=1.78,wallT=.055;
+// Back and side glass walls. The front wall is split to leave a wide, clear entrance.
+glassPanel(roomW,wallH,wallT,0,wallH/2,-roomD/2);
+glassPanel(wallT,wallH,roomD,-roomW/2,wallH/2,0);
+glassPanel(wallT,wallH,roomD,roomW/2,wallH/2,0);
+glassPanel(.78,wallH,wallT,-.885,wallH/2,roomD/2);
+glassPanel(.78,wallH,wallT,.885,wallH/2,roomD/2);
+// Slim metal profiles define the glazed architecture without visually closing it.
+for(const x of [-roomW/2,0,roomW/2]){frame(.045,wallH+.08,.045,x,wallH/2,-roomD/2);frame(.045,wallH+.08,.045,x,wallH/2,roomD/2)}
+for(const z of [-roomD/2,roomD/2]){frame(.045,wallH+.08,.045,-roomW/2,wallH/2,z);frame(.045,wallH+.08,.045,roomW/2,wallH/2,z)}
+frame(roomW,.045,.06,0,wallH,-roomD/2);frame(roomW,.045,.06,0,wallH,roomD/2);
+frame(.82,.055,.07,0,wallH,.0+roomD/2); // lintel above the entrance
+// Door leaf is slightly ajar; its opening remains visibly passable.
+const officeDoor=new THREE.Group();officeDoor.position.set(-.39,0,roomD/2-.02);officeDoor.rotation.y=-Math.PI/2;managerOffice.add(officeDoor);
+const doorGlass=box(.76,wallH,.035,.38,wallH/2,0,glass,officeDoor);doorGlass.castShadow=false;doorGlass.renderOrder=4;
+box(.035,wallH,.045,.02,wallH/2,0,glassEdge,officeDoor);
+box(.035,wallH,.045,.74,wallH/2,0,glassEdge,officeDoor);
+box(.035,.035,.045,.38,wallH,0,glassEdge,officeDoor);
+box(.025,.16,.025,.68,.86,.035,frameAccent,officeDoor);
+// Existing Kenney office furniture models, loaded into the room instead of replacing the library assets.
+loadProp('desk',-.05, -.48,.72,Math.PI,managerOffice);
+loadProp('chairDesk',-.05,.35,.66,0,managerOffice);
+loadProp('bookcaseOpen',-.91,-.55,.72,Math.PI/2,managerOffice);
+loadProp('pottedPlant',.98,-.78,.62,0,managerOffice);
+// TV BI placeholder: separate named object, ready to swap for the final transparent PNG/plane asset.
+const managerBI=new THREE.Group();managerBI.name='manager-office-bi-display';managerBI.position.set(.48,1.05,-roomD/2+.075);managerOffice.add(managerBI);
+const biBezel=box(.98,.59,.085,0,0,0,solid(0x243d4c),managerBI);
+const biScreenMat=new THREE.MeshStandardMaterial({color:0x173f56,emissive:0x0b344b,emissiveIntensity:.65,roughness:.28});
+box(.88,.48,.012,0,.015,.05,biScreenMat,managerBI);
+for(let i=0;i<4;i++){const bar=box(.13,.035+i*.025,.014,-.29+i*.19,-.12+i*.035,.06,solid([0x55b7a4,0xf1b35e,0x6b9fb2,0x80c69c][i]),managerBI);bar.userData.biDecoration=true}
+box(.16,.09,.12,0,-.34,0,glassEdge,managerBI);
+// Small aquarium on a low custom console: clear glass, water, gravel and two stylized fish.
+const aquarium=new THREE.Group();aquarium.name='manager-office-small-aquarium';aquarium.position.set(.83,0,.68);managerOffice.add(aquarium);
+box(.72,.09,.34,0,.12,0,solid(0x765b46),aquarium);
+const tankGlass=new THREE.MeshPhysicalMaterial({color:0xa8dce6,transparent:true,opacity:.2,roughness:.08,metalness:0,depthWrite:false,side:THREE.DoubleSide});
+const tankW=.66,tankH=.48,tankD=.29;
+for(const x of [-tankW/2,tankW/2]){const pane=box(.025,tankH,tankD,x,.42,0,tankGlass,aquarium);pane.castShadow=false;pane.renderOrder=5}
+for(const z of [-tankD/2,tankD/2]){const pane=box(tankW,tankH,.025,0,.42,z,tankGlass,aquarium);pane.castShadow=false;pane.renderOrder=5}
+box(tankW,.025,tankD,0,.66,0,tankGlass,aquarium);
+box(tankW-.05,.27,tankD-.05,0,.31,0,new THREE.MeshStandardMaterial({color:0x5aa6b5,transparent:true,opacity:.58,roughness:.18,depthWrite:false}),aquarium);
+const gravel=solid(0x8b8272);for(let i=0;i<7;i++){const stone=new THREE.Mesh(new THREE.SphereGeometry(.025+(i%3)*.008,8,6),gravel);stone.position.set(-.25+i*.08,.19+(i%2)*.012,.02);aquarium.add(stone)}
+const fishMat=solid(0xe99a4c);for(const [x,y] of [[-.14,.37],[.13,.48]]){const fish=new THREE.Mesh(new THREE.SphereGeometry(.065,12,8),fishMat);fish.scale.set(1.35,.7,.55);fish.position.set(x,y,.015);aquarium.add(fish);const tail=new THREE.Mesh(new THREE.ConeGeometry(.04,.09,3),fishMat);tail.rotation.z=Math.PI/2;tail.position.set(x-.1,y,.015);aquarium.add(tail)}
+const plantStem=solid(0x438b70);for(let i=0;i<3;i++){const stem=box(.025,.22,.025,-.22+i*.06,.39,-.07,plantStem,aquarium);stem.rotation.z=(i-1)*.18}
+
  const libraryFloor=new THREE.Mesh(new THREE.CylinderGeometry(1.05,1.05,.035,32),new THREE.MeshStandardMaterial({color:0xc9ded7,roughness:.9}));libraryFloor.rotation.x=0;libraryFloor.position.set(.25,.02,-2.28);libraryFurniture.add(libraryFloor);
  for(const x of [.82,1.28]){box(.32,1.5,.28,x,.75,-3.08,mat.dark,libraryFurniture);for(let y of [.35,.62,.89,1.16])box(.24,.035,.3,x,y,-2.92,mat.wood,libraryFurniture);}
  const libraryDesk=box(1.0,.12,.5,.15,.62,-1.45,mat.wood,libraryFurniture);for(const x of [-.22,.52])box(.07,.55,.07,x,.31,-1.45,mat.dark,libraryFurniture);box(.5,.34,.06,.15,.9,-1.62,mat.screen,libraryFurniture);
@@ -115,7 +167,7 @@ export async function setupWorld(container,onCase,onActor,onStatus){
   gestor:{'02':[[.7,-2.55],[-1.0,-2.55],[-2.9,-2.35]]}
  };
  const clampWalk=(x,z)=>[THREE.MathUtils.clamp(x,-7.55,7.55),THREE.MathUtils.clamp(z,-5.75,5.75)];
- const collisionRects=[[-7.55,-5.75,7.55,-5.35],[-7.55,5.35,7.55,5.75],[-7.55,-5.75,-7.15,5.75],[7.15,-5.75,7.55,5.75],[-1.75,.15,-.85,1.2],[-1.75,-.25,-.85,-.05],[.55,-.25,1.85,.95],[-3.8,-3.35,-2.0,-2.0],[.55,-3.35,1.65,-2.85]];
+ const collisionRects=[[-7.55,-5.75,7.55,-5.35],[-7.55,5.35,7.55,5.75],[-7.55,-5.75,-7.15,5.75],[7.15,-5.75,7.55,5.75],[-1.75,.15,-.85,1.2],[-1.75,-.25,-.85,-.05],[.55,-.25,1.85,.95],[-3.8,-3.35,-2.0,-2.0],[.55,-3.35,1.65,-2.85],[-6.11,-4.22,-3.49,-4.12],[-6.11,-4.22,-6.02,-1.78],[-3.58,-4.22,-3.49,-1.78],[-6.02,-1.88,-5.30,-1.77],[-4.30,-1.88,-3.58,-1.77]];
  const isBlocked=(x,z)=>collisionRects.some(([minX,minZ,maxX,maxZ])=>x>minX&&x<maxX&&z>minZ&&z<maxZ);
  const safeStep=(x,z,actor)=>{const [cx,cz]=clampWalk(x,z);if(!isBlocked(cx,cz))return [cx,cz];actor.routeIndex=Math.min(actor.routeIndex+1,Math.max(0,actor.route.length-1));return [actor.root.position.x,actor.root.position.z]};
  function setActorState(actor,state,now=performance.now()){const def=STATE_DEFS[state]||STATE_DEFS.idle;actor.state=state;actor.stateSince=now;actor.stateUntil=now+def.duration;actor.highlight?.material.color.setHex(def.color);const mode=state==='exploring'?'walk':state==='talking'?'talk':state==='working'?'work':state==='pausing'?'pause':state==='concerned'?'concerned':'idle';animate(actor.key,mode);}

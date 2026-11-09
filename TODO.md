@@ -21,3 +21,7 @@
 - [ ] Criar um GLB definitivo para o Colaborador antes de recolocá-lo na cena 3D.
 - [ ] Evoluir os Casos 02–05 sobre o mesmo ambiente antes de duplicar a cena.
 - [ ] Fazer QA visual em 1440×900 e 390×844 após a próxima expansão de mecânicas.
+
+## Backlog de ambiente e mobiliário
+
+- [ ] **#71 — Validar e finalizar sala do gestor integrada ao departamento administrativo:** implementação inicial adicionada em `world3d.js` na branch `feat/sala-gestor-administrativo` (vidro, porta, móveis GLB, aquário e placeholder da TV BI). Faltam QA visual desktop/mobile, ajuste fino de escala, teste de colisões/navegação e substituição do placeholder pelo asset final da TV. Plano: `docs/PLANO-SALA-GESTOR-ADMINISTRATIVO.md`.
