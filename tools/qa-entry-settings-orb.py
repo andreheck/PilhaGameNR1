@@ -20,7 +20,7 @@ try:
    def settings():
     page.locator('.living-more summary').click();page.locator('[data-company="settings"]').click();page.locator('.game-settings[open]').wait_for()
    try:
-    page.goto('http://127.0.0.1:8784/');page.locator('.cinematic-start').wait_for();assert not page.locator('.cinematic-resume').count()
+    page.goto('http://127.0.0.1:8784/');page.locator('.cinematic-start').wait_for();assert not page.locator('.cinematic-resume').count();page.wait_for_timeout(1300);assert not errors,errors
     page.evaluate("""async()=>{const M=await import('/simulation/company-continuous.js'),L=await import('/simulation/company-living.js');const s=L.ensureLiving(M.fresh());s.team={principal:'PILHA-H01',support:'PILHA-H02'};s.paused=true;s.budget=4321;s.events.nextWeek=999;s.lastWallMs=Date.now();localStorage.setItem(M.KEY,JSON.stringify(s));}""");page.reload();page.locator('.cinematic-resume').wait_for();snap('returning');resume()
     saved=page.evaluate('PilhaLiving.getState()');assert saved['budget']==4321 and saved['paused'];assert len(page.evaluate('PilhaLiving.getEmployees()'))==16
     summary=page.evaluate('PilhaLiving.getCollectiveHealth()');assert summary['count']==16;assert page.locator('.collective-orb-mini b').inner_text()==str(summary['score']);assert page.locator('.collective-health-widget').is_visible()
