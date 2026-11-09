@@ -1722,12 +1722,12 @@
     {
       "id": "chair-cadeira_da_descompressao",
       "name": "cadeira da descompressao",
-      "url": "/assets/individual-chairs/cadeira_da_descompressao.png",
+      "url": "/assets/individual-chairs/cadeira_da_descompressao-views.png",
       "file": "cadeira_da_descompressao.png",
       "referenceWidth": 160,
       "anchor": [
-        0.4986492211551853,
-        0.9678560903545148
+        0.5,
+        0.9626191990918157
       ],
       "transparent": true,
       "scale": {
@@ -1738,21 +1738,22 @@
       "bounds": [
         0,
         0,
-        138,
-        171
+        141,
+        173
       ],
       "projection": {
-        "width": 56.39053976728153,
-        "height": 70.08771115420683,
+        "width": 57.812686313422155,
+        "height": 70.79878442727713,
         "anchor": [
-          0.4986492211551853,
-          0.9678560903545148
+          0.5,
+          0.9626191990918157
         ]
       },
       "animation": {
         "duration": 3,
         "frames": 8,
-        "frameWidth": 138
+        "frameWidth": 141,
+        "frameHeight": 173
       },
       "seats": [
         {
@@ -1777,17 +1778,18 @@
         1.1101622198197658,
         0
       ],
-      "facing": 0
+      "facing": 0,
+      "rotationViews": 4
     },
     {
       "id": "chair-cadeira_da_producao",
       "name": "cadeira da producao",
-      "url": "/assets/individual-chairs/cadeira_da_producao.png",
+      "url": "/assets/individual-chairs/cadeira_da_producao-views.png",
       "file": "cadeira_da_producao.png",
       "referenceWidth": 160,
       "anchor": [
-        0.4911286616603054,
-        0.9673304016160295
+        0.5,
+        0.9649427372219807
       ],
       "transparent": true,
       "scale": {
@@ -1798,21 +1800,22 @@
       "bounds": [
         0,
         0,
-        132,
-        188
+        136,
+        190
       ],
       "projection": {
-        "width": 54.106821916407334,
-        "height": 77.02780499309793,
+        "width": 55.93034328903777,
+        "height": 77.93956567941315,
         "anchor": [
-          0.4911286616603054,
-          0.9673304016160295
+          0.5,
+          0.9649427372219807
         ]
       },
       "animation": {
         "duration": 2.4000000953674316,
         "frames": 8,
-        "frameWidth": 132
+        "frameWidth": 136,
+        "frameHeight": 190
       },
       "seats": [
         {
@@ -1837,17 +1840,18 @@
         1.063286955921353,
         0
       ],
-      "facing": 0
+      "facing": 0,
+      "rotationViews": 4
     },
     {
       "id": "chair-cadeira_do_pensamento",
       "name": "cadeira do pensamento",
-      "url": "/assets/individual-chairs/cadeira_do_pensamento.png",
+      "url": "/assets/individual-chairs/cadeira_do_pensamento-views.png",
       "file": "cadeira_do_pensamento.png",
       "referenceWidth": 160,
       "anchor": [
         0.5,
-        0.9689950383389809
+        0.9588762207473845
       ],
       "transparent": true,
       "scale": {
@@ -1858,21 +1862,22 @@
       "bounds": [
         0,
         0,
-        132,
-        160
+        139,
+        164
       ],
       "projection": {
-        "width": 54.00968168535391,
-        "height": 65.68198832439128,
+        "width": 56.906428253852845,
+        "height": 67.13036160864075,
         "anchor": [
           0.5,
-          0.9689950383389809
+          0.9588762207473845
         ]
       },
       "animation": {
         "duration": 1.7999999523162842,
         "frames": 8,
-        "frameWidth": 132
+        "frameWidth": 139,
+        "frameHeight": 164
       },
       "seats": [
         {
@@ -1897,7 +1902,8 @@
         1.1055233311596613,
         0
       ],
-      "facing": 0
+      "facing": 0,
+      "rotationViews": 4
     }
   ],
   "upgrades": {

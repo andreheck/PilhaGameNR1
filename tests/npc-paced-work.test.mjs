@@ -15,3 +15,5 @@ test('long gaps retain computer, pickup, carrying and placing instead of freezin
  const kinds=sector=>new Set(Array.from({length:1001},(_,i)=>pacedWorkPlan(i/1000,{durationMs:45000,speed:.7,sector,hasWorkstation:sector==='escritorio',paths}).activity));
  assert.ok(kinds('escritorio').has('computer'));assert.ok(kinds('producao').has('handling'));assert.ok(kinds('producao').has('moving-material'));
 });
+
+test('working takes priority over an unaffordable social detour, with complete seated transitions',()=>{const plans=Array.from({length:1001},(_,i)=>pacedWorkPlan(i/1000,{durationMs:18000,speed:.7,sector:'escritorio',hasWorkstation:true,paths}));for(const kind of ['sit-down','computer','stand-up'])assert.ok(plans.some(p=>p.activity===kind));assert.ok(plans.every(p=>p.seatProgress>=0&&p.seatProgress<=1));const down=plans.filter(p=>p.activity==='sit-down'),up=plans.filter(p=>p.activity==='stand-up');assert.ok(down[0].seatProgress<down.at(-1).seatProgress);assert.ok(up[0].seatProgress>up.at(-1).seatProgress);assert.ok(plans.filter(p=>p.activity==='computer').every(p=>p.seatProgress===1));assert.equal(plans.at(-1).to,'home');});

@@ -1,3 +1,4 @@
+import {validateLayoutSchema} from './furniture-layout.js';
 import {validateSpecials,specialMultiplier} from './hero-specials.js';
 import {chairDefinition,chairCandidates} from './individual-chairs.js';
 import {promotionAvailable,managerMap} from '../data/continuous/organization.js';
@@ -22,6 +23,7 @@ export function upgradeClock(s){
  s.clockWeekMs=RULES.weekMs;return s;
 }
 export function validate(s){
+ validateLayoutSchema(s?.furnitureLayout);
  if(s?.clockWeekMs!==undefined&&![120000,RULES.weekMs].includes(s.clockWeekMs))throw Error('invalid-clock');
  if(s?.blueRobot!==undefined&&typeof s.blueRobot!=='boolean')throw Error('invalid-robot');
  if(!s||s.version!==2||!Number.isSafeInteger(s.revision)||s.revision<0||!finite(s.budget)||s.budget<0||s.budget>1e9||!Number.isSafeInteger(s.week)||s.week<1||s.week>100000||!finite(s.activeMs)||s.activeMs<0||typeof s.paused!=='boolean'||(s.team&&!validTeam(s.team)))throw Error('invalid-state');
