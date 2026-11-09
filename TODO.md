@@ -24,4 +24,4 @@
 
 ## Backlog de ambiente e mobiliário
 
-- [ ] **#71 — Criar sala do gestor integrada ao departamento administrativo:** paredes de vidro, porta e circulação livre, reaproveitamento dos móveis GLB existentes, pequeno aquário e TV de BI. Plano técnico: `docs/PLANO-SALA-GESTOR-ADMINISTRATIVO.md`.
+- [ ] **#71 — Validar e finalizar sala do gestor integrada ao departamento administrativo:** implementação inicial adicionada em `world3d.js` na branch `feat/sala-gestor-administrativo` (vidro, porta, móveis GLB, aquário e placeholder da TV BI). Faltam QA visual desktop/mobile, ajuste fino de escala, teste de colisões/navegação e substituição do placeholder pelo asset final da TV. Plano: `docs/PLANO-SALA-GESTOR-ADMINISTRATIVO.md`.
