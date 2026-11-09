@@ -166,9 +166,16 @@ def run(browser,w,h):
         page.locator('[data-employee="NPC-04"]').click()
         check('Raimunda' in page.locator('.employee-profile-head').inner_text(),tag+': employee details reflect matching identity');snap('profile')
         check(page.locator('.employee-profile-head h2').evaluate('(e)=>e===document.activeElement'),tag+': profile heading receives focus')
-        page.keyboard.press('Tab')
+        # New influence disclosures are native keyboard stops before Locate.
+        for _ in range(12):
+            page.keyboard.press('Tab')
+            if page.locator('[data-employee-locate]').evaluate('(e)=>e===document.activeElement'):break
         check(page.locator('[data-employee-locate]').evaluate('(e)=>e===document.activeElement'),tag+': keyboard reaches locate action')
-        page.keyboard.press('Shift+Tab');page.keyboard.press('Enter')
+        for _ in range(12):
+            page.keyboard.press('Shift+Tab')
+            if page.locator('[data-employee-list]').evaluate('(e)=>e===document.activeElement'):break
+        check(page.locator('[data-employee-list]').evaluate('(e)=>e===document.activeElement'),tag+': keyboard returns through influence controls to staff list')
+        page.keyboard.press('Enter')
         check(page.locator('[data-employee="NPC-04"]').evaluate('(e)=>e===document.activeElement'),tag+': keyboard back returns to matching worker')
         page.keyboard.press('Enter')
 

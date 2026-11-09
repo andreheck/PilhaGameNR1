@@ -28,6 +28,7 @@ try:
     page.locator('.living-more summary').click();page.locator('[data-company="employees"]').click();page.locator('[data-employee="NPC-01"]').click();page.locator('[data-employee-locate]').click();page.wait_for_timeout(400)
     for close in page.locator('.pm-toast__x').all():
      if close.is_visible():close.click()
+    page.screenshot(path=str(OUT/('using-chair-'+str(width)+'.png')))
     actor=page.evaluate('PilhaLiving.getEmployees().find(p=>p.id==="NPC-01")');canvas=page.locator('.pm-canvas').bounding_box();page.mouse.click(canvas['x']+actor['screen']['x'],canvas['y']+actor['screen']['y']);page.locator('.employees-dialog[open]').wait_for()
     assert 'João' in page.locator('.employee-profile-head').inner_text();assert page.locator('.employee-influences').count()==1;assert page.locator('.influence-health.is-positive').count()>0;assert page.locator('.influence-chip.is-negative').count()>0
     assert 'Cadeira da Produção' in page.locator('.employee-influences').inner_text();assert page.locator('.influence-conditions>div').count()==6;assert page.locator('.employee-influences').evaluate('(e)=>e.scrollWidth<=e.clientWidth+1')
