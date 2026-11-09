@@ -251,6 +251,9 @@ def run(browser,w,h):
         page.locator('.world-events details').first.locator('summary').click()
         after=state();check(before['budget']==after['budget'] and before['receipts']==after['receipts'] and before['events']==after['events'],tag+': reading catalogue never spends or triggers events')
         page.locator('.living-world [data-world-close]').click()
+        # A15-minute schedule can legitimately have everyone at a workstation.
+        # Resume during a real departure instead of requiring constant walking.
+        page.evaluate('async()=>{const M=await import("/simulation/company-continuous.js"),L=await import("/simulation/company-living.js");const s=JSON.parse(localStorage.getItem(M.KEY)),base=(s.week-1)*s.clockWeekMs,event=L.routines(s).flatMap(r=>r.agenda).find(e=>e.kind==="rest"&&e.start>=base&&e.start<base+s.clockWeekMs-2000);if(!event)throw Error("No scheduled departure");s.activeMs=event.start-base+500;s.lastWallMs=Date.now();localStorage.setItem(M.KEY,JSON.stringify(s));await PilhaLiving.syncClock();}')
         page.locator('[data-company="pause"]').click();saved('s.paused===false');a=positions();page.wait_for_timeout(1100)
         check(a!=positions(),tag+': resume restarts employees')
         audio=page.evaluate('PilhaLiving.audio()');check(audio['state']=='running' and audio['played']>0,tag+': WebAudio unlocked and tones scheduled after gestures')
