@@ -1,3 +1,4 @@
+import {LOGISTICS_SPACE} from '../data/continuous/logistics-space.js';
 import {applyLayoutOverrides} from '../simulation/furniture-layout.js';
 import {OFFICE_SPACE} from '../data/continuous/office-space.js';
 /** Canvas furniture presentation. No purchases, state mutation or storage. */
@@ -29,6 +30,10 @@ export function createFurniturePresentation(){
   if(env.key==='escritorio'&&catalog.officeExtension!==false){
    for(const p of OFFICE_SPACE.furniture){const a=catalog.assets.find(a=>a.id===p.asset);items.push({t:p.type,x:p.x,y:p.y,w:a.scale.width,d:a.scale.depth,h:a.scale.height,z:0,visualAsset:p.asset,layoutKey:'office:'+p.id,managerRoom:true,managerDesk:!!p.managerDesk,annex:true,c:'#7899a8'});}
    for(const p of OFFICE_SPACE.walls)items.push({...p,t:'glass-wall',layoutKey:'structure:'+p.id,structural:true,c:'#80cad8'});
+  }
+  if(env.key==='producao'&&catalog.logisticsExtension!==false){
+   for(const p of LOGISTICS_SPACE.furniture){const a=catalog.assets.find(a=>a.id===p.asset);if(a)items.push({t:p.type,x:p.x,y:p.y,w:a.scale.width,d:a.scale.depth,h:a.scale.height,z:2,visualAsset:p.asset,layoutKey:'logistics:'+p.id,warehouse:true,fixedScene:!!p.fixedScene,annex:true,c:'#8f9da4'});}
+   for(const p of LOGISTICS_SPACE.walls)items.push({...p,t:'glass-wall',layoutKey:'structure:'+p.id,structural:true,warehouse:true,c:'#80cad8'});
   }
   const occupied=items.filter(it=>it.structural),unplaced=[],seatClearance=[];
   const hit=(a,b,g=.42)=>a.x<b.x+b.w+g&&a.x+a.w+g>b.x&&a.y<b.y+b.d+g&&a.y+a.d+g>b.y;

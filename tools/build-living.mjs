@@ -24,7 +24,7 @@ iso=replace(iso,'    function resize() {',workTargets.toString()+`\n
              progress:progress,homeProgress:progress,workstation:e.workstations[i]||null,
              sit:false,npc:-1,wait:0,speed:1.05,phase:i,seed:i*.71,restAway:false}));
         });
-        e.people.forEach(function(p){var i=members.findIndex(function(x){return x.id===p.employeeId;}),m=employeeRows.find(function(x){return x.id===p.employeeId;});if(m){p.score=m.health;p.chair=m.chair;p.name=m.name;p.workstation=key==='escritorio'&&m.organization&&m.organization.rank==='estrategico'&&managerStation?managerStation:e.workstations[i]||null;p.materialSource=anchors.sources[i%anchors.sources.length]||anchors.destinations[i%anchors.destinations.length]||null;p.materialDestination=anchors.destinations[i%anchors.destinations.length]||p.materialSource;}});
+        e.people.forEach(function(p){var i=members.findIndex(function(x){return x.id===p.employeeId;}),m=employeeRows.find(function(x){return x.id===p.employeeId;});if(m){p.score=m.health;p.chair=m.chair;p.name=m.name;p.workstation=key==='escritorio'&&m.organization&&m.organization.rank==='estrategico'&&managerStation?managerStation:e.workstations[i]||null;p.materialSource=anchors.sources[i%anchors.sources.length]||anchors.destinations[i%anchors.destinations.length]||null;p.materialDestination=anchors.destinations[i%anchors.destinations.length]||p.materialSource;if(key==='producao'&&i===0){p.materialSource=anchors.sources.find(function(a){return a.logistics;})||p.materialSource;p.materialDestination=anchors.destinations.find(function(a){return a.logistics;})||p.materialDestination;}}});
       });commuters=[];render();
     }
     function setRestVisitors(list){

@@ -3,7 +3,7 @@ import crypto from 'node:crypto';
 import {FURNITURE_VISUALS as V} from '../data/continuous/furniture-visuals.js';
 import {ITEMS} from '../data/continuous/catalog.js';
 test('approved, generated and supplied restorative art IDs retain canonical furniture mappings',()=>{
- assert.equal(V.assets.filter(a=>!a.id.startsWith('rest2-')&&!a.id.startsWith('chair-')&&a.id!=='arvore-sombra').length,25);assert.equal(V.assets.filter(a=>a.id.startsWith('rest2-')).length,10);assert.equal(new Set(V.assets.map(x=>x.id)).size,V.assets.length);
+ assert.equal(V.assets.filter(a=>!a.id.startsWith('rest2-')&&!a.id.startsWith('chair-')&&a.id!=='arvore-sombra'&&a.id!=='galpao-logistico').length,25);assert.equal(V.assets.filter(a=>a.id.startsWith('rest2-')).length,10);assert.equal(new Set(V.assets.map(x=>x.id)).size,V.assets.length);
  assert.equal(Object.keys(V.upgrades).length,27);
  const furnitureItems=ITEMS.filter(item=>!item.origin?.startsWith('PM 29/10/2026'));
  assert.equal(furnitureItems.length,27);

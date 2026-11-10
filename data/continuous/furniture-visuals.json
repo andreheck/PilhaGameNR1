@@ -1956,6 +1956,43 @@
       ],
       "sitPoint": null,
       "facing": 2
+    },
+    {
+      "id": "galpao-logistico",
+      "name": "Galpão logístico · diorama aprovado",
+      "url": "/assets/logistics/warehouse-views.png",
+      "scale": {
+        "width": 8.400000000000002,
+        "depth": 8.128676719154843,
+        "height": 4.30946768370613
+      },
+      "anchor": [
+        0.49999999999999994,
+        0.9948808781218458
+      ],
+      "projection": {
+        "width": 532.9905900725896,
+        "height": 397.8157930772959,
+        "anchor": [
+          0.49999999999999994,
+          0.9948808781218458
+        ]
+      },
+      "bounds": [
+        0,
+        0,
+        1296,
+        967
+      ],
+      "source": "Meshy_AI_Warehouse_Diorama_Roo_1013180404_image-to-3d-texture.fbx",
+      "sourceSha256": "d3b23b8dfe4623987414fd42622783b9dbd96d416938f3a9c5c899abff7e7566",
+      "transparent": true,
+      "standPoint": [
+        -1,
+        4,
+        0
+      ],
+      "sitPoint": null
     }
   ],
   "upgrades": {

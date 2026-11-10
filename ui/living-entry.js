@@ -3,7 +3,7 @@ import {tone} from './living-audio.js';
 import {FURNITURE_VISUALS} from '../data/continuous/furniture-visuals.js';
 import {createFurniturePresentation} from './furniture-presentation.js';
 const openingAssetIds=new Set(Object.values(FURNITURE_VISUALS.baseline).flatMap(Object.values));
-const OPENING_FURNITURE={...FURNITURE_VISUALS,officeExtension:false,assets:FURNITURE_VISUALS.assets.filter(a=>openingAssetIds.has(a.id)),upgrades:{},items:{},amenities:[],annex:null};
+const OPENING_FURNITURE={...FURNITURE_VISUALS,officeExtension:false,logisticsExtension:false,assets:FURNITURE_VISUALS.assets.filter(a=>openingAssetIds.has(a.id)),upgrades:{},items:{},amenities:[],annex:null};
 export async function playOpening(options={}){const choice=await playCinematic(options);if(choice==='resume')return choice;const cast=await fetch('/data/continuous/intro-cast.json').then(r=>r.ok?r.json():null).then(v=>v?.models||[]).catch(()=>[]);return new Promise(resolve=>{let done=false,screen;const finish=()=>{if(done)return;done=true;tone('select');screen?.destroy();resolve('explore');};if(!window.PilhaIntro){finish();return;}screen=window.PilhaIntro.mount({role:'Você cuida da empresa',cast,furnitureCatalog:OPENING_FURNITURE,furniturePresentation:createFurniturePresentation(),skipSplash:true,ctaLabel:options.hasTeam?'Continuar partida':'Preparar minha equipe',onStart:finish});});}
 export function explainGame(hasTeam){return new Promise(resolve=>{const d=document.createElement('dialog');d.className='living-guide';d.setAttribute('aria-label','Como jogar PilhA+');document.body.append(d);let step=0;
  const pages=[

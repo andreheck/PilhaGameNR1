@@ -1,3 +1,4 @@
+import {historicalSeg} from './fixtures/legacy-seg.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
 import * as M from '../simulation/company-continuous.js';import * as L from '../simulation/company-living.js';
 import {CHAIR_ITEMS} from '../data/continuous/individual-chairs.js';import {RULES,SECTORS} from '../data/continuous/catalog.js';
@@ -45,7 +46,7 @@ test('live influences explain negative events, positive purchases and active sea
  assert.ok(r.direct.some(x=>x.title==='Cadeira da Produção'&&x.health===2));assert.ok(r.sources.some(x=>x.factors.some(f=>f.id==='carga'&&f.delta===-6)));assert.equal(r.conditions.length,6);assert.ok(r.context.some(x=>x.scope.includes('próximo fechamento')));assert.equal(JSON.stringify(s),raw);
 });
 test('source chips reconcile with actual sector factors before the0–100 clamp',()=>{
- let s=setup();s=M.purchase(s,M.quote(s,'escritorio','seg')).state;s=M.purchase(s,M.quote(s,'escritorio','ergo')).state;s.week=4;s.eventEffects.push({sid:'escritorio',factor:'carga',delta:-8,at:1});s.activeMs=RULES.weekMs*.3;
+ let s=setup();s=historicalSeg(s);s=M.purchase(s,M.quote(s,'escritorio','ergo')).state;s.week=4;s.eventEffects.push({sid:'escritorio',factor:'carga',delta:-8,at:1});s.activeMs=RULES.weekMs*.3;
  const person=L.staffView(s).find(p=>p.id==='NPC-01'),report=employeeInfluences(s,person),base=SECTORS.find(r=>r.id==='escritorio').base,actual=M.values(s,'escritorio');
  for(const id of Object.keys(base)){const sum=report.sources.flatMap(r=>r.factors).filter(f=>f.id===id).reduce((n,f)=>n+f.delta,0);assert.ok(Math.abs(Math.max(0,Math.min(100,base[id]+sum))-actual[id])<.04,id);}
  assert.ok(report.sources.some(r=>r.title==='Segurança Psicológica'));assert.ok(report.sources.some(r=>r.factors.some(f=>f.delta<0)));

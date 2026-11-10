@@ -11,7 +11,7 @@ concurrency:
 jobs:
   regression:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -39,6 +39,8 @@ jobs:
       - run: python tools/qa-furniture-editor.py
       - run: python tools/qa-expanded-cast.py
       - run: python tools/qa-office-space.py
+      - run: python tools/qa-company-phone.py
+      - run: python tools/qa-logistics-transfer.py
       - name: Archive reviewed source
         if: always()
         run: mkdir -p artifacts/living && git archive --format=zip HEAD > artifacts/living/reviewed-source.zip
@@ -107,4 +109,17 @@ jobs:
         with:
           name: office-layout-tree-qa
           path: artifacts/office-space/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: company-phone-trophies-qa
+          path: artifacts/company-phone/
+          retention-days: 7
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: logistics-transfer-qa
+          path: artifacts/logistics-transfer/
           retention-days: 7

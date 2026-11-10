@@ -29,7 +29,7 @@ test('all baseline and maximum-level furniture fits without overlapping aisles, 
   iso.setSectorInventory(Object.fromEntries(WORLD.zones.map(z=>[z.id,Object.fromEntries(ITEMS.filter(i=>!!i.rest===(z.id==='restauracao')).map(i=>[i.id,max?3:0]))])));
   for(const z of iso.furnitureLayout()){
    assert.deepEqual(Array.from(z.unplaced),[],z.id+' hidden furniture');
-   for(const a of z.items){assert.ok(!a.hidden);if(a.structural){assert.equal(z.id,'escritorio');}else if(a.managerRoom){assert.equal(z.id,'escritorio');assert.ok(a.x>=.3&&a.y>=-5.7&&a.x+a.w<=7.7&&a.y+a.d<=-.3);}else if(a.annex){assert.equal(z.id,'restauracao');assert.ok(a.x>=.6&&a.y>=8&&a.x+a.w<=11.8&&a.y+a.d<=17.6,z.id+' annex '+a.id);}else{assert.ok(a.x>=.5&&a.y>=.4&&a.x+a.w<=11.6&&a.y+a.d<=7.6,z.id+' '+a.id);for(const x of [4,8])assert.ok(a.x+a.w<x-.25||a.x>x+.25);assert.ok(a.y+a.d<3.8||a.y>4.2);}
+   for(const a of z.items){assert.ok(!a.hidden);if(a.warehouse){assert.equal(z.id,'producao');assert.ok(a.x>=11.9&&a.x+a.w<=25&&a.y>=0&&a.y+a.d<=12);}else if(a.structural){assert.equal(z.id,'escritorio');}else if(a.managerRoom){assert.equal(z.id,'escritorio');assert.ok(a.x>=.3&&a.y>=-5.7&&a.x+a.w<=7.7&&a.y+a.d<=-.3);}else if(a.annex){assert.equal(z.id,'restauracao');assert.ok(a.x>=.6&&a.y>=8&&a.x+a.w<=11.8&&a.y+a.d<=17.6,z.id+' annex '+a.id);}else{assert.ok(a.x>=.5&&a.y>=.4&&a.x+a.w<=11.6&&a.y+a.d<=7.6,z.id+' '+a.id);for(const x of [4,8])assert.ok(a.x+a.w<x-.25||a.x>x+.25);assert.ok(a.y+a.d<3.8||a.y>4.2);}
     for(const b of z.items.filter(b=>b!==a&&!(a.structural&&b.structural)))assert.ok(a.x+a.w<=b.x||b.x+b.w<=a.x||a.y+a.d<=b.y||b.y+b.d<=a.y,z.id+': '+a.id+' overlaps '+b.id);
    }
   }

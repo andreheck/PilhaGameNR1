@@ -1,3 +1,4 @@
+import {openSaveTransfer} from './save-transfer.js';
 import {getPreferences,decorativeMotionAllowed} from './game-preferences.js';
 /** User-supplied film before the interactive sectors; no game/storage mutation. */
 export function playCinematic({hasTeam=false,paused=false}={}){return new Promise(resolve=>{
@@ -6,6 +7,7 @@ export function playCinematic({hasTeam=false,paused=false}={}){return new Promis
  const app=document.getElementById('continuous-app'),wasInert=app?.inert;if(app)app.inert=true;
  root.querySelector('header span').outerHTML='<button class="cinematic-home" data-game-home aria-label="Voltar à tela inicial"><img src="/assets/branding/pilha-logo-puro.png" alt="">PILHA+ GAME</button>';
  const settings=document.createElement('button');settings.type='button';settings.dataset.gameSettings='';settings.textContent='Configurações';root.querySelector('header').append(settings);
+ const backup=document.createElement('button');backup.type='button';backup.className='cinematic-import';backup.textContent='Importar progresso';backup.onclick=()=>openSaveTransfer();root.querySelector('.cinematic-copy small').after(backup);
  if(hasTeam){root.classList.add('cinematic-has-save');const resume=document.createElement('button');resume.type='button';resume.className='cinematic-resume';resume.textContent='Continuar partida →';root.querySelector('.cinematic-start').before(resume);root.querySelector('.cinematic-copy small').textContent=paused?'Dupla e progresso salvos. A empresa está pausada.':'Dupla e progresso salvos. O relógio continua; use Pausar jogo para interrompê-lo.';}
  document.body.append(root);const video=root.querySelector('video'),button=root.querySelector('.cinematic-start'),motion=matchMedia('(prefers-reduced-motion: reduce)');video.muted=true;
  const allowed=()=>decorativeMotionAllowed(getPreferences(),motion.matches);let userPaused=false,done=false;

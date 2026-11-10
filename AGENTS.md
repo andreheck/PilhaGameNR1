@@ -1,5 +1,7 @@
 # Governança vigente — PM / PO / Codex
 
+> **Decisão do PM — 10/11/2026:** priorizar desktop e tablet; celular empresarial para mensagens, finanças, RH/vagas e galeria de dez conquistas. Segurança Psicológica (`seg`) deixa de ser vendida na empresa contínua e passa a classificação conquistada PT22 (“Melhor Lugar Para se Trabalhar”), com critérios combinados e duas avaliações semanais. Preservar recibos/efeitos anteriores, saldo, dados e progresso; não conceder moeda, saúde ou XP por troféu sem regra aprovada. Pendências/limites e critérios em `docs/releases/CELULAR-TROFEUS-PT22-2026-11-10.md`. Preview de testes autorizado continua aplicável; sem merge/main.
+
 > **Receita semanal autorizada pelo PM — 23/10/2026:** R$ 500 fictícios por semana nova + R$ 250 por herói épico da dupla salva (raridade canônica). Dois épicos totalizam R$ 1.000; épico + lendário, R$ 750. Crédito no orçamento compartilhado, uma vez por semana; sem retroativo em saves antigos, sem pagamento por troca de dupla. Relatório: `docs/releases/RECEITA-SEMANAL-2026-10-23.md`. Manter pausa, persistência, gestão e câmera. Sem merge ou produção.
 
 > **Mecânicas de gestão autorizadas pelo PM — 23/10/2026:** implementar −5 saúde para todos do setor quando estresse do gestor >40%, +7 saúde para subordinados quando saúde do gestor >70%, e refinar visual do organograma. Política de integração: um fechamento por semana, snapshot após atualização ambiental e antes dos efeitos gerenciais; regras somadas, limites 0–100, estresse contextual do setor (não há estresse individual independente). Preservar economia, relógio, dados e câmera. Relatório: `docs/releases/GESTAO-SAUDE-2026-10-23.md`. Sem merge ou produção.
@@ -55,3 +57,5 @@ Ler primeiro `docs/PRODUTO-CANONICO-2026-10-18.md`, `docs/PLANO-DIRETOR-2026-10-
 - Evitar dependências desnecessárias: fase inicial HTML/CSS/JS, futura migração React + TypeScript + Phaser.
 - Documentar mudanças e testar navegação por toque, teclado e desktop.
 - Não incluir credenciais, dados reais de empresas ou dados de saúde.
+
+Decisão PM 10/11/2026: galpão logístico aprovado como anexo da Produção, preservando simulação; migrar hospedagem para aotrabalho.vaideplanob.com.br, sem substituir o site principal. Não acionar novos deploys Vercel. Criar subdomínio/SSL exige acesso hPanel/API próprio; SSH permite preparar release isolada, não presume DNS. Backup de progresso é transferência explícita por arquivo, sem acesso automático entre origens.
