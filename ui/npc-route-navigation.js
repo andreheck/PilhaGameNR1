@@ -24,7 +24,7 @@
   function clear(a,b){return !bounds.some(function(r){var lo=0,hi=1;for(var i=0;i<2;i++){var k=i?'y':'x',span=i?r.d:r.w,delta=b[k]-a[k];if(Math.abs(delta)<1e-9){if(a[k]<=r[k]||a[k]>=r[k]+span)return false;}else{var p=(r[k]-a[k])/delta,q=(r[k]+span-a[k])/delta;lo=Math.max(lo,Math.min(p,q));hi=Math.min(hi,Math.max(p,q));if(lo>=hi)return false;}}return hi>1e-7&&lo<1-1e-7;});}
   var nodes=[start,target].concat(aisle),dist=[],prev=[],done=new Set();
   bounds.forEach(function(b){nodes.push({x:b.x-.025,y:b.y-.025},{x:b.x+b.w+.025,y:b.y-.025},{x:b.x-.025,y:b.y+b.d+.025},{x:b.x+b.w+.025,y:b.y+b.d+.025});});
-  nodes=nodes.filter(function(p,i){return i<2||p.x>.05&&p.x<11.95&&p.y>.05&&p.y<7.95&&!bounds.some(function(b){return inside(p,b);});});
+  var extended=items.some(function(it){return it.managerRoom;});nodes=nodes.filter(function(p,i){var room=p.x>.05&&p.x<11.95&&p.y>.05&&p.y<7.95,office=extended&&p.x>.15&&p.x<7.85&&p.y>-5.85&&p.y<=.3;return i<2||(room||office)&&!bounds.some(function(b){return inside(p,b);});});
   dist=nodes.map(function(){return Infinity;});dist[0]=0;
   while(done.size<nodes.length){var u=-1;dist.forEach(function(d,i){if(!done.has(i)&&(u<0||d<dist[u]))u=i;});if(u<0||!isFinite(dist[u])||u===1)break;done.add(u);nodes.forEach(function(p,v){if(done.has(v)||v===u||!clear(nodes[u],p))return;var d=dist[u]+Math.hypot(nodes[u].x-p.x,nodes[u].y-p.y);if(d<dist[v]){dist[v]=d;prev[v]=u;}});}
   if(!isFinite(dist[1]))return [];var path=[];for(var n=1;n!=null;n=prev[n])path.unshift(nodes[n]);return path;

@@ -1,8 +1,9 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+import crypto from 'node:crypto';
 import {FURNITURE_VISUALS as V} from '../data/continuous/furniture-visuals.js';
 import {ITEMS} from '../data/continuous/catalog.js';
 test('approved, generated and supplied restorative art IDs retain canonical furniture mappings',()=>{
- assert.equal(V.assets.filter(a=>!a.id.startsWith('rest2-')&&!a.id.startsWith('chair-')).length,25);assert.equal(V.assets.filter(a=>a.id.startsWith('rest2-')).length,10);assert.equal(new Set(V.assets.map(x=>x.id)).size,V.assets.length);
+ assert.equal(V.assets.filter(a=>!a.id.startsWith('rest2-')&&!a.id.startsWith('chair-')&&a.id!=='arvore-sombra').length,25);assert.equal(V.assets.filter(a=>a.id.startsWith('rest2-')).length,10);assert.equal(new Set(V.assets.map(x=>x.id)).size,V.assets.length);
  assert.equal(Object.keys(V.upgrades).length,27);
  const furnitureItems=ITEMS.filter(item=>!item.origin?.startsWith('PM 29/10/2026'));
  assert.equal(furnitureItems.length,27);
@@ -30,3 +31,10 @@ test('baseline furniture uses approved assets without masquerading as a paid imp
 });
 
 test('new generated sprites are RGBA, distinct files with versioned provenance',()=>{const manifest=JSON.parse(fs.readFileSync(new URL('../assets/furniture/generated/generation-manifest.json',import.meta.url),'utf8'));assert.equal(manifest.assets.length,5);for(const a of V.assets.filter(a=>a.source==='imagegen-built-in')){const bytes=fs.readFileSync(new URL('..'+a.url,import.meta.url));assert.equal(bytes.subarray(1,4).toString(),'PNG');assert.equal(bytes[25],6);assert.equal(a.status,'generated-for-testing');}});
+
+test('supplied shade tree replaces the same inventory item, preserving costs and existing fruit tree',()=>{
+ const a=V.assets.find(a=>a.id==='arvore-sombra'),r=JSON.parse(fs.readFileSync(new URL('../assets/nature/tree-provenance.json',import.meta.url))),png=fs.readFileSync(new URL('..'+a.url,import.meta.url));
+ assert.equal(V.upgrades.arvore.asset,a.id);assert.equal(V.items.arvore.asset,a.id);assert.equal(V.upgrades.frutifera.asset,'arvore-frutifera');assert.equal(ITEMS.find(i=>i.id==='arvore').cost,700);
+ assert.equal(a.rotationViews,4);assert.equal(png.readUInt32BE(16),r.frameWidth);assert.equal(png.readUInt32BE(20),r.frameHeight*4);assert.equal(crypto.createHash('sha256').update(png).digest('hex'),r.sha256);assert.equal(a.sourceSha256,r.sourceSha256);assert.ok(r.originalVertices>7e6&&r.previewVertices<2e5);assert.ok(png.length<2e6);assert.equal(a.sitPoint,null,'a tree must not advertise a chair seat');
+ assert.ok(!fs.existsSync(new URL('../dist/assets/nature/'+r.source,import.meta.url)),'352MB master is not deployed');
+});

@@ -16,6 +16,9 @@ try:
    box=page.locator('.cinematic-start').bounding_box();assert box['y']>=0 and box['y']+box['height']<=height;assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1');page.screenshot(path=str(OUT/('video-'+str(width)+'x'+str(height)+'.png')))
    page.locator('.cinematic-start').focus();page.keyboard.press('Enter');page.locator('.pi-invite').wait_for(state='visible');assert page.locator('.cinematic-intro').count()==0
    page.wait_for_function('document.querySelector(".pi-root").getIntroCastStatus()?.loaded===18')
+   try:page.wait_for_function('(()=>{const f=document.querySelector(".pi-root").getIntroFurnitureStatus();return f&&f.loaded===f.assets&&f.baseline>20;})()')
+   except Exception:
+    print(json.dumps({'viewport':[width,height],'furniture':page.locator('.pi-root').evaluate('(e)=>e.getIntroFurnitureStatus()'),'errors':errors,'failedResources':page.evaluate('performance.getEntriesByType("resource").filter(r=>r.responseStatus>=400).map(r=>({name:r.name,status:r.responseStatus}))')}),flush=True);raise
    for sector in range(3):
     page.locator('.pi-tab[data-env="'+str(sector)+'"]').click();page.wait_for_timeout(250);first=page.locator('.pi-root').evaluate('(e)=>e.getIntroCastStatus()');page.wait_for_function('(a)=>{const n=document.querySelector(".pi-root").getIntroCastStatus();return n.drawn.some(p=>a.drawn.some(q=>p.id===q.id&&(p.x!==q.x||p.y!==q.y||p.frame!==q.frame)));}',arg=first,timeout=8000);page.screenshot(path=str(OUT/('sector-'+str(sector)+'-'+str(width)+'x'+str(height)+'.png')))
    cast=page.locator('.pi-root').evaluate('(e)=>e.getIntroCastStatus()');assert len(cast['drawn'])==len(manifest['models']);assert page.evaluate('JSON.stringify(localStorage)')==before

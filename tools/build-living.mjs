@@ -12,7 +12,7 @@ iso=replace(iso,'    function resize() {',workTargets.toString()+`\n
       var first=!employeeRows.length;employeeRows=rows.slice();
       Object.keys(envs).forEach(function(key){
         var e=envs[key],members=employeeRows.filter(function(p){return p.home===key;}).sort(function(a,b){return a.id.localeCompare(b.id);});
-        var anchors=workTargets(e.items,AISLE);e.workstations=anchors.stations;var signature=JSON.stringify(e.items.map(function(it){return [it.x,it.y,it.w,it.d,it.layoutHidden,it.visualProgram];}));if(signature!==e.workSignature){e.workSignature=signature;e.workRevision=(e.workRevision||0)+1;}
+        var anchors=workTargets(e.items,AISLE);e.workstations=anchors.stations.filter(function(s){return !s.managerSeat;});var managerStation=anchors.stations.find(function(s){return s.managerSeat;});var signature=JSON.stringify(e.items.map(function(it){return [it.x,it.y,it.w,it.d,it.layoutHidden,it.visualProgram];}));if(signature!==e.workSignature){e.workSignature=signature;e.workRevision=(e.workRevision||0)+1;}
         if(first){var templates=e.people.filter(function(p){return !p.sit;});e.people=members.map(function(p,i){var progress=(i+.5)*AISLE_LENGTH/Math.max(1,members.length),start=aislePoint(progress);return Object.assign({},templates[i]||{},start,{employeeId:p.id,name:p.name,shirt:p.shirt,skin:p.skin,hair:p.hair,hairStyle:p.hairStyle,score:p.health,progress:progress,homeProgress:progress,workstation:e.workstations[i]||null,sit:false,npc:-1,wait:i*.11,speed:1.05,phase:i,seed:i*.71,restAway:false});});}
         // Persist world positions of remaining workers; remove absent actors and restore returnees.
         e.people=e.people.filter(function(p){return !p.employeeId||members.some(function(m){return m.id===p.employeeId;});});
@@ -24,7 +24,7 @@ iso=replace(iso,'    function resize() {',workTargets.toString()+`\n
              progress:progress,homeProgress:progress,workstation:e.workstations[i]||null,
              sit:false,npc:-1,wait:0,speed:1.05,phase:i,seed:i*.71,restAway:false}));
         });
-        e.people.forEach(function(p){var i=members.findIndex(function(x){return x.id===p.employeeId;}),m=employeeRows.find(function(x){return x.id===p.employeeId;});if(m){p.score=m.health;p.chair=m.chair;p.name=m.name;p.workstation=e.workstations[i]||null;p.materialSource=anchors.sources[i%anchors.sources.length]||anchors.destinations[i%anchors.destinations.length]||null;p.materialDestination=anchors.destinations[i%anchors.destinations.length]||p.materialSource;}});
+        e.people.forEach(function(p){var i=members.findIndex(function(x){return x.id===p.employeeId;}),m=employeeRows.find(function(x){return x.id===p.employeeId;});if(m){p.score=m.health;p.chair=m.chair;p.name=m.name;p.workstation=key==='escritorio'&&m.organization&&m.organization.rank==='estrategico'&&managerStation?managerStation:e.workstations[i]||null;p.materialSource=anchors.sources[i%anchors.sources.length]||anchors.destinations[i%anchors.destinations.length]||null;p.materialDestination=anchors.destinations[i%anchors.destinations.length]||p.materialSource;}});
       });commuters=[];render();
     }
     function setRestVisitors(list){
@@ -82,6 +82,7 @@ const c=intro.indexOf("    var motionButton=root.querySelector('.pi-motion');"),
 intro=intro.slice(0,c)+`    function applyMotion(){root.dataset.motion=reduce?'reduced':'on';if(iso){iso.setStatic(false);iso.render();if(!invite.hidden)iso.start();}}
     function onSystemMotion(){reduce=motion.matches;applyMotion();}motion.addEventListener('change',onSystemMotion);
 `+intro.slice(d);
+intro=replace(intro,'    if(o.cast&&iso.setIntroCast)',"    if(o.furniturePresentation)iso.setFurniturePresentation(o.furniturePresentation);if(o.furnitureCatalog){iso.setSectorInventory({escritorio:{},producao:{},atendimento:{}});iso.setFurnitureCatalog(o.furnitureCatalog);}root.getIntroFurnitureStatus=function(){return iso.furnitureVisuals();};\n    if(o.cast&&iso.setIntroCast)");
 intro=replace(intro,'    function start() {','    function start() {if(leaving)return;leaving=true;');
 fs.writeFileSync(out+'ui/continuous/intro.js',intro);
 let html=fs.readFileSync(out+'index.html','utf8');html=replace(html,'</head>','<link rel="stylesheet" href="/ui/claude/pilha-intro.css"><link rel="stylesheet" href="/ui/living-company.css"><link rel="stylesheet" href="/ui/game-interface.css"></head>');html=replace(html,'<script type="module" src="/ui/continuous-game.js">','<script src="/ui/continuous/intro.js"></script><script type="module" src="/ui/continuous-game.js">');fs.writeFileSync(out+'index.html',html);

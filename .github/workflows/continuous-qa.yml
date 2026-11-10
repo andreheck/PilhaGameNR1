@@ -38,6 +38,7 @@ jobs:
       - run: python tools/qa-mixamo-test.py
       - run: python tools/qa-furniture-editor.py
       - run: python tools/qa-expanded-cast.py
+      - run: python tools/qa-office-space.py
       - name: Archive reviewed source
         if: always()
         run: mkdir -p artifacts/living && git archive --format=zip HEAD > artifacts/living/reviewed-source.zip
@@ -100,4 +101,10 @@ jobs:
         with:
           name: expanded-cast-qa
           path: artifacts/expanded-qa/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: office-layout-tree-qa
+          path: artifacts/office-space/
           retention-days: 7

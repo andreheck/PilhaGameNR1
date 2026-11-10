@@ -17,3 +17,24 @@ test('visual layouts persist atomically without changing purchases, health, cale
 test('supported furniture uses four real camera views, with old original atlases retained',()=>{const rows=JSON.parse(fs.readFileSync(new URL('../assets/individual-chairs/views.json',import.meta.url)));for(const row of rows.assets){const asset=V.assets.find(a=>a.id==='chair-'+row.id),png=fs.readFileSync(new URL('..'+asset.url,import.meta.url));assert.equal(asset.rotationViews,4);assert.equal(png.readUInt32BE(16),row.frameWidth*8);assert.equal(png.readUInt32BE(20),row.frameHeight*4);assert.ok(fs.existsSync(new URL('../assets/individual-chairs/'+row.id+'.png',import.meta.url)));}});
 
 test('employee profiles describe the live work pose without altering health or identity',()=>{const s=L.ensureLiving(M.fresh()),before=JSON.stringify(s),row=L.staffView(s,[{id:'NPC-01',activity:'sit-down'}]).find(p=>p.id==='NPC-01');assert.equal(row.activity,'Sentando-se no posto de trabalho');assert.equal(L.staffView(s,[{id:'NPC-01',activity:'computer'}]).find(p=>p.id==='NPC-01').activity,'Trabalhando no computador');assert.equal(row.name,L.staffView(s).find(p=>p.id==='NPC-01').name);assert.equal(JSON.stringify(s),before);});
+
+test('new purchases and refresh preserve multiple saved positions and a rotated item',()=>{
+ const {iso}=engine();let levels={escritorio:{'cadeira-pensamento':1}};iso.setSectorInventory(levels);
+ const layout={version:1,rooms:{escritorio:{}}};let room=iso.furnitureLayout().find(r=>r.id==='escritorio'),items=room.items.map(i=>({...i,t:i.type,layoutHidden:i.hidden}));
+ for(const it of items.filter(i=>i.type==='plant'&&!i.managerRoom).slice(0,2)){
+  const p=[[.25,0],[-.25,0],[0,.25],[0,-.25],[.5,0],[0,.5]].map(([dx,dy])=>({...it,x:it.x+dx,y:it.y+dy})).find(p=>validatePlacement(p,items,'escritorio').ok);assert.ok(p);layout.rooms.escritorio[it.layoutKey]={x:p.x,y:p.y,turn:0};Object.assign(it,p);
+ }
+ const chair=iso.editableFurniture().find(i=>i.sid==='escritorio'&&i.canRotate);assert.ok(chair);layout.rooms.escritorio[chair.key]={x:chair.x,y:chair.y,turn:1};iso.setFurnitureLayout(layout);
+ const before=JSON.parse(JSON.stringify(iso.editableFurniture().filter(i=>i.sid==='escritorio'&&layout.rooms.escritorio[i.key])));assert.ok(before.length>=3);
+ for(const id of ['asse','psic','seg','fisi']){levels={escritorio:{...levels.escritorio,[id]:1}};iso.setSectorInventory(JSON.parse(JSON.stringify(levels)));for(const p of before){const current=iso.editableFurniture().find(i=>i.key===p.key);assert.ok(current,p.key);assert.deepEqual([current.x,current.y,current.turn],[p.x,p.y,p.turn],id+' must not repack player furniture');}}
+ iso.setFurnitureLayout(layout,true);for(const p of before){const current=iso.editableFurniture().find(i=>i.key===p.key);assert.deepEqual([current.x,current.y,current.turn],[p.x,p.y,p.turn]);}
+});
+
+test('manager annex has a real workstation reachable through the doorway, without another employee identity',()=>{
+ const {iso,routes}=engine();iso.setSectorInventory({});const room=iso.furnitureLayout().find(r=>r.id==='escritorio'),items=room.items.map(i=>({...i,t:i.type,layoutHidden:i.hidden})),stations=workTargets(items,aisle).stations;
+ const manager=stations.find(p=>p.managerSeat);assert.ok(manager&&manager.y<0);const path=routes.routeWithin(aisle,{x:4,y:.28},manager,items);assert.ok(path.length>=2);
+ for(let t=0;t<=1;t+=.005){const p=routes.sample(path,t);if(Math.abs(p.y)<.24)assert.ok(p.x>3.6&&p.x<4.4,'entry uses actual doorway');assert.ok(p.y>=0||p.x>0&&p.x<8);}
+ assert.ok(room.items.filter(i=>i.structural).length>=7);assert.equal(iso.getWorldLayout().find(r=>r.key==='escritorio').managerRoom.width,8);
+ assert.ok(!iso.editableFurniture().some(r=>r.key.startsWith('structure:')),'walls are not movable furniture');
+ validateLayoutSchema({version:1,rooms:{escritorio:{'office:manager-desk':{x:1.1,y:-3.2,turn:0}}}});assert.throws(()=>validateLayoutSchema({version:1,rooms:{producao:{x:{x:1,y:-1,turn:0}}}}));
+});

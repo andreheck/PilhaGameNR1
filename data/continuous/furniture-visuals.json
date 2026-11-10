@@ -1904,6 +1904,58 @@
       ],
       "facing": 0,
       "rotationViews": 4
+    },
+    {
+      "id": "arvore-sombra",
+      "name": "Árvore de sombra",
+      "url": "/assets/nature/arvore-sombra-views.png",
+      "file": "arvore-sombra-views.png",
+      "transparent": true,
+      "scale": {
+        "width": 0.9,
+        "depth": 0.9,
+        "height": 2.4,
+        "cellMeters": 1
+      },
+      "canopyScale": {
+        "width": 2.475281365166772,
+        "depth": 1.2572969451395517,
+        "height": 2.3999999999999995
+      },
+      "anchor": [
+        0.5,
+        0.924135781757706
+      ],
+      "projection": {
+        "width": 162.49094243030794,
+        "height": 155.28193874497123,
+        "anchor": [
+          0.5,
+          0.924135781757706
+        ]
+      },
+      "bounds": [
+        0,
+        0,
+        395,
+        378
+      ],
+      "rotationViews": 4,
+      "animation": {
+        "frames": 1,
+        "duration": 1,
+        "frameWidth": 395,
+        "frameHeight": 378
+      },
+      "source": "Meshy_AI_tree_model_1109210605_image-to-3d-texture.glb",
+      "sourceSha256": "1c3c81af347c5fc58ded249895d05ba4c6341419ea8694e78dbbbc75440da513",
+      "standPoint": [
+        0.45,
+        1.3,
+        0
+      ],
+      "sitPoint": null,
+      "facing": 2
     }
   ],
   "upgrades": {
@@ -2116,7 +2168,7 @@
       "effectSource": "canonical-purchase"
     },
     "arvore": {
-      "asset": "planta-grande",
+      "asset": "arvore-sombra",
       "position": [
         5.4,
         1.5
@@ -2807,7 +2859,7 @@
       "effectSource": "canonical-purchase"
     },
     "arvore": {
-      "asset": "planta-grande",
+      "asset": "arvore-sombra",
       "position": [
         5.4,
         1.5

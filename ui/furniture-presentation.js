@@ -1,4 +1,5 @@
 import {applyLayoutOverrides} from '../simulation/furniture-layout.js';
+import {OFFICE_SPACE} from '../data/continuous/office-space.js';
 /** Canvas furniture presentation. No purchases, state mutation or storage. */
 export function spriteSize(asset,unit,ratio=1){
  const m=asset.scale;
@@ -7,7 +8,7 @@ export function spriteSize(asset,unit,ratio=1){
 export function createFurniturePresentation(){
  function arrange(env,catalog,edits={}){
   // Start from original positions every time: purchases/refresh never accumulate offsets.
-  let items=env.items.filter(it=>!it.amenity&&!it.annex);
+  let items=env.items.filter(it=>!it.amenity&&!it.annex&&!it.structural);
   const v2Bindings={'rest2-banco_wifi_completo':'banco','rest2-tapete_indiano':'tapete','rest2-almofadas_encosto':'almofadas'},v2Levels={};
   if(env.key==='restauracao'&&catalog.annex){for(const it of items){const id=it.visualId||it.installed;if(Object.values(v2Bindings).includes(id))v2Levels[id]=Math.max(v2Levels[id]||0,it.visualLevel||1);}items=items.filter(it=>!Object.values(v2Bindings).includes(it.visualId||it.installed));}
   items.forEach(it=>{it.layoutKey??=(it.installed?'purchase:'+it.installed:'base:'+it.t)+':'+(it.originalPosition||[it.x,it.y]).map(n=>+n.toFixed(3)).join(',');});
@@ -24,14 +25,25 @@ export function createFurniturePresentation(){
   if(env.key==='restauracao')for(const a of catalog.amenities.filter(a=>!catalog.annex||!['banco-patio-a','banco-patio-b','jardineira-patio'].includes(a.id)))items.push({t:a.type,x:a.position[0],y:a.position[1],w:a.scale.width,d:a.scale.depth,h:a.scale.height,z:a.zone,layoutKey:'amenity:'+a.id,amenity:a.id,c:'#b9d1dc'});
   // Small deterministic packing inside the six activity areas. Aisles stay free.
   if(env.key==='producao'){const seen=new Set();items=items.filter(it=>{if(it.installed||!['machine','crate','shelf'].includes(it.t))return true;const key=it.z+'|'+it.visualAsset;if(seen.has(key))return false;seen.add(key);return true;});}
-  const occupied=[],unplaced=[],seatClearance=[];
+  if(env.key==='restauracao'&&catalog.annex)for(const p of catalog.annex.placements){const a=catalog.assets.find(a=>a.id===p.asset);if(a)items.push({t:'restorative-v2',c:'#6799a9',visualId:v2Levels[v2Bindings[a.id]]?v2Bindings[a.id]:null,visualIds:v2Levels[v2Bindings[a.id]]?[v2Bindings[a.id]]:[],visualLevel:v2Levels[v2Bindings[a.id]]||0,x:p.x,y:p.y,w:a.scale.width,d:a.scale.depth,h:a.scale.height,z:5,visualAsset:a.id,layoutKey:'annex:'+a.id,annex:true,layoutHidden:false,walkable:a.id==='rest2-tapete_indiano'});}
+  if(env.key==='escritorio'&&catalog.officeExtension!==false){
+   for(const p of OFFICE_SPACE.furniture){const a=catalog.assets.find(a=>a.id===p.asset);items.push({t:p.type,x:p.x,y:p.y,w:a.scale.width,d:a.scale.depth,h:a.scale.height,z:0,visualAsset:p.asset,layoutKey:'office:'+p.id,managerRoom:true,managerDesk:!!p.managerDesk,annex:true,c:'#7899a8'});}
+   for(const p of OFFICE_SPACE.walls)items.push({...p,t:'glass-wall',layoutKey:'structure:'+p.id,structural:true,c:'#80cad8'});
+  }
+  const occupied=items.filter(it=>it.structural),unplaced=[],seatClearance=[];
   const hit=(a,b,g=.42)=>a.x<b.x+b.w+g&&a.x+a.w+g>b.x&&a.y<b.y+b.d+g&&a.y+a.d+g>b.y;
   const reserved=env.key==='restauracao'?catalog.restClearance:[];
+  // Reserve player-authored positions before packing anything new around them.
+  // Previously a new purchase was packed first, and could invalidate an entire room.
+  items.forEach(it=>{it.originalPosition??=[it.x,it.y];const a=catalog.assets.find(a=>a.id===it.visualAsset);if(a?.scale){it.w=a.scale.width;it.d=a.scale.depth;it.h=a.scale.height;}it.baseW=it.w;it.baseD=it.d;it.turn=0;it.canRotate=!!a?.rotationViews;});
+  const saved=applyLayoutOverrides(items.filter(it=>edits[it.layoutKey]),edits,env.key),pinned=new Set();
+  for(const p of saved.items){if(saved.warnings.includes(p.layoutKey))continue;const it=items.find(it=>it.layoutKey===p.layoutKey);Object.assign(it,p,{layoutHidden:false});pinned.add(it.layoutKey);if(!it.walkable&&!it.visualProgram){occupied.push(it);if(it.t==='desk')seatClearance.push({x:it.x+.08,y:it.y-.66,w:it.w-.16,d:.66});}}
   const sorted=items.map((it,index)=>({it,index})).sort((a,b)=>{
    const size=i=>{const m=catalog.assets.find(a=>a.id===i.visualAsset)?.scale;return m?m.width*m.depth:i.w*i.d;};
    return Number(b.it.t==='desk')-Number(a.it.t==='desk')||size(b.it)-size(a.it)||a.index-b.index;
   });
   for(const {it} of sorted){
+   if(pinned.has(it.layoutKey)||it.annex||it.structural)continue;
    if(it.visualProgram)continue;
    it.originalPosition??=[it.x,it.y];
    const asset=catalog.assets.find(a=>a.id===it.visualAsset),m=asset?.scale;
@@ -47,15 +59,20 @@ export function createFurniturePresentation(){
    it.layoutHidden=!at;
    if(at){it.x=at.x;it.y=at.y;occupied.push(it);if(it.t==='desk')seatClearance.push(seatBox(it));}else unplaced.push(it.visualId||it.visualAsset||it.t);
   }
-  if(env.key==='restauracao'&&catalog.annex)for(const p of catalog.annex.placements){const a=catalog.assets.find(a=>a.id===p.asset);if(a)items.push({t:'restorative-v2',c:'#6799a9',visualId:v2Levels[v2Bindings[a.id]]?v2Bindings[a.id]:null,visualIds:v2Levels[v2Bindings[a.id]]?[v2Bindings[a.id]]:[],visualLevel:v2Levels[v2Bindings[a.id]]||0,x:p.x,y:p.y,w:a.scale.width,d:a.scale.depth,h:a.scale.height,z:5,visualAsset:a.id,layoutKey:'annex:'+a.id,annex:true,layoutHidden:false,walkable:a.id==='rest2-tapete_indiano'});}
-  items.forEach(it=>{it.baseW=it.w;it.baseD=it.d;it.turn=0;it.canRotate=!!catalog.assets.find(a=>a.id===it.visualAsset)?.rotationViews;});
-  const applied=applyLayoutOverrides(items,edits,env.key);env.items=applied.items;env.layoutWarnings=applied.warnings;env.furnitureUnplaced=unplaced;
+  if(env.key==='escritorio')for(const p of OFFICE_SPACE.partitions){if(!items.some(b=>!b.walkable&&!b.visualProgram&&!b.layoutHidden&&hit(p,b,.12)))items.push({...p,t:'glass-wall',layoutKey:'structure:'+p.id,structural:true,c:'#80cad8'});}
+  env.items=items;env.layoutWarnings=[...saved.warnings,...unplaced];env.furnitureUnplaced=unplaced;
  }
  function draw(api,it,e,resources){
   const {ctx,P,box,poly,scale:s,unit,time}=api,{catalog,images,reveal,atlas}=resources;
   if(it.visualProgram||it.layoutHidden)return true;
   if([it.visualId,...(it.visualIds||[])].some(id=>id&&reveal[e.key+'|'+id]>Date.now()))return true;
   const x=it.x,y=it.y,w=it.w,d=it.d,h=it.h;
+  if(it.structural){
+   const a=P(x,y,0),b=P(x+w,y+d,0),c=P(x+w,y+d,h),f=P(x,y,h);
+   poly([a,b,c,f],'rgba(117,202,218,.16)','#64acbd',Math.max(.7,s));
+   for(const pos of [[x,y],[x+w,y+d]])box(pos[0],pos[1],0,.035,.035,h,'#416477',1);
+   const mid=P(x+w*.5,y+d*.5,h*.6);ctx.strokeStyle='rgba(221,247,255,.34)';ctx.lineWidth=Math.max(.7,s);ctx.beginPath();ctx.moveTo(mid[0]-3*s,mid[1]+5*s);ctx.lineTo(mid[0]+3*s,mid[1]-5*s);ctx.stroke();return true;
+  }
   if(it.amenity){
    if(it.t==='patioBench'){for(const dx of [.1,w-.17])box(x+dx,y+.06,0,.07,d-.1,.43,'#39546a',1);box(x,y,.43,w,d,.08,'#be9865',1);box(x,y,.51,w,.07,.29,'#be9865',1);
    }else if(it.t==='patioPlanter'){box(x,y,0,w,d,.33,'#967551',1);box(x+.04,y+.04,.33,w-.08,d-.08,.04,'#5c4936',1);for(const dx of [.12,.35]){box(x+dx,y+.2,.36,.04,.04,.25,'#567949',1);const leaf=P(x+dx,y+.2,.71);ctx.fillStyle='#6aaf72';ctx.beginPath();ctx.ellipse(leaf[0],leaf[1],unit*s*.16,unit*s*.22,0,0,Math.PI*2);ctx.fill();}
