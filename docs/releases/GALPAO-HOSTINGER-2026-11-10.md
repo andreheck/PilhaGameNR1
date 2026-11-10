@@ -42,3 +42,5 @@ Tutorial prático da primeira contratação/compra, comunicação antes/depois d
 ## Ajuste de regressão do cabeçalho
 
 O primeiro CI desta etapa encontrou uma linha extra no cabeçalho de 320 px após adicionar o celular. Corrigido com botão de ícone compacto somente até 420 px, mantendo nome acessível e todos os controles. Medição real: 147,39 px em 320/390, 115,06 px em 844 e 105,39 px em 1366/1440. O mapa permanece abaixo da barra completa; o celular continua acessível pelo teclado e nome. A release isolada inicial `3129ace` não deve ser ativada; usar a sucessora com este ajuste e CI aprovado.
+
+A verificação Linux demonstrou que somente reduzir o ícone ainda podia gerar outra linha conforme a fonte. A disposição final até 420 px usa duas colunas explícitas (relógio e comandos), com indicadores ocupando a primeira linha completa. O teste mantém o limite original de altura e registra as medidas no log; o limite não foi relaxado.

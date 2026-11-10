@@ -108,7 +108,7 @@ def run(browser,w,h):
         check(True,tag+': real imported walking animation frames advance on map')
 
         check(page.locator('.living-topbar').count()==1,tag+': transparent header groups all controls')
-        header=page.locator('.living-topbar').bounding_box();view=page.locator('.pm-view').bounding_box()
+        header=page.locator('.living-topbar').bounding_box();view=page.locator('.pm-view').bounding_box();print(json.dumps({'viewport':tag,'header':header,'mapTop':view['y']}),flush=True)
         check(view['y']>=header['y']+header['height']-1,tag+': map starts below complete header')
         check(header['height']<(130 if w>=900 else 170),tag+': compact header leaves map space')
         page.locator('.living-chrome-toggle').click();check(page.locator('.living-topbar').bounding_box()['height']<45,tag+': player can collapse chrome to sector strip');snap('collapsed-chrome')
