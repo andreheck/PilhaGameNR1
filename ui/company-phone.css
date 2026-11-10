@@ -3,3 +3,5 @@
 .pt22-tab-badge{font-size:8px;font-weight:900;color:#b5ffe7;background:#144d3a;border:1px solid #50c8a0;border-radius:6px;padding:2px 4px;margin-left:4px}
 
 .phone-apps i svg{display:block;width:23px;height:23px}.trophy-emblem svg{width:38px;height:38px}
+
+@media(max-width:420px){.living-topbar .continuous-tools .living-phone-launcher{width:28px;min-width:28px;padding:4px;gap:0}.living-phone-launcher>span{display:none}.living-phone-launcher>svg{width:17px;height:17px}}
