@@ -38,7 +38,11 @@
             }else Object.assign(p,points[plan.to]);
             if(!plan.moving&&p.workTarget&&p.workTarget.item){var aim=p.workTarget.item,dx=aim.x+aim.w/2-p.x,dy=aim.y+aim.d/2-p.y;p.facing=Math.abs(dx)>Math.abs(dy)?(dx>0?1:3):(dy>0?0:2);}
             if(seat&&plan.activity==='using-chair'){var sf=seat.forward||[0,1],sx=sf[0],sy=sf[1];for(var st=0;st<(chairItem.turn||0);st++){var nx=sy;sy=-sx;sx=nx;}p.facing=Math.abs(sx)>Math.abs(sy)?(sx>0?1:3):(sy>0?0:2);}
-            p.vx=p.x-oldX;p.vy=p.y-oldY;p.progress=p.homeProgress||0;p.moving=!routineClock.paused&&plan.moving;var covered=plan.moving?plan.route*plan.ms*.001*1.8*Math.max(.2,Math.min(1,speed)):0;p.phase=plan.moving?covered*7+(p.seed||0):elapsed*.0034*speed;if(plan.moving)p.riggedSeconds=covered/1.4;
+            p.vx=p.x-oldX;p.vy=p.y-oldY;p.progress=p.homeProgress||0;p.moving=!routineClock.paused&&plan.moving;var covered=plan.moving?plan.route*plan.ms*.001*1.8*Math.max(.2,Math.min(1,speed)):0;p.phase=plan.moving?covered*7+(p.seed||0):elapsed*.0034*speed;
+            // Sprite frame time must match the time spent walking this leg.
+            // Distance / a fixed 1.4 units-per-second made fast and slow NPCs
+            // use the same cadence, causing foot sliding and apparent sprinting.
+            p.riggedSeconds=plan.moving?plan.route*plan.ms/1000:elapsed*.001*speed;
             if(plan.moving&&Math.hypot(p.vx,p.vy)>.00001)p.facing=Math.abs(p.vx)>Math.abs(p.vy)?(p.vx>0?1:3):(p.vy>0?0:2);
           }else{
             p.sit=false;p.seatProgress=0;p.carrying=null;p.workTarget=null;
@@ -46,7 +50,7 @@
             var path=routinePaths[cache]||(routinePaths[cache]=global.PilhaNpcRoutes.route(worldCfg,AISLE,connections,c.key,target,p.employeeId,aislePoint(p.homeProgress||0)));
             if(!path.length)return;
             var q=global.PilhaNpcRoutes.sample(path,pose.progress),nextQ=global.PilhaNpcRoutes.sample(path,pose.progress+(pose.stage.includes('return')?-.001:.001)),resting=pose.holding,clone=Object.assign({},p,q,{from:c.key,to:'restauracao',worker:p.employeeId,home:c.key,sit:resting&&!pose.meeting&&pose.space==='meditacao',seatProgress:resting&&!pose.meeting&&pose.space==='meditacao'?1:0,seatHeight:.46,moving:!routineClock.paused&&!resting,phase:elapsed*.0034*speed,transit:!resting,npc:-1,talking:!!pose.talking,activity:pose.stage,vx:nextQ.x-q.x,vy:nextQ.y-q.y});
-            var routeLength=path.slice(1).reduce(function(n,p,i){return n+Math.hypot(p.x-path[i].x,p.y-path[i].y);},0),covered=routeLength*(pose.stage.includes('return')?2-pose.progress:pose.progress);clone.phase=covered*7+(p.seed||0);clone.riggedSeconds=resting?elapsed*.001*row.speed:covered/1.4;
+            var routeLength=path.slice(1).reduce(function(n,p,i){return n+Math.hypot(p.x-path[i].x,p.y-path[i].y);},0),covered=routeLength*(pose.stage.includes('return')?2-pose.progress:pose.progress);clone.phase=covered*7+(p.seed||0);clone.riggedSeconds=resting?elapsed*.001*row.speed:(pose.walkElapsedMs||0)/1000;
             if(resting){var dest=worldCfg.find(function(c){return c.key==='restauracao';});if(dest){clone.x-=dest.bx;clone.y-=dest.by;}if(pose.meeting){var faceX=(dest&&dest.depth>8?4.1:9.8)-clone.x,faceY=(dest&&dest.depth>8?15.45:5.15)-clone.y;clone.facing=Math.abs(faceX)>Math.abs(faceY)?(faceX>0?1:3):(faceY>0?0:2);}restVisitors.push(clone);}else commuters.push(clone);
             p.restAway=true;
           }

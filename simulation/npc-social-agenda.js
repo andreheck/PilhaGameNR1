@@ -19,7 +19,7 @@ export function addSocialAgenda(state,people,rows,period){
     if(active){
       const rest=now>=active.out&&now<active.pauseEnd,back=now>=active.pauseEnd;
       const stage=rest?'rest':back?'return':'outbound',progress=rest?1:back?1-(now-active.pauseEnd)/(active.end-active.pauseEnd):(now-active.start)/(active.out-active.start);
-      return {stage:active.kind==='meeting'?(rest?'meeting':'meeting-'+stage):stage,baseStage:stage,kind:active.kind,space:active.space,target:active.target,managerId:active.managerId,seat:active.seat,key:active.key,progress,holding:rest,moving:!rest,influenced:rest||back,inRestArea:rest,meeting:active.kind==='meeting'};
+      return {stage:active.kind==='meeting'?(rest?'meeting':'meeting-'+stage):stage,baseStage:stage,kind:active.kind,space:active.space,target:active.target,managerId:active.managerId,seat:active.seat,key:active.key,progress,walkElapsedMs:!rest?(back?now-active.pauseEnd:now-active.start):0,holding:rest,moving:!rest,influenced:rest||back,inRestArea:rest,meeting:active.kind==='meeting'};
     }
     const last=events.filter(e=>e.end<=now).at(-1),next=events.find(e=>e.start>now),start=last?.end??now-period,end=next?.start??now+period;
     const w=workFraction(now,start,end,row.speed,row.workSlot),influenced=!!last&&now-last.end<.18*period*row.scale;

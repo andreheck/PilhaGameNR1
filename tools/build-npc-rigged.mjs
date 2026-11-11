@@ -28,7 +28,7 @@ replace('var frame=walking&&!isStatic?Math.floor(p.phase*1.4)%8:2;',`var frame=w
         if(rigged){var elapsed=riggedAction==='walk'&&p.riggedSeconds!=null?p.riggedSeconds:((routineClock?routineClock.elapsed+(routineClock.paused?0:performance.now()-routineClock.at):time*1000)/1000);
           var duration=riggedAction==='talk'?rigged.talkDuration:rigged.walkDuration;
           var frameCount=riggedAction==='talk'?rigged.talkFrames:rigged.walkFrames;frame=riggedAction==='idle'?0:Math.floor(Math.max(0,elapsed)/duration*frameCount)%frameCount;
-          riggedDrawn[p.employeeId]={id:p.employeeId,key:rigged.key,action:riggedAction,frame:frame,direction:p.facing||0};}`);
+          riggedDrawn[p.employeeId]={id:p.employeeId,key:rigged.key,action:riggedAction,frame:frame,elapsedSeconds:elapsed,durationSeconds:duration,frames:frameCount,direction:p.facing||0};}`);
 replace('var phase=((elapsed/period-row.offset)%1+1)%1,k=row.scale||1,speed=row.speed||1,outEnd=row.outEnd,pauseEnd=row.pauseEnd,tripEnd=row.tripEnd;',
  'var phase=((elapsed/period-row.offset)%1+1)%1,k=row.scale||1,speed=row.speed||1,outEnd=row.outEnd,pauseEnd=row.pauseEnd,tripEnd=row.tripEnd;p.riggedSeconds=elapsed*.001*speed;');
 replace('      employeeHits=[];', '      employeeHits=[];riggedDrawn={};');

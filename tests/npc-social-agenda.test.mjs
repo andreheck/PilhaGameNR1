@@ -64,6 +64,15 @@ test('movement is slower and the conversation pause is stationary',()=>{
   assert.equal(workFraction(0,0,20000).fraction,0);assert.equal(workFraction(20000,0,20000).fraction,0);
 });
 
+test('walking animation clock follows the real outbound and return leg duration',()=>{
+ const state=setup(),row=L.routines(state)[0],event=row.agenda.find(e=>e.kind==='rest');
+ const outbound=row.sampleAt(event.start+(event.out-event.start)*.4),returning=row.sampleAt(event.pauseEnd+(event.end-event.pauseEnd)*.4);
+ assert.equal(outbound.walkElapsedMs,(event.out-event.start)*.4);
+ assert.equal(returning.walkElapsedMs,(event.end-event.pauseEnd)*.4);
+ assert.equal(row.sampleAt(event.start+(event.out-event.start)*.4).moving,true);
+ assert.equal(row.sampleAt(event.out+(event.pauseEnd-event.out)*.5).walkElapsedMs,0);
+});
+
 test('individual paces survive reload and roster ordering independently from health',()=>{
   const state=setup(),before=JSON.stringify(state),rows=L.routines(state);
   assert.equal(new Set(rows.map(r=>r.pace)).size,16);

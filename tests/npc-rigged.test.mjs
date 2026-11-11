@@ -25,9 +25,10 @@ test('only the two approved actors draw rigged sheets and use animated frames wi
  assert.ok(calls.some(([src])=>src?.endsWith('/beatriz-walk.png')));assert.equal(iso.getEmployees().length,16);assert.equal(JSON.stringify(s),before);
  const p=iso.getEmployees().find(p=>p.id==='NPC-16');iso.focusEmployee(p.id,0);const focused=iso.getEmployees().find(q=>q.id===p.id);assert.equal(iso.pickEmployee(focused.screen.x,focused.screen.y),p.id);
 });
-test('manual pause freezes rig frames and low health slows the walking clip along with routes',()=>{
+test('manual pause freezes rig frames and low health remains on its slower routed animation timeline',()=>{
  const s=L.ensureLiving(M.fresh());s.activeMs=12000;const normal=engine(s,{offsets:{'NPC-16':.45}});normal.tick(16);normal.tick(616);const regular=normal.iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-16').frame;
- s.staff['NPC-16'].health=54;const slow=engine(s,{offsets:{'NPC-16':.45}});slow.tick(16);slow.tick(616);assert.notEqual(slow.iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-16').frame,regular);
+ const expectedFrame=row=>Math.floor(row.elapsedSeconds/row.durationSeconds*row.frames)%row.frames,normalPose=normal.iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-16');assert.equal(regular,expectedFrame(normalPose));
+ s.staff['NPC-16'].health=54;const slow=engine(s,{offsets:{'NPC-16':.45}});slow.tick(16);slow.tick(616);const slowPose=slow.iso.riggedAssetsStatus().drawn.find(p=>p.id==='NPC-16');assert.equal(slowPose.action,'walk');assert.equal(slowPose.frame,expectedFrame(slowPose));
  s.paused=true;const paused=engine(s,{offsets:{'NPC-16':.45}}),before=JSON.stringify(paused.iso.riggedAssetsStatus());paused.tick(9000);assert.equal(JSON.stringify(paused.iso.riggedAssetsStatus()),before);
 });
 test('unavailable sprite files keep all active actors visible through the existing renderer',()=>{
