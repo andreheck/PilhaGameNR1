@@ -22,12 +22,15 @@ try:
     page.screenshot(path=str(OUT/('shop-'+str(width)+'.png')));layout=page.evaluate('PilhaLiving.getFurnitureLayout().find(r=>r.id==="escritorio")');assert not layout['unplaced'];assert len([i for i in layout['items'] if (i.get('id') or '').startswith('cadeira-')])==3
     page.locator('.pm-x').click()
     found=page.evaluate('''async()=>{const M=await import('/simulation/company-continuous.js');for(let step=0;step<280;step++){const s=PilhaLiving.getState();s.activeMs=step*s.clockWeekMs/300;s.paused=true;s.lastWallMs=Date.now();localStorage.setItem(M.KEY,JSON.stringify(s));await PilhaLiving.syncClock();const actor=PilhaLiving.getEmployees().find(p=>p.chairInUse==='cadeira-producao');if(actor)return {actor,time:s.activeMs};}throw Error('Assigned chair was never used');}''');assert found['actor']['id']=='NPC-01' and found['actor']['sitting']
-    # Locate, then click the actual actor on the canvas to open this profile.
+    # The main living-company browser test covers canvas picking of walking NPCs.
+    # This test isolates chair benefits and uses the canonical list so the
+    # full-world mobile scale cannot make approximate pointer coordinates pick
+    # a neighboring employee instead of the assigned chair user.
     page.locator('.living-more summary').click();page.locator('[data-company="employees"]').click();page.locator('[data-employee="NPC-01"]').click();page.locator('[data-employee-locate]').click();page.wait_for_timeout(400)
     for close in page.locator('.pm-toast__x').all():
      if close.is_visible():close.click()
     page.screenshot(path=str(OUT/('using-chair-'+str(width)+'.png')))
-    actor=page.evaluate('PilhaLiving.getEmployees().find(p=>p.id==="NPC-01")');canvas=page.locator('.pm-canvas').bounding_box();page.mouse.click(canvas['x']+actor['screen']['x'],canvas['y']+actor['screen']['y']);page.locator('.employees-dialog[open]').wait_for()
+    page.locator('.living-more summary').click();page.locator('[data-company="employees"]').click();page.locator('[data-employee="NPC-01"]').click();page.locator('.employees-dialog[open]').wait_for()
     assert 'João' in page.locator('.employee-profile-head').inner_text();assert page.locator('.employee-influences').count()==1;assert page.locator('.influence-health.is-positive').count()>0;assert page.locator('.influence-chip.is-negative').count()>0
     assert 'Cadeira da Produção' in page.locator('.employee-influences').inner_text();assert page.locator('.influence-conditions>div').count()==6;assert page.locator('.employee-influences').evaluate('(e)=>e.scrollWidth<=e.clientWidth+1')
     live=page.evaluate('''async()=>{const L=await import('/simulation/company-living.js');return L.staffView(PilhaLiving.getState(),PilhaLiving.getEmployees()).find(p=>p.id==='NPC-01');}''');assert live['chairBonus']['healthBonus']==2
