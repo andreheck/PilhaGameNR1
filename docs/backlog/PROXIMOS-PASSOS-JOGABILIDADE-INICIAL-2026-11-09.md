@@ -4,7 +4,7 @@ Base: branch `codex/unified-social-agenda`, após a entrega de abertura/mobiliá
 
 ## Atualização em 11/11/2026
 
-Os dois primeiros itens P1 estão implementados na branch em revisão: guia opcional dos primeiros passos após contratação inicial e explicação de heróis-consultores, seis contratações incluídas e semana simulada de 15 minutos. Evidências e limites: `docs/releases/PRIMEIROS-PASSOS-2026-11-11.md`. Dependem da CI e aprovação do PM para aceite/liberação. Os demais itens abaixo continuam como backlog.
+Os dois primeiros itens P1 estão implementados na branch em revisão: guia opcional dos primeiros passos após contratação inicial e explicação de heróis-consultores, seis contratações incluídas e semana simulada de 15 minutos. Evidências e limites: `docs/releases/PRIMEIROS-PASSOS-2026-11-11.md`. A CI completa da PR #69 passou no commit `91eace3`; falta o aceite do PM para merge/publicação. Os demais itens abaixo continuam como backlog.
 
 ## Já atendido nesta entrega
 
