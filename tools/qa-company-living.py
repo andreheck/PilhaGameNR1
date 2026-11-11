@@ -15,7 +15,28 @@ def run(browser,w,h):
     def state():return page.evaluate('PilhaLiving.getState()')
     def positions():return page.evaluate('PilhaLiving.getEmployees().map(p=>[p.id,p.x,p.y])')
     def saved(expr):page.wait_for_function('()=>{const s=PilhaLiving.getState();return '+expr+';}')
+    def answer_pending_call():
+        if page.locator('.event-presentation[open]').count():
+            current=page.evaluate('PilhaLiving.getState().events.current')
+            if current and current.get('stage')=='decision':
+                options=page.locator('[data-event-choice]:not([disabled])');choice=None
+                for index in range(options.count()):
+                    if 'Sem custo' in options.nth(index).inner_text():choice=options.nth(index);break
+                if not choice:raise AssertionError('Pending call has no free response: '+page.locator('.event-presentation').inner_text())
+                choice.click()
+                page.wait_for_function('PilhaLiving.getState().events.current?.stage==="result"')
+            page.locator('[data-event-finish]').click()
+            page.wait_for_function('PilhaLiving.getState().events.current===null')
+    def close_world_panel():
+        button=page.locator('.living-world [data-world-close]')
+        for _ in range(4):
+            if page.locator('.event-presentation[open]').count():answer_pending_call()
+            try:button.click(timeout=1500);return
+            except Exception:
+                if not page.locator('.event-presentation[open]').count():raise
+        raise AssertionError('Could not close world catalogue after resolving incoming calls')
     def menu():
+        if page.locator('.event-presentation[open]').count():answer_pending_call()
         if not page.locator('.living-more').evaluate('(e)=>e.open'):page.locator('.living-more summary').click()
     def enter():
         check(page.locator('.at-start').count()==0,tag+': direct opening without additional start screen')
@@ -53,6 +74,7 @@ def run(browser,w,h):
         page.locator('[data-hiring-next]').click();page.locator('.pm-canvas').wait_for();page.wait_for_timeout(700)
         check(len(page.evaluate('PilhaLiving.getEmployees()'))==6,tag+': initial team has exactly three managers and three employees')
         initial=state();check(initial['budget']==10000 and initial['initialHiring']['managers']['producao']=='NPC-09',tag+': chosen managers persist without spending starting capital');snap('initial-six')
+        page.locator('.first-objective[open]').wait_for();page.locator('[data-guide=skip]').click()
         # Real alert/timer/action; one DOM-only information card exercises stacking.
         page.locator('.pm-toast--alert').wait_for(state='attached')
         page.locator('[data-company="pause"]').click();saved('s.paused===true')
@@ -258,7 +280,7 @@ def run(browser,w,h):
         check(page.locator('.world-events details').count()==19,tag+': nineteen occurrences in read-only guide')
         page.locator('.world-events details').first.locator('summary').click()
         after=state();check(before['budget']==after['budget'] and before['receipts']==after['receipts'] and before['events']==after['events'],tag+': reading catalogue never spends or triggers events')
-        page.locator('.living-world [data-world-close]').click()
+        close_world_panel()
         # A15-minute schedule can legitimately have everyone at a workstation.
         # Resume during a real departure instead of requiring constant walking.
         page.evaluate('async()=>{const M=await import("/simulation/company-continuous.js"),L=await import("/simulation/company-living.js");const s=JSON.parse(localStorage.getItem(M.KEY)),base=(s.week-1)*s.clockWeekMs,event=L.routines(s).flatMap(r=>r.agenda).find(e=>e.kind==="rest"&&e.start>=base&&e.start<base+s.clockWeekMs-2000);if(!event)throw Error("No scheduled departure");s.activeMs=event.start-base+500;s.lastWallMs=Date.now();localStorage.setItem(M.KEY,JSON.stringify(s));await PilhaLiving.syncClock();}')
@@ -268,11 +290,13 @@ def run(browser,w,h):
         page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.lastWallMs-=s.clockWeekMs*2+500;localStorage.setItem(k,JSON.stringify(s));}')
         page.evaluate('PilhaLiving.syncClock()');saved('s.week>=3')
         check(state()['events']['current']['stage']=='decision',tag+': background catch-up keeps pending decision unanswered')
-        old=state()['week'];old_money=state()['budget'];old_finance=state()['finance'];page.locator('[data-company="advance"]').click();saved('s.week>'+str(old))
+        check(state()['paused'] and state()['events']['current']['pick'] is None,tag+': incoming call pauses time without choosing for the player')
+        answer_pending_call();old=state()['week'];old_money=state()['budget'];old_finance=state()['finance'];page.locator('[data-company="advance"]').click();
+        if page.locator('.event-presentation[open]').count():answer_pending_call()
+        saved('s.week>'+str(old))
         check(abs(state()['budget']-(old_money+1000*(state()['week']-old)+state()['finance']['earned']-old_finance['earned']-state()['finance']['operationalCosts']+old_finance['operationalCosts']))<.02,tag+': weekly base500 plus two epic bonuses250 each deposited')
         check(state()['weeklyIncome']['lastPayment']['amount']==1000,tag+': weekly income receipt persisted')
         check('1.000,00' in page.locator('.continuous-income').inner_text(),tag+': weekly income visible in HUD')
-        check(state()['events']['current']['pick'] is None,tag+': pending event does not freeze time or auto-pick')
         current=state()
         check(all(p.get('leadership',{}).get('week')==current['week'] for p in current['staff'].values()),tag+': weekly management effects persisted for all16')
         check(all(-5<=p['leadership']['delta']<=7 for p in current['staff'].values()),tag+': management health deltas bounded')
@@ -285,7 +309,7 @@ def run(browser,w,h):
         expected=sum(p['health'] for pid,p in state()['staff'].items() if pid in ['NPC-01','NPC-02','NPC-03','NPC-04','NPC-07','NPC-16'])/6
         check(abs(float(page.locator('[data-org-average="escritorio"]').inner_text())-expected)<.06,tag+': live sector health matches persisted data')
 
-        page.locator('.living-world [data-world-close]').click()
+        close_world_panel()
 
         page.locator('[data-company="pause"]').click();saved('s.paused===true');money=state()['budget'];week=state()['week']
         page.reload(wait_until='domcontentloaded');page.locator('.cinematic-resume').click();page.locator('.pm-root').wait_for();page.wait_for_timeout(500)
@@ -305,7 +329,6 @@ def run(browser,w,h):
 
         # Presentation preserves the actual event transaction and supports free choices.
         page.evaluate("""async()=>{const M=await import('/simulation/company-continuous.js');const k=M.KEY,s=JSON.parse(localStorage.getItem(k));s.events.current=null;s.paused=true;s.week=Math.max(3,s.week);const r=M.startEvent(s,'clima','escritorio',{preview:true});if(!r.ok)throw Error(r.error);localStorage.setItem(k,JSON.stringify(r.state));await PilhaLiving.syncClock();}""")
-        menu();page.locator('[data-company="event"]').click()
         page.locator('.event-presentation[open]').wait_for()
         check(page.locator('.event-option').count()==3,tag+': event layout presents all three existing choices')
         check('IMPACTO' in page.locator('.event-label').first.inner_text().upper(),tag+': impact hierarchy visible')
@@ -349,8 +372,13 @@ def run(browser,w,h):
 
         check(not errors,tag+': no uncaught browser exceptions')
         report['viewports'].append({'width':w,'height':h,'ok':True})
-    except Exception:
-        snap('FAILED');(OUT/f'FAILED-{tag}.html').write_text(page.content(),encoding='utf-8');report['errors'].extend(errors);raise
+    except Exception as failure:
+        report['errors'].append(f'{tag}: {type(failure).__name__}: {failure}')
+        try:snap('FAILED')
+        except Exception as capture_error:report['errors'].append(f'{tag}: failure screenshot unavailable: {capture_error}')
+        try:(OUT/f'FAILED-{tag}.html').write_text(page.content(),encoding='utf-8')
+        except Exception as capture_error:report['errors'].append(f'{tag}: failure HTML unavailable: {capture_error}')
+        report['errors'].extend(errors);raise failure
     finally:ctx.close()
 server=subprocess.Popen([sys.executable,'-m','http.server','8768','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 try:
