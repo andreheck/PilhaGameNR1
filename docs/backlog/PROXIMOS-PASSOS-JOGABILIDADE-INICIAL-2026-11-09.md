@@ -2,6 +2,10 @@
 
 Base: branch `codex/unified-social-agenda`, após a entrega de abertura/mobiliário/sala do gerente/árvore. Propostas de escopo para o PM/PO; não significam mecânicas já implementadas nem autorização para alterar balanceamento.
 
+## Atualização em 11/11/2026
+
+Os dois primeiros itens P1 estão implementados na branch em revisão: guia opcional dos primeiros passos após contratação inicial e explicação de heróis-consultores, seis contratações incluídas e semana simulada de 15 minutos. Evidências e limites: `docs/releases/PRIMEIROS-PASSOS-2026-11-11.md`. Dependem da CI e aprovação do PM para aceite/liberação. Os demais itens abaixo continuam como backlog.
+
 ## Já atendido nesta entrega
 
 - Abertura usa as artes atuais dos três setores e carrega apenas os assets necessários.
