@@ -1,3 +1,4 @@
+import {openMysteryGallery} from './mystery-gallery.js';
 import {createCompanyPhone} from './company-phone.js';
 import {openCompanyTrophies} from './company-trophies.js';
 import {pt22Active} from '../simulation/company-achievements.js';
@@ -43,7 +44,7 @@ const app=document.getElementById('continuous-app');let store;try{store=window.l
 let state,map,galleryDialog=null,eventDialog=null,busy=false,changeInFlight=Promise.resolve(),eventCallError='';const promotionTargets={},chairTargets={};
 let layoutWarningKey='';let layoutEditor=null;let healthWidget=null,homeNavigating=false;
 initializePreferences(store);const settingsMenu=createSettingsMenu();
-const phone=createCompanyPhone({getState:()=>state,storage:store,onCommand:(command,id)=>{if(command==='finance')openFinance();else if(command==='staffing')openStaffing();else if(command==='employees')staffPanel.open();else if(command==='employee')staffPanel.open(id);else if(command==='event'){if(state.events.current)showEvent();}else if(command==='trophies')openCompanyTrophies({getState:()=>state});}});
+const phone=createCompanyPhone({getState:()=>state,storage:store,onCommand:(command,id)=>{if(command==='finance')openFinance();else if(command==='staffing')openStaffing();else if(command==='employees')staffPanel.open();else if(command==='employee')staffPanel.open(id);else if(command==='event'){if(state.events.current)showEvent();}else if(command==='mysteries')openMysteryGallery({storage:store});else if(command==='trophies')openCompanyTrophies({getState:()=>state});}});
 
 async function goHome(){if(homeNavigating)return;homeNavigating=true;await changeInFlight.catch(()=>{});location.assign(new URL('/',location.href).href);}
 installHomeLinks({onHome:goHome,onSettings:()=>settingsMenu.open()});
