@@ -3,8 +3,9 @@ import * as M from '../simulation/company-continuous.js';import * as L from '../
 import {nextEntryStep} from '../simulation/entry-flow.js';import {collectiveHealth} from '../simulation/collective-health.js';
 import {normalizePreferences,readPreferences,decorativeMotionAllowed,PREFERENCES_KEY,setPreferences} from '../ui/game-preferences.js';
 import {orbPath,orbDynamics} from '../ui/collective-health-orb.js';
-test('saved valid duos skip automatic choice; unfinished hiring resumes without rechoosing',()=>{
+test('saved single characters and legacy duos skip automatic choice; unfinished hiring resumes without rechoosing',()=>{
  const s=L.ensureLiving(M.fresh()),raw=JSON.stringify(s);assert.equal(nextEntryStep(s),'heroes');assert.equal(JSON.stringify(s),raw);
+ s.playerCharacterId='PILHA-H05';s.initialHiring={version:1,status:'pending'};assert.equal(nextEntryStep(s),'hiring');s.initialHiring.status='complete';assert.equal(nextEntryStep(s),'map');s.playerCharacterId=null;s.initialHiring=undefined;
  s.team={principal:'PILHA-H01',support:'PILHA-H02'};assert.equal(nextEntryStep(s),'map');s.initialHiring={version:1,status:'pending'};assert.equal(nextEntryStep(s),'hiring');s.initialHiring.status='complete';assert.equal(nextEntryStep(s),'map');s.team.support=s.team.principal;assert.equal(nextEntryStep(s),'heroes');
 });
 test('collective health is a weighted active human mean, handles empty teams, never mutates',()=>{

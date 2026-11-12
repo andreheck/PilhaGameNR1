@@ -11,7 +11,7 @@ export function validateInitialHiring(s){
 }
 /** Initial package is included: no admission fee or additional payroll. Existing saves never opt in. */
 export function completeInitialHiring(input,managers,employees){
- if(input.initialHiring?.status!=='pending'||!input.team)return {ok:false,error:'hiring-not-pending'};
+ if(input.initialHiring?.status!=='pending')return {ok:false,error:'hiring-not-pending'};
  const s=clone(input);s.initialHiring={version:1,status:'complete',managers:{...managers},employees:[...employees]};
  try{validateInitialHiring(s);}catch(e){return {ok:false,error:e.message};}
  const selected=new Set([...Object.values(managers),...employees]);

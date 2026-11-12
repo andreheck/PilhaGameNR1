@@ -1,0 +1,9 @@
+// Available controllable explorers and their approved, pre-rendered walk atlases.
+// The psychologist keeps her canonical hero ID and powers; visitors remain visual only.
+export const PLAYER_EXPLORERS = Object.freeze([
+  Object.freeze({id:'PILHA-H02',castId:'psicologa',name:'Psicóloga',role:'Saúde mental · exploração da empresa',rarity:'Épico',color:'#2ee59d',portrait:'/ui/claude/herois/assets/psicologa.webp',sprite:'/assets/intro-cast/psicologa-walk.png',frames:8,renderHeight:3.2,bio:'Psicóloga e guardiã do equilíbrio humano. Explore os ambientes, perceba como as condições afetam as pessoas e acompanhe as mudanças da empresa.',specialization:'Prevenção psicossocial'}),
+  Object.freeze({id:'EXPLORER-ADVOGADO',castId:'advogado',name:'Advogado',role:'Direito do trabalho · exploração da empresa',rarity:'Especialista',color:'#56b7ff',portrait:'/assets/expanded-cast/advogado-portrait.png',sprite:'/assets/expanded-cast/advogado-walk.png',frames:16,renderHeight:3.56,bio:'Advogado trabalhista, atento a direitos, políticas e relações de trabalho. Circule pelos setores e observe como decisões e condições aparecem no cotidiano.',specialization:'Direitos e relações de trabalho'}),
+  Object.freeze({id:'EXPLORER-YOGA',castId:'yoga',name:'Professor de yoga',role:'Bem-estar · exploração da empresa',rarity:'Especialista',color:'#b77aff',portrait:'/assets/expanded-cast/yoga-portrait.png',sprite:'/assets/expanded-cast/yoga-walk.png',frames:16,renderHeight:3.56,bio:'Professor de yoga e práticas de respiração. Explore a empresa e conheça também o pátio restaurativo, onde acontecem pausas e atividades de recuperação.',specialization:'Respiração e bem-estar'}),
+]);
+export const PLAYER_EXPLORER_IDS = Object.freeze(PLAYER_EXPLORERS.map(x=>x.id));
+export const getPlayerExplorer = id => PLAYER_EXPLORERS.find(x=>x.id===id)||null;

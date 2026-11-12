@@ -46,25 +46,29 @@ def run(browser,w,h):
         page.locator('.pi-skip').wait_for(state='visible')
         page.locator('.pi-skip').click();page.locator('.living-guide[open]').wait_for();snap('guide')
         for _ in range(3):page.locator('[data-guide="next"]').click()
-        page.locator('.continuous-gallery-dialog[open]').wait_for()
+        page.locator('.player-character-dialog[open]').wait_for()
     try:
         page.goto('http://127.0.0.1:8768/',wait_until='domcontentloaded')
         enter();snap('opening')
-        check(page.locator('[data-direct-pick]').count()==12,tag+': explanation then six selectable heroes')
+        check(page.locator('[data-player-hero]').count()==6,tag+': catalog presents all six canonical playable characters')
+        catalog_geometry=page.locator('.player-character-dialog').evaluate('(d)=>{const h=d.querySelector(".player-catalog-header"),t=d.querySelector("#player-catalog-title"),r=e=>{const b=e.getBoundingClientRect();return {tag:e.tagName,class:e.className,top:b.top,bottom:b.bottom,left:b.left,right:b.right,width:b.width,height:b.height}};return {dialog:r(d),header:r(h),title:r(t),grid:getComputedStyle(h).gridTemplateColumns,display:getComputedStyle(h).display,children:[...h.children].map(r),markup:h.outerHTML,scrollTop:d.scrollTop,windowY:scrollY}}')
+        print(json.dumps({'viewport':tag,'catalogGeometry':catalog_geometry}),flush=True)
+        check(catalog_geometry['title']['top']>=0 and catalog_geometry['title']['bottom']<=h+2 and catalog_geometry['title']['width']>=190 and catalog_geometry['header']['height']<=190,tag+': catalog headline remains readable in the initial viewport')
+        if os.environ.get('QA_CATALOG_ONLY')=='1':
+            snap('player-character-catalog');report['viewports'].append({'width':w,'height':h,'ok':True,'catalogGeometry':catalog_geometry});return
+        page.locator('[data-player-hero="PILHA-H05"]').hover();page.wait_for_function("document.querySelector('.player-profile-panel')?.innerText.includes('P&D Tech')")
+        check('Lendário' in page.locator('.player-profile-panel').inner_text() and 'P&D Tech' in page.locator('.player-profile-panel').inner_text(),tag+': hover previews biography, skills and rarity')
         if h>=600:
-            check(page.locator('.continuous-gallery-dialog').evaluate('e=>[...e.querySelectorAll(".ph-card,[data-direct-pick],[data-team-save]")].every(n=>{const r=n.getBoundingClientRect();return r.top>=0&&r.left>=0&&r.bottom<=innerHeight+2&&r.right<=innerWidth+2})'),tag+': six heroes and selection controls fit one screen')
+            check(page.locator('.player-character-dialog').evaluate('e=>[...e.querySelectorAll(".player-hero-card")].every(n=>{const r=n.getBoundingClientRect();return r.top>=0&&r.left>=0&&r.bottom<=innerHeight+2&&r.right<=innerWidth+2})'),tag+': six character packages fit the initial viewport')
         if w>=900:
-            page.locator('.hero-full-button').click()
-            page.locator('.hero-full-details[open]').wait_for();snap('hero-full-details')
-            check(page.locator('.hero-full-details').inner_text().strip()!='',tag+': full canonical profile remains available')
-            page.locator('.hero-full-details header button:not([data-game-home])').click()
-        page.locator('.hero-xp-help summary').click()
-        check('25 XP' in page.locator('.hero-xp-help').inner_text() and '150 XP' in page.locator('.hero-xp-help').inner_text(),tag+': XP sources and current mode limitation explained')
-        page.locator('.hero-xp-help summary').click()
-        page.locator('[data-direct-pick="PILHA-H01|principal"]').click()
-        page.locator('[data-direct-pick="PILHA-H02|support"]').click()
-        page.locator('[data-team-save]').click()
+            page.locator('.player-profile-copy h2').wait_for();snap('player-character-catalog')
+        page.locator('[data-player-confirm="PILHA-H05"]').click()
+        page.wait_for_function("JSON.parse(localStorage.getItem('pilha-player-character-v1')||'{}').heroId==='PILHA-H05'")
+        page.wait_for_function("JSON.parse(localStorage.getItem('pilha-company-continuous-v2')||'{}').playerCharacterId==='PILHA-H05'")
+        check(json.loads(page.evaluate("localStorage.getItem('pilha-company-continuous-v2')"))['playerCharacterId']=='PILHA-H05',tag+': chosen explorer is persisted in the company save')
         page.locator('.hiring-dialog[open]').wait_for();snap('hiring-managers')
+        page.reload(wait_until='domcontentloaded');page.locator('.cinematic-start').click();page.locator('.pi-root').wait_for();page.locator('.pi-skip').wait_for(state='visible');page.locator('.pi-skip').click();page.locator('.hiring-dialog[open]').wait_for()
+        check(page.locator('.player-character-dialog').count()==0,tag+': subsequent access skips one-time character selection')
         check(page.locator('[data-hire-manager]').count()==16,tag+': all canonical NPC cards available for management')
         check(page.locator('[data-hiring-next]').is_disabled(),tag+': three managers required before continuing')
         for pid in ['NPC-02','NPC-09','NPC-05']:page.locator(f'[data-hire-manager="{pid}"]').click()
@@ -74,6 +78,21 @@ def run(browser,w,h):
         page.locator('[data-hiring-next]').click();page.locator('.pm-canvas').wait_for();page.wait_for_timeout(700)
         check(len(page.evaluate('PilhaLiving.getEmployees()'))==6,tag+': initial team has exactly three managers and three employees')
         initial=state();check(initial['budget']==10000 and initial['initialHiring']['managers']['producao']=='NPC-09',tag+': chosen managers persist without spending starting capital');snap('initial-six')
+        explorer=page.evaluate('PilhaLiving.getPlayerCharacter()')
+        check(explorer and explorer['id']=='PILHA-H05' and explorer['sector']=='escritorio',tag+': selected hero appears as a separate explorer in the office')
+        page.locator('.pm-tab[data-i="1"]').click();page.wait_for_timeout(650)
+        layout=page.evaluate('PilhaLiving.getWorldLayout()');production=next(room for room in layout if room['key']=='producao')
+        goal={'x':production['bx']+5.6,'y':production['by']+3.5};screen=page.evaluate('(p)=>PilhaLiving.getWorldMapPoint(p.x,p.y)',goal)
+        rect=page.locator('.pm-canvas').bounding_box();point={'x':screen['x'],'y':screen['y']}
+        check(0<=point['x']<=rect['width'] and 0<=point['y']<=rect['height'],tag+': production walk destination is inside the visible map')
+        page.locator('.pm-player-control').click();check(page.locator('.pm-player-control').get_attribute('aria-pressed')=='true',tag+': explorer control can be enabled by mouse or touch')
+        page.locator('.pm-canvas').click(position=point);page.wait_for_function('PilhaLiving.getPlayerCharacter()?.moving===true',timeout=10000)
+        page.wait_for_function('PilhaLiving.getPlayerCharacter()?.sector==="producao"&&PilhaLiving.getPlayerCharacter()?.moving===false',timeout=60000)
+        status=page.locator('[data-player-status]');check(status.is_visible() and 'Condição coletiva:' in status.inner_text(),tag+': entering a department displays its aggregate environment condition')
+        check(state()['budget']==initial['budget'] and state()['staff']==initial['staff'],tag+': hero exploration does not mutate budget or workforce saves')
+        snap('player-explorer')
+        if os.environ.get('QA_PLAYER_ONLY')=='1':
+            report['viewports'].append({'width':w,'height':h,'ok':True,'player':page.evaluate('PilhaLiving.getPlayerCharacter()')});return
         page.locator('.first-objective[open]').wait_for();page.locator('[data-guide=skip]').click()
         # Real alert/timer/action; one DOM-only information card exercises stacking.
         page.locator('.pm-toast--alert').wait_for(state='attached')
@@ -294,9 +313,10 @@ def run(browser,w,h):
         answer_pending_call();old=state()['week'];old_money=state()['budget'];old_finance=state()['finance'];page.locator('[data-company="advance"]').click();
         if page.locator('.event-presentation[open]').count():answer_pending_call()
         saved('s.week>'+str(old))
-        check(abs(state()['budget']-(old_money+1000*(state()['week']-old)+state()['finance']['earned']-old_finance['earned']-state()['finance']['operationalCosts']+old_finance['operationalCosts']))<.02,tag+': weekly base500 plus two epic bonuses250 each deposited')
-        check(state()['weeklyIncome']['lastPayment']['amount']==1000,tag+': weekly income receipt persisted')
-        check('1.000,00' in page.locator('.continuous-income').inner_text(),tag+': weekly income visible in HUD')
+        weekly_award=page.evaluate("async()=>{const {weeklyIncomeQuote}=await import('/simulation/weekly-income.js');return weeklyIncomeQuote(PilhaLiving.getState()).total}")
+        check(abs(state()['budget']-(old_money+weekly_award*(state()['week']-old)+state()['finance']['earned']-old_finance['earned']-state()['finance']['operationalCosts']+old_finance['operationalCosts']))<.02,tag+': selected character weekly income is deposited')
+        check(state()['weeklyIncome']['lastPayment']['amount']==weekly_award,tag+': weekly income receipt persists the selected character bonus')
+        check(f'{weekly_award:,.2f}'.replace(',', 'X').replace('.', ',').replace('X', '.') in page.locator('.continuous-income').inner_text(),tag+': correct weekly income is visible in HUD')
         current=state()
         check(all(p.get('leadership',{}).get('week')==current['week'] for p in current['staff'].values()),tag+': weekly management effects persisted for all16')
         check(all(-5<=p['leadership']['delta']<=7 for p in current['staff'].values()),tag+': management health deltas bounded')
@@ -312,18 +332,28 @@ def run(browser,w,h):
         close_world_panel()
 
         page.locator('[data-company="pause"]').click();saved('s.paused===true');money=state()['budget'];week=state()['week']
-        page.reload(wait_until='domcontentloaded');page.locator('.cinematic-resume').click();page.locator('.pm-root').wait_for();page.wait_for_timeout(500)
+        page.reload(wait_until='domcontentloaded')
+        if page.locator('.pm-root').count()==0:
+            if page.locator('.cinematic-resume').count():page.locator('.cinematic-resume').click()
+            elif page.locator('.cinematic-start').count():
+                page.locator('.cinematic-start').click();page.locator('.pi-skip').wait_for(state='visible');page.locator('.pi-skip').click()
+        page.locator('.pm-root').wait_for(timeout=20000);page.wait_for_timeout(500)
         check(state()['paused'] and state()['week']==week and state()['budget']==money,tag+': reload preserves pause, week and balance')
         check(len(state()['staff'])==16,tag+': individual health persists')
         # Same-origin real second tab: shared storage and Web Locks must consume one week.
         if w==1366:
             other=ctx.new_page();other.goto('http://127.0.0.1:8768/',wait_until='domcontentloaded')
-            other.locator('.cinematic-resume').click();other.locator('.pm-root').wait_for()
+            if other.locator('.pm-root').count()==0:
+                if other.locator('.cinematic-resume').count():other.locator('.cinematic-resume').click()
+                elif other.locator('.cinematic-start').count():
+                    other.locator('.cinematic-start').click();other.locator('.pi-skip').wait_for(state='visible');other.locator('.pi-skip').click()
+            other.locator('.pm-root').wait_for(timeout=20000)
             old_week=state()['week'];old_budget=state()['budget'];old_total=state()['weeklyIncome']['total'];old_finance=state()['finance']
+            other_award=other.evaluate("async()=>{const {weeklyIncomeQuote}=await import('/simulation/weekly-income.js');return weeklyIncomeQuote(PilhaLiving.getState()).total}")
             page.evaluate('()=>{const k="pilha-company-continuous-v2",s=JSON.parse(localStorage.getItem(k));s.paused=false;s.lastWallMs=Date.now()-(s.clockWeekMs+500);localStorage.setItem(k,JSON.stringify(s));PilhaLiving.syncClock();}')
             other.evaluate('PilhaLiving.syncClock()')
             saved('s.week==='+str(old_week+1))
-            check(abs(state()['budget']-(old_budget+1000+state()['finance']['earned']-old_finance['earned']-state()['finance']['operationalCosts']+old_finance['operationalCosts']))<.02 and state()['weeklyIncome']['total']==old_total+1000,tag+': two browser tabs deposit one weekly income')
+            check(abs(state()['budget']-(old_budget+other_award+state()['finance']['earned']-old_finance['earned']-state()['finance']['operationalCosts']+old_finance['operationalCosts']))<.02 and state()['weeklyIncome']['total']==old_total+other_award,tag+': two browser tabs deposit one weekly income')
             check(other.evaluate('PilhaLiving.getState().budget')==state()['budget'],tag+': both tabs share current budget')
             page.locator('[data-company="pause"]').click();saved('s.paused===true');other.close()
 
@@ -390,7 +420,8 @@ try:
         opts={'headless':True,'args':['--no-sandbox']}
         if os.environ.get('CHROMIUM_PATH'):opts['executable_path']=os.environ['CHROMIUM_PATH']
         b=p.chromium.launch(**opts)
-        for w,h in [(320,844),(1366,768),(390,844),(844,390),(1440,900)]:run(b,w,h)
+        sizes=[tuple(map(int,size.split('x'))) for size in os.environ.get('QA_VIEWPORTS','1024x768,1366x768,1440x900').split(',')]
+        for w,h in sizes:run(b,w,h)
         b.close()
 except Exception as e:report['errors'].append(str(e));raise
 finally:

@@ -6,13 +6,17 @@ import {staffView} from '../simulation/company-living.js';
 import {HEALTH_NOTE} from '../data/continuous/employees.js';
 import {SECTORS} from '../data/continuous/catalog.js';
 import {escapeHtml as esc} from './hero-neon.js';import {tone} from './living-audio.js';
+import {employeePortrait,employeeScoreBand} from './employee-portraits.js';
 const sector=id=>SECTORS.find(s=>s.id===id)?.name||id,color=h=>h>=70?'#4fce9b':h>=45?'#ffd166':'#fa6988';
 function svgAvatar(p){return `<svg class="employee-avatar" viewBox="0 0 64 72" role="img" aria-label="${esc(p.name)}"><rect width="64" height="72" rx="14" fill="#132b4c"/><path d="M8 72V55Q8 42 32 42T56 55V72" fill="${p.shirt}"/><path d="M26 40v9q6 7 12 0v-9" fill="${p.skin}"/><ellipse cx="32" cy="27" rx="15" ry="19" fill="${p.skin}"/><path d="M17 28q-6-27 15-25 22-2 15 26v-12q-15 5-25-2z" fill="${p.hair}"/>${p.hairStyle===3?'<path d="M13 37Q2 14 18 7 30-4 45 8q18 5 7 30l-5-17-6-9-20 9-3 16" fill="'+p.hair+'"/>':''}<circle cx="26" cy="28" r="1.5" fill="#25202b"/><circle cx="38" cy="28" r="1.5" fill="#25202b"/><path d="M28 37q4 3 8 0" fill="none" stroke="#57362d" stroke-width="1.5"/></svg>`;}
-export function avatar(p) {
-  const portrait = p.portrait ?? p.profile?.portrait ?? null;
+export function avatar(p,{packaged=false}={}) {
+  const portrait = employeePortrait(p,{packaged});
   if (!portrait) return svgAvatar(p);
-  return `<span class="employee-avatar employee-avatar--art" data-npc-id="${esc(p.id)}">
-    <img data-npc-art src="${esc(portrait)}" alt="Retrato de ${esc(p.name)}" loading="lazy" decoding="async">
+  const isHired=['active','onboarding','leave'].includes(p.employment);
+  const band=!packaged&&isHired&&Number.isFinite(Number(p.health))?employeeScoreBand(p.health):null;
+  const description=packaged?`Embalagem colecionável de ${p.name}`:band?`Retrato de ${p.name}, expressão visual da faixa ${band} de saúde simulada`:`Retrato de ${p.name}`;
+  return `<span class="employee-avatar employee-avatar--art${packaged?' employee-avatar--package':''}" data-npc-id="${esc(p.id)}"${band?` data-score-band="${esc(band)}"`:''}>
+    <img data-npc-art src="${esc(portrait)}" alt="${esc(description)}" loading="lazy" decoding="async">
     <span class="employee-avatar-fallback" aria-hidden="true">${svgAvatar(p)}</span>
   </span>`;
 }

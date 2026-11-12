@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import crypto from 'node:crypto';
-import {EMPLOYEES} from '../data/continuous/employees.js';import {NPC_PROFILES,npcProfile} from '../data/continuous/npc-profiles.js';import * as M from '../simulation/company-continuous.js';import * as L from '../simulation/company-living.js';import {avatar} from '../ui/employee-panel.js';
+import {EMPLOYEES} from '../data/continuous/employees.js';import {NPC_PROFILES,npcProfile} from '../data/continuous/npc-profiles.js';import * as M from '../simulation/company-continuous.js';import * as L from '../simulation/company-living.js';import {avatar} from '../ui/employee-panel.js';import {employeePortrait} from '../ui/employee-portraits.js';
 const json=p=>JSON.parse(fs.readFileSync(new URL('../'+p,import.meta.url),'utf8')),catalog=json('data/npcs/catalogo-v1.json'),manifest=json('data/continuous/npc-art-manifest.json');
 test('all16 IDs bind canonical names, groups, profiles and unique approved RGBA portraits',()=>{
  assert.equal(EMPLOYEES.length,16);assert.equal(new Set(EMPLOYEES.map(p=>p.id)).size,16);assert.equal(Object.keys(NPC_PROFILES).length,16);const hashes=new Set();
@@ -13,8 +13,8 @@ test('profiles and artwork do not change the original health formula, balance or
  const s=M.fresh(),before=JSON.stringify(s),rows=L.staffView(s);assert.equal(JSON.stringify(s),before);for(const p of rows){const expected=Math.round(70+(M.metrics(s,p.home).index-50)*.35);assert.equal(p.baseHealth,expected);assert.ok(p.health>=p.baseHealth&&p.health<=p.baseHealth+8);assert.ok(p.profile.disclaimer.includes('não determina saúde'));}
  s.staff=Object.fromEntries(EMPLOYEES.map((p,i)=>[p.id,{health:40+i,previous:39+i,week:1}]));const saved=JSON.stringify(s);assert.deepEqual(L.staffView(s).map(p=>[p.id,p.baseHealth]).sort(),EMPLOYEES.map((p,i)=>[p.id,40+i]).sort());assert.equal(JSON.stringify(s),saved);assert.equal(s.budget,10000);
 });
-test('avatar uses stable ID rather than score ordering and retains the original SVG of the same person',()=>{
- for(const p of [...EMPLOYEES].reverse()){const html=avatar(p);assert.ok(html.includes('data-npc-id="'+p.id+'"'));assert.ok(html.includes('src="'+p.portrait+'"'));assert.ok(html.includes('loading="lazy"'));assert.ok(html.includes('employee-avatar-fallback'));assert.ok(html.includes('aria-label="'+p.name+'"'));assert.ok(html.includes(p.skin));assert.ok(html.includes(p.shirt));const fallback=avatar({...p,portrait:null,profile:null});assert.ok(fallback.startsWith('<svg'));assert.ok(fallback.includes(p.name));}
+test('avatar uses the approved portrait for its stable ID and retains a same-person SVG fallback',()=>{
+ for(const p of [...EMPLOYEES].reverse()){const html=avatar(p);assert.ok(html.includes('data-npc-id="'+p.id+'"'));assert.ok(html.includes('src="'+employeePortrait(p)+'"'));assert.ok(html.includes('loading="lazy"'));assert.ok(html.includes('employee-avatar-fallback'));assert.ok(html.includes('aria-label="'+p.name+'"'));assert.ok(html.includes(p.skin));assert.ok(html.includes(p.shirt));const fallback=avatar({...p,id:'NPC-UNKNOWN',portrait:null,profile:null});assert.ok(fallback.startsWith('<svg'));assert.ok(fallback.includes(p.name));}
  const malicious=avatar({...EMPLOYEES[0],name:'<img src=x onerror=alert(1)>',portrait:'" onerror="bad'});assert.ok(!malicious.includes('src="" onerror='));assert.ok(malicious.includes('&lt;img'));
 });
 test('QA art metadata matches every file and confirms actual transparent pixels',()=>{

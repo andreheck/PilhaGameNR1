@@ -178,7 +178,7 @@
     var host = o.container || document.body;
     var reduce = !!(global.matchMedia && global.matchMedia("(prefers-reduced-motion: reduce)").matches);
     var st = o.model ? o.model.read() : loadState();
-    var sel = -1, selZone = -1, catFilter = "Todos", flashId = null, shownBal = st.balance, alerted = false;
+    var sel = -1, selZone = -1, catFilter = "Todos", flashId = null, shownBal = st.balance, alerted = false,playerControl=false;
     var timers = [], curTall = null, lastW = 0, lastH = 0, resetArmed = false, balRaf = 0;
 
     var root = document.createElement("div");
@@ -211,6 +211,8 @@
             '<button type="button" data-z="out" aria-label="Afastar">−</button>' +
             '<button type="button" data-z="home" aria-label="Visão geral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>' +
           '</div>' +
+          '<button type="button" class="pm-player-control" data-player-control aria-pressed="false" title="Ative para clicar no mapa e caminhar com seu personagem">Explorar personagem</button>' +
+          '<div class="pm-player-status" data-player-status aria-live="polite" hidden><b></b><span></span></div>' +
           '<div class="pm-legend" aria-hidden="true"><span><i style="background:#ef476f"></i>Crítico</span><span><i style="background:#ffd166"></i>Atenção</span><span><i style="background:#4ade80"></i>Recuperado</span></div>' +
           '<div class="pm-toasts" aria-live="polite"></div>' +
         '</div>' +
@@ -514,6 +516,7 @@
     function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
     function two() { var k = Object.keys(ptrs); return [ptrs[k[0]], ptrs[k[1]]]; }
     function onMapClick(p) {
+      if(playerControl){if(!iso.movePlayerToScreen(p.x,p.y))toast({kind:"info",title:"Caminho indisponível",text:"Escolha um ponto livre dentro de um setor conectado."});return;}
       var hit = iso.pick(p.x, p.y);
       if (!hit) return;
       if (sel === hit.i) zoneFocus(hit.zone); else select(hit.i, -1);
@@ -564,6 +567,7 @@
       var b = e.target.closest(".pm-tab"); if (!b) return;
       var i = +b.getAttribute("data-i"); if (i < 0) deselect(); else select(i, -1);
     });
+    root.querySelector("[data-player-control]").addEventListener("click",function(e){playerControl=!playerControl;iso.setPlayerControl(playerControl);var b=e.currentTarget;b.setAttribute("aria-pressed",String(playerControl));b.textContent=playerControl?"Concluir exploração":"Explorar personagem";canvas.classList.toggle("is-player-control",playerControl);if(playerControl)canvas.focus({preventScroll:true});});
     root.querySelector(".pm-reset").addEventListener("click", function (e) {
       var b = e.currentTarget;
       if (!resetArmed) { resetArmed = true; b.textContent = "Confirmar?"; later(function () { resetArmed = false; b.textContent = "Reiniciar"; }, 3000); return; }

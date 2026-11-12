@@ -16,6 +16,10 @@ test('initial package activates six distinct people and persists chosen manager 
  const staff=L.staffView(r.state);assert.equal(staff.find(p=>p.id==='NPC-02').organization.reportsTo,'conselho');assert.equal(staff.find(p=>p.id==='NPC-03').organization.managerId,'NPC-02');assert.equal(staff.find(p=>p.id==='NPC-03').organization.rank,'tatico');
  assert.equal(leadershipConditions(r.state).find(c=>c.sid==='producao').managerId,'NPC-09');assert.equal(completeInitialHiring(r.state,managers,people).ok,false);
 });
+test('new one-character onboarding can complete initial hiring without creating a hidden hero pair',()=>{
+ const s=L.ensureLiving(M.fresh());s.initialHiring={version:1,status:'pending'};assert.equal(s.team,null);
+ const r=completeInitialHiring(s,managers,people);assert.ok(r.ok);assert.equal(r.state.team,null);assert.equal(staffingSummary(r.state).active,6);L.validateLiving(r.state);
+});
 test('duplicate people, missing managers and cross-sector manager choices cannot commit',()=>{
  for(const [m,e] of [[managers,['NPC-02','NPC-04','NPC-06']],[{...managers,producao:'NPC-02'},people],[managers,people.slice(1)]])assert.equal(completeInitialHiring(start(),m,e).ok,false);
 });
