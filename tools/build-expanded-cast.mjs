@@ -7,10 +7,12 @@ replace('      list.forEach(function (o) { o.f(); });','      expandedEntries(e,
 replace('employeeHits=[];riggedDrawn={};','employeeHits=[];riggedDrawn={};expandedHits=[];expandedDrawn=[];');
 replace('      setIntroCast:setIntroCast,',`      setSupportingActor:function(id,visible){var a=expandedCast.find(function(a){return a.id===id;});if(!a||a.binding)return false;expandedGuests[id]=!!visible;render();return true;},getSupportingActors:function(){return {visible:Object.keys(expandedGuests).filter(function(k){return expandedGuests[k];}),drawn:expandedDrawn.slice()};},pickSupportingActor:function(x,y){var h=expandedHits.slice().reverse().find(function(p){return Math.hypot(x-p.x,y-p.y)<p.r;});return h&&h.id;},
       setIntroCast:setIntroCast,`);
-// Upgrade the confirmed Mariana binding without changing her ID or approved portrait.
+// Keep the confirmed canonical NPC bindings while reusing the approved walk atlases.
 const mariana=cast.find(a=>a.id==='mariana'),w=mariana.actions.walk,t=mariana.actions.talk;
 const match=s.match(/var riggedBindings=(\{.*?\}),riggedImages=/);if(!match)throw Error('Missing canonical bindings');const bindings=JSON.parse(match[1]);
 Object.assign(bindings['NPC-07'],{walk:w.url,idle:mariana.actions.idle.url,talk:t.url,walkDuration:w.duration,talkDuration:t.duration,walkFrames:w.frames,talkFrames:t.frames,idleFrames:mariana.actions.idle.frames,idleDuration:mariana.actions.idle.duration,anchorY:w.anchorY,renderHeight:w.renderHeight});
+const garoto=cast.find(a=>a.id==='garoto'),gw=garoto.actions.walk,gt=garoto.actions.talk,gi=garoto.actions.idle;
+bindings['NPC-08']={key:'garoto',walk:gw.url,idle:gi.url,talk:gt.url,walkDuration:gw.duration,talkDuration:gt.duration,walkFrames:gw.frames,talkFrames:gt.frames,idleFrames:gi.frames,idleDuration:gi.duration,anchorY:gw.anchorY,renderHeight:gw.renderHeight};
 s=s.replace(match[0],'var riggedBindings='+JSON.stringify(bindings)+',riggedImages=');
 replace('var sh=(introDef?(introDef.renderHeight||2.7):p.isPlayer?(p.spriteHeight||2.15):2.15)*u','var sh=(introDef?(introDef.renderHeight||2.7):rigged&&rigged.renderHeight?rigged.renderHeight:p.isPlayer?(p.spriteHeight||2.15):2.15)*u');
 replace("frame=riggedAction==='idle'?0:Math.floor(Math.max(0,elapsed)/duration*frameCount)%frameCount;","if(riggedAction==='idle'){frameCount=rigged.idleFrames||1;duration=rigged.idleDuration||1;}frame=Math.floor(Math.max(0,elapsed)/duration*frameCount)%frameCount;");

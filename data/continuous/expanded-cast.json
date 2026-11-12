@@ -1264,7 +1264,7 @@
       "sourceSha256": "5ad69c1edc2aa032841d03722a3c61ba551803fc490766797d6a59faf5f57a34",
       "sourceBytes": 30965644,
       "portrait": "/assets/expanded-cast/garoto-portrait.png",
-      "binding": null
+      "binding": "NPC-08"
     },
     {
       "done": true,
