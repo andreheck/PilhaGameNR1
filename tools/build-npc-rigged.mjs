@@ -5,6 +5,11 @@ const catalog=JSON.parse(fs.readFileSync(new URL('data/continuous/npc-rigged.jso
 const report=JSON.parse(fs.readFileSync(new URL('assets/npc-sprites/rigged/report.json',root),'utf8'));
 const originalWalk=report.models.find(m=>m.key==='beatriz').clips.find(c=>/walk/i.test(c.name))?.duration||report.models.find(m=>m.key==='beatriz').clips[0].duration;
 const bindings=Object.fromEntries(catalog.bindings.map(p=>[p.id,{key:p.key,anchorY:report.atlases.find(a=>a.id===p.id&&a.action==='walk').anchor?.[1]||1,walk:p.walk,idle:p.idle,talk:p.talk,walkDuration:report.atlases.find(a=>a.id===p.id&&a.action==='walk').duration||originalWalk,talkDuration:report.models.find(m=>m.key===p.key).clips[0].duration,walkFrames:report.atlases.find(a=>a.id===p.id&&a.action==='walk').frames,talkFrames:report.atlases.find(a=>a.id===p.id&&a.action==='talk')?.frames||8}]));
+for(const [id,binding] of Object.entries(bindings)){
+ const idle=report.atlases.find(a=>a.id===id&&a.action==='idle');
+ binding.idleFrames=idle?.frames||1;
+ binding.idleDuration=idle?.duration||binding.walkDuration;
+}
 let source=fs.readFileSync(file,'utf8');
 function replace(a,b){if(!source.includes(a))throw Error('Rigged NPC build anchor changed: '+a.slice(0,70));source=source.replace(a,b);}
 replace('var employeeRows=[],employeeHits=[],employeeHover=null,employeePaused=false;',`var employeeRows=[],employeeHits=[],employeeHover=null,employeePaused=false;

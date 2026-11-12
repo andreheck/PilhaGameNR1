@@ -14,3 +14,12 @@ test('published animation atlases preserve all source pixels and original frame 
   assert.equal(bytes.readUInt32BE(20),clip.directions*clip.frameHeight);
  }
 });
+test('every canonical idle atlas uses its own frame count instead of drawing the whole strip',()=>{
+ const runtime=fs.readFileSync(new URL('dist/ui/continuous/iso.js',root),'utf8');
+ const bindings=JSON.parse(runtime.match(/var riggedBindings=(\{.*?\}),riggedImages=/)[1]);
+ for(const binding of Object.values(bindings)){
+  const bytes=fs.readFileSync(new URL('dist'+binding.idle,root));
+  assert.equal(bytes.readUInt32BE(16),binding.idleFrames*128,binding.key+' idle width');
+  assert.ok(binding.idleDuration>0);
+ }
+});
