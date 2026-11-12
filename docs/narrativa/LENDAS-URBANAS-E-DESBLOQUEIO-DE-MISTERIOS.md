@@ -204,3 +204,60 @@ Criar uma atividade editorial para:
 Preservar os sistemas já aprovados e não alterar código, balanceamento, scores, eventos, roster ou persistência nesta etapa. O Codex deverá primeiro auditar a estrutura atual, apontar os nomes reais dos indicadores e eventos e propor a integração mínima. Qualquer implementação dependerá de decisão posterior.
 
 **Próximo passo:** aprimorar esta mecânica no Codex, validar o roster e os scores reais da versão vigente e então selecionar o primeiro mistério para prototipação.
+
+
+---
+
+## 8. Capas visuais dos mistérios desbloqueados
+
+Cada lenda terá uma **capa visual própria**, apresentada no momento em que o jogador desbloquear o mistério. A capa funciona como peça de identidade narrativa do episódio e como chamada para abrir o dossiê.
+
+### 8.1 Comportamento na experiência
+
+- Ao cumprir uma condição de desbloqueio da parte 1/3, o jogo apresenta uma notificação e revela a capa correspondente.
+- A capa deve identificar o título da lenda e o especialista associado, sem entregar a solução do mistério.
+- Ao selecionar a capa, o jogador abre o dossiê e acessa a parte narrativa disponível.
+- A capa permanece disponível na coleção/arquivo de mistérios após o desbloqueio, mesmo que os scores mudem.
+- As partes 2/3 e 3/3 poderão, futuramente, atualizar o estado do dossiê ou receber variações visuais; isso não está definido nem deve ser implementado nesta etapa.
+- O jogador deve conseguir distinguir visualmente mistérios ainda bloqueados, recém-desbloqueados e já consultados, conforme a futura especificação de interface.
+
+### 8.2 Direção de arte
+
+Criar uma capa individual para cada lenda, com linguagem visual consistente de coleção:
+
+- **Formato-base:** arte vertical em proporção 2:3, adequada a card/capa de arquivo. A interface poderá adaptar o recorte sem distorcer a arte.
+- **Estética:** pôster de suspense investigativo corporativo, cinematográfico, com atmosfera de mistério e elementos do universo Ao Trabalho.
+- **Composição:** um elemento visual central memorável, cenário ou objeto ligado ao conto e espaço de respiro para título e identificação.
+- **Identidade:** manter uma moldura, assinatura gráfica, tratamento de luz e sistema tipográfico comuns à coleção, variando paleta, cenário e símbolos conforme cada especialista.
+- **Legibilidade:** título curto e contraste suficiente em tamanhos reduzidos; não sobrecarregar a arte com texto.
+- **Coerência:** cada capa deve comunicar a especialidade e o mistério sem depender de estereótipos, caricaturas ou imagens sensacionalistas.
+- **Sem spoilers:** não revelar culpado, solução, virada principal ou conteúdo das partes posteriores.
+
+### 8.3 Fluxo recomendado para produção de cada capa
+
+1. Aprovar o título, a premissa e o símbolo visual da lenda.
+2. Criar um briefing de arte específico para o episódio.
+3. Gerar a arte principal sem depender de texto complexo embutido na imagem.
+4. Aplicar título, selo da coleção e identificação do especialista em camada de interface/design, para garantir tipografia correta e localização.
+5. Revisar legibilidade em miniatura, contraste, recorte e consistência com as demais capas.
+6. Aprovar a capa junto com a lenda e registrar os arquivos finais no diretório de assets definido pelo projeto.
+7. Vincular o asset ao identificador estável da lenda no catálogo de conteúdo.
+
+### 8.4 Primeiras capas previstas
+
+| Lenda | Direção visual inicial |
+|---|---|
+| O médico que sabia demais | Consultório antigo, caderno preto aberto, fichas e uma luz de corredor; sensação de observação e registros impossíveis. Evitar iconografia que associe transtorno mental a ameaça. |
+| O relatório que ninguém quis assinar | Planta industrial noturna, relatório técnico marcado, luz de emergência e uma porta de saída ao fundo; foco em prevenção e alertas ignorados, sem representar acidente de forma gráfica. |
+| O funcionário que nunca piscava | Sala silenciosa de meditação dentro de um escritório, tapete, luz suave e uma figura em silhueta; estranheza contemplativa, sem sugerir poderes sobrenaturais como fato. |
+
+### 8.5 Requisitos de conteúdo e implementação futura
+
+- Cada capa deve ter um identificador único e estável, relacionado ao ID da lenda, não apenas ao nome exibido.
+- O catálogo de conteúdo deverá relacionar: ID da lenda, especialista, título, asset da capa, partes narrativas e estado de desbloqueio.
+- A arte deve ser tratada como asset independente do texto da história, permitindo substituição sem reescrever o conteúdo.
+- Prever texto alternativo/acessibilidade e uma alternativa visual caso o asset não carregue.
+- Não embutir o estado de desbloqueio no próprio arquivo de imagem; esse estado pertence à lógica do jogo.
+- Nesta fase, documentar e produzir as capas conceituais. Não alterar telas, componentes, persistência ou lógica de desbloqueio sem aprovação específica.
+
+**Critério de aceite visual:** toda lenda aprovada para o jogo possui uma capa exclusiva, coerente com a coleção, legível em miniatura, sem spoilers e vinculada ao ID correto do mistério.
