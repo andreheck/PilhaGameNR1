@@ -7,7 +7,7 @@ test('all ten supplied models have verified animated atlases, without publishing
  }assert.ok(!fs.existsSync(new URL('dist/assets/expanded-cast/'+actor.source,root)));}
 });
 test('identities and natural activity clips remain explicit',()=>{
- assert.deepEqual(manifest.actors.filter(a=>a.binding).map(a=>[a.id,a.binding]),[['mariana','NPC-07']]);assert.equal(manifest.actors.find(a=>a.id==='mariana').actions.sit,undefined,'rejected retarget must not ship');
+ assert.deepEqual(manifest.actors.filter(a=>a.binding).map(a=>[a.id,a.binding]),[['mariana','NPC-07'],['garoto','NPC-08']]);assert.equal(manifest.actors.find(a=>a.id==='mariana').actions.sit,undefined,'rejected retarget must not ship');
  const yoga=manifest.actors.find(a=>a.id==='yoga');for(const key of ['breathe','floor-sit','floor-idle','rise'])assert.ok(yoga.actions[key]);assert.equal(yoga.sector,'restauracao');assert.equal(manifest.actors.find(a=>a.id==='advogado').sector,'escritorio');
  assert.equal(intro.models.length,18);for(const a of manifest.actors){const i=intro.models.find(i=>i.id===a.id);assert.equal(i.file,a.actions.walk.url);assert.equal(i.frames,16);}
 });

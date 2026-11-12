@@ -35,12 +35,13 @@ test('the selected character is stored in the campaign and cannot be replaced la
 });
 
 test('the three animated explorer profiles can be saved without inventing canonical powers',()=>{
- const s=storage();for(const id of ['PILHA-H02','EXPLORER-ADVOGADO','EXPLORER-YOGA']){
+ const s=storage();for(const id of ['EXPLORER-JOVEM-PROFISSIONAL','EXPLORER-ADVOGADO','EXPLORER-DIRETORA-ENSINO']){
   assert.equal(savePlayerCharacter(s,id).ok,true);assert.equal(readPlayerCharacter(s).heroId,id);
   const assigned=M.setPlayerCharacter(M.fresh(),id);assert.equal(assigned.ok,true);assert.equal(assigned.state.playerCharacterId,id);
  }
- assert.equal(PLAYER_EXPLORERS.length,3);assert.deepEqual(PLAYER_EXPLORERS.map(x=>x.castId),['psicologa','advogado','yoga']);
+ assert.equal(PLAYER_EXPLORERS.length,3);assert.deepEqual(PLAYER_EXPLORERS.map(x=>x.castId),['garoto','advogado','ensino']);
  assert.ok(PLAYER_EXPLORERS.every(x=>x.sprite.endsWith('-walk.png')&&x.frames>=8));
+ assert.ok(PLAYER_EXPLORERS.every(x=>fs.existsSync(new URL('../'+x.package.slice(1),import.meta.url))));
 });
 
 test('the selected explorer can activate their documented continuous power',()=>{
