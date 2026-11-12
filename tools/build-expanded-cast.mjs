@@ -16,6 +16,8 @@ bindings['NPC-08']={key:'garoto',walk:gw.url,idle:gi.url,talk:gt.url,walkDuratio
 s=s.replace(match[0],'var riggedBindings='+JSON.stringify(bindings)+',riggedImages=');
 replace('var sh=(introDef?(introDef.renderHeight||2.7):p.isPlayer?(p.spriteHeight||2.15):2.15)*u','var sh=(introDef?(introDef.renderHeight||2.7):rigged&&rigged.renderHeight?rigged.renderHeight:p.isPlayer?(p.spriteHeight||2.15):2.15)*u');
 replace("frame=riggedAction==='idle'?0:Math.floor(Math.max(0,elapsed)/duration*frameCount)%frameCount;","if(riggedAction==='idle'){frameCount=rigged.idleFrames||1;duration=rigged.idleDuration||1;}frame=Math.floor(Math.max(0,elapsed)/duration*frameCount)%frameCount;");
+replace('ctx.drawImage(sprite,frame*128,(p.facing||0)*192,128,192,',`var atlasFrames=introDef?(introDef.frames||8):p.robotId?8:rigged?frameCount:frames,atlasWidth=sprite.naturalWidth/atlasFrames,atlasHeight=sprite.naturalHeight/4;
+        ctx.drawImage(sprite,frame*atlasWidth,(p.facing||0)*atlasHeight,atlasWidth,atlasHeight,`);
 fs.writeFileSync(file,s);
 const mfile=new URL('dist/ui/continuous/map.js',root);let m=fs.readFileSync(mfile,'utf8');const anchor='if(id&&o.onEmployee){o.onEmployee(id);return;}';if(!m.includes(anchor))throw Error('Map employee priority');m=m.replace(anchor,anchor+'var special=iso.pickSupportingActor(p.x,p.y);if(special&&o.onSupportingActor){o.onSupportingActor(special);return;}');fs.writeFileSync(mfile,m);
 console.log('Expanded cast: 10 supplied models; canonical Mariana; yoga and lawyer visual support.');

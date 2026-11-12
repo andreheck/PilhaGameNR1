@@ -19,7 +19,8 @@ function expandedPose(id,e){
 function drawExpandedActor(p,e){
  var image=expandedImage(p.clip.url);if(!image||!image.complete||!image.naturalWidth)return;
  var q=P(p.x,p.y,0),height=p.clip.renderHeight*ZU*s,width=height*128/192;
- ctx.drawImage(image,p.frame*128,p.facing*192,128,192,q[0]-width/2,q[1]-height*p.clip.anchorY,width,height);
+ var fw=image.naturalWidth/p.clip.frames,fh=image.naturalHeight/(p.clip.directions||4);
+ ctx.drawImage(image,p.frame*fw,p.facing*fh,fw,fh,q[0]-width/2,q[1]-height*p.clip.anchorY,width,height);
  expandedHits.push({id:p.actor.id,x:q[0],y:q[1]-.85*ZU*s,r:Math.max(12,.8*ZU*s)});
  expandedDrawn.push({id:p.actor.id,sector:e.key,action:p.action,frame:p.frame,x:p.x,y:p.y});
 }

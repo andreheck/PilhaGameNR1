@@ -8,7 +8,8 @@ export async function openExpandedCast({iso,employee,id}={}){
  document.body.append(d);let raf=0,selected,clip,image,started=0,playing=true,direction=0,lastFrame=0;
  function paint(now){if(!d.open)return;raf=requestAnimationFrame(paint);if(!image?.complete||!image.naturalWidth)return;const c=d.querySelector('canvas'),x=c.getContext('2d'),elapsed=(now-started)/1000;
   let f=playing?(clip.mode==='hold'?0:clip.mode==='once'?Math.min(clip.frames-1,Math.floor(elapsed/clip.duration*clip.frames)):Math.floor(elapsed/clip.duration*clip.frames)%clip.frames):lastFrame;lastFrame=f;
-  x.clearRect(0,0,c.width,c.height);x.drawImage(image,f*128,direction*192,128,192,0,-85,320,480);c.dataset.frame=String(f);c.dataset.action=d.querySelector('[data-cast-action]').value;
+  const fw=image.naturalWidth/clip.frames,fh=image.naturalHeight/(clip.directions||4),scale=Math.min(c.width/(clip.frameWidth||128),c.height/(clip.frameHeight||192)),w=(clip.frameWidth||128)*scale,h=(clip.frameHeight||192)*scale;
+  x.clearRect(0,0,c.width,c.height);x.drawImage(image,f*fw,direction*fh,fw,fh,(c.width-w)/2,(c.height-h)/2,w,h);c.dataset.frame=String(f);c.dataset.action=d.querySelector('[data-cast-action]').value;
  }
  function loadAction(){const key=d.querySelector('[data-cast-action]').value;clip=selected.actions[key];image=new Image();image.src=clip.url;started=performance.now();lastFrame=0;}
  function select(key){selected=catalog.find(a=>a.id===key)||catalog[0];d.querySelectorAll('[data-cast]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.cast===selected.id)));
