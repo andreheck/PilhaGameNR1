@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "source": "PM-supplied Meshy FBX exports",
+  "bindings": [
+    {
+      "id": "NPC-16",
+      "key": "beatriz",
+      "group": "exploradores",
+      "sourceZip": "tools/npc-rigged-sources/beatriz.zip",
+      "sourceName": "Meshy_AI_woman_rigged_biped.zip",
+      "sha256": "e5d1c2fd4d05816d600f48bd463752a386db3cf6910f89d162c172f587ddbbee",
+      "suppliedAction": "Walking",
+      "frames": 8,
+      "directions": 4,
+      "frameWidth": 128,
+      "frameHeight": 192,
+      "walk": "/assets/npc-sprites/rigged/beatriz-walk.png",
+      "idle": "/assets/npc-sprites/rigged/beatriz-idle.png",
+      "talk": null
+    },
+    {
+      "id": "NPC-07",
+      "key": "mariana",
+      "group": "diplomatas",
+      "sourceZip": "tools/npc-rigged-sources/mariana.zip",
+      "sourceName": "Meshy_AI_Woman_Braids_Rigged_biped.zip",
+      "sha256": "f98d572cdd81345c10e183d44df7c06e24492b190bbf6c60678445204a3d650c",
+      "suppliedAction": "Talk Passionately",
+      "frames": 8,
+      "directions": 4,
+      "frameWidth": 128,
+      "frameHeight": 192,
+      "walk": "/assets/npc-sprites/rigged/mariana-walk.png",
+      "idle": "/assets/npc-sprites/rigged/mariana-idle.png",
+      "talk": "/assets/npc-sprites/rigged/mariana-talk.png"
+    }
+  ]
+}

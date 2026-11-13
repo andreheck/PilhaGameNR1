@@ -1,0 +1,3105 @@
+{
+  "version": "1.3.0",
+  "source": "Pilha_Game_Kit_Mobiliario_Poof_v1.zip (arquivo original entregue no chat)",
+  "catalogSource": "data/continuous/catalog.js",
+  "graphicsStatus": "ready",
+  "spriteRoot": "/assets/furniture/sprites/webp/",
+  "pngRoot": "/assets/furniture/sprites/png/",
+  "programIconRoot": "/assets/furniture/icons/",
+  "poof": {
+    "atlas": "/assets/furniture/effects/poof_atlas_4x3.png",
+    "columns": 4,
+    "rows": 3,
+    "frames": 12,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameMs": 65,
+    "revealFrame": 5,
+    "durationMs": 780,
+    "fallback": "procedural-svg"
+  },
+  "assets": [
+    {
+      "id": "sofa-azul",
+      "name": "Sofá azul",
+      "file": "sofa-azul.webp",
+      "png": "sofa-azul.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 2,
+        "depth": 0.8,
+        "height": 0.85,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        1.0,
+        1.02,
+        0.45
+      ],
+      "standPoint": [
+        1.0,
+        1.2000000000000002,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        502,
+        367
+      ]
+    },
+    {
+      "id": "poltrona-azul-a",
+      "name": "Poltrona azul A",
+      "file": "poltrona-azul-a.webp",
+      "png": "poltrona-azul-a.png",
+      "referenceWidth": 120,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.6,
+        "depth": 0.65,
+        "height": 0.95,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.3,
+        0.87,
+        0.45
+      ],
+      "standPoint": [
+        0.3,
+        1.05,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        1,
+        245,
+        271
+      ]
+    },
+    {
+      "id": "poltrona-azul-b",
+      "name": "Poltrona azul B",
+      "file": "poltrona-azul-b.webp",
+      "png": "poltrona-azul-b.png",
+      "referenceWidth": 120,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.6,
+        "depth": 0.65,
+        "height": 0.95,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.3,
+        0.87,
+        0.45
+      ],
+      "standPoint": [
+        0.3,
+        1.05,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        1,
+        244,
+        264
+      ]
+    },
+    {
+      "id": "mesa-centro-redonda",
+      "name": "Mesa de centro redonda",
+      "file": "mesa-centro-redonda.webp",
+      "png": "mesa-centro-redonda.png",
+      "referenceWidth": 155,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.8,
+        "depth": 0.8,
+        "height": 0.45,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.4,
+        1.02,
+        0.45
+      ],
+      "standPoint": [
+        0.4,
+        1.2000000000000002,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        3,
+        279,
+        243
+      ]
+    },
+    {
+      "id": "mesa-escritorio",
+      "name": "Mesa de escritório",
+      "file": "mesa-escritorio.webp",
+      "png": "mesa-escritorio.png",
+      "referenceWidth": 230,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 1.6,
+        "depth": 0.8,
+        "height": 0.75,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.8,
+        1.02,
+        0.45
+      ],
+      "standPoint": [
+        0.8,
+        1.2000000000000002,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        454,
+        396
+      ]
+    },
+    {
+      "id": "mesa-reuniao",
+      "name": "Mesa de reuniões",
+      "file": "mesa-reuniao.webp",
+      "png": "mesa-reuniao.png",
+      "referenceWidth": 232,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 1.8,
+        "depth": 1,
+        "height": 0.75,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.9,
+        1.22,
+        0.45
+      ],
+      "standPoint": [
+        0.9,
+        1.4,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        467,
+        338
+      ]
+    },
+    {
+      "id": "estante-livros",
+      "name": "Estante de livros",
+      "file": "estante-livros.webp",
+      "png": "estante-livros.png",
+      "referenceWidth": 114,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.9,
+        "depth": 0.4,
+        "height": 1.8,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.45,
+        0.62,
+        0.45
+      ],
+      "standPoint": [
+        0.45,
+        0.8,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        3,
+        209,
+        343
+      ]
+    },
+    {
+      "id": "gaveteiro",
+      "name": "Gaveteiro",
+      "file": "gaveteiro.webp",
+      "png": "gaveteiro.png",
+      "referenceWidth": 86,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.5,
+        "depth": 0.5,
+        "height": 0.65,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.25,
+        0.72,
+        0.45
+      ],
+      "standPoint": [
+        0.25,
+        0.9,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        1,
+        185,
+        293
+      ]
+    },
+    {
+      "id": "bebedouro",
+      "name": "Bebedouro",
+      "file": "bebedouro.webp",
+      "png": "bebedouro.png",
+      "referenceWidth": 80,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.4,
+        "depth": 0.4,
+        "height": 1.1,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.2,
+        0.62,
+        0.45
+      ],
+      "standPoint": [
+        0.2,
+        0.8,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        2,
+        3,
+        119,
+        235
+      ]
+    },
+    {
+      "id": "planta-grande",
+      "name": "Planta grande",
+      "file": "planta-grande.webp",
+      "png": "planta-grande.png",
+      "referenceWidth": 115,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.55,
+        "depth": 0.55,
+        "height": 1.4,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.275,
+        0.77,
+        0.45
+      ],
+      "standPoint": [
+        0.275,
+        0.9500000000000001,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        3,
+        237,
+        246
+      ]
+    },
+    {
+      "id": "planta-pequena",
+      "name": "Planta pequena",
+      "file": "planta-pequena.webp",
+      "png": "planta-pequena.png",
+      "referenceWidth": 74,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.3,
+        "depth": 0.3,
+        "height": 0.55,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.15,
+        0.52,
+        0.45
+      ],
+      "standPoint": [
+        0.15,
+        0.7,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        135,
+        140
+      ]
+    },
+    {
+      "id": "divisoria-vidro",
+      "name": "Divisória de vidro",
+      "file": "divisoria-vidro.webp",
+      "png": "divisoria-vidro.png",
+      "referenceWidth": 206,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 1.8,
+        "depth": 0.15,
+        "height": 1.35,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.9,
+        0.37,
+        0.45
+      ],
+      "standPoint": [
+        0.9,
+        0.55,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        347,
+        293
+      ]
+    },
+    {
+      "id": "tapete-almofadas",
+      "name": "Tapete e almofadas",
+      "file": "tapete-almofadas.webp",
+      "png": "tapete-almofadas.png",
+      "referenceWidth": 145,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 1.2,
+        "depth": 1,
+        "height": 0.12,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.6,
+        1.22,
+        0.45
+      ],
+      "standPoint": [
+        0.6,
+        1.4,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        1,
+        333,
+        198
+      ]
+    },
+    {
+      "id": "puff-azul",
+      "name": "Puff azul",
+      "file": "puff-azul.webp",
+      "png": "puff-azul.png",
+      "referenceWidth": 98,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.65,
+        "depth": 0.65,
+        "height": 0.45,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.325,
+        0.87,
+        0.45
+      ],
+      "standPoint": [
+        0.325,
+        1.05,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        3,
+        195,
+        176
+      ]
+    },
+    {
+      "id": "banco-lounge",
+      "name": "Banco lounge",
+      "file": "banco-lounge.webp",
+      "png": "banco-lounge.png",
+      "referenceWidth": 200,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 1.8,
+        "depth": 0.65,
+        "height": 0.85,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.9,
+        0.87,
+        0.45
+      ],
+      "standPoint": [
+        0.9,
+        1.05,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        365,
+        198
+      ]
+    },
+    {
+      "id": "arvore-frutifera",
+      "name": "Árvore frutífera",
+      "file": "arvore-frutifera.webp",
+      "png": "arvore-frutifera.png",
+      "referenceWidth": 145,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.8,
+        "depth": 0.8,
+        "height": 2,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.4,
+        1.02,
+        0.45
+      ],
+      "standPoint": [
+        0.4,
+        1.2000000000000002,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        3,
+        183,
+        245
+      ]
+    },
+    {
+      "id": "pilha-livros",
+      "name": "Pilha de livros",
+      "file": "pilha-livros.webp",
+      "png": "pilha-livros.png",
+      "referenceWidth": 73,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.3,
+        "depth": 0.25,
+        "height": 0.16,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.15,
+        0.47,
+        0.45
+      ],
+      "standPoint": [
+        0.15,
+        0.65,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        1,
+        149,
+        145
+      ]
+    },
+    {
+      "id": "quadro",
+      "name": "Quadro",
+      "file": "quadro.webp",
+      "png": "quadro.png",
+      "referenceWidth": 89,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.8,
+        "depth": 0.12,
+        "height": 1.2,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.4,
+        0.33999999999999997,
+        0.45
+      ],
+      "standPoint": [
+        0.4,
+        0.52,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        3,
+        1,
+        148,
+        198
+      ]
+    },
+    {
+      "id": "caixa-material",
+      "name": "Caixa de materiais",
+      "file": "caixa-material.webp",
+      "png": "caixa-material.png",
+      "referenceWidth": 89,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.6,
+        "depth": 0.6,
+        "height": 0.6,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.3,
+        0.82,
+        0.45
+      ],
+      "standPoint": [
+        0.3,
+        1.0,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        3,
+        168,
+        151
+      ]
+    },
+    {
+      "id": "armario-baixo",
+      "name": "Armário baixo",
+      "file": "armario-baixo.webp",
+      "png": "armario-baixo.png",
+      "referenceWidth": 110,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 1,
+        "depth": 0.45,
+        "height": 0.8,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.5,
+        0.67,
+        0.45
+      ],
+      "standPoint": [
+        0.5,
+        0.8500000000000001,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        1,
+        2,
+        217,
+        207
+      ]
+    },
+    {
+      "id": "maquina-producao",
+      "name": "Máquina de produção",
+      "file": "maquina-producao.png",
+      "url": "/assets/furniture/generated/maquina-producao.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "source": "imagegen-built-in",
+      "status": "generated-for-testing",
+      "scale": {
+        "width": 1.3,
+        "depth": 1,
+        "height": 1.6,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.65,
+        1.22,
+        0.45
+      ],
+      "standPoint": [
+        0.65,
+        1.4,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        0,
+        0,
+        1379,
+        1110
+      ]
+    },
+    {
+      "id": "esteira-producao",
+      "name": "Esteira",
+      "file": "esteira-producao.png",
+      "url": "/assets/furniture/generated/esteira-producao.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "source": "imagegen-built-in",
+      "status": "generated-for-testing",
+      "scale": {
+        "width": 2.4,
+        "depth": 0.7,
+        "height": 0.85,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        1.2,
+        0.9199999999999999,
+        0.45
+      ],
+      "standPoint": [
+        1.2,
+        1.1,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        19,
+        15,
+        1506,
+        1008
+      ]
+    },
+    {
+      "id": "estante-industrial",
+      "name": "Estante industrial",
+      "file": "estante-industrial.png",
+      "url": "/assets/furniture/generated/estante-industrial.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "source": "imagegen-built-in",
+      "status": "generated-for-testing",
+      "scale": {
+        "width": 1.8,
+        "depth": 0.5,
+        "height": 1.9,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.9,
+        0.72,
+        0.45
+      ],
+      "standPoint": [
+        0.9,
+        0.9,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        239,
+        25,
+        1384,
+        1024
+      ]
+    },
+    {
+      "id": "bancada-operacional",
+      "name": "Bancada operacional",
+      "file": "bancada-operacional.png",
+      "url": "/assets/furniture/generated/bancada-operacional.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "source": "imagegen-built-in",
+      "status": "generated-for-testing",
+      "scale": {
+        "width": 1.8,
+        "depth": 0.7,
+        "height": 0.9,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.9,
+        0.9199999999999999,
+        0.45
+      ],
+      "standPoint": [
+        0.9,
+        1.1,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        0,
+        11,
+        1510,
+        1024
+      ]
+    },
+    {
+      "id": "estacao-atendimento",
+      "name": "Estação de atendimento",
+      "file": "estacao-atendimento.png",
+      "url": "/assets/furniture/generated/estacao-atendimento.png",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "source": "imagegen-built-in",
+      "status": "generated-for-testing",
+      "scale": {
+        "width": 1.5,
+        "depth": 0.75,
+        "height": 1.05,
+        "cellMeters": 1
+      },
+      "sitPoint": [
+        0.75,
+        0.97,
+        0.45
+      ],
+      "standPoint": [
+        0.75,
+        1.15,
+        0
+      ],
+      "facing": 2,
+      "bounds": [
+        231,
+        39,
+        1290,
+        954
+      ]
+    },
+    {
+      "id": "rest2-almofadas_encosto",
+      "name": "Almofadas de encosto",
+      "url": "/assets/restorative-v2/almofadas_encosto.png",
+      "file": "almofadas_encosto.png",
+      "transparent": true,
+      "scale": {
+        "width": 1.4679426401541606,
+        "depth": 0.27833194000049166,
+        "height": 0.48521423645873796,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9562705985728962
+      ],
+      "bounds": [
+        0,
+        0,
+        146,
+        114
+      ],
+      "sitPoint": [
+        0.7339713200770803,
+        0.4783319400004917,
+        0.46
+      ],
+      "standPoint": [
+        0.7339713200770803,
+        0.7783319400004917,
+        0
+      ],
+      "projection": {
+        "width": 59.95372162458339,
+        "height": 46.56975543587107,
+        "anchor": [
+          0.5,
+          0.9562705985728962
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 146,
+        "duration": 1
+      },
+      "seats": [],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-banco_arco_externo",
+      "name": "Banco Wi-Fi · arco externo",
+      "url": "/assets/restorative-v2/banco_arco_externo.png",
+      "file": "banco_arco_externo.png",
+      "transparent": true,
+      "scale": {
+        "width": 5.020452976226807,
+        "depth": 1.4493610858917236,
+        "height": 0.9499999953806401,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9850358723664115
+      ],
+      "bounds": [
+        0,
+        0,
+        514,
+        331
+      ],
+      "sitPoint": [
+        2.5102264881134033,
+        1.6493610858917236,
+        0.46
+      ],
+      "standPoint": [
+        2.5102264881134033,
+        1.9493610858917236,
+        0
+      ],
+      "projection": {
+        "width": 211.10698504742746,
+        "height": 136.08995991495019,
+        "anchor": [
+          0.5,
+          0.9850358723664115
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 514,
+        "duration": 1
+      },
+      "seats": [
+        {
+          "name": "SIT_arco_externo_1",
+          "x": 4.4705017361790675,
+          "y": 1.1364051854525266,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.6343932841636453,
+            0.7730104533627371
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_2",
+          "x": 3.9668424049057363,
+          "y": 0.7998707795069673,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.4713967368259978,
+            0.8819212643483549
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_3",
+          "x": 3.407206140829692,
+          "y": 0.5680618489308582,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.29028467725446233,
+            0.9569403357322089
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_4",
+          "x": 2.813099451731746,
+          "y": 0.4498866809262956,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.09801714032956081,
+            0.9951847266721968
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_5",
+          "x": 2.207353524495061,
+          "y": 0.4498866809262956,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.09801714032956065,
+            0.9951847266721969
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_6",
+          "x": 1.6132468353971152,
+          "y": 0.5680618489308582,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.29028467725446216,
+            0.9569403357322089
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_7",
+          "x": 1.0536105713210706,
+          "y": 0.7998707795069668,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.4713967368259976,
+            0.881921264348355
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_8",
+          "x": 0.5499512400477391,
+          "y": 1.1364051854525261,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.6343932841636453,
+            0.7730104533627371
+          ]
+        }
+      ],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-banco_arco_interno",
+      "name": "Banco Wi-Fi · arco interno",
+      "url": "/assets/restorative-v2/banco_arco_interno.png",
+      "file": "banco_arco_interno.png",
+      "transparent": true,
+      "scale": {
+        "width": 2.333446979522705,
+        "depth": 0.91718989610672,
+        "height": 0.9499999953806401,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9759234772719081
+      ],
+      "bounds": [
+        0,
+        0,
+        263,
+        206
+      ],
+      "sitPoint": [
+        1.1667234897613525,
+        1.11718989610672,
+        0.46
+      ],
+      "standPoint": [
+        1.1667234897613525,
+        1.41718989610672,
+        0
+      ],
+      "projection": {
+        "width": 108.0933150797761,
+        "height": 84.5831249311245,
+        "anchor": [
+          0.5,
+          0.9759234772719081
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 263,
+        "duration": 1
+      },
+      "seats": [
+        {
+          "name": "SIT_arco_interno_1",
+          "x": 1.7617234897613527,
+          "y": 0.5944372796817599,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.5000000000000002,
+            0.8660254037844386
+          ]
+        },
+        {
+          "name": "SIT_arco_interno_2",
+          "x": 1.1667234897613525,
+          "y": 0.43500751018524175,
+          "height": 0.4599999967217446,
+          "forward": [
+            -6.123233995736766e-17,
+            1
+          ]
+        },
+        {
+          "name": "SIT_arco_interno_3",
+          "x": 0.5717234897613528,
+          "y": 0.5944372796817596,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.49999999999999994,
+            0.8660254037844387
+          ]
+        }
+      ],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-banco_arco_medio",
+      "name": "Banco Wi-Fi · arco médio",
+      "url": "/assets/restorative-v2/banco_arco_medio.png",
+      "file": "banco_arco_medio.png",
+      "transparent": true,
+      "scale": {
+        "width": 3.676949977874756,
+        "depth": 1.1821385622024536,
+        "height": 0.9499999953806401,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5000000000000001,
+        0.9815400837578016
+      ],
+      "bounds": [
+        0,
+        0,
+        388,
+        269
+      ],
+      "sitPoint": [
+        1.838474988937378,
+        1.3821385622024536,
+        0.46
+      ],
+      "standPoint": [
+        1.838474988937378,
+        1.6821385622024536,
+        0
+      ],
+      "projection": {
+        "width": 159.56376834210522,
+        "height": 110.31835156228907,
+        "anchor": [
+          0.5000000000000001,
+          0.9815400837578016
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 388,
+        "duration": 1
+      },
+      "seats": [
+        {
+          "name": "SIT_arco_medio_1",
+          "x": 3.09633542884327,
+          "y": 0.8437110706972806,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.5877852522924731,
+            0.8090169943749475
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_2",
+          "x": 2.4997713568997653,
+          "y": 0.5397464937880398,
+          "height": 0.4599999967217446,
+          "forward": [
+            -0.3090169943749475,
+            0.9510565162951535
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_3",
+          "x": 1.8384749889373782,
+          "y": 0.4350074386596683,
+          "height": 0.4599999967217446,
+          "forward": [
+            -6.123233995736766e-17,
+            1
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_4",
+          "x": 1.1771786209749906,
+          "y": 0.5397464937880394,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.30901699437494734,
+            0.9510565162951536
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_5",
+          "x": 0.5806145490314858,
+          "y": 0.8437110706972806,
+          "height": 0.4599999967217446,
+          "forward": [
+            0.587785252292473,
+            0.8090169943749476
+          ]
+        }
+      ],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-banco_ponto_central",
+      "name": "Banco Wi-Fi · ponto central",
+      "url": "/assets/restorative-v2/banco_ponto_central.png",
+      "file": "banco_ponto_central.png",
+      "transparent": true,
+      "scale": {
+        "width": 0.9200000166893005,
+        "depth": 0.9200000166893005,
+        "height": 0.5980000018626451,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9604207708635528
+      ],
+      "bounds": [
+        0,
+        0,
+        154,
+        126
+      ],
+      "sitPoint": [
+        0.46000000834465027,
+        1.1200000166893005,
+        0.46
+      ],
+      "standPoint": [
+        0.46000000834465027,
+        1.4200000166893005,
+        0
+      ],
+      "projection": {
+        "width": 62.95293612774975,
+        "height": 51.45293564957149,
+        "anchor": [
+          0.5,
+          0.9604207708635528
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 154,
+        "duration": 1
+      },
+      "seats": [],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-banco_wifi_completo",
+      "name": "Banco Wi-Fi completo",
+      "url": "/assets/restorative-v2/banco_wifi_completo.png",
+      "file": "banco_wifi_completo.png",
+      "transparent": true,
+      "scale": {
+        "width": 5.020452976226807,
+        "depth": 3.985007494688034,
+        "height": 0.9499999990314245,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9884724100420609
+      ],
+      "bounds": [
+        0,
+        0,
+        711,
+        430
+      ],
+      "sitPoint": [
+        2.5102264881134033,
+        4.185007494688034,
+        0.46
+      ],
+      "standPoint": [
+        2.5102264881134033,
+        4.485007494688034,
+        0
+      ],
+      "projection": {
+        "width": 292.2476701289094,
+        "height": 176.6603025652147,
+        "anchor": [
+          0.5,
+          0.9884724100420609
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 711,
+        "duration": 1
+      },
+      "seats": [
+        {
+          "name": "SIT_arco_externo_1",
+          "x": 4.4705017361790675,
+          "y": 1.1364051854525266,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.6343932841636453,
+            0.7730104533627371
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_2",
+          "x": 3.9668424049057363,
+          "y": 0.7998707795069673,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.4713967368259978,
+            0.8819212643483549
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_3",
+          "x": 3.407206140829692,
+          "y": 0.5680618489308582,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.29028467725446233,
+            0.9569403357322089
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_4",
+          "x": 2.813099451731746,
+          "y": 0.4498866809262956,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.09801714032956081,
+            0.9951847266721968
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_5",
+          "x": 2.207353524495061,
+          "y": 0.4498866809262956,
+          "height": 0.460000000372529,
+          "forward": [
+            0.09801714032956065,
+            0.9951847266721969
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_6",
+          "x": 1.6132468353971152,
+          "y": 0.5680618489308582,
+          "height": 0.460000000372529,
+          "forward": [
+            0.29028467725446216,
+            0.9569403357322089
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_7",
+          "x": 1.0536105713210706,
+          "y": 0.7998707795069668,
+          "height": 0.460000000372529,
+          "forward": [
+            0.4713967368259976,
+            0.881921264348355
+          ]
+        },
+        {
+          "name": "SIT_arco_externo_8",
+          "x": 0.5499512400477391,
+          "y": 1.1364051854525261,
+          "height": 0.460000000372529,
+          "forward": [
+            0.6343932841636453,
+            0.7730104533627371
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_1",
+          "x": 3.7680869280192955,
+          "y": 1.7937111183809964,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.5877852522924731,
+            0.8090169943749475
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_2",
+          "x": 3.1715228560757907,
+          "y": 1.4897465414717557,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.3090169943749475,
+            0.9510565162951535
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_3",
+          "x": 2.5102264881134033,
+          "y": 1.385007486343384,
+          "height": 0.460000000372529,
+          "forward": [
+            -6.123233995736766e-17,
+            1
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_4",
+          "x": 1.848930120151016,
+          "y": 1.4897465414717552,
+          "height": 0.460000000372529,
+          "forward": [
+            0.30901699437494734,
+            0.9510565162951536
+          ]
+        },
+        {
+          "name": "SIT_arco_medio_5",
+          "x": 1.2523660482075112,
+          "y": 1.7937111183809964,
+          "height": 0.460000000372529,
+          "forward": [
+            0.587785252292473,
+            0.8090169943749476
+          ]
+        },
+        {
+          "name": "SIT_arco_interno_1",
+          "x": 3.1052264881134035,
+          "y": 2.4944372558399017,
+          "height": 0.460000000372529,
+          "forward": [
+            -0.5000000000000002,
+            0.8660254037844386
+          ]
+        },
+        {
+          "name": "SIT_arco_interno_2",
+          "x": 2.5102264881134033,
+          "y": 2.335007486343384,
+          "height": 0.460000000372529,
+          "forward": [
+            -6.123233995736766e-17,
+            1
+          ]
+        },
+        {
+          "name": "SIT_arco_interno_3",
+          "x": 1.9152264881134036,
+          "y": 2.4944372558399017,
+          "height": 0.460000000372529,
+          "forward": [
+            0.49999999999999994,
+            0.8660254037844387
+          ]
+        }
+      ],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-caixa_de_som",
+      "name": "Caixa de som",
+      "url": "/assets/restorative-v2/caixa_de_som.png",
+      "file": "caixa_de_som.png",
+      "transparent": true,
+      "scale": {
+        "width": 0.18400000035762787,
+        "depth": 0.18400000035762787,
+        "height": 0.24799999966472389,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.8817423858799994
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "sitPoint": [
+        0.09200000017881393,
+        0.3840000003576279,
+        0.46
+      ],
+      "standPoint": [
+        0.09200000017881393,
+        0.6840000003576279,
+        0
+      ],
+      "projection": {
+        "width": 15.971814657412834,
+        "height": 17.48037484877831,
+        "anchor": [
+          0.5,
+          0.8817423858799994
+        ]
+      },
+      "animation": {
+        "frames": 8,
+        "frameWidth": 64,
+        "duration": 2
+      },
+      "seats": [],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-fonte_agua",
+      "name": "Fonte de água",
+      "url": "/assets/restorative-v2/fonte_agua.png",
+      "file": "fonte_agua.png",
+      "transparent": true,
+      "scale": {
+        "width": 1.600000023841858,
+        "depth": 1.600000023841858,
+        "height": 1.5560000005364418,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9803150341943947
+      ],
+      "bounds": [
+        0,
+        0,
+        259,
+        252
+      ],
+      "sitPoint": [
+        0.800000011920929,
+        1.8000000238418579,
+        0.46
+      ],
+      "standPoint": [
+        0.800000011920929,
+        2.100000023841858,
+        0
+      ],
+      "projection": {
+        "width": 106.47293658551341,
+        "height": 103.45293712612752,
+        "anchor": [
+          0.5,
+          0.9803150341943947
+        ]
+      },
+      "animation": {
+        "frames": 8,
+        "frameWidth": 259,
+        "duration": 2.4000000953674316
+      },
+      "seats": [],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-incensario",
+      "name": "Incensário",
+      "url": "/assets/restorative-v2/incensario.png",
+      "file": "incensario.png",
+      "transparent": true,
+      "scale": {
+        "width": 0.2160000056028366,
+        "depth": 0.2160000056028366,
+        "height": 0.4219999996572733,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9388061697405075
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        81
+      ],
+      "sitPoint": [
+        0.1080000028014183,
+        0.4160000056028366,
+        0.46
+      ],
+      "standPoint": [
+        0.1080000028014183,
+        0.7160000056028366,
+        0
+      ],
+      "projection": {
+        "width": 17.89693541821606,
+        "height": 33.278968176720035,
+        "anchor": [
+          0.5,
+          0.9388061697405075
+        ]
+      },
+      "animation": {
+        "frames": 8,
+        "frameWidth": 64,
+        "duration": 3
+      },
+      "seats": [],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "rest2-tapete_indiano",
+      "name": "Tapete indiano",
+      "url": "/assets/restorative-v2/tapete_indiano.png",
+      "file": "tapete_indiano.png",
+      "transparent": true,
+      "scale": {
+        "width": 2.4154052734375,
+        "depth": 1.558878779411316,
+        "height": 0.03500000014901161,
+        "cellMeters": 1
+      },
+      "anchor": [
+        0.5,
+        0.9703620481978559
+      ],
+      "bounds": [
+        0,
+        0,
+        320,
+        168
+      ],
+      "sitPoint": [
+        1.20770263671875,
+        1.7588787794113159,
+        0.46
+      ],
+      "standPoint": [
+        1.20770263671875,
+        2.058878779411316,
+        0
+      ],
+      "projection": {
+        "width": 131.25002475079663,
+        "height": 68.71147990968592,
+        "anchor": [
+          0.5,
+          0.9703620481978559
+        ]
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 320,
+        "duration": 1
+      },
+      "seats": [
+        {
+          "name": "SIT_tapete_1",
+          "x": 1.20770263671875,
+          "y": 0.7810539603233337,
+          "height": 0.03500000007450581,
+          "forward": [
+            0,
+            1
+          ]
+        }
+      ],
+      "source": "patio-sala-v2"
+    },
+    {
+      "id": "chair-cadeira_da_descompressao",
+      "name": "cadeira da descompressao",
+      "url": "/assets/individual-chairs/cadeira_da_descompressao-views.png",
+      "file": "cadeira_da_descompressao.png",
+      "referenceWidth": 160,
+      "anchor": [
+        0.5,
+        0.9626191990918157
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.7729490399360657,
+        "depth": 0.8301622198197659,
+        "height": 1.3167117375626916
+      },
+      "bounds": [
+        0,
+        0,
+        141,
+        173
+      ],
+      "projection": {
+        "width": 57.812686313422155,
+        "height": 70.79878442727713,
+        "anchor": [
+          0.5,
+          0.9626191990918157
+        ]
+      },
+      "animation": {
+        "duration": 3,
+        "frames": 8,
+        "frameWidth": 141,
+        "frameHeight": 173
+      },
+      "seats": [
+        {
+          "name": "SIT_cadeira_descompressao",
+          "x": 0.38647451996803284,
+          "y": 0.46159273922703337,
+          "height": 0.5599999991059303,
+          "forward": [
+            0,
+            1
+          ]
+        }
+      ],
+      "sourceSha256": "235fd48b7f25c1661d7f34df43c7e114c7cefabbe383bcd2b523e43aeba8f0ed",
+      "sitPoint": [
+        0.38647451996803284,
+        0.46159273922703337,
+        0.5599999991059303
+      ],
+      "standPoint": [
+        0.38647451996803284,
+        1.1101622198197658,
+        0
+      ],
+      "facing": 0,
+      "rotationViews": 4
+    },
+    {
+      "id": "chair-cadeira_da_producao",
+      "name": "cadeira da producao",
+      "url": "/assets/individual-chairs/cadeira_da_producao-views.png",
+      "file": "cadeira_da_producao.png",
+      "referenceWidth": 160,
+      "anchor": [
+        0.5,
+        0.9649427372219807
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.7502720131211689,
+        "depth": 0.7832869559213529,
+        "height": 1.5480908219709035
+      },
+      "bounds": [
+        0,
+        0,
+        136,
+        190
+      ],
+      "projection": {
+        "width": 55.93034328903777,
+        "height": 77.93956567941315,
+        "anchor": [
+          0.5,
+          0.9649427372219807
+        ]
+      },
+      "animation": {
+        "duration": 2.4000000953674316,
+        "frames": 8,
+        "frameWidth": 136,
+        "frameHeight": 190
+      },
+      "seats": [
+        {
+          "name": "SIT_cadeira_producao",
+          "x": 0.35500000178813934,
+          "y": 0.41471747532862036,
+          "height": 0.5599999991059303,
+          "forward": [
+            0,
+            1
+          ]
+        }
+      ],
+      "sourceSha256": "28c84083bc595ca1fc69cdf69cde56dd1b337e5384b1c058adeb3934200015d8",
+      "sitPoint": [
+        0.35500000178813934,
+        0.41471747532862036,
+        0.5599999991059303
+      ],
+      "standPoint": [
+        0.35500000178813934,
+        1.063286955921353,
+        0
+      ],
+      "facing": 0,
+      "rotationViews": 4
+    },
+    {
+      "id": "chair-cadeira_do_pensamento",
+      "name": "cadeira do pensamento",
+      "url": "/assets/individual-chairs/cadeira_do_pensamento-views.png",
+      "file": "cadeira_do_pensamento.png",
+      "referenceWidth": 160,
+      "anchor": [
+        0.5,
+        0.9588762207473845
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.7350000008940697,
+        "depth": 0.8255233311596611,
+        "height": 1.2213559983965698
+      },
+      "bounds": [
+        0,
+        0,
+        139,
+        164
+      ],
+      "projection": {
+        "width": 56.906428253852845,
+        "height": 67.13036160864075,
+        "anchor": [
+          0.5,
+          0.9588762207473845
+        ]
+      },
+      "animation": {
+        "duration": 1.7999999523162842,
+        "frames": 8,
+        "frameWidth": 139,
+        "frameHeight": 164
+      },
+      "seats": [
+        {
+          "name": "SIT_cadeira_pensamento",
+          "x": 0.35500000178813934,
+          "y": 0.4569538505669286,
+          "height": 0.5599999991059303,
+          "forward": [
+            0,
+            1
+          ]
+        }
+      ],
+      "sourceSha256": "72155b557b98302ec3e31fcc85c60e20958268d606c72d2bc0660cf77ed0a5e8",
+      "sitPoint": [
+        0.35500000178813934,
+        0.4569538505669286,
+        0.5599999991059303
+      ],
+      "standPoint": [
+        0.35500000178813934,
+        1.1055233311596613,
+        0
+      ],
+      "facing": 0,
+      "rotationViews": 4
+    },
+    {
+      "id": "arvore-sombra",
+      "name": "Árvore de sombra",
+      "url": "/assets/nature/arvore-sombra-views.png",
+      "file": "arvore-sombra-views.png",
+      "transparent": true,
+      "scale": {
+        "width": 0.9,
+        "depth": 0.9,
+        "height": 2.4,
+        "cellMeters": 1
+      },
+      "canopyScale": {
+        "width": 2.475281365166772,
+        "depth": 1.2572969451395517,
+        "height": 2.3999999999999995
+      },
+      "anchor": [
+        0.5,
+        0.924135781757706
+      ],
+      "projection": {
+        "width": 162.49094243030794,
+        "height": 155.28193874497123,
+        "anchor": [
+          0.5,
+          0.924135781757706
+        ]
+      },
+      "bounds": [
+        0,
+        0,
+        395,
+        378
+      ],
+      "rotationViews": 4,
+      "animation": {
+        "frames": 1,
+        "duration": 1,
+        "frameWidth": 395,
+        "frameHeight": 378
+      },
+      "source": "Meshy_AI_tree_model_1109210605_image-to-3d-texture.glb",
+      "sourceSha256": "1c3c81af347c5fc58ded249895d05ba4c6341419ea8694e78dbbbc75440da513",
+      "standPoint": [
+        0.45,
+        1.3,
+        0
+      ],
+      "sitPoint": null,
+      "facing": 2
+    },
+    {
+      "id": "galpao-logistico",
+      "name": "Galpão logístico · diorama aprovado",
+      "url": "/assets/logistics/warehouse-views.png",
+      "scale": {
+        "width": 8.400000000000002,
+        "depth": 8.128676719154843,
+        "height": 4.30946768370613
+      },
+      "anchor": [
+        0.49999999999999994,
+        0.9948808781218458
+      ],
+      "projection": {
+        "width": 532.9905900725896,
+        "height": 397.8157930772959,
+        "anchor": [
+          0.49999999999999994,
+          0.9948808781218458
+        ]
+      },
+      "bounds": [
+        0,
+        0,
+        1296,
+        967
+      ],
+      "source": "Meshy_AI_Warehouse_Diorama_Roo_1013180404_image-to-3d-texture.fbx",
+      "sourceSha256": "d3b23b8dfe4623987414fd42622783b9dbd96d416938f3a9c5c899abff7e7566",
+      "transparent": true,
+      "standPoint": [
+        -1,
+        4,
+        0
+      ],
+      "sitPoint": null
+    }
+  ],
+  "upgrades": {
+    "seg": {
+      "asset": "sofa-azul",
+      "position": [
+        1.4,
+        1.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "asse": {
+      "asset": "divisoria-vidro",
+      "position": [
+        2.8,
+        2.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "psic": {
+      "asset": "mesa-reuniao",
+      "position": [
+        5.4,
+        1.7
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "ergo": {
+      "asset": "mesa-escritorio",
+      "position": [
+        9.4,
+        1.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "fisi": {
+      "asset": "bebedouro",
+      "position": [
+        10.6,
+        2.6
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "espa": {
+      "asset": "divisoria-vidro",
+      "position": [
+        1.5,
+        5.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "jorn": {
+      "asset": "poltrona-azul-b",
+      "position": [
+        2.8,
+        6.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "auto": {
+      "asset": "mesa-escritorio",
+      "position": [
+        5.3,
+        5.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "lide": {
+      "asset": "mesa-reuniao",
+      "position": [
+        6.6,
+        6.3
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "rela": {
+      "asset": "mesa-centro-redonda",
+      "position": [
+        9.4,
+        5.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "muda": {
+      "asset": "quadro",
+      "position": [
+        10.6,
+        6.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "apoi": {
+      "asset": "banco-lounge",
+      "position": [
+        2.8,
+        3.1
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "puff": {
+      "asset": "puff-azul",
+      "position": [
+        1.4,
+        1.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "arvore": {
+      "asset": "arvore-sombra",
+      "position": [
+        5.4,
+        1.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "almofadas": {
+      "asset": "tapete-almofadas",
+      "position": [
+        9.4,
+        1.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "tapete": {
+      "asset": "tapete-almofadas",
+      "position": [
+        10.6,
+        2.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "capelao": {
+      "asset": null,
+      "position": [
+        1.7,
+        6.2
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": false,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "yoga": {
+      "asset": null,
+      "position": [
+        10.1,
+        2.7
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": false,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "plano": {
+      "asset": null,
+      "position": [
+        2.9,
+        2.4
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": false,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "livros": {
+      "asset": "estante-livros",
+      "position": [
+        2.8,
+        2.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "cursos": {
+      "asset": "mesa-reuniao",
+      "position": [
+        1.6,
+        5.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "frutifera": {
+      "asset": "arvore-frutifera",
+      "position": [
+        5.4,
+        5.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "banco": {
+      "asset": "banco-lounge",
+      "position": [
+        9.4,
+        5.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "intervalo": {
+      "asset": "sofa-azul",
+      "position": [
+        6.7,
+        2.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "cadeira-descompressao": {
+      "asset": "chair-cadeira_da_descompressao",
+      "physical": true,
+      "position": [
+        10.5,
+        6.9
+      ],
+      "levels": 3,
+      "type": "chair"
+    },
+    "cadeira-producao": {
+      "asset": "chair-cadeira_da_producao",
+      "physical": true,
+      "position": [
+        2.8,
+        6.9
+      ],
+      "levels": 3,
+      "type": "chair"
+    },
+    "cadeira-pensamento": {
+      "asset": "chair-cadeira_do_pensamento",
+      "physical": true,
+      "position": [
+        6.7,
+        6.9
+      ],
+      "levels": 3,
+      "type": "chair"
+    }
+  },
+  "programs": {
+    "plano": "programa_plano_saude.svg",
+    "capelao": "programa_capelao.svg",
+    "yoga": "programa_professor_yoga.svg"
+  },
+  "notes": [
+    "Aparição é exclusivamente visual. Preços/efeitos/períodos vêm de data/continuous/catalog.js.",
+    "Um item visual por melhoria/setor reduz lotação e evita cruzar corredores dos NPCs.",
+    "Ao comprar nível 2 e 3, alterar acabamento sem criar outro objeto de chão.",
+    "Programa de benefício não cria mobiliário físico nem NPC automaticamente.",
+    "Cinco artes novas geradas para testes, com prompts e origem em assets/furniture/generated/generation-manifest.json. Não substituem os originais do kit.",
+    "Régua 1 célula = 1 m, adulto 1,70 m; dimensões e âncoras são hipótese visual revisável. Copa básica não concede melhorias pagas."
+  ],
+  "rasterImported": true,
+  "baseline": {
+    "escritorio": {
+      "desk": "mesa-escritorio",
+      "table": "mesa-reuniao",
+      "chair": "poltrona-azul-a",
+      "plant": "planta-pequena",
+      "box": "gaveteiro",
+      "sofa": "sofa-azul"
+    },
+    "atendimento": {
+      "desk": "estacao-atendimento",
+      "chair": "poltrona-azul-b",
+      "plant": "planta-pequena",
+      "board": "quadro",
+      "sofa": "sofa-azul",
+      "box": "mesa-centro-redonda"
+    },
+    "producao": {
+      "crate": "caixa-material",
+      "box": "caixa-material",
+      "machine": "maquina-producao",
+      "conveyor": "esteira-producao",
+      "shelf": "estante-industrial",
+      "table": "bancada-operacional"
+    }
+  },
+  "ruler": {
+    "cellMeters": 1,
+    "adultHeight": 1.7,
+    "status": "hipotese visual ajustavel; pedido PM 27/10/2026",
+    "unitPixels": 30,
+    "tileWidth": 64,
+    "tileHeight": 32
+  },
+  "amenities": [
+    {
+      "id": "geladeira",
+      "type": "fridge",
+      "name": "Geladeira da copa",
+      "position": [
+        4.6,
+        0.9
+      ],
+      "zone": 1,
+      "scale": {
+        "width": 0.7,
+        "depth": 0.7,
+        "height": 1.8
+      },
+      "anchor": [
+        0.5,
+        1
+      ],
+      "standPoint": [
+        0.35,
+        1.1,
+        0
+      ],
+      "facing": 2,
+      "source": "canvas-procedural-v1"
+    },
+    {
+      "id": "televisao",
+      "type": "television",
+      "name": "Televisão informativa",
+      "position": [
+        0.9,
+        4.65
+      ],
+      "zone": 3,
+      "scale": {
+        "width": 1.25,
+        "depth": 0.35,
+        "height": 1.5
+      },
+      "anchor": [
+        0.5,
+        1
+      ],
+      "standPoint": [
+        0.625,
+        0.75,
+        0
+      ],
+      "facing": 2,
+      "source": "canvas-procedural-v1"
+    },
+    {
+      "id": "copa",
+      "type": "coffee",
+      "name": "Bancada de café",
+      "position": [
+        5.65,
+        0.9
+      ],
+      "zone": 1,
+      "scale": {
+        "width": 1.1,
+        "depth": 0.6,
+        "height": 1.32
+      },
+      "anchor": [
+        0.5,
+        1
+      ],
+      "standPoint": [
+        0.55,
+        1.0,
+        0
+      ],
+      "facing": 2,
+      "source": "canvas-procedural-v1"
+    },
+    {
+      "id": "banco-patio-a",
+      "type": "patioBench",
+      "name": "banco-patio-a",
+      "position": [
+        8.85,
+        4.85
+      ],
+      "zone": 5,
+      "scale": {
+        "width": 0.9,
+        "depth": 0.45,
+        "height": 0.8
+      },
+      "anchor": [
+        0.5,
+        1
+      ],
+      "standPoint": [
+        0.45,
+        0.85,
+        0
+      ],
+      "facing": 2,
+      "source": "canvas-procedural-v1"
+    },
+    {
+      "id": "banco-patio-b",
+      "type": "patioBench",
+      "name": "banco-patio-b",
+      "position": [
+        10.45,
+        4.85
+      ],
+      "zone": 5,
+      "scale": {
+        "width": 0.9,
+        "depth": 0.45,
+        "height": 0.8
+      },
+      "anchor": [
+        0.5,
+        1
+      ],
+      "standPoint": [
+        0.45,
+        0.85,
+        0
+      ],
+      "facing": 2,
+      "source": "canvas-procedural-v1"
+    },
+    {
+      "id": "jardineira-patio",
+      "type": "patioPlanter",
+      "name": "jardineira-patio",
+      "position": [
+        11.1,
+        7.0
+      ],
+      "zone": 5,
+      "scale": {
+        "width": 0.5,
+        "depth": 0.45,
+        "height": 0.8
+      },
+      "anchor": [
+        0.5,
+        1
+      ],
+      "standPoint": [
+        0.25,
+        0.85,
+        0
+      ],
+      "facing": 2,
+      "source": "canvas-procedural-v1"
+    }
+  ],
+  "restClearance": [
+    {
+      "x": 2.65,
+      "y": 0.28,
+      "w": 0.9,
+      "d": 2.15
+    },
+    {
+      "x": 6.35,
+      "y": 0.28,
+      "w": 0.9,
+      "d": 2.15
+    },
+    {
+      "x": 10.35,
+      "y": 3.05,
+      "w": 1.4,
+      "d": 0.6
+    },
+    {
+      "x": 2.25,
+      "y": 6.25,
+      "w": 0.9,
+      "d": 1.45
+    },
+    {
+      "x": 9.25,
+      "y": 6.35,
+      "w": 0.9,
+      "d": 1.35
+    }
+  ],
+  "annex": {
+    "depth": 18,
+    "startY": 8,
+    "unit": "meter",
+    "placements": [
+      {
+        "asset": "rest2-banco_wifi_completo",
+        "x": 1,
+        "y": 10
+      },
+      {
+        "asset": "rest2-fonte_agua",
+        "x": 9,
+        "y": 9.1
+      },
+      {
+        "asset": "rest2-tapete_indiano",
+        "x": 8.6,
+        "y": 12
+      },
+      {
+        "asset": "rest2-almofadas_encosto",
+        "x": 8.9,
+        "y": 14.4
+      },
+      {
+        "asset": "rest2-caixa_de_som",
+        "x": 10.8,
+        "y": 14.5
+      },
+      {
+        "asset": "rest2-incensario",
+        "x": 11.2,
+        "y": 14.5
+      }
+    ]
+  },
+  "items": {
+    "seg": {
+      "asset": "sofa-azul",
+      "position": [
+        1.4,
+        1.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "asse": {
+      "asset": "divisoria-vidro",
+      "position": [
+        2.8,
+        2.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "psic": {
+      "asset": "mesa-reuniao",
+      "position": [
+        5.4,
+        1.7
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "ergo": {
+      "asset": "mesa-escritorio",
+      "position": [
+        9.4,
+        1.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "fisi": {
+      "asset": "bebedouro",
+      "position": [
+        10.6,
+        2.6
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "espa": {
+      "asset": "divisoria-vidro",
+      "position": [
+        1.5,
+        5.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "jorn": {
+      "asset": "poltrona-azul-b",
+      "position": [
+        2.8,
+        6.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "auto": {
+      "asset": "mesa-escritorio",
+      "position": [
+        5.3,
+        5.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "lide": {
+      "asset": "mesa-reuniao",
+      "position": [
+        6.6,
+        6.3
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "rela": {
+      "asset": "mesa-centro-redonda",
+      "position": [
+        9.4,
+        5.4
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "muda": {
+      "asset": "quadro",
+      "position": [
+        10.6,
+        6.5
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "apoi": {
+      "asset": "banco-lounge",
+      "position": [
+        2.8,
+        3.1
+      ],
+      "environment": "each-work-sector",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "puff": {
+      "asset": "puff-azul",
+      "position": [
+        1.4,
+        1.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "arvore": {
+      "asset": "arvore-sombra",
+      "position": [
+        5.4,
+        1.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "almofadas": {
+      "asset": "tapete-almofadas",
+      "position": [
+        9.4,
+        1.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "tapete": {
+      "asset": "tapete-almofadas",
+      "position": [
+        10.6,
+        2.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "capelao": {
+      "asset": null,
+      "position": [
+        1.7,
+        6.2
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": false,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "yoga": {
+      "asset": null,
+      "position": [
+        10.1,
+        2.7
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": false,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "plano": {
+      "asset": null,
+      "position": [
+        2.9,
+        2.4
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": false,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "livros": {
+      "asset": "estante-livros",
+      "position": [
+        2.8,
+        2.5
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "cursos": {
+      "asset": "mesa-reuniao",
+      "position": [
+        1.6,
+        5.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "frutifera": {
+      "asset": "arvore-frutifera",
+      "position": [
+        5.4,
+        5.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "banco": {
+      "asset": "banco-lounge",
+      "position": [
+        9.4,
+        5.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "intervalo": {
+      "asset": "sofa-azul",
+      "position": [
+        6.7,
+        2.6
+      ],
+      "environment": "restauracao",
+      "levels": 3,
+      "physical": true,
+      "visualProgression": [
+        "objeto",
+        "detalhe azul",
+        "detalhe dourado"
+      ],
+      "effectSource": "canonical-purchase"
+    },
+    "cadeira-descompressao": {
+      "asset": "chair-cadeira_da_descompressao",
+      "physical": true,
+      "position": [
+        10.5,
+        6.9
+      ],
+      "levels": 3,
+      "type": "chair"
+    },
+    "cadeira-producao": {
+      "asset": "chair-cadeira_da_producao",
+      "physical": true,
+      "position": [
+        2.8,
+        6.9
+      ],
+      "levels": 3,
+      "type": "chair"
+    },
+    "cadeira-pensamento": {
+      "asset": "chair-cadeira_do_pensamento",
+      "physical": true,
+      "position": [
+        6.7,
+        6.9
+      ],
+      "levels": 3,
+      "type": "chair"
+    }
+  }
+}

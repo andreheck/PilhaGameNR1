@@ -1,0 +1,23 @@
+import fs from 'node:fs';
+const root=new URL('../',import.meta.url),file=new URL('dist/ui/continuous/iso.js',root);let s=fs.readFileSync(file,'utf8');
+const cast=JSON.parse(fs.readFileSync(new URL('data/continuous/expanded-cast.json',root),'utf8')).actors;
+function replace(a,b){if(!s.includes(a))throw Error('Expanded cast anchor: '+a.slice(0,90));s=s.replace(a,b);}
+replace('    function renderEnv(e, visitors) {',`var expandedCast=${JSON.stringify(cast.map(({id,name,sector,binding,actions})=>({id,name,sector,binding,actions})))};\n`+fs.readFileSync(new URL('ui/expanded-cast-runtime.js',root),'utf8')+'\n    function renderEnv(e, visitors) {');
+replace('      list.forEach(function (o) { o.f(); });','      expandedEntries(e,list);list.sort(function(a,b){return a.k-b.k;});list.forEach(function(o){o.f();});');
+replace('employeeHits=[];riggedDrawn={};','employeeHits=[];riggedDrawn={};expandedHits=[];expandedDrawn=[];');
+replace('      setIntroCast:setIntroCast,',`      setSupportingActor:function(id,visible){var a=expandedCast.find(function(a){return a.id===id;});if(!a||a.binding)return false;expandedGuests[id]=!!visible;render();return true;},getSupportingActors:function(){return {visible:Object.keys(expandedGuests).filter(function(k){return expandedGuests[k];}),drawn:expandedDrawn.slice()};},pickSupportingActor:function(x,y){var h=expandedHits.slice().reverse().find(function(p){return Math.hypot(x-p.x,y-p.y)<p.r;});return h&&h.id;},
+      setIntroCast:setIntroCast,`);
+// Keep the confirmed canonical NPC bindings while reusing the approved walk atlases.
+const mariana=cast.find(a=>a.id==='mariana'),w=mariana.actions.walk,t=mariana.actions.talk;
+const match=s.match(/var riggedBindings=(\{.*?\}),riggedImages=/);if(!match)throw Error('Missing canonical bindings');const bindings=JSON.parse(match[1]);
+Object.assign(bindings['NPC-07'],{walk:w.url,idle:mariana.actions.idle.url,talk:t.url,walkDuration:w.duration,talkDuration:t.duration,walkFrames:w.frames,talkFrames:t.frames,idleFrames:mariana.actions.idle.frames,idleDuration:mariana.actions.idle.duration,anchorY:w.anchorY,renderHeight:w.renderHeight});
+const garoto=cast.find(a=>a.id==='garoto'),gw=garoto.actions.walk,gt=garoto.actions.talk,gi=garoto.actions.idle;
+bindings['NPC-08']={key:'garoto',walk:gw.url,idle:gi.url,talk:gt.url,walkDuration:gw.duration,talkDuration:gt.duration,walkFrames:gw.frames,talkFrames:gt.frames,idleFrames:gi.frames,idleDuration:gi.duration,anchorY:gw.anchorY,renderHeight:gw.renderHeight};
+s=s.replace(match[0],'var riggedBindings='+JSON.stringify(bindings)+',riggedImages=');
+replace('var sh=(introDef?(introDef.renderHeight||2.7):p.isPlayer?(p.spriteHeight||2.15):2.15)*u','var sh=(introDef?(introDef.renderHeight||2.7):rigged&&rigged.renderHeight?rigged.renderHeight:p.isPlayer?(p.spriteHeight||2.15):2.15)*u');
+replace("frame=riggedAction==='idle'?0:Math.floor(Math.max(0,elapsed)/duration*frameCount)%frameCount;","if(riggedAction==='idle'){frameCount=rigged.idleFrames||1;duration=rigged.idleDuration||1;}frame=Math.floor(Math.max(0,elapsed)/duration*frameCount)%frameCount;");
+replace('ctx.drawImage(sprite,frame*128,(p.facing||0)*192,128,192,',`var atlasFrames=introDef?(introDef.frames||8):p.robotId?8:rigged?frameCount:frames,atlasWidth=sprite.naturalWidth/atlasFrames,atlasHeight=sprite.naturalHeight/4;
+        ctx.drawImage(sprite,frame*atlasWidth,(p.facing||0)*atlasHeight,atlasWidth,atlasHeight,`);
+fs.writeFileSync(file,s);
+const mfile=new URL('dist/ui/continuous/map.js',root);let m=fs.readFileSync(mfile,'utf8');const anchor='if(id&&o.onEmployee){o.onEmployee(id);return;}';if(!m.includes(anchor))throw Error('Map employee priority');m=m.replace(anchor,anchor+'var special=iso.pickSupportingActor(p.x,p.y);if(special&&o.onSupportingActor){o.onSupportingActor(special);return;}');fs.writeFileSync(mfile,m);
+console.log('Expanded cast: 10 supplied models; canonical Mariana; yoga and lawyer visual support.');

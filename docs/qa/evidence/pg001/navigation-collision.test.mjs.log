@@ -1,0 +1,13 @@
+Navigation swept collision tests: PASS
+✔ detecta obstáculo no segmento mesmo quando início e destino estão livres (1.8705ms)
+✔ movimento longo não atravessa parede estreita (tunneling) (0.4446ms)
+✔ permite deslizar pelo eixo livre quando o trajeto diagonal bloqueia (0.2212ms)
+✔ respeita limites do escritório e impede passagem em corredor obstruído (0.2172ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10.8009

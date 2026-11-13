@@ -1,0 +1,143 @@
+{
+  "source": "PM-supplied individual GLBs and cadeiras-individuais-pilha.zip",
+  "assets": [
+    {
+      "done": true,
+      "id": "cadeira_da_descompressao",
+      "scale": {
+        "width": 0.7729490399360657,
+        "depth": 0.8301622198197659,
+        "height": 1.3167117375626916
+      },
+      "origin": {
+        "x": -0.38647451996803284,
+        "y": 8.940696724635266e-10,
+        "z": -0.46159273922703337
+      },
+      "seats": [
+        {
+          "name": "SIT_cadeira_descompressao",
+          "x": 0.38647451996803284,
+          "y": 0.46159273922703337,
+          "height": 0.5599999991059303,
+          "forward": [
+            0,
+            1
+          ]
+        }
+      ],
+      "clip": {
+        "name": "pulsar",
+        "duration": 3
+      },
+      "frames": 8,
+      "frameWidth": 138,
+      "frameHeight": 171,
+      "projection": {
+        "width": 56.39053976728153,
+        "height": 70.08771115420683,
+        "anchor": [
+          0.4986492211551853,
+          0.9678560903545148
+        ]
+      },
+      "url": "/assets/individual-chairs/cadeira_da_descompressao.png",
+      "sha256": "f2dde89880ab3b96888f1e23e174bcb49f89130e82fc154fd2b7cc03b92fd5f3",
+      "sourceSha256": "235fd48b7f25c1661d7f34df43c7e114c7cefabbe383bcd2b523e43aeba8f0ed",
+      "icon": "/assets/individual-chairs/cadeira_da_descompressao-icon.png",
+      "iconSha256": "efbc2e968d70786d4af936a05925c65c7405801f7ec1fffb827503fc1b68561c"
+    },
+    {
+      "done": true,
+      "id": "cadeira_da_producao",
+      "scale": {
+        "width": 0.7502720131211689,
+        "depth": 0.7832869559213529,
+        "height": 1.5480908219709035
+      },
+      "origin": {
+        "x": -0.35500000178813934,
+        "y": 8.940696724635266e-10,
+        "z": -0.41471747532862036
+      },
+      "seats": [
+        {
+          "name": "SIT_cadeira_producao",
+          "x": 0.35500000178813934,
+          "y": 0.41471747532862036,
+          "height": 0.5599999991059303,
+          "forward": [
+            0,
+            1
+          ]
+        }
+      ],
+      "clip": {
+        "name": "subir",
+        "duration": 2.4000000953674316
+      },
+      "frames": 8,
+      "frameWidth": 132,
+      "frameHeight": 188,
+      "projection": {
+        "width": 54.106821916407334,
+        "height": 77.02780499309793,
+        "anchor": [
+          0.4911286616603054,
+          0.9673304016160295
+        ]
+      },
+      "url": "/assets/individual-chairs/cadeira_da_producao.png",
+      "sha256": "b68cf0baf2ce84aaad2f5791e644ed60c4522b59aed5728714fe7921ddadc45a",
+      "sourceSha256": "28c84083bc595ca1fc69cdf69cde56dd1b337e5384b1c058adeb3934200015d8",
+      "icon": "/assets/individual-chairs/cadeira_da_producao-icon.png",
+      "iconSha256": "5893c53603432b1469169117df24611c71be84ab4c145dc061548aa613d81092"
+    },
+    {
+      "done": true,
+      "id": "cadeira_do_pensamento",
+      "scale": {
+        "width": 0.7350000008940697,
+        "depth": 0.8255233311596611,
+        "height": 1.2213559983965698
+      },
+      "origin": {
+        "x": -0.35500000178813934,
+        "y": 8.940696724635266e-10,
+        "z": -0.4569538505669286
+      },
+      "seats": [
+        {
+          "name": "SIT_cadeira_pensamento",
+          "x": 0.35500000178813934,
+          "y": 0.4569538505669286,
+          "height": 0.5599999991059303,
+          "forward": [
+            0,
+            1
+          ]
+        }
+      ],
+      "clip": {
+        "name": "digitando",
+        "duration": 1.7999999523162842
+      },
+      "frames": 8,
+      "frameWidth": 132,
+      "frameHeight": 160,
+      "projection": {
+        "width": 54.00968168535391,
+        "height": 65.68198832439128,
+        "anchor": [
+          0.5,
+          0.9689950383389809
+        ]
+      },
+      "url": "/assets/individual-chairs/cadeira_do_pensamento.png",
+      "sha256": "6ce3783e610d5d544d581a1827e883d7112e8b5b1b4fceee0f2a1b890d19e6af",
+      "sourceSha256": "72155b557b98302ec3e31fcc85c60e20958268d606c72d2bc0660cf77ed0a5e8",
+      "icon": "/assets/individual-chairs/cadeira_do_pensamento-icon.png",
+      "iconSha256": "e1f3f050ac9b5b215fadce0789ef101a36b3e7b1ca7df3bdc6c5b21a1dd64f3e"
+    }
+  ]
+}

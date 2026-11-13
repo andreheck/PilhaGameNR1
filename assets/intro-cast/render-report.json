@@ -1,0 +1,110 @@
+[
+  {
+    "done": true,
+    "id": "heck",
+    "clip": "target_character|target_character|Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "c3cbec1d4ce2d6fe064581a032c6be8bed5c836c75fe6d2752601bbf7e774d42"
+  },
+  {
+    "done": true,
+    "id": "diretor",
+    "clip": "target_character|target_character|Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "ed92d543223f5b179f96ab8654614799d38ee72d4ceb5d751c768da2c300d9b7"
+  },
+  {
+    "done": true,
+    "id": "ensino",
+    "clip": "target_character|target_character|Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "96bf054b1615c96857955a7d3db2002725c6a90e7a56741a6ac1ecad5f77e5ab"
+  },
+  {
+    "done": true,
+    "id": "gestora",
+    "clip": "target_character|target_character|Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "cc4c9cd170fb04ac312d31b5f8d8beac2bb0e32297f6518eba419e2d301823d4"
+  },
+  {
+    "done": true,
+    "id": "administrativo",
+    "clip": "target_character|target_character|Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "6e4356082b9304b766fc94ded4d9899adfbc4a6a6a2e9339442322f50c213bef"
+  },
+  {
+    "done": true,
+    "id": "chibi",
+    "clip": "Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "1d51264cc378b4f735288e22a0c120097d38ce4230d52c250d61d75162f17b3e"
+  },
+  {
+    "done": true,
+    "id": "logistica-1",
+    "clip": "Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "1d51264cc378b4f735288e22a0c120097d38ce4230d52c250d61d75162f17b3e"
+  },
+  {
+    "done": true,
+    "id": "logistica-2",
+    "clip": "target_character|target_character|Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "76009a2241f35c9d2771297ceffb61f5dbbb30c9cedefe08a2c0748a415250dd"
+  },
+  {
+    "done": true,
+    "id": "psicologa",
+    "clip": "Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "151802a80830bc1e59ac65ea8d6e638db5a1cdc41e25ad6b138702fb1fd1c606"
+  },
+  {
+    "done": true,
+    "id": "psicologa-tall",
+    "clip": "Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "d0aa52274c70df0842043891eab7bca3598f34e17b2845084fe6ed9a7ebd637f"
+  },
+  {
+    "done": true,
+    "id": "psiquiatra",
+    "clip": "Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "2b8885c476a4096d95519d0e37be2c220b0221a20c9035628552fbd61b9a3eb0"
+  },
+  {
+    "done": true,
+    "id": "psiquiatra-2",
+    "clip": "Walking",
+    "duration": 1.0833333730697632,
+    "bones": 23,
+    "anchorY": 0.7919900286053034,
+    "atlasSha256": "e58dd14eb96ba31ae6f49f1090d22977440160557c28acf3333b974f77bc9e54"
+  }
+]

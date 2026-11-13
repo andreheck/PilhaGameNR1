@@ -1,0 +1,19 @@
+<!doctype html><meta charset="utf-8"><title>Elenco da abertura</title><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script><script type="module">
+import * as T from 'three';import {FBXLoader} from 'three/addons/loaders/FBXLoader.js';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+window.castResult={done:false};try{
+ const def=await(await fetch('/config'+location.search)).json(),base='/source/'+def.id+'/';
+ const manager=new T.LoadingManager();manager.setURLModifier(url=>{if(url.startsWith('data:')||url.startsWith('blob:'))return url;const name=decodeURIComponent(url).split(/[\\/]/).at(-1);return base+encodeURIComponent(name);});
+ let model,clips;
+ if(def.source.endsWith('.glb')){const gltf=await new GLTFLoader(manager).loadAsync(base+'model.glb');model=gltf.scene;clips=gltf.animations;}else{model=await new FBXLoader(manager).loadAsync(base+'model.fbx');clips=model.animations;}
+ const walk=clips.find(c=>/walking|(^|[^a-z])walk($|[^a-z])/i.test(c.name));if(!walk)throw Error('No named walking clip in '+def.id);
+ let skin;model.traverse(o=>{if(o.isSkinnedMesh&&!skin)skin=o;if(o.isMesh)o.frustumCulled=false;});if(!skin)throw Error('Missing animated skin');
+ if(def.texture){const tex=await new T.TextureLoader().loadAsync(base+encodeURIComponent(def.texture));tex.colorSpace=T.SRGBColorSpace;model.traverse(o=>{if(o.isMesh)o.material=new T.MeshStandardMaterial({map:tex,roughness:.8,metalness:.05,side:T.DoubleSide});});}
+ const renderer=new T.WebGLRenderer({alpha:true,antialias:true,preserveDrawingBuffer:true});renderer.setSize(128,192);renderer.setClearColor(0,0);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
+ const scene=new T.Scene(),normalizer=new T.Group(),pivot=new T.Group();normalizer.add(model);pivot.add(normalizer);scene.add(pivot);scene.add(new T.HemisphereLight(0xffffff,0x73839a,2.1));const light=new T.DirectionalLight(0xffffff,2.7);light.position.set(4,7,5);scene.add(light);
+ const camera=new T.OrthographicCamera(-.9,.9,1.35,-1.35,.1,100);camera.position.set(5,3.7,5);camera.lookAt(0,.85,0);const mixer=new T.AnimationMixer(model),root=skin.skeleton.bones.find(b=>/hips|pelvis/i.test(b.name))||skin.skeleton.bones[0];let origin;
+ function pose(t){mixer.stopAllAction();mixer.clipAction(walk).reset().play();mixer.setTime(t);if(!origin)origin=root.position.clone();root.position.x=origin.x;root.position.z=origin.z;model.updateMatrixWorld(true);}
+ const bounds=new T.Box3();for(let i=0;i<8;i++){pose(i/8*walk.duration);bounds.union(new T.Box3().setFromObject(model));}const size=bounds.getSize(new T.Vector3()),center=bounds.getCenter(new T.Vector3());if(!Number.isFinite(size.y)||size.y<=0)throw Error('Invalid bounds');normalizer.scale.setScalar(1.7/size.y);model.position.sub(new T.Vector3(center.x,bounds.min.y,center.z));const fixed=model.position.clone();
+ const atlas=document.createElement('canvas');atlas.width=1024;atlas.height=768;const ctx=atlas.getContext('2d');for(let dir=0;dir<4;dir++)for(let f=0;f<8;f++){pose(f/8*walk.duration);model.position.copy(fixed);pivot.rotation.y=dir*Math.PI/2;pivot.updateMatrixWorld(true);renderer.render(scene,camera);ctx.drawImage(renderer.domElement,f*128,dir*192);}
+ camera.updateMatrixWorld(true);const ground=new T.Vector3(0,0,0).project(camera);document.body.append(atlas);window.castResult={done:true,id:def.id,clip:walk.name,duration:walk.duration,bones:skin.skeleton.bones.length,anchorY:.5-.5*ground.y,data:atlas.toDataURL('image/png')};renderer.dispose();
+}catch(e){window.castResult={done:true,error:String(e.stack||e)};}
+</script>
