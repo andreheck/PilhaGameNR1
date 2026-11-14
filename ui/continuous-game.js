@@ -15,6 +15,7 @@ import {SPECIALS,specialStatus,eligibleSpecialTargets,activateSpecial} from '../
 import {completeInitialHiring} from '../simulation/initial-hiring.js';
 import {assessTeam,individualTeamTraits,randomInitialHiring} from '../simulation/team-synergy.js';
 import {EMPLOYEES} from '../data/continuous/employees.js';
+import {characterMotto} from '../data/continuous/character-mottos.js';
 import {avatar} from './employee-panel.js';
 import {employeePortrait} from './employee-portraits.js';
 import {weeklyIncomeQuote} from '../simulation/weekly-income.js';
@@ -116,7 +117,7 @@ function openHiringPreview(id){
  const f=p.profile||{},list=values=>Array.isArray(values)&&values.length?`<ul>${values.map(value=>`<li>${esc(value)}</li>`).join('')}</ul>`:'<p class="hiring-preview-muted">Conteúdo editorial em preparação.</p>';
  const traitMarkup=individualTeamTraits(p.id).map(t=>`<div class="team-trait team-trait--${t.tone}"><span>${t.label}</span><b>${t.value}</b><i><em style="--trait:${t.value}%"></em></i><small>${t.tone==='positive'?'Ponto forte':t.tone==='negative'?'Ponto de atenção':'Equilibrado'}</small></div>`).join('');
  const tabs={
-  perfil:{label:'Perfil',content:`<p class="hiring-preview-role">${esc(p.organization.position)} · ${esc(sec(p.home).name)}</p><p>${esc(f.summary||'Perfil em preparação.')}</p><p class="hiring-preview-muted">${esc(f.roleLabel||p.role||'')}</p><h3>Contribuição no jogo</h3><div class="individual-team-traits">${traitMarkup}</div><p class="hiring-preview-muted">Indicadores fictícios de composição de equipe; não definem saúde, personalidade ou desempenho real.</p>`},
+  perfil:{label:'Perfil',content:`<p class="hiring-preview-role">${esc(p.organization.position)} · ${esc(sec(p.home).name)}</p><blockquote class="hiring-preview-motto">“${esc(characterMotto(p.id))}”</blockquote><p>${esc(f.summary||'Perfil em preparação.')}</p><p class="hiring-preview-muted">${esc(f.roleLabel||p.role||'')}</p><h3>Contribuição no jogo</h3><div class="individual-team-traits">${traitMarkup}</div><p class="hiring-preview-muted">Indicadores fictícios de composição de equipe; não definem saúde, personalidade ou desempenho real.</p>`},
   contribuicoes:{label:'Contribuições',content:`<h3>Forças e contribuições</h3>${list(f.strengths||[p.strength].filter(Boolean))}`},
   apoios:{label:'Apoios',content:`<h3>Condições favoráveis</h3>${list(f.favorableConditions)}<h3>Pontos de atenção</h3>${list(f.watchouts)}${f.adverseConditions?.length?`<h3>Contextos a acompanhar</h3>${list(f.adverseConditions)}`:''}`}
  };
@@ -149,8 +150,8 @@ function openInitialHiring(){
  d.addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
   if(b.dataset.hiringPreview){openHiringPreview(b.dataset.hiringPreview);}
   else if(b.hasAttribute('data-hiring-random')){const random=randomInitialHiring();if(random){managers=random.managers;employees=random.employees;step=1;paint();d.scrollTop=0;}}
-  else if(b.dataset.hireManager){const p=EMPLOYEES.find(p=>p.id===b.dataset.hireManager);managers[p.home]=p.id;employees=employees.filter(id=>!Object.values(managers).includes(id));paint();}
-  else if(b.dataset.hireEmployee){const id=b.dataset.hireEmployee;employees=employees.includes(id)?employees.filter(x=>x!==id):employees.length<3?[...employees,id]:employees;paint();}
+  else if(b.dataset.hireManager){const p=EMPLOYEES.find(p=>p.id===b.dataset.hireManager);managers[p.home]=p.id;employees=employees.filter(id=>!Object.values(managers).includes(id));paint();openHiringPreview(p.id);}
+  else if(b.dataset.hireEmployee){const id=b.dataset.hireEmployee,selected=!employees.includes(id);employees=selected?employees.length<3?[...employees,id]:employees:employees.filter(x=>x!==id);paint();if(selected&&employees.includes(id))openHiringPreview(id);}
   else if(b.hasAttribute('data-hiring-back')){step=0;paint();}
   else if(b.hasAttribute('data-hiring-next')){if(!step){step=1;paint();d.scrollTop=0;}else{b.disabled=true;const r=await change(s=>completeInitialHiring(s,managers,employees));if(r.ok){d.close();mountMap();displayInitialTeamBuild();firstObjective.startAfterHiring();}else paint();}}
  });paint();
