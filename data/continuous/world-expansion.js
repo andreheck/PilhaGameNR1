@@ -1,6 +1,6 @@
 /** Fixed square of the game world. Empty plots are reserved for future places. */
 export const WORLD_PLOT=Object.freeze({
-  x:-5,y:-10,size:48,unit:'map-unit',
+  x:-5,y:-10,size:50,unit:'map-unit',
   reservedLots:Object.freeze([
     {id:'expansao-leste',name:'Área reservada',x:31,y:14,size:9},
     {id:'expansao-oeste',name:'Área reservada',x:-5,y:20,size:9},

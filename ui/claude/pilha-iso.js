@@ -56,7 +56,8 @@
   var PALETTES = {
     escritorio: { floorA: "#3a4f6b", floorB: "#33465f", wall: "#2a4160", wallR: "#223652", line: "rgba(255,255,255,.14)" },
     producao:   { floorA: "#555f6d", floorB: "#4c5663", wall: "#37465a", wallR: "#2d3a4b", line: "rgba(255,210,75,.5)" },
-    atendimento:{ floorA: "#40407a", floorB: "#393970", wall: "#35356b", wallR: "#2b2b58", line: "rgba(190,160,255,.25)" }
+    atendimento:{ floorA: "#40407a", floorB: "#393970", wall: "#35356b", wallR: "#2b2b58", line: "rgba(190,160,255,.25)" },
+    restauracao:{ floorA: "#466e59", floorB: "#3f644f", wall: "#315747", wallR: "#28483c", line: "rgba(182,224,177,.28)" }
   };
 
   /* ---------- utilidades ---------- */
@@ -68,6 +69,7 @@
   // hl = "saúde" local (0 doente, 1 saudável); f = sombreamento da face
   function tone(c, hl, f) {
     var r = typeof c === "string" ? hex(c) : c;
+    if(!r||r.length<3)r=hex("#ffd24b");
     var g = r[0] * 0.3 + r[1] * 0.59 + r[2] * 0.11;
     var k = 0.78 * (1 - hl);
     var b = (0.64 + 0.36 * hl) * (f || 1);
@@ -386,7 +388,7 @@
       var lean = (1 - hz) * 0.12 * u;
       ell(fx, fy, 0.26 * u, 0.11 * u, "rgba(0,0,0,.28)");
       var hipY = fy - (sit ? 0.42 : 0.62) * u + bob;
-      var sprite = p.isPlayer&&playerSpriteImage ? playerSpriteImage : (sharedIndexMode && !sit && p.npc >= 0 && npcSheets.length ? npcSheets[(p.sprite==null?p.npc+Math.max(0,order.indexOf(e.key)):p.sprite)%npcSheets.length] : null);
+      var sprite = p.isPlayer&&playerSpriteImage&&!p.sit ? playerSpriteImage : (sharedIndexMode && !sit && p.npc >= 0 && npcSheets.length ? npcSheets[(p.sprite==null?p.npc+Math.max(0,order.indexOf(e.key)):p.sprite)%npcSheets.length] : null);
       if(!sprite&&furnitureCatalog){u*=furnitureCatalog.ruler.adultHeight/1.43;hipY=fy-(sit?.42:.62)*u+bob;}
       if(!sprite){
       if (!sit) {

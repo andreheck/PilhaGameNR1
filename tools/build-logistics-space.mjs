@@ -4,8 +4,10 @@ const file=new URL('../dist/ui/continuous/iso.js',import.meta.url);let s=fs.read
 function replace(a,b){if(!s.includes(a))throw Error('Logistics anchor: '+a.slice(0,100));s=s.replace(a,b);}
 replace('    function renderEnv(e, visitors) {',`var logisticsSpace=${JSON.stringify(LOGISTICS_SPACE)},worldPlot=${JSON.stringify(WORLD_PLOT)};
 function drawWorldPlot(){if(!worldCfg)return;var oldX=bx,oldY=by;bx=0;by=0;var x=worldPlot.x,y=worldPlot.y,n=worldPlot.size,z=-SLAB-.42;
- poly([P(x,y,z),P(x+n,y,z),P(x+n,y+n,z),P(x,y+n,z)],'#122b38','#416477',Math.max(2,2.1*s));
- worldPlot.reservedLots.forEach(function(lot){var q=[P(lot.x,lot.y,-SLAB-.025),P(lot.x+lot.size,lot.y,-SLAB-.025),P(lot.x+lot.size,lot.y+lot.size,-SLAB-.025),P(lot.x,lot.y+lot.size,-SLAB-.025)];poly(q,'rgba(93,181,194,.045)','rgba(112,204,216,.44)',Math.max(1.2,1.4*s));if(cam.k>=.82){var c=P(lot.x+lot.size/2,lot.y+lot.size/2,-.18);pill(c[0],c[1],lot.name,{fs:Math.max(8,9*s),bg:'rgba(7,23,38,.72)',border:'rgba(112,204,216,.35)',color:'#a8cbd5'});}});bx=oldX;by=oldY;}
+ poly([P(x,y,z),P(x+n,y,z),P(x+n,y+n,z),P(x,y+n,z)],'#31483f','#647971',Math.max(2,2.1*s));
+ worldPlot.reservedLots.forEach(function(lot,i){var q=[P(lot.x,lot.y,-SLAB-.025),P(lot.x+lot.size,lot.y,-SLAB-.025),P(lot.x+lot.size,lot.y+lot.size,-SLAB-.025),P(lot.x,lot.y+lot.size,-SLAB-.025)];poly(q,i%2?'#3c5a48':'#365341','rgba(166,202,153,.18)',Math.max(1,1.1*s));for(var g=0;g<3;g++){var xx=lot.x+.8+g*2.3,yy=lot.y+lot.size*.28;poly([P(xx,yy,-.01),P(xx+.55,yy,-.01),P(xx+.55,yy+lot.size*.42,-.01),P(xx,yy+lot.size*.42,-.01)],g%2?'rgba(158,195,139,.08)':'rgba(226,209,149,.08)');}});
+ var yard=worldCfg.find(function(c){return c.key==='restauracao';});if(yard){var gy=yard.by+17.8,ex=worldPlot.y+worldPlot.size-.6,wx=yard.bx+7.5,w=.72;poly([P(wx-w,gy,-.005),P(wx+w,gy,-.005),P(wx+w,ex,-.005),P(wx-w,ex,-.005)],'#879087','rgba(220,221,199,.35)',Math.max(1,1.2*s));for(var k=0;k<5;k++){var ty=gy+(ex-gy)*k/5,c1=P(wx-w*.55,ty,-.002),c2=P(wx+w*.55,ty,-.002);ctx.beginPath();ctx.moveTo(c1[0],c1[1]);ctx.lineTo(c2[0],c2[1]);ctx.strokeStyle='#c6c6ad66';ctx.lineWidth=Math.max(.7,s*.6);ctx.stroke();}}
+ bx=oldX;by=oldY;}
 function drawLogisticsExtension(e){if(!worldCfg||e.key!=='producao')return;
  poly([P(12,0,0),P(25,0,0),P(25,12,0),P(12,12,0)],'#40525a');
  poly([P(25,0,0),P(25,12,0),P(25,12,-SLAB),P(25,0,-SLAB)],'#223742');
