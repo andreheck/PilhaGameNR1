@@ -123,3 +123,44 @@ Valores padrão sugeridos para protótipo: 5 dias de trabalho por semana e 22 di
 4. Custos de transporte permanecem configuráveis até serem balanceados.
 5. Uma intervenção em transporte ou acesso a serviços recalcula indicadores e mostra o efeito visual/notificação correspondente.
 6. Nenhum teste de navegador deve ser declarado concluído sem execução real e registro dos resultados.
+
+## Conceito visual da expansão costeira — referência de 15/11/2026
+
+Este bloco registra a planta enviada pelo usuário para uma futura expansão do mapa. É direção de composição e conteúdo; não indica que os prédios, a praia ou suas interações já estejam implementados. A imagem anexada serve como referência de diorama isométrico. O quadriculado visível ao redor do diorama representa o fundo de transparência da imagem e não deve ser reproduzido no terreno do jogo.
+
+### Organização espacial
+
+Usar a vista isométrica como leitura geral, com setores reconhecíveis, vias contínuas e espaço entre edifícios. A composição deve seguir a ordem frente/fundo descrita abaixo; “esquerda” e “direita” são relativas à vista principal do mapa:
+
+1. **Orla na frente do mapa:** faixa de areia ao longo da borda inferior, mar azul contíguo, guarda-sóis e espaço de praia. Imediatamente atrás da areia, um calçadão arborizado com palmeiras, bancos e quiosques.
+2. **Avenida e cruzamento:** avenida asfaltada de mão dupla atravessa horizontalmente a área urbana. Um cruzamento central em T conecta a avenida à via de acesso ao interior. Travessias e calçadas devem tornar legíveis os percursos entre os dois lados e a Pilha Corp.
+3. **Pilha Corp:** edifício comercial térreo, alongado por toda a frente do quarteirão, voltado para a avenida. Manter sua fachada distinguível dos serviços comerciais vizinhos.
+4. **Zona residencial à esquerda:** três casas independentes na parte frontal, cada uma em terreno gramado e cercado; dois edifícios residenciais separados, com até três andares, na parte central; encosta verde ao fundo com seis barracos coloridos e seis caminhos de escadaria/terra serpenteando o morro e conectando o alto à parte baixa.
+5. **Zona de serviços à direita:** no centro-direita, polo gastronômico unificado com Paradinho Café e lanchonete Bolinho de Carne, mesas externas e ombrelones. Na extrema direita, complexo UPA 24x7 com setor de emergência, acesso viário, ambulância posicionada e anexo com terraço verde estruturado para yoga.
+
+### Contagens e interpretação canônica
+
+- **Casas residenciais:** 3, em lotes separados e cercados.
+- **Edifícios residenciais de apartamentos:** 2, até 3 andares cada. Esta contagem segue o detalhamento final da planta; a anotação inicial em ASCII que citava 3 prédios fica superada para este conceito.
+- **Barracos no morro:** 6, em cores variadas.
+- **Caminhos de escadaria/terra:** 6, claramente distinguíveis na encosta.
+- **Polo gastronômico:** 2 operações identificáveis no mesmo setor: Paradinho Café e Bolinho de Carne.
+- **Complexo de saúde:** UPA 24x7 e seu anexo de terraço verde para yoga.
+
+### Diretrizes para futura produção
+
+- Construir e revisar o mapa por setores, garantindo primeiro a silhueta e circulação geral antes de detalhar fachadas, vegetação, veículos e mobiliário.
+- Preservar corredores de pedestres e acessos entre morro, residência, comércio, Pilha Corp e orla; não bloquear a avenida ou o cruzamento com decoração.
+- Diferenciar visualmente areia, água, calçadão, asfalto, gramado e terreno inclinado. O mar deve ocupar a borda frontal costeira e permanecer distinto da via urbana.
+- Manter leitura limpa e escala coerente: poucos elementos repetidos com variações pontuais; não preencher todo espaço livre com móveis ou adereços.
+- Esta planta, por si só, não define navegação de NPCs, atividades clicáveis, preços, efeitos de saúde/bem-estar, missões ou progressão. Essas regras precisam ser especificadas e implementadas separadamente.
+- Os tempos de deslocamento, opções de transporte e efeitos socioespaciais definidos nas seções anteriores continuam sendo parâmetros de jogo separados; a nova imagem não fornece nem altera esses valores.
+
+### Checklist de revisão visual do conceito
+
+1. A orla ocupa a frente inferior, com mar e areia visivelmente separados do calçadão.
+2. O calçadão arborizado fica atrás da areia; a avenida de mão dupla e seu T ficam atrás/ao lado da faixa frontal, conectando os setores sem interrupções.
+3. A Pilha Corp ocupa a frente do quarteirão e encara a avenida.
+4. A zona residencial fica à esquerda, com as contagens canônicas acima, e o morro com seis escadarias legíveis ao fundo.
+5. O polo gastronômico está no centro-direita e a UPA com ambulância e terraço verde na extrema direita.
+6. A imagem final do jogo não inclui o quadriculado usado para indicar transparência no arquivo de referência.

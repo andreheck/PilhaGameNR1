@@ -42,3 +42,13 @@ html,body,#continuous-app{margin:0;width:100%;height:100%;overflow:hidden;backgr
 .first-objective-card button:focus-visible{outline:3px solid #8ab8ff;outline-offset:3px}
 @media(max-width:540px){.first-objective-card header{margin-bottom:20px}.first-objective-card footer button{flex:1}.first-objective-card footer .first-objective-primary{margin-left:0}}
 @media(prefers-reduced-motion:reduce){.first-objective::backdrop{backdrop-filter:none}}
+
+/* Feedback tátil e transições consistentes nos controles do jogo. */
+button{transition:transform .16s cubic-bezier(.2,.8,.2,1),filter .16s ease,box-shadow .18s ease,border-color .18s ease,background-color .18s ease,color .18s ease}
+button:hover{filter:brightness(1.045)}
+button:active{transform:translateY(1px) scale(.985)}
+dialog[open]:not(.player-character-dialog){animation:game-dialog-enter .22s cubic-bezier(.2,.8,.2,1) both}
+dialog[open]::backdrop{animation:game-backdrop-enter .2s ease both}
+@keyframes game-dialog-enter{from{opacity:0;transform:translateY(9px) scale(.992)}to{opacity:1;transform:none}}
+@keyframes game-backdrop-enter{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){button{transition:none!important}button:active{transform:none}dialog[open]:not(.player-character-dialog),dialog[open]::backdrop{animation:none!important}}

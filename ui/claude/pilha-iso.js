@@ -613,13 +613,13 @@
 
     function drawPlazas() {
       if(sharedIndexMode){
-        var pts=[];worldCfg.forEach(function(c){[[c.bx-.7,c.by-.7],[c.bx+W+.7,c.by-.7],[c.bx+W+.7,c.by+D+.7],[c.bx-.7,c.by+D+.7]].forEach(function(p){pts.push(p);});});
-        pts.sort(function(a,b){return a[0]-b[0]||a[1]-b[1];});
-        function cross(o,a,b){return (a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);}
-        var lower=[],upper=[];pts.forEach(function(p){while(lower.length>=2&&cross(lower[lower.length-2],lower[lower.length-1],p)<=0)lower.pop();lower.push(p);});pts.slice().reverse().forEach(function(p){while(upper.length>=2&&cross(upper[upper.length-2],upper[upper.length-1],p)<=0)upper.pop();upper.push(p);});
-        lower.pop();upper.pop();var hull=lower.concat(upper);
-        poly(hull.map(function(p){return P(p[0]+.2,p[1]+.2,-SLAB-.35);}), 'rgba(2,10,25,.4)');
-        poly(hull.map(function(p){return P(p[0],p[1],-SLAB-.06);}), '#1b3548','rgba(116,214,229,.3)',Math.max(1,1.4*s));return;
+        // Keep each room on its own footing: a convex hull filled the empty
+        // center between departments and looked like a misplaced fourth room.
+        worldCfg.forEach(function(c){
+          var m=.55,footprint=[[c.bx-m,c.by-m],[c.bx+W+m,c.by-m],[c.bx+W+m,c.by+D+m],[c.bx-m,c.by+D+m]];
+          poly(footprint.map(function(p){return P(p[0]+.12,p[1]+.12,-SLAB-.35);}), 'rgba(2,10,25,.32)');
+          poly(footprint.map(function(p){return P(p[0],p[1],-SLAB-.06);}), '#1b3548','rgba(116,214,229,.24)',Math.max(1,1.2*s));
+        });return;
       }
       worldCfg.forEach(function (c) {
         var h = avgH(c.env), z = -SLAB - 0.02, m = 1.4;
