@@ -16,7 +16,6 @@ map=replace(map,'iso.setSharedIndexMode(!!o.model);','iso.setSharedIndexMode(fal
 map=replace(map,'if(o.model)iso.setInventory(st.owned||[]);','if(o.model)iso.setSectorInventory(st.levels||[]);');
 map=replace(map,'"Índice do ciclo · compartilhado"','"Índice da empresa · meta 45"');
 map=replace(map,'root.querySelector(".pm-goal__bar u").hidden = true;','root.querySelector(".pm-goal__bar u").hidden = false;');
-map=replace(map,"o.model ? (st.owned.length ? '· em melhoria' : '· observar') : Math.round(h) + '%'","Math.round(h) + '%'");
 map=replace(map,'o.model.body(SECTORS[sel], st)','o.model.body(SECTORS[sel], st, {zone:selZone,filter:catFilter})');
 map=replace(map,'setMotion: setMotion, refresh: refresh','toast: toast, setMotion: setMotion, refresh: refresh');
 map=replace(map,'"1","2","3"','"1","2","3","4"');

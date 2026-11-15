@@ -327,3 +327,9 @@
 .pm-stage:has(>.living-topbar)>.pm-view .pm-zoom{bottom:164px}.pm-stage:has(>.living-topbar)>.pm-view .collective-health-widget{bottom:168px}
 @media(max-width:1000px){.explorer-dock__heatmap{gap:5px}.explorer-dock__heatmap-title{grid-template-columns:1fr;gap:1px}.explorer-dock__heatmap-title small{font-size:6px}}
 @media(max-width:700px){.explorer-dock__heatmap{gap:5px;padding-top:0}.explorer-dock__heatmap-title b{min-width:23px;height:19px;font-size:9px}.explorer-dock__heat-cells{gap:3px}.explorer-heat-cell{min-height:22px;padding:2px 4px}.explorer-heat-cell>span{font-size:6px}.explorer-heat-cell>b{font-size:8px}.pm-stage:has(>.living-topbar)>.pm-view .pm-zoom{bottom:220px}.pm-stage:has(>.living-topbar)>.pm-view .collective-health-widget{bottom:220px}}
+
+/* The command dock sits at the bottom, so its menu must open into the map. */
+.explorer-dock__nav-tools{position:relative;z-index:20;overflow:visible}
+.explorer-dock__nav-tools .living-more{position:relative;z-index:21}
+.explorer-dock .living-more-panel{top:auto;bottom:calc(100% + 8px);right:0;z-index:50;max-height:min(70dvh,640px);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#557596 transparent}
+.explorer-dock__nav-sectors .pm-tab em{display:none}

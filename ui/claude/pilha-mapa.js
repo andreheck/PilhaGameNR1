@@ -284,7 +284,7 @@
         t.setAttribute("aria-pressed", String(i === sel));
         if (i >= 0) {
           var h = health(st, SECTORS[i].id);
-          t.querySelector("em").textContent = o.model ? (st.owned.length ? '· em melhoria' : '· observar') : Math.round(h) + '%';
+          t.querySelector("em").textContent = o.model ? "" : Math.round(h) + '%';
           t.querySelector("i").style.setProperty("--c", hcolor(h));
         }
       });
