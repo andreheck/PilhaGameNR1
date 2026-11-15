@@ -1,5 +1,7 @@
 # Governança vigente — PM / PO / Codex
 
+> **Decisão PM — 15/11/2026:** o destino público do jogo é `https://vaideplanob.com.br/ao-trabalho/` no site principal. Esta decisão substitui, para as próximas entregas, a rota de subdomínio citada no histórico de 10/11. Preservar o site principal e manter as entregas em branch; não fazer merge em `main`.
+
 > **Decisão do PM — 10/11/2026:** priorizar desktop e tablet; celular empresarial para mensagens, finanças, RH/vagas e galeria de dez conquistas. Segurança Psicológica (`seg`) deixa de ser vendida na empresa contínua e passa a classificação conquistada PT22 (“Melhor Lugar Para se Trabalhar”), com critérios combinados e duas avaliações semanais. Preservar recibos/efeitos anteriores, saldo, dados e progresso; não conceder moeda, saúde ou XP por troféu sem regra aprovada. Pendências/limites e critérios em `docs/releases/CELULAR-TROFEUS-PT22-2026-11-10.md`. Preview de testes autorizado continua aplicável; sem merge/main.
 
 > **Receita semanal autorizada pelo PM — 23/10/2026:** R$ 500 fictícios por semana nova + R$ 250 por herói épico da dupla salva (raridade canônica). Dois épicos totalizam R$ 1.000; épico + lendário, R$ 750. Crédito no orçamento compartilhado, uma vez por semana; sem retroativo em saves antigos, sem pagamento por troca de dupla. Relatório: `docs/releases/RECEITA-SEMANAL-2026-10-23.md`. Manter pausa, persistência, gestão e câmera. Sem merge ou produção.

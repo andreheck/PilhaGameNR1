@@ -1,6 +1,6 @@
 /* Clickable scenery and outdoor navigation, layered over the existing world simulation. */
 var activePlayerObject=null,playerActivity='idle',playerActivityUntil=0;
-function playerBounds(room){return{x0:0,x1:room.key==='producao'?25:W,y0:room.key==='escritorio'?-6:0,y1:room.key==='restauracao'?18:room.key==='producao'?12:room.key==='escritorio'?8:(room.depth||D)};}
+function playerBounds(room){return{x0:0,x1:room.key==='producao'?25:W,y0:room.key==='escritorio'?-6:0,y1:room.key==='restauracao'?26:room.key==='producao'?12:room.key==='escritorio'?8:(room.depth||D)};}
 function playerAStar(start,target,bounds,obstacles,step){
  step=step||.5;var cols=Math.ceil((bounds.x1-bounds.x0)/step)+1,rows=Math.ceil((bounds.y1-bounds.y0)/step)+1,total=cols*rows;
  function xy(id){return{x:bounds.x0+(id%cols)*step,y:bounds.y0+Math.floor(id/cols)*step};}
@@ -19,9 +19,9 @@ function playerAStar(start,target,bounds,obstacles,step){
 }
 function playerRouteWithin(room,start,target){var b=playerBounds(room),items=room.env.items,obstacles=items.filter(function(it){return !it.layoutHidden&&!it.visualProgram&&!it.walkable;}).map(function(it){return{x:it.x-.2,y:it.y-.2,w:it.w+.4,d:it.d+.4};});var path=playerAStar(start,target,b,obstacles,.5);return path||[];}
 function playerWorldPointAtScreen(px,py){applyCam();var u=cam.cx+(px-cw/2)/s,v=cam.cy+(py-ch/2)/s+.55*ZU,a=u/(TW/2),b=v/(TH/2),x=(a+b)/2,y=(b-a)/2,plot=worldPlot;if(roomAt(x,y))return{x:x,y:y};if(plot&&x>=plot.x&&x<=plot.x+plot.size&&y>=plot.y&&y<=plot.y+plot.size)return{x:x,y:y};return null;}
-function playerOutsidePath(start,target){var plot=worldPlot,obstacles=[];if(!plot)return null;worldCfg.forEach(function(c){var maxX=c.key==='producao'?25:c.key==='escritorio'?8:W,minY=c.key==='escritorio'?-6:0,maxY=c.key==='restauracao'?18:c.key==='producao'?12:c.key==='escritorio'?0:(c.depth||D);obstacles.push({x:c.bx-.28,y:c.by+minY-.28,w:maxX+.56,d:maxY-minY+.56});});var bounds={x0:plot.x,y0:plot.y,x1:plot.x+plot.size,y1:plot.y+plot.size};return playerAStar(start,target,bounds,obstacles,.5);}
+function playerOutsidePath(start,target){var plot=worldPlot,obstacles=[];if(!plot)return null;worldCfg.forEach(function(c){var maxX=c.key==='producao'?25:c.key==='escritorio'?8:W,minY=c.key==='escritorio'?-6:0,maxY=c.key==='restauracao'?26:c.key==='producao'?12:c.key==='escritorio'?0:(c.depth||D);obstacles.push({x:c.bx-.28,y:c.by+minY-.28,w:maxX+.56,d:maxY-minY+.56});});var bounds={x0:plot.x,y0:plot.y,x1:plot.x+plot.size,y1:plot.y+plot.size};return playerAStar(start,target,bounds,obstacles,.5);}
 function planPlayerIndoor(from,to){var prior={x:playerActor.x,y:playerActor.y,moving:playerActor.moving},route=playerRoute.slice();playerRoute=[];playerActor.x=from.x;playerActor.y=from.y;playerActor.moving=false;var ok=routePlayerIndoorTo(to.x,to.y),planned=ok?playerRoute.slice():null;playerActor.x=prior.x;playerActor.y=prior.y;playerActor.moving=prior.moving;playerRoute=route;return planned;}
-function routePlayerTo(x,y){if(!playerActor||!worldCfg)return false;var startRoom=roomAt(playerActor.x,playerActor.y),goalRoom=roomAt(x,y),yard=worldCfg.find(function(c){return c.key==='restauracao';});if(startRoom&&goalRoom)return routePlayerIndoorTo(x,y);if(!yard)return false;var gateIn={x:yard.bx+7.5,y:yard.by+17.55},gateOut={x:yard.bx+7.5,y:yard.by+18.45},outPath=null,combined=[];
+function routePlayerTo(x,y){if(!playerActor||!worldCfg)return false;var startRoom=roomAt(playerActor.x,playerActor.y),goalRoom=roomAt(x,y),yard=worldCfg.find(function(c){return c.key==='restauracao';});if(startRoom&&goalRoom)return routePlayerIndoorTo(x,y);if(!yard)return false;var gateIn={x:yard.bx+6.2,y:yard.by+25.55},gateOut={x:yard.bx+6.2,y:yard.by+26.45},outPath=null,combined=[];
  if(startRoom&&!goalRoom){var first=planPlayerIndoor({x:playerActor.x,y:playerActor.y},{x:gateIn.x,y:gateIn.y});if(!first)return false;outPath=playerOutsidePath(gateOut,{x:x,y:y});if(!outPath)return false;combined=first.concat([{x:gateOut.x,y:gateOut.y}],outPath.slice(1));}
  else if(!startRoom&&goalRoom){outPath=playerOutsidePath({x:playerActor.x,y:playerActor.y},gateOut);if(!outPath)return false;var last=planPlayerIndoor(gateIn,{x:x,y:y});if(!last)return false;combined=outPath.concat([{x:gateIn.x,y:gateIn.y}],last.slice(1));}
  else if(!startRoom&&!goalRoom){outPath=playerOutsidePath({x:playerActor.x,y:playerActor.y},{x:x,y:y});if(!outPath)return false;combined=outPath;}
@@ -36,7 +36,7 @@ function playerObjectList(){
   else if(type==='desk'||type==='table')actions=[['work','Interagir'],['talk','Conversar'],['rest','Fazer uma pausa']];
   else if(type==='plant'||/arvore|planta/.test(it.visualAsset||''))actions=[['observe','Observar'],['meditate','Respirar com calma']];
   else if(type==='shelf'||/livro|estante/.test(it.visualAsset||''))actions=[['read','Ler'],['observe','Observar']];
-  else if(/arcade|fliperama|pinball|air-hockey|pebolim|sinuca|ping-pong/.test(it.visualAsset||''))actions=[['play','Jogar'],['talk','Jogar em grupo']];
+  else if(type==='game'||/game-|arcade|fliperama|pinball|air-hockey|pebolim|sinuca|ping-pong/.test(it.visualAsset||''))actions=[['play','Jogar'],['talk','Jogar em grupo']];
   else if(type==='machine'||type==='conveyor'||it.warehouse)actions=[['observe','Observar'],['work','Interagir']];
   else if(type==='television'||type==='fridge'||type==='coffee')actions=[['rest','Fazer uma pausa'],['observe','Observar']];
   else actions=[['observe','Observar'],['rest','Fazer uma pausa']];
@@ -52,12 +52,16 @@ function playerObjectAtScreen(px,py){
 }
 function worldToScreenPoint(x,y){applyCam();return{x:ox+(x-y)*TW/2*s,y:oy+(x+y)*TH/2*s-.55*ZU*s};}
 function playerApproach(o){
- var candidates=[{x:o.x+o.w/2,y:o.y-.55},{x:o.x+o.w+.55,y:o.y+o.d/2},{x:o.x+o.w/2,y:o.y+o.d+.55},{x:o.x-.55,y:o.y+o.d/2}];
- candidates=candidates.filter(function(p){return p.x>o.room.bx+.2&&p.x<o.room.bx+W-.2&&p.y>o.room.by+.2&&p.y<o.room.by+roomDepth(o.room)-.2;}).sort(function(a,b){return Math.hypot(a.x-playerActor.x,a.y-playerActor.y)-Math.hypot(b.x-playerActor.x,b.y-playerActor.y);});
+ var candidates=[{x:o.x+o.w/2,y:o.y-.55},{x:o.x+o.w+.55,y:o.y+o.d/2},{x:o.x+o.w/2,y:o.y+o.d+.55},{x:o.x-.55,y:o.y+o.d/2}],bounds=playerBounds(o.room);
+ candidates=candidates.filter(function(p){var x=p.x-o.room.bx,y=p.y-o.room.by;return x>bounds.x0+.2&&x<bounds.x1-.2&&y>bounds.y0+.2&&y<bounds.y1-.2;}).sort(function(a,b){return Math.hypot(a.x-playerActor.x,a.y-playerActor.y)-Math.hypot(b.x-playerActor.x,b.y-playerActor.y);});
  for(var i=0;i<candidates.length;i++){if(Math.hypot(candidates[i].x-playerActor.x,candidates[i].y-playerActor.y)<.35)return true;if(routePlayerTo(candidates[i].x,candidates[i].y))return true;}
  return false;
 }
 function approachPlayerObject(id){var o=playerObjectList().find(function(x){return x.id===id;});if(!o||!playerActor)return false;activePlayerObject=o;playerActivity='walk';playerActor.activity='walk';playerActor.sit=false;playerActor.objectId=id;return playerApproach(o);}
+function mysteryEmployeePosition(id){return typeof employeePositions==='function'?employeePositions().find(function(p){return p.id===id;}):null;}
+function approachMysteryEmployee(id){var p=mysteryEmployeePosition(id),room=p&&worldCfg&&worldCfg.find(function(c){return c.key===p.sector;});if(!p||!room||!playerActor)return false;var o={id:'mystery-contact:'+id,actorId:id,name:p.name,sector:p.sector,x:room.bx+p.x-.3,y:room.by+p.y-.3,w:.6,d:.6,h:1.7,room:room,actions:[['talk','Conversar']]};activePlayerObject=o;playerActivity='walk';playerActor.activity='walk';playerActor.sit=false;playerActor.objectId=o.id;return playerApproach(o);}
+function isNearMysteryEmployee(id){var p=mysteryEmployeePosition(id);return !!(p&&playerActor&&!playerActor.moving&&Math.hypot(playerActor.x-(worldCfg.find(function(c){return c.key===p.sector;})||{bx:0,by:0}).bx-p.x,playerActor.y-(worldCfg.find(function(c){return c.key===p.sector;})||{bx:0,by:0}).by-p.y)<1.55);}
+function beginMysteryConversation(id){if(!isNearMysteryEmployee(id))return false;playerActivity='talk';playerActivityUntil=0;playerActor.activity='talk';playerActor.sit=false;render();return true;}
 function performPlayerAction(id,action){
  var o=playerObjectList().find(function(x){return x.id===id;});if(!o||!playerActor||!o.actions.some(function(a){return a[0]===action;}))return{ok:false,error:'action-not-available'};
  if(playerActor.moving||activePlayerObject?.id!==id)return{ok:false,error:'not-near-object'};

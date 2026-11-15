@@ -40,6 +40,14 @@ const restore=[
  ['intervalo','Intervalo estendido',650,{carga:6,auton:4},['imediato',0,0],'bosque',2,'Pausas com cobertura, sem transferir sobrecarga aos colegas.']
 ];
 const time=([kind,delay,ramp])=>({kind,delay,ramp});
-export const ITEMS=[...original.map(([id,name,category,cost,factors,t,where])=>({id,name,category,cost,factors,timing:time(t),where:Object.fromEntries(SECTORS.slice(0,3).map((s,i)=>[s.id,where[i]])),origin:'ZIP C3',rest:false})),...restore.map(([id,name,cost,factors,t,space,capacity,description])=>({id,name,cost,factors,timing:time(t),space,capacity,description,category:'Restauração',origin:'Proposta de balanceamento',rest:true})),...BENEFITS,...CHAIR_ITEMS].map(c=>c.id==='seg'?{...c,retired:true}:c);
+const games=[
+ ['sinuca','Mesa de sinuca',2400,{relac:5,recon:1},'mesa-sinuca','Encontros voluntários em grupo; relações e convivência.'],
+ ['pingpong','Mesa de pingue-pongue',1900,{relac:4,carga:1},'mesa-ping-pong','Atividade opcional em dupla, com circulação livre.'],
+ ['airhockey','Mesa de air hockey',2100,{relac:4,auton:1},'mesa-air-hockey','Jogo rápido em dupla; participação voluntária.'],
+ ['arcade','Fliperama',1500,{relac:3,recon:1},'arcade','Jogos individuais ou em dupla; sem ranking de funcionários.'],
+ ['pinball','Máquina de pinball',1700,{relac:3,recon:1},'pinball','Opção breve de lazer, sem competição por metas.'],
+ ['tabuleiro','Mesa de jogos de tabuleiro',1300,{relac:5,auton:1},'mesa-tabuleiro','Jogos em grupo e conversa; participação livre.']
+].map(([id,name,cost,factors,asset,description])=>({id,name,cost,factors,timing:time(['imediato',0,0]),space:'patio',capacity:0,description,category:'Convivência',origin:'Assets_3D · Sala_de_Jogos',gameAsset:asset,rest:true}));
+export const ITEMS=[...original.map(([id,name,category,cost,factors,t,where])=>({id,name,category,cost,factors,timing:time(t),where:Object.fromEntries(SECTORS.slice(0,3).map((s,i)=>[s.id,where[i]])),origin:'ZIP C3',rest:false})),...restore.map(([id,name,cost,factors,t,space,capacity,description])=>({id,name,cost,factors,timing:time(t),space,capacity,description,category:'Restauração',origin:'Proposta de balanceamento',rest:true})),...games,...BENEFITS,...CHAIR_ITEMS].map(c=>c.id==='seg'?{...c,retired:true}:c);
 export const RULES={startBalance:10000,companyGoal:45,sectorGoal:50,effects:[1.4,1.12,.84],costs:[1,1.4,1.9],priceStep:50,weekMs:900000,restCap:6,eventGapWeeks:2};
 export const SOURCE={file:'PilhA+ Game.zip',sha256:'cacd69bc9be7130df5c63f31f415cc20947d7ef03b1062bc4a3ba8797f3b2b77',eventFile:'simulation/event-catalog.js',eventCount:19,eventsIdenticalToZip:true,originalClock:'Cada compra avança uma semana',formulas:{index:'mean(carga,auton,relac,lider,recon,seg)',company:'mean(escritorio,producao,atendimento)',stress:'100-(carga*.4+auton*.3+lider*.3)',absenteeism:'2+(100-index)*.12',climate:'(relac+recon+seg)/3',productivity:'40+index*.6'},sampleHeroActions:{count:6,implemented:false,reason:'São SAMPLE no ZIP e não substituem os poderes canônicos.'}};

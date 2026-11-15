@@ -81,7 +81,11 @@
     for (var z = 0; z < 6; z++) {
       var zx = 4 * (z % 3), zy = 4 * Math.floor(z / 3), v = VARIANTS[key][z];
       var wood = "#c9a77a";
-      if (v === "A") {
+      if (key === "escritorio") {
+        // Six quiet, consistent workstations: one real seat per office zone.
+        // This leaves shared circulation clear and avoids decorative duplicates.
+        add("desk", zx + 1.1, zy + 1.35, 1.6, 0.8, 0.42, wood, z, { sit: true });
+      } else if (v === "A") {
         add("desk", zx + 0.8, zy + 0.7, 1.6, 0.8, 0.42, wood, z, { sit: true });
         add("desk", zx + 0.8, zy + 2.1, 1.6, 0.8, 0.42, wood, z, { sit: z % 2 === 0 });
         add("plant", zx + 2.8, zy + 0.8, 0.4, 0.4, 0.3, "#7a5c3e", z);

@@ -1,5 +1,5 @@
 // Visual supporting cast. Kept outside the canonical staff, economy and health model.
-var expandedImages={},expandedGuests={yoga:true,advogado:true},expandedHits=[],expandedDrawn=[];
+var expandedImages={},expandedGuests={yoga:false,advogado:true},expandedHits=[],expandedDrawn=[];
 function expandedImage(url){if(!url||!global.Image)return null;if(!expandedImages[url]){var image=new global.Image();expandedImages[url]=image;image.onload=function(){if(!running)render();};image.src=url;}return expandedImages[url];}
 function expandedPose(id,e){
  var actor=expandedCast.find(function(a){return a.id===id;}),n=expandedCast.indexOf(actor),t=time,action='idle',frameTime=t,x,y,facing=0;

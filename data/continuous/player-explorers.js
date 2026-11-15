@@ -6,3 +6,5 @@ export const PLAYER_EXPLORERS = Object.freeze([
 ]);
 export const PLAYER_EXPLORER_IDS = Object.freeze(PLAYER_EXPLORERS.map(x=>x.id));
 export const getPlayerExplorer = id => PLAYER_EXPLORERS.find(x=>x.id===id)||null;
+export const playerScoreBand=score=>{const value=Math.max(0,Math.min(100,Number(score)));return !Number.isFinite(value)||value<30?'20':value<50?'40':value<70?'60':value<=90?'80':'90+';};
+export const playerScorePortrait=(id,score)=>{const owner=id==='EXPLORER-JOVEM-PROFISSIONAL'?'pedro':id==='EXPLORER-ADVOGADO'?'advogado':id==='EXPLORER-DIRETORA-ENSINO'?'ensino':null;return owner?'/assets/player-score/'+owner+'/'+playerScoreBand(score)+'.webp':null;};

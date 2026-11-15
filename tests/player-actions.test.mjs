@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {SECTORS} from '../data/continuous/catalog.js';
 
 // Exercise the UI's actual change boundary with a controllable storage write.
 const source=fs.readFileSync(new URL('../ui/continuous-game.js',import.meta.url),'utf8');
@@ -10,8 +11,8 @@ function harness(){
  let record={week:1,revision:0,decided:false,budget:1000},release,fail=false;
  const barrier=new Promise(resolve=>{release=resolve;});let first=true,writes=0;
  const context={state:structuredClone(record),busy:false,changeInFlight:Promise.resolve(),map:null,refresh(){},tell(){},errorText:x=>x,
-  L:{ensureLiving(){},validateLiving(){},staffingSummary:()=>({active:16})},
-  M:{read:()=>({ok:true,state:structuredClone(record)}),async transact(_,action,revision){
+  L:{ensureLiving(){},validateLiving(){},staffingSummary:()=>({active:16})},SECTORS,settlePlayerWellbeing(){},
+  M:{read:()=>({ok:true,state:structuredClone(record)}),metrics:()=>({index:65}),async transact(_,action,revision){
    if(first){first=false;await barrier;}
    if(fail){fail=false;throw new Error('write interrupted');}
    if(revision!==null&&revision!==record.revision)return {ok:false,error:'stale-state'};

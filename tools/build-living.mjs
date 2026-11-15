@@ -69,7 +69,7 @@ iso=replace(iso,'if (isStatic || running) return;','if (isStatic || running || e
 fs.writeFileSync(out+'ui/continuous/iso.js',iso);
 let map=fs.readFileSync(out+'ui/continuous/map.js','utf8');
 map=replace(map,'iso.setStatic(reduce);','iso.setStatic(false);');
-map=replace(map,'    function onMapClick(p) {',`    function onMapClick(p) {var id=iso.pickEmployee(p.x,p.y);if(id&&o.onEmployee){o.onEmployee(id);return;}`);
+map=replace(map,'    function onMapClick(p) {',`    function onMapClick(p) {var id=iso.pickEmployee(p.x,p.y);if(id&&playerControl&&global.PilhaMysteryExplorer&&global.PilhaMysteryExplorer.employeeClicked){global.PilhaMysteryExplorer.employeeClicked(id);return;}if(id&&o.onEmployee){o.onEmployee(id);return;}`);
 map=replace(map,'var h = iso.pick(p.x, p.y); iso.setHover(h);','var id=iso.pickEmployee(p.x,p.y);iso.hoverEmployee(id);var h = iso.pick(p.x, p.y); iso.setHover(h);');
 map=replace(map,'function onMotion() { reduce = motion.matches; iso.stop(); iso.setStatic(reduce); if (!reduce && !document.hidden) iso.start(); iso.render(); }','function onMotion(){reduce=motion.matches;iso.setStatic(false);if(!iso.isManuallyPaused())iso.start();iso.render();}');
 map=replace(map,"function setMotion(reduced){reduce=!!reduced;iso.stop();iso.setStatic(reduce);if(!reduce&&!document.hidden)iso.start();iso.render();root.dataset.motion=reduce?'reduced':'on';}","function setMotion(reduced){reduce=!!reduced;iso.setStatic(false);if(!iso.isManuallyPaused())iso.start();iso.render();}");

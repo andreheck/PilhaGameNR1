@@ -37,12 +37,12 @@
         "cellMeters": 1
       },
       "sitPoint": [
-        1.0,
+        1,
         1.02,
         0.45
       ],
       "standPoint": [
-        1.0,
+        1,
         1.2000000000000002,
         0
       ],
@@ -673,7 +673,7 @@
       ],
       "standPoint": [
         0.3,
-        1.0,
+        1,
         0
       ],
       "facing": 2,
@@ -1993,6 +1993,265 @@
         0
       ],
       "sitPoint": null
+    },
+    {
+      "id": "game-foosball",
+      "name": "Mesa de pebolim",
+      "file": "game-foosball.webp",
+      "url": "/assets/game-room/game-foosball.webp",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 2.2,
+        "depth": 1.2,
+        "height": 1,
+        "cellMeters": 1
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 380,
+        "duration": 1
+      },
+      "bounds": [
+        0,
+        0,
+        380,
+        329
+      ],
+      "source": "Assets_3D · Sala de Jogos",
+      "standPoint": [
+        1.1,
+        1.5499999999999998,
+        0
+      ],
+      "sitPoint": null,
+      "facing": 2
+    },
+    {
+      "id": "game-pool",
+      "name": "Mesa de sinuca",
+      "file": "game-pool.webp",
+      "url": "/assets/game-room/game-pool.webp",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 2.3,
+        "depth": 1.3,
+        "height": 0.9,
+        "cellMeters": 1
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 424,
+        "duration": 1
+      },
+      "bounds": [
+        0,
+        0,
+        424,
+        332
+      ],
+      "source": "Assets_3D · Sala de Jogos",
+      "standPoint": [
+        1.15,
+        1.65,
+        0
+      ],
+      "sitPoint": null,
+      "facing": 2
+    },
+    {
+      "id": "game-ping-pong",
+      "name": "Mesa de pingue-pongue",
+      "file": "game-ping-pong.webp",
+      "url": "/assets/game-room/game-ping-pong.webp",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 2.4,
+        "depth": 1.3,
+        "height": 0.8,
+        "cellMeters": 1
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 419,
+        "duration": 1
+      },
+      "bounds": [
+        0,
+        0,
+        419,
+        316
+      ],
+      "source": "Assets_3D · Sala de Jogos",
+      "standPoint": [
+        1.2,
+        1.65,
+        0
+      ],
+      "sitPoint": null,
+      "facing": 2
+    },
+    {
+      "id": "game-air-hockey",
+      "name": "Mesa de air hockey",
+      "file": "game-air-hockey.webp",
+      "url": "/assets/game-room/game-air-hockey.webp",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 2.3,
+        "depth": 1.2,
+        "height": 0.8,
+        "cellMeters": 1
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 374,
+        "duration": 1
+      },
+      "bounds": [
+        0,
+        0,
+        374,
+        312
+      ],
+      "source": "Assets_3D · Sala de Jogos",
+      "standPoint": [
+        1.15,
+        1.5499999999999998,
+        0
+      ],
+      "sitPoint": null,
+      "facing": 2
+    },
+    {
+      "id": "game-arcade",
+      "name": "Fliperama",
+      "file": "game-arcade.webp",
+      "url": "/assets/game-room/game-arcade.webp",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.9,
+        "depth": 0.8,
+        "height": 1.9,
+        "cellMeters": 1
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 373,
+        "duration": 1
+      },
+      "bounds": [
+        0,
+        0,
+        373,
+        426
+      ],
+      "source": "Assets_3D · Sala de Jogos",
+      "standPoint": [
+        0.45,
+        1.15,
+        0
+      ],
+      "sitPoint": null,
+      "facing": 2
+    },
+    {
+      "id": "game-pinball",
+      "name": "Máquina de pinball",
+      "file": "game-pinball.webp",
+      "url": "/assets/game-room/game-pinball.webp",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 0.9,
+        "depth": 0.8,
+        "height": 1.9,
+        "cellMeters": 1
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 334,
+        "duration": 1
+      },
+      "bounds": [
+        0,
+        0,
+        334,
+        444
+      ],
+      "source": "Assets_3D · Sala de Jogos",
+      "standPoint": [
+        0.45,
+        1.15,
+        0
+      ],
+      "sitPoint": null,
+      "facing": 2
+    },
+    {
+      "id": "game-board",
+      "name": "Mesa de jogos de tabuleiro",
+      "file": "game-board.webp",
+      "url": "/assets/game-room/game-board.webp",
+      "referenceWidth": 240,
+      "anchor": [
+        0.5,
+        1
+      ],
+      "transparent": true,
+      "scale": {
+        "width": 1.1,
+        "depth": 1.1,
+        "height": 0.75,
+        "cellMeters": 1
+      },
+      "animation": {
+        "frames": 1,
+        "frameWidth": 371,
+        "duration": 1
+      },
+      "bounds": [
+        0,
+        0,
+        371,
+        339
+      ],
+      "source": "Assets_3D · Sala de Jogos",
+      "standPoint": [
+        0.55,
+        1.4500000000000002,
+        0
+      ],
+      "sitPoint": null,
+      "facing": 2
     }
   ],
   "upgrades": {
@@ -2532,7 +2791,7 @@
       ],
       "standPoint": [
         0.55,
-        1.0,
+        1,
         0
       ],
       "facing": 2,
@@ -2596,7 +2855,7 @@
       "name": "jardineira-patio",
       "position": [
         11.1,
-        7.0
+        7
       ],
       "zone": 5,
       "scale": {
@@ -2650,7 +2909,7 @@
     }
   ],
   "annex": {
-    "depth": 18,
+    "depth": 26,
     "startY": 8,
     "unit": "meter",
     "placements": [
@@ -2658,11 +2917,6 @@
         "asset": "rest2-banco_wifi_completo",
         "x": 1,
         "y": 10
-      },
-      {
-        "asset": "rest2-fonte_agua",
-        "x": 9,
-        "y": 9.1
       },
       {
         "asset": "rest2-tapete_indiano",
@@ -2683,6 +2937,11 @@
         "asset": "rest2-incensario",
         "x": 11.2,
         "y": 14.5
+      },
+      {
+        "asset": "rest2-fonte_agua",
+        "x": 9,
+        "y": 9.1
       }
     ]
   },
@@ -3100,6 +3359,73 @@
       ],
       "levels": 3,
       "type": "chair"
+    }
+  },
+  "gameRoom": {
+    "starter": {
+      "id": "foosball-starter",
+      "asset": "game-foosball",
+      "x": 2.6,
+      "y": 21,
+      "w": 2.2,
+      "d": 1.2,
+      "h": 1
+    },
+    "purchases": {
+      "sinuca": {
+        "asset": "game-pool",
+        "x": 0.5,
+        "y": 19.1,
+        "w": 2.3,
+        "d": 1.3,
+        "h": 0.9,
+        "name": "Mesa de sinuca"
+      },
+      "pingpong": {
+        "asset": "game-ping-pong",
+        "x": 8.8,
+        "y": 19.1,
+        "w": 2.4,
+        "d": 1.3,
+        "h": 0.8,
+        "name": "Mesa de pingue-pongue"
+      },
+      "airhockey": {
+        "asset": "game-air-hockey",
+        "x": 3.3,
+        "y": 23.2,
+        "w": 2.3,
+        "d": 1.2,
+        "h": 0.8,
+        "name": "Mesa de air hockey"
+      },
+      "arcade": {
+        "asset": "game-arcade",
+        "x": 0.8,
+        "y": 22,
+        "w": 0.9,
+        "d": 0.8,
+        "h": 1.9,
+        "name": "Fliperama"
+      },
+      "pinball": {
+        "asset": "game-pinball",
+        "x": 10.3,
+        "y": 22,
+        "w": 0.9,
+        "d": 0.8,
+        "h": 1.9,
+        "name": "Máquina de pinball"
+      },
+      "tabuleiro": {
+        "asset": "game-board",
+        "x": 8.1,
+        "y": 23.5,
+        "w": 1.1,
+        "d": 1.1,
+        "h": 0.75,
+        "name": "Mesa de jogos de tabuleiro"
+      }
     }
   }
 }

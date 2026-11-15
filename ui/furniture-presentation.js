@@ -9,7 +9,8 @@ export function spriteSize(asset,unit,ratio=1){
 export function createFurniturePresentation(){
  function arrange(env,catalog,edits={}){
   // Start from original positions every time: purchases/refresh never accumulate offsets.
-  let items=env.items.filter(it=>!it.amenity&&!it.annex&&!it.structural);
+  const gameItems=env.key==='restauracao'&&catalog.gameRoom?env.items.filter(it=>catalog.gameRoom.purchases[it.installed]):[];
+  let items=env.items.filter(it=>!it.amenity&&!it.annex&&!it.structural&&!gameItems.includes(it));
   const v2Bindings={'rest2-banco_wifi_completo':'banco','rest2-tapete_indiano':'tapete','rest2-almofadas_encosto':'almofadas'},v2Levels={};
   if(env.key==='restauracao'&&catalog.annex){for(const it of items){const id=it.visualId||it.installed;if(Object.values(v2Bindings).includes(id))v2Levels[id]=Math.max(v2Levels[id]||0,it.visualLevel||1);}items=items.filter(it=>!Object.values(v2Bindings).includes(it.visualId||it.installed));}
   items.forEach(it=>{it.layoutKey??=(it.installed?'purchase:'+it.installed:'base:'+it.t)+':'+(it.originalPosition||[it.x,it.y]).map(n=>+n.toFixed(3)).join(',');});
@@ -27,6 +28,7 @@ export function createFurniturePresentation(){
   // Small deterministic packing inside the six activity areas. Aisles stay free.
   if(env.key==='producao'){const seen=new Set();items=items.filter(it=>{if(it.installed||!['machine','crate','shelf'].includes(it.t))return true;const key=it.z+'|'+it.visualAsset;if(seen.has(key))return false;seen.add(key);return true;});}
   if(env.key==='restauracao'&&catalog.annex)for(const p of catalog.annex.placements){const a=catalog.assets.find(a=>a.id===p.asset);if(a)items.push({t:'restorative-v2',c:'#6799a9',visualId:v2Levels[v2Bindings[a.id]]?v2Bindings[a.id]:null,visualIds:v2Levels[v2Bindings[a.id]]?[v2Bindings[a.id]]:[],visualLevel:v2Levels[v2Bindings[a.id]]||0,x:p.x,y:p.y,w:a.scale.width,d:a.scale.depth,h:a.scale.height,z:5,visualAsset:a.id,layoutKey:'annex:'+a.id,annex:true,layoutHidden:false,walkable:a.id==='rest2-tapete_indiano'});}
+  if(env.key==='restauracao'&&catalog.gameRoom){const starter=catalog.gameRoom.starter,a=catalog.assets.find(a=>a.id===starter.asset);if(a)items.push({t:'game',x:starter.x,y:starter.y,w:starter.w,d:starter.d,h:starter.h,z:6,visualAsset:starter.asset,visualId:starter.id,visualLevel:0,interactionName:'Pebolim · Jogo livre',layoutKey:'game-room:'+starter.id,annex:true,c:'#5b9bc1'});for(const it of gameItems){const p=catalog.gameRoom.purchases[it.installed];if(!p)continue;Object.assign(it,{t:'game',x:p.x,y:p.y,w:p.w,d:p.d,h:p.h,z:6,visualAsset:p.asset,visualId:it.installed,visualIds:[it.installed],visualLevel:it.visualLevel||1,interactionName:p.name||it.installed,layoutKey:'game-room:'+it.installed,annex:true,layoutHidden:false});items.push(it);}}
   if(env.key==='escritorio'&&catalog.officeExtension!==false){
    for(const p of OFFICE_SPACE.furniture){const a=catalog.assets.find(a=>a.id===p.asset);items.push({t:p.type,x:p.x,y:p.y,w:a.scale.width,d:a.scale.depth,h:a.scale.height,z:0,visualAsset:p.asset,layoutKey:'office:'+p.id,managerRoom:true,managerDesk:!!p.managerDesk,annex:true,c:'#7899a8'});}
    for(const p of OFFICE_SPACE.walls)items.push({...p,t:'glass-wall',layoutKey:'structure:'+p.id,structural:true,c:'#80cad8'});

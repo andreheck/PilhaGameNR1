@@ -4,7 +4,7 @@ const file=new URL('../dist/ui/continuous/iso.js',import.meta.url);let s=fs.read
 function replace(a,b){if(!s.includes(a))throw Error('Annex anchor: '+a.slice(0,100));s=s.replace(a,b);}
 replace('    function worldBounds() {',fs.readFileSync(new URL('../ui/restorative-annex-runtime.js',import.meta.url),'utf8')+'\n    function worldBounds() {');
 replace('      drawWalls(e); drawFloor(e);','      drawRestAnnex(e);drawWalls(e); drawFloor(e);');
-replace('name: d.name, bx: d.bx, by: d.by, env: getEnv(d.key)',"name: d.name, bx: d.bx, by: d.by, depth:d.key==='restauracao'?18:D, env: getEnv(d.key)");
+replace('name: d.name, bx: d.bx, by: d.by, env: getEnv(d.key)',"name: d.name, bx: d.bx, by: d.by, depth:d.key==='restauracao'?26:D, env: getEnv(d.key)");
 const a=s.indexOf('    function worldBounds() {'),b=s.indexOf('    function applyCam()',a);s=s.slice(0,a)+s.slice(a,b).replaceAll('c.by + D','c.by + roomDepth(c)')+s.slice(b);
 replace('var c = worldCfg[i], bwid = (W + D) * TW / 2, bhei = (W + D) * TH / 2','var c = worldCfg[i], rd=roomDepth(c), bwid = (W + rd) * TW / 2, bhei = (W + rd) * TH / 2');
 replace('uv = tileUV(c.bx + W / 2, c.by + D / 2, 0.9);','uv = tileUV(c.bx + W / 2, c.by + rd / 2, 0.9);');
