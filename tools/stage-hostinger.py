@@ -55,7 +55,7 @@ for name,expected in m['files'].items():
 print(json.dumps({'release':str(root),'commit':m['commit'],'verifiedFiles':len(m['files']),'public':False}))
 """
 command='python3 -c '+shlex.quote(receiver)+' '+shlex.quote(remote)
-process=subprocess.Popen(['ssh','-F',a.ssh_config,'-o','BatchMode=yes','pilha-hostinger',command],stdin=subprocess.PIPE)
+process=subprocess.Popen(['ssh','-F',a.ssh_config,'-o','BatchMode=yes','-o','ServerAliveInterval=15','-o','ServerAliveCountMax=8','pilha-hostinger',command],stdin=subprocess.PIPE)
 with tarfile.open(fileobj=process.stdin,mode='w|gz') as archive:
  for f in files:
   name=f.relative_to(root).as_posix();data=payload(f)
