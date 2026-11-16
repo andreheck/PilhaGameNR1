@@ -1,6 +1,6 @@
 /* Clickable scenery and outdoor navigation, layered over the existing world simulation. */
 var activePlayerObject=null,playerActivity='idle',playerActivityUntil=0;
-function playerBounds(room){return{x0:0,x1:room.key==='producao'?25:W,y0:room.key==='escritorio'?-6:0,y1:room.key==='restauracao'?26:room.key==='producao'?12:room.key==='escritorio'?8:(room.depth||D)};}
+function playerBounds(room){return{x0:0,x1:room.key==='producao'?25:room.key==='escritorio'?16:W,y0:room.key==='escritorio'?-6:0,y1:room.key==='restauracao'?26:room.key==='producao'?12:room.key==='escritorio'?8:(room.depth||D)};}
 function playerAStar(start,target,bounds,obstacles,step){
  step=step||.5;var cols=Math.ceil((bounds.x1-bounds.x0)/step)+1,rows=Math.ceil((bounds.y1-bounds.y0)/step)+1,total=cols*rows;
  function xy(id){return{x:bounds.x0+(id%cols)*step,y:bounds.y0+Math.floor(id/cols)*step};}
@@ -30,9 +30,11 @@ function routePlayerTo(x,y){if(!playerActor||!worldCfg)return false;var startRoo
 function playerObjectList(){
  var list=[];
  if(!worldCfg)return list;
- var labels={desk:'Mesa de trabalho',table:'Mesa',chair:'Cadeira',sofa:'Sofá',plant:'Planta',machine:'Máquina',conveyor:'Esteira logística',shelf:'Prateleira',board:'Painel informativo',box:'Caixa',crate:'Caixa',fridge:'Geladeira',coffee:'Bancada de café',television:'Televisão'};
+ var labels={desk:'Mesa de trabalho',table:'Mesa',meetingTable:'Mesa de reunião',cabinet:'Armário','water-dispenser':'Filtro de água · bombona',chair:'Cadeira',sofa:'Sofá',plant:'Planta',machine:'Máquina',conveyor:'Esteira logística',shelf:'Prateleira',board:'Painel informativo',box:'Caixa',crate:'Caixa',fridge:'Geladeira',coffee:'Bancada de café',television:'Televisão'};
  worldCfg.forEach(function(c){c.env.items.forEach(function(it,index){if(it.layoutHidden||it.visualProgram||it.structural||it.walkable)return;var type=it.t||'object',name=it.interactionName||labels[type]||String(it.visualAsset||it.visualId||type).replace(/^chair-/,'Cadeira ').replace(/[-_]/g,' ');var actions=[];
   if(/chair|sofa|seat|puff|bench|banco/.test(type+' '+(it.visualAsset||'')))actions=[['sit','Sentar'],['meditate','Meditar'],['rest','Descansar']];
+  else if(type==='meetingTable')actions=[['sit','Sentar para a reunião'],['talk','Conversar à mesa']];
+  else if(type==='water-dispenser')actions=[['drink','Beber água'],['rest','Fazer uma pausa']];
   else if(type==='desk'||type==='table')actions=[['work','Interagir'],['talk','Conversar'],['rest','Fazer uma pausa']];
   else if(type==='plant'||/arvore|planta/.test(it.visualAsset||''))actions=[['observe','Observar'],['meditate','Respirar com calma']];
   else if(type==='shelf'||/livro|estante/.test(it.visualAsset||''))actions=[['read','Ler'],['observe','Observar']];

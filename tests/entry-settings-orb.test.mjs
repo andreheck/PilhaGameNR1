@@ -17,6 +17,12 @@ test('actual occupied chair bonus is included only for its individual user',()=>
 test('preferences tolerate blocked/corrupt storage and cannot modify game state',()=>{
  assert.equal(PREFERENCES_KEY,'pilha-game-preferences-v1');assert.deepEqual(readPreferences({getItem(){throw Error('blocked');}}),{sound:true,motion:'system',showOrb:true});assert.deepEqual(readPreferences({getItem:()=>'{broken'}),normalizePreferences());assert.deepEqual(normalizePreferences({motion:'fast',sound:'yes',showOrb:false,budget:999}),{sound:true,motion:'system',showOrb:false});assert.equal(setPreferences({sound:false}).saved,false);assert.equal(decorativeMotionAllowed({motion:'system'},true),false);assert.equal(decorativeMotionAllowed({motion:'full'},true),true);assert.equal(decorativeMotionAllowed({motion:'reduced'},false),false);
 });
+test('first-time guide explains the single playable explorer and current hiring flow',async()=>{
+ const entry=await import('node:fs/promises').then(fs=>fs.readFile(new URL('../ui/living-entry.js',import.meta.url),'utf8'));
+ assert.match(entry,/Escolha quem vai explorar/);assert.match(entry,/Escolher personagem/);assert.match(entry,/equipe de NPCs continua independente/);assert.doesNotMatch(entry,/Escolha dois heróis|Escolher meus heróis/);
+ const settings=await import('node:fs/promises').then(fs=>fs.readFile(new URL('../ui/game-settings.js',import.meta.url),'utf8'));
+ assert.match(settings,/A partida e o personagem escolhido ficam preservados/);assert.doesNotMatch(settings,/A partida e a dupla escolhida ficam preservadas/);
+});
 test('orb geometry matches app curve and remains finite, bounded and stable at100',()=>{
  assert.equal(orbPath(100,0),orbPath(100,3));assert.notEqual(orbPath(30,0),orbPath(30,3));assert.equal(orbDynamics(0).primaryLobes,12);assert.equal(orbDynamics(0).secondaryLobes,26);assert.equal(orbDynamics(0).primaryAmplitude,10);for(const score of [null,-20,0,45,70,100,130,NaN]){const p=orbPath(score);assert.ok(!p.includes('NaN'));const coords=p.match(/-?\d+\.\d+/g).map(Number);assert.equal(coords.length,192);assert.ok(coords.every(n=>n>=19&&n<=141));}
 });

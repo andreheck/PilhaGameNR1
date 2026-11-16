@@ -685,11 +685,11 @@
       for (i = 0; i < worldCfg.length; i++) {
         c = worldCfg[i]; e = c.env;
         var isSel = i === selIdx, isHov = !!hoverHit && hoverHit.i === i;
-        if (isSel || (isHov && selIdx < 0)) {
+        if (isSel) {
           ctx.save();
-          ctx.shadowColor = isSel ? "rgba(255,210,75,.95)" : "rgba(255,255,255,.7)"; ctx.shadowBlur = 16;
+          ctx.shadowColor = "rgba(255,210,75,.95)"; ctx.shadowBlur = 16;
           poly([P(c.bx, c.by, 0), P(c.bx + W, c.by, 0), P(c.bx + W, c.by + D, 0), P(c.bx, c.by + D, 0)], null,
-            isSel ? "#ffd24b" : "rgba(255,255,255,.9)", Math.max(2, 3 * s));
+            "#ffd24b", Math.max(2, 3 * s));
           ctx.restore();
         }
         var showM = isSel || cam.k > 1.7;
@@ -699,7 +699,7 @@
             var zx = c.bx + 4 * (z % 3) + 0.3, zy = c.by + 4 * Math.floor(z / 3) + 0.3;
             ctx.save(); ctx.shadowColor = colors[z]; ctx.shadowBlur = isZ ? 14 : 8;
             poly([P(zx, zy, 0.02), P(zx + 3.4, zy, 0.02), P(zx + 3.4, zy + 3.4, 0.02), P(zx, zy + 3.4, 0.02)],
-              isZ ? rgba(colors[z], 0.12 + 0.06 * Math.sin(time * 4)) : null, isZ ? colors[z] : "rgba(255,255,255,.85)", Math.max(2, 2.6 * s));
+              isZ ? rgba(colors[z], 0.12 + 0.06 * Math.sin(time * 4)) : isZh ? "rgba(255,255,255,.055)" : null, isZ ? colors[z] : "rgba(255,255,255,.85)", Math.max(2, 2.6 * s));
             ctx.restore();
           }
           if (!showM) continue;
