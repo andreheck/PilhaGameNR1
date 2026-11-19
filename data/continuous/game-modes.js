@@ -3,7 +3,24 @@ export const GAME_MODES=Object.freeze([
  {id:'home-office',name:'Home office',subtitle:'Remoto · Fácil',difficulty:'Fácil',level:1,color:'#56d6bf',description:'Uma pessoa, um posto de trabalho e banheiro acessível. Aprenda a cuidar da rotina, ergonomia, isolamento e comunicação à distância.',preview:'home-office',rooms:[
   {id:'home-work',name:'Espaço de trabalho',kind:'work',staffing:'Uma pessoa · 1 posto',staffed:true},
   {id:'home-bathroom',name:'Banheiro',kind:'support',staffing:'Apoio · não é posto de trabalho',staffed:false}
- ],functionalRooms:1},
+ ],functionalRooms:1,homeOfficeKit:{
+  room:{id:'home-office-room',name:'Sala isométrica vazia',url:'/assets/game-modes/home-office/Empty_Isometric_Room.glb',kind:'base'},
+  inventory:[
+   {id:'desk-with-computer',name:'Mesa com computador',url:'/assets/game-modes/home-office/Office_Desk_with_Comp.glb',kind:'3D'},
+   {id:'swivel-chair',name:'Cadeira giratória',url:'/assets/game-modes/home-office/Office_Swivel_Chair.glb',kind:'3D'},
+   {id:'monitor',name:'Monitor de escritório',url:'/assets/kenney-furniture/computerScreen.glb',kind:'3D'},
+   {id:'puff-azul',name:'Puff azul',url:'/assets/furniture/sprites/webp/puff-azul.webp',kind:'2D'},
+   {id:'mesa-escritorio',name:'Mesa de escritório',url:'/assets/furniture/sprites/webp/mesa-escritorio.webp',kind:'2D'},
+   {id:'poltrona-azul-a',name:'Poltrona azul',url:'/assets/furniture/sprites/webp/poltrona-azul-a.webp',kind:'2D'},
+   {id:'sofa-azul',name:'Sofá azul',url:'/assets/furniture/sprites/webp/sofa-azul.webp',kind:'2D'},
+   {id:'gaveteiro',name:'Gaveteiro',url:'/assets/furniture/sprites/webp/gaveteiro.webp',kind:'2D'},
+   {id:'armario-baixo',name:'Armário baixo',url:'/assets/furniture/sprites/webp/armario-baixo.webp',kind:'2D'},
+   {id:'estante-livros',name:'Estante de livros',url:'/assets/furniture/sprites/webp/estante-livros.webp',kind:'2D'},
+   {id:'planta-grande',name:'Planta grande',url:'/assets/furniture/sprites/webp/planta-grande.webp',kind:'2D'},
+   {id:'planta-pequena',name:'Planta pequena',url:'/assets/furniture/sprites/webp/planta-pequena.webp',kind:'2D'},
+   {id:'quadro',name:'Quadro',url:'/assets/furniture/sprites/webp/quadro.webp',kind:'2D'}
+  ]
+ }},
  {id:'cowork',name:'Cowork',subtitle:'Híbrido · Moderado',difficulty:'Moderado',level:2,color:'#47c6f0',description:'Trabalho compartilhado, colaboração e distrações em uma rotina híbrida. Observe circulação, privacidade e uso comum dos recursos.',preview:'cowork',rooms:[
   {id:'cowork-bench',name:'Bancada coletiva',kind:'work',staffing:'Equipes em escala',staffed:true},
   {id:'cowork-meeting',name:'Sala de reuniões',kind:'work',staffing:'Equipes em reunião',staffed:true},
