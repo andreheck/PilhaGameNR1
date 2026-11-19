@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Acolhimento e escuta plural">
+ <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#c4f1e4"/><stop offset="1" stop-color="#7cd4bf"/></linearGradient></defs>
+ <rect x="12" y="12" width="136" height="136" rx="28" fill="url(#bg)" stroke="#238977" stroke-width="5"/>
+ <path d="M38 44h84q10 0 10 10v44q0 10-10 10H81l-22 19v-19H38q-10 0-10-10V54q0-10 10-10Z" fill="#fff" stroke="#268e8b" stroke-width="5"/>
+ <path d="M80 91C45 67 58 52 70 60 C76 64 78 69 80 72 C84 59 104 55 109 67 C113 77 94 88 80 99" fill="#e69e48"/>
+</svg>

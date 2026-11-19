@@ -1,0 +1,39 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "assets/furniture/sprites/webp/mesa-escritorio.webp",
+  "transparent_background": true,
+  "status": "generated-for-testing",
+  "assets": [
+    {
+      "id": "maquina-producao",
+      "path": "assets/furniture/generated/maquina-producao.png",
+      "subject": "A compact enclosed industrial production machine, blue-gray powder-coated metal, yellow safety guards, small control panel, closed protective transparent window, green status light, credible safe workstation. No conveyor attached. Footprint 1.4 x 1.1 tiles.",
+      "output_hint": "Generated images are saved to C:\\Users\\CRM7\\.codex\\generated_images\\01a1323b-0fae-7ca0-99d4-e398c013712b as C:\\Users\\CRM7\\.codex\\generated_images\\01a1323b-0fae-7ca0-99d4-e398c013712b\\exec-d06f2e2d-59b8-4c4f-9866-c997a2d3171a.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "id": "esteira-producao",
+      "path": "assets/furniture/generated/esteira-producao.png",
+      "subject": "One straight industrial belt conveyor module, dark rubber belt, blue-gray metal frame, yellow safety edge guards, short sturdy legs. Nothing on the belt. Footprint 2.4 x 0.7 tiles. Long axis matches the reference desk long axis.",
+      "output_hint": "Generated images are saved to C:\\Users\\CRM7\\.codex\\generated_images\\01a1323b-0fae-7ca0-99d4-e398c013712b as C:\\Users\\CRM7\\.codex\\generated_images\\01a1323b-0fae-7ca0-99d4-e398c013712b\\exec-936de7b6-4302-4f0b-9658-8c1550d5dc9a.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "id": "estante-industrial",
+      "path": "assets/furniture/generated/estante-industrial.png",
+      "subject": "One industrial storage rack, three metal shelves with neatly organized sealed cardboard stock bins, blue-gray upright frame and yellow shelf edge accents. Open structure, distinct from a bookcase. Footprint 2.4 x 0.5 tiles.",
+      "output_hint": "Generated images are saved to C:\\Users\\CRM7\\.codex\\generated_images\\01a1323b-0fae-7ca0-99d4-e398c013712b as C:\\Users\\CRM7\\.codex\\generated_images\\01a1323b-0fae-7ca0-99d4-e398c013712b\\exec-c7c5e403-bee8-41d9-b701-a36f8f538db6.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "id": "bancada-operacional",
+      "path": "assets/furniture/generated/bancada-operacional.png",
+      "subject": "One industrial assembly and inspection workbench, light wooden worktop, blue-gray steel base and small drawers, small organized tool pegboard, modest inspection lamp and a few safely stored hand tools, no chair or worker. Footprint 1.8 x 0.8 tiles.",
+      "output_hint": "Generated images are saved to C:\\Users\\CRM7\\.codex\\generated_images\\01a1323b-0fae-7ca0-99d4-e398c013712b as C:\\Users\\CRM7\\.codex\\generated_images\\01a1323b-0fae-7ca0-99d4-e398c013712b\\exec-5edef170-30a1-415b-a9a3-b2cddfee8c58.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "id": "estacao-atendimento",
+      "path": "assets/furniture/generated/estacao-atendimento.png",
+      "subject": "One compact customer service workstation, light wood and pale metal desk matching the reference, computer monitor, keyboard, headset on a small stand, short blue acoustic privacy partition at the back, empty task chair tucked behind it. No plants or text. Footprint 1.6 x 0.8 tiles.",
+      "output_hint": "Generated images are saved to C:\\Users\\CRM7\\.codex\\generated_images\\01a1323b-0fae-7ca0-99d4-e398c013712b as C:\\Users\\CRM7\\.codex\\generated_images\\01a1323b-0fae-7ca0-99d4-e398c013712b\\exec-1db68e1b-3bca-4d28-b04c-71c1240a4832.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    }
+  ],
+  "sharedPrompt": "Generate a NEW game sprite; style/camera/material reference only. Stylized polished miniature3D isometric orthographic above camera with upper-left lighting. One complete isolated object with generous transparent RGBA padding, no floor/tiles/pedestal/UI/labels/branding/people; small contact shadow and centered base."
+}

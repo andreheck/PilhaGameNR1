@@ -1,0 +1,1194 @@
+{
+  "commit": "84f08624c4ea76e30f1b2976487785cc90b025f0",
+  "checkedAssets": 132,
+  "results": [
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/administrativo-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/administrativo-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/administrativo-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/administrativo-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/administrativo-wave.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/advogado-extra-1.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/advogado-extra-2.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/advogado-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/advogado-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/advogado-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/diretor-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/diretor-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/diretor-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/diretor-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/diretor-wave.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/ensino-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/ensino-interact.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/ensino-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/ensino-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/ensino-wave.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/garoto-cheer.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/garoto-idle.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/garoto-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/garoto-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/gestora-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/gestora-phone.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/gestora-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/gestora-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/gestora-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/gestora-wave.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/heck-cheer.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/heck-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/heck-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/heck-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/heck-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/heck-wave.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/logistica-2-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/logistica-2-interact.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/logistica-2-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/logistica-2-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/logistica-2-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/mariana-cheer.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/mariana-idle.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/mariana-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/mariana-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/yoga-breathe.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/yoga-floor-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/yoga-floor-sit.sprite",
+      "dimensions": [
+        4096,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/yoga-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/yoga-posture.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/yoga-rise.sprite",
+      "dimensions": [
+        4096,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/yoga-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/expanded-cast/yoga-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/intro-cast/chibi-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/intro-cast/logistica-1-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/intro-cast/psicologa-tall-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/intro-cast/psicologa-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/intro-cast/psiquiatra-2-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/intro-cast/psiquiatra-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/robots/blue-robot-idle.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/robots/blue-robot-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/npc-sprites/rigged/beatriz-idle.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/npc-sprites/rigged/beatriz-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/npc-sprites/rigged/mariana-idle.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/npc-sprites/rigged/mariana-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://pilha-plus-game-preview.vercel.app",
+      "asset": "assets/npc-sprites/rigged/mariana-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/administrativo-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/administrativo-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/administrativo-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/administrativo-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/administrativo-wave.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/advogado-extra-1.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/advogado-extra-2.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/advogado-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/advogado-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/advogado-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/diretor-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/diretor-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/diretor-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/diretor-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/diretor-wave.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/ensino-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/ensino-interact.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/ensino-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/ensino-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/ensino-wave.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/garoto-cheer.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/garoto-idle.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/garoto-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/garoto-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/gestora-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/gestora-phone.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/gestora-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/gestora-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/gestora-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/gestora-wave.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/heck-cheer.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/heck-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/heck-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/heck-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/heck-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/heck-wave.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/logistica-2-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/logistica-2-interact.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/logistica-2-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/logistica-2-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/logistica-2-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/mariana-cheer.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/mariana-idle.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/mariana-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/mariana-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/yoga-breathe.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/yoga-floor-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/yoga-floor-sit.sprite",
+      "dimensions": [
+        4096,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/yoga-idle.sprite",
+      "dimensions": [
+        128,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/yoga-posture.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/yoga-rise.sprite",
+      "dimensions": [
+        4096,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/yoga-sit.sprite",
+      "dimensions": [
+        6144,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/expanded-cast/yoga-walk.sprite",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/intro-cast/chibi-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/intro-cast/logistica-1-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/intro-cast/psicologa-tall-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/intro-cast/psicologa-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/intro-cast/psiquiatra-2-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/intro-cast/psiquiatra-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/robots/blue-robot-idle.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/robots/blue-robot-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/npc-sprites/rigged/beatriz-idle.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/npc-sprites/rigged/beatriz-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/npc-sprites/rigged/mariana-idle.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/npc-sprites/rigged/mariana-talk.sprite",
+      "dimensions": [
+        8192,
+        768
+      ],
+      "mime": "application/octet-stream"
+    },
+    {
+      "site": "https://vaideplanob.com.br/ao-trabalho",
+      "asset": "assets/npc-sprites/rigged/mariana-walk.sprite",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "mime": "application/octet-stream"
+    }
+  ]
+}

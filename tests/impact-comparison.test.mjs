@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {projectIndicatorImpact,IMPACT_INDICATORS} from '../simulation/impact-comparison.js';
+const result=projectIndicatorImpact({wellbeing:50,workload:60,trust:45,turnoverRisk:20},{wellbeing:8,workload:-10,trust:5,turnoverRisk:-3});
+assert.deepEqual(result.before,{wellbeing:50,workload:60,trust:45,turnoverRisk:20});
+assert.deepEqual(result.after,{wellbeing:58,workload:50,trust:50,turnoverRisk:17});
+assert.deepEqual(result.deltas,{wellbeing:8,workload:-10,trust:5,turnoverRisk:-3});
+const capped=projectIndicatorImpact({wellbeing:98,workload:2,trust:50,turnoverRisk:20},{wellbeing:9,workload:-8});
+assert.equal(capped.after.wellbeing,100);assert.equal(capped.after.workload,0);
+assert.equal(IMPACT_INDICATORS.length,4);
+assert.deepEqual(projectIndicatorImpact({},{}).before,{wellbeing:50,workload:50,trust:50,turnoverRisk:50});
+console.log('Comparador de impacto antes/depois: PASS');

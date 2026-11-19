@@ -1,0 +1,125 @@
+name: Validar equipe viva e calendario
+on:
+  pull_request:
+  push:
+    branches: [feat/equipe-viva-calendario]
+permissions:
+  contents: read
+concurrency:
+  group: continuous-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - run: npm test
+      - run: npm run test:continuous
+      - run: npm run test:living
+      - run: npm run test:npcs
+      - run: python -m pip install playwright==1.57.0
+      - name: Browser
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHROMIUM_PATH=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          else
+            python -m playwright install --with-deps chromium
+          fi
+      - run: python tools/qa-company-living.py
+      - run: python tools/qa-furniture.py
+      - run: python tools/qa-blue-robot.py
+      - run: python tools/qa-cinematic-intro.py
+      - run: python tools/qa-restorative-v2.py
+      - run: python tools/qa-individual-chairs.py
+      - run: python tools/qa-entry-settings-orb.py
+      - run: python tools/qa-mixamo-test.py
+      - run: python tools/qa-furniture-editor.py
+      - run: python tools/qa-expanded-cast.py
+      - run: python tools/qa-office-space.py
+      - run: python tools/qa-company-phone.py
+      - run: python tools/qa-logistics-transfer.py
+      - name: Archive reviewed source
+        if: always()
+        run: mkdir -p artifacts/living && git archive --format=zip HEAD > artifacts/living/reviewed-source.zip
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: living-qa
+          path: artifacts/living/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: furniture-scale-qa
+          path: artifacts/furniture/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: blue-robot-qa
+          path: artifacts/robot-qa/*.png
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: cinematic-intro-qa
+          path: artifacts/cinematic-qa/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: restorative-v2-qa
+          path: artifacts/restorative-qa/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: individual-chairs-qa
+          path: artifacts/individual-chairs/qa/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: entry-settings-orb-qa
+          path: artifacts/entry-settings-orb/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: mixamo-scene-qa
+          path: artifacts/mixamo-test/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: furniture-editor-qa
+          path: artifacts/furniture-editor/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: expanded-cast-qa
+          path: artifacts/expanded-qa/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: office-layout-tree-qa
+          path: artifacts/office-space/
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: company-phone-trophies-qa
+          path: artifacts/company-phone/
+          retention-days: 7
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: logistics-transfer-qa
+          path: artifacts/logistics-transfer/
+          retention-days: 7

@@ -1,0 +1,39 @@
+<!doctype html><meta charset="utf-8"><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script><script type="module">
+import * as T from 'three';import {FBXLoader} from 'three/addons/loaders/FBXLoader.js';
+window.plantResult={done:false,errors:[],exports:[]};
+try{
+ const defs=await fetch('/plant-inputs.json').then(r=>r.json());
+ for(const def of defs){
+  const loader=new FBXLoader();loader.setResourcePath('/source/'+def.key+'/');
+  const model=await loader.loadAsync('/source/'+def.key+'/'+def.fbx);
+  const colorMap=await new T.TextureLoader().loadAsync('/source/'+def.key+'/'+def.texture);colorMap.colorSpace=T.SRGBColorSpace;colorMap.flipY=false;colorMap.needsUpdate=true;
+  let meshCount=0;model.traverse(o=>{if(o.isMesh){meshCount++;o.frustumCulled=false;for(const m of (Array.isArray(o.material)?o.material:[o.material]))if(m){m.map=colorMap;m.color.set(0xffffff);m.roughness=1;m.metalness=0;m.side=T.DoubleSide;m.needsUpdate=true;}}});
+  if(!meshCount)throw Error(def.key+': FBX without mesh');
+  model.updateMatrixWorld(true);const initial=new T.Box3().setFromObject(model),initialSize=initial.getSize(new T.Vector3());
+  if(!Number.isFinite(initialSize.y)||initialSize.y<=0)throw Error(def.key+': invalid model bounds');
+  model.scale.setScalar(def.targetHeight/initialSize.y);model.updateMatrixWorld(true);
+  let bounds=new T.Box3().setFromObject(model),size=bounds.getSize(new T.Vector3());
+  model.position.set(-(bounds.min.x+bounds.max.x)/2,-bounds.min.y,-(bounds.min.z+bounds.max.z)/2);
+  const scene=new T.Scene(),pivot=new T.Group();pivot.add(model);scene.add(pivot);
+  scene.add(new T.HemisphereLight(0xffffff,0x536273,2.5));
+  const key=new T.DirectionalLight(0xfff4df,3.1);key.position.set(5,9,7);scene.add(key);
+  const fill=new T.DirectionalLight(0xc7e8ff,1.35);fill.position.set(-5,5,-7);scene.add(fill);
+  const camera=new T.OrthographicCamera(-1,1,1,-1,.1,100);camera.position.set(15,Math.sqrt(450)*Math.tan(Math.PI/6),15);camera.lookAt(0,0,0);camera.updateMatrixWorld(true);
+  const union=new T.Box3();for(let dir=0;dir<4;dir++){pivot.rotation.y=dir*Math.PI/2;model.updateMatrixWorld(true);union.union(new T.Box3().setFromObject(pivot));}
+  let left=Infinity,right=-Infinity,top=-Infinity,bottom=Infinity;
+  for(const x of [union.min.x,union.max.x])for(const y of [union.min.y,union.max.y])for(const z of [union.min.z,union.max.z]){const p=new T.Vector3(x,y,z).applyMatrix4(camera.matrixWorldInverse);left=Math.min(left,p.x);right=Math.max(right,p.x);bottom=Math.min(bottom,p.y);top=Math.max(top,p.y);}
+  const pad=Math.max(.08,(right-left)*.08,(top-bottom)*.06);left-=pad;right+=pad;bottom-=pad;top+=pad;
+  const aspect=256/320,w=right-left,h=top-bottom;if(w/h<aspect){const nw=h*aspect,extra=(nw-w)/2;left-=extra;right+=extra;}else{const nh=w/aspect,extra=(nh-h)/2;bottom-=extra;top+=extra;}
+  camera.left=left;camera.right=right;camera.bottom=bottom;camera.top=top;camera.updateProjectionMatrix();
+  const renderer=new T.WebGLRenderer({alpha:true,antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(1);renderer.setSize(256,320);renderer.setClearColor(0x000000,0);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;
+  const atlas=document.createElement('canvas');atlas.width=256;atlas.height=1280;const ctx=atlas.getContext('2d');
+  for(let dir=0;dir<4;dir++){pivot.rotation.y=dir*Math.PI/2;model.updateMatrixWorld(true);renderer.render(scene,camera);ctx.drawImage(renderer.domElement,0,dir*320);}
+  const center=new T.Vector3(0,0,0).applyMatrix4(camera.matrixWorldInverse),front=new T.Vector3(0,size.y*.9,0).applyMatrix4(camera.matrixWorldInverse);
+  const frame={key:def.key,id:def.id,width:size.x,depth:size.z,height:size.y,frameWidth:256,frameHeight:320,views:4,meshCount,
+   projection:{width:(camera.right-camera.left)*32*Math.SQRT2,height:(camera.top-camera.bottom)*32*Math.SQRT2,anchor:[(center.x-camera.left)/(camera.right-camera.left),(camera.top-front.y)/(camera.top-camera.bottom)]},
+   standPoint:[size.x/2,size.y*.68,0],data:atlas.toDataURL('image/png')};
+  window.plantResult.exports.push(frame);renderer.dispose();
+ }
+}catch(e){window.plantResult.errors.push(String(e.stack||e));}
+window.plantResult.done=true;
+</script>

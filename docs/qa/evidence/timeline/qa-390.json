@@ -1,0 +1,99 @@
+{
+  "base": "http://127.0.0.1:4174",
+  "width": 390,
+  "height": 844,
+  "kind": "Chromium headless emulation; short real timer smoke, not a four-hour user session",
+  "errors": [],
+  "checks": [
+    "orbit continuously changes transform before any GLB loads",
+    "duo visibly persists in all five views after saving",
+    "real timer advances, pauses, and persists",
+    "assigned active ability schedules delay and blocks repeat activation",
+    "3 perfect answers plus privacy disclosure cannot pass or unlock"
+  ],
+  "animationSamples": [
+    {
+      "at": 260,
+      "transform": "matrix(-0.292353, -0.95631, 0.95631, -0.292353, 0, 0)"
+    },
+    {
+      "at": 343.4,
+      "transform": "matrix(-0.320065, -0.947395, 0.947395, -0.320065, 0, 0)"
+    },
+    {
+      "at": 393.4,
+      "transform": "matrix(-0.336551, -0.941665, 0.941665, -0.336551, 0, 0)"
+    },
+    {
+      "at": 443.29999999999995,
+      "transform": "matrix(-0.352901, -0.935661, 0.935661, -0.352901, 0, 0)"
+    },
+    {
+      "at": 493.29999999999995,
+      "transform": "matrix(-0.369177, -0.929359, 0.929359, -0.369177, 0, 0)"
+    },
+    {
+      "at": 543.3,
+      "transform": "matrix(-0.38534, -0.922774, 0.922774, -0.38534, 0, 0)"
+    },
+    {
+      "at": 593.4,
+      "transform": "matrix(-0.401418, -0.915895, 0.915895, -0.401418, 0, 0)"
+    },
+    {
+      "at": 643.4,
+      "transform": "matrix(-0.417342, -0.90875, 0.90875, -0.417342, 0, 0)"
+    },
+    {
+      "at": 693.4,
+      "transform": "matrix(-0.433138, -0.901328, 0.901328, -0.433138, 0, 0)"
+    },
+    {
+      "at": 743.3,
+      "transform": "matrix(-0.448771, -0.893647, 0.893647, -0.448771, 0, 0)"
+    },
+    {
+      "at": 2126.7,
+      "transform": "matrix(-0.812418, -0.583075, 0.583075, -0.812418, 0, 0)"
+    },
+    {
+      "at": 2176.6,
+      "transform": "matrix(-0.822451, -0.568836, 0.568836, -0.822451, 0, 0)"
+    },
+    {
+      "at": 2226.6,
+      "transform": "matrix(-0.832253, -0.554396, 0.554396, -0.832253, 0, 0)"
+    },
+    {
+      "at": 2276.7,
+      "transform": "matrix(-0.841821, -0.539757, 0.539757, -0.841821, 0, 0)"
+    },
+    {
+      "at": 2326.6,
+      "transform": "matrix(-0.851094, -0.525013, 0.525013, -0.851094, 0, 0)"
+    },
+    {
+      "at": 2376.6,
+      "transform": "matrix(-0.860127, -0.510079, 0.510079, -0.860127, 0, 0)"
+    },
+    {
+      "at": 2426.6,
+      "transform": "matrix(-0.868898, -0.49499, 0.49499, -0.868898, 0, 0)"
+    },
+    {
+      "at": 2476.6,
+      "transform": "matrix(-0.877405, -0.479751, 0.479751, -0.877405, 0, 0)"
+    },
+    {
+      "at": 2526.6,
+      "transform": "matrix(-0.885644, -0.464365, 0.464365, -0.885644, 0, 0)"
+    },
+    {
+      "at": 2576.6,
+      "transform": "matrix(-0.893613, -0.448837, 0.448837, -0.893613, 0, 0)"
+    }
+  ],
+  "elapsedMs": 5923.100000000093,
+  "pageOverflow": false,
+  "passed": true
+}

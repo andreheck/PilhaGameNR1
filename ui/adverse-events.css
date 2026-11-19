@@ -1,0 +1,18 @@
+.company-event-dialog{position:fixed;inset:0;width:100%;height:100dvh;max-width:none;max-height:none;margin:0;border:0;color:#f4f6fb;font:16px/1.5 Inter,system-ui,sans-serif;--pm-focus:#8facff;--pm-line-soft:#2d4b7b;--pm-gold:#ffd24b;--pm-soft:#b9cbe5;--pm-ink:#f4f6fb}
+.company-event-dialog:not([open]){display:none}
+.company-event-dialog::backdrop{background:transparent}
+.company-event-dialog,.company-event-dialog *{box-sizing:border-box}
+.company-event-dialog button{color:#f4f6fb;font-family:inherit;cursor:pointer}
+.company-event-dialog .pm-ev__go{color:#10243b}
+.company-event-dialog button:focus-visible{outline:3px solid #8facff;outline-offset:3px}
+.company-event-dialog .event-error{color:#ffda72;font-size:13px}
+.event-countdown{font:11px/1.4 system-ui;color:#b9cbe5;white-space:nowrap;align-self:center;padding-right:12px}
+/* Player opt-in also overrides old global reduced-motion rules, only for brief event icons. */
+body[data-pilha-motion="on"] .company-event-dialog .pm-ev__ring{display:block;animation:pm-ev-ring 1.2s ease-out 2!important}
+body[data-pilha-motion="on"] .company-event-dialog .pm-an-blink svg{animation:pm-an-blink .9s ease-in-out 2!important}
+body[data-pilha-motion="on"] .company-event-dialog .pm-an-shake svg{animation:pm-an-shake .9s ease-in-out 2!important}
+body[data-pilha-motion="on"] .company-event-dialog .pm-an-pulse svg{animation:pm-an-pulse .9s ease-in-out 2!important}
+body[data-pilha-motion="on"] .company-event-dialog .pm-an-slide svg{animation:pm-an-slide .9s ease-in-out 2!important}
+body[data-pilha-motion="on"] .company-event-dialog .pm-an-drop svg{animation:pm-an-drop .9s ease-in-out 2!important}
+body[data-pilha-motion="on"] .company-event-dialog .pm-an-rise svg{animation:pm-an-rise .9s ease-in-out 2!important}
+body[data-pilha-motion="on"] .company-event-dialog .pm-an-sway svg{animation:pm-an-sway .9s ease-in-out 2!important}

@@ -1,0 +1,229 @@
+{
+  "status": "rascunho_historico_substituido_pelo_catalogo_v1_1",
+  "purpose": "Rascunho para revisão do PM/PO; não é fonte canônica e não é importado pelo jogo.",
+  "basis": "Funções existentes em data/continuous/employees.js; não são inferências clínicas ou características determinadas por MBTI.",
+  "pending_decisions": [
+    "Confirmar textos com PM/PO ou substituir por fichas previamente aprovadas",
+    "Definir sinergias e ambientes apenas se houver aprovação específica",
+    "Idades permanecem ausentes; efeitos e pontuações não são propostos nesta revisão"
+  ],
+  "npcs": [
+    {
+      "id": "NPC-09",
+      "nome": "Carlos",
+      "papel": "Operação e logística",
+      "idade": null,
+      "forcas": [
+        "Organiza materiais e acompanha entregas",
+        "Registra etapas para dar continuidade ao trabalho",
+        "Ajuda a identificar falhas nos fluxos logísticos"
+      ],
+      "pontos_de_atencao": [
+        "Acúmulo de conferências sem apoio",
+        "Mudanças de processo sem orientação"
+      ],
+      "condicoes_favoraveis": [
+        "Prioridades de entrega claras",
+        "Recursos e tempo para conferência"
+      ],
+      "condicoes_adversas": [
+        "Prazos incompatíveis com a capacidade",
+        "Instruções divergentes entre equipes"
+      ],
+      "sinergias_propostas": [],
+      "ambientes": null,
+      "pontos": null,
+      "status": "proposta_editorial_nao_aprovada"
+    },
+    {
+      "id": "NPC-10",
+      "nome": "Ana",
+      "papel": "Apoio à equipe",
+      "idade": null,
+      "forcas": [
+        "Apoia a integração de colegas",
+        "Compartilha informações úteis à rotina",
+        "Ajuda a manter continuidade no atendimento"
+      ],
+      "pontos_de_atencao": [
+        "Demandas de apoio concentradas em uma pessoa",
+        "Dificuldade de concluir tarefas com interrupções frequentes"
+      ],
+      "condicoes_favoraveis": [
+        "Distribuição equilibrada das solicitações",
+        "Canais claros para pedir ajuda"
+      ],
+      "condicoes_adversas": [
+        "Cobertura contínua de ausências sem reposição",
+        "Falta de pausas e limites de demanda"
+      ],
+      "sinergias_propostas": [],
+      "ambientes": null,
+      "pontos": null,
+      "status": "proposta_editorial_nao_aprovada"
+    },
+    {
+      "id": "NPC-11",
+      "nome": "José",
+      "papel": "Coordenação operacional",
+      "idade": null,
+      "forcas": [
+        "Coordena prioridades da operação",
+        "Organiza a distribuição de atividades",
+        "Acompanha impedimentos e recursos necessários"
+      ],
+      "pontos_de_atencao": [
+        "Pressão por resultados sem recursos correspondentes",
+        "Centralização excessiva de decisões"
+      ],
+      "condicoes_favoraveis": [
+        "Metas viáveis e responsabilidades definidas",
+        "Autonomia compatível com a função"
+      ],
+      "condicoes_adversas": [
+        "Ordens conflitantes entre níveis de gestão",
+        "Equipe insuficiente para a demanda"
+      ],
+      "sinergias_propostas": [],
+      "ambientes": null,
+      "pontos": null,
+      "status": "proposta_editorial_nao_aprovada"
+    },
+    {
+      "id": "NPC-12",
+      "nome": "Maria",
+      "papel": "Relações e atendimento",
+      "idade": null,
+      "forcas": [
+        "Facilita a comunicação entre atendimento e equipe",
+        "Compartilha retornos para melhorar o serviço",
+        "Ajuda a construir acordos de atendimento"
+      ],
+      "pontos_de_atencao": [
+        "Exposição contínua a conflitos com o público",
+        "Acúmulo de mediação sem suporte"
+      ],
+      "condicoes_favoraveis": [
+        "Escalonamento claro de situações difíceis",
+        "Apoio da coordenação e pausas regulares"
+      ],
+      "condicoes_adversas": [
+        "Tratamento desrespeitoso sem resposta institucional",
+        "Volume de atendimento sem cobertura adequada"
+      ],
+      "sinergias_propostas": [],
+      "ambientes": null,
+      "pontos": null,
+      "status": "proposta_editorial_nao_aprovada"
+    },
+    {
+      "id": "NPC-13",
+      "nome": "Alisson",
+      "papel": "Recursos e operação",
+      "idade": null,
+      "forcas": [
+        "Identifica necessidades práticas de recursos",
+        "Ajuda a testar soluções para a rotina operacional",
+        "Compartilha observações sobre equipamentos e processos"
+      ],
+      "pontos_de_atencao": [
+        "Intervenções urgentes sem planejamento",
+        "Solicitações simultâneas sem ordem de prioridade"
+      ],
+      "condicoes_favoraveis": [
+        "Ferramentas adequadas e orientação segura",
+        "Tempo para verificação antes da execução"
+      ],
+      "condicoes_adversas": [
+        "Equipamentos inadequados ou indisponíveis",
+        "Pressão para improvisar sem condições seguras"
+      ],
+      "sinergias_propostas": [],
+      "ambientes": null,
+      "pontos": null,
+      "status": "proposta_editorial_nao_aprovada"
+    },
+    {
+      "id": "NPC-14",
+      "nome": "Camila",
+      "papel": "Melhoria do ambiente",
+      "idade": null,
+      "forcas": [
+        "Observa oportunidades de melhorar os espaços",
+        "Reúne sugestões sobre conforto e uso do ambiente",
+        "Acompanha a adequação das melhorias à rotina"
+      ],
+      "pontos_de_atencao": [
+        "Demandas de melhoria sem critérios de escolha",
+        "Responsabilização individual por problemas estruturais"
+      ],
+      "condicoes_favoraveis": [
+        "Participação dos trabalhadores nas mudanças",
+        "Recursos e retorno sobre as sugestões"
+      ],
+      "condicoes_adversas": [
+        "Mudanças físicas sem consulta aos usuários",
+        "Desconforto persistente sem encaminhamento"
+      ],
+      "sinergias_propostas": [],
+      "ambientes": null,
+      "pontos": null,
+      "status": "proposta_editorial_nao_aprovada"
+    },
+    {
+      "id": "NPC-15",
+      "nome": "Lucas",
+      "papel": "Organização operacional",
+      "idade": null,
+      "forcas": [
+        "Ajuda a reorganizar tarefas diante de imprevistos",
+        "Identifica alternativas práticas de execução",
+        "Articula recursos para manter o fluxo de trabalho"
+      ],
+      "pontos_de_atencao": [
+        "Urgências que se tornam rotina",
+        "Mudanças rápidas sem alinhamento da equipe"
+      ],
+      "condicoes_favoraveis": [
+        "Limites claros de atuação e prioridades",
+        "Coordenação acessível para resolver impedimentos"
+      ],
+      "condicoes_adversas": [
+        "Retrabalho constante por mudanças de orientação",
+        "Pressão para manter o ritmo sem recuperação"
+      ],
+      "sinergias_propostas": [],
+      "ambientes": null,
+      "pontos": null,
+      "status": "proposta_editorial_nao_aprovada"
+    },
+    {
+      "id": "NPC-16",
+      "nome": "Beatriz",
+      "papel": "Comunicação e criação",
+      "idade": null,
+      "forcas": [
+        "Torna informações do trabalho mais claras",
+        "Contribui com materiais de comunicação acessíveis",
+        "Reúne ideias da equipe para iniciativas internas"
+      ],
+      "pontos_de_atencao": [
+        "Pedidos criativos sem objetivo ou prazo definido",
+        "Revisões sucessivas com orientações contraditórias"
+      ],
+      "condicoes_favoraveis": [
+        "Briefings claros e retorno construtivo",
+        "Tempo de criação e colaboração entre áreas"
+      ],
+      "condicoes_adversas": [
+        "Interrupções frequentes e excesso de frentes",
+        "Desqualificação das contribuições sem diálogo"
+      ],
+      "sinergias_propostas": [],
+      "ambientes": null,
+      "pontos": null,
+      "status": "proposta_editorial_nao_aprovada"
+    }
+  ],
+  "continuacao": "PM autorizou definir autonomamente os oito perfis e considerar personalidade. Versão integrada em data/npcs/catalogo-v1.json; este arquivo preserva o rascunho anterior e não é importado pelo jogo."
+}

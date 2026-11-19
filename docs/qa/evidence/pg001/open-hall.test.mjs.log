@@ -1,0 +1,12 @@
+✔ os 12 recursos fisicos correspondem ao catalogo financeiro existente (2.4778ms)
+✔ melhoria, duplicacao, recarga e 30 dias mantem contrato de simulacao (0.7415ms)
+✔ malhas fornecidas preservam esqueletos e animacoes em arquivos locais leves (13.8506ms)
+✔ transformacao e restauracao sao explicitas e nao apenas alteracao da cor do setor (1.6724ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 25.7291

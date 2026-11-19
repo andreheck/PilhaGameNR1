@@ -1,3 +1,35 @@
+# PilhA+ Game / Ao Trabalho — versão de testes integrada
+
+Frente de desenvolvimento: `codex/unified-social-agenda`, [PR #69](https://github.com/andreheck/PilhaGameNR1/pull/69). O site de testes é [pilha-plus-game-preview.vercel.app](https://pilha-plus-game-preview.vercel.app/); o commit implantado e a validação devem ser conferidos na PR. Publicar o teste não significa mesclar a branch na main.
+
+A jornada atual é tela inicial Ao Trabalho → apresentação → dupla de heróis → contratação inicial → empresa contínua com Escritório, Produção, Atendimento e Restauração. Inclui 16 NPCs canônicos, ritmos individuais, postos de trabalho, pausas, conversas, reuniões semanais, 38 melhorias/benefícios e progresso local.
+
+`npm run build` gera a entrada em `dist/index.html`, usando `ui/continuous-game.js` e `simulation/company-continuous.js`. Catálogo: `data/continuous/catalog.js`; estado empresarial: `pilha-company-continuous-v2`. Os casos e motores legados são preservados como histórico, sem duplicar seu fluxo no menu contínuo atual.
+
+Validação: `npm test`, `npm run test:continuous`, `npm run test:living`, `npm run test:npcs` e QA Playwright do CI. Relatórios: [revisão das PRs](docs/reviews/REVISAO-PRS-FRENTE-UNICA-2026-11-05.md) e [agenda cíclica](docs/releases/NPCS-AGENDA-CICLICA-2026-11-05.md). Índices são recursos educativos fictícios; não constituem diagnóstico ou comprovação normativa. Novos rigs de heróis e variantes finais de móveis desgastados não são declarados entregues.
+
+## Referências históricas de desenvolvimento
+
+Os registros abaixo preservam decisões e rotas de versões anteriores. Sua descrição de telas e versões publicadas não substitui o fluxo de testes acima.
+
+> **Registro — recuperação e progressão (19/10/2026):** leia [registro](docs/releases/RECUPERACAO-PROGRESSAO-2026-10-19.md), [níveis/XP](docs/PROGRESSAO-HEROIS-2026-10-19.md) e [elétrons futuros](docs/INTEGRACAO-ELETRONS-PILHA-APP.md). Jogador acionista; formação usa créditos fictícios. Não presumir conexão real com o App.
+
+## Atualização: acionista, dupla visível e ciclo de 30 dias
+
+Referência atual: [motor temporal e hipóteses](docs/MOTOR-ESTATISTICO-TEMPORAL.md), [entrega e testes](docs/releases/ACIONISTA-CICLO-KIMI-2026-10-19.md) e [triagem da revisão Kimi](docs/reviews/TRIAGEM-KIMI-2026-10-19.md). A revisão original permanece arquivada sem alterações.
+
+# PilhA+ Game — desenvolvimento atual
+
+**Referência histórica:** [Visão de Produto (18/10/2026)](docs/PRODUTO-CANONICO-2026-10-18.md). A integração daquela época reunia investimentos, prólogo opcional, navegação por colisão, fallback 2D e estado global. O status atual da frente contínua está descrito no início deste README.
+
+**Áreas:** Casos 01–05, Equipe, Investimentos, Biblioteca e Progresso. O novo mapa costeiro e os sistemas de currículos, mobilidade e contratação são especificações atuais ainda não implementadas como gameplay.
+
+**Testes:** `npm test` e QA manual em mobile/desktop. Não fazer merge ou deploy de produção sem revisão.
+
+---
+
+## Histórico da Alpha 1.4
+
 # PilhA+ Game — Alpha 1.4
 
 Versão principal: **[Abrir o simulador](https://pilha-plus-game-preview.vercel.app/)**. O novo hub ocupa uma tela, inclui cinco casos educativos sequenciais, câmera isométrica com transições suaves, três personagens GLB animados e painéis contextuais. A meta pedagógica de cada caso é **75/100**, com pontuação máxima de 100. Os Casos 02 a 05 estão jogáveis em alpha, sujeitos a revisão pedagógica.
@@ -46,6 +78,14 @@ Geração do modelo final via Meshy (CLI não disponível nesta execução), rig
 - Fallback: em falha do carregamento de módulos 3D, as estações em texto continuam acessíveis, inclusive em dispositivos sem WebGL.
 
 
+
+## Integracao das contribuicoes - 19/10/2026
+
+- [Registro de integracao e QA](docs/releases/INTEGRACAO-COLABORADORES-2026-10-19.md): guarda de animacao do Manus e selecao experimental de dupla, sem bonus automaticos.
+- [Herois da beta](docs/herois/README.md) e [Diretor](docs/herois/diretor.md): documentos preservados da PR #22.
+- [Roadmap de produto](docs/ROADMAP-PRODUTO.md) e [propostas de trabalho](simuladores/propostas-de-trabalho/README.md): especificacoes preservadas da main, nao funcionalidades novas desta entrega.
+
+
 ---
 
 ## Módulo de produto: Simulador de Propostas de Trabalho
@@ -73,3 +113,4 @@ A branch principal ainda identifica a versão de referência como **Alpha 1.4**.
 O sistema de investimentos/intervenções do jogo e o comparador de impacto são diferentes do **Simulador de Propostas de Trabalho**, que permanece planejado como módulo próprio em [simuladores/propostas-de-trabalho](simuladores/propostas-de-trabalho/README.md).
 
 A auditoria documental completa, com riscos, dependências e próximos passos, está em [docs/ESTADO-REPOSITORIO-2026-11-03.md](docs/ESTADO-REPOSITORIO-2026-11-03.md). Não foram feitos merges, deploys ou alterações no alias público nesta atualização.
+

@@ -1,0 +1,30 @@
+[
+  {
+    "viewport": [
+      1440,
+      900
+    ],
+    "entry": true,
+    "reveal": true,
+    "collectible": true,
+    "history": true,
+    "persistence": true,
+    "companySaveUnchanged": true,
+    "blockedStorage": true,
+    "errors": []
+  },
+  {
+    "viewport": [
+      1024,
+      768
+    ],
+    "entry": true,
+    "reveal": true,
+    "collectible": true,
+    "history": true,
+    "persistence": true,
+    "companySaveUnchanged": true,
+    "blockedStorage": true,
+    "errors": []
+  }
+]

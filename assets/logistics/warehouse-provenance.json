@@ -1,0 +1,57 @@
+{
+  "done": true,
+  "id": "galpao-logistico",
+  "scale": {
+    "width": 8.400000000000002,
+    "depth": 8.128676719154843,
+    "height": 4.30946768370613
+  },
+  "origin": {
+    "x": -4.206683981503389,
+    "y": -2.178435344034256,
+    "z": -4.087755478935485
+  },
+  "seats": [],
+  "clip": null,
+  "frames": 1,
+  "views": 1,
+  "frameWidth": 1296,
+  "frameHeight": 967,
+  "projection": {
+    "width": 532.9905900725896,
+    "height": 397.8157930772959,
+    "anchor": [
+      0.49999999999999994,
+      0.9948808781218458
+    ]
+  },
+  "source": "Meshy_AI_Warehouse_Diorama_Roo_1013180404_image-to-3d-texture.fbx",
+  "sourceSha256": "d3b23b8dfe4623987414fd42622783b9dbd96d416938f3a9c5c899abff7e7566",
+  "sourceBytes": 80560300,
+  "originalTextures": {
+    "Meshy_AI_Warehouse_Diorama_Roo_1013180404_image-to-3d-texture.png": {
+      "sha256": "add38fe6d6444422457127d28f3a89c85560994194c359fee0f59e60a738d606",
+      "bytes": 18882501
+    },
+    "Meshy_AI_Warehouse_Diorama_Roo_1013180404_image-to-3d-texture_metallic.png": {
+      "sha256": "68883e042fd963748f60831a0c2bc78339b5150ae4951ee4419b6149bbc7b92a",
+      "bytes": 36803
+    },
+    "Meshy_AI_Warehouse_Diorama_Roo_1013180404_image-to-3d-texture_normal.png": {
+      "sha256": "09b3b49b10fb2ec66be35d800771e5e776ec7b3b9eabd3f6694d56005f50fc64",
+      "bytes": 16224023
+    },
+    "Meshy_AI_Warehouse_Diorama_Roo_1013180404_image-to-3d-texture_roughness.png": {
+      "sha256": "6e5796b91cac606190b1b1325b992ee59d2f4998b0e751dfe62790c7ee9d15d6",
+      "bytes": 1719895
+    }
+  },
+  "originalVertices": 703193,
+  "originalTriangles": 1410582,
+  "previewVertices": 822907,
+  "previewTriangles": 1410582,
+  "previewBytes": 46758204,
+  "method": "Original FBX triangles and UV seams preserved in local GLB; master unchanged",
+  "url": "/assets/logistics/warehouse-views.png",
+  "sha256": "3f22e3ae2774eb75203687b28bcd30b2518276af78b07d4673180e671de9fba9"
+}

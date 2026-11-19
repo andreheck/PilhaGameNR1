@@ -1,0 +1,28 @@
+name: Renderizar NPCs riggados aprovados
+on:
+  pull_request:
+    paths:
+      - 'tools/npc-rigged-sources/**'
+      - 'tools/render-rigged-npcs.*'
+      - 'data/continuous/npc-rigged.json'
+      - '.github/workflows/npc-rigged-render.yml'
+permissions:
+  contents: read
+jobs:
+  atlas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - run: python -m pip install playwright==1.57.0 pillow==11.3.0
+      - run: python tools/render-rigged-npcs.py
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: npc-rigged-atlases
+          path: artifacts/rigged-render/
+          retention-days: 7

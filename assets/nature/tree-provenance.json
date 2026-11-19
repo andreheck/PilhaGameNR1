@@ -1,0 +1,39 @@
+{
+  "done": true,
+  "id": "arvore-sombra",
+  "scale": {
+    "width": 2.475281365166772,
+    "depth": 1.2572969451395517,
+    "height": 2.3999999999999995
+  },
+  "origin": {
+    "x": -1.2360000204778492,
+    "y": -1.2100423759469756,
+    "z": -0.6368239448136127
+  },
+  "seats": [],
+  "clip": null,
+  "frames": 1,
+  "views": 4,
+  "frameWidth": 395,
+  "frameHeight": 378,
+  "projection": {
+    "width": 162.49094243030794,
+    "height": 155.28193874497123,
+    "anchor": [
+      0.5,
+      0.924135781757706
+    ]
+  },
+  "source": "Meshy_AI_tree_model_1109210605_image-to-3d-texture.glb",
+  "sourceBytes": 352000924,
+  "sourceSha256": "1c3c81af347c5fc58ded249895d05ba4c6341419ea8694e78dbbbc75440da513",
+  "originalVertices": 7320578,
+  "originalTriangles": 7667726,
+  "previewVertices": 165812,
+  "previewTriangles": 385840,
+  "previewBytes": 10419880,
+  "method": "150-cell spatial clustering for local atlas only; master untouched; textures <=1024px",
+  "url": "/assets/nature/arvore-sombra-views.png",
+  "sha256": "512e2c40865f653eebdcf0d6210e06bdf5294c45558416fe0919bddd40ab292f"
+}

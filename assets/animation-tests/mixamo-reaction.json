@@ -1,0 +1,66 @@
+{
+  "done": true,
+  "id": "mixamo-reaction-test",
+  "clip": "mixamo.com",
+  "duration": 4.5333333015441895,
+  "materials": [
+    {
+      "name": "Ch06_body",
+      "type": "MeshPhongMaterial",
+      "color": "cccccc",
+      "emissive": "000000",
+      "map": true,
+      "width": 4096,
+      "vertexColors": false,
+      "opacity": 1,
+      "embedded": true
+    },
+    {
+      "name": "Ch06_eyelashes",
+      "type": "MeshPhongMaterial",
+      "color": "cccccc",
+      "emissive": "000000",
+      "map": true,
+      "width": 4096,
+      "vertexColors": false,
+      "opacity": 1,
+      "embedded": true
+    },
+    {
+      "name": "Ch06_body1",
+      "type": "MeshPhongMaterial",
+      "color": "cccccc",
+      "emissive": "000000",
+      "map": true,
+      "width": 2048,
+      "vertexColors": false,
+      "opacity": 1,
+      "embedded": true
+    }
+  ],
+  "clips": [
+    {
+      "name": "mixamo.com",
+      "duration": 4.5333333015441895,
+      "tracks": 53
+    },
+    {
+      "name": "Take 001",
+      "duration": 0,
+      "tracks": 0
+    }
+  ],
+  "bones": 65,
+  "anchorY": 0.7919900286053034,
+  "source": "Shoved Reaction With Spin.fbx",
+  "sourceBytes": 54954256,
+  "sourceSha256": "9053ba6f8a6a4a0fb91fa5e1559b52edd39d5e2d1f8e582f66b6184b43c2eff7",
+  "atlasSha256": "c72674af38861d53dc7091f51a9082df7365e89221a0f20457c5073f362f33ff",
+  "frames": 32,
+  "directions": 4,
+  "frameWidth": 128,
+  "frameHeight": 192,
+  "file": "/assets/animation-tests/mixamo-reaction.png",
+  "rootTranslation": "XZ locked; supplied bone rotations retained",
+  "purpose": "Manual visual compatibility test, no canonical employee assignment"
+}

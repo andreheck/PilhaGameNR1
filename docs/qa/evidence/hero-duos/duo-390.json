@@ -1,0 +1,20 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "width": 390,
+  "height": 844,
+  "kind": "Chromium headless; mobile viewport emulated, not a physical device",
+  "errors": [],
+  "checks": [
+    "6 choices / distinct pair / disabled incomplete save / persisted",
+    "Escape closes and discards unsaved swap",
+    "independent selection per case",
+    "reload restores swapped roles",
+    "existing 1800-credit upgrade unaffected"
+  ],
+  "actors": 5,
+  "dialogOverflow": false,
+  "budgetBefore": 10000,
+  "budgetAfter": 8200,
+  "pageOverflow": false,
+  "passed": true
+}

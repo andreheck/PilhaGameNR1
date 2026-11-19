@@ -1,0 +1,48 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Conversão dos NPCs aprovados</title>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
+<style>body{background:#15243a;color:#fff;font:16px system-ui}canvas{max-width:100%;background:#263953}#status{white-space:pre-wrap}</style>
+<h1>Modelos fornecidos pelo PM</h1><p id="status">Carregando…</p><div id="output"></div>
+<script type="module">
+import * as T from 'three';
+import {FBXLoader} from 'three/addons/loaders/FBXLoader.js';
+import {retargetClip} from 'three/addons/utils/SkeletonUtils.js';
+const status=document.getElementById('status');
+window.riggedResult={done:false,errors:[],models:[],exports:[]};
+const result=window.riggedResult;
+try{
+ const renderer=new T.WebGLRenderer({alpha:true,antialias:true,preserveDrawingBuffer:true});renderer.setSize(128,192);renderer.setClearColor(0,0);renderer.outputColorSpace=T.SRGBColorSpace;
+ const model=await new FBXLoader().loadAsync('/assets/robots/blue-robot-walking.fbx');let mesh;model.traverse(o=>{if(o.isSkinnedMesh&&!mesh)mesh=o;o.frustumCulled=false;if(o.isMesh){for(const m of (Array.isArray(o.material)?o.material:[o.material]))if(m&&!m.map)m.color.set(0x278cda);}});
+ if(!mesh||!model.animations.length)throw Error('Missing rig or animation');
+ const walking=model.animations.find(c=>/walk/i.test(c.name))||model.animations[0];
+ const loaded=[{key:'blue-robot',id:'ROBOT-01',model,mesh,actions:{walk:walking,idle:walking}}];
+ result.models=[{key:'blue-robot',clips:model.animations.map(c=>({name:c.name,duration:c.duration}))}];
+ // Use one fixed camera and pivot per character, including all frame bounds.
+ for(const item of loaded){
+  const model=item.model,scene=new T.Scene(),normalizer=new T.Group(),pivot=new T.Group();
+  normalizer.add(model);pivot.add(normalizer);scene.add(pivot);
+  scene.add(new T.HemisphereLight(0xffffff,0x73839a,2.1));
+  const light=new T.DirectionalLight(0xffffff,2.7);light.position.set(4,7,5);scene.add(light);
+  const camera=new T.OrthographicCamera(-.9,.9,1.35,-1.35,.1,100);camera.position.set(5,3.7,5);camera.lookAt(0,.85,0);
+  const mixer=new T.AnimationMixer(model),bounds=new T.Box3();
+  const root=model.getObjectByName(item.mesh.skeleton.bones.find(b=>/hips|pelvis/i.test(b.name))?.name||item.mesh.skeleton.bones[0].name);
+  let rootOrigin;
+  function pose(clip,t){mixer.stopAllAction();mixer.clipAction(clip).reset().play();mixer.setTime(t);if(root){if(!rootOrigin)rootOrigin=root.position.clone();root.position.x=rootOrigin.x;root.position.z=rootOrigin.z;}model.updateMatrixWorld(true);}
+  for(const [action,clip] of Object.entries(item.actions))for(let f=0;f<8;f++){pose(clip,action==='idle'?0:f/8*clip.duration);bounds.union(new T.Box3().setFromObject(model));}
+  const size=bounds.getSize(new T.Vector3()),center=bounds.getCenter(new T.Vector3());
+  normalizer.scale.setScalar(1.7/size.y);model.position.sub(new T.Vector3(center.x,bounds.min.y,center.z));
+  const fixedPosition=model.position.clone();
+  for(const [action,clip] of Object.entries(item.actions)){
+   status.textContent='Renderizando '+item.key+' · '+action;
+   const frames=action==='talk'?64:8,atlas=document.createElement('canvas');atlas.width=frames*128;atlas.height=768;const ctx=atlas.getContext('2d');
+   for(let dir=0;dir<4;dir++)for(let f=0;f<frames;f++){
+    pose(clip,action==='idle'?0:f/frames*clip.duration);model.position.copy(fixedPosition);pivot.rotation.y=dir*Math.PI/2;pivot.updateMatrixWorld(true);
+    renderer.render(scene,camera);ctx.drawImage(renderer.domElement,f*128,dir*192);
+   }
+   document.getElementById('output').append(atlas);camera.updateMatrixWorld(true);const ground=new T.Vector3(0,0,0).project(camera);
+   result.exports.push({key:item.key,id:item.id,action,clip:clip.name,duration:clip.duration,anchor:[.5,.5-.5*ground.y],frames,directions:4,width:atlas.width,height:768,data:atlas.toDataURL('image/png')});
+  }
+  mixer.stopAllAction();
+ }
+ result.done=true;await fetch('/save',{method:'POST',body:JSON.stringify(result)});status.textContent='Concluído';
+}catch(e){result.errors.push(String(e.stack||e));fetch('/save',{method:'POST',body:JSON.stringify(result)});result.done=true;status.textContent=String(e.stack||e);console.error(e);}
+</script></html>

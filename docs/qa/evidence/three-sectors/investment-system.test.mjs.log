@@ -1,0 +1,17 @@
+Investment budget, forecasts, persistence and floating alerts: PASS
+✔ cada nova sessão começa com 10000 créditos e persiste no localStorage (2.385ms)
+✔ compra reduz saldo, guarda histórico e agenda previsão em 30 dias (1.3231ms)
+✔ não permite saldo negativo nem comprar a mesma melhoria duas vezes (0.3289ms)
+✔ previsões diferenciam instalada, disponível e sem orçamento (0.3303ms)
+✔ hub contém aviso flutuante, tela de investimentos e feedback visual (2.0155ms)
+✔ catálogo cobre fatores psicossociais e riscos físicos do trabalho (0.737ms)
+✔ efeitos nos indicadores só amadurecem ao avançar o horizonte de 30 dias (1.3385ms)
+✔ estado dos indicadores e eventos permanece persistido (0.3027ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18.4495

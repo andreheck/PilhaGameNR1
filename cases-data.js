@@ -1,3 +1,5 @@
+import {ETHICS_VERSION,ETHICS_CAP,ethicsViolations} from './simulation/case-ethics.js';
+import {TIMELINE_KEY,isCycleComplete} from './simulation/mission-timeline.js';
 import {getCompanyCaseModifier} from './simulation/company-state.js';
 export const CASES=[
  {id:'01',title:'Galpão logístico',area:'Operações',theme:'Sobrecarga, jornadas e conflitos',actors:['operadora','psicologa'],at:[-3.1,1.7],risk:78,
@@ -43,6 +45,13 @@ export const CASES=[
 ];
 export const REQUIRED_SCORE=75;
 export const KEY=(id)=>`pilha-case-${id}-alpha14`;
-export function completedCase(id,store){const current=store(KEY(id));const best=Math.max(Number(current?.bestScore)||0,current?.completed?(Number(current.score)||0):0);if(id==='01'){const legacy=store('pilha-case01-v2');return best>=REQUIRED_SCORE||Boolean(legacy?.completed&&Number(legacy.score)>=REQUIRED_SCORE)}return best>=REQUIRED_SCORE}
+export function completedCase(id,store){
+ const current=store(KEY(id));
+ if(current?.legacyApproved===true)return true;
+ const best=Math.max(Number(current?.bestScore)||0,current?.completed?(Number(current.score)||0):0);
+ if(current?.timelineRequired){return best>=REQUIRED_SCORE&&isCycleComplete(store(TIMELINE_KEY)?.campaigns?.[id]);}
+ if(id==='01'){const legacy=store('pilha-case01-v2');return best>=REQUIRED_SCORE||Boolean(legacy?.completed&&Number(legacy.score)>=REQUIRED_SCORE)}
+ return best>=REQUIRED_SCORE;
+}
 export function isUnlocked(index,store){if(index===0)return true;return completedCase(CASES[index-1].id,store)}
-export function outcome(caseId,choices,companyState){const definition=CASES.find(c=>c.id===caseId);if(!definition)return null;let score=0;const feedback=[];for(let i=0;i<definition.steps.length;i++){const c=definition.steps[i];const index=choices[i];if(Number.isInteger(index)&&c.options[index]){score+=c.options[index][1];feedback.push(c.options[index][2])}}const modifier=getCompanyCaseModifier(companyState,caseId);const contextAdjustment=caseId==='03'?modifier.clarity*.35+modifier.autonomy*.35-modifier.conflict*.25:caseId==='04'?modifier.privacyTrust*.35+modifier.wellbeing*.3-modifier.confidentialityRisk*.25:caseId==='05'?modifier.recovery*.35-modifier.onCallPressure*.3:0;score=Math.max(0,Math.min(100,Math.round(score+contextAdjustment)));if(contextAdjustment>=4)feedback.push('O estado global da empresa favoreceu a implementação desta resposta.');if(contextAdjustment<=-4)feedback.push('O estado global da empresa aumentou a dificuldade desta resposta: revise as condições acumuladas.');return {score,passed:score>=REQUIRED_SCORE,feedback,companyModifier:modifier,contextAdjustment:Math.round(contextAdjustment)};}
+export function outcome(caseId,choices,companyState){const definition=CASES.find(c=>c.id===caseId);if(!definition)return null;let score=0;const feedback=[];for(let i=0;i<definition.steps.length;i++){const c=definition.steps[i];const index=choices[i];if(Number.isInteger(index)&&c.options[index]){score+=c.options[index][1];feedback.push(c.options[index][2])}}const modifier=getCompanyCaseModifier(companyState,caseId);const contextAdjustment=caseId==='03'?modifier.clarity*.35+modifier.autonomy*.35-modifier.conflict*.25:caseId==='04'?modifier.privacyTrust*.35+modifier.wellbeing*.3-modifier.confidentialityRisk*.25:caseId==='05'?modifier.recovery*.35-modifier.onCallPressure*.3:0;score=Math.max(0,Math.min(100,Math.round(score+contextAdjustment)));if(contextAdjustment>=4)feedback.push('O estado global da empresa favoreceu a implementação desta resposta.');if(contextAdjustment<=-4)feedback.push('O estado global da empresa aumentou a dificuldade desta resposta: revise as condições acumuladas.');const rawScore=score,violations=ethicsViolations(caseId,choices);if(violations.length){score=Math.min(score,ETHICS_CAP);feedback.unshift('Revisão obrigatória: uma escolha expôs, constrangeu ou usou dados sensíveis de pessoas. A soma de pontos não compensa essa violação pedagógica.')}return {score,rawScore,passed:score>=REQUIRED_SCORE&&!violations.length,feedback,violations,evaluationVersion:ETHICS_VERSION,companyModifier:modifier,contextAdjustment:Math.round(contextAdjustment)};}

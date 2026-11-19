@@ -1,0 +1,284 @@
+{
+  "date": "2026-11-05",
+  "repo": "andreheck/PilhaGameNR1",
+  "base": "eef2a88547c7230d51a899647a588c4d900c8d83",
+  "source": "GitHub open PR search; metadata does not prove ancestry, integration or approval",
+  "prs": [
+    {
+      "number": 69,
+      "title": "PilhA+ Game: frente unificada com onboarding, NPCs e benefícios",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/69",
+      "scope": "reviewed-current-docs-or-code"
+    },
+    {
+      "number": 64,
+      "title": "Arte: efeitos de monitores e TV de BI da sala do diretor",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/64",
+      "scope": "reviewed-current-docs-or-code"
+    },
+    {
+      "number": 63,
+      "title": "Planejamento — Ciclo 2: inventário e identidade visual (v1.5+)",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/63",
+      "scope": "reviewed-current-docs-or-code"
+    },
+    {
+      "number": 62,
+      "title": "QA — Ciclo 1 de estabilidade na base Ao Trabalho v1.5+",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/62",
+      "scope": "reviewed-current-docs-or-code"
+    },
+    {
+      "number": 58,
+      "title": "docs: pacote de auditoria Codex — últimas 48 horas",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/58",
+      "scope": "reviewed-current-docs-or-code"
+    },
+    {
+      "number": 22,
+      "title": "Documenta elenco de heróis e ficha do Diretor para a beta",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/22",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 56,
+      "title": "[Revisão] Corrigir agenda, decisões de eventos e avisos; validar PRs #49–55",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/56",
+      "scope": "reviewed-current-docs-or-code"
+    },
+    {
+      "number": 55,
+      "title": "[NPCs] Ritmo mais lento, conversas e reunião semanal no pátio",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/55",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 51,
+      "title": "[A.2/CI] Validar interfaces e corrigir contraste e semântica acessível",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/51",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 52,
+      "title": "[B.1] HUD v2 experimental com dupla, menu e controles acessíveis",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/52",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 54,
+      "title": "[Mundo/2] Escala, copa animada e disposição do mobiliário",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/54",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 53,
+      "title": "[Mundo/1] Unificar quatro zonas em uma planta contínua",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/53",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 49,
+      "title": "[A.1] Mapear unificação e validar saves da base financeira",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/49",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 50,
+      "title": "[A.2] Propor consolidação do runtime atual sobre fin",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/50",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 41,
+      "title": "Empresa viva: NPCs animados de Beatriz e Mariana integrados ao mapa",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/41",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 48,
+      "title": "Corrigir renda produzida por saúde, setor e custos operacionais",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/48",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 47,
+      "title": "Painel integrado e prévia comparativa antes da contratação",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/47",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 46,
+      "title": "Receita por funcionário ativo e metas de lucro trimestrais, semestrais e anuais",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/46",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 45,
+      "title": "Gestão de pessoal: contratações, cobertura, redistribuição e custos",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/45",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 44,
+      "title": "NPCs: afastamentos 2/4/12 semanas, retorno e desligamento + release",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/44",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 43,
+      "title": "Melhorias com efeito imediato/tardio, temporário/permanente e progressão mensal",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/43",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 40,
+      "title": "Corrigir foco da câmera no NPC localizado e testar trabalho/restauração",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/40",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 39,
+      "title": "fix: preservar recuperação de tempo ao pausar e tornar teste da galeria puro",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/39",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 38,
+      "title": "Equipe viva: movimento, saúde individual, abertura, calendário e mundo PilhA+",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/38",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 37,
+      "title": "Empresa contínua: métricas C3, dupla direta, níveis e restauração",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/37",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 36,
+      "title": "Layout neon da entrada e galeria de heróis com retratos oficiais e QA responsivo",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/36",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 35,
+      "title": "Ampliar herói selecionado e manter miniaturas na tela Equipe",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/35",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 34,
+      "title": "Conectar departamentos e ajustar circulação dos NPCs",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/34",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 33,
+      "title": "Galeria dos seis heróis com fichas canônicas e seleção da dupla",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/33",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 32,
+      "title": "Jornada inicial, NPCs animados e 19 eventos do Claude com cadência ativa",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/32",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 31,
+      "title": "Registra fichas e balanceamento contextual dos 16 NPCs",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/31",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 28,
+      "title": "feat: adotar os três setores do Claude preservando economia e ciclo",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/28",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 27,
+      "title": "docs: concluir transição PM/PO/Codex com base verificada e backlog de continuidade",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/27",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 26,
+      "title": "feat: recuperar ciclo do acionista e evolução por créditos e XP",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/26",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 25,
+      "title": "feat: acionista, dupla visível, ciclo de 30 dias e revisão Kimi",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/25",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 24,
+      "title": "feat: integrar revisão Manus e seleção experimental de dupla de heróis",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/24",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 21,
+      "title": "fix: estabilizar etiquetas móveis e fallback de animação",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/21",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 23,
+      "title": "feat: salão único, upgrades visuais e abertura PilhA+ Game",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/23",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 20,
+      "title": "feat: conciliar visão atual, investimentos e universo socioespacial do PilhA+",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/20",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 19,
+      "title": "docs: audit Manus handoff before Alpha 1.5 integration",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/19",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 18,
+      "title": "docs: plano diretor, cronograma e handoffs Claude/Manus/Kimi",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/18",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 13,
+      "title": "feat: narrative onboarding and persistent psychosocial investment simulation",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/13",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 12,
+      "title": "feat: add investment budget, floating alerts and 30-day forecasts",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/12",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 11,
+      "title": "fix: prevent office characters from crossing obstacles",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/11",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 10,
+      "title": "feat: base de escritório vivo e máquina de estados",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/10",
+      "scope": "inventory-only"
+    },
+    {
+      "number": 1,
+      "title": "feat: base de simulação psicossocial para o Pilha Game",
+      "url": "https://github.com/andreheck/PilhaGameNR1/pull/1",
+      "scope": "inventory-only"
+    }
+  ]
+}

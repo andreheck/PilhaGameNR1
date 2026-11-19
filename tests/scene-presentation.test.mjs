@@ -1,0 +1,14 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';import {createHash} from 'node:crypto';
+test('map overlays keep selection outlines without floating sector statistics at any zoom',()=>{
+ const source=fs.readFileSync(new URL('../dist/ui/continuous/iso.js',import.meta.url),'utf8'),a=source.indexOf('function drawOverlay()'),b=source.indexOf('function renderWorld()',a),text=[];let outlines=0;const noop=()=>{},ctx=new Proxy({fillText:s=>text.push(s)},{get:(o,k)=>o[k]||noop});
+ for(const selected of [-1,0])for(const zoom of [1,3,8]){const e={zh:Array(6).fill(.34)},g={worldCfg:[{key:'escritorio',name:'Escritório',bx:0,by:0,env:e}],selIdx:selected,selZone:2,hoverHit:null,cam:{k:zoom},ctx,colors:Array(6).fill('#aaa'),s:1,W:12,D:8,roomDepth:()=>8,P:(x,y)=>[x,y],poly:()=>outlines++,rgba:()=>'',time:1};vm.runInNewContext(source.slice(a,b)+';drawOverlay();',g);}
+ assert.deepEqual(text,[]);assert.ok(outlines>0);
+});
+test('manual clip plays once, holds final pose, supports four views and removes without touching the simulation',()=>{
+ let now=0,next=0,draws=0;const jobs=new Map(),images=[];class Image{constructor(){this.complete=false;images.push(this);}}
+ const g={global:{Image,requestAnimationFrame:f=>{jobs.set(++next,f);return next;},cancelAnimationFrame:id=>jobs.delete(id)},performance:{now:()=>now},running:false,render:()=>draws++,Math};vm.createContext(g);vm.runInContext(fs.readFileSync(new URL('../ui/mixamo-test-runtime.js',import.meta.url),'utf8'),g);g.setAnimationTest({enabled:true,direction:2});assert.equal(g.animationTestInfo().loaded,false);images[0].complete=true;images[0].naturalWidth=4096;images[0].onload();assert.equal(g.animationTestInfo().frame,0);
+ for(const t of [500,2000,5000]){now=t;const batch=[...jobs.values()];jobs.clear();batch.forEach(f=>f(now));}assert.equal(g.animationTestInfo().frame,31);assert.equal(g.animationTestInfo().playing,false);assert.equal(jobs.size,0);assert.equal(g.animationTestInfo().direction,2);assert.ok(draws>1);g.setAnimationTest({enabled:false});assert.equal(g.animationTestInfo().enabled,false);assert.equal(jobs.size,0);
+});
+test('the supplied textured clip is baked with provenance and no54MB source in the public build',()=>{
+ const r=JSON.parse(fs.readFileSync(new URL('../assets/animation-tests/mixamo-reaction.json',import.meta.url))),png=fs.readFileSync(new URL('../assets/animation-tests/mixamo-reaction.png',import.meta.url));assert.equal(r.bones,65);assert.ok(r.duration>4&&r.duration<5);assert.equal(r.clips[0].tracks,53);assert.ok(r.materials.every(m=>m.embedded&&m.width>0));assert.equal(createHash('sha256').update(png).digest('hex'),r.atlasSha256);assert.equal(png.readUInt32BE(16),32*128);assert.equal(png.readUInt32BE(20),4*192);assert.ok(png.length<3e6);assert.ok(!fs.existsSync(new URL('../dist/assets/animation-tests/Shoved Reaction With Spin.fbx',import.meta.url)));
+});

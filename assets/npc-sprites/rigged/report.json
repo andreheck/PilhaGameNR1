@@ -1,0 +1,348 @@
+{
+  "done": true,
+  "errors": [],
+  "models": [
+    {
+      "key": "beatriz",
+      "id": "NPC-16",
+      "clips": [
+        {
+          "name": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+          "duration": 1.0333333015441895,
+          "tracks": 75
+        }
+      ],
+      "bones": [
+        "Hips",
+        "LeftUpLeg",
+        "LeftLeg",
+        "LeftFoot",
+        "LeftToeBase",
+        "RightUpLeg",
+        "RightLeg",
+        "RightFoot",
+        "RightToeBase",
+        "Spine02",
+        "Spine01",
+        "Spine",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftHand",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightHand",
+        "neck",
+        "Head",
+        "head_end",
+        "headfront"
+      ]
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "clips": [
+        {
+          "name": "Armature|Armature|Armature|Armature|Talk_Passionately|baselayer",
+          "duration": 10.266666412353516,
+          "tracks": 75
+        }
+      ],
+      "bones": [
+        "Hips",
+        "LeftUpLeg",
+        "LeftLeg",
+        "LeftFoot",
+        "LeftToeBase",
+        "RightUpLeg",
+        "RightLeg",
+        "RightFoot",
+        "RightToeBase",
+        "Spine02",
+        "Spine01",
+        "Spine",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftHand",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightHand",
+        "neck",
+        "Head",
+        "head_end",
+        "headfront"
+      ]
+    },
+    {
+      "key": "joao",
+      "id": "NPC-01",
+      "clips": [
+        {
+          "name": "Running",
+          "duration": 0.6333333253860474,
+          "tracks": 128
+        },
+        {
+          "name": "Walking",
+          "duration": 1.0333333015441895,
+          "tracks": 128
+        },
+        {
+          "name": "_01a1c1e3_4163_72bc_b676_919e79e69ddf",
+          "duration": 6.9666666984558105,
+          "tracks": 128
+        },
+        {
+          "name": "_01a1c1e3_cbe1_72b7_a088_a1eb62260356",
+          "duration": 6.9666666984558105,
+          "tracks": 128
+        },
+        {
+          "name": "_01a1c1e7_fc91_7384_98ef_84dabfd390a2",
+          "duration": 4.4666666984558105,
+          "tracks": 128
+        },
+        {
+          "name": "Casual_Walk",
+          "duration": 4.166666507720947,
+          "tracks": 128
+        },
+        {
+          "name": "Sit_Finger_Wag_No",
+          "duration": 3.9666666984558105,
+          "tracks": 128
+        },
+        {
+          "name": "Sitting_Clap",
+          "duration": 3.3333332538604736,
+          "tracks": 128
+        },
+        {
+          "name": "Talk_with_Hands_Open",
+          "duration": 3.9666666984558105,
+          "tracks": 128
+        },
+        {
+          "name": "Talk_with_Right_Hand_Open",
+          "duration": 3.7333333492279053,
+          "tracks": 128
+        },
+        {
+          "name": "Unsteady_Walk",
+          "duration": 2.9666666984558105,
+          "tracks": 128
+        }
+      ],
+      "bones": [
+        "mixamorigHips",
+        "mixamorigSpine",
+        "mixamorigSpine1",
+        "mixamorigSpine2",
+        "mixamorigNeck",
+        "mixamorigHead",
+        "mixamorigLeftShoulder",
+        "mixamorigLeftArm",
+        "mixamorigLeftForeArm",
+        "mixamorigLeftHand",
+        "mixamorigLeftHandThumb1",
+        "mixamorigLeftHandThumb2",
+        "mixamorigLeftHandThumb3",
+        "mixamorigLeftHandPinky1",
+        "mixamorigLeftHandPinky2",
+        "mixamorigLeftHandPinky3",
+        "mixamorigLeftHandRing1",
+        "mixamorigLeftHandRing2",
+        "mixamorigLeftHandRing3",
+        "mixamorigLeftHandIndex1",
+        "mixamorigLeftHandIndex2",
+        "mixamorigLeftHandIndex3",
+        "mixamorigLeftHandMiddle1",
+        "mixamorigLeftHandMiddle2",
+        "mixamorigLeftHandMiddle3",
+        "mixamorigRightShoulder",
+        "mixamorigRightArm",
+        "mixamorigRightForeArm",
+        "mixamorigRightHand",
+        "mixamorigRightHandThumb1",
+        "mixamorigRightHandThumb2",
+        "mixamorigRightHandThumb3",
+        "mixamorigRightHandPinky1",
+        "mixamorigRightHandPinky2",
+        "mixamorigRightHandPinky3",
+        "mixamorigRightHandRing1",
+        "mixamorigRightHandRing2",
+        "mixamorigRightHandRing3",
+        "mixamorigRightHandIndex1",
+        "mixamorigRightHandIndex2",
+        "mixamorigRightHandIndex3",
+        "mixamorigRightHandMiddle1",
+        "mixamorigRightHandMiddle2",
+        "mixamorigRightHandMiddle3",
+        "mixamorigLeftUpLeg",
+        "mixamorigLeftLeg",
+        "mixamorigLeftFoot",
+        "mixamorigLeftToeBase",
+        "mixamorigRightUpLeg",
+        "mixamorigRightLeg",
+        "mixamorigRightFoot",
+        "mixamorigRightToeBase"
+      ]
+    }
+  ],
+  "retarget": {
+    "donor": "beatriz",
+    "recipient": "mariana",
+    "matchedBones": 24,
+    "totalBones": 24,
+    "method": "Three r180 SkeletonUtils.retargetClip, preserveBonePositions"
+  },
+  "atlases": [
+    {
+      "key": "beatriz",
+      "id": "NPC-16",
+      "action": "walk",
+      "clip": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "beatriz-walk.png",
+      "sha256": "f9e24711a002d8cd2cdf16bb5a12731b52033bc97dee374a17edbb22560baafd",
+      "distinctFrames": 8
+    },
+    {
+      "key": "beatriz",
+      "id": "NPC-16",
+      "action": "idle",
+      "clip": "Armature|Armature|Armature|Armature|walking_man|baselayer",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "beatriz-idle.png",
+      "sha256": "153a6189cb4e26bcf1768721f094f6d6e1b8732e38ee12ad8d218fb3cfa66b3c",
+      "distinctFrames": 1
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "action": "walk",
+      "clip": "Walking · adaptado do rig fornecido de Beatriz",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "mariana-walk.png",
+      "sha256": "187016d045703cdb45bcc77c94cc510aac16d46c9e4e7465502698c836f759a9",
+      "distinctFrames": 8
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "action": "idle",
+      "clip": "Armature|Armature|Armature|Armature|Talk_Passionately|baselayer",
+      "duration": 10.266666412353516,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "mariana-idle.png",
+      "sha256": "8fcc9e138cfaa960c348e26d3240aad19b1b00bc57fcf44652b589b15557ec37",
+      "distinctFrames": 1
+    },
+    {
+      "key": "mariana",
+      "id": "NPC-07",
+      "action": "talk",
+      "clip": "Armature|Armature|Armature|Armature|Talk_Passionately|baselayer",
+      "duration": 10.266666412353516,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 64,
+      "directions": 4,
+      "width": 8192,
+      "height": 768,
+      "file": "mariana-talk.png",
+      "sha256": "8e688d7d8152a3be6dec6aadcd63b7cde4f6f8fc7bb19f30f06791ccfe4ba2b5",
+      "distinctFrames": 64
+    },
+    {
+      "key": "joao",
+      "id": "NPC-01",
+      "action": "walk",
+      "clip": "Walking",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "joao-walk.png",
+      "sha256": "c7b75382e5225a631f160c6dd7326ea362f905b4d9bdd0454d2ed01b744708bb",
+      "distinctFrames": 8
+    },
+    {
+      "key": "joao",
+      "id": "NPC-01",
+      "action": "idle",
+      "clip": "Walking",
+      "duration": 1.0333333015441895,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 8,
+      "directions": 4,
+      "width": 1024,
+      "height": 768,
+      "file": "joao-idle.png",
+      "sha256": "11a09a7d99c65559fcc24f0df09837e2908699387d3abee2569f8ba9df64a105",
+      "distinctFrames": 1
+    },
+    {
+      "key": "joao",
+      "id": "NPC-01",
+      "action": "talk",
+      "clip": "Talk_with_Hands_Open",
+      "duration": 3.9666666984558105,
+      "anchor": [
+        0.5,
+        0.7919900286053034
+      ],
+      "frames": 64,
+      "directions": 4,
+      "width": 8192,
+      "height": 768,
+      "file": "joao-talk.png",
+      "sha256": "c07f0e564e1c149c17ef997180ce23ee3e27cf2b97bfffb75d702c2fa7bdcbd3",
+      "distinctFrames": 64
+    }
+  ]
+}
