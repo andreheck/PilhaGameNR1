@@ -3,10 +3,10 @@ import test from 'node:test';import assert from 'node:assert/strict';import fs f
 import * as M from '../simulation/company-continuous.js';import * as L from '../simulation/company-living.js';import {SECTORS} from '../data/continuous/catalog.js';
 const catalog=JSON.parse(fs.readFileSync(new URL('../data/continuous/npc-rigged.json',import.meta.url)));
 const report=JSON.parse(fs.readFileSync(new URL('../assets/npc-sprites/rigged/report.json',import.meta.url)));
-test('approved rigs bind Beatriz and Mariana without replacing canonical portraits or other identities',()=>{
- assert.deepEqual(catalog.bindings.map(b=>b.id),['NPC-16','NPC-07']);
+test('approved rigs bind João, Beatriz and Mariana to their canonical IDs without replacing portraits',()=>{
+ assert.deepEqual(catalog.bindings.map(b=>b.id),['NPC-16','NPC-07','NPC-01']);
  for(const b of catalog.bindings){assert.equal(crypto.createHash('sha256').update(fs.readFileSync(new URL('../'+b.sourceZip,import.meta.url))).digest('hex'),b.sha256);}
- assert.equal(report.retarget.matchedBones,report.retarget.totalBones);assert.equal(report.atlases.length,5);assert.equal(fs.existsSync(new URL('../dist/tools/npc-rigged-sources',import.meta.url)),false,'raw FBX archives are not published');
+ assert.equal(report.retarget.matchedBones,report.retarget.totalBones);assert.ok(report.models.some(m=>m.id==='NPC-01'&&m.key==='joao'&&m.clips.some(c=>/walk/i.test(c.name))));assert.equal(report.atlases.length,catalog.bindings.reduce((n,b)=>n+2+(b.talk?1:0),0));assert.equal(fs.existsSync(new URL('../dist/tools/npc-rigged-sources',import.meta.url)),false,'raw FBX archives are not published');
  for(const a of report.atlases){const bytes=fs.readFileSync(new URL('../assets/npc-sprites/rigged/'+a.file,import.meta.url));assert.equal(bytes.readUInt32BE(16),a.frames*128);assert.equal(bytes.readUInt32BE(20),768);assert.equal(a.anchor[0],.5);assert.ok(a.anchor[1]>.6&&a.anchor[1]<.9,'feet pivot lies on the rendered ground plane');assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),a.sha256);if(a.action==='idle')assert.equal(a.distinctFrames,1);else assert.ok(a.distinctFrames>1);}
 });
 function engine(s,{images=true,offsets={}}={}){
@@ -19,10 +19,10 @@ function engine(s,{images=true,offsets={}}={}){
  const iso=window.PilhaIso.create({getContext:()=>ctx,getBoundingClientRect:()=>({width:1200,height:700})});iso.resize();iso.setWorld(SECTORS.map((p,i)=>({key:p.id,name:p.name,bx:i%2*14,by:Math.floor(i/2)*10})));iso.setEmployees(L.staffView(s).filter(p=>p.employment==='active'));const rows=L.routines(s).map(r=>({...r,...(offsets[r.id]!=null?{offset:offsets[r.id]}:{})}));iso.setRoutineClock(s,rows);iso.setStatic(false);iso.setManualPause(s.paused);iso.start();
  return {iso,calls,tick:n=>{clock=n;raf?.(n);}};
 }
-test('only the two approved actors draw rigged sheets and use animated frames without mutating saves',()=>{
+test('approved rigged actors draw their sheets alongside the expanded-cast NPCs without mutating saves',()=>{
  const s=L.ensureLiving(M.fresh());s.activeMs=0;const before=JSON.stringify(s),{iso,calls,tick}=engine(s,{offsets:{'NPC-16':.45}});tick(16);const first=iso.riggedAssetsStatus();tick(616);const next=iso.riggedAssetsStatus();
- assert.equal(next.loaded,5);assert.deepEqual(Array.from(next.bindings),['NPC-16','NPC-07']);assert.ok(next.drawn.length>=1);assert.ok(next.drawn.every(p=>['walk','talk','idle'].includes(p.action)));assert.ok(next.drawn.some(p=>p.id==='NPC-16'&&p.action==='walk'));
- assert.ok(calls.some(([src])=>src?.endsWith('/beatriz-walk.png')));assert.equal(iso.getEmployees().length,16);assert.equal(JSON.stringify(s),before);
+ assert.equal(next.loaded,catalog.bindings.reduce((n,b)=>n+2+(b.talk?1:0),0)+3,'includes the existing expanded-cast NPC-08 walk, idle and talk atlases');assert.ok(catalog.bindings.every(b=>next.bindings.includes(b.id)));assert.ok(next.bindings.includes('NPC-08'));assert.ok(next.drawn.length>=1);assert.ok(next.drawn.every(p=>['walk','talk','idle'].includes(p.action)));assert.ok(next.drawn.some(p=>p.id==='NPC-16'&&p.action==='walk'));assert.ok(next.drawn.some(p=>p.id==='NPC-01'));
+ assert.ok(calls.some(([src])=>src?.endsWith('/beatriz-walk.sprite')));assert.ok(calls.some(([src])=>src?.endsWith('/joao-walk.sprite')));assert.equal(iso.getEmployees().length,16);assert.equal(JSON.stringify(s),before);
  const p=iso.getEmployees().find(p=>p.id==='NPC-16');iso.focusEmployee(p.id,0);const focused=iso.getEmployees().find(q=>q.id===p.id);assert.equal(iso.pickEmployee(focused.screen.x,focused.screen.y),p.id);
 });
 test('manual pause freezes rig frames and low health remains on its slower routed animation timeline',()=>{

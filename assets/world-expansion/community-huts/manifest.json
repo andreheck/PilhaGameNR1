@@ -1,0 +1,13 @@
+{
+  "title": "Barracos do morro - conjunto 01",
+  "artStyle": "sprite isometrico 2.5D ilustrado, contorno limpo, transparencia real",
+  "items": [
+    {"id":"barraco-01","file":"barraco-01-reboco-gasto.png","finish":"reboco mal acabado, pintura coral e amarela","roof":"telha ondulada","blueWaterTank":true},
+    {"id":"barraco-02","file":"barraco-02-tijolo-aparente.png","finish":"sem reboco, tijolo aparente","roof":"telha ondulada","blueWaterTank":false},
+    {"id":"barraco-03","file":"barraco-03-laje-caixa-azul.png","finish":"reboco pintado verde e amarelo","roof":"laje","blueWaterTank":true},
+    {"id":"barraco-04","file":"barraco-04-bloco-aparente-laje.png","finish":"sem reboco, bloco e tijolo aparentes","roof":"laje","blueWaterTank":false},
+    {"id":"barraco-05","file":"barraco-05-pastel-caixa-azul.png","finish":"reboco pintado lilas e pessego","roof":"telha ondulada","blueWaterTank":true},
+    {"id":"barraco-06","file":"barraco-06-azul-coral.png","finish":"reboco pintado azul e coral","roof":"telha ondulada","blueWaterTank":false}
+  ],
+  "distribution": {"unfinishedPlaster":1,"noPlaster":2,"slabRoof":2,"blueWaterTank":3}
+}

@@ -29,23 +29,26 @@
   function companyConnections(defs) {
     if(defs.length<2)return [];
     var joined=[defs[0]],rest=defs.slice(1),links=[];
-    while(rest.length){
-      var best=null;joined.forEach(function(a){rest.forEach(function(b){var d=Math.abs(a.bx-b.bx)+Math.abs(a.by-b.by);if(!best||d<best.d)best={a:a,b:b,d:d};});});
-      var a=best.a,b=best.b;rest.splice(rest.indexOf(b),1);joined.push(b);
+    function makeLink(a,b){
       var horizontal=Math.abs(a.by-b.by)<D-1&&Math.abs(a.bx-b.bx)>=W;
       if(horizontal&&a.bx>b.bx||!horizontal&&a.by>b.by){var tmp=a;a=b;b=tmp;}
       var points,door;
-      if(horizontal){
-        var y=Math.max(a.by,b.by)+4;
-        points=[{x:a.bx+AX[3],y:y},{x:b.bx+AX[0],y:y}];
-        door={key:b.key,axis:'x',at:y-b.by};
-      }else{
-        var ax=a.bx===b.bx?8:AX[3],bx=a.bx===b.bx?8:AX[0],mid=(a.by+D+b.by)/2;
-        points=[{x:a.bx+ax,y:a.by+AY[2]},{x:a.bx+ax,y:mid},{x:b.bx+bx,y:mid},{x:b.bx+bx,y:b.by+AY[0]}].filter(function(p,i,arr){return !i||p.x!==arr[i-1].x||p.y!==arr[i-1].y;});
-        door={key:b.key,axis:'y',at:bx};
-      }
-      links.push({from:a.key,to:b.key,points:points,door:door});
+      if(horizontal){var y=Math.max(a.by,b.by)+4;points=[{x:a.bx+AX[3],y:y},{x:b.bx+AX[0],y:y}];door={key:b.key,axis:'x',at:y-b.by};}
+      else{var ax=a.bx===b.bx?8:AX[3],bx=a.bx===b.bx?8:AX[0],mid=(a.by+D+b.by)/2;points=[{x:a.bx+ax,y:a.by+AY[2]},{x:a.bx+ax,y:mid},{x:b.bx+bx,y:mid},{x:b.bx+bx,y:b.by+AY[0]}].filter(function(p,i,arr){return !i||p.x!==arr[i-1].x||p.y!==arr[i-1].y;});door={key:b.key,axis:'y',at:bx};}
+      return {from:a.key,to:b.key,points:points,door:door};
     }
+    while(rest.length){
+      var best=null;joined.forEach(function(a){rest.forEach(function(b){var d=Math.abs(a.bx-b.bx)+Math.abs(a.by-b.by);if(!best||d<best.d)best={a:a,b:b,d:d};});});
+      var a=best.a,b=best.b;rest.splice(rest.indexOf(b),1);joined.push(b);links.push(makeLink(a,b));
+    }
+    // Connect every aligned neighboring room. The spanning tree above preserves
+    // reachability; these extra links complete the clear 2x2 corridor loop.
+    defs.forEach(function(a,i){defs.slice(i+1).forEach(function(b){
+      var overlapY=Math.min(a.by+D,b.by+D)-Math.max(a.by,b.by),gapX=Math.max(a.bx,b.bx)-Math.min(a.bx+W,b.bx+W);
+      var overlapX=Math.min(a.bx+W,b.bx+W)-Math.max(a.bx,b.bx),gapY=Math.max(a.by,b.by)-Math.min(a.by+D,b.by+D);
+      var adjacent=(overlapY>=D*.5&&gapX>=0&&gapX<=6)||(overlapX>=W*.5&&gapY>=0&&gapY<=6);
+      if(adjacent&&!links.some(function(link){return(link.from===a.key&&link.to===b.key)||(link.from===b.key&&link.to===a.key);}))links.push(makeLink(a,b));
+    });});
     return links;
   }
 
@@ -226,7 +229,7 @@
         'escuta-segura':['table',8.4,4.8,1.5,.8,.5,'#39b9a4',5],
         'protocolo-antassedio':['board',10.9,1.3,.6,.2,1,'#ffd24b',2],
         'psicoeducacao':['shelf',8.4,5.8,1.3,.4,1.2,'#9574cc',5],
-        'clima-ventilacao':['plant',11.0,6.4,.5,.5,.45,'#abd9ee',5],
+        'clima-ventilacao':['airConditioner',10.5,1.6,1.1,.34,.45,'#abd9ee',2],
         'pausas':['sofa',4.6,5.2,1.8,.65,.45,'#3bba98',4],
         'papel-autonomia':['board',4.5,.6,1.4,.2,.85,'#54cad7',1],
         'lideranca':['table',8.5,.8,1.4,.75,.55,'#e8c777',2],
@@ -234,7 +237,7 @@
         'comunicacao-mudancas':['board',5,4.6,1.5,.2,1,'#6a99d8',4],
         'apoio-retorno':['sofa',8.7,4.9,1.5,.65,.55,'#68c5a4',5]
       };
-      inventory.forEach(function(id){var a=additions[id];if(a)e.items.push({t:a[0],x:a[1],y:a[2],w:a[3],d:a[4],h:a[5],c:a[6],z:a[7],installed:id});});
+      inventory.forEach(function(id){var a=additions[id];if(a)e.items.push({t:a[0],x:a[1],y:a[2],w:a[3],d:a[4],h:a[5],c:a[6],z:a[7],installed:id,wallMounted:id==='clima-ventilacao',mountHeight:id==='clima-ventilacao'?1.82:undefined});});
     }
 
     function resize() {
@@ -634,16 +637,23 @@
       ctx.save();
       connections.forEach(function(link){
         for(var i=1;i<link.points.length;i++){
-          var a=link.points[i-1],b=link.points[i],horizontal=Math.abs(a.x-b.x)>.01,w=.6;
+          var a=link.points[i-1],b=link.points[i],horizontal=Math.abs(a.x-b.x)>.01,w=.92;
           var x=Math.min(a.x,b.x)-(horizontal?0:w),y=Math.min(a.y,b.y)-(horizontal?w:0),ww=horizontal?Math.abs(b.x-a.x):w*2,dd=horizontal?w*2:Math.abs(b.y-a.y);
-          box(x,y,-SLAB,ww,dd,SLAB,'#426c7c',.9);
+          box(x,y,-SLAB,ww,dd,SLAB,'#526d70',.96);
           var q=[P(x,y,.015),P(x+ww,y,.015),P(x+ww,y+dd,.015),P(x,y+dd,.015)];
-          poly(q,'#365b70','rgba(116,214,229,.7)',Math.max(1,1.5*s));
-          // Fixed walking markings: these are actual passages, not animated data lines.
-          var n=Math.max(1,Math.floor(Math.hypot(b.x-a.x,b.y-a.y)/.6));
-          for(var j=0;j<=n;j++){var t=j/n,cx=a.x+(b.x-a.x)*t,cy=a.y+(b.y-a.y)*t,p1=horizontal?P(cx,cy-.32,.02):P(cx-.32,cy,.02),p2=horizontal?P(cx,cy+.32,.02):P(cx+.32,cy,.02);ctx.beginPath();ctx.moveTo(p1[0],p1[1]);ctx.lineTo(p2[0],p2[1]);ctx.strokeStyle='rgba(197,238,240,.4)';ctx.lineWidth=Math.max(1,s);ctx.stroke();}
+          poly(q,'#536e70','rgba(230,207,131,.92)',Math.max(1.5,1.8*s));
+          // A low-contrast center route makes the existing walkable links legible from the overview.
+          var start=P(a.x,a.y,.035),end=P(b.x,b.y,.035);
+          ctx.beginPath();ctx.moveTo(start[0],start[1]);ctx.lineTo(end[0],end[1]);
+          if(ctx.setLineDash)ctx.setLineDash([Math.max(3,5*s),Math.max(3,4*s)]);
+          ctx.strokeStyle='rgba(255,226,143,.9)';ctx.lineWidth=Math.max(1.4,1.7*s);ctx.stroke();
+          if(ctx.setLineDash)ctx.setLineDash([]);
+          // Short paving joints reinforce that this is a floor corridor, not a floating connector.
+          var n=Math.max(1,Math.floor(Math.hypot(b.x-a.x,b.y-a.y)/1.2));
+          for(var j=0;j<=n;j++){var t=j/n,cx=a.x+(b.x-a.x)*t,cy=a.y+(b.y-a.y)*t,p1=horizontal?P(cx,cy-.78,.025):P(cx-.78,cy,.025),p2=horizontal?P(cx,cy+.78,.025):P(cx+.78,cy,.025);ctx.beginPath();ctx.moveTo(p1[0],p1[1]);ctx.lineTo(p2[0],p2[1]);ctx.strokeStyle='rgba(212,228,209,.32)';ctx.lineWidth=Math.max(.8,.9*s);ctx.stroke();}
         }
       });
+      if(ctx.setLineDash)ctx.setLineDash([]);
       ctx.restore();
     }
     function resetCommuters(){
@@ -764,7 +774,7 @@
 
     return {
       setFurniturePresentation:function(p){furniturePresentation=p;if(furnitureCatalog)Object.keys(envs).forEach(function(key){applyInstallations(envs[key]);});render();},
-      furnitureLayout:function(){return Object.values(envs).map(function(e){return {id:e.key,unplaced:e.furnitureUnplaced||[],items:e.items.filter(function(it){return !it.visualProgram;}).map(function(it){return {id:it.visualId||it.amenity||it.visualAsset||it.t,visualIds:it.visualIds||[],type:it.t,x:it.x,y:it.y,w:it.w,d:it.d,h:it.h,hidden:!!it.layoutHidden};})};});},
+      furnitureLayout:function(){return Object.values(envs).map(function(e){return {id:e.key,unplaced:e.furnitureUnplaced||[],items:e.items.filter(function(it){return !it.visualProgram;}).map(function(it){return {id:it.visualId||it.amenity||it.visualAsset||it.t,visualIds:it.visualIds||[],type:it.t,x:it.x,y:it.y,w:it.w,d:it.d,h:it.h,wallMounted:!!it.wallMounted,mountHeight:it.mountHeight||null,hidden:!!it.layoutHidden};})};});},
       setSharedIndexMode: function (value) { sharedIndexMode = !!value; render(); },
       setInventory:function(ids){if(JSON.stringify(Array.from(inventory))===JSON.stringify(ids))return;inventory=new Set(ids);Object.keys(envs).forEach(function(k){applyInstallations(envs[k]);});if(!running)render();},
       setNpcSheets:function(sheets){npcSheets=sheets;render();},

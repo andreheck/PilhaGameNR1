@@ -16,6 +16,7 @@ export const CHARACTER_MOTTOS = Object.freeze({
   'NPC-14':'Um ambiente melhor começa com atenção aos detalhes.',
   'NPC-15':'Agilidade de verdade precisa de organização.',
   'NPC-16':'Criatividade também precisa de tempo e espaço.',
+  'NOVO-09':'Um procedimento só funciona quando cabe na rotina de quem precisa usá-lo.',
   'EXPLORER-JOVEM-PROFISSIONAL':'Cada lugar novo ensina algo sobre como trabalhamos.',
   'EXPLORER-ADVOGADO':'Direitos aparecem nas pequenas decisões do dia a dia.',
   'EXPLORER-DIRETORA-ENSINO':'Conhecimento compartilhado transforma o trabalho.'

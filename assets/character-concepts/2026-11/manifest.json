@@ -1,0 +1,185 @@
+{
+  "version": "1.0.0",
+  "status": "approved-character-assets-integrated-for-recruitment",
+  "format": "transparent PNG sprite sheet, 1536x1024, 3 columns by 2 rows",
+  "cellOrder": [
+    {
+      "cell": 1,
+      "band": "20",
+      "score": "0-29",
+      "expression": "crying, disheveled, dark circles, hands on head"
+    },
+    {
+      "cell": 2,
+      "band": "40",
+      "score": "30-49",
+      "expression": "disheveled, dark circles, hands on head, shouting"
+    },
+    {
+      "cell": 3,
+      "band": "60",
+      "score": "50-69",
+      "expression": "dark circles, slight dishevelment, discomfort"
+    },
+    {
+      "cell": 4,
+      "band": "80",
+      "score": "70-90",
+      "expression": "tidy, current confident smile"
+    },
+    {
+      "cell": 5,
+      "band": "90+",
+      "score": "91-100",
+      "expression": "radiant, subtle celebration"
+    },
+    {
+      "cell": 6,
+      "band": "full-body",
+      "score": null,
+      "expression": "neutral A-pose"
+    }
+  ],
+  "characters": [
+    {
+      "id": "NPC-03",
+      "name": "Fernanda Amaral",
+      "file": "fernanda-amaral.png",
+      "existingCharacter": "Fernanda",
+      "scorePortraits": {
+        "20": "assets/character-concepts/2026-11/scores/fernanda-amaral/20.webp",
+        "40": "assets/character-concepts/2026-11/scores/fernanda-amaral/40.webp",
+        "60": "assets/character-concepts/2026-11/scores/fernanda-amaral/60.webp",
+        "80": "assets/character-concepts/2026-11/scores/fernanda-amaral/80.webp",
+        "90+": "assets/character-concepts/2026-11/scores/fernanda-amaral/90+.webp"
+      },
+      "neutralPortrait": "assets/character-concepts/2026-11/scores/fernanda-amaral/base.webp"
+    },
+    {
+      "id": "NPC-02",
+      "name": "Tiago Salles",
+      "file": "tiago-salles.png",
+      "existingCharacter": "Tiago",
+      "scorePortraits": {
+        "20": "assets/character-concepts/2026-11/scores/tiago-salles/20.webp",
+        "40": "assets/character-concepts/2026-11/scores/tiago-salles/40.webp",
+        "60": "assets/character-concepts/2026-11/scores/tiago-salles/60.webp",
+        "80": "assets/character-concepts/2026-11/scores/tiago-salles/80.webp",
+        "90+": "assets/character-concepts/2026-11/scores/tiago-salles/90+.webp"
+      },
+      "neutralPortrait": "assets/character-concepts/2026-11/scores/tiago-salles/base.webp"
+    },
+    {
+      "id": "NOVO-09",
+      "name": "Samir Haddad",
+      "file": "samir-haddad.png",
+      "existingCharacter": "optional-recruit",
+      "scorePortraits": {
+        "20": "assets/character-concepts/2026-11/scores/samir-haddad/20.webp",
+        "40": "assets/character-concepts/2026-11/scores/samir-haddad/40.webp",
+        "60": "assets/character-concepts/2026-11/scores/samir-haddad/60.webp",
+        "80": "assets/character-concepts/2026-11/scores/samir-haddad/80.webp",
+        "90+": "assets/character-concepts/2026-11/scores/samir-haddad/90+.webp"
+      },
+      "neutralPortrait": "assets/character-concepts/2026-11/scores/samir-haddad/base.webp",
+      "package": "assets/employee-packages/NOVO-09-samir-haddad.png",
+      "recruitmentProfile": "data/continuous/recruitment-profiles.js"
+    },
+    {
+      "id": "NPC-11",
+      "name": "José Batista",
+      "file": "jose-batista.png",
+      "existingCharacter": "José",
+      "scorePortraits": {
+        "20": "assets/character-concepts/2026-11/scores/jose-batista/20.webp",
+        "40": "assets/character-concepts/2026-11/scores/jose-batista/40.webp",
+        "60": "assets/character-concepts/2026-11/scores/jose-batista/60.webp",
+        "80": "assets/character-concepts/2026-11/scores/jose-batista/80.webp",
+        "90+": "assets/character-concepts/2026-11/scores/jose-batista/90+.webp"
+      },
+      "neutralPortrait": "assets/character-concepts/2026-11/scores/jose-batista/base.webp"
+    },
+    {
+      "id": "NPC-09",
+      "name": "Carlos Nogueira",
+      "file": "carlos-nogueira.png",
+      "existingCharacter": "Carlos",
+      "scorePortraits": {
+        "20": "assets/character-concepts/2026-11/scores/carlos-nogueira/20.webp",
+        "40": "assets/character-concepts/2026-11/scores/carlos-nogueira/40.webp",
+        "60": "assets/character-concepts/2026-11/scores/carlos-nogueira/60.webp",
+        "80": "assets/character-concepts/2026-11/scores/carlos-nogueira/80.webp",
+        "90+": "assets/character-concepts/2026-11/scores/carlos-nogueira/90+.webp"
+      },
+      "neutralPortrait": "assets/character-concepts/2026-11/scores/carlos-nogueira/base.webp"
+    },
+    {
+      "id": "NPC-15",
+      "name": "Lucas Paiva",
+      "file": "lucas-paiva.png",
+      "existingCharacter": "Lucas",
+      "scorePortraits": {
+        "20": "assets/character-concepts/2026-11/scores/lucas-paiva/20.webp",
+        "40": "assets/character-concepts/2026-11/scores/lucas-paiva/40.webp",
+        "60": "assets/character-concepts/2026-11/scores/lucas-paiva/60.webp",
+        "80": "assets/character-concepts/2026-11/scores/lucas-paiva/80.webp",
+        "90+": "assets/character-concepts/2026-11/scores/lucas-paiva/90+.webp"
+      },
+      "neutralPortrait": "assets/character-concepts/2026-11/scores/lucas-paiva/base.webp"
+    },
+    {
+      "id": "NPC-16",
+      "name": "Beatriz Luz",
+      "file": "beatriz-luz.png",
+      "existingCharacter": "Beatriz",
+      "scorePortraits": {
+        "20": "assets/character-concepts/2026-11/scores/beatriz-luz/20.webp",
+        "40": "assets/character-concepts/2026-11/scores/beatriz-luz/40.webp",
+        "60": "assets/character-concepts/2026-11/scores/beatriz-luz/60.webp",
+        "80": "assets/character-concepts/2026-11/scores/beatriz-luz/80.webp",
+        "90+": "assets/character-concepts/2026-11/scores/beatriz-luz/90+.webp"
+      },
+      "neutralPortrait": "assets/character-concepts/2026-11/scores/beatriz-luz/base.webp"
+    },
+    {
+      "id": "NPC-06",
+      "name": "Letícia Campos",
+      "file": "leticia-campos.png",
+      "existingCharacter": "Letícia",
+      "scorePortraits": {
+        "20": "assets/character-concepts/2026-11/scores/leticia-campos/20.webp",
+        "40": "assets/character-concepts/2026-11/scores/leticia-campos/40.webp",
+        "60": "assets/character-concepts/2026-11/scores/leticia-campos/60.webp",
+        "80": "assets/character-concepts/2026-11/scores/leticia-campos/80.webp",
+        "90+": "assets/character-concepts/2026-11/scores/leticia-campos/90+.webp"
+      },
+      "neutralPortrait": "assets/character-concepts/2026-11/scores/leticia-campos/base.webp"
+    },
+    {
+      "id": "EXPLORER-JOVEM-PROFISSIONAL",
+      "name": "Theo Braga",
+      "file": "theo-braga-aprendiz.png",
+      "existingCharacter": "Jovem Profissional / Jovem Aprendiz",
+      "scorePortraits": {
+        "20": "assets/character-concepts/2026-11/scores/theo-braga-aprendiz/20.webp",
+        "40": "assets/character-concepts/2026-11/scores/theo-braga-aprendiz/40.webp",
+        "60": "assets/character-concepts/2026-11/scores/theo-braga-aprendiz/60.webp",
+        "80": "assets/character-concepts/2026-11/scores/theo-braga-aprendiz/80.webp",
+        "90+": "assets/character-concepts/2026-11/scores/theo-braga-aprendiz/90+.webp"
+      },
+      "neutralPortrait": "assets/character-concepts/2026-11/scores/theo-braga-aprendiz/base.webp"
+    }
+  ],
+  "integration": {
+    "employeeScoreBandCompatibility": [
+      "20",
+      "40",
+      "60",
+      "80",
+      "90+"
+    ],
+    "gameWiring": "Seven canonical NPCs, optional recruit NOVO-09 after hiring, and Jovem Profissional explorer use score portraits; Samir is office-only and has a collectible package.",
+    "sourceArt": "generated original character concepts; no package art",
+    "scorePortraits": "individual transparent WebP crops generated from each approved character atlas"
+  }
+}

@@ -33,6 +33,22 @@
       "walk": "/assets/npc-sprites/rigged/mariana-walk.png",
       "idle": "/assets/npc-sprites/rigged/mariana-idle.png",
       "talk": "/assets/npc-sprites/rigged/mariana-talk.png"
+    },
+    {
+      "id": "NPC-01",
+      "key": "joao",
+      "group": "analistas",
+      "sourceZip": "tools/npc-rigged-sources/joao.zip",
+      "sourceName": "Meshy_AI_Joao_Architect_A_Pose_20261116_animated_mixamo_All_animation.zip",
+      "sha256": "31e9898ba6ceb98aff3ab11cad87e705432b378a533fa9b146ef23730366da05",
+      "suppliedAction": "Mixamo animations",
+      "frames": 8,
+      "directions": 4,
+      "frameWidth": 128,
+      "frameHeight": 192,
+      "walk": "/assets/npc-sprites/rigged/joao-walk.png",
+      "idle": "/assets/npc-sprites/rigged/joao-idle.png",
+      "talk": "/assets/npc-sprites/rigged/joao-talk.png"
     }
   ]
 }

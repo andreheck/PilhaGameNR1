@@ -1,0 +1,26 @@
+{
+  "status": "approved-for-score-and-package-art",
+  "stage": "A-pose refresh, emotional portraits, and collectible package art",
+  "created": "2026-11-17",
+  "shared_visual_direction": "Polished stylized 3D full-body characters in neutral A-pose with transparent backgrounds. Military olive styling is reserved for PILHA-H01 Diretor and PILHA-H04 Engenheira de Segurança. The other heroes use distinct colorful professional outfits.",
+  "scoreBands": {
+    "20": "0-29: disheveled, dark circles, tears, hands at head, sadness/despair",
+    "40": "30-49: messy hair, dark circles, hands at head, shouting frustration",
+    "60": "50-69: slight dishevelment, dark circles, visible discomfort",
+    "80": "70-90: neat appearance and warm confident smile",
+    "90+": "91-100: radiant expression and contained celebration"
+  },
+  "scoreSheets": "assets/heroes/score-atlases/",
+  "individualScorePortraits": "assets/heroes/scores/<hero-id>/<band>.png",
+  "packages": "assets/hero-packages/<hero-id>-<slug>.svg",
+  "characters": [
+    {"id":"PILHA-H01","role":"Diretor","file":"PILHA-H01-diretor.png","palette":"verde militar, dourado e carvão","scores":"assets/heroes/scores/PILHA-H01/","package":"assets/hero-packages/PILHA-H01-diretor.svg"},
+    {"id":"PILHA-H02","role":"Psicóloga","file":"PILHA-H02-psicologa.png","palette":"ameixa, coral e turquesa","scores":"assets/heroes/scores/PILHA-H02/","package":"assets/hero-packages/PILHA-H02-psicologa.svg"},
+    {"id":"PILHA-H03","role":"Cientista de Dados","file":"PILHA-H03-cientista-de-dados.png","palette":"marfim, azul cobalto e teal","scores":"assets/heroes/scores/PILHA-H03/","package":"assets/hero-packages/PILHA-H03-cientista-de-dados.svg"},
+    {"id":"PILHA-H04","role":"Engenheira de Segurança","file":"PILHA-H04-engenheira-de-seguranca.png","palette":"verde militar, amarelo refletivo e laranja de segurança","scores":"assets/heroes/scores/PILHA-H04/","package":"assets/hero-packages/PILHA-H04-engenheira-de-seguranca.svg"},
+    {"id":"PILHA-H05","role":"P&D Tech","file":"PILHA-H05-pd-tech.png","palette":"azul cobalto, ciano e laranja","scores":"assets/heroes/scores/PILHA-H05/","package":"assets/hero-packages/PILHA-H05-pd-tech.svg"},
+    {"id":"PILHA-H06","role":"Relações Sindicais e Diversidade","file":"PILHA-H06-rs-td.png","palette":"estampa geométrica vermelha, amarela, azul e teal; faixa preta","scores":"assets/heroes/scores/PILHA-H06/","package":"assets/hero-packages/PILHA-H06-rs-td.svg"},
+    {"id":"PILHA-H07","role":"Hecker, Fundador","file":"PILHA-H07-hecker.png","palette":"amarelo PilhA+, carvão e couro","scores":"assets/heroes/scores/PILHA-H07/","package":"assets/hero-packages/PILHA-H07-hecker.svg"}
+  ],
+  "integration": "Art assets are staged for review; game recruitment, live score switching, and deployment are not changed by this asset task."
+}

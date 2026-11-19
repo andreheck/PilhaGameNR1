@@ -14,7 +14,8 @@ const replacements=[];
 for(const url of urls){
  if(!url?.endsWith('.png'))continue;
  const name=url.replace(/\.png$/,'.sprite');
- fs.copyFileSync(new URL(url.slice(1),out),new URL(name.slice(1),out));
+ const source=new URL(url.slice(1),out),target=new URL(name.slice(1),out);
+ try{fs.linkSync(source,target);}catch{fs.copyFileSync(source,target);}
  replacements.push([url,name]);
 }
 function visit(dir){for(const item of fs.readdirSync(dir,{withFileTypes:true})){

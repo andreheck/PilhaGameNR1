@@ -18,7 +18,7 @@ test('empresa tem duas passagens físicas entre entradas, sem cruzar os centros 
 });
 test('trajeto inteiro mantém margem da mobília original e instalada nos três departamentos',()=>{
  const {iso,nav}=engine();iso.setInventory(['ergonomia','escuta-segura','protocolo-antassedio','psicoeducacao','clima-ventilacao','pausas','papel-autonomia','lideranca','conflitos','comunicacao-mudancas','apoio-retorno']);
- for(const def of wide){const e=iso.getEnv(def.key);for(let d=0;d<nav.length;d+=.04){const p=nav.point(d);assert.ok(p.x>=.2&&p.x<=11.8&&p.y>=.2&&p.y<=7.8);for(const it of e.items){let w=it.w+(it.t==='desk'?.22:it.t==='sofa'?.25:0);assert.ok(!(p.x>it.x-.2&&p.x<it.x+w+.2&&p.y>it.y-.2&&p.y<it.y+it.d+.2),`${def.key}: ${it.t} bloqueia ${p.x},${p.y}`);}}}
+ for(const def of wide){const e=iso.getEnv(def.key);for(let d=0;d<nav.length;d+=.04){const p=nav.point(d);assert.ok(p.x>=.2&&p.x<=11.8&&p.y>=.2&&p.y<=7.8);for(const it of e.items){if(it.wallMounted){assert.ok(it.mountHeight>=1.5,'wall-mounted equipment stays above walking routes');continue;}let w=it.w+(it.t==='desk'?.22:it.t==='sofa'?.25:0);assert.ok(!(p.x>it.x-.2&&p.x<it.x+w+.2&&p.y>it.y-.2&&p.y<it.y+it.d+.2),`${def.key}: ${it.t} bloqueia ${p.x},${p.y}`);}}}
 });
 test('dois minutos simulados mantêm continuidade, espaçamento e circulação em todos os setores',()=>{
  const {iso,nav,tick}=engine(),previous=new Map(),movedById=new Map(),previousTransit=new Map(),faces=new Set(),initial=JSON.stringify(iso.getCirculation().commuters);let moved=0;

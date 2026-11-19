@@ -3,7 +3,7 @@ import {CHAIR_ITEMS} from './individual-chairs.js';
 /** Original C3 values extracted from PilhA+ Game.zip.
  * SHA256 cacd69bc9be7130df5c63f31f415cc20947d7ef03b1062bc4a3ba8797f3b2b77.
  * Timings, restoration prices and synergy mapping are experimental game proposals, not clinical evidence. */
-export const FACTORS=[['carga','Ritmo e carga','#ffd166'],['auton','Autonomia','#48cae4'],['relac','Relações','#52b788'],['lider','Liderança','#f4a261'],['recon','Reconhecimento','#9b5de5'],['seg','Segurança psicológica','#e63946']].map(([id,name,color])=>({id,name,color}));
+export const FACTORS=[['carga','Ritmo e carga','#ffd166','local'],['auton','Autonomia','#48cae4','empresa'],['relac','Relações','#52b788','local'],['lider','Liderança','#f4a261','empresa'],['recon','Reconhecimento','#9b5de5','empresa'],['seg','Segurança psicológica','#e63946','local']].map(([id,name,color,scope])=>({id,name,color,scope}));
 const sectorRows=[
  ['escritorio','Escritório','Prazos que se acumulam e decisões que demoram.',[28,42,35,40,30,26]],
  ['producao','Produção','Metas de turno altas e riscos escondidos.',[22,30,40,33,35,24]],

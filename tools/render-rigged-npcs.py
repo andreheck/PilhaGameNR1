@@ -1,6 +1,6 @@
 """Bake approved FBX animation into the existing lightweight map atlas format.
 This is an asset processing job, separate from the game's browser regression.
-Source archives are checked before extracting only the four expected file types.
+Source archives are checked before extracting the model and its image textures.
 """
 import base64,hashlib,json,os,subprocess,sys,time,zipfile,socket
 from pathlib import Path
@@ -16,12 +16,15 @@ for row in rows:
     dest=WORK/row['key'];dest.mkdir(exist_ok=True)
     with zipfile.ZipFile(source) as archive:
         selected=[i for i in archive.infolist() if i.filename.lower().endswith(('.fbx','.png'))]
-        assert len(selected)==4,'Unexpected FBX package'
+        assert sum(i.filename.lower().endswith('.fbx') for i in selected)==1,'Expected one FBX model'
+        textures=[i for i in selected if i.filename.lower().endswith('.png')]
+        assert textures,'Expected the supplied model texture'
         for info in selected:
             name=Path(info.filename).name
             assert '\\' not in name and info.file_size<80000000,'Invalid asset'
             (dest/name).write_bytes(archive.read(info))
-    inputs.append({'key':row['key'],'id':row['id'],'fbx':next(p.name for p in dest.glob('*.fbx')),'texture':next(p.name for p in dest.glob('*_texture_0.png')),'roughness':next(p.name for p in dest.glob('*roughness.png')),'metallic':next(p.name for p in dest.glob('*metallic.png'))})
+    texture=next(iter(dest.glob('*_texture_0.png')),None) or next(iter(dest.glob('*.png')))
+    inputs.append({'key':row['key'],'id':row['id'],'fbx':next(p.name for p in dest.glob('*.fbx')),'texture':texture.name,'roughness':next(iter(dest.glob('*roughness.png')),None).name if next(iter(dest.glob('*roughness.png')),None) else None,'metallic':next(iter(dest.glob('*metallic.png')),None).name if next(iter(dest.glob('*metallic.png')),None) else None})
 (WORK/'input.json').write_text(json.dumps(inputs),encoding='utf-8')
 server=subprocess.Popen([sys.executable,'-m','http.server','8769','--bind','127.0.0.1'],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 try:

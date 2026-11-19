@@ -8,7 +8,7 @@ test('approved, generated and supplied restorative art IDs retain canonical furn
  const furnitureItems=ITEMS.filter(item=>!item.origin?.startsWith('PM 29/10/2026')&&!item.gameAsset);
  assert.equal(furnitureItems.length,27);
  for(const item of furnitureItems){const visual=V.upgrades[item.id];assert.ok(visual,item.id);
- assert.equal(visual.levels,3);assert.equal(visual.physical,!!visual.asset);
+ assert.equal(visual.levels,3);assert.equal(visual.physical,!!visual.asset||visual.type==='airConditioner');
  if(visual.asset)assert.ok(V.assets.find(a=>a.id===visual.asset));}
  for(const item of ITEMS.filter(item=>item.origin?.startsWith('PM 29/10/2026')))assert.equal(V.upgrades[item.id],undefined,'benefits have no furniture mapping: '+item.id);
 });

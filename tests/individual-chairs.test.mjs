@@ -1,7 +1,7 @@
 import {historicalSeg} from './fixtures/legacy-seg.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
 import * as M from '../simulation/company-continuous.js';import * as L from '../simulation/company-living.js';
-import {CHAIR_ITEMS} from '../data/continuous/individual-chairs.js';import {RULES,SECTORS} from '../data/continuous/catalog.js';
+import {CHAIR_ITEMS} from '../data/continuous/individual-chairs.js';import {FACTORS,RULES,SECTORS} from '../data/continuous/catalog.js';
 import {chairBenefit} from '../simulation/individual-chairs.js';import {employeeInfluences} from '../simulation/employee-influences.js';
 import {createFurniturePresentation} from '../ui/furniture-presentation.js';import {FURNITURE_VISUALS as V} from '../data/continuous/furniture-visuals.js';
 import {staffAction} from '../simulation/staffing-management.js';
@@ -48,7 +48,7 @@ test('live influences explain negative events, positive purchases and active sea
 test('source chips reconcile with actual sector factors before the0–100 clamp',()=>{
  let s=setup();s=historicalSeg(s);s=M.purchase(s,M.quote(s,'escritorio','ergo')).state;s.week=4;s.eventEffects.push({sid:'escritorio',factor:'carga',delta:-8,at:1});s.activeMs=RULES.weekMs*.3;
  const person=L.staffView(s).find(p=>p.id==='NPC-01'),report=employeeInfluences(s,person),base=SECTORS.find(r=>r.id==='escritorio').base,actual=M.values(s,'escritorio');
- for(const id of Object.keys(base)){const sum=report.sources.flatMap(r=>r.factors).filter(f=>f.id===id).reduce((n,f)=>n+f.delta,0);assert.ok(Math.abs(Math.max(0,Math.min(100,base[id]+sum))-actual[id])<.04,id);}
+ for(const id of Object.keys(base)){const sum=report.sources.flatMap(r=>r.factors).filter(f=>f.id===id).reduce((n,f)=>n+f.delta,0),factor=FACTORS.find(f=>f.id===id),baseline=factor.scope==='empresa'?SECTORS.filter(s=>!s.rest).reduce((n,s)=>n+s.base[id],0)/SECTORS.filter(s=>!s.rest).length:base[id];assert.ok(Math.abs(Math.max(0,Math.min(100,baseline+sum))-actual[id])<.04,id);}
  assert.ok(report.sources.some(r=>r.title==='Segurança Psicológica'));assert.ok(report.sources.some(r=>r.factors.some(f=>f.delta<0)));
 });
 test('renderer reaches each real seat and grants the bonus only during its seated pause',()=>{

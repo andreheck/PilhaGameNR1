@@ -23,6 +23,6 @@ test('corrupt, oversized, and blocked preferences never mutate the company save'
 
 test('the initial-hiring flow exposes an optional resumable objective without altering the weekly clock contract',()=>{
  const ui=fs.readFileSync(new URL('../ui/continuous-game.js',import.meta.url),'utf8'),module=fs.readFileSync(new URL('../ui/first-objective.js',import.meta.url),'utf8');
- assert.match(ui,/firstObjective\.startAfterHiring\(\)/);assert.match(ui,/data-company="guide">Primeiros passos/);assert.match(ui,/case'guide':more\.open=false;firstObjective\.open\(\)/);
+ assert.match(ui,/firstObjective\.startAfterHiring\(\)/);assert.match(ui,/data-company=\\?"guide\\?">Primeiros passos/);assert.match(ui,/case'guide':more\.open=false;firstObjective\.open\(\)/);
  assert.match(ui,/Heróis são conselheiros do conselho; não ocupam postos no mapa\./);assert.match(module,/15 minutos reais ativos/);assert.match(module,/status:'skipped'/);assert.match(module,/pilha:guided-purchase/);
 });

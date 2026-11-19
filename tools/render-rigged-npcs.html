@@ -23,12 +23,15 @@ try{
   const model=await new FBXLoader(manager).loadAsync(base+def.fbx);
   const textureLoader=new T.TextureLoader(),map=await textureLoader.loadAsync(base+def.texture);
   map.colorSpace=T.SRGBColorSpace;
-  const roughnessMap=await textureLoader.loadAsync(base+def.roughness),metalnessMap=await textureLoader.loadAsync(base+def.metallic);
+  const roughnessMap=def.roughness?await textureLoader.loadAsync(base+def.roughness):null,metalnessMap=def.metallic?await textureLoader.loadAsync(base+def.metallic):null;
   let mesh;model.traverse(o=>{if(o.isSkinnedMesh&&!mesh)mesh=o;if(o.isMesh){o.frustumCulled=false;o.material=new T.MeshStandardMaterial({map,roughnessMap,metalnessMap,roughness:1,metalness:1,side:T.DoubleSide});}});
   if(!mesh?.skeleton||!model.animations.length)throw Error(def.key+': rig/animação ausente');
   model.updateMatrixWorld(true);
-  loaded.push({...def,model,mesh,originalClips:model.animations});
+  const item={...def,model,mesh,originalClips:model.animations};loaded.push(item);
   result.models.push({key:def.key,id:def.id,clips:model.animations.map(c=>({name:c.name,duration:c.duration,tracks:c.tracks.length})),bones:mesh.skeleton.bones.map(b=>b.name)});
+  const ownWalk=model.animations.find(c=>/walk/i.test(c.name)),ownIdle=model.animations.find(c=>/idle|stand/i.test(c.name)),ownTalk=model.animations.find(c=>/talk|convers|explain/i.test(c.name));
+  if(!ownWalk&&def.key!=='mariana')throw Error(def.key+': clipe de caminhada não encontrado');
+  item.actions={walk:ownWalk||item.originalClips[0],idle:ownIdle||ownWalk||item.originalClips[0]};if(ownTalk)item.actions.talk=ownTalk;
  }
  const donor=loaded.find(x=>x.key==='beatriz'),recipient=loaded.find(x=>x.key==='mariana');
  const walking=donor.originalClips.find(c=>/walk/i.test(c.name))||donor.originalClips[0];
@@ -41,8 +44,8 @@ try{
  for(const track of transferred.tracks)track.name=track.name.replace(/^\.bones\[([^\]]+)\]/,'$1');
  transferred.name='Walking · adaptado do rig fornecido de Beatriz';
  result.retarget={donor:'beatriz',recipient:'mariana',matchedBones:Object.keys(names).length,totalBones:recipient.mesh.skeleton.bones.length,method:'Three r180 SkeletonUtils.retargetClip, preserveBonePositions'};
- donor.actions={walk:walking,idle:walking};
- recipient.actions={walk:transferred,idle:recipient.originalClips[0],talk:recipient.originalClips[0]};
+ donor.actions={walk:walking,idle:donor.actions.idle};
+ recipient.actions={walk:transferred,idle:recipient.actions.idle,talk:recipient.actions.talk||recipient.originalClips[0]};
  // Use one fixed camera and pivot per character, including all frame bounds.
  for(const item of loaded){
   const model=item.model,scene=new T.Scene(),normalizer=new T.Group(),pivot=new T.Group();

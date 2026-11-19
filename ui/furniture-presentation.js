@@ -30,7 +30,7 @@ export function createFurniturePresentation(){
   if(env.key==='restauracao'&&catalog.annex)for(const p of catalog.annex.placements){const a=catalog.assets.find(a=>a.id===p.asset);if(a)items.push({t:'restorative-v2',c:'#6799a9',visualId:v2Levels[v2Bindings[a.id]]?v2Bindings[a.id]:null,visualIds:v2Levels[v2Bindings[a.id]]?[v2Bindings[a.id]]:[],visualLevel:v2Levels[v2Bindings[a.id]]||0,x:p.x,y:p.y,w:a.scale.width,d:a.scale.depth,h:a.scale.height,z:5,visualAsset:a.id,layoutKey:'annex:'+a.id,annex:true,layoutHidden:false,walkable:a.id==='rest2-tapete_indiano'});}
   if(env.key==='restauracao'&&catalog.gameRoom){const starter=catalog.gameRoom.starter,a=catalog.assets.find(a=>a.id===starter.asset);if(a)items.push({t:'game',x:starter.x,y:starter.y,w:starter.w,d:starter.d,h:starter.h,z:6,visualAsset:starter.asset,visualId:starter.id,visualLevel:0,interactionName:'Pebolim · Jogo livre',layoutKey:'game-room:'+starter.id,annex:true,c:'#5b9bc1'});for(const it of gameItems){const p=catalog.gameRoom.purchases[it.installed];if(!p)continue;Object.assign(it,{t:'game',x:p.x,y:p.y,w:p.w,d:p.d,h:p.h,z:6,visualAsset:p.asset,visualId:it.installed,visualIds:[it.installed],visualLevel:it.visualLevel||1,interactionName:p.name||it.installed,layoutKey:'game-room:'+it.installed,annex:true,layoutHidden:false});items.push(it);}}
   if(env.key==='escritorio'&&catalog.officeExtension!==false){
-   for(const p of OFFICE_SPACE.furniture){const a=p.asset&&catalog.assets.find(a=>a.id===p.asset);items.push({t:p.type,x:p.x,y:p.y,w:a?.scale.width||p.w||.7,d:a?.scale.depth||p.d||.7,h:a?.scale.height||p.h||.8,z:p.z??0,visualAsset:p.asset||null,layoutKey:'office:'+p.id,managerRoom:true,managerDesk:!!p.managerDesk,interactionName:p.name||null,annex:true,amenity:p.amenity?p.id:null,c:'#7899a8'});}
+   for(const p of OFFICE_SPACE.furniture){const a=p.asset&&catalog.assets.find(a=>a.id===p.asset);items.push({t:p.type,x:p.x,y:p.y,w:a?.scale.width||p.w||.7,d:a?.scale.depth||p.d||.7,h:a?.scale.height||p.h||.8,z:p.z??0,visualAsset:p.asset||null,layoutKey:'office:'+p.id,managerRoom:!['hr','meeting'].includes(p.room),meetingRoom:p.room==='meeting',hrRoom:p.room==='hr',hrEmployeeId:p.employeeId||null,managerDesk:!!p.managerDesk,interactionName:p.name||null,annex:true,amenity:p.amenity?p.id:null,c:'#7899a8'});}
    for(const p of OFFICE_SPACE.walls)items.push({...p,t:'glass-wall',layoutKey:'structure:'+p.id,structural:true,c:'#80cad8'});
   }
   if(env.key==='producao'&&catalog.logisticsExtension!==false){
@@ -50,7 +50,7 @@ export function createFurniturePresentation(){
    return Number(b.it.t==='desk')-Number(a.it.t==='desk')||size(b.it)-size(a.it)||a.index-b.index;
   });
   for(const {it} of sorted){
-   if(pinned.has(it.layoutKey)||it.annex||it.structural)continue;
+   if(pinned.has(it.layoutKey)||it.annex||it.structural||it.wallMounted)continue;
    if(it.visualProgram)continue;
    it.originalPosition??=[it.x,it.y];
    const asset=catalog.assets.find(a=>a.id===it.visualAsset),m=asset?.scale;
@@ -79,6 +79,29 @@ export function createFurniturePresentation(){
    poly([a,b,c,f],'rgba(117,202,218,.16)','#64acbd',Math.max(.7,s));
    for(const pos of [[x,y],[x+w,y+d]])box(pos[0],pos[1],0,.035,.035,h,'#416477',1);
    const mid=P(x+w*.5,y+d*.5,h*.6);ctx.strokeStyle='rgba(221,247,255,.34)';ctx.lineWidth=Math.max(.7,s);ctx.beginPath();ctx.moveTo(mid[0]-3*s,mid[1]+5*s);ctx.lineTo(mid[0]+3*s,mid[1]-5*s);ctx.stroke();return true;
+  }
+  if(it.t==='airConditioner'){
+   // Compact wall unit: the purchase remains owned by the canonical climate
+   // improvement; only its in-world presentation and cooling mist are drawn here.
+   const mount=it.mountHeight||1.82,level=it.visualLevel||1;
+   const trim=level>=3?'#ffd166':level>=2?'#62d8ef':'#8299a8';
+   box(x,y,mount,w,d,.38,'#dce8ed',.98);
+   box(x+.035,y+d,mount+.06,w-.07,.035,.075,trim,1);
+   box(x+.10,y+d+.037,mount+.15,w-.20,.018,.10,'#748b99',1);
+   for(let i=0;i<5;i++)box(x+.16+i*(w-.34)/5,y+d+.058,mount+.17,.025,.014,.045,'#d9f0f5',1);
+   box(x+w-.18,y+d+.04,mount+.19,.065,.022,.06,level>=3?'#ffdc77':'#48c9e5',1);
+   // `time` is zeroed by the scene renderer when reduced motion is enabled.
+   ctx.save();
+   for(let i=0;i<3;i++){
+    const phase=((time*.00034+i*.34)%1),drift=Math.sin(time*.0011+i*2.1)*.075;
+    const puff=P(x+w*(.28+i*.22)+drift,y+d+.05,mount-.02-phase*.72);
+    const radius=(.045+phase*.075)*unit*s;
+    ctx.globalAlpha=(1-phase)*.52;ctx.fillStyle='#8eeaff';
+    ctx.beginPath();ctx.ellipse(puff[0],puff[1],Math.max(1.5,radius),Math.max(2,radius*1.45),0,0,Math.PI*2);ctx.fill();
+    ctx.globalAlpha=(1-phase)*.20;ctx.fillStyle='#e2fbff';
+    ctx.beginPath();ctx.ellipse(puff[0]-radius*.22,puff[1]-radius*.22,Math.max(1,radius*.42),Math.max(1,radius*.55),0,0,Math.PI*2);ctx.fill();
+   }
+   ctx.restore();return true;
   }
   if(it.amenity){
    if(it.t==='patioBench'){for(const dx of [.1,w-.17])box(x+dx,y+.06,0,.07,d-.1,.43,'#39546a',1);box(x,y,.43,w,d,.08,'#be9865',1);box(x,y,.51,w,.07,.29,'#be9865',1);

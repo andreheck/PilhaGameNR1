@@ -1,0 +1,9 @@
+{
+  "title": "Predios residenciais brasileiros - conjunto 01",
+  "artStyle": "sprite isometrico 2.5D ilustrado, fundo transparente, fachada desgastada",
+  "items": [
+    {"id":"predio-residencial-01","file":"predio-residencial-01-4-pavimentos.png","floors":4,"details":["reboco desgastado", "sacada gourmet com mesa e churrasqueira", "plantas", "varal", "silhueta de morador"]},
+    {"id":"predio-residencial-02","file":"predio-residencial-02-5-pavimentos.png","floors":5,"details":["fachada em tons de verde, coral e creme", "rede na sacada", "cadeiras e plantas", "varal", "morador na varanda", "caixa d'agua"]},
+    {"id":"predio-residencial-03","file":"predio-residencial-03-3-pavimentos-familiar.png","floors":3,"details":["fachada azul e amarela desgastada", "familia conversando na sacada", "rede", "churrasqueira", "plantas e varal", "caixa d'agua"]}
+  ]
+}

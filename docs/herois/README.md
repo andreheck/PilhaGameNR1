@@ -24,6 +24,11 @@ Os heróis representam competências complementares para melhorar ambientes de t
 | PILHA-H04 | Engenheiro de Segurança | Higiene Ocupacional / prevenção de riscos | Épico |
 | PILHA-H05 | P&D Tech | Inovação híbrida / transformação organizacional | Lendário |
 | PILHA-H06 | RS & TD | Recrutamento, talentos e desenvolvimento | Épico |
+| PILHA-H07 | Hecker, Fundador | Visão de produto / cultura de inovação | Lendário |
+
+## Arte heroica — revisão de 17/11/2026
+
+Os sete heróis têm artes A-pose, cinco retratos emocionais nas faixas de score e embalagens individuais. A galeria está em `assets/hero-packages/galeria.html`; os caminhos completos e o mapeamento das faixas estão em `assets/heroes/refresh-a-pose-2026-11/manifest.json` e `assets/hero-packages/manifest.json`. As artes estão preparadas como arquivos locais e ainda não foram ligadas à seleção de heróis ou ao sistema de score em tempo real do jogo.
 
 As seis fichas individuais estão documentadas nesta branch. A raridade dos personagens poderá ser revista em testes de balanceamento, sem restringir sua seleção durante a beta.
 

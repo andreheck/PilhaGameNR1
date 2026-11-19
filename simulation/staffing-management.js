@@ -3,6 +3,7 @@ import {managerMap} from '../data/continuous/organization.js';
  * Names below are additional candidates, distinct from the 16 canonical NPCs.
  * Their skills are narrative only; health is determined by workplace context. */
 import {EMPLOYEES} from '../data/continuous/employees.js';
+import {SAMIR_HADDAD_PROFILE} from '../data/continuous/recruitment-profiles.js';
 const WORK=['escritorio','producao','atendimento'];
 const copy=x=>JSON.parse(JSON.stringify(x));
 export const CANDIDATES=Object.freeze([
@@ -13,7 +14,8 @@ export const CANDIDATES=Object.freeze([
  {id:'NOVO-05',name:'Jéssica',role:'Saúde organizacional e apoio',fee:1000,salary:155,shirt:'#6d9f89',skin:'#6e422d',hair:'#291e1b',hairStyle:3},
  {id:'NOVO-06',name:'Davi',role:'Planejamento operacional',fee:1050,salary:160,shirt:'#658aa7',skin:'#d6a17b',hair:'#322721',hairStyle:0},
  {id:'NOVO-07',name:'Débora',role:'Desenvolvimento de equipes',fee:1050,salary:165,shirt:'#af85c0',skin:'#b77b54',hair:'#2f261f',hairStyle:2},
- {id:'NOVO-08',name:'Yuri',role:'Organização de recursos',fee:950,salary:145,shirt:'#7b9bca',skin:'#905a40',hair:'#241d19',hairStyle:1}
+ {id:'NOVO-08',name:'Yuri',role:'Organização de recursos',fee:950,salary:145,shirt:'#7b9bca',skin:'#905a40',hair:'#241d19',hairStyle:1},
+ {id:'NOVO-09',name:'Samir Haddad',role:'Analista de processos e conformidade',fee:1000,salary:155,shirt:'#E8DCC7',skin:'#A47C62',hair:'#302622',hairStyle:0,home:'escritorio',archetype:'O Articulador',type:'—',age:34,group:'novos',profile:SAMIR_HADDAD_PROFILE,portrait:SAMIR_HADDAD_PROFILE.portrait,source:'recruitment-profile-v1'}
 ]);
 export const SECTOR_IDS=WORK;
 export const COVERAGE={fee:350,weekly:110,weeks:4};
@@ -23,16 +25,17 @@ const isActive=(a)=>!a||a.employment===undefined||a.employment==='active';
 const live=(o,w)=>o.startAt<=w&&w<o.endAt;
 const weekIsInt=v=>Number.isSafeInteger(v)&&v>=1&&v<=100001;
 export function ensureStaffing(s){
- s.staffing??={hires:[],coverage:[],assignments:[],nextId:1,lastPayrollWeek:s.week,totalPayroll:0,unpaid:0,history:[]};
+ s.staffing??={hires:[],coverage:[],assignments:[],reception:[],nextId:1,lastPayrollWeek:s.week,totalPayroll:0,unpaid:0,history:[]};
+ s.staffing.reception??=[];
  return s.staffing;
 }
 export function roster(s){
  const hires=s.staffing?.hires||[];
  return [...EMPLOYEES,...hires.map(h=>{
   const c=candidate(h.id);
-  return c?{...c,organization:{rank:'operacional',rankName:'Operacional',position:'Analista em integração',managerId:managerMap(s)[h.sector],reportsTo:managerMap(s)[h.sector]},home:h.sector,archetype:'Contratação',type:'—',age:null,profile:null,portrait:null,
-   strength:null,support:'Acompanhamento e integração',group:'novos',source:'equipe-contratada',
-   profileStatus:'ficha-em-construcao'}:null;
+  return c?{...c,organization:{rank:'operacional',rankName:'Operacional',position:c.role,managerId:managerMap(s)[h.sector],reportsTo:managerMap(s)[h.sector]},home:h.sector,archetype:c.archetype||'Contratação',type:c.type||'—',age:c.age??null,profile:c.profile||null,portrait:c.portrait||null,
+   strength:c.profile?.strengths?.[0]||null,support:c.support||'Acompanhamento e integração',group:c.group||'novos',source:c.source||'equipe-contratada',
+   profileStatus:c.profile?'registered':'ficha-em-construcao'}:null;
  }).filter(Boolean)];
 }
 export const candidateFor=(id,s)=>roster(s).find(x=>x.id===id)||null;
@@ -41,6 +44,7 @@ export function validateStaffing(s){
  const t=s.staffing;
  if(!t||typeof t!=='object'||!Array.isArray(t.hires)||t.hires.length>CANDIDATES.length||
     !Array.isArray(t.coverage)||t.coverage.length>100||!Array.isArray(t.assignments)||t.assignments.length>100||
+    (t.reception!==undefined&&!Array.isArray(t.reception))||(t.reception||[]).length>2||new Set(t.reception||[]).size!==(t.reception||[]).length||
     !Array.isArray(t.history)||t.history.length>80||!Number.isSafeInteger(t.nextId)||t.nextId<1||
     !Number.isSafeInteger(t.lastPayrollWeek)||t.lastPayrollWeek<1||t.lastPayrollWeek>s.week||
     !Number.isSafeInteger(t.totalPayroll)||t.totalPayroll<0||t.totalPayroll>1e9||
@@ -55,6 +59,10 @@ export function validateStaffing(s){
     !Number.isSafeInteger(h.salary)||h.salary!==candidate(h.id).salary)throw Error('invalid-hire');
   used.add(h.id);
  }
+ for(const id of t.reception||[]){
+  const person=roster(s).find(p=>p.id===id);
+  if(!person||person.home!=='escritorio'||id==='NPC-04')throw Error('invalid-reception-assignment');
+ }
  const seen=new Set();
  for(const [rows,type] of [[t.coverage,'coverage'],[t.assignments,'assignment']]){
   for(const c of rows){
@@ -66,6 +74,11 @@ export function validateStaffing(s){
   }
  }
  return true;
+}
+export function receptionStaffing(s){
+ const t=s.staffing||{},people=roster(s),assigned=(t.reception||[]).map(id=>people.find(p=>p.id===id)).filter(Boolean);
+ const eligible=people.filter(p=>p.home==='escritorio'&&p.id!=='NPC-04'&&p.organization?.rank!=='estrategico'&&managerMap(s).escritorio!==p.id&&isActive(s.staff?.[p.id]));
+ return {capacity:2,assigned,eligible,open:Math.max(0,2-assigned.length)};
 }
 export function sectorStaffing(s,sector){
  if(!WORK.includes(sector))return {required:0,active:0,pending:0,temporary:0,incoming:0,outgoing:0,gap:0,pressure:0,pressureRelations:0};
@@ -106,7 +119,7 @@ export function staffAction(input,kind,payload={}){
   a.employment='onboarding';a.week=s.week;s.budget-=900;record(t,s.week,'hire',c.name+' contratado(a); integração na próxima semana.');
  }else if(kind==='hire'){
   const c=candidate(payload.candidateId);
-  if(!WORK.includes(sector)||!c)return {ok:false,error:'invalid-candidate'};
+  if(!WORK.includes(sector)||!c||c.home&&c.home!==sector)return {ok:false,error:'invalid-candidate'};
   if(t.hires.some(h=>h.id===c.id))return {ok:false,error:'already-hired'};
   if(summary.sectors[sector].active+summary.sectors[sector].pending>=summary.sectors[sector].required+2)return {ok:false,error:'staff-limit'};
   if(s.budget<c.fee)return {ok:false,error:'insufficient-budget'};
@@ -132,6 +145,19 @@ export function staffAction(input,kind,payload={}){
   if(summary.assignments.some(a=>a.from===from)||summary.assignments.some(a=>a.to===sector))return {ok:false,error:'assignment-limit'};
   t.assignments.push({id:'AS-'+t.nextId++,from,to:sector,startAt:s.week,endAt:s.week+ASSIGNMENT_WEEKS});
   record(t,s.week,'redistribute','Apoio interno de '+from+' a '+sector+' por duas semanas; setor de origem assume maior carga.');
+ }else if(kind==='reception-assign'){
+  const person=receptionStaffing(s).eligible.find(p=>p.id===payload.employeeId);
+  if(!person)return {ok:false,error:'invalid-reception-candidate'};
+  if(t.reception.includes(person.id))return {ok:false,error:'already-at-reception'};
+  if(t.reception.length>=2)return {ok:false,error:'reception-full'};
+  t.reception.push(person.id);
+  record(t,s.week,'reception',person.name+' alocado(a) em um posto de recepção; vínculo ao Escritório preservado.');
+ }else if(kind==='reception-unassign'){
+  const index=t.reception.indexOf(payload.employeeId);
+  if(index<0)return {ok:false,error:'not-at-reception'};
+  const person=candidateFor(payload.employeeId,s);
+  t.reception.splice(index,1);
+  record(t,s.week,'reception',(person?.name||'Funcionário')+' liberado(a) do posto de recepção; vínculo ao Escritório preservado.');
  }else return {ok:false,error:'unknown-action'};
  return {ok:true,state:s};
 }

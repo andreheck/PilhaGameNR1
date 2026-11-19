@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 const file=new URL('../dist/ui/continuous/iso.js',import.meta.url);let s=fs.readFileSync(file,'utf8');
 function replace(a,b){if(!s.includes(a))throw Error('Intro cast anchor: '+a.slice(0,90));s=s.replace(a,b);}
-replace('var employeeRows=[],employeeHits=[],employeeHover=null,employeePaused=false;',`var employeeRows=[],employeeHits=[],employeeHover=null,employeePaused=false;var introCastImages={},introCastRows=[],introCastDrawn={};
+replace('var employeeRows=[],receptionRows=[],employeeHits=[],employeeHover=null,employeePaused=false;',`var employeeRows=[],receptionRows=[],employeeHits=[],employeeHover=null,employeePaused=false;var introCastImages={},introCastRows=[],introCastDrawn={};
  function setIntroCast(rows){introCastRows=rows.slice();introCastImages={};['escritorio','producao','atendimento'].forEach(function(key){var e=getEnv(key),members=rows.filter(function(m){return m.sector===key;});e.people=members.map(function(m,i){var d=(i+.5)*AISLE_LENGTH/Math.max(1,members.length),point=aislePoint(d);if(global.Image){var image=new global.Image();image.onload=function(){if(!running)render();};image.src=m.file;introCastImages[m.id]=image;}return Object.assign({},point,{introCastKey:m.id,progress:d,homeProgress:d,phase:i*.8,seed:i*.7,sit:false,npc:-1,moving:true,speed:.50+(i%4)*.09,wait:0,shirt:'#4c9fb5',skin:'#bd8e70',hair:'#302622',score:70});});});render();}
 `);
 const selector=s.split('\n').find(l=>l.includes('var sprite = p.isPlayer&&playerSpriteImage'));

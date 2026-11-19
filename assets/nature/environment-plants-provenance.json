@@ -1,0 +1,70 @@
+[
+  {
+    "key": "monstera",
+    "id": "planta-grande",
+    "width": 1.1596110346707786,
+    "depth": 1.1571287925353697,
+    "height": 1.4,
+    "frameWidth": 256,
+    "frameHeight": 320,
+    "views": 4,
+    "meshCount": 1,
+    "projection": {
+      "width": 86.08952321395863,
+      "height": 107.61190401744825,
+      "anchor": [
+        0.5,
+        0.29605018333493377
+      ]
+    },
+    "standPoint": [
+      0.5798055173353893,
+      0.952,
+      0
+    ],
+    "file": "monstera-interior-views.webp",
+    "url": "/assets/nature/monstera-interior-views.webp",
+    "source": "Meshy_AI_Monstera_Ethnic_Plant_20261116_image-to-3d-texture_fbx.zip",
+    "sourceSha256": "db7345426f271d1109c2e8acbca018e37f31c4cc78d99872e2067d06c17d4b70",
+    "sourceBytes": 147474243,
+    "modelBytes": 107473900,
+    "textureBytes": 21242485,
+    "atlasBytes": 55132,
+    "atlasSha256": "a6b60004facc77553e3bebfa0f165698846989e3b38ba40eb14f09f730e8f75c",
+    "compressionRatio": 0.00037
+  },
+  {
+    "key": "snake-plant",
+    "id": "planta-pequena",
+    "width": 0.39588911791498094,
+    "depth": 0.39810169886235974,
+    "height": 0.82,
+    "frameWidth": 256,
+    "frameHeight": 320,
+    "views": 4,
+    "meshCount": 1,
+    "projection": {
+      "width": 41.69386658260884,
+      "height": 52.11733322826105,
+      "anchor": [
+        0.5,
+        0.25334650923475427
+      ]
+    },
+    "standPoint": [
+      0.19794455895749047,
+      0.5576,
+      0
+    ],
+    "file": "snake-plant-views.webp",
+    "url": "/assets/nature/snake-plant-views.webp",
+    "source": "Meshy_AI_Snake_Plant_Ethnic_Pot_20261116_image-to-3d-texture_fbx.zip",
+    "sourceSha256": "8c45f27c0f541fa285c5f5e1d7441599ab85b2d7a234e384af545742634ea35d",
+    "sourceBytes": 131092012,
+    "modelBytes": 88179244,
+    "textureBytes": 23050747,
+    "atlasBytes": 46390,
+    "atlasSha256": "ef7c3fe24f34667c97cf7e89c3ef6739c9b8fc0f03541f3e8cd7f168f82d9d40",
+    "compressionRatio": 0.00035
+  }
+]

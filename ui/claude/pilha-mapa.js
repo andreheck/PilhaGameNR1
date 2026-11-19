@@ -103,8 +103,10 @@
   var CAT = {}; CATALOG.forEach(function (c, i) { c.i = i; CAT[c.id] = c; });
 
   var LAYOUTS = {
-    wide: { escritorio: [0, 0], producao: [14, 0], atendimento: [0, 10] },
-    tall: { escritorio: [0, 0], producao: [10, 10], atendimento: [20, 20] }
+    // Two aligned rows with walkable gaps: office + production, service + patio.
+    // Keep the footprint identical on narrow screens so the world itself never reflows.
+    wide: { escritorio: [0, 0], producao: [16, 0], atendimento: [0, 12] },
+    tall: { escritorio: [0, 0], producao: [16, 0], atendimento: [0, 12] }
   };
 
   /* ---------- utilidades ---------- */
@@ -205,7 +207,7 @@
           }).join("") +
         '</nav>' +
         '<div class="pm-view">' +
-          '<canvas class="pm-canvas" role="img" aria-label="Mapa isométrico da empresa com três setores: Escritório, Produção e Atendimento. Use as abas acima para escolher um setor."></canvas>' +
+          '<canvas class="pm-canvas" role="img" aria-label="Mapa isométrico da empresa. Use o minimapa circular de saúde para escolher Escritório, Produção ou Atendimento."></canvas>' +
           '<div class="pm-zoom">' +
             '<button type="button" data-z="in" aria-label="Aproximar">+</button>' +
             '<button type="button" data-z="out" aria-label="Afastar">−</button>' +

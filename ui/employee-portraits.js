@@ -14,7 +14,21 @@ const NPC_VISUALS = Object.freeze({
   'NPC-13': { portrait: 'NPC-13-alisson.png', package: 'NPC-13-alisson.png' },
   'NPC-14': { portrait: 'NPC-14-camila.png', package: 'NPC-14-camila.png' },
   'NPC-15': { portrait: 'NPC-15-lucas.png', package: 'NPC-15-lucas.png' },
-  'NPC-16': { portrait: 'NPC-16-beatriz.png', package: 'NPC-16-beatriz.png' }
+  'NPC-16': { portrait: 'NPC-16-beatriz.png', package: 'NPC-16-beatriz.png' },
+  'NOVO-09': { portrait: 'character-concepts/2026-11/scores/samir-haddad/base.webp', package: 'NOVO-09-samir-haddad.png' }
+});
+
+// Retratos aprovados nesta etapa. As células emocionais foram separadas em
+// WebP para que o retrato acompanhe o score sem recortar uma prancha no runtime.
+const CONCEPT_PORTRAITS = Object.freeze({
+  'NPC-02': 'tiago-salles',
+  'NPC-03': 'fernanda-amaral',
+  'NPC-06': 'leticia-campos',
+  'NPC-09': 'carlos-nogueira',
+  'NPC-11': 'jose-batista',
+  'NPC-15': 'lucas-paiva',
+  'NPC-16': 'beatriz-luz',
+  'NOVO-09': 'samir-haddad'
 });
 
 const hiredStates = new Set(['active', 'onboarding', 'leave']);
@@ -31,11 +45,14 @@ export function employeeScoreBand(score) {
 
 export function employeePortrait(p, { packaged = false } = {}) {
   const visual = NPC_VISUALS[p?.id];
-  if (!visual) return p?.portrait ?? p?.profile?.portrait ?? null;
-  if (packaged) return `/assets/employee-packages/${visual.package}`;
+  const concept = CONCEPT_PORTRAITS[p?.id];
+  if (!visual && !concept) return p?.portrait ?? p?.profile?.portrait ?? null;
+  if (packaged) return visual?.package ? `/assets/employee-packages/${visual.package}` : null;
 
   if (hiredStates.has(p?.employment) && Number.isFinite(Number(p?.health))) {
-    return `/assets/employee-score/${p.id}/${employeeScoreBand(p.health)}.png`;
+    if (concept) return `/assets/character-concepts/2026-11/scores/${concept}/${employeeScoreBand(p.health)}.webp`;
+    if (visual) return `/assets/employee-score/${p.id}/${employeeScoreBand(p.health)}.png`;
   }
+  if (concept) return `/assets/character-concepts/2026-11/scores/${concept}/base.webp`;
   return `/assets/employee-portraits/${visual.portrait}`;
 }

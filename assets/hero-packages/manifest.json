@@ -1,0 +1,112 @@
+{
+  "status": "artwork-created-not-wired-to-recruitment",
+  "created": "2026-11-17",
+  "packageFormat": "SVG, portrait 2:3, full-body cutout with score portrait strip",
+  "scoreBands": {
+    "20": "0-29",
+    "40": "30-49",
+    "60": "50-69",
+    "80": "70-90",
+    "90+": "91-100"
+  },
+  "heroes": [
+    {
+      "id": "PILHA-H01",
+      "name": "DIRETOR",
+      "rarity": "ÉPICO",
+      "package": "assets/hero-packages/PILHA-H01-diretor.svg",
+      "fullBody": "assets/heroes/refresh-a-pose-2026-11/PILHA-H01-diretor.png",
+      "scorePortraits": {
+        "20": "assets/heroes/scores/PILHA-H01/20.png",
+        "40": "assets/heroes/scores/PILHA-H01/40.png",
+        "60": "assets/heroes/scores/PILHA-H01/60.png",
+        "80": "assets/heroes/scores/PILHA-H01/80.png",
+        "90+": "assets/heroes/scores/PILHA-H01/90+.png"
+      }
+    },
+    {
+      "id": "PILHA-H02",
+      "name": "PSICÓLOGA",
+      "rarity": "ÉPICO",
+      "package": "assets/hero-packages/PILHA-H02-psicologa.svg",
+      "fullBody": "assets/heroes/refresh-a-pose-2026-11/PILHA-H02-psicologa.png",
+      "scorePortraits": {
+        "20": "assets/heroes/scores/PILHA-H02/20.png",
+        "40": "assets/heroes/scores/PILHA-H02/40.png",
+        "60": "assets/heroes/scores/PILHA-H02/60.png",
+        "80": "assets/heroes/scores/PILHA-H02/80.png",
+        "90+": "assets/heroes/scores/PILHA-H02/90+.png"
+      }
+    },
+    {
+      "id": "PILHA-H03",
+      "name": "CIENTISTA DE DADOS",
+      "rarity": "ÉPICO",
+      "package": "assets/hero-packages/PILHA-H03-cientista-de-dados.svg",
+      "fullBody": "assets/heroes/refresh-a-pose-2026-11/PILHA-H03-cientista-de-dados.png",
+      "scorePortraits": {
+        "20": "assets/heroes/scores/PILHA-H03/20.png",
+        "40": "assets/heroes/scores/PILHA-H03/40.png",
+        "60": "assets/heroes/scores/PILHA-H03/60.png",
+        "80": "assets/heroes/scores/PILHA-H03/80.png",
+        "90+": "assets/heroes/scores/PILHA-H03/90+.png"
+      }
+    },
+    {
+      "id": "PILHA-H04",
+      "name": "ENGENHEIRA DE SEGURANÇA",
+      "rarity": "ÉPICO",
+      "package": "assets/hero-packages/PILHA-H04-engenheira-de-seguranca.svg",
+      "fullBody": "assets/heroes/refresh-a-pose-2026-11/PILHA-H04-engenheira-de-seguranca.png",
+      "scorePortraits": {
+        "20": "assets/heroes/scores/PILHA-H04/20.png",
+        "40": "assets/heroes/scores/PILHA-H04/40.png",
+        "60": "assets/heroes/scores/PILHA-H04/60.png",
+        "80": "assets/heroes/scores/PILHA-H04/80.png",
+        "90+": "assets/heroes/scores/PILHA-H04/90+.png"
+      }
+    },
+    {
+      "id": "PILHA-H05",
+      "name": "P&D TECH",
+      "rarity": "LENDÁRIO",
+      "package": "assets/hero-packages/PILHA-H05-pd-tech.svg",
+      "fullBody": "assets/heroes/refresh-a-pose-2026-11/PILHA-H05-pd-tech.png",
+      "scorePortraits": {
+        "20": "assets/heroes/scores/PILHA-H05/20.png",
+        "40": "assets/heroes/scores/PILHA-H05/40.png",
+        "60": "assets/heroes/scores/PILHA-H05/60.png",
+        "80": "assets/heroes/scores/PILHA-H05/80.png",
+        "90+": "assets/heroes/scores/PILHA-H05/90+.png"
+      }
+    },
+    {
+      "id": "PILHA-H06",
+      "name": "RELAÇÕES SINDICAIS E DIVERSIDADE",
+      "rarity": "ÉPICO",
+      "package": "assets/hero-packages/PILHA-H06-rs-td.svg",
+      "fullBody": "assets/heroes/refresh-a-pose-2026-11/PILHA-H06-rs-td.png",
+      "scorePortraits": {
+        "20": "assets/heroes/scores/PILHA-H06/20.png",
+        "40": "assets/heroes/scores/PILHA-H06/40.png",
+        "60": "assets/heroes/scores/PILHA-H06/60.png",
+        "80": "assets/heroes/scores/PILHA-H06/80.png",
+        "90+": "assets/heroes/scores/PILHA-H06/90+.png"
+      }
+    },
+    {
+      "id": "PILHA-H07",
+      "name": "HECKER",
+      "rarity": "LENDÁRIO",
+      "package": "assets/hero-packages/PILHA-H07-hecker.svg",
+      "fullBody": "assets/heroes/refresh-a-pose-2026-11/PILHA-H07-hecker.png",
+      "scorePortraits": {
+        "20": "assets/heroes/scores/PILHA-H07/20.png",
+        "40": "assets/heroes/scores/PILHA-H07/40.png",
+        "60": "assets/heroes/scores/PILHA-H07/60.png",
+        "80": "assets/heroes/scores/PILHA-H07/80.png",
+        "90+": "assets/heroes/scores/PILHA-H07/90+.png"
+      }
+    }
+  ]
+}

@@ -3,6 +3,9 @@ import * as M from '../simulation/company-continuous.js';import * as L from '../
 import {createFurniturePresentation} from '../ui/furniture-presentation.js';
 import {FURNITURE_VISUALS as V} from '../data/continuous/furniture-visuals.js';
 import {workTargets} from '../ui/npc-work-targets.js';
+import {FACTORS} from '../data/continuous/catalog.js';
+import {sectorStaffing} from '../simulation/staffing-management.js';
+import {localExposureView} from '../simulation/psychosocial-exposures.js';
 const now=1000000,near=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`),setup=()=>L.tickAt(M.fresh(),now).state;
 test('16 canonical identities; ages missing from registry remain null',()=>{assert.equal(EMPLOYEES.length,16);assert.equal(new Set(EMPLOYEES.map(p=>p.id)).size,16);assert.equal(EMPLOYEES[3].name,'Raimunda');assert.ok(EMPLOYEES.slice(8).every(p=>p.age===null));});
 test('migration adds workforce without resetting money or purchases',()=>{const a=M.purchase(M.fresh(),M.quote(M.fresh(),'producao','jorn')).state,b=JSON.parse(JSON.stringify(a));L.ensureLiving(a);assert.equal(a.budget,8800);assert.deepEqual(a.receipts,b.receipts);assert.equal(Object.keys(a.staff).length,16);assert.equal(a.version,2);});
@@ -57,7 +60,7 @@ test('work paths reach arranged furniture with body clearance at baseline and ma
  }
 });
 test('restoring visitors keeps exactly16 rendered identities',()=>{const {iso}=engine();iso.setRestVisitors([{id:'NPC-01',sid:'escritorio',space:'biblioteca'}]);assert.equal(iso.getEmployees().length,16);assert.equal(iso.getEmployees().filter(p=>p.id==='NPC-01').length,1);assert.equal(iso.getEmployees().find(p=>p.id==='NPC-01').sector,'restauracao');iso.setEmployees(L.staffView(setup()));iso.setRestVisitors([]);assert.equal(iso.getEmployees().find(p=>p.id==='NPC-01').sector,'escritorio');});
-test('built entry opens Ao Trabalho directly and preserves one-time player catalog and calendar',()=>{const html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.doesNotMatch(html,/class="at-start"|data-start="play"/);assert.match(html,/continuous\/ao-trabalho-entry.js/);assert.match(html,/id="continuous-app">/);assert.match(html,/continuous\/intro.js/);const intro=fs.readFileSync(new URL('../dist/ui/continuous/intro.js',import.meta.url),'utf8');assert.doesNotMatch(intro,/class="pi-motion"|motionButton/);const ui=fs.readFileSync(new URL('../ui/continuous-game.js',import.meta.url),'utf8');assert.match(ui,/data-company="employees"/);assert.match(ui,/data-company="world"/);assert.doesNotMatch(ui,/'case\d|play\.js|document.hidden\|\|/);assert.match(ui,/choosePlayerCharacter\(\{storage:store\}\)/);assert.doesNotMatch(ui,/openTeam\(true\)/);});
+test('built entry opens Ao Trabalho directly and preserves one-time player catalog and calendar',()=>{const html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.doesNotMatch(html,/class="at-start"|data-start="play"/);assert.match(html,/continuous\/ao-trabalho-entry.js/);assert.match(html,/id="continuous-app">/);assert.match(html,/continuous\/intro.js/);const intro=fs.readFileSync(new URL('../dist/ui/continuous/intro.js',import.meta.url),'utf8');assert.doesNotMatch(intro,/class="pi-motion"|motionButton/);const ui=fs.readFileSync(new URL('../ui/continuous-game.js',import.meta.url),'utf8');assert.match(ui,/command==='employees'/);assert.match(ui,/case'world'/);assert.doesNotMatch(ui,/'case\d|play\.js|document.hidden\|\|/);assert.match(ui,/choosePlayerCharacter\(\{storage:store\}\)/);assert.doesNotMatch(ui,/openTeam\(true\)/);});
 
 test('pausing after a long suspension consumes all elapsed batches before freezing',()=>{
  const future=now+RULES.weekMs*500+220;
@@ -93,7 +96,7 @@ test('locate employee centers the person in both working and restoration sectors
 
 // Management rules use real sector stress context and a weekly pre-effect snapshot.
 const management=await import('../simulation/leadership-effects.js');
-const factorsAt=(s,sid,value)=>{for(const [factor,base] of Object.entries(SECTORS.find(x=>x.id===sid).base))s.eventEffects.push({sid,factor,delta:value-base,at:s.week});};
+const factorsAt=(s,sid,value)=>{for(const factor of FACTORS){const targets=factor.scope==='empresa'?SECTORS.filter(x=>!x.rest):[SECTORS.find(x=>x.id===sid)];for(const target of targets)s.eventEffects.push({sid:target.id,factor:factor.id,delta:value-target.base[factor.id],at:s.week});}};
 test('management uses strict >40 stress and >70 health thresholds, with exact boundaries',()=>{
  const s=setup();factorsAt(s,'escritorio',60);s.staff['NPC-03'].health=70;let c=management.leadershipConditions(s).find(c=>c.sid==='escritorio');near(c.stress,40);assert.equal(c.penalty,0);assert.equal(c.bonus,0);
  s.staff['NPC-03'].health=70.01;c=management.leadershipConditions(s)[0];assert.equal(c.bonus,7);
@@ -112,7 +115,8 @@ test('management applies clamps and snapshots before effects, independent of emp
 });
 test('weekly management changes actual persisted health, environment average and keeps finances intact',()=>{
  const s=setup();s.staff['NPC-03'].health=90;const before=JSON.stringify(s),r=L.advanceRunning(s);assert.ok(r.ok);assert.equal(JSON.stringify(s),before);const n=r.state;
- for(const p of EMPLOYEES){const target=30+M.metrics(n,p.home).index*.65;const baseline=s.staff[p.id].health+(target-s.staff[p.id].health)*.2;const a=n.staff[p.id];near(a.health,Math.max(0,Math.min(100,baseline+a.leadership.penalty+a.leadership.bonus)));assert.equal(a.leadership.week,n.week);}
+ const attending=new Set(L.attendance(n).map(row=>row.id)),quality=M.metrics(n,'restauracao').index;
+ for(const p of EMPLOYEES){const factors=M.employeeValues(n,p.id),individualIndex=Object.values(factors).reduce((sum,value)=>sum+value,0)/6,pressure=sectorStaffing(n,p.home),local=localExposureView(p,factors),target=Math.max(0,Math.min(100,30+individualIndex*.65+(attending.has(p.id)?Math.min(8,quality*.3):0)-pressure.pressure*.55-local.healthPenalty)),baseline=s.staff[p.id].health+(target-s.staff[p.id].health)*.2;const a=n.staff[p.id];near(a.health,Math.max(0,Math.min(100,baseline+a.leadership.penalty+a.leadership.bonus)));assert.equal(a.leadership.week,n.week);}
  assert.equal(n.budget,s.budget+500+n.finance.ledger.at(-1).revenue-n.finance.ledger.at(-1).costs);assert.deepEqual(n.receipts,s.receipts);const summary=management.leadershipSummary(n)[0];near(summary.averageHealth,EMPLOYEES.filter(p=>p.home==='escritorio').reduce((sum,p)=>sum+n.staff[p.id].health,0)/6);M.validate(n);L.validateLiving(n);
  const restored=JSON.parse(JSON.stringify(n));assert.deepEqual(L.ensureLiving(restored),n);const readOnly=JSON.stringify(n);L.staffView(n);management.leadershipSummary(n);assert.equal(JSON.stringify(n),readOnly);
 });
