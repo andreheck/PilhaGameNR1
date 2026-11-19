@@ -1,0 +1,8 @@
+{
+  "title": "Comércio de alimentação do bairro Pilha+",
+  "artStyle": "modelos 3D PBR otimizados para visualização isométrica",
+  "items": [
+    {"id":"paradinho-cafe","name":"Paradinho Café","file":"paradinho-cafe.glb","source":"Paradinho_Cafe_Dioram.glb","sourceSizeBytes":103322808,"optimizedSizeBytes":6362748,"notes":"Malha simplificada para o tamanho de exibição no mapa; texturas WebP limitadas a 1024 px."},
+    {"id":"bolinho-kiosk","name":"Quiosque Bolinho de Carne","file":"bolinho-kiosk.glb","source":"Meshy_AI_Bolinho_de_Carne_Kiosk_3D_20261116_image-to-3d-texture.fbx","optimizedSizeBytes":5835540,"notes":"Conversão do FBX com mapas de textura; malha simplificada e texturas WebP limitadas a 1024 px."}
+  ]
+}

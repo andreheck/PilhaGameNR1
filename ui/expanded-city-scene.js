@@ -3,17 +3,22 @@ const ASSETS = '/assets/world-expansion/';
 
 const placements = [
   ...[
-    [-.52,-.78],[-.40,-.82],[-.28,-.77],[-.16,-.70],[-.04,-.66],[-.34,-.66]
-  ].map(([x,z],i)=>({id:'morro',kind:'image',file:`community-huts/barraco-${String(i+1).padStart(2,'0')}-${['reboco-gasto','tijolo-aparente','laje-caixa-azul','bloco-aparente-laje','pastel-caixa-azul','azul-coral'][i]}.png`,x,z,w:.14,h:.15})),
+    {file:'community-huts/barraco-01-reboco-gasto.png',x:-.52,z:-.78,w:.14,h:.15},
+    {file:'community-huts/barraco-02-tijolo-aparente.png',x:-.40,z:-.82,w:.14,h:.15},
+    {file:'community-huts/barraco-03-laje-caixa-azul.png',x:-.28,z:-.77,w:.14,h:.15},
+    {file:'community-huts/barraco-04-bloco-aparente-laje.png',x:-.16,z:-.70,w:.14,h:.15},
+    {file:'community-huts/barraco-05-pastel-caixa-azul.png',x:-.04,z:-.66,w:.14,h:.15},
+    {file:'community-huts/barraco-06-azul-coral.png',x:-.34,z:-.66,w:.14,h:.15}
+  ].map(p=>({id:'morro',kind:'image',...p})),
   {id:'residencial',kind:'image',file:'residential-buildings/predio-residencial-01-4-pavimentos.png',x:-.78,z:.10,w:.19,h:.29},
   {id:'residencial',kind:'image',file:'residential-buildings/predio-residencial-02-5-pavimentos.png',x:-.54,z:-.05,w:.18,h:.31},
   {id:'residencial',kind:'image',file:'residential-buildings/predio-residencial-03-3-pavimentos-familiar.png',x:-.28,z:-.22,w:.19,h:.29},
-  {id:'residencial',kind:'house',x:-.76,z:.32,color:'#e7ba72'},
-  {id:'residencial',kind:'house',x:-.50,z:.32,color:'#a8c998'},
-  {id:'residencial',kind:'house',x:-.24,z:.32,color:'#d98468'},
+  {id:'residencial',kind:'image',file:'residential-buildings/casa-praia-01-terracota.webp',x:-.76,z:.32,w:.19,h:.16},
+  {id:'residencial',kind:'image',file:'residential-buildings/casa-praia-02-ciano.webp',x:-.50,z:.32,w:.19,h:.16},
+  {id:'residencial',kind:'image',file:'residential-buildings/casa-praia-03-amarela.webp',x:-.24,z:.32,w:.19,h:.16},
   {id:'pilha-corp',kind:'image',file:'pilha-corp-office/pilha-corp-escritorio-exterior-conceito.png',x:.02,z:.24,w:.42,h:.22,enter:true},
-  {id:'comercio',kind:'image',file:'food/cafeznho.png',x:.62,z:-.12,w:.23,h:.25},
-  {id:'comercio',kind:'kiosk',x:.87,z:-.18},
+  {id:'comercio',kind:'model',file:'food/paradinho-cafe.glb',x:.62,z:-.12,size:.23,label:'PARADINHO'},
+  {id:'comercio',kind:'model',file:'food/bolinho-kiosk.glb',x:.87,z:-.18,size:.17,label:'BOLINHO'},
   {id:'upa',kind:'image',file:'food/hospital-upa-terraco.png',x:.75,z:-.38,w:.25,h:.27}
 ];
 
@@ -86,6 +91,16 @@ export async function createExpandedCityScene(container,{onSelect,onProgress,onE
     const hit=probe.intersectObject(platform,true)[0];const ground=hit?hit.point.y+.003:-.22;
     if(p.kind==='house'){addClickable(addHouse(THREE,scene,p,ground),p.id);return;}
     if(p.kind==='kiosk'){addClickable(addKiosk(THREE,scene,p,ground),p.id);return;}
+    if(p.kind==='model'){
+      const gltf=await new GLTFLoader().loadAsync(ASSETS+p.file),model=gltf.scene;
+      const bounds=new THREE.Box3().setFromObject(model),dimensions=bounds.getSize(new THREE.Vector3());
+      const factor=p.size/Math.max(dimensions.x,dimensions.z,0.001);
+      model.scale.setScalar(factor);model.position.set(p.x,ground-bounds.min.y*factor,p.z);model.rotation.y=p.rotationY||0;
+      model.traverse(node=>{if(node.isMesh){node.castShadow=true;node.receiveShadow=true;}});
+      scene.add(model);addClickable(model,p.id,p.enter);
+      if(p.label){const sign=makeLabel(THREE,p.label);sign.position.set(p.x,ground+dimensions.y*factor+.045,p.z);sign.scale.set(.18,.045,1);scene.add(sign);}
+      return;
+    }
     const texture=await new THREE.TextureLoader().loadAsync(ASSETS+p.file);texture.colorSpace=THREE.SRGBColorSpace;texture.generateMipmaps=true;texture.minFilter=THREE.LinearMipmapLinearFilter;
     const aspect=texture.image.width/texture.image.height;
     const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,transparent:true,alphaTest:.06,depthWrite:false,roughness:1}));

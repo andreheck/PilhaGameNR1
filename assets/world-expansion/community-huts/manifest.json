@@ -1,5 +1,5 @@
 {
-  "title": "Barracos do morro - conjunto 01",
+  "title": "Moradias do morro - conjunto 01",
   "artStyle": "sprite isometrico 2.5D ilustrado, contorno limpo, transparencia real",
   "items": [
     {"id":"barraco-01","file":"barraco-01-reboco-gasto.png","finish":"reboco mal acabado, pintura coral e amarela","roof":"telha ondulada","blueWaterTank":true},

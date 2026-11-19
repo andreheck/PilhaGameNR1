@@ -41,3 +41,26 @@ test('mode selector is wired into first entry, exposed in the HUD, and has keybo
  assert.match(css,/prefers-reduced-motion:reduce/);assert.match(css,/@media\(max-width:760px\)/);
  const build=fs.readFileSync(new URL('../tools/build-continuous.mjs',import.meta.url),'utf8');assert.match(build,/ui\/game-modes\.css/);
 });
+
+test('new mode selection reveals the lightweight static world before hero selection',()=>{
+ const source=fs.readFileSync(new URL('../ui/continuous-game.js',import.meta.url),'utf8');
+ assert.match(source,/await showWorldReveal\(modeId\)/);
+ assert.match(source,/function openCityEntry\(\)\{if\(!load\(\)\)return;void startExperience\(\);\}/);
+ assert.doesNotMatch(source,/await showWorldReveal\(\);mountMap\(\)/);
+ const entry=fs.readFileSync(new URL('../ui/living-entry.js',import.meta.url),'utf8');
+ assert.match(entry,/world-expansion\/platform\/world-map-preview\.webp/);
+ assert.match(entry,/data-world-enter>Continuar/);
+ assert.doesNotMatch(entry,/Arraste para o lado|nr1-ao-trabalho-isometrico\.png/);
+ const preview=new URL('../assets/world-expansion/platform/world-map-preview.webp',import.meta.url);
+ assert.ok(fs.statSync(preview).size<250_000,'static map preview remains lightweight');
+ const scene=fs.readFileSync(new URL('../ui/expanded-city-scene.js',import.meta.url),'utf8');
+ assert.match(scene,/barraco-06-azul-coral\.png/);
+ assert.doesNotMatch(scene,/community-huts\/barraco-0[789]/);
+ assert.match(scene,/kind:'model',file:'food\/paradinho-cafe\.glb'/);
+ assert.match(scene,/kind:'model',file:'food\/bolinho-kiosk\.glb'/);
+ assert.match(scene,/if\(p\.kind==='model'\)/);
+ for(const file of ['paradinho-cafe.glb','bolinho-kiosk.glb']){
+  const model=new URL(`../assets/world-expansion/food/${file}`,import.meta.url);
+  assert.ok(fs.statSync(model).size<10_000_000,`${file} stays below 10 MB`);
+ }
+});

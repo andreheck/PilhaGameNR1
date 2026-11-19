@@ -1,9 +1,12 @@
 {
-  "title": "Predios residenciais brasileiros - conjunto 01",
+  "title": "Predios e casas residenciais brasileiros - conjunto 01",
   "artStyle": "sprite isometrico 2.5D ilustrado, fundo transparente, fachada desgastada",
   "items": [
     {"id":"predio-residencial-01","file":"predio-residencial-01-4-pavimentos.png","floors":4,"details":["reboco desgastado", "sacada gourmet com mesa e churrasqueira", "plantas", "varal", "silhueta de morador"]},
     {"id":"predio-residencial-02","file":"predio-residencial-02-5-pavimentos.png","floors":5,"details":["fachada em tons de verde, coral e creme", "rede na sacada", "cadeiras e plantas", "varal", "morador na varanda", "caixa d'agua"]},
-    {"id":"predio-residencial-03","file":"predio-residencial-03-3-pavimentos-familiar.png","floors":3,"details":["fachada azul e amarela desgastada", "familia conversando na sacada", "rede", "churrasqueira", "plantas e varal", "caixa d'agua"]}
+    {"id":"predio-residencial-03","file":"predio-residencial-03-3-pavimentos-familiar.png","floors":3,"details":["fachada azul e amarela desgastada", "familia conversando na sacada", "rede", "churrasqueira", "plantas e varal", "caixa d'agua"]},
+    {"id":"casa-praia-01","file":"casa-praia-01-terracota.webp","style":"casa 2.5D terracota com laje e caixa d'agua azul"},
+    {"id":"casa-praia-02","file":"casa-praia-02-ciano.webp","style":"casa 2.5D ciano e azul com escada externa"},
+    {"id":"casa-praia-03","file":"casa-praia-03-amarela.webp","style":"casa 2.5D amarela e verde com varal no terraco"}
   ]
 }
