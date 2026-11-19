@@ -34,4 +34,4 @@
 - Inspeção visual do fluxo de primeira partida concluída em desktop (1440×1000) e tablet (1024×768): bairro, entrada, introdução, escolha de modo, personagem, contratação inicial, revelação do explorador e mapa com guia opcional. O mapa mantém a barra dentro do viewport e não reintroduz indicadores por setor na faixa inferior.
 - A checagem real do fluxo identificou `setReceptionStaff` tentando ler `office.env.people`, embora `envs.escritorio` já seja o ambiente. Corrigido para `office.people`; depois da reconstrução, o fluxo completo não registrou exceções JavaScript nem requisições falhas.
 - A suíte integral foi executada novamente após a correção: todos os testes passaram; build e `git diff --check` também passaram.
-- Publicação de teste: pendente nesta revisão; confirmar a conclusão do deploy no alias oficial antes de compartilhar.
+- Publicado no projeto Vercel `pilha-plus-game-preview`; deployment `dpl_7jFt3Y8Mvxev4tAgqxqjJ3jmEDTX` ficou `READY`, com alias oficial `https://pilha-plus-game-preview.vercel.app/` e commit `48501cfc7f0863fb45cc6f9d7cb120a78f7b6981`.
