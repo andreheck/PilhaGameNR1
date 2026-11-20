@@ -1,8 +1,8 @@
 /** Visual architecture, in metres. Same office sector and existing manager identity. */
 export const OFFICE_SPACE=Object.freeze({
- manager:{id:'manager',name:'Gerência',caption:'1 posto de liderança',floor:'#405a70',accent:'#ffd166',labelAt:[4,-5.7],x:0,y:-6,width:8,depth:6,capacity:1,door:{x:4,y:0,width:1.2}},
- meeting:{id:'meeting',name:'Sala de reuniões',caption:'Mesa para 4 pessoas',floor:'#38645f',accent:'#67d8c2',labelAt:[12,-5.7],x:8,y:-6,width:8,depth:6,capacity:4,door:{x:11.5,y:0,width:1.4},seats:4},
- hr:{id:'hr',name:'RH · Pessoas',caption:'1 posto de atendimento',floor:'#5b5275',accent:'#c5a7ff',labelAt:[20,-5.7],x:16,y:-6,width:8,depth:6,capacity:1,door:{side:'west',offset:3,width:1.6}},
+ manager:{id:'manager',name:'Gerência',caption:'1 posto de liderança',floor:'#668da5',accent:'#ffd166',labelAt:[4,-5.7],x:0,y:-6,width:8,depth:6,capacity:1,door:{x:4,y:0,width:1.2},wall:'#527c96'},
+ meeting:{id:'meeting',name:'Sala de reuniões',caption:'Mesa para 4 pessoas',floor:'#5b9188',accent:'#67d8c2',labelAt:[12,-5.7],x:8,y:-6,width:8,depth:6,capacity:4,door:{x:11.5,y:0,width:1.4},seats:4,wall:'#497c75'},
+ hr:{id:'hr',name:'RH · Pessoas',caption:'1 posto de atendimento',floor:'#806fa3',accent:'#c5a7ff',labelAt:[20,-5.7],x:16,y:-6,width:8,depth:6,capacity:1,door:{side:'west',offset:3,width:1.6},wall:'#685a89'},
  furniture:[
   {id:'manager-desk',asset:'mesa-escritorio',type:'desk',x:3.1,y:-3.4,room:'manager',managerDesk:true},
   {id:'meeting-table',asset:'mesa-reuniao',type:'meetingTable',name:'Mesa de reunião · 4 lugares',x:10.9,y:-3.65,z:99,room:'meeting'},

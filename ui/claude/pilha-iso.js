@@ -57,10 +57,10 @@
   var HAIRS = ["#2b1d0e", "#4a3728", "#111827", "#a16207", "#7f1d1d"];
 
   var PALETTES = {
-    escritorio: { floorA: "#3a4f6b", floorB: "#33465f", wall: "#2a4160", wallR: "#223652", line: "rgba(255,255,255,.14)" },
-    producao:   { floorA: "#555f6d", floorB: "#4c5663", wall: "#37465a", wallR: "#2d3a4b", line: "rgba(255,210,75,.5)" },
-    atendimento:{ floorA: "#40407a", floorB: "#393970", wall: "#35356b", wallR: "#2b2b58", line: "rgba(190,160,255,.25)" },
-    restauracao:{ floorA: "#466e59", floorB: "#3f644f", wall: "#315747", wallR: "#28483c", line: "rgba(182,224,177,.28)" }
+    escritorio: { floorA: "#8ea7bd", floorB: "#7e98b0", wall: "#5687a2", wallR: "#3e6f8a", line: "rgba(220,245,255,.42)" },
+    producao:   { floorA: "#c3a66f", floorB: "#ae915a", wall: "#61717a", wallR: "#4e5e66", line: "rgba(255,220,112,.72)" },
+    atendimento:{ floorA: "#9a83bd", floorB: "#8871ad", wall: "#78619e", wallR: "#604982", line: "rgba(229,207,255,.52)" },
+    restauracao:{ floorA: "#72b88b", floorB: "#5ca777", wall: "#437d61", wallR: "#326749", line: "rgba(195,255,218,.52)" }
   };
 
   /* ---------- utilidades ---------- */

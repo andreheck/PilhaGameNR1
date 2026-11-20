@@ -103,10 +103,10 @@
   var CAT = {}; CATALOG.forEach(function (c, i) { c.i = i; CAT[c.id] = c; });
 
   var LAYOUTS = {
-    // Two aligned rows with walkable gaps: office + production, service + patio.
+    // Four aligned quadrants with six-unit corridors between departments.
     // Keep the footprint identical on narrow screens so the world itself never reflows.
-    wide: { escritorio: [0, 0], producao: [16, 0], atendimento: [0, 12] },
-    tall: { escritorio: [0, 0], producao: [16, 0], atendimento: [0, 12] }
+    wide: { escritorio: [0, 0], producao: [18, 0], atendimento: [0, 14], restauracao: [18, 14] },
+    tall: { escritorio: [0, 0], producao: [18, 0], atendimento: [0, 14], restauracao: [18, 14] }
   };
 
   /* ---------- utilidades ---------- */

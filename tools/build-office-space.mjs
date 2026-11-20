@@ -9,8 +9,7 @@ function drawOfficeExtension(e){if(!worldCfg||e.key!=='escritorio')return;
    poly([P(x+.28,y+.28,.012),P(x+w-.28,y+.28,.012),P(x+w-.28,y+d-.28,.012),P(x+.28,y+d-.28,.012)],'rgba(255,255,255,.025)',null);
    if(room.id!=='hr'){var door=room.door,half=door.width/2;poly([P(door.x-half,door.y-.12,.025),P(door.x+half,door.y-.12,.025),P(door.x+half,door.y+.2,.025),P(door.x-half,door.y+.2,.025)],room.accent,null);}
  });
- poly([P(24,-6,0),P(24,0,0),P(24,0,-SLAB),P(24,-6,-SLAB)],'#1e3547');
- poly([P(0,-6,0),P(24,-6,0),P(24,-6,-SLAB),P(0,-6,-SLAB)],'#243b4d');
+ [officeSpace.manager,officeSpace.meeting,officeSpace.hr].forEach(function(room){var x=room.x,y=room.y,w=room.width,d=room.depth;poly([P(x,y,0),P(x+w,y,0),P(x+w,y,-SLAB),P(x,y,-SLAB)],room.wall);poly([P(x+w,y,0),P(x+w,y+d,0),P(x+w,y+d,-SLAB),P(x+w,y,-SLAB)],room.wall);});
  // Each room has a distinct entrance; the HR door opens from the meeting room.
  poly([P(3.4,-.15,.015),P(4.6,-.15,.015),P(4.6,.35,.015),P(3.4,.35,.015)],'#597b86');
  poly([P(10.8,-.15,.015),P(12.2,-.15,.015),P(12.2,.35,.015),P(10.8,.35,.015)],'#597b86');

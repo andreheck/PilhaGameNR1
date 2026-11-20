@@ -9,8 +9,6 @@ function replace(s,a,b){if(!s.includes(a))throw Error('Missing build anchor: '+a
 let map=fs.readFileSync(path.join(root,'ui/claude/pilha-mapa.js'),'utf8');
 const start=map.indexOf('  var SECTORS = ['),end=map.indexOf('  var AVATARS',start);if(start<0||end<0)throw Error('Missing sectors');
 map=map.slice(0,start)+'  var SECTORS = '+JSON.stringify(SECTORS.map(s=>({id:s.id,nome:s.name,desc:s.description,base:s.base,sint:s.symptoms})))+';\n\n'+map.slice(end);
-map=replace(map,'wide: { escritorio: [0, 0], producao: [16, 0], atendimento: [0, 12] }','wide: { escritorio: [0, 0], producao: [16, 0], atendimento: [0, 12], restauracao: [16, 12] }');
-map=replace(map,'tall: { escritorio: [0, 0], producao: [16, 0], atendimento: [0, 12] }','tall: { escritorio: [0, 0], producao: [16, 0], atendimento: [0, 12], restauracao: [16, 12] }');
 map=replace(map,'iso.setSharedIndexMode(!!o.model);','iso.setSharedIndexMode(false);');
 map=replace(map,'if(o.model)iso.setInventory(st.owned||[]);','if(o.model)iso.setSectorInventory(st.levels||[]);');
 map=replace(map,'"Índice do ciclo · compartilhado"','"Índice da empresa · meta 45"');
