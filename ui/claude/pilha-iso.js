@@ -100,7 +100,9 @@
 
   /* ---------- montagem dos ambientes ---------- */
   var VARIANTS = {
-    escritorio:  ["A", "B", "A", "C", "B", "A"],
+    // Open-plan office: paired workstations in five bays and one shared
+    // collaboration table. The separate four-seat room remains the meeting hub.
+    escritorio:  ["A", "A", "A", "C", "B", "A"],
     producao:    ["P1", "P2", "P3", "P3", "P1", "P2"],
     atendimento: ["T1", "T2", "T1", "T1", "T2", "T3"]
   };

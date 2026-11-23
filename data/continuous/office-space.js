@@ -32,8 +32,9 @@ export const OFFICE_SPACE=Object.freeze({
   {id:'hr-front-right',x:20.7,y:-.04,w:3.3,d:.08,h:1.45}
  ],
  partitions:[
-  {id:'office-focus',x:3.65,y:1,w:.08,d:1.6,h:1.25},
-  {id:'office-meeting',x:.8,y:3.6,w:1.8,d:.08,h:1.25},
-  {id:'office-support',x:7.65,y:5,w:.08,d:1.6,h:1.25}
+  {id:'office-pod-north-a',x:3.45,y:.55,w:.08,d:2.7,h:1.25},
+  {id:'office-pod-north-b',x:7.45,y:.55,w:.08,d:2.7,h:1.25},
+  {id:'office-pod-south-a',x:3.45,y:4.75,w:.08,d:2.7,h:1.25},
+  {id:'office-pod-south-b',x:7.45,y:4.75,w:.08,d:2.7,h:1.25}
  ]
 });
