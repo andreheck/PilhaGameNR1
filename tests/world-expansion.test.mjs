@@ -23,10 +23,10 @@ test('the world is a compact square around the active company with no empty expa
  for(const room of active){assert.ok(room.x>=WORLD_PLOT.x&&room.y>=WORLD_PLOT.y,room.id+' starts outside world');assert.ok(room.x+room.w<=WORLD_PLOT.x+WORLD_PLOT.size&&room.y+room.h<=WORLD_PLOT.y+WORLD_PLOT.size,room.id+' exceeds square world');}
 });
 
-test('HR annex shares an open doorway with the meeting room and the entrance has a clear door, walls and counter',()=>{
- assert.deepEqual({x:OFFICE_SPACE.hr.x,y:OFFICE_SPACE.hr.y,width:OFFICE_SPACE.hr.width,depth:OFFICE_SPACE.hr.depth,door:OFFICE_SPACE.hr.door},{x:16,y:-6,width:8,depth:6,door:{side:'west',offset:3,width:1.6}});
- const upper=OFFICE_SPACE.walls.find(w=>w.id==='meeting-right-upper'),lower=OFFICE_SPACE.walls.find(w=>w.id==='meeting-right-lower');
- assert.ok(upper&&lower);assert.ok(upper.y+upper.d<=-3.8);assert.ok(lower.y>=-2.2);
+test('HR has a direct office entrance and the entrance has a clear door, walls and counter',()=>{
+ assert.deepEqual({x:OFFICE_SPACE.hr.x,y:OFFICE_SPACE.hr.y,width:OFFICE_SPACE.hr.width,depth:OFFICE_SPACE.hr.depth,door:OFFICE_SPACE.hr.door},{x:16,y:-6,width:8,depth:6,door:{side:'south',x:20,y:0,width:1.4}});
+ const sharedWall=OFFICE_SPACE.walls.find(w=>w.id==='meeting-right'),hrDoorLeft=OFFICE_SPACE.walls.find(w=>w.id==='hr-front-left'),hrDoorRight=OFFICE_SPACE.walls.find(w=>w.id==='hr-front-right');
+ assert.equal(sharedWall?.d,6);assert.ok(hrDoorLeft&&hrDoorRight);assert.equal(hrDoorLeft.w+hrDoorRight.w,6.6);
  const lobby=WORLD_PLOT.plannedSpaces.find(p=>p.id==='entrada'),door=lobby.door,south=lobby.walls.filter(w=>Math.abs(w.y-(lobby.y+lobby.depth-.12))<.001);
  assert.equal(door.side,'south');assert.equal(south.length,1);assert.equal(south[0].x, lobby.x+door.width);assert.ok(lobby.counter.width>1&&lobby.counter.height>1);assert.ok(lobby.walls.length>=4);
  const builder=fs.readFileSync(new URL('../tools/build-logistics-space.mjs',import.meta.url),'utf8'),officeBuild=fs.readFileSync(new URL('../tools/build-office-space.mjs',import.meta.url),'utf8'),office=fs.readFileSync(new URL('../data/continuous/office-space.js',import.meta.url),'utf8'),player=fs.readFileSync(new URL('../ui/player-exploration-runtime.js',import.meta.url),'utf8'),playerBuild=fs.readFileSync(new URL('../tools/build-player-exploration.mjs',import.meta.url),'utf8');

@@ -7,12 +7,10 @@ function drawOfficeExtension(e){if(!worldCfg||e.key!=='escritorio')return;
  [officeSpace.manager,officeSpace.meeting,officeSpace.hr].forEach(function(room){var x=room.x,y=room.y,w=room.width,d=room.depth;
    poly([P(x,y,0),P(x+w,y,0),P(x+w,y+d,0),P(x,y+d,0)],room.floor,room.accent,Math.max(1,1.1*s));
    poly([P(x+.28,y+.28,.012),P(x+w-.28,y+.28,.012),P(x+w-.28,y+d-.28,.012),P(x+.28,y+d-.28,.012)],'rgba(255,255,255,.025)',null);
-   if(room.id!=='hr'){var door=room.door,half=door.width/2;poly([P(door.x-half,door.y-.12,.025),P(door.x+half,door.y-.12,.025),P(door.x+half,door.y+.2,.025),P(door.x-half,door.y+.2,.025)],room.accent,null);}
  });
  [officeSpace.manager,officeSpace.meeting,officeSpace.hr].forEach(function(room){var x=room.x,y=room.y,w=room.width,d=room.depth;poly([P(x,y,0),P(x+w,y,0),P(x+w,y,-SLAB),P(x,y,-SLAB)],room.wall);poly([P(x+w,y,0),P(x+w,y+d,0),P(x+w,y+d,-SLAB),P(x+w,y,-SLAB)],room.wall);});
- // Each room has a distinct entrance; the HR door opens from the meeting room.
- poly([P(3.4,-.15,.015),P(4.6,-.15,.015),P(4.6,.35,.015),P(3.4,.35,.015)],'#597b86');
- poly([P(10.8,-.15,.015),P(12.2,-.15,.015),P(12.2,.35,.015),P(10.8,.35,.015)],'#597b86');
+ // Colored thresholds make every room entrance legible from the shared office.
+ [officeSpace.manager,officeSpace.meeting,officeSpace.hr].forEach(function(room){var door=room.door;if(!door||door.side&&door.side!=='south')return;var half=door.width/2,x=door.x,y=door.y;poly([P(x-half,y-.15,.015),P(x+half,y-.15,.015),P(x+half,y+.35,.015),P(x-half,y+.35,.015)],room.accent);});
 }
 function focusManagerOffice(dur){var c=worldCfg&&worldCfg.find(function(c){return c.key==='escritorio';});if(!c)return;var uv=tileUV(c.bx+4,c.by-3,.7),k=Math.min(cw*.88/500,ch*.82/390)/s0;flyTo({cx:uv[0],cy:uv[1],k:k},dur||0);}
 function officeRoomOccupants(c,room,visitors){return (c.env.people||[]).concat(visitors||[]).filter(function(p){return (p.employeeId||p.isPlayer)&&!p.restAway&&p.x>=room.x&&p.x<=room.x+room.width&&p.y>=room.y&&p.y<=room.y+room.depth;}).map(function(p){return {id:p.employeeId||p.id,name:p.name,position:p.isPlayer?'Explorador':p.position||'',activity:p.activity||'work',moving:!!p.moving,sitting:!!p.sit};});}

@@ -1,6 +1,6 @@
 # Modos de jogo e ambientes
 
-Atualizado em 17/11/2026. Integração do menu de modalidades e do primeiro arranjo espacial organizado para a empresa avançada.
+Atualizado em 23/11/2026. Integração do menu de modalidades e da reorganização espacial da empresa avançada.
 
 ## Modos
 
@@ -31,7 +31,7 @@ Os dez ambientes são salas e áreas dentro da mesma empresa. Funcionários ocup
 | 9 | Copa e convivência | Pessoas em pausa e rodízio | Área de restauração e mobiliário de apoio |
 | 10 | Pátio restaurativo | Pessoas em pausas e atividades | Anexo restaurativo/pátio |
 
-Banheiro e corredores são apoio/circulação; não entram na contagem. Sala de gerência, reunião e RH são cômodos contíguos ao escritório principal, não novos setores de simulação.
+Banheiro e corredores são apoio/circulação; não entram na contagem. Sala de gerência, reunião e RH são cômodos contíguos ao escritório principal, não novos setores de simulação. Cada um tem entrada voltada para a área compartilhada; o RH deixou de depender da passagem pela sala de reuniões.
 
 ## Arquitetura e estado desta entrega
 
@@ -41,7 +41,7 @@ Banheiro e corredores são apoio/circulação; não entram na contagem. Sala de 
 - Menu selecionável de três cartões, teclado/setas, foco visível, leitor de tela e layout responsivo.
 - A seleção é persistida e o modo fica visível no HUD.
 - O mapa Avançado começa em uma malha 2x2: Escritório e Produção na fileira superior; Atendimento e Pátio na inferior. As salas têm folgas uniformes para corredores, com conexões de circulação nos quatro lados do conjunto.
-- A área do mundo foi ampliada para um quadrado de 64 unidades. A recepção fica ao sudeste do pátio, conectada pela calçada, e seis terrenos de expansão não ocupam o conjunto principal.
+- O terreno externo foi compactado para um quadrado de 52 unidades, sem lotes vazios desenhados ao redor do campus. A recepção fica ao sudeste do pátio, conectada pela calçada.
 
 ### Organização do cenário Avançado
 
