@@ -41,7 +41,7 @@ Banheiro e corredores são apoio/circulação; não entram na contagem. Sala de 
 - Menu selecionável de três cartões, teclado/setas, foco visível, leitor de tela e layout responsivo.
 - A seleção é persistida e o modo fica visível no HUD.
 - O mapa Avançado começa em uma malha 2x2: Escritório e Produção na fileira superior; Atendimento e Pátio na inferior. As salas têm folgas uniformes para corredores, com conexões de circulação nos quatro lados do conjunto.
-- O terreno externo foi compactado para um quadrado de 52 unidades, sem lotes vazios desenhados ao redor do campus. A recepção fica ao sudeste do pátio, conectada pela calçada.
+- O terreno externo foi compactado para um quadrado de 52 unidades, sem lotes vazios desenhados ao redor do campus. A recepção fica ao sudeste do pátio: a calçada interna conecta o pátio à entrada, e um acesso público independente chega à porta pelo limite sul do terreno, sem exigir a travessia do pátio.
 - O salão administrativo foi organizado em cinco baias de postos duplos e uma mesa de colaboração. Divisórias de vidro alinham as baias sem fechar os corredores centrais; a sala de reuniões separada continua sendo o espaço para encontros formais.
 
 ### Organização do cenário Avançado
