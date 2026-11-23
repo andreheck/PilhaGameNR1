@@ -43,6 +43,14 @@ test('lobby reception has two distinct equipment positions and capacity for one 
  const living=fs.readFileSync(new URL('../tools/build-living.mjs',import.meta.url),'utf8');assert.match(living,/setReceptionStaff\(rows\)/);assert.match(living,/receptionPosition:true/);assert.ok(renderer.includes("'RECEPÇÃO · '+count+'/2"));
 });
 
+test('reception badge and seated NPC track the live staffing assignment in the rendered map',()=>{
+ const labels=[],noop=()=>{},ctx=new Proxy({measureText:t=>({width:t.length*7}),createRadialGradient:()=>({addColorStop:noop}),fillText:t=>labels.push(String(t))},{get:(o,k)=>k in o?o[k]:noop}),window={devicePixelRatio:1,requestAnimationFrame:()=>1,cancelAnimationFrame:noop};
+ vm.runInNewContext(fs.readFileSync(new URL('../ui/npc-route-navigation.js',import.meta.url),'utf8'),{window,Math,Set});vm.runInNewContext(fs.readFileSync(new URL('../dist/ui/continuous/iso.js',import.meta.url),'utf8'),{window,Math,Set,performance:{now:()=>0}});
+ const iso=window.PilhaIso.create({getContext:()=>ctx,getBoundingClientRect:()=>({width:1440,height:900})});iso.resize();iso.setWorld(SECTORS.map((s,i)=>({key:s.id,name:s.name,bx:i%2?14:0,by:i>1?10:0})));assert.ok(labels.includes('RECEPÇÃO · 0/2'));
+ const receptionist={id:'NPC-01',name:'João',home:'escritorio',health:78,shirt:'#5794bd',skin:'#a57557',hair:'#30251f',organization:{rank:'tatico',position:'Especialista em planejamento'}};iso.setEmployees([receptionist]);iso.setReceptionStaff([receptionist]);
+ assert.ok(labels.includes('RECEPÇÃO · 1/2'));const actor=iso.getEmployees().find(p=>p.id==='NPC-01');assert.ok(actor);assert.equal(actor.receptionPosition,true);assert.equal(actor.sitting,true);assert.equal(actor.activity,'computer');
+});
+
 test('renderer limits the ground to the active company while logistics workers use warehouse cargo posts',()=>{
  const renderer=fs.readFileSync(new URL('../tools/build-logistics-space.mjs',import.meta.url),'utf8'),workers=fs.readFileSync(new URL('../tools/build-living.mjs',import.meta.url),'utf8');
  assert.match(renderer,/drawWorldPlot\(\)/);assert.match(renderer,/worldPlot\.size/);assert.doesNotMatch(renderer,/worldPlot\.reservedLots/);assert.match(workers,/logisticsSources=anchors\.sources\.filter/);assert.match(workers,/logisticsDestinations=anchors\.destinations\.filter/);
