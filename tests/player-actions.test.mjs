@@ -8,7 +8,7 @@ import {SECTORS} from '../data/continuous/catalog.js';
 const source=fs.readFileSync(new URL('../ui/continuous-game.js',import.meta.url),'utf8');
 const changeSource=source.slice(source.indexOf('async function change('),source.indexOf('\nlet heroes='));
 function harness(){
- let record={week:1,revision:0,decided:false,budget:1000},release,fail=false;
+ let record={week:1,revision:0,decided:false,budget:1000,events:{gameOver:null}},release,fail=false;
  const barrier=new Promise(resolve=>{release=resolve;});let first=true,writes=0;
  const context={state:structuredClone(record),busy:false,changeInFlight:Promise.resolve(),map:null,refresh(){},tell(){},errorText:x=>x,
   L:{ensureLiving(){},validateLiving(){},staffingSummary:()=>({active:16})},SECTORS,settlePlayerWellbeing(){},

@@ -40,6 +40,7 @@ test('lobby reception has two distinct equipment positions and capacity for one 
  for(const post of lobby.workstations){assert.ok(post.x>=lobby.x&&post.x<=lobby.x+lobby.width);assert.ok(post.y>=lobby.y&&post.y<=lobby.y+lobby.depth);assert.ok(post.x<lobby.counter.x+lobby.counter.width&&post.x>lobby.counter.x);}
  assert.ok(lobby.counter.width>=3.4&&lobby.counter.x+lobby.counter.width<=lobby.x+lobby.width);
  const renderer=fs.readFileSync(new URL('../tools/build-logistics-space.mjs',import.meta.url),'utf8');assert.match(renderer,/place\.workstations/);assert.match(renderer,/accent=i\?'#53cad7':'#ffd24b'/);
+ const living=fs.readFileSync(new URL('../tools/build-living.mjs',import.meta.url),'utf8');assert.match(living,/setReceptionStaff\(rows\)/);assert.match(living,/receptionPosition:true/);assert.ok(renderer.includes("'RECEPÇÃO · '+count+'/2"));
 });
 
 test('renderer limits the ground to the active company while logistics workers use warehouse cargo posts',()=>{
@@ -68,8 +69,8 @@ test('Raimunda has a dedicated HR workstation with a clear route from the office
  const path=sandbox.globalThis.PilhaNpcRoutes.routeWithin(aisle,{x:8,y:4},desk,items);
  assert.ok(path.length>1,'route connects the office aisle to the HR workstation');
  assert.ok(path.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)));
- assert.ok(path.some(p=>p.x>10.8&&p.x<12.2&&p.y<0),'route uses the meeting-room doorway');
- assert.ok(path.some(p=>p.x>16&&p.x<24&&p.y<0),'route enters the HR annex');
+ assert.ok(path.some(p=>p.x>19&&p.x<22&&p.y<0),'route uses the dedicated HR doorway');
+ assert.ok(path.some(p=>p.x>16&&p.x<24&&p.y<0),'route enters the HR annex without passing through the meeting room');
  const noop=()=>{},ctx=new Proxy({measureText:t=>({width:t.length*7}),createRadialGradient:()=>({addColorStop:noop})},{get:(o,k)=>k in o?o[k]:noop}),window={devicePixelRatio:1,requestAnimationFrame:()=>1,cancelAnimationFrame:noop};
  vm.runInNewContext(fs.readFileSync(new URL('../dist/ui/continuous/iso.js',import.meta.url),'utf8'),{window,Math,Set,performance:{now:()=>0}});
  const iso=window.PilhaIso.create({getContext:()=>ctx,getBoundingClientRect:()=>({width:1200,height:800})});iso.resize();iso.setWorld(SECTORS.map((s,i)=>({key:s.id,name:s.name,bx:i%2?14:0,by:i>1?10:0})));iso.setFurniturePresentation(createFurniturePresentation());iso.setFurnitureCatalog(FURNITURE_VISUALS);iso.setSectorInventory({escritorio:{},producao:{},atendimento:{}});

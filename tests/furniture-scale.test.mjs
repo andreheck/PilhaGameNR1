@@ -26,7 +26,7 @@ test('one metric ruler and category height ratios, alpha crop and interaction an
 });
 test('all baseline and maximum-level furniture fits without overlapping aisles, doors or each other',()=>{
  const iso=engine();for(const max of [false,true]){
-  iso.setSectorInventory(Object.fromEntries(WORLD.zones.map(z=>[z.id,Object.fromEntries(ITEMS.filter(i=>!!i.rest===(z.id==='restauracao')).map(i=>[i.id,max?3:0]))])));
+  iso.setSectorInventory(Object.fromEntries(WORLD.zones.map(z=>[z.id,Object.fromEntries(ITEMS.filter(i=>!i.retired&&!!i.rest===(z.id==='restauracao')).map(i=>[i.id,max?3:0]))])));
   for(const z of iso.furnitureLayout()){
    assert.deepEqual(Array.from(z.unplaced),[],z.id+' hidden furniture');
    for(const a of z.items){assert.ok(!a.hidden);if(a.warehouse){assert.equal(z.id,'producao');assert.ok(a.x>=11.9&&a.x+a.w<=25&&a.y>=0&&a.y+a.d<=12);}else if(a.structural){assert.equal(z.id,'escritorio');}else if(a.hrRoom){assert.equal(z.id,'escritorio');assert.ok(a.x>=16.15&&a.y>=-5.7&&a.x+a.w<=23.8&&a.y+a.d<=-.3,'HR room '+a.id);}else if(a.meetingRoom){assert.equal(z.id,'escritorio');assert.ok(a.x>=8.3&&a.y>=-5.7&&a.x+a.w<=15.9&&a.y+a.d<=-.3,'meeting room '+a.id);}else if(a.managerRoom){assert.equal(z.id,'escritorio');assert.ok(a.managerDesk);assert.ok(a.x>=.3&&a.y>=-5.7&&a.x+a.w<=7.7&&a.y+a.d<=-.3);}else if(a.annex){assert.equal(z.id,'restauracao');if(a.layoutKey?.startsWith('game-room:'))assert.ok(a.x>=.3&&a.y>=18&&a.x+a.w<=11.8&&a.y+a.d<=26,z.id+' game room '+a.id);else assert.ok(a.x>=.6&&a.y>=8&&a.x+a.w<=11.8&&a.y+a.d<=17.6,z.id+' annex '+a.id);}else{assert.ok(a.x>=.5&&a.y>=.4&&a.x+a.w<=11.6&&a.y+a.d<=7.6,z.id+' '+a.id);for(const x of [4,8])assert.ok(a.x+a.w<x-.25||a.x>x+.25);assert.ok(a.y+a.d<3.8||a.y>4.2);}

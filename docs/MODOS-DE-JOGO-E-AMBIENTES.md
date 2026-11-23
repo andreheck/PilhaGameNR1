@@ -63,15 +63,23 @@ O arranjo usa a mesma coordenada inicial em desktop e tablet para evitar que o c
 
 O Escritório agora mostra a ala norte dividida visualmente em Gerência, Sala de reuniões e RH. Cada cômodo tem tom de piso e letreiro próprios; os letreiros indicam a capacidade de uso. A Gerência mantém um posto, a reunião mantém sua mesa de quatro lugares e o RH mantém o posto já vinculado à Raimunda. As entradas, as dimensões 8 × 6 m e as rotas permanecem no lugar; a reunião continua sendo um ambiente físico, enquanto os encontros de rotina seguem acontecendo no pátio conforme a agenda existente.
 
-Esta etapa melhora a leitura da planta focada no Escritório. A recepção continua com capacidade física de 1–2 postos, mas ainda não atribui funcionários automaticamente: essa escolha permanece na Gestão de pessoal.
+Esta etapa melhora a leitura da planta focada no Escritório. A recepção tem capacidade de 1–2 postos, com alocação manual em Gestão de pessoal. Funcionários alocados aparecem sentados nos postos do mapa; o letreiro mostra a ocupação atual. A alocação é visual e operacional: não muda o setor oficial, cargo, folha, saúde ou índices do Escritório. O gerente permanece na sala da gerência e Raimunda continua vinculada ao RH.
+
+Os encontros semanais dos três setores acontecem no pátio, com o gerente e os integrantes reunidos no mesmo horário. O mapa exibe os participantes durante o encontro. A sala de reuniões da ala administrativa continua disponível para o jogador e para atividades que venham a usar esse espaço; a reunião recorrente da simulação não é duplicada ali.
+
+#### Estado da ocupação dinâmica
+
+- Concluída: alocação de até duas pessoas ativas do Escritório na recepção, com retorno ao posto de origem ao liberar a vaga.
+- Concluída: presença visual de cada recepcionista em sua cadeira e indicador `RECEPÇÃO · n/2` na entrada.
+- Concluída: reuniões semanais dos setores no pátio, com presença dos participantes e do respectivo gerente.
+- Verificada por testes: atribuição respeita lotação, mantém o vínculo de setor e não altera saldo nem os indicadores de saúde.
 
 ### Pendências de implementação
 
-1. Conectar os perfis `home-office` e `cowork` a layouts espaciais próprios no renderizador e à distribuição de personagens. Nesta entrega, o motor visual existente ainda representa o escritório presencial para as três opções; portanto, os dois modos menores não devem ser anunciados como cenários jogáveis concluídos.
-2. Completar no mapa a escala e a ocupação dinâmica das salas avançadas, incluindo cobertura de recepção e participação em reuniões, sem criar novos setores de simulação.
-3. Balancear frequências de eventos, recursos e simultaneidade por modalidade com testes de simulação; os níveis Fácil/Moderado/Avançado ainda são rótulos de progressão, sem regras numéricas próprias.
-4. QA manual em navegador nas rotas de primeira entrada, save existente e retorno ao mapa; confirmar teclado, leitor de tela e desktop/tablet.
+1. Conectar os perfis `home-office` e `cowork` a layouts espaciais próprios no renderizador e à distribuição de personagens. As prévias já existem; os dois modos menores ainda não são cenários jogáveis concluídos.
+2. Balancear frequências de eventos, recursos e simultaneidade por modalidade com testes de simulação; os níveis Fácil/Moderado/Avançado ainda são rótulos de progressão, sem regras numéricas próprias.
+3. QA manual em navegador nas rotas de primeira entrada, save existente e retorno ao mapa; confirmar teclado, leitor de tela e desktop/tablet.
 
 ## Verificação
 
-O teste automatizado `tests/game-modes.test.mjs` valida os três perfis, contagem de ambientes, persistência, bloqueio de troca após início e migração de saves antigos. A suíte geral de testes também deve ser executada antes de publicar.
+Os testes `tests/game-modes.test.mjs`, `tests/world-expansion.test.mjs`, `tests/staffing-management.test.mjs` e `tests/npc-social-agenda.test.mjs` cobrem modos, organização do espaço, lotação/alocação da recepção e agenda de reuniões no pátio. A suíte geral continua indicada antes de publicar mudanças transversais.
