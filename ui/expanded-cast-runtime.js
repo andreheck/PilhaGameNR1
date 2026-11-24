@@ -24,4 +24,4 @@ function drawExpandedActor(p,e){
  expandedHits.push({id:p.actor.id,x:q[0],y:q[1]-.85*ZU*s,r:Math.max(12,.8*ZU*s)});
  expandedDrawn.push({id:p.actor.id,sector:e.key,action:p.action,frame:p.frame,x:p.x,y:p.y});
 }
-function expandedEntries(e,list){if(introCastRows.length)return;expandedCast.forEach(function(a){if(!expandedGuests[a.id]||a.binding||a.sector!==e.key)return;var p=expandedPose(a.id,e);if(p)list.push({k:p.x+p.y,f:function(){drawExpandedActor(p,e);}});});}
+function expandedEntries(e,list){if(e.homeOffice||introCastRows.length)return;expandedCast.forEach(function(a){if(!expandedGuests[a.id]||a.binding||a.sector!==e.key)return;var p=expandedPose(a.id,e);if(p)list.push({k:p.x+p.y,f:function(){drawExpandedActor(p,e);}});});}

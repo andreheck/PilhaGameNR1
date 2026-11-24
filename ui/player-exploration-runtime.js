@@ -31,11 +31,12 @@ function playerObjectList(){
  var list=[];
  if(!worldCfg)return list;
  var labels={desk:'Mesa de trabalho',table:'Mesa',meetingTable:'Mesa de reunião',cabinet:'Armário','water-dispenser':'Filtro de água · bombona',chair:'Cadeira',sofa:'Sofá',plant:'Planta',machine:'Máquina',conveyor:'Esteira logística',shelf:'Prateleira',board:'Painel informativo',box:'Caixa',crate:'Caixa',fridge:'Geladeira',coffee:'Bancada de café',television:'Televisão'};
- worldCfg.forEach(function(c){c.env.items.forEach(function(it,index){if(it.layoutHidden||it.visualProgram||it.structural||it.walkable)return;var type=it.t||'object',name=it.interactionName||labels[type]||String(it.visualAsset||it.visualId||type).replace(/^chair-/,'Cadeira ').replace(/[-_]/g,' ');var actions=[];
-  if(/chair|sofa|seat|puff|bench|banco/.test(type+' '+(it.visualAsset||'')))actions=[['sit','Sentar'],['meditate','Meditar'],['rest','Descansar']];
+ worldCfg.forEach(function(c){(c.env.homeOffice?loftItems(c.env):c.env.items).forEach(function(it,index){if(it.layoutHidden||it.visualProgram||it.structural||it.walkable)return;var type=it.t||'object',name=it.interactionName||labels[type]||String(it.visualAsset||it.visualId||type).replace(/^chair-/,'Cadeira ').replace(/[-_]/g,' ');var actions=[];
+  if((type==='sofa'||/sofa/.test(type+' '+(it.visualAsset||'')))&&c.env.homeOffice)actions=[['sit','Sentar no sofá'],['meditate','Respirar no sofá'],['rest','Descansar']];
+  else if(/chair|sofa|seat|puff|bench|banco/.test(type+' '+(it.visualAsset||'')))actions=[['sit','Sentar'],['meditate','Meditar'],['rest','Descansar']];
   else if(type==='meetingTable')actions=[['sit','Sentar para a reunião'],['talk','Conversar à mesa']];
   else if(type==='water-dispenser')actions=[['drink','Beber água'],['rest','Fazer uma pausa']];
-  else if(type==='desk'||type==='table')actions=[['work','Interagir'],['talk','Conversar'],['rest','Fazer uma pausa']];
+  else if(type==='desk'||type==='table')actions=[['work','Interagir'],['computer','Trabalhar no computador'],['talk','Conversar'],['rest','Fazer uma pausa']];
   else if(type==='plant'||/arvore|planta/.test(it.visualAsset||''))actions=[['observe','Observar'],['meditate','Respirar com calma']];
   else if(type==='shelf'||/livro|estante/.test(it.visualAsset||''))actions=[['read','Ler'],['observe','Observar']];
   else if(type==='game'||/game-|arcade|fliperama|pinball|air-hockey|pebolim|sinuca|ping-pong/.test(it.visualAsset||''))actions=[['play','Jogar'],['talk','Jogar em grupo']];
@@ -67,7 +68,18 @@ function beginMysteryConversation(id){if(!isNearMysteryEmployee(id))return false
 function performPlayerAction(id,action){
  var o=playerObjectList().find(function(x){return x.id===id;});if(!o||!playerActor||!o.actions.some(function(a){return a[0]===action;}))return{ok:false,error:'action-not-available'};
  if(playerActor.moving||activePlayerObject?.id!==id)return{ok:false,error:'not-near-object'};
- activePlayerObject=o;playerActivity=action;playerActivityUntil=performance.now()+90000;playerActor.moving=false;playerActor.activity=action;playerActor.objectId=id;playerActor.sit=action==='sit';playerActor.phase=playerActor.phase||0;render();return{ok:true,activity:action,object:o.name};
+ activePlayerObject=o;playerActivity=action;playerActivityUntil=performance.now()+90000;
+ if(action==='sit'||action==='meditate'||action==='rest'){
+  var seatX=o.x+o.w/2,seatY=o.y+o.d+Math.min(.28,o.d*.25);
+  playerActor.x=seatX;playerActor.y=seatY;playerActor.tx=seatX;playerActor.ty=seatY;
+  playerActor.facing=2;playerActor.vx=0;playerActor.vy=1;
+ }
+ if(action==='computer'&&o.local?.t==='desk'){
+  var deskX=o.x+o.w*.54,deskY=o.y+o.d+.38;
+  playerActor.x=deskX;playerActor.y=deskY;playerActor.tx=deskX;playerActor.ty=deskY;
+  playerActor.facing=0;playerActor.sit=true;
+ }
+ playerActor.moving=false;playerActor.activity=action;playerActor.objectId=id;playerActor.sit=['sit','meditate','computer'].includes(action);playerActor.phase=playerActor.phase||0;render();return{ok:true,activity:action,object:o.name};
 }
 function currentPlayerObject(){return activePlayerObject?{id:activePlayerObject.id,name:activePlayerObject.name,sector:activePlayerObject.sector,actions:activePlayerObject.actions.map(function(a){return a.slice();})}:null;}
 function settlePlayerActivity(){if(!playerActor)return;if(playerActivityUntil&&performance.now()>=playerActivityUntil){playerActivity='idle';playerActivityUntil=0;playerActor.sit=false;playerActor.activity='idle';}else if(!playerRoute.length&&playerActivity==='walk'){playerActivity='observe';playerActor.activity='observe';} }

@@ -8,11 +8,12 @@ export function initializeWorkforce(s){
  return s;
 }
 export const available=a=>!a||a.employment===undefined||a.employment==='active';
-export function workforceSummary(s){initializeWorkforce(s);const counts={active:0,leave:0,resigned:0,candidates:0,vacancies:0};for(const p of EMPLOYEES){const a=s.staff[p.id];if(a?.employment==='leave')counts.leave++;else if(a?.employment==='resigned')counts.resigned++;else if(a?.employment==='candidate')counts.candidates++;else if(a?.employment==='active'||!a?.employment)counts.active++;}counts.vacancies=counts.leave+counts.resigned+counts.candidates;return counts;}
+export function workforceSummary(s){initializeWorkforce(s);const counts={active:0,leave:0,resigned:0,candidates:0,vacancies:0};const ids=s.gameMode==='home-office'&&s.initialHiring?.status==='complete'?[s.initialHiring.onlineManagerId,...(s.initialHiring.employees||[])]:EMPLOYEES.map(p=>p.id);for(const id of new Set(ids)){const a=s.staff[id];if(a?.employment==='leave')counts.leave++;else if(a?.employment==='resigned')counts.resigned++;else if(a?.employment==='candidate')counts.candidates++;else if(a?.employment==='active'||!a?.employment)counts.active++;}counts.vacancies=counts.leave+counts.resigned+counts.candidates;return counts;}
 export function workforceWeek(s,getIndex){
  initializeWorkforce(s);const news=[];
  function log(id,kind,description,duration=0){const item={id,kind,description,duration,week:s.week};s.workforceLog.push(item);news.push(item);}
- for(const p of EMPLOYEES){const a=s.staff[p.id];if(!a)continue;const env=getIndex(p.home);
+ const remoteIds=s.gameMode==='home-office'&&s.initialHiring?.status==='complete'?new Set([s.initialHiring.onlineManagerId,...(s.initialHiring.employees||[])]):null;
+ for(const p of EMPLOYEES){if(remoteIds&&!remoteIds.has(p.id))continue;const a=s.staff[p.id];if(!a)continue;const env=getIndex(remoteIds?'escritorio':p.home);
   if(['resigned','candidate','onboarding'].includes(a.employment))continue;
   if(a.employment==='leave'){
    a.previous=a.health;a.health=clamp(a.health+Math.max(2,(65-a.health)*.2));a.week=s.week;

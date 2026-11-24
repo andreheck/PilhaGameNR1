@@ -9,9 +9,14 @@ class MemoryStorage{constructor(entries={}){this.data=new Map(Object.entries(ent
 test('three mode profiles define the work rooms and keep support spaces out of the room count',()=>{
  assert.deepEqual(GAME_MODES.map(mode=>mode.id),['home-office','cowork','office']);
  assert.equal(GAME_MODE_BY_ID['home-office'].functionalRooms,1);
+ assert.equal(GAME_MODE_BY_ID['home-office'].rooms.length,1);
+ assert.equal(GAME_MODE_BY_ID['home-office'].rooms[0].staffing,'Explorador · 1 posto');
+ assert.equal(GAME_MODE_BY_ID['home-office'].mapLayout,'home-office');
  assert.equal(GAME_MODE_BY_ID.cowork.rooms.filter(room=>room.kind==='work').length,4);
+ assert.equal(GAME_MODE_BY_ID.cowork.mapLayout,'cowork');
  assert.equal(GAME_MODE_BY_ID.cowork.rooms.find(room=>room.id==='cowork-bathroom').staffed,false);
  assert.equal(GAME_MODE_BY_ID.office.rooms.length,10);
+ assert.equal(GAME_MODE_BY_ID.office.mapLayout,'office');
  assert.ok(GAME_MODE_BY_ID.office.rooms.every(room=>room.staffed));
 });
 
@@ -40,6 +45,40 @@ test('mode selector is wired into first entry, exposed in the HUD, and has keybo
  const css=fs.readFileSync(new URL('../ui/game-modes.css',import.meta.url),'utf8');
  assert.match(css,/prefers-reduced-motion:reduce/);assert.match(css,/@media\(max-width:760px\)/);
  const build=fs.readFileSync(new URL('../tools/build-continuous.mjs',import.meta.url),'utf8');assert.match(build,/ui\/game-modes\.css/);
+});
+
+test('the saved mode selects a compact, shared, or advanced map footprint without changing sector environments',()=>{
+ const source=fs.readFileSync(new URL('../ui/claude/pilha-mapa.js',import.meta.url),'utf8');
+ assert.match(source,/o\.mapLayout === "home-office"\) return \[\{ key: "escritorio", name: "Quarto · home office"/);
+ assert.match(source,/SECTORS\.filter\(function \(s\) \{ return o\.mapLayout !== "home-office" \|\| s\.id === "escritorio"; \}\)/);
+ assert.match(source,/o\.mapLayout === "home-office" \? 0 : sel/);
+ assert.match(source,/cowork:\s*\{\s*escritorio:\s*\[0,\s*0\],\s*producao:\s*\[15,\s*0\],\s*atendimento:\s*\[0,\s*11\],\s*restauracao:\s*\[15,\s*11\]/);
+ assert.match(source,/office:\s*\{\s*escritorio:\s*\[0,\s*0\],\s*producao:\s*\[18,\s*0\],\s*atendimento:\s*\[0,\s*14\],\s*restauracao:\s*\[18,\s*14\]/);
+ assert.match(source,/var L = LAYOUTS\[o\.mapLayout\] \|\| LAYOUTS\.office/);
+ const game=fs.readFileSync(new URL('../ui/continuous-game.js',import.meta.url),'utf8');
+ assert.match(game,/PilhaMapa\.mount\(\{container:app,mapLayout:mode\.mapLayout/);
+ assert.match(game,/const remote=state\.gameMode==='home-office'/);
+ const iso=fs.readFileSync(new URL('../ui/claude/pilha-iso.js',import.meta.url),'utf8');
+ assert.match(iso,/if\(e\.homeOffice\)/);assert.match(iso,/visibleVisitors\.filter\(function\(p\)\{return p\.isPlayer;\}\)/);
+ assert.match(iso,/it\.installed&&!it\.annex&&!it\.visualProgram/);assert.match(iso,/it\.t===\"chair\"&&it\.z===0&&!firstChair/);assert.doesNotMatch(iso,/it\.visualId\|\|it\.visualAsset\)return true/);
+ assert.match(game,/function currentCollectiveSummary\(\).*name:'Casa'/);assert.match(game,/state\.gameMode==='home-office'\?\[\{key:'escritorio',bx:0,by:0,width:12,depth:8\}\]/);assert.match(game,/Seu espaço de trabalho em casa é a base da partida/);
+ assert.match(source,/Mapa isométrico do espaço de trabalho em casa; somente o personagem explorador aparece no cômodo/);
+ const phone=fs.readFileSync(new URL('../ui/company-phone.js',import.meta.url),'utf8');
+ assert.match(phone,/a\[0\]!=='team'/);assert.match(phone,/colleagues\[3\]/);assert.match(phone,/data-phone-team-reply/);
+ assert.match(game,/mode\.name\.toUpperCase\(\)\+' · SEMANA '/);
+});
+
+test('home office onboarding explains the remote team and keeps hiring labels remote',()=>{
+ const entry=fs.readFileSync(new URL('../ui/living-entry.js',import.meta.url),'utf8');
+ assert.match(entry,/if\(gameMode==='home-office'\)/);
+ assert.match(entry,/um gerente online e quatro colegas/);
+ assert.match(entry,/app Equipe no celular/);
+ assert.doesNotMatch(entry,/R\$ 250,00 por herói épico/);
+ const game=fs.readFileSync(new URL('../ui/continuous-game.js',import.meta.url),'utf8');
+ assert.match(game,/role:'Gerente online',remote:true/);
+ assert.match(game,/role:'Colega',remote:true/);
+ assert.match(game,/remote\?'Equipe remota'/);
+ assert.match(game,/Contrate quatro colegas\. O gerente e os colegas aparecem no Celular, nunca no cômodo do explorador\./);
 });
 
 test('new mode selection reveals the lightweight static world before hero selection',()=>{

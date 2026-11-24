@@ -103,10 +103,10 @@
   var CAT = {}; CATALOG.forEach(function (c, i) { c.i = i; CAT[c.id] = c; });
 
   var LAYOUTS = {
-    // Four aligned quadrants with six-unit corridors between departments.
-    // Keep the footprint identical on narrow screens so the world itself never reflows.
-    wide: { escritorio: [0, 0], producao: [18, 0], atendimento: [0, 14], restauracao: [18, 14] },
-    tall: { escritorio: [0, 0], producao: [18, 0], atendimento: [0, 14], restauracao: [18, 14] }
+    // Mode-specific footprints retain the same four simulation areas and
+    // furniture-local coordinates; only the distances between rooms change.
+    cowork: { escritorio: [0, 0], producao: [15, 0], atendimento: [0, 11], restauracao: [15, 11] },
+    office: { escritorio: [0, 0], producao: [18, 0], atendimento: [0, 14], restauracao: [18, 14] }
   };
 
   /* ---------- utilidades ---------- */
@@ -176,7 +176,7 @@
 
   /* ---------- montagem ---------- */
   function mount(userOpts) {
-    var o = Object.assign({ container: null, onReady: null, onReplayIntro: null }, userOpts || {});
+    var o = Object.assign({ container: null, onReady: null, onReplayIntro: null, mapLayout: "office" }, userOpts || {});
     var host = o.container || document.body;
     var reduce = !!(global.matchMedia && global.matchMedia("(prefers-reduced-motion: reduce)").matches);
     var st = o.model ? o.model.read() : loadState();
@@ -202,12 +202,12 @@
         '</header>' +
         '<nav class="pm-tabs" aria-label="Setores da empresa">' +
           '<button type="button" class="pm-tab" data-i="-1" aria-pressed="true">Visão geral</button>' +
-          SECTORS.map(function (s) {
-            return '<button type="button" class="pm-tab" data-i="' + s.i + '" aria-pressed="false"><i></i>' + esc(s.nome) + ' <em></em></button>';
+          SECTORS.filter(function (s) { return o.mapLayout !== "home-office" || s.id === "escritorio"; }).map(function (s) {
+            return '<button type="button" class="pm-tab" data-i="' + s.i + '" aria-pressed="false"><i></i>' + (o.mapLayout === "home-office" ? "Casa" : esc(s.nome)) + ' <em></em></button>';
           }).join("") +
         '</nav>' +
         '<div class="pm-view">' +
-          '<canvas class="pm-canvas" role="img" aria-label="Mapa isométrico da empresa. Use o minimapa circular de saúde para escolher Escritório, Produção ou Atendimento."></canvas>' +
+          '<canvas class="pm-canvas" role="img" aria-label="' + (o.mapLayout === "home-office" ? "Mapa isométrico do espaço de trabalho em casa; somente o personagem explorador aparece no cômodo." : "Mapa isométrico da empresa. Use o minimapa circular de saúde para escolher Escritório, Produção ou Atendimento.") + '"></canvas>' +
           '<div class="pm-zoom">' +
             '<button type="button" data-z="in" aria-label="Aproximar">+</button>' +
             '<button type="button" data-z="out" aria-label="Afastar">−</button>' +
@@ -243,7 +243,10 @@
 
     /* --- motor <-> estado --- */
     function layoutDefs(tall) {
-      var L = tall ? LAYOUTS.tall : LAYOUTS.wide;
+      // The spatial composition is selected before mount and remains stable
+      // through desktop/tablet resizing. Tall viewports reframe, not rearrange.
+      if (o.mapLayout === "home-office") return [{ key: "escritorio", name: "Quarto · home office", bx: 0, by: 0, homeOffice: true }];
+      var L = LAYOUTS[o.mapLayout] || LAYOUTS.office;
       return SECTORS.map(function (s) { return { key: s.id, name: s.nome, bx: L[s.id][0], by: L[s.id][1] }; });
     }
     function syncEngine(sid, immediate) {
@@ -254,7 +257,7 @@
       var b = 0; SECTORS.forEach(function (s, i) { if (health(st, s.id) < health(st, SECTORS[b].id)) b = i; }); return b;
     }
     function refocus(dur) {
-      if (sel >= 0) iso.focus(sel, selZone, dur); else iso.home(dur);
+      if (sel >= 0) iso.focus(o.mapLayout === "home-office" ? 0 : sel, selZone, dur); else iso.home(dur);
     }
     function fit(force) {
       var w = view.clientWidth, h = view.clientHeight;
@@ -401,10 +404,11 @@
       iso.resize();
     }
     function select(i, zone) {
+      if (o.mapLayout === "home-office" && i !== 0) return;
       var wasSel = sel; sel = i; selZone = zone == null ? -1 : zone;
-      iso.setSelection(sel, selZone); iso.setHint(-1);
+      iso.setSelection(o.mapLayout === "home-office" ? 0 : sel, selZone); iso.setHint(-1);
       applyLayout();
-      iso.focus(sel, selZone, wasSel < 0 ? 0.9 : 0.8);
+      iso.focus(o.mapLayout === "home-office" ? 0 : sel, selZone, wasSel < 0 ? 0.9 : 0.8);
       renderPanel(); updateHud();
       if (selZone >= 0) later(function () { var el = sc.querySelector(".pm-factor.is-on"); if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" }); }, 50);
       if (o.onSelect) o.onSelect(SECTORS[sel].id);
@@ -419,7 +423,7 @@
     function zoneFocus(z) {
       if (sel < 0) return;
       selZone = (selZone === z) ? -1 : z;
-      iso.setSelection(sel, selZone); iso.focus(sel, selZone, 0.8); renderPanel();
+      iso.setSelection(o.mapLayout === "home-office" ? 0 : sel, selZone); iso.focus(o.mapLayout === "home-office" ? 0 : sel, selZone, 0.8); renderPanel();
       if (selZone >= 0) later(function () { var el = sc.querySelector(".pm-factor.is-on"); if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" }); }, 30);
     }
 
@@ -582,7 +586,7 @@
       var a = b.getAttribute("data-act");
       if (a === "close") deselect();
       else if (a === "factor") zoneFocus(+b.getAttribute("data-z"));
-      else if (a === "whole") { selZone = -1; iso.setSelection(sel, -1); iso.focus(sel, -1, 0.8); renderPanel(); }
+      else if (a === "whole") { selZone = -1; iso.setSelection(o.mapLayout === "home-office" ? 0 : sel, -1); iso.focus(o.mapLayout === "home-office" ? 0 : sel, -1, 0.8); renderPanel(); }
       else if (a === "cat") { catFilter = b.getAttribute("data-c"); renderBody(); }
       else if (a === "buy") buy(b.getAttribute("data-id"), b);
     });

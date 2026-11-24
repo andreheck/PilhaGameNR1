@@ -49,8 +49,8 @@ const visitorCode=`
     }
 `;
 iso=replace(iso,'    function resize() {',visitorCode+'    function resize() {');
-iso=replace(iso,'e.people.forEach(function (p) { list.push','e.people.forEach(function (p) { if(p.restAway)return; list.push');
-iso=replace(iso,'(visitors||[]).forEach(function(p){',"(e.key==='restauracao'?(visitors||[]).concat(restVisitors):(visitors||[])).forEach(function(p){");
+iso=replace(iso,'people.forEach(function (p) { list.push','people.forEach(function (p) { if(p.restAway)return; list.push');
+iso=replace(iso,'visibleVisitors.forEach(function(p){',"(e.key==='restauracao'?visibleVisitors.concat(restVisitors):visibleVisitors).forEach(function(p){");
 iso=replace(iso,'setInventory:function(ids){','setRestVisitors:setRestVisitors,\n setSectorInventory:function(levels){if(JSON.stringify(levels)===JSON.stringify(localLevels))return;localLevels=levels;Object.keys(envs).forEach(function(key){applyInstallations(envs[key]);});if(!running)render();},\n setInventory:function(ids){');
 iso=replace(iso,'function drawItem(it, e) {',`function drawItem(it,e){
       if(it.t==='mat'){box(it.x,it.y,.01,it.w,it.d,it.h,it.c,.85);return;}
