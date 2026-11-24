@@ -30,6 +30,7 @@ export function healthProductivity(health){
 }
 export function financePreview(s){
  const workers=roster(s).filter(p=>active(s.staff?.[p.id]));
+ const basePosts=s.gameMode==='home-office'?5:FINANCE_RULES.basePosts;
  const originalActive=workers.filter(p=>EMPLOYEES.some(e=>e.id===p.id)).length;
  const hiresActive=workers.length-originalActive;
  const coverage=(s.staffing?.coverage||[]).filter(c=>during(c,s.week));
@@ -44,12 +45,12 @@ export function financePreview(s){
  for(const c of coverage)if(teams[c.sector])teams[c.sector].push({
   id:c.id,name:'Cobertura externa',health:70,temporary:true
  });
- const perPost=FINANCE_RULES.baseRevenue/FINANCE_RULES.basePosts;
+ const perPost=FINANCE_RULES.baseRevenue/basePosts;
  let rawRevenue=0,rawHealthOnly=0,productivePosts=0;
  const bySector=[],perWorker=[];
  for(const sid of SECTOR_IDS){
   const sector=SECTORS.find(x=>x.id===sid);
-  const required=EMPLOYEES.filter(x=>x.home===sid).length;
+  const required=s.gameMode==='home-office'?(sid==='escritorio'?5:0):EMPLOYEES.filter(x=>x.home===sid).length;
   const list=teams[sid]||[];
   const capacity=Math.min(required,list.length);
   productivePosts+=capacity;
@@ -75,7 +76,7 @@ export function financePreview(s){
  const robotRevenue=round(robotWeeklyRevenue(s));
  if(robotRevenue){const production=bySector.find(x=>x.id==='producao');production.revenue=round(production.revenue+robotRevenue);perWorker.push({id:'ROBOT-01',name:'Robô Azul · automação',sector:'producao',temporary:false,automation:true,health:100,healthFactor:1,environmentFactor:1,contribution:robotRevenue,capacityShare:0});}
  const revenue=round(rawRevenue+robotRevenue);
- const vacantLoss=round((FINANCE_RULES.basePosts-productivePosts)*perPost);
+ const vacantLoss=round((basePosts-productivePosts)*perPost);
  const healthLoss=round(productivePosts*perPost-rawHealthOnly);
  const environmentLoss=round(rawHealthOnly-rawRevenue);
  return {base:FINANCE_RULES.baseRevenue,productivePosts,originalActive,hiresActive,

@@ -25,7 +25,7 @@ const LIST=[
  {
   "id": "equip",
   "c": 0,
-  "n": "Falha de equipamento",
+  "n": "Pane no Meio do Turno",
   "an": "blink",
   "sev": "warn",
   "sec": [
@@ -73,7 +73,7 @@ const LIST=[
  {
   "id": "sist",
   "c": 0,
-  "n": "Indisponibilidade do sistema",
+  "n": "Quando a Tela Apaga",
   "an": "blink",
   "sev": "warn",
   "sec": [
@@ -125,7 +125,7 @@ const LIST=[
  {
   "id": "gargalo",
   "c": 0,
-  "n": "Gargalo operacional",
+  "n": "Fila que Não Anda",
   "an": "slide",
   "sev": "warn",
   "sec": [
@@ -187,7 +187,7 @@ const LIST=[
  {
   "id": "mud",
   "c": 1,
-  "n": "Resistência à mudança",
+  "n": "A Mudança em Compasso Lento",
   "an": "pulse",
   "sev": "warn",
   "sec": [
@@ -253,7 +253,7 @@ const LIST=[
  {
   "id": "conf",
   "c": 1,
-  "n": "Conflito entre colegas",
+  "n": "Faísca na Equipe",
   "an": "shake",
   "sev": "warn",
   "sec": [
@@ -318,7 +318,7 @@ const LIST=[
  {
   "id": "fadiga",
   "c": 1,
-  "n": "Fadiga acumulada",
+  "n": "A Bateria no Vermelho",
   "an": "sway",
   "sev": "warn",
   "sec": [
@@ -383,7 +383,7 @@ const LIST=[
  {
   "id": "corte",
   "c": 2,
-  "n": "Corte inesperado de orçamento",
+  "n": "Fechando a Torneira",
   "an": "drop",
   "sev": "warn",
   "sec": [
@@ -432,7 +432,7 @@ const LIST=[
  {
   "id": "demanda",
   "c": 2,
-  "n": "Pico inesperado de demanda",
+  "n": "Quando o Pedido Transborda",
   "an": "rise",
   "sev": "warn",
   "sec": [
@@ -497,7 +497,7 @@ const LIST=[
  {
   "id": "retorno",
   "c": 2,
-  "n": "Investimento com baixo retorno",
+  "n": "Promessa pela Metade",
   "an": "drop",
   "sev": "warn",
   "sec": [
@@ -551,7 +551,7 @@ const LIST=[
  {
   "id": "risco",
   "c": 3,
-  "n": "Novo risco no ambiente",
+  "n": "Um Sinal no Caminho",
   "an": "blink",
   "sev": "crit",
   "sec": [
@@ -613,7 +613,7 @@ const LIST=[
  {
   "id": "quase",
   "c": 3,
-  "n": "Quase acidente",
+  "n": "Por um Triz",
   "an": "pulse",
   "sev": "warn",
   "sec": [
@@ -676,7 +676,7 @@ const LIST=[
  {
   "id": "clima",
   "c": 3,
-  "n": "Condição ambiental extrema",
+  "n": "Calor Fora de Hora",
   "an": "sway",
   "sev": "crit",
   "sec": [
@@ -740,7 +740,7 @@ const LIST=[
  {
   "id": "forn",
   "c": 4,
-  "n": "Atraso de fornecedor",
+  "n": "A Peça que Não Chega",
   "an": "slide",
   "sev": "warn",
   "sec": [
@@ -803,7 +803,7 @@ const LIST=[
  {
   "id": "saida",
   "c": 4,
-  "n": "Saída de profissional-chave",
+  "n": "Uma Cadeira Vazia",
   "an": "pulse",
   "sev": "warn",
   "sec": [
@@ -869,7 +869,7 @@ const LIST=[
  {
   "id": "vaga",
   "c": 4,
-  "n": "Escassez de candidatos qualificados",
+  "n": "Procura-se Reforço",
   "an": "drop",
   "sev": "warn",
   "sec": [
@@ -934,7 +934,7 @@ const LIST=[
  {
   "id": "infl",
   "c": 4,
-  "n": "Inflação",
+  "n": "O Preço de Tudo",
   "an": "rise",
   "sev": "warn",
   "sec": [
@@ -984,7 +984,7 @@ const LIST=[
  {
   "id": "juros",
   "c": 4,
-  "n": "Juros elevados",
+  "n": "Crédito com Peso",
   "an": "rise",
   "sev": "warn",
   "sec": [
@@ -1033,7 +1033,7 @@ const LIST=[
  {
   "id": "vida",
   "c": 4,
-  "n": "Custo de vida elevado",
+  "n": "O Mês Mais Longo",
   "an": "rise",
   "sev": "warn",
   "sec": [
@@ -1097,7 +1097,7 @@ const LIST=[
  {
   "id": "epid",
   "c": 4,
-  "n": "Epidemia local",
+  "n": "Quando a Gripe Circula",
   "an": "pulse",
   "sev": "crit",
   "sec": [

@@ -289,6 +289,7 @@
       poly([P(W, 0, 0), P(W, D, 0), P(W, D, -SLAB), P(W, 0, -SLAB)], tone(pal.floorB, 0.4, 0.4));
       for (i = 0; i < W; i++) {
         for (j = 0; j < D; j++) {
+          if(e.homeOffice){poly([P(i,j,0),P(i+1,j,0),P(i+1,j+1,0),P(i,j+1,0)],j>=4&&i>=6?"#cd8e70":(j%2?"#dcc299":"#d4b78f"));continue;}
           var hl = 0.3 + 0.7 * e.zh[zoneOf(i + 0.5, j + 0.5)];
           poly([P(i, j, 0), P(i + 1, j, 0), P(i + 1, j + 1, 0), P(i, j + 1, 0)], tone((i + j) & 1 ? pal.floorA : pal.floorB, hl, 1));
         }
@@ -387,7 +388,7 @@
     /* --- pessoas --- */
     function person(p, e) {
       var hz = p.transit ? .65 : e.zh[zoneOf(p.x, p.y)], hl = 0.2 + 0.8 * hz, u = ZU * s;
-      var q = P(p.x, p.y, 0), fx = q[0], fy = q[1], sit = !!p.sit;
+      var q = P(p.x, p.y, 0), fx = q[0], fy = P(p.x,p.y,p.sit?.34:0)[1], sit = !!p.sit;
       var walking = !sit && p.moving;
       var bob = walking ? -Math.abs(Math.sin(p.phase)) * 0.07 * u : (sit && hz > 0.5 ? Math.sin(time * 7 + p.seed) * 0.012 * u : 0);
       var lean = (1 - hz) * 0.12 * u;
@@ -409,7 +410,7 @@
       ctx.beginPath(); ctx.arc(hx, hy, hr, 0, Math.PI * 2); ctx.fillStyle = tone(p.skin, hl, 1); ctx.fill();
       ctx.beginPath(); ctx.arc(hx, hy - hr * 0.1, hr * 1.02, Math.PI, 0); ctx.fillStyle = tone(p.hair, hl, 1); ctx.fill();
       }else{
-        var dx=p.vx==null?p.tx-p.x:p.vx,dy=p.vy==null?p.ty-p.y:p.vy;
+        var dx=p.vx==null?p.tx-p.x:p.vx,dy=p.vy==null?p.ty-p.y:p.vy;if(p.isPlayer&&['sit','meditate','rest','computer'].includes(p.activity))p.facing=2;
         // Atlas row 0 faces screen-left/down (+Y), row 1 right/down (+X).
         if(p.moving&&Math.hypot(dx,dy)>.00001)p.facing=Math.abs(dx)>Math.abs(dy)?(dx>0?1:3):(dy>0?0:2);
         var frames=p.isPlayer?(p.spriteFrames||8):8,frame=walking&&!isStatic?Math.floor(p.phase*1.4)%frames:Math.min(2,frames-1);
@@ -517,12 +518,41 @@
       }
     }
 
+    function loftItems(e){
+        var firstDesk=false,firstChair=false,firstPlant=false;
+        var items=e.items.filter(function(it){
+          if(it.layoutHidden)return false;
+          if(it.installed&&!it.annex&&!it.visualProgram)return true;
+          if(it.t==="desk"&&it.z===0&&!firstDesk){firstDesk=true;return true;}
+          if(it.t==="chair"&&it.z===0&&!firstChair){firstChair=true;return true;}
+          if(it.t==="plant"&&it.z===0&&!firstPlant){firstPlant=true;return true;}
+          return false;
+        });
+        return items.concat([{t:"sofa",x:7.45,y:4.55,w:2.25,d:1.05,h:.48,c:"#4f86a8",z:5,homeDecor:true}]);
+    }
+    function loftBathroom(){
+      // Tiled wet room, open on the camera side.
+      box(8.8,.1,.02,3,2.8,.06,'#78c5bc',1);
+      box(8.8,.1,.08,.12,2,1.45,'#93cdc8',1);
+      box(10.8,.3,.09,.85,.95,.18,'#edf6ed',1);
+      box(11.48,.38,.24,.16,.7,1.25,'#8dc7cf',1);
+      box(9.2,.35,.09,.85,.62,.68,'#288780',1);
+      box(9.16,.32,.77,.94,.68,.09,'#fff2d8',1);
+      box(10.15,1.6,.08,.52,.74,.38,'#f1eee0',1);
+      box(10.15,1.6,.46,.52,.19,.45,'#f1eee0',1);
+    }
     function renderEnv(e, visitors) {
       drawWalls(e); drawFloor(e);
       var list = [];
-      e.items.forEach(function (it) { list.push({ k: it.x + it.w / 2 + it.y + it.d / 2, f: function () { drawItem(it, e); } }); });
-      e.people.forEach(function (p) { list.push({ k: p.x + p.y + (p.sit ? 0.02 : 0), f: function () { person(p, e); } }); });
-      (visitors||[]).forEach(function(p){list.push({k:p.x+p.y,f:function(){person(p,e);}});});
+      var items=e.items, people=e.people, visibleVisitors=visitors||[];
+      if(e.homeOffice){
+        loftBathroom();
+        items=loftItems(e);
+        people=[];visibleVisitors=visibleVisitors.filter(function(p){return p.isPlayer;});
+      }
+      items.forEach(function (it) { list.push({ k: it.x + it.w / 2 + it.y + it.d / 2, f: function () { drawItem(it, e); } }); });
+      people.forEach(function (p) { list.push({ k: p.x + p.y + (p.sit ? 0.02 : 0), f: function () { person(p, e); } }); });
+      visibleVisitors.forEach(function(p){list.push({k:p.x+p.y,f:function(){person(p,e);}});});
       list.sort(function (a, b) { return a.k - b.k; });
       list.forEach(function (o) { o.f(); });
       effects(e);
@@ -783,6 +813,7 @@
       resize: resize,
       setWorld: function (defs, names) {
         worldCfg = defs.map(function (d) { return { key: d.key, name: d.name, bx: d.bx, by: d.by, env: getEnv(d.key) }; });
+        worldCfg.forEach(function(c){c.env.homeOffice=!!defs.find(function(d){return d.key===c.key;})?.homeOffice;if(c.env.homeOffice)c.env.pal={floorA:"#d6c6a7",floorB:"#c5b58f",wall:"#a9c6ca",wallR:"#82a8ae",line:"rgba(244,255,252,.75)"};});
         connections=companyConnections(worldCfg);resetCommuters();
         if (names) zoneNames = names;
         if(playerActor&&!roomAt(playerActor.x,playerActor.y)){var spawn=worldCfg[0];playerActor.x=spawn.bx+AX[0];playerActor.y=spawn.by+AY[0];}
