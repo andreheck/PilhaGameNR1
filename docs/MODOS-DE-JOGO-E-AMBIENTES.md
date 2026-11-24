@@ -6,11 +6,15 @@ Atualizado em 23/11/2026. Integração do menu de modalidades e da reorganizaç�
 
 | ID | Modalidade | Dificuldade | Ambientes funcionais | Apoio |
 | --- | --- | --- | ---: | --- |
-| `home-office` | Home office remoto | Fácil | 1 posto individual | Banheiro acessível |
+| `home-office` | Home office remoto | Fácil | 1 posto individual no quarto/casa do explorador | Equipe de 5 pessoas, incluindo gerente online, acessível pelo celular |
 | `cowork` | Cowork híbrido | Moderado | 4: bancada coletiva, reunião, descanso e copa | Banheiro coletivo |
 | `office` | Escritório presencial | Avançado | 10 salas/áreas ocupadas em uma empresa conectada | Circulação compartilhada |
 
 Os IDs e as descrições ficam em `data/continuous/game-modes.js`; a apresentação está em `ui/game-mode-selection.js` e `ui/game-modes.css`. O modo escolhido é salvo dentro da partida (`gameMode`) e aparece no HUD. Saves anteriores sem esse campo migram para `office`, sem alterar saldo ou progresso. Depois da primeira escolha, o modo fica bloqueado naquela partida.
+
+### Home office
+
+O cenário exibe apenas o cômodo doméstico do explorador, com um posto de trabalho. O jogador circula e interage nesse espaço. O gerente online e quatro colegas não são desenhados no mapa e não ocupam postos presenciais: são contratados na configuração inicial e aparecem no aplicativo `Equipe` do celular, em um canal digital com mensagens semanais e respostas do jogador. Essa equipe remota continua participando dos indicadores e da simulação de saúde como um único grupo de trabalho.
 
 As três modalidades usam dioramas isométricos próprios em \`assets/game-modes/\`. As prévias começam em escala de cinza; o modo selecionado ganha cor.
 
@@ -74,11 +78,23 @@ Os encontros semanais dos três setores acontecem no pátio, com o gerente e os 
 - Concluída: reuniões semanais dos setores no pátio, com presença dos participantes e do respectivo gerente.
 - Verificada por testes: atribuição respeita lotação, mantém o vínculo de setor e não altera saldo nem os indicadores de saúde.
 
+### Composição jogável por modalidade
+
+O mapa agora recebe o layout da modalidade salva antes de criar a cena. O redimensionamento para desktop/tablet reenquadra o mapa sem trocar as coordenadas ou reorganizar os móveis já salvos.
+
+| Modalidade | Distância entre os quatro ambientes | Leitura espacial |
+| --- | ---: | --- |
+| Home office | Sem corredores | Um cômodo com posto individual |
+| Cowork | 3 unidades | Áreas compartilhadas ligadas por corredores intermediários |
+| Escritório presencial | 6 unidades | Malha ampla do cenário avançado existente |
+
+O Home office concentra a equipe em um grupo remoto. Cowork e Escritório mantêm a organização por setores e os trajetos entre salas.
+
 ### Pendências de implementação
 
-1. Conectar os perfis `home-office` e `cowork` a layouts espaciais próprios no renderizador e à distribuição de personagens. As prévias já existem; os dois modos menores ainda não são cenários jogáveis concluídos.
-2. Balancear frequências de eventos, recursos e simultaneidade por modalidade com testes de simulação; os níveis Fácil/Moderado/Avançado ainda são rótulos de progressão, sem regras numéricas próprias.
-3. QA manual em navegador nas rotas de primeira entrada, save existente e retorno ao mapa; confirmar teclado, leitor de tela e desktop/tablet.
+1. Avaliar o balanceamento econômico de cada modalidade com dados de partidas.
+2. Balancear frequências de eventos, recursos e simultaneidade por modalidade com simulações; Fácil/Moderado/Avançado ainda não têm parâmetros de dificuldade próprios.
+3. QA manual em navegador nos três mapas, com movimentação entre salas, primeira entrada e saves existentes; confirmar câmera, teclado, leitor de tela e desktop/tablet.
 
 ## Verificação
 

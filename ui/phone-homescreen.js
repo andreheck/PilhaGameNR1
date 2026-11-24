@@ -3,6 +3,7 @@ import {escapeHtml as esc} from './hero-neon.js';
 export const PHONE_APPS=Object.freeze([
  ['pilha','spark','PilhA','#ffcb48','Seu bem-estar, agora'],
  ['messages','message','Mensagens','#47b7f4','Conexões da empresa'],
+ ['team','people','Equipe','#65d6b0','Canal digital da equipe remota'],
  ['finance','chart','Finanças','#3cddb1','Acompanhe os resultados'],
  ['hr','heart','Pessoas','#ee8ea9','Cuidado com a equipe'],
  ['vacancies','people','Talentos','#a59af9','Encontre novos talentos'],
@@ -10,8 +11,8 @@ export const PHONE_APPS=Object.freeze([
  ['archive','building','Arquivadas','#81adc8','Tudo em seu lugar']
 ]);
 export function phoneCover(id){const a=PHONE_APPS.find(a=>a[0]===id);return a?`<div class="phone-app-cover" style="--app-color:${a[3]}"><i>${companyIcon(a[1])}</i><div><small>APLICATIVO DA EMPRESA</small><strong>${a[2]}</strong><span>${a[4]}</span></div></div>`:'';}
-export function phoneHome({state,player,unread,archived}){
- return `<section class="phone-home-welcome"><small>SEU ESPAÇO NA EMPRESA</small><h2>Uma pausa para<br>se conectar.</h2><span>Semana ${state.week} <i>·</i> ${state.paused?'Partida pausada':'Empresa em movimento'}</span></section><button class="phone-wellbeing-peek" data-phone-app="pilha"><span class="phone-pilha-symbol">${companyIcon('spark')}</span><span><small>MEU PILHA</small><b>${esc(player?.name||'Seu personagem')}</b><em>Bem-estar mental simulado</em></span><strong>${Math.round(player?.health??80)}<small>/100</small></strong></button><nav class="phone-home-grid" aria-label="Aplicativos">${PHONE_APPS.map(([id,icon,name,color,subtitle])=>`<button data-phone-app="${id}" style="--app-color:${color}" aria-label="Abrir ${name}"><i>${companyIcon(icon)}${id==='messages'&&unread?`<b>${unread}</b>`:''}</i><span>${name}</span><small>${id==='messages'?unread+' novas':id==='archive'?archived+' guardadas':subtitle}</small></button>`).join('')}</nav><p class="phone-home-caption">Informações ao vivo, no seu ritmo.</p>`;
+export function phoneHome({state,player,unread,archived,apps=PHONE_APPS}){
+ return `<section class="phone-home-welcome"><small>SEU ESPAÇO NA EMPRESA</small><h2>Uma pausa para<br>se conectar.</h2><span>Semana ${state.week} <i>·</i> ${state.paused?'Partida pausada':'Empresa em movimento'}</span></section><button class="phone-wellbeing-peek" data-phone-app="pilha"><span class="phone-pilha-symbol">${companyIcon('spark')}</span><span><small>MEU PILHA</small><b>${esc(player?.name||'Seu personagem')}</b><em>Bem-estar mental simulado</em></span><strong>${Math.round(player?.health??80)}<small>/100</small></strong></button><nav class="phone-home-grid" aria-label="Aplicativos">${apps.map(([id,icon,name,color,subtitle])=>`<button data-phone-app="${id}" style="--app-color:${color}" aria-label="Abrir ${name}"><i>${companyIcon(icon)}${id==='messages'&&unread?`<b>${unread}</b>`:''}</i><span>${name}</span><small>${id==='messages'?unread+' novas':id==='archive'?archived+' guardadas':subtitle}</small></button>`).join('')}</nav><p class="phone-home-caption">Informações ao vivo, no seu ritmo.</p>`;
 }
 export function phonePlayer(player){
  if(!player?.id)return '<h2>Seu PilhA</h2><p>Escolha seu personagem para acompanhar o bem-estar.</p>';

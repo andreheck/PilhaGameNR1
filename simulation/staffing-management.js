@@ -30,6 +30,10 @@ export function ensureStaffing(s){
  return s.staffing;
 }
 export function roster(s){
+ if(s.gameMode==='home-office'&&s.initialHiring?.status==='complete'&&s.initialHiring.onlineManagerId){
+  const ids=new Set([s.initialHiring.onlineManagerId,...s.initialHiring.employees]);
+  return EMPLOYEES.filter(p=>ids.has(p.id)).map(p=>({...p,home:'escritorio'}));
+ }
  const hires=s.staffing?.hires||[];
  return [...EMPLOYEES,...hires.map(h=>{
   const c=candidate(h.id);
@@ -76,6 +80,7 @@ export function validateStaffing(s){
  return true;
 }
 export function receptionStaffing(s){
+ if(s.gameMode==='home-office')return {capacity:0,assigned:[],eligible:[],open:0};
  const t=s.staffing||{},people=roster(s),assigned=(t.reception||[]).map(id=>people.find(p=>p.id===id)).filter(Boolean);
  const eligible=people.filter(p=>p.home==='escritorio'&&p.id!=='NPC-04'&&p.organization?.rank!=='estrategico'&&managerMap(s).escritorio!==p.id&&isActive(s.staff?.[p.id]));
  return {capacity:2,assigned,eligible,open:Math.max(0,2-assigned.length)};
@@ -83,7 +88,7 @@ export function receptionStaffing(s){
 export function sectorStaffing(s,sector){
  if(!WORK.includes(sector))return {required:0,active:0,pending:0,temporary:0,incoming:0,outgoing:0,gap:0,pressure:0,pressureRelations:0};
  const t=s.staffing,w=s.week;
- const required=EMPLOYEES.filter(p=>p.home===sector).length;
+ const required=s.gameMode==='home-office'?(sector==='escritorio'?5:0):EMPLOYEES.filter(p=>p.home===sector).length;
  const people=roster(s).filter(p=>p.home===sector);
  const active=people.filter(p=>isActive(s.staff?.[p.id])).length;
  const pending=people.filter(p=>s.staff?.[p.id]?.employment==='onboarding').length;
@@ -106,11 +111,12 @@ export function staffingSummary(s){
   onboarding:hires.filter(h=>s.staff?.[h.id]?.employment==='onboarding').length,
   weekly,unpaid:t.unpaid||0,totalPayroll:t.totalPayroll||0,
   activeCover:coverage,assignments:(t.assignments||[]).filter(a=>live(a,s.week)),
-  available:CANDIDATES.filter(c=>!hires.some(h=>h.id===c.id))};
+  available:s.gameMode==='home-office'?[]:CANDIDATES.filter(c=>!hires.some(h=>h.id===c.id))};
 }
 export function staffAction(input,kind,payload={}){
  const s=copy(input),t=ensureStaffing(s);
  const sector=payload.sector,summary=staffingSummary(s);
+ if(s.gameMode==='home-office'&&['hire-canonical','hire','cover','redistribute','reception-assign','reception-unassign'].includes(kind))return {ok:false,error:'remote-team-fixed'};
  if(kind==='hire-canonical'){
   const c=EMPLOYEES.find(p=>p.id===payload.candidateId),a=c&&s.staff?.[c.id];
   if(!c||a?.employment!=='candidate')return {ok:false,error:'invalid-candidate'};

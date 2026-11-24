@@ -520,9 +520,23 @@
     function renderEnv(e, visitors) {
       drawWalls(e); drawFloor(e);
       var list = [];
-      e.items.forEach(function (it) { list.push({ k: it.x + it.w / 2 + it.y + it.d / 2, f: function () { drawItem(it, e); } }); });
-      e.people.forEach(function (p) { list.push({ k: p.x + p.y + (p.sit ? 0.02 : 0), f: function () { person(p, e); } }); });
-      (visitors||[]).forEach(function(p){list.push({k:p.x+p.y,f:function(){person(p,e);}});});
+      var items=e.items, people=e.people, visibleVisitors=visitors||[];
+      if(e.homeOffice){
+        var firstDesk=false,firstChair=false,firstPlant=false;
+        items=e.items.filter(function(it){
+          if(it.layoutHidden)return false;
+          if(it.installed&&!it.annex&&!it.visualProgram)return true;
+          if(it.t==="desk"&&it.z===0&&!firstDesk){firstDesk=true;return true;}
+          if(it.t==="chair"&&it.z===0&&!firstChair){firstChair=true;return true;}
+          if(it.t==="plant"&&it.z===0&&!firstPlant){firstPlant=true;return true;}
+          return false;
+        });
+        items=items.concat([{t:"sofa",x:7.45,y:4.55,w:2.25,d:1.05,h:.48,c:"#4f86a8",z:5,homeDecor:true}]);
+        people=[];visibleVisitors=visibleVisitors.filter(function(p){return p.isPlayer;});
+      }
+      items.forEach(function (it) { list.push({ k: it.x + it.w / 2 + it.y + it.d / 2, f: function () { drawItem(it, e); } }); });
+      people.forEach(function (p) { list.push({ k: p.x + p.y + (p.sit ? 0.02 : 0), f: function () { person(p, e); } }); });
+      visibleVisitors.forEach(function(p){list.push({k:p.x+p.y,f:function(){person(p,e);}});});
       list.sort(function (a, b) { return a.k - b.k; });
       list.forEach(function (o) { o.f(); });
       effects(e);
@@ -783,6 +797,7 @@
       resize: resize,
       setWorld: function (defs, names) {
         worldCfg = defs.map(function (d) { return { key: d.key, name: d.name, bx: d.bx, by: d.by, env: getEnv(d.key) }; });
+        worldCfg.forEach(function(c){c.env.homeOffice=!!defs.find(function(d){return d.key===c.key;})?.homeOffice;if(c.env.homeOffice)c.env.pal={floorA:"#d6c6a7",floorB:"#c5b58f",wall:"#a9c6ca",wallR:"#82a8ae",line:"rgba(244,255,252,.75)"};});
         connections=companyConnections(worldCfg);resetCommuters();
         if (names) zoneNames = names;
         if(playerActor&&!roomAt(playerActor.x,playerActor.y)){var spawn=worldCfg[0];playerActor.x=spawn.bx+AX[0];playerActor.y=spawn.by+AY[0];}
